@@ -1,0 +1,138 @@
+/*
+©  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/
+
+*/
+/*
+
+Single Legislation Service
+
+*/
+
+/* Reset margins and padding to ensure a basic look */
+
+* {margin: 0em; padding: 0em}
+
+html {background-color: white; color: black; margin-left: 10px; margin-right: 10px}
+body {font-family: Arial, Helvetica, sans-serif}
+h1 {color: #000000; font-size: 1.2em; padding-bottom: 0.5em; padding-top: 0.5em}
+h2 {font-size: 1.0em; margin-bottom: 1em; margin-top: 1em}
+h3 {font-size: 0.9em; margin-bottom: 0.5em; margin-top: 1em}
+p {margin-bottom: 0.5em; font-size: 80%}
+a {text-decoration: none}
+ul {list-style-type: none}
+li {margin-left: 1.5em; margin-bottom: 0.5em}
+form {margin-bottom: 1em; width: 100%; background-color: white; border: solid 1px #e0e0e0}
+form *:first-child {margin-top: 0em}
+form h2 {margin-top: 0em; background-color: #e0e0e0; color: black; line-height: 30px; padding-left: 0.5em; font-size: 1em}
+form p {margin-top: 1em; padding-left: 0.25em;}
+form p.label {font-weight: bold}
+form div {padding: 0.5em}
+img {border: none}
+
+table {font-size: 1em; border-spacing: 0em}
+th {text-align: left; padding-right: 0.5em; padding-top: 0.5em; padding-bottom: 0.5em; background-color: white; border-left: solid 1px white; border-top: solid 1px teal; border-bottom: solid 1px teal; border-right: solid 1px white; color: black; text-transform: uppercase}
+td {vertical-align: top; padding-right: 0.5em; padding-top: 0.25em}
+
+/* Home page special layout */
+
+.infoBlock td:first-child {width: 8.5em}
+.login {border: none; font-size: 2em; width: 100%; text-align: center; height: 300px; padding-top: 200px; background-color: #c3dae9}
+.login input {display: inline-block; font-size: 0.7em}
+
+#headerArea {height: 80px}
+#headerArea p {text-align: right;}
+#headerArea h1 {text-align: right; color: teal; font-weight: normal; font-size: 2em; line-height: 40px; margin-bottom: 5px}
+
+#footerArea {border-top: solid 2px teal; font-size: 0.8em; clear: both}
+
+.mainNavigation {width: 100%; color: white; font-weight: bold; background-color: teal; margin-bottom: 20px; height: 2em; font-size: 70%}
+.mainNavigation ul {}
+.mainNavigation li {text-align: left; margin: 0em; padding: 0em; display: inline; border-left: solid 1px white}
+.mainNavigation li:first-child {text-align: left; margin: 0em; padding: 0em; display: inline; border-left: none; padding-left: 0em; color: green}
+.mainNavigation li a {display: inline-block; padding-left: 1em; padding-right: 1em; color: white; font-size: 1em; font-weight: bold; line-height: 2em}
+.mainNavigation li a:hover {color: white; cursor: pointer; background-color: #808080}
+
+.pageLinks { margin-left: -1em; }
+.pageLink {display: inline-block; margin: 0 1em; font-size: 0.8em; font-weight: bold; border: solid 1px black; padding: 0.25em}
+.pageLinks .selected { font-weight: bold; }
+
+.hidden {display: none}
+
+#myStuff #mashupInfo {float: none; width: 500px}
+
+#mashupContainer {padding-top: 0em; width: 800px; float: left; border: solid 1px #808080}
+#mashupContainer h2 a {color: white}
+
+#contentArea {float: left; width: 66%; min-height: 400px; margin-left: 2%; margin-right: 2%}
+#contentArea ul {font-size: 80%}
+
+#leftNavArea {float: left; width: 15%; min-width: 100px; font-size: 70%}
+#leftNavArea h5 {background-color: teal; color: white; margin-top: 0em; margin-bottom: 0.25em; padding: 0.5em; font-size: 1em}
+#leftNavArea ul {margin: 0em; padding: 0em; width: 100%; list-style-type: none; font-size: 100%}
+#leftNavArea li {text-align: left; margin: 0em; padding: 0em; background-color: #a0a0a0; margin-bottom: 2px; color: white}
+#leftNavArea li a {display: block; padding-left: 0.5em; padding-right: 1em; color: white; font-size: 1em; font-weight: bold; line-height: 1.5em; padding-top: 0.25em; padding-bottom: 0.25em}
+#leftNavArea li a:hover {color: white; cursor: pointer; background-color: teak}
+
+#rightNavArea {float: right; width: 15%; min-width: 100px; font-size: 70%}
+#rightNavArea h5 {background-color: teal; color: white; margin-top: 0em; margin-bottom: 0.25em; padding: 0.5em; font-size: 1em}
+#rightNavArea ul {margin: 0em; padding: 0em; width: 100%; list-style-type: none; font-size: 100%}
+#rightNavArea li {text-align: left; margin: 0em; padding: 0em; background-color: #a0a0a0; margin-bottom: 2px; color: white}
+#rightNavArea li a {display: block; padding-left: 0.5em; padding-right: 1em; color: white; font-size: 1em; font-weight: bold; line-height: 1.5em; padding-top: 0.25em; padding-bottom: 0.25em}
+#rightNavArea li a:hover {color: white; cursor: pointer; background-color: teal}
+
+.buttonLink {background-color: teal; font-size: 1em; width: 1em; padding: 0.5em; color: white; font-weight: bold}
+.buttonLink:hover {color: #808080}
+
+#search table, #menu table { width: 100%; table-layout:fixed; }
+#search th, #search td, #menu th, #menu td { border: none; padding: 0.5em; text-transform:none; font-size: 0.8em;vertical-align:top; }
+#search th, #menu th { text-align: right; }
+#search td, #menu td { text-align: left; }
+#search input { width: 80%; }
+#search input.checkbox { width: 1em; }
+#search input.subcheckbox { margin-right:2em;width:2em;}
+#menu input, #menu select { width: 100%; }
+#search option, #menu option { padding: 0 0.5em; }
+#search input#submit, #menu input#submit {width: 5em}
+
+.searchTitle {margin-top: 1em; margin-bottom: 0.25em }
+.searchSummary {font-size: 70%; text-align: justify; margin-left: 3em }
+.searchTerms { font-size: 80%; margin-left: 1.5em; }
+.searchTerms dd { margin-left: 1.5em; font-size: 80%; }
+.searchSection { font-size: 80%; margin-top: 1em; margin-bottom: 0.25em; font-weight: normal; font-style: italic; } 
+
+#menu .types th, #menu .types td { line-height: 80%; font-size: 0.88em; }
+#menu .types .selected { font-weight: bold; margin-left: -0.88em; }
+#menu .types .selected:before { content: "> "; }
+#menu .results .selected { font-weight: bold; }
+#menu .results { border: 1px solid silver; padding: 1em; margin: 1em 0; }
+
+/* Help Layout */
+
+#help table { font-size: 80%; margin-top: 1em; margin-bottom: 1em; border-collapse: collapse; }
+#help th { border-left: none; border-right: none; }
+#help tbody th { border-bottom-color: silver; text-transform: none; padding-top: 0.25em; padding-bottom: 0.25em; }
+#help tbody { border-bottom: solid teal 1px; }
+#help code { font-family: courier, fixed, monospace; font-size: 1.2em; }
+#help pre { font-family: courier, fixed, monospace; font-size: 0.8em; overflow: auto; background-color: #E0E0E0; border: thin #A0A0A0 solid; padding: 0.5em 5%; margin: 1em 0; }
+#help li { list-style-type: circle; }
+#help blockquote { margin: 0 5%; }
+#help p { margin-bottom: 1em; }
+
+/* Log Layout */
+
+#log .nav { display: block; margin: 1em 0; }
+#log .nav li { display: inline; margin: 0 3em 0 0; }
+
+#log table { width: 100% }
+
+#log tr.pending {background-color:#FEF6E4}
+#log tr.splitting {background-color:#FEF6E4} 
+#log tr.published {background-color:#EEF3E2} 
+#log tr.split {background-color:#EEF3E2} 
+#log tr.withdraw {background-color:#DEDEDE }
+#log tr.error {background-color:#E0EEEE} 
+#log tr.warning {background-color:#E0EEEE}

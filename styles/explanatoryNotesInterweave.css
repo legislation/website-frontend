@@ -1,0 +1,880 @@
+/*
+©  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/
+
+*/
+/* CSS for explanatory notes as part of the XML schema XHTML output */
+
+.ENClearFix:after {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+.ENClearFix {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .ENClearFix {height: 1%;}
+.ENClearFix {display: block;}
+/* End hide from IE-mac */
+
+/* ===== Legislation clear fix classes, required by TSO_legislation_core_chunker_xml.xslt ====== */
+.LegClearFix:after {content: "."; display: block; height: 0; clear: both; visibility: hidden;}
+.LegClearFix {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .LegClearFix {height: 1%;}
+.LegClearFix {display: block;}
+/* End hide from IE-mac */
+
+
+/* ========== Headings =============== */
+
+.eniw * {font-family: arial, helvetica, verdana, sans-serif; letter-spacing: 0em; background: #F6FAFD !important;}
+.eniw {display: inline; background: #F6FAFD !important; border-top: 1px dotted #069; border-bottom: 2px solid #069; float: left; margin-bottom: 0.5em !important; width: 100%;}
+.eniw .fragment {padding: 0 2% !important;}
+.noteLink, .bigNoteLink {display: block; float: right; font-weight: bold; font-size: 0.8em !important; background: #D6E2F0 !important; padding: 0.5em; cursor: pointer; cursor: hand;}
+.enNote {float: left; font-size: 0.8em; font-weight: bold; color: #656565; margin: 0.5em 2%;}
+.eniw p {color: black; background-color: white; line-height: normal}
+.eniw div {color: black; background-color: white; font-size: 100%}
+.eniw ol {font-size: 100%}
+.eniw li {font-size: 100%}
+.eniw a {font-size: 100%}
+.eniw h1 {color: black; background-color: white; font-size: 1em; line-height: 1.2em; font-weight: normal; font-style: normal}
+.eniw h2 {color: black; background-color: white; font-size: 1em; line-height: 1.2em; font-weight: normal; font-style: normal}
+.eniw h3 {color: black; background-color: white; font-size: 1em; line-height: 1.2em; font-weight: normal; font-style: normal}
+.eniw h4 {color: black; background-color: white; font-size: 1em; line-height: 1.2em; font-weight: normal; font-style: normal}
+.eniw h5 {color: black; background-color: white; font-size: 1em; line-height: 1.2em; font-weight: normal; font-style: normal}
+.eniw h6 {color: black; background-color: white; font-size: 1em; line-height: 1.2em; font-weight: normal; font-style: normal}
+
+
+.eniw .LegTerm {color:red}
+
+/* ========== Preliminary matter ========== */
+
+
+.eniw .DocContainer {float: left; width: 100%;}
+/* This is to sort a problem in IE */
+* html .eniw .DocContainer {float: left; width: 99%;}
+
+.eniw p { font-size: 0.8em; margin-bottom: 0.5em; margin-top: 0em; padding: 0em; font-style: normal; font-weight: normal;}
+.eniw div {margin: 0em; padding: 0em;font-size:100%}
+.eniw .ENDS {display: block;}
+
+.eniw .ENPrelims {text-align: center; margin: 0px auto;}
+
+.eniw .ENBanner {text-transform: uppercase; letter-spacing: 0.5em; border-top: solid 1px black; border-bottom: solid 1px black; padding: 0.5em; font-size: 1em; margin-top: 2em; margin-bottom: 2em;}
+
+.eniw .ENNo {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em; font-weight: bold;}
+/* .eniw .ENNoASP {text-transform: lowercase;} */
+.eniw .ENNo strong {font-weight: normal;}
+.eniw .ENSubject {text-transform: uppercase; font-size: 1.5em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENTitle {padding: 0em; text-align: center; margin-bottom: 1em; font-size: 1.5em; font-weight: bold; margin-top: 1em;}
+
+
+.eniw .ENLongTitle {text-align: justify; clear: both;}
+
+.eniw .ENApproved {font-style: italic;}
+.eniw .ENApproved em {font-style: normal;}
+
+.eniw .ENDate {clear: left; text-align: center; width: 70%; margin: 0px auto;}
+.eniw .ENDateText {float: left; margin-top: 0em; margin-bottom: 1em; width: 58%; text-align: left;}
+.eniw .ENDateDate {float: right; margin-top: 0em; margin-bottom: 1em; width: 38%; text-align: right;}
+
+.eniw p.ENLongTitle {margin-top: 1em; text-align: justify; margin-bottom: 0em; padding-bottom: 0em;}
+.eniw p.ENDateOfEnactment {margin-top: 0em; text-align: right; padding-bottom: 1em;}
+.eniw .ENLongTitleScottish {margin-top: 0em; text-align: justify; margin-bottom: 0em;}
+.eniw .ENDateOfEnactmentScottish {margin-top: 1em; text-align: justify; margin-bottom: 1em; font-weight: bold;}
+.eniw .ENDateOfEnactmentScottish strong {font-weight: normal;}
+.eniw .ENIntroductoryText {margin-top: 1em; text-align: justify; margin-bottom: 0em;}
+.eniw .ENEnactingText {margin-top: 1em; text-align: justify; margin-bottom: 2em;}
+
+/* ========== TOCs ========== */
+.eniw .ENContents {text-align: left;}
+.eniw .ENContents .ENContentsHeading {font-weight:bold; text-transform:uppercase; margin-left:2.5em;clear:both;font-size:1.35em; font-weight: 600;padding-bottom:0.8em;padding-top:2em;text-align:center;
+text-transform:uppercase;}
+.eniw .ENContents ol {list-style-type: none; padding-left: 6.5em; margin-left: 0em; background: transparent url(/images/chrome/legTocBg.gif) repeat-y 32px;}
+.eniw .ENContents ol ol {margin-left: 3.5%; padding-left: 0; background: none;}
+.eniw .ENContents .ENNo {text-align: center;}
+.eniw .ENContents .ENContentsDivision .ENContentsTitle {margin-top:0.5em; text-transform: uppercase;}
+.eniw .ENContents .ENContentsAnnex .ENContentsTitle {margin-top:0.5em; text-transform: uppercase;}
+.eniw .ENContents .ENContentsCommentary .ENContentsTitle {margin-top:0em; text-transform: capitalize;}
+.eniw .ENContents .ENContentsSubDivision .ENContentsTitle {margin-top:0em; text-transform:none;}
+.eniw .ENContents .ENContentsSubSubDivision .ENContentsTitle {margin-top:0em; text-transform:none;}
+.eniw .ENContents .ENContentsSubSubSubDivision .ENContentsTitle {margin-top:0em; text-transform:none;}
+
+.eniw .ENContents .ENContentsCommentaryGroup .ENContentsTitle {margin-top:0em; text-transform:none;}
+.eniw .ENContents .ENContentsCommentaryPart .ENContentsTitle {margin-top:0em; text-transform:none;}
+.eniw .ENContents .ENContentsCommentaryChapter .ENContentsTitle {margin-top:0em; text-transform:none;}
+.eniw .ENContents .ENContentsCommentaryP1 .ENContentsTitle {margin-top:0em; text-transform:none;}
+.eniw .ENContents .ENContentsCommentarySchedule .ENContentsTitle {margin-top:0em; text-transform:none;}
+.eniw .ENContents .ENContentsCommentaryDivision .ENContentsTitle {margin-top:0em; text-transform:none;}
+.eniw .ENContents .ENContentsCommentarySubDivision .ENContentsTitle {margin-top:0em; text-transform:none;}
+
+/* ========== Headings ========== */
+.eniw .ENDivTitle {clear: both; position: relative; padding: 0em; padding-top: 0.5em; text-align: center; margin-top: 0.5em; margin-bottom:0.5em; font-variant: small-caps;}
+.eniw .ENSubTitle {clear: both; font-size: 95%; padding: 0em; padding-top: 0.5em; text-align: center;  font-style:italic; margin-top: 0.5em; margin-bottom:0.5em; }
+.eniw .ENSubSubTitle {clear: both; font-size: 90%; padding: 0em; padding-top: 0.5em;text-align: center;  margin-top: 0.5em; margin-bottom:0.5em; font-variant: small-caps;}
+.eniw .ENSubSubSubTitle {clear: both; font-size: 85%; padding: 0em; padding-top: 0.5em;text-align: center; font-style:italic; margin-top: 0.5em; margin-bottom:0.5em;  text-transform: capitalize;}
+.eniw .ENCommentaryPart {clear: both; padding: 0em; padding-top: 0.5em; text-align: center; margin-top: 0.5em; margin-bottom:0.5em; font-weight: normal; font-variant: small-caps;}
+.eniw .ENCommentaryChapter {clear: both; font-size: 90%; padding: 0em; padding-top: 0.5em; text-align: center; font-weight: bold; margin-top: 0.5em; margin-bottom:0.5em; font-variant: small-caps; font-weight: normal;}
+.eniw .ENCommentaryP1 {clear: both;  font-size: 80%; padding: 0em; padding-top: 0.5em; text-align: left; font-weight: bold; margin-top: 0.5em; margin-bottom:0.5em;}
+.eniw .ENCommentaryGroup {clear: both; padding: 0em; padding-top: 0.5em; text-align: center;  margin-top: 0.5em; margin-bottom:0.5em; font-weight: normal; font-variant: small-caps;}
+.eniw .ENCommentaryDivision {clear: both; font-size: 80%; padding: 0em; padding-top: 0.5em; text-align: center;  font-style:italic; margin-top: 0.5em; margin-bottom:0.5em;}
+.eniw .ENCommentarySubDivision {clear: both; padding: 0em; padding-top: 0.5em; text-align: center;  font-size: 80%; margin-top: 0.5em; margin-bottom:0.5em; font-weight: normal; font-variant: small-caps;}
+.eniw .ENCommentarySchedule {clear: both; font-size: 90%; padding: 0em; padding-top: 0.5em; text-align: center; margin-top: 0.5em; margin-bottom:0.5em; font-weight: normal; font-variant: small-caps;}
+
+
+.eniw .ENLegSchedule {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegScheduleFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegGroup {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegGroupFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegScheduleGroup {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegScheduleGroupFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegPart {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegPartFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegSchedulePart {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegSchedulePartFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegChapter {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegChapterFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegScheduleChapter {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegScheduleChapterFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegPblock {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegPblockFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegSchedulePblock {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegSchedulePblockFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegPsubBlock {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegPsubBlockFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegSchedulePsubBlock {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegSchedulePsubBlockFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegForm {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+.eniw .ENLegFormFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em;}
+
+.eniw .ENLegSchedulesTitle {clear: both; text-align: center; font-size: 1.2em; font-weight: normal; padding-top: 3em; padding-bottom: 2em;}
+.eniw .ENLegSchedulesTitleC1Amend {clear: both; text-align: center; font-size: 1.2em; font-weight: normal; padding-top: 3em; padding-bottom: 2em; margin-left: 10%;}
+.eniw .ENLegScheduleNo {clear: both; display: block; text-align: center; font-size: 0.9em; font-weight: normal; margin-bottom: 0.25em; padding-top: 0.5em; font-variant: small-caps;}
+.eniw .ENLegScheduleNoC1Amend {clear:both; display: block; text-align: center; font-size: 0.9em; font-weight: normal; margin-bottom: 0.25em; margin-left: 10%;}
+.eniw .ENLegTitleBlockTitle {clear: both; display: block; text-align: center; font-size: 0.9em; font-weight: normal; font-variant: small-caps;}
+.eniw .ENTitleBlockTitle {clear: both; display: block; text-align: center; font-size: 1em; padding-top: 1em; font-weight: normal; font-variant: small-caps;}
+
+
+.eniw .ENGroupNo {display: block; text-align: center; font-size: 1em; font-weight: bold; font-variant: small-caps; margin-bottom: 0.25em;}
+.eniw .ENGroupTitle {display: block; text-align: center; font-size: 1em; font-weight: normal; font-variant: small-caps; margin-bottom: 0.25em;}
+.eniw .ENGroupNo strong {font-weight: normal;}
+
+.eniw .ENLegScheduleGroup .ENGroupNo {font-weight: normal;}
+.eniw .ENLegScheduleGroupFirst .ENGroupNo {font-weight: normal;}
+.eniw .ENLegScheduleGroup .ENGroupNo strong {font-weight: bold;}
+.eniw .ENLegScheduleGroupFirst .ENGroupNo strong {font-weight: bold;}
+
+.eniw .ENLegPartNo {clear: both; display: block; text-align: center; font-size: 0.9em; font-weight: bold; font-variant: small-caps; padding-top: 0.5em; margin-top: 0.5em; margin-bottom: 0.25em;}
+.eniw .ENLegPartTitle {display: block; text-align: center; font-size: 0.9em; font-weight: normal; font-variant: small-caps; margin-bottom: 0.25em;}
+.eniw .ENLegPartNo strong {font-weight: normal;}
+
+.eniw .ENLegSchedulePart .ENPartNo {font-weight: normal;}
+.eniw .ENLegSchedulePartFirst .ENPartNo {font-weight: normal;}
+.eniw .ENLegSchedulePart .ENPartNo strong {font-weight: bold;}
+.eniw .ENLegSchedulePartFirst .ENPartNo strong {font-weight: bold;}
+
+.eniw .ENChapterNo {display: block; text-align: center; font-size: 0.9em; font-variant: small-caps; font-weight: bold; margin-bottom: 0.25em;}
+.eniw .ENChapterTitle {display: block; text-align: center; font-size: 0.9em; font-variant: small-caps; font-weight: normal; margin-bottom: 0.25em;}
+.eniw .ENChapterNo strong {font-weight: normal;}
+
+.eniw .ENLegScheduleChapter .ENChapterNo {font-weight: normal;}
+.eniw .ENLegScheduleChapterFirst .ENChapterNo {font-weight: normal;}
+.eniw .ENLegScheduleChapter .ENChapterNo strong {font-weight: bold;}
+.eniw .ENLegScheduleChapterFirst .ENChapterNo strong {font-weight: bold;}
+
+.eniw .ENLegPblockNo {display: block; text-align: center; font-weight: normal;}
+.eniw .ENLegPblockTitle {clear: both; display: block; text-align: center; font-style: italic; font-weight: normal; padding-top: 0.5em; margin-top: 0.5em;}
+.eniw .ENLegPblockTitle em {font-style: normal;}
+
+.eniw .ENLegPsubBlockNo {display: block; text-align: left; font-style: normal; font-weight: normal;}
+.eniw .ENLegPsubBlockTitle {display: block; text-align: left; font-style: italic; font-weight: normal;}
+.eniw .ENLegPsubBlockTitle em {font-style: normal;}
+
+.eniw .ENFormNo {display: block; text-align: left; font-size: 0.9em; font-weight: bold; font-variant: small-caps; margin-bottom: 0.25em;}
+.eniw .ENFormNo strong {font-weight: normal;}
+
+.eniw .ENC1Amend {margin-left: 10%;}
+.eniw .ENC1C1Amend2 {margin-left: 20%;}
+.eniw .ENC1C3Amend2 {margin-left: 27%;}
+.eniw .ENC3Amend {margin-left: 17%;}
+.eniw .ENC4Amend {margin-left: 24%;}
+
+.eniw .ENHeadingFirst {padding-top: 0em;}
+.eniw .ENHeadingRef {padding-top: 0em; margin-left: 30%;}
+.eniw .ENHeadingRefFirst {padding-top: 0em; margin-left: 30%;}
+.eniw .ENHeadingRefC1Amend {padding-top: 0em; margin-left: 40%;}
+.eniw .ENHeadingRefAmend2 {padding-top: 0em; margin-left: 50%;}
+
+.eniw .ENLegArticleRef {clear: both;  text-align: center; margin: 0em; padding: 0em;}
+.eniw .ENLegArticleRefScottish {clear: both; text-align: left; margin-top: 0em; margin-bottom: 0em; padding-top: 0em; padding-bottom: 1em; font-style: italic;}
+.eniw .ENLegClearSchedule {clear: both; padding-top: 3em;}
+.eniw .ENLegClearScheduleFirst {clear: both; padding-top: 0em;}
+.eniw .ENLegClearGroup {clear: both; padding-top: 2em;}
+.eniw .ENLegClearPart {clear: both; padding-top: 2em;}
+.eniw .ENLegClearChapter {clear: both; padding-top: 1em;}
+.eniw .ENLegClearPblock {clear: both; padding-top: 1em;}
+.eniw .ENLegClearPsubBlock {clear: both; padding-top: 1em;}
+.eniw .ENLegClearGroupFirst {clear: both; padding-top: 0em;}
+.eniw .ENLegClearPartFirst {clear: both; padding-top: 0em;}
+.eniw .ENLegClearChapterFirst {clear: both; padding-top: 0em;}
+.eniw .ENLegClearPblockFirst {clear: both; padding-top: 0em;}
+.eniw .ENLegClearPsubBlockFirst {clear: both; padding-top: 0em;}
+
+
+/* ========== Abstract ========== */
+
+.eniw .ENAbstract {clear: both; padding-top: 3em; border-bottom: solid 2px black; margin-bottom: 2em; text-align: left; font-size: 1.1em; margin-bottom: 0em; font-weight: normal; padding-bottom: 0em;}
+.eniw .ENAbstractTitle {display: block; text-align: left; font-size: 1.1em; margin-bottom: 0em; font-weight: normal; padding-bottom: 0em; text-transform: uppercase;}
+.eniw .ENAbstractSubtitle {display: block; text-align: left; font-size: 1.1em; margin-top: 0em; margin-bottom: 0em; font-weight: normal; padding: 0em; font-variant: small-caps;}
+
+.eniw .ENAbstract .ENChapterNo {display: block; text-align: left; font-size: 0.9em; margin-bottom: 0em; padding-bottom: 0.5em; font-weight: normal; font-variant: normal;}
+.eniw .ENAbstract .ENChapterTitle {display: block; text-align: left; font-size: 0.9em; margin-bottom: 0em; margin-top: 0em; padding-top: 0em; padding-bottom: 1em; font-weight: normal; font-variant: normal;}
+
+
+/* ========== Appendixes ========== */
+
+.eniw .ENAppendix {clear: both; padding-top: 3em; text-align: left; font-size: 1.1em; margin-bottom: 0em; font-weight: normal; padding-bottom: 0em;}
+.eniw .ENAppendixNo {display: block; text-align: left; font-size: 1.1em; margin-bottom: 0em; font-weight: normal; padding-top: 0em;}
+.eniw .ENAppendixTitle {display: block; text-align: left; font-size: 1.1em; margin-bottom: 0em; font-weight: normal; padding-bottom: 1em;}
+.eniw .ENAppendixSubtitle {display: block; text-align: left; font-size: 1.1em; margin-top: 0em; margin-bottom: 0em; font-weight: normal; padding: 0em;}
+
+
+/* ========== EN Numbered Paragraphs  ========== */
+.eniw .ENNumParaContainer {clear: both; position: relative; margin-bottom: 0.5em;}
+.eniw .ENNumParaNo {width: 3%; position: relative; margin-bottom: 0.5em;}
+.eniw .ENNumParaText {width: 95%; position: relative; margin-bottom: 0.5em;}
+.eniw .ENTable .ENNumParaContainer {font-size: 1em;}
+
+/* ========== Provisions ========== */
+
+.eniw div.ENBlockText p.Unknown {clear: both;}
+.eniw div.ENBlockText div.ENListItem p.Unknown {clear: none;}
+
+.eniw .ENBlockText {clear: both;  margin-left: 5%;}
+.eniw blockquote {clear: both; margin-left: 5%;}
+.eniw p.ENText {clear: both; text-align: justify;}
+.eniw .ENTabular p.ENText {clear: both; text-align: justify; margin-left: 0%;}
+
+.eniw .ENIntroductoryText p.ENText {clear: both; text-align: justify; margin-left: 0%;}
+.eniw .ENEnactingText p.ENText {clear: both; text-align: justify; margin-left: 0%;}
+.eniw .ENRoyalPresence .ENText {clear: both; text-align: left;}
+
+.eniw td p.ENText {font-size: 1em; clear: both; text-align: left;}
+.eniw th p.ENText {font-size: 1em; clear: both; text-align: left;}
+.eniw tfoot .ENFootnote .ENText {clear: none; float: right; width: 96%; text-align: justify; margin-bottom: 0em; padding-bottom: 0.5em; margin-top: 0em;}
+
+.eniw .ENRHS {float: right; text-align: justify;}
+.eniw .ENLHS {float: left; text-align: left;}
+
+.eniw .ENTextC1Amend {clear: both; text-indent: 0em; text-align: justify; margin-left: 20%;}
+.eniw .ENTextC1C1Amend2 {clear: both; text-indent: 0em; text-align: justify; margin-left: 30%;}
+.eniw .ENTextC3Amend {clear: both; text-indent: 0em; text-align: justify; margin-left: 27%;}
+.eniw .ENTextC4Amend {clear: both; text-indent: 0em; text-align: justify; margin-left: 34%;}
+.eniw .ENTextC5Amend {clear: both; text-indent: 0em; text-align: justify; margin-left: 41%;}
+
+.eniw .ENLegP1GroupTitle {float: right; text-align: justify; width: 92%; font-weight: bold; padding-top: 0.5em;}
+.eniw .ENLegP1GroupTitleC1Amend {float: right; text-align: justify; width: 82%;}
+.eniw .ENLegP1GroupTitleC1C1Amend2 {float: right; text-align: justify; width: 72%;}
+.eniw .ENLegP1GroupTitleC1C3Amend2 {float: right; text-align: justify; width: 66%;}
+.eniw .ENLegP1GroupTitleC3Amend {float: right; text-align: justify; width: 75%;}
+.eniw .ENLegP1GroupTitleC4Amend {float: right; text-align: justify; width: 68%;}
+.eniw .ENLegP1GroupTitleFirst {float: right; text-align: justify; width: 92%;}
+.eniw .ENLegP1GroupTitleFirstC1Amend {float: right; text-align: justify; width: 82%; padding-top: 0em;}
+.eniw .ENLegP1GroupTitleFirstC3Amend {float: right; text-align: justify; width: 75%; padding-top: 0em;}
+.eniw .ENLegP1GroupTitleFirstC4Amend {float: right; text-align: justify; width: 68%; padding-top: 0em;}
+.eniw .ENLegP1GroupTitleFirstC1C1Amend2 {float: right; text-align: justify; width: 72%; padding-top: 0em;}
+.eniw .ENLegP1GroupTitleFirstC1C3Amend2 {float: right; text-align: justify; width: 66%;}
+
+.eniw .ENLegP1GroupTitleBelow {clear: both; text-align: justify; padding-top: 1em;}
+.eniw .ENLegP1GroupTitleBelowAmend {clear: both; margin-left: 10%; text-align: justify;}
+.eniw .ENLegP1GroupTitleBelowFirstAmend {clear: both; margin-left: 10%; text-align: justify;}
+
+.eniw .ENSP1GroupTitle {clear: both; font-weight: normal; font-style: italic; text-align: justify; padding-top: 1em; margin-bottom: 0.5em; margin-top: 0em;}
+.eniw .ENSP1GroupTitle em {font-style: normal;}
+.eniw .ENSP1GroupTitleFirst {clear: both; font-weight: normal; font-style: italic; text-align: justify; padding-top: 0em; margin-bottom: 0.5em; margin-top: 0em;}
+.eniw .ENSP1GroupTitleFirst em {font-style: normal;}
+.eniw .ENSP1GroupTitleFirstC1Amend em {font-style: normal;}
+
+.eniw .ENSP1GroupTitleC1Amend {clear: both; margin-left: 10%; font-weight: normal; font-style: italic; text-align: left; margin-bottom: 0.5em; margin-top: 0em; padding-top: 1em;}
+.eniw .ENSP1GroupTitleC1Amend em {font-style: normal;}
+.eniw .ENSP1GroupTitleFirstC1Amend {clear: both; margin-left: 10%; font-weight: normal; font-style: italic; text-align: left; margin-bottom: 0.5em; margin-top: 0em; padding-top: 0em;}
+.eniw .ENSP1GroupTitleFirstC1Amend em {font-style: normal;}
+.eniw .ENSP1GroupTitleC3Amend {clear: both; margin-left: 17%; font-weight: normal; font-style: italic; text-align: left; margin-bottom: 0.5em; margin-top: 0em; padding-top: 1em;}
+.eniw .ENSP1GroupTitleC3Amend em {font-style: normal;}
+.eniw .ENSP1GroupTitleFirstC3Amend {clear: both; margin-left: 17%; font-weight: normal; font-style: italic; text-align: left; margin-bottom: 0.5em; margin-top: 0em; padding-top: 0em;}
+.eniw .ENSP1GroupTitleFirstC3Amend em {font-style: normal;}
+.eniw .ENSP1GroupTitleC4Amend {clear: both; margin-left: 24%; font-weight: normal; font-style: italic; text-align: left; margin-bottom: 0.5em; margin-top: 0em; padding-top: 1em;}
+.eniw .ENSP1GroupTitleC4Amend em {font-style: normal;}
+.eniw .ENSP1GroupTitleFirstC4Amend {clear: both; margin-left: 24%; font-weight: normal; font-style: italic; text-align: left; margin-bottom: 0.5em; margin-top: 0em; padding-top: 0em;}
+.eniw .ENSP1GroupTitleFirstC4Amend em {font-style: normal;}
+
+.eniw .ENLegP1No {font-weight: bold; font-size: 0.8em; padding-top: 0.5em;}
+.eniw .ENTable .ENLegP1No {font-weight: bold; font-size: 1em; }
+.eniw .ENLegN1NoAmend .ENLegP1No {font-weight: normal; float: left;}
+.eniw .ENLegSP1Container .ENLegP1No {font-weight: normal; float: left; width: 6%;}
+.eniw .ENLegSP1Container .ENLegP1NoC1Amend .ENLegP1No {font-weight: normal; float: left; width: 100%;}
+.eniw .ENLegSP1Container .ENLegP1NoC3Amend .ENLegP1No {font-weight: normal; float: left; width: 100%;}
+.eniw .ENLegSP2Container .ENLegP1No {font-weight: normal; float: left; width: 6%;}
+.eniw .ENLegSP3Container .ENLegP1No {font-weight: normal; float: left; width: 6%;}
+
+.eniw .ENLegP1NoC1Amend {float: left; width: 12%; text-align: right;}
+.eniw .ENSP1Container .ENLegP1NoC1Amend {font-weight: normal; float: left; width: 13%; text-align: right;}
+.eniw .ENLegP1NoC3Amend {float: left; width: 19%; text-align: right;}
+.eniw .ENSP1Container .ENLegP1NoC3Amend {float: left; width: 20%; text-align: right;}
+.eniw .ENLegP1NoC4Amend {float: left; width: 26%; text-align: right;}
+.eniw .ENLegP1NoC1C1Amend2 {float: left; width: 22%; text-align: right;}
+.eniw .ENLegP1NoC1C3Amend2 {float: left; width: 30%; text-align: right;}
+.eniw .ENLegP1NoC3C1Amend2 {float: left; width: 29%; text-align: right;}
+
+.eniw .ENLegP2No {width: 8%;}
+.eniw .ENLegP2NoAmend {width: 8%; }
+.eniw .ENLegP2NoC1Amend {width: 18%;}
+.eniw .ENLegP2NoC3Amend {width: 25%;}
+.eniw .ENLegP2NoC4Amend {width: 32%;}
+.eniw .ENLegP2NoC5Amend {width: 39%;}
+.eniw .ENLegP2NoC1C1Amend2 {width: 28%;}
+.eniw .ENLegP2NoC1C3Amend2 {width: 35%;}
+.eniw .ENLegP2NoC1C4Amend2 {width: 42%;}
+.eniw .ENLegP2NoC3C3Amend2 {width: 42%;}
+
+.eniw .ENLegN1No {float: left; width: 5%; text-align: left;}
+.eniw .ENLegN1NoAmend {float: left; width: 5%; text-align: left; margin-left: 10%;}
+.eniw .ENLegN2No {float: left; width: 3%; text-align: right;}
+.eniw .ENLegN2NoAmend {float: left; width: 3%; text-align: right;}
+.eniw .ENLegN2NoAmend {float: left; width: 3%; text-align: right;}
+.eniw .ENLegSN1No {float: left; width: 5%; text-align: left;}
+.eniw .ENTable .ENLegSN1No {font-size: 1.3em;}
+.eniw .ENLegSN1NoC1Amend {float: left; width: 13%; text-align: right;}
+.eniw .ENLegSN1NoC1Amend .ENLegP1No {font-weight: normal; width: 100%; text-align: right;}
+.eniw .ENLegSN1NoC3Amend {float: left; width: 20%; text-align: right;}
+.eniw .ENLegSN1NoC3Amend .ENLegP1No {font-weight: normal; width: 100%; text-align: right;}
+.eniw .ENLegSN1NoC4Amend {float: left; width: 27%; text-align: right;}
+.eniw .ENLegSN1NoC4Amend .ENLegP1No {font-weight: normal; width: 100%; text-align: right;}
+
+.eniw .ENLegSN2No {float: left; width: 3%; text-align: right;}
+.eniw .ENTable .ENLegSN2No {font-size: 1.3em;}
+.eniw .ENLegSN2NoAmend {float: left; width: 3%; text-align: right;}
+.eniw .ENLegSN2NoC1Amend {float: left; width: 5%; text-align: right;}
+.eniw .ENLegSN2NoC3Amend {float: left; width: 5%; text-align: right;}
+.eniw .ENLegSN2NoC4Amend {float: left; width: 5%; text-align: right;}
+
+.eniw .ENLegP1Container {clear: both; padding-top: 1.5em; padding-bottom: 0em; margin-bottom: 0.5em; margin-top: 0em; font-weight: bold;}
+.eniw .ENLegP1Container strong {font-weight: normal;}
+.eniw .ENLegP1ContainerFirst {clear: both; padding: 0em; margin-bottom: 0.5em; margin-top: 0em; font-weight: bold;}
+.eniw .ENLegP1ContainerFirst strong {font-weight: normal;}
+.eniw .ENLegSP1Container {clear: both; padding-top: 0em; margin-bottom: 0.5em; padding: 0em;}
+
+.eniw .ENLegP1ParaText {clear: both; text-indent: 1em; text-align: justify;}
+.eniw .ENLegP1Text {width: 90%;}
+.eniw .ENTable .ENLegP1Text {font-size: 100%;}
+.eniw .ENLegP1TextAmend {width: 90%;}
+.eniw .ENLegP1TextC1Amend {width: 80%;}
+.eniw .ENLegP1TextC3Amend {width: 73%;}
+.eniw .ENLegP1TextC4Amend {width: 66%;}
+.eniw .ENLegP1TextC1C1Amend2 {width: 70%;}
+.eniw .ENLegP1TextC1C3Amend2 {width: 63%;}
+
+.eniw .ENLegP2Container {clear: both; margin-left: 7%;}
+.eniw .ENTable .ENLegP2Container {font-size: 100%;}
+.eniw .ENLegSP2Container {clear: both; margin-left: 7%;}
+
+.eniw .ENLegP2GroupTitle {clear: both; font-weight: normal; font-style: italic; text-align: justify; padding: 0em; margin-bottom: 0.5em; margin-left: 8%; margin-top: 1em;}
+.eniw .ENLegP2GroupTitle em {font-style: normal;}
+.eniw .ENLegP2GroupTitleC1Amend {margin-left: 18%;}
+.eniw .ENLegP2GroupTitleC3Amend {margin-left: 25%;}
+.eniw .ENLegP2GroupTitleC4Amend {margin-left: 32%;}
+.eniw .ENLegP2GroupTitleC1C3Amend2 {margin-left: 35%;}
+
+.eniw .ENLegP2ParaText {clear: both; text-indent: 1em; text-align: justify; margin-bottom: 0.5em;}
+.eniw .ENLegP2Text {width: 90%;}
+.eniw .ENTable .ENLegP2Text {font-size: 100%;} 
+.eniw .ENLegP2TextAmend {width: 90%;}
+.eniw .ENLegP2TextC1Amend {width: 80%;}
+.eniw .ENLegP2TextC3Amend {width: 73%;}
+.eniw .ENLegP2TextC4Amend {width: 66%;}
+.eniw .ENLegP2TextC5Amend {width: 59%;}
+.eniw .ENLegP2TextC1C1Amend2 {width: 70%;}
+.eniw .ENLegP2TextC1C3Amend2 {width: 63%;}
+.eniw .ENLegP2TextC1C4Amend2 {width: 56%;}
+.eniw .ENLegP2TextC3C3Amend2 {width: 56%;}
+
+.eniw .ENLegP3GroupTitle {clear: both; font-weight: normal; font-style: italic; text-align: justify; padding: 0em; margin-top: 0.5em; margin-bottom: 0.25em; margin-left: 13%;}
+.eniw .ENLegP3GroupTitle em {font-style: normal;}
+.eniw .ENLegP3GroupTitleC1Amend {margin-left: 23%;}
+.eniw .ENLegP3GroupTitleC3Amend {margin-left: 30%;}
+.eniw .ENLegP3GroupTitleC4Amend {margin-left: 37%;}
+.eniw .ENLegP3GroupTitleC1C3Amend2 {margin-left: 40%;}
+
+.eniw .ENLegP3Container {clear: both;  margin-left: 16%; }
+.eniw .ENTable .ENLegP3Container {font-size: 100%;}
+.eniw .ENLegSP3Container {clear: both; margin-left: 16%;}
+
+.eniw .ENLegP3No {width: 7%;}
+.eniw .ENLegP3NoAmend {width: 7%;}
+.eniw .ENLegP3NoC1Amend {width: 25%;}
+.eniw .ENLegP3NoC3Amend {width: 32%;}
+.eniw .ENLegP3NoC4Amend {width: 39%;}
+.eniw .ENLegP3NoC5Amend {width: 46%;}
+.eniw .ENLegP3NoC1C1Amend2 {width: 35%;}
+.eniw .ENLegP3NoC1C3Amend2 {width: 42%;}
+.eniw .ENLegP3NoC1C4Amend2 {width: 49%;}
+.eniw .ENLegP3NoC1C5Amend2 {width: 56%;}
+.eniw .ENLegP3NoC3C1Amend2 {width: 42%;}
+.eniw .ENLegP3NoC3C3Amend2 {width: 49%;}
+.eniw .ENLegP3NoC3C4Amend2 {width: 56%;}
+.eniw .ENLegP3NoC4C3Amend2 {width: 56%;}
+
+.eniw .ENLegN3No {width: 15%;}
+.eniw .ENLegN3NoC1Amend {width: 25%;}
+.eniw .ENLegN3NoC3Amend {width: 32%;}
+.eniw .ENLegN3NoC4Amend {width: 39%;}
+.eniw .ENLegN3NoC5Amend {width: 46%;}
+.eniw .ENLegN3NoC1C1Amend2 {width: 35%;}
+
+.eniw .ENLegP3Text {width: 92%;}
+.eniw .ENTable .ENLegP3Text {font-size: 100%;}
+.eniw .ENLegP3TextAmend {width: 92%;}
+.eniw .ENLegP3TextC1Amend {width: 73%;}
+.eniw .ENLegP3TextC3Amend {width: 66%;}
+.eniw .ENLegP3TextC4Amend {width: 59%;}
+.eniw .ENLegP3TextC5Amend {width: 52%;}
+.eniw .ENLegP3TextC1C1Amend2 {width: 63%;}
+.eniw .ENLegP3TextC1C3Amend2 {width: 56%;}
+.eniw .ENLegP3TextC1C4Amend2 {width: 49%;}
+.eniw .ENLegP3TextC3C1Amend2 {width: 56%;}
+.eniw .ENLegP3TextC3C3Amend2 {width: 49%;}
+.eniw .ENLegP3TextC3C4Amend2 {width: 42%;}
+.eniw .ENLegP3TextC4C3Amend2 {width: 42%;}
+
+.eniw .ENLegP4Container {clear: both;  margin-left: 22%; }
+.eniw .ENTable .ENLegP4Container {font-size: 1em; }
+.eniw .ENLegSP4Container {clear: both;  margin-left: 22%; }
+
+.eniw .ENLegP4No {width: 4%;}
+.eniw .ENLegP4NoAmend {width: 4%; }
+.eniw .ENLegP4NoC1Amend {width: 32%;}
+.eniw .ENLegP4NoC3Amend {width: 39%;}
+.eniw .ENLegP4NoC4Amend {width: 46%;}
+.eniw .ENLegP4NoC5Amend {width: 53%;}
+.eniw .ENLegP4NoC1C1Amend2 {width: 42%;}
+.eniw .ENLegP4NoC1C3Amend2 {width: 49%;}
+.eniw .ENLegP4NoC3C1Amend2 {width: 35%;}
+
+.eniw .ENLegN4No {width: 7%;}
+.eniw .ENLegN4N5No {width: 22%;}
+.eniw .ENLegN4N5NoC1Amend {width: 32%;}
+.eniw .ENLegN4N5NoC3Amend {width: 49%;}
+.eniw .ENLegN4N5NoC4Amend {width: 56%;}
+.eniw .ENLegN4N5NoC1C1Amend2 {width: 42%;}
+.eniw .ENLegN4N5NoC1C3Amend2 {width: 49%;}
+
+.eniw .ENLegP4Text {width: 95%;}
+.eniw .ENTable .ENLegP4Text {font-size: 100%;}
+.eniw .ENLegP4TextAmend {width: 95%;}
+.eniw .ENLegP4TextC1Amend {width: 66%;}
+.eniw .ENLegP4TextC3Amend {width: 59%;}
+.eniw .ENLegP4TextC4Amend {width: 52%;}
+.eniw .ENLegP4TextC5Amend {width: 45%;}
+.eniw .ENLegP4TextC1C1Amend2 {width: 56%;}
+.eniw .ENLegP4TextC1C3Amend2 {width: 49%;}
+.eniw .ENLegP4TextC3C1Amend2 {width: 63%;}
+
+.eniw .ENLegP5Container {clear: both; width: 100%; margin-bottom: 0.5em; padding: 0em;}
+.eniw .ENLegSP5Container {clear: both; width: 100%; margin-bottom: 0.5em; padding: 0em;}
+
+.eniw .ENLegP5No {width: 29%;}
+.eniw .ENLegP5NoAmend {width: 29%;}
+.eniw .ENLegP5NoC1Amend {width: 39%;}
+.eniw .ENLegP5NoC3Amend {width: 46%;}
+.eniw .ENLegP5NoC4Amend {width: 53%;}
+.eniw .ENLegP5NoC5Amend {width: 60%;}
+.eniw .ENLegP5NoC1C1Amend2 {width: 49%;}
+.eniw .ENLegP5NoC1C3Amend2 {width: 56%;}
+
+.eniw .ENLegN5No {width: 7%;}
+
+.eniw .ENLegP5Text {width: 69%;}
+.eniw .ENLegP5TextC1Amend {width: 59%;}
+.eniw .ENLegP5TextC3Amend {width: 52%;}
+.eniw .ENLegP5TextC4Amend {width: 45%;}
+.eniw .ENLegP5TextC5Amend {width: 38%;}
+.eniw .ENLegP5TextC1C1Amend2 {width: 49%;}
+.eniw .ENLegP5TextC1C3Amend2 {width: 42%;}
+
+.eniw .ENLegP6Container {clear: both; width: 100%; margin-bottom: 0.5em; padding: 0em;}
+.eniw .ENLegSP6Container {clear: both; width: 100%; margin-bottom: 0.5em; padding: 0em;}
+
+.eniw .ENLegP6No {width: 36%;}
+.eniw .ENLegP6NoAmend {width: 36%;}
+.eniw .ENLegP6NoC1Amend {width: 46%;}
+.eniw .ENLegP6NoC3Amend {width: 53%;}
+.eniw .ENLegP6NoC4Amend {width: 60%;}
+.eniw .ENLegP6NoC1C1Amend2 {width: 56%;}
+.eniw .ENLegP6NoC1C3Amend2 {width: 63%;}
+
+.eniw .ENLegP6Text {width: 62%;}
+.eniw .ENLegP6TextC1Amend {width: 52%;}
+.eniw .ENLegP6TextC3Amend {width: 45%;}
+.eniw .ENLegP6TextC4Amend {width: 38%;}
+.eniw .ENLegP6TextC1C1Amend2 {width: 42%;}
+.eniw .ENLegP6TextC1C3Amend2 {width: 35%;}
+
+.eniw .ENLegP7Container {clear: both; width: 100%; margin-bottom: 0.5em; padding: 0em;}
+.eniw .ENLegSP7Container {clear: both; width: 100%; margin-bottom: 0.5em; padding: 0em;}
+
+.eniw .ENLegP7No {width: 43%;}
+.eniw .ENLegP7NoAmend {width: 43%;}
+.eniw .ENLegP7NoC1Amend {width: 53%;}
+.eniw .ENLegP7NoC3Amend {width: 60%;}
+.eniw .ENLegP7NoC4Amend {width: 67%;}
+.eniw .ENLegP7NoC1C1Amend2 {width: 63%;}
+.eniw .ENLegP7NoC1C3Amend2 {width: 70%;}
+
+.eniw .ENLegP7Text {width: 55%;}
+.eniw .ENLegP7TextC1Amend {width: 45%;}
+.eniw .ENLegP7TextC3Amend {width: 38%;}
+.eniw .ENLegP7TextC4Amend {width: 31%;}
+.eniw .ENLegP7TextC1C1Amend2 {width: 35%;}
+.eniw .ENLegP7TextC1C3Amend2 {width: 28%;}
+
+
+/* ========== Lists ========== */
+
+.eniw ul {margin: 0em; padding: 0em; font-size: 1em;}
+.eniw li {clear: both; margin: 0em; padding: 0em;}
+
+.eniw div.Amend {clear:both; height: 100%;}
+.eniw .ENLegP2list {clear:both; height: 100%;}
+.eniw .ENLegP3list {clear:both; height: 100%;}
+.eniw .ENLegP4list {clear:both; height: 100%;}
+.eniw .ENLegP5list {clear:both; height: 100%;}
+.eniw .ENLegP6list {clear:both; height: 100%;}
+.eniw .ENLegP7list {clear:both; height: 100%;}
+
+.eniw .ENLegP2listAmend {clear:both; height: 100%;}
+.eniw .ENLegP3listAmend {clear:both; height: 100%;}
+.eniw .ENLegP4listAmend {clear:both; height: 100%;}
+.eniw .ENLegP5listAmend {clear:both; height: 100%;}
+.eniw .ENLegP6listAmend {clear:both; height: 100%;}
+.eniw .ENLegP7listAmend {clear:both; height: 100%;}
+
+.eniw .ENAlphaList {clear: both; height: 100%; margin-left: 5%;}
+.eniw .ENRomanList {clear: both; height: 100%; position: relative; margin-left: 5%;}
+.eniw .ENArabicList {clear: both; height: 100%; position: relative; margin-left: 5%;}
+
+.eniw blockquote .ENArabicList {margin-left: 7%;}
+.eniw blockquote .ENRomanList {margin-left: 14%;}
+.eniw blockquote .ENAlphaList {margin-left: 16%;}
+
+.eniw .ENLegP2list .ENAlphaList { margin-left: 16%;}
+.eniw .ENLegP2list .ENRomanList {margin-left: 16%;}
+.eniw .ENLegP2list .ENArabicList {margin-left: 16%;}
+
+.eniw .ENLegP2listAmend .ENAlphaList { margin-left: 16%;}
+.eniw .ENLegP2listAmend .ENRomanList {margin-left: 16%;}
+.eniw .ENLegP2listAmend .ENArabicList {margin-left: 16%;}
+
+.eniw .ENLegP3list .ENAlphaList { margin-left: 16%;}
+.eniw .ENLegP3list .ENRomanList {margin-left: 16%;}
+.eniw .ENLegP3list .ENArabicList {margin-left: 16%;}
+
+.eniw .ENLegP3listAmend .ENAlphaList { margin-left: 16%;}
+.eniw .ENLegP3listAmend .ENRomanList {margin-left: 16%;}
+.eniw .ENLegP3listAmend .ENArabicList {margin-left: 16%;}
+
+.eniw .ENLegP4list .ENAlphaList { margin-left: 22%;}
+.eniw .ENLegP4list .ENRomanList {margin-left: 22%;}
+.eniw .ENLegP4list .ENArabicList {margin-left: 22%;}
+
+.eniw .ENLegP4listAmend .ENAlphaList { margin-left: 22%;}
+.eniw .ENLegP4listAmend .ENRomanList {margin-left: 22%;}
+.eniw .ENLegP4listAmend .ENArabicList {margin-left: 22%;}
+
+
+
+/* Nested lists */
+/*.eniw .ENAlphaList { margin-left: 2%;}
+.eniw .ENRomanList {margin-left: 2%;}
+.eniw .ENArabicList { margin-left: 2%;}*/
+
+.eniw .ENTabbed {clear: both; position: relative; list-style-type: none; margin-left: 7%;}
+.eniw .ENTabbedDef {clear: both; position: relative; list-style-type: none; margin-left: 7%;}
+.eniw .ENTabbedDefAmend {clear: both; position: relative; list-style-type: none; margin-left: 10%;}
+.eniw .ENDashed {clear: both; position: relative; list-style-type: square; margin-left: 7%;}
+.eniw .ENBulleted {clear: both; position: relative; list-style-type: disc; margin-left: 7%;}
+/* Nested bulleted list */
+.eniw .ENBulleted .ENBulleted { list-style-type: circle;}
+
+.eniw .ENTabbedC1Amend {clear: both; list-style-type: none;}
+.eniw .ENTabbedDefC1Amend {clear: both; list-style-type: none;}
+.eniw .ENDashedC1Amend {clear: both; list-style-type: square;}
+.eniw .ENBulletedC1Amend {clear: both; list-style-type: disc;}
+
+.eniw .ENTabbedC3Amend {clear: both; list-style-type: none;}
+.eniw .ENTabbedDefC3Amend {clear: both; list-style-type: none;}
+.eniw .ENDashedC3Amend {clear: both; list-style-type: square;}
+.eniw .ENBulletedC3Amend {clear: both; list-style-type: disc;}
+
+.eniw .ENTabbedC4Amend {clear: both; list-style-type: none;}
+.eniw .ENTabbedDefC4Amend {clear: both; list-style-type: none;}
+.eniw .ENDashedC4Amend {clear: both; list-style-type: square;}
+.eniw .ENBulletedC4Amend {clear: both; list-style-type: disc;}
+
+.eniw .ENTabbedC1C1Amend2 {clear: both; list-style-type: none;}
+.eniw .ENTabbedDefC1C1Amend2 {clear: both; list-style-type: none;}
+.eniw .ENDashedC1C1Amend2 {clear: both; list-style-type: square;}
+.eniw .ENBulletedC1C1Amend2 {clear: both; list-style-type: disc;}
+
+.eniw ul {margin-left: 15.5%; margin-bottom: 1em;}
+.eniw ul.ENTabbed {margin-left: 7%;}
+.eniw ul.ENTabbedDef {margin-left: 7%;}
+.eniw ul.ENTabbedDefAmend {margin-left: 10%;}
+.eniw ul.ENTabbedDefC1Amend {margin-left: 0%;}
+.eniw ul.ENTabbedDefC2Amend {margin-left: 0%;}
+.eniw ul.ENTabbedDefC3Amend {margin-left: 0%;}
+.eniw ul.ENTabbedDefC4Amend {margin-left: 0%;}
+.eniw ul.ENTabbedDefC5Amend {margin-left: 0%;}
+.eniw ul.ENTabbedDefC1C1Amend2 {margin-left: 0%;}
+.eniw ul ul {margin-left: 9%;}
+
+.eniw .ENListItem {clear: both; padding: 0em;}
+.eniw .ENKeyListItem {clear: both; padding: 0em;}
+.eniw .ENKeySeparator {float: left; width: 5%; padding: 0em; text-align: left;}
+.eniw .ENListItemNo {float: left; text-align: right; padding: 0em; margin: 0em; font-size: 0.8em;}
+.eniw .ENTable .ENListItemNo { font-size: 1em;}
+
+.eniw .ENKeyLegLevel3 {float: left; padding: 0em; width: 20%; text-align: right;}
+.eniw .ENKeyLegLevel4 {float: left; padding: 0em; width: 26%; text-align: right;}
+.eniw .ENKeyLegLevel5 {float: left; padding: 0em; width: 32%; text-align: right;}
+
+.eniw .ENLevel3 {float: right; width: 84%; text-align: justify;}
+.eniw .ENLevel4 {float: right; width: 77%; text-align: justify;}
+.eniw .ENLevel5 {float: right; width: 70%; text-align: justify;}
+.eniw .ENLevel6 {float: right; width: 63%; text-align: justify;}
+.eniw .ENLevel7 {float: right; width: 56%; text-align: justify;}
+.eniw .ENLevel8 {float: right; width: 49%; text-align: justify;}
+
+.eniw .ENKeyListItem .ENLevel3 {float: right; width: 74%; text-align: justify;}
+.eniw .ENKeyListItem .ENLevel4 {float: right; width: 68%; text-align: justify;}
+.eniw .ENKeyListItem .ENLevel5 {float: right; width: 62%; text-align: justify;}
+
+.eniw .ENLevel3C1Amend {float: right; width: 74%; text-align: justify;}
+.eniw .ENLevel4C1Amend {float: right; width: 67%; text-align: justify;}
+.eniw .ENLevel5C1Amend {float: right; width: 60%; text-align: justify;}
+.eniw .ENLevel6C1Amend {float: right; width: 53%; text-align: justify;}
+.eniw .ENLevel7C1Amend {float: right; width: 46%; text-align: justify;}
+.eniw .ENLevel8C1Amend {float: right; width: 39%; text-align: justify;}
+
+.eniw .ENLevel3C3Amend {float: right; width: 74%; text-align: justify;}
+.eniw .ENLevel4C3Amend {float: right; width: 67%; text-align: justify;}
+.eniw .ENLevel5C3Amend {float: right; width: 60%; text-align: justify;}
+.eniw .ENLevel6C3Amend {float: right; width: 53%; text-align: justify;}
+.eniw .ENLevel7C3Amend {float: right; width: 46%; text-align: justify;}
+.eniw .ENLevel8C3Amend {float: right; width: 39%; text-align: justify;}
+
+.eniw .ENLevel3C4Amend {float: right; width: 67%; text-align: justify;}
+.eniw .ENLevel4C4Amend {float: right; width: 60%; text-align: justify;}
+.eniw .ENLevel5C4Amend {float: right; width: 53%; text-align: justify;}
+.eniw .ENLevel6C4Amend {float: right; width: 46%; text-align: justify;}
+.eniw .ENLevel7C4Amend {float: right; width: 39%; text-align: justify;}
+.eniw .ENLevel8C4Amend {float: right; width: 32%; text-align: justify;}
+
+.eniw .ENLevel3C1C1Amend2 {float: right; width: 64%; text-align: justify;}
+.eniw .ENLevel4C1C1Amend2 {float: right; width: 57%; text-align: justify;}
+.eniw .ENLevel5C1C1Amend2 {float: right; width: 50%; text-align: justify;}
+.eniw .ENLevel6C1C1Amend2 {float: right; width: 43%; text-align: justify;}
+.eniw .ENLevel7C1C1Amend2 {float: right; width: 36%; text-align: justify;}
+.eniw .ENLevel8C1C1Amend2 {float: right; width: 29%; text-align: justify;}
+
+/*.eniw .ENLevel3No {width: 14%;}
+.eniw .ENLevel4No {width: 21%;}
+.eniw .ENLevel5No {width: 28%;}
+.eniw .ENLevel6No {width: 35%;}
+.eniw .ENLevel7No {width: 42%;}
+.eniw .ENLevel8No {width: 49%;}*/
+
+.eniw .ENLevel3NoC1Amend {width: 24%;}
+.eniw .ENLevel4NoC1Amend {width: 31%;}
+.eniw .ENLevel5NoC1Amend {width: 38%;}
+.eniw .ENLevel6NoC1Amend {width: 45%;}
+.eniw .ENLevel7NoC1Amend {width: 52%;}
+.eniw .ENLevel8NoC1Amend {width: 59%;}
+
+.eniw .ENLevel3NoC3Amend {width: 24%;}
+.eniw .ENLevel4NoC3Amend {width: 31%;}
+.eniw .ENLevel5NoC3Amend {width: 38%;}
+.eniw .ENLevel6NoC3Amend {width: 45%;}
+.eniw .ENLevel7NoC3Amend {width: 52%;}
+.eniw .ENLevel8NoC3Amend {width: 59%;}
+
+.eniw .ENLevel3NoC4Amend {width: 31%;}
+.eniw .ENLevel4NoC4Amend {width: 38%;}
+.eniw .ENLevel5NoC4Amend {width: 45%;}
+.eniw .ENLevel6NoC4Amend {width: 52%;}
+.eniw .ENLevel7NoC4Amend {width: 59%;}
+.eniw .ENLevel8NoC4Amend {width: 66%;}
+
+.eniw .ENLevel3NoC1C1Amend2 {width: 34%;}
+.eniw .ENLevel4NoC1C1Amend2 {width: 41%;}
+.eniw .ENLevel5NoC1C1Amend2 {width: 48%;}
+.eniw .ENLevel6NoC1C1Amend2 {width: 55%;}
+.eniw .ENLevel7NoC1C1Amend2 {width: 62%;}
+.eniw .ENLevel8NoC1C1Amend2 {width: 69%;}
+
+.eniw .ENLeftNoLegLevel4No {width: 14%;}
+.eniw .ENLeftNoLegLevel5No {width: 21%;}
+.eniw .ENLeftNoLegLevel6No {width: 28%;}
+
+.eniw .ENLeftNoLegLevel4NoC1Amend {width: 24%;}
+.eniw .ENLeftNoLegLevel5NoC1Amend {width: 31%;}
+.eniw .ENLeftNoLegLevel6NoC1Amend {width: 38%;}
+
+.eniw .ENLeftNoLegLevel4NoC1C1Amend2 {width: 34%;}
+.eniw .ENLeftNoLegLevel5NoC1C1Amend2 {width: 41%;}
+.eniw .ENLeftNoLegLevel6NoC1C1Amend2 {width: 48%;}
+
+.eniw .ENRightNoLegLevel4No {width: 7%;}
+.eniw .ENRightNoLegLevel5No {width: 7%;}
+.eniw .ENRightNoLegLevel6No {width: 7%;}
+
+
+/* Standard entry for list item text */
+.eniw .ENListTextStandard {text-align: justify; margin-top: 0em; padding: 0em;}
+.eniw .ENTable .ENListTextStandard {font-size: 1em;}
+
+.eniw .ENAlphaList .ENListTextStandard {float: right; width: 95%;}
+.eniw .ENRomanList .ENListTextStandard {float: right; width: 95%;}
+.eniw .ENArabicList .ENListTextStandard {float: right; width: 95%;}
+
+.eniw  .ENTable .ENAlphaList .ENListTextStandard {width: 90%;}
+.eniw   .ENTable .ENRomanList .ENListTextStandard {width: 90%;}
+.eniw   .ENTable .ENArabicList .ENListTextStandard {width: 90%;}
+
+/* ========== Table ========== */
+
+.eniw table {margin: 0em; padding: 0em;}
+.eniw caption {padding-bottom: 0.5em;}
+
+.eniw .ENTabular {text-align: left; clear: both; padding-top: 0.5em; padding-bottom: 1em; margin: 0em;}
+.eniw .ENTableNo {font-weight: normal; text-align: center; margin-bottom: 0.5em; margin-top: 0em; padding: 0em;}
+.eniw .ENTableTitle {font-weight: normal; text-align: center; margin-bottom: 0.5em; margin-top: 0em; padding: 0em;}
+.eniw .ENTableSubtitle {font-weight: normal; text-align: center; margin-bottom: 0.5em; margin-top: 0em; padding: 0em;}
+
+.eniw .ENTableContainer {clear: both; text-align: left; margin-bottom: 0.5em;}
+.eniw .ENTable {border: none;  text-align: left; margin-top: 0.5em; width:100%;font-size:0.8em}
+
+.eniw .ENTable .ENTable {font-size: 1.2em;}
+
+.eniw thead .ENTH {text-align: left; font-style: italic; font-size: 1em; font-weight: normal; border: none; background-color: #ffffff; color: black; vertical-align: top;}
+.eniw thead .ENTHplain {text-align: left; font-style: italic; font-weight: normal; border: none; background-color: #ffffff; color: black; vertical-align: top;}
+.eniw thead .ENTH em {font-style: normal;}
+.eniw thead .ENTH .ENText em {font-style: italic;}
+.eniw thead .ENTHplain em {font-style: normal;}
+
+.eniw tbody .ENTH {text-align: left; font-style: normal; font-size: 1em; font-weight: bold; border: none; background-color: #ffffff; color: black; vertical-align: top;}
+.eniw tbody .ENTHplain {text-align: left; font-style: normal; font-weight: bold; border: none; background-color: #ffffff; color: black; vertical-align: top;}
+.eniw tbody .ENTH strong {font-weight: normal;}
+.eniw tbody .ENTH .ENText strong {font-weight: bold;}
+.eniw tbody .ENTHplain strong {font-weight: normal;}
+
+.eniw .ENTD {font-style: normal;  font-weight: normal; border: none; vertical-align: top;}
+.eniw .ENTDplain {font-style: normal;  font-weight: normal; border: none; vertical-align: top;}
+.eniw .ENTDmixedText {font-style: normal; font-weight: normal;}
+
+
+/* ========== Amends ========== */
+
+.eniw .ENAmendQuoteOpen {font-weight: normal; font-style: normal; text-align: left;}
+.eniw .ENAmendQuoteClose {font-weight: normal; font-style: normal; text-align: right;}
+.eniw span.ENAmendQuote {font-weight: normal; font-style: normal;}
+
+.eniw .ENRunOnAmend {;}
+
+
+/* ========== Forms ========== */
+
+.eniw .ENClearForm {clear: both; padding-top: 0em;}
+.eniw .ENFormSection {margin-top: 1em; margin: 1em; padding: 0.5em;}
+
+
+/* ========== Formula ========== */
+
+.eniw .ENFormula {clear: both; margin-left: 10%; text-align: left;}
+.eniw .ENFormulaAmend {clear: both; margin-left: 10%; text-align: left;}
+.eniw .ENWhere {clear: both; margin-left: 10%;}
+
+.eniw .ENMaths {text-align: left; margin-top: 0.5em;}
+.eniw .ENErrorMaths {clear: both; text-align: left; margin-top: 0.5em; border: solid 1px red; background-color: white;}
+
+
+/* ========== Footnotes ========== */
+
+.eniw div.ENFootnotes {clear: both; padding-top: 1em;}
+.eniw div.ENFootnotesContainer {margin-top: 1em; border-top: solid 1px black; padding-top: 1em; padding-bottom: 1em;}
+.eniw .ENFootnote {clear: both; padding: 0em; margin-bottom: 0.5em;}
+.eniw .ENFootnote .ENText {clear:none; float: right; width: 95%; margin-bottom: 0em; padding-bottom: 0.5em; margin-top: 0em; padding-top: 0em;}
+.eniw td .ENFootnote {clear: both; margin-top: 0em; margin-bottom: 0em; padding: 0em;}
+.eniw .ENFootnoteRef {font-weight: bold;}
+.eniw .ENFootnoteNoContainer {float: left; width: 5%;}
+.eniw .ENTableFootnoteNoContainer {float: left; width: 3%;}
+.eniw .ENFootnoteNo {font-weight: bold;}
+.eniw .ENTableFootnoteRef {font-weight: normal;}
+.eniw .ENTableFootnoteNo {font-weight: normal;}
+
+/* ==== Legislation footnotes styles required for correct footnotes chunking by TSO_legislation_core_chunker_xml.xslt ===== */
+.eniw div.LegFootnotes {clear: both; padding-top: 1em;}
+.eniw div.LegFootnotesContainer {margin-top: 1em; border-top: solid 1px black; padding-top: 1em; padding-bottom: 1em;}
+.eniw .LegFootnote {clear: both; padding: 0em; margin-bottom: 0.5em;}
+.eniw .LegFootnote .ENText {clear:none; float: right; width: 95%; margin-bottom: 0em; padding-bottom: 0.5em; margin-top: 0em; padding-top: 0em;}
+.eniw td .LegFootnote {clear: both; margin-top: 0em; margin-bottom: 0em; padding: 0em;}
+.eniw .LegFootnoteRef {font-weight: bold;}
+.eniw .LegFootnoteNoContainer {float: left; width: 5%;}
+.eniw .LegFootnoteNo {font-weight: bold; font-size: 0.8em;}
+.eniw tfoot .LegFootnote .ENText {clear: none; float: right; width: 96%; text-align: justify; margin-bottom: 0em; padding-bottom: 0.5em; margin-top: 0em;}
+
+
+/* ========== Signatures ========== */
+
+.eniw .ENSignedSection {clear: both; padding-bottom: 2em;}
+.eniw .ENSignatory {clear: both; padding-top: 1em;}
+.eniw .ENPersonName {clear: both; float: right; width: 50%; font-style: italic; margin-bottom: 0em; text-align: right;}
+.eniw .ENPersonName em {font-style: normal;}
+.eniw .ENJobTitle {clear: both; float: right; width: 50%; margin-bottom: 0em; text-align: right;}
+.eniw .ENDepartment {clear: both; float: right; width: 50%; margin-bottom: 0em; text-align: right;}
+.eniw .ENDateSigned {clear: both; width: 50%; margin-bottom: 0em; text-align: left;}
+.eniw .ENAddressLine {clear: both; width: 50%; margin-bottom: 0em; text-align: left;}
+.eniw .ENSealText {clear: both; margin-bottom: 0em;}
+.eniw .SignatureSpace {padding-top: 1em;}
+
+
+/* ========== Decorated groups ========== */
+
+.eniw .ENDecoratedGroupLeft {border-right: solid 1px red; padding-right: 0.25em;}
+
+
+/* ========== Images ========== */
+
+.eniw .ENFigureNumber {clear: both; display: block; padding-top: 1em; text-align: left; font-weight: bold;}
+.eniw .ENFigureTitle {clear: both; display: block; padding-top: 1em; text-align: left; font-weight: bold;}
+.eniw img.ENDisplayImage {clear: both;display: block; margin-top: 1em; margin-bottom: 1em; text-align: left; margin-left: auto; margin-right: auto;}
+.eniw .ENDisplayImageText {text-align: center; font-weight: bold; margin-top: 0em; padding-bottom: 2em;}
+.eniw img.ENInlineImage {display: inline;}
+.eniw img.ENUnicodeCharacter {display: inline; border-style: none; height: 0.7em; width: 0.7em;}
+
+
+/*=============Errors ==============*/
+.eniw .ENError {border: 2px solid #FF0000;}
+
+
+/* ========== Inline =========== */
+
+.eniw .ENSmallcaps {font-variant: small-caps;}
+
+/* Notes within paragraphs */
+.eniw .ENNote { }
+
+/* Baseline fix for sub and sup */
+sup, sub { height: 0; line-height: 1; vertical-align: baseline;  _vertical-align: bottom; position: relative;}
+
+sup { bottom: 1ex;}
+
+sub { top: .5ex;}

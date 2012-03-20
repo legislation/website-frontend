@@ -1,0 +1,22 @@
+/*
+©  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/
+
+*/
+body
+{
+	background-color: #ffffff;
+	color: #000000;
+
+ }
+
+tr.head{font-weight:bold;font-size:1.5em;background-color:#BEBEBE}
+tr.published{background-color:#EEF3E2} 
+tr.withdraw{background-color:#DEDEDE }
+tr.errorpublished{background-color:#E0EEEE} 
+tr.warningpublished{background-color:#E0EEEE} 
+tr.errorwithdraw{background-color:#E0EEEE }
+tr.pending{background-color:#FEF6E4}

@@ -1,0 +1,1340 @@
+/*
+©  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/
+
+*/
+/***************
+Legislation.gov.uk UI CSS
+Version 1
+
+First draft of Design
+
+Table of Contents
+1. Body & basic typography
+2. Page furniture
+3. Block/grid layout 
+4. UI view
+	4.1. Legislation point in time
+6. Homepage
+7. Misc. ID & Class typography
+8. Misc. Sections
+9. Z-Axis
+10.Plain View
+11.Search pages and browse
+12.FOUC (flash of unstyled content) overwrites
+
+Colours:
+
+Active link/blue: #069
+Visited link/blue: #2790C4
+Disabled/grey   : #878787
+Link/grey		: #666
+Heading/darkgrey: #333
+
+/*************/
+
+/*---------------
+1. Body & basic typography
+---------------*/
+body {font: normal normal normal 75%/1.5em 'Arial', 'Garuda', sans-serif; color: #4B4C4E; margin: 0; background: #fff}
+
+#preloadBg {display: none;}
+
+/* reset margins and padding on the following items */
+ul#primaryNav, ul#secondaryNav, ul#bookmarks, ul.linkList, ol.linkList, img, div 
+{margin: 0; padding: 0;}
+ul.accessibleLinks {margin-bottom: 0; margin-top: 0;}
+img {border: 0;}
+/* end of margin reset */
+
+ul {margin:0.5em 0;}
+h1 {font-size: 2.1em; color: #000; line-height: 1.2em; margin:0 0 0.5em 0;}
+h2, h3, h4, h5, h6, p, ul, ol, dl, table, div.contentItem, address {margin-bottom: 0.25em; color:#494949;}
+h2 {font-size: 1.3em; font-weight: bold; margin: 0.5em 0 0.25em 0; line-height: 1.4em; color: #333333; font-weight: 900}
+h3, h4, h5 {font-weight: 600; margin: 0; color:#494949; line-height: 1.2em;}
+h3 {font-size: 1em;}
+em {font-style: italic;}
+strong {font-weight: bold;}
+p {color: #494949}
+address {font-style: normal;}
+pre, code {font-size: 1.2em;}
+
+h2 strong {font-weight: 800; font-size: 1.15em;}
+
+a {line-height: 1.4em; text-decoration: none; color: #069;}
+a:hover {text-decoration: underline;}
+
+form button {margin:0; padding: 0; font: normal normal normal 1em/1.4em 'Arial', 'Garuda', sans-serif;}
+dl {display: block;}
+dt {font-weight: bold; float: left; clear: left; margin-right: 0.5em; line-height:1.4em;}
+dd {line-height:1.4em; margin-bottom: 0.5em;}
+
+table, tr {border: none; border-collapse: collapse; width: 100%;}
+caption {text-align: left; margin-bottom: 0.5em;}
+td, th  {border: none; padding: 0.5em; text-align: left; background: #FFF;}
+tr.oddRow td, li.oddRow {background: #F1F1F1}
+table th a {color: #494949;}
+
+/*---------------
+2. Page furniture
+---------------*/
+
+/* Setting page furniture */
+#header {background: #FFF; /* this needs to be set for IE*/ min-height:7.5em; display: block; width:970px; margin: 0 auto;}
+#background {background: #424240; height: 22em; display: block; clear: left;}
+#footer {clear: both; padding: 10px 0; width: 970px; margin: 0 auto; background: #F6FAFD; border-top: 1px solid #CCC}
+#layout1 { background: #fff; display: block;}
+#layout2 {margin: 0 auto; background: #fff;  height: 100%; width: 970px; display: block; background: #fff; margin-top: -22em; min-height: 22em; border: 1px solid #fff; border-top: 0;}
+/* end of setting page furniture */
+
+/* Begin accessible links */
+.accessibleLinks li a, .accessibleText {position: absolute; left: -999em; width: 1px; overflow: hidden;}
+.accessibleLinks a:focus, .accessibleLinks a:active {margin-left: 18px; width: 958px; position: static; text-align: center; padding: 10px 0; background: #FFF36F; display: block; color: #000; float: left; border: 1px solid #FFB82F; font-weight: bold;} 
+.accessibleLinks li { margin: 0; display: inline; float: left; width: inherit;}
+/* End accessible links */
+
+#per.home #layout1 #header h1,
+#layout1 #header h2 {display: block; height: 97px; width: 334px; overflow: hidden; position: relative; margin: 0; float: left;}
+#header h1 span,
+#header h2 span
+ {background: url(/images/chrome/siteTitle.gif) no-repeat bottom left; display: block; position: absolute; left: 0; top: 0; height: 100%; width: 100%;}
+
+/* Primary navigation */
+/* Sliding doors - taken from ALA article: http://www.alistapart.com/articles/slidingdoors2/
+   Using example 8a to work with IE6 and below */
+#primaryNav  		{ background: #FFF url(/images/chrome/navBg.gif) repeat-x bottom left; clear: both; width: 100%; min-width: 972px; border-top: 1px solid #424240; float: left; border-bottom: 1px solid #fff;}
+#primaryNav div.navLayout {position: relative; margin: 0 auto;width: 970px; margin: 0 auto; display: block;}
+#primaryNav ul {display: block; margin: 0; margin-left: -1px; padding: 0; float: left; width: 973px; background: url(/images/chrome/navDivider.gif) no-repeat bottom left;}
+/* shorten the width for the homepage */
+#per.home #primaryNav ul {width: 670px;}
+#primaryNav ul li 	{background: url(/images/chrome/navDivider.gif) no-repeat bottom right; list-style: none; margin: 0; padding-right: 2px; float: left;} /* removed display:inline to prevent FF3.0 from misaligning first element */
+#primaryNav ul li a	{color: #0D2840; font-weight: bold; text-decoration:none; font-size: 1.15em; line-height: 2em;}
+#primaryNav ul li#quickSearch a.active {border-top: 2px solid #CCC; color: #000;}
+#primaryNav a {float:left;text-decoration:none;padding:5px 12px 4px 13px;}
+#primaryNav a span {float:left;display:block; cursor: pointer }
+#primaryNav li#quickSearch {float: right;}
+#primaryNav li#quickSearch a {background: url(/images/chrome/navDivider.gif) no-repeat bottom left;}
+.js #primaryNav li#quickSearch a span {background: url("/images/chrome/iconSprites.gif") no-repeat right -398px; padding-right: 22px;}
+.js #primaryNav li#quickSearch a.close span {background-position: right -298px}
+.home #primaryNav li#quickSearch {display: none;}
+
+/* primary nav active */
+#per.home        #primaryNav ul li.link1 a {margin-left: 2px;}
+#per.home        #primaryNav ul li.link1 a, 
+#doc.aboutUs     #primaryNav ul li.link2 a, 
+#browse 	     #primaryNav ul li.link3 a,
+#leg             #primaryNav ul li.link3 a,
+#per.newLeg      #primaryNav ul li.link4 a,
+#doc.changeLeg   #primaryNav ul li.link5 a
+ {background: url("/images/chrome/activeHeaderLink.gif") no-repeat center top; color: #333;}
+/* end of primary nav active */
+
+/* Search bar */
+#contentSearch { background: #DEDEDE; float: left; overflow: auto; padding: 6px 10px 5px 10px; width: 950px; float: none; margin: 0 auto; border-bottom: 1px solid #CCC}
+/* NOTE: the title is for accessibility only, not dependent on JS */
+#contentSearch h2 {position: absolute; left: -5000px;}
+#contentSearch label {display: block; height: 1.8em; float: left; padding-top: 0.35em;}
+#contentSearch label em {display: none;}
+#contentSearch input {width: 50%; float: left; margin-left: 5px;}
+#contentSearch div {float: left; margin-right: 0.25em}
+#contentSearch div.title {width: 22em;}
+#contentSearch .title input {width: 83%;}
+#contentSearch .type select {float: left; margin-left: 5px;}
+#contentSearch .year{width: 8em;} 
+#contentSearch .number {width: 11em;}
+#contentSearch .submit {float: right;}
+#contentSearch .advSearch {padding-top: 0.5em; font-weight: bold; font-size: 1.2em; margin-right: 0; clear: both; float: none; text-align: right;}
+#contentSearch .advSearch a {color: #03395D; background:transparent url(/images/chrome/iconSprites.gif) no-repeat scroll right -3946px; margin-right: 12px; padding-right:10px;}
+input {border: 1px solid #7B85AD; padding:5px 3px; background: url(/images/chrome/home_form_shadow.gif) no-repeat top left;}
+select {border: 1px solid #7B85AD; padding:5px 3px 5px 1px; background: url(/images/chrome/home_form_shadow.gif) no-repeat top left;}
+/* end of search bar */
+
+/* secondary nav */
+ul#secondaryNav {text-align: right; width: 551px; margin: 0 0 0 0; float: right; clear: right;}
+ul#secondaryNav li {display: inline; list-style: none; margin: 0 12px 0 0; line-height: 3em;}
+ul#secondaryNav li a {text-decoration: none; font-size: 0.9em; color: #424240}
+ul#secondaryNav li a:hover {text-decoration: underline;}
+.natArch a {width: 215px; height: 35px; display: block; float: right; position: relative; overflow: hidden; margin: 18px 8px 0 0;}
+.natArch a span {position: absolute; background: url("/images/chrome/natArchTitle.gif") no-repeat;left: 0; top: 0; height: 100%; width: 100%;}
+/* end of secondary nav */
+
+/* Footer begin */
+#footer	div	{padding-right:6em;}
+#footer	div	p {margin: 0 ; padding: 0 1% 0 1%; color: #66677C; font-size: 0.95em}
+#footer div p a {color: #66677C;}
+/* end of footer */
+
+/* Default non-JS element widths */
+.interfaceOptionsHeader {width: 966px; margin: 0 auto;}
+/* end of Default non-JS element widths */
+
+/*---------------
+3. Block/grid layout 
+   - based on a 960px grid layout
+---------------*/
+
+/* Sections begin 
+   .section defaults to a curved corner if the appropriate spans are available. If not then a normal square corner is applied.
+*/
+
+/* section styles */
+.section  {margin-top: 5px; display: block; border-bottom: 1px solid #B4B4B4; margin: 0; margin: 0; padding: 0 0 0 0;}
+.section .title {padding: 4px 5px 4px 7px; margin:0; color: #023A5B; display: block;}
+.section .title h2 {color: #023A5B;} /* Homepage only */
+
+#tools.section .title h2, 
+#tools .section .title h3 {margin: 0; padding: 0; font-size: 1.15em; color: #333; display: inline;}
+.section .content {padding-top: 4px;}
+.section p, .section ul, .section ol {padding: 0 10px; margin: 0 0 10px 0;}
+.section p.advSearch {padding: 0 12px; }
+.section {padding: 0 1px;}
+/* sub sections */
+.content .title {border-top: 1px dotted #CCC}
+.content .section {border: none; margin-bottom: 0;}
+.content .section ul {margin: 0}
+/* end sub sections */
+/* end of section styles */
+
+/* positioning issues */
+.p_one 	{clear: both; float: left;}
+.p_two  {float: left;}
+.p_three{float: right;}
+/* end of positioning issues */
+
+/* COLUMN DEFINITIONS */
+/* 960 grid with 10px margin */
+*.s_1  {width: 62px;}
+*.s_2  {width: 144px;}
+*.s_3  {width: 235px;}
+*.s_4  {width: 308px;}
+*.s_5  {width: 390px;}
+*.s_6  {width: 462px;}
+*.s_7  {width: 544px;}
+*.s_8  {width: 626px;}
+*.s_9  {width: 708px;}
+*.s_10 {width: 790px;}
+*.s_11 {width: 862px;}
+*.s_12 {width: 944px;}
+/* end of column definitions */
+
+/* TWO COLUMN SPLIT DEFINTIONS 
+   Widths of the left column and the right column.
+   These need modifying if the COLUMN DEFINITIONS are modified */
+#browse #tools,
+#search #tools,
+#layout2.legToc #tools, 
+#layout2.legPDFonly #tools, 
+#layout2.legContent #tools,
+#layout2.legComplete #tools, 
+#layout2.legIA #tools,
+body.legContent #navigation {float: left; clear: both; width: 200px; min-height: 300px; display:block; background: url("/images/chrome/uiSprites.gif") no-repeat 0 -323px;}
+
+#leg #content, 
+body.legContent #content
+{/*margin-left: 211px;*/ width: auto; width: 768px; float: left;min-height:300px; border-top:1px solid #D3D3D3; border-bottom: none; padding: 1px; padding-bottom: 2em;  padding-left: 1px;}
+
+#browse #content,
+#search #content
+{/*margin-left: 211px;*/ width: auto; width: 764px; float: left;min-height:300px; border: 1px solid #C7C7C7; border-top: none; border-bottom: none; padding: 1px; position: relative; padding-bottom: 2em;  padding-left: 3px;}
+
+#layout2.legResources #content,
+#layout2.legEmContent #content,
+#layout2.legEmToc #content,
+#layout2.legEnContent #content,
+#layout2.legEnToc #content
+{min-height: 0; width: 966px}
+/* End of main column definitions */
+
+/* */
+#browse #tools,
+#search #tools {width: 200px;}
+/* */
+
+#layout2{position: relative;}
+
+/* General layouts */
+#content {padding: 10px;}
+#content .innerContent {margin: 10px;} /* use this pattern to prevent box expanding */
+/* End of general layouts */
+
+/*---------------
+4. UI view
+---------------*/
+
+/* legislation, browse & search default title, longPageTitle is used if font needs to be smaller */
+#leg .pageTitle, 
+#browse #pageTitle,
+#search #pageTitle,
+.newLeg #pageTitle,
+#error #pageTitle,
+#per #pageTitle,
+#doc #pageTitle
+{padding: 16px 18px; margin: 0; font-size: 1.92em; font-weight: normal; border-top:5px solid #023253;}
+#leg  .pageTitle {padding-bottom: 8px;}
+#leg .longPageTitle {font-size: 1.3em; font-weight: bold;}
+
+#browse.intro #pageTitle,
+.newLeg #pageTitle,
+#error #pageTitle, 
+#doc #pageTitle
+{border-bottom:1px solid #C6C6C6;}
+
+#error #content,
+#doc #content
+{padding: 6px 18px 16px;}
+
+/* Legislation sub navigation */
+ul#legSubNav {padding: 0; margin: 0; padding: 0; float: left; clear: both; width: 100%; background: url(/images/chrome/navBgShadow.png) no-repeat bottom left;}
+ul#legSubNav li {position: relative;background: #CCC url("/images/chrome/tab.gif") no-repeat right -205px;float:left; display: block; list-style: none; color: #666; font-weight: bold; text-decoration:none; font-size: 1em; line-height: 2.45em; padding: 0px 13px 0px 0; margin: 0 0 0 5px;}
+ul#legSubNav li, ul#navTabs li.active {text-decoration:none;}
+ul#legSubNav li span.presentation {background: url(/images/chrome/navBgShadow.png) no-repeat bottom left; width: 100%; height: 5px; position: absolute; bottom: 0em; left: 0; z-index: 1000;}
+ul#legSubNav li a, ul#legSubNav li span.disabled {color: #878787; font-size: 1em; line-height: 1.8em;background:url("/images/chrome/tab.gif") no-repeat  left -308px; display: block; float: left; padding: 0.6em 0 0.6em 14px;z-index: 999;}
+ul#legSubNav li span.disabled {color: #878787}
+ul#legSubNav li a:hover {text-decoration: underline;}
+ul#legSubNav li.base {margin-left: 0;}
+
+/* tab alignment overides */
+.legContent li#legContentLink a,
+.legComplete li#legContentLink a,
+.legToc li#legTocLink a,
+.legEmContent li#legEmLink a,
+.legEmToc li#legEmLink a,
+.legEnContent li#legEnLink a,
+.legEnToc li#legEnLink a,
+.legResources li#legResourcesLink a,
+.legCommencement li#legConmmencementLink a,
+.legIA li#legIALink a
+{background:url("/images/chrome/tab.gif") no-repeat 0 -103px; color: #069;}
+
+.legContent li#legContentLink,
+.legComplete li#legContentLink,
+.legEmContent li#legEmLink,
+.legEmToc li#legEmLink,
+.legToc li#legTocLink,
+.legEnContent li#legEnLink,
+.legEnToc li#legEnLink,
+.legResources li#legResourcesLink,
+.legCommencement li#legConmmencementLink,
+.legIA li#legIALink 
+{background:url("/images/chrome/tab.gif") no-repeat top right;}
+
+.legContent li#legContentLink span.presentation,
+.legComplete li#legContentLink span.presentation,
+.legToc li#legTocLink span.presentation,
+.legEmContent li#legEmLink span.presentation,
+.legEmToc li#legEmLink span.presentation,
+.legEnContent li#legEnLink span.presentation,
+.legEnToc li#legEnLink span.presentation,
+.legResources li#legResourcesLink span.presentation,
+.legCommencement li#legConmmencementLink span.presentation,
+.legIA li#legIALink span.presentation
+{background: none;}
+/* end of Legislation sub navigation */
+
+/* Legislation interface */
+div.interface {display: block; clear: both; width: 100%; background: #fafafa url(/images/chrome/uiSprites.gif) no-repeat 0px -254px; float: left; overflow: auto; padding: 10px 0; min-height: 23px;}
+div.interface ul {margin: 0; padding: 0; list-style: none; float: left; overflow: auto;}
+div.interface ul li {display: inline;}
+#content div.interface {border-top: 1px solid #d3d3d3;}
+
+div.interface div.prevNextNav ul {text-align: right; width: 66%}
+div.interface ul#viewPrintControl {text-align: right; float: right; width: 33%}
+
+div.prevNextNav      .userFunctionalElement {min-width: 6em;}
+
+div.interface .disabled {color: #ACACAC}
+div.interface .active {color: #016398; background: #fff}
+
+.prev .userFunctionalElement .background    {background: url(/images/chrome/iconSprites.gif) no-repeat 0% -101px;  padding-left: 15px; display:block;}
+.prev .disabled .background {background-position: 0 -4351px}
+.next .userFunctionalElement .background   {background: url(/images/chrome/iconSprites.gif) no-repeat 100% -200px; padding-right: 15px; display:block;}
+.next .disabled .background {background-position: 100% -4451px}
+.view .userFunctionalElement    {min-width: 6em;}
+
+/* End of legislation interface */
+
+/* EN & EM interface */
+.legEmToc div.interface,
+.legEnContent div.interface,
+.legEmToc div.interface,
+.legEnContent div.interface 
+{float: none;}
+
+.legEmToc div.interface .prevNextNav ul,
+.legEmContent div.interface .prevNextNav ul,
+.legEnToc div.interface .prevNextNav ul,
+.legEnContent div.interface .prevNextNav ul
+{text-align: center; margin-left: 7%; width: 55%}
+
+.legEmToc div.interface #viewPrintControl,
+.legEmContent div.interface #viewPrintControl,
+.legEnToc div.interface #viewPrintControl,
+.legEnContent div.interface #viewPrintControl
+{text-align: right; width: 23%;  float: right;}
+
+.legEmContent div.interface #wholeNav,
+.legEmToc div.interface #wholeNav,
+.legEnContent div.interface #wholeNav,
+.legEnToc div.interface #wholeNav
+{width: 13%; padding-left: 6px;}
+
+.legEnContent div.interface #wholeNav span.disabled {background: #fff; color: #016398;}
+/* for the secondary bottom options */
+.legEmContent #content div.interface .prevNextNav ul,
+.legEmToc #content div.interface .prevNextNav ul,
+.legEnContent #content div.interface .prevNextNav ul,
+.legEnToc #content div.interface .prevNextNav ul
+{margin-left: 0; text-align: center; width: 100%;}
+
+.legEmContent .prevNextNav ul li.toc .userFunctionalElement,
+.legEmToc .prevNextNav ul li.toc .userFunctionalElement,
+.legEnContent .prevNextNav ul li.toc .userFunctionalElement,
+.legEnToc .prevNextNav ul li.toc .userFunctionalElement
+{padding-left: 15px; padding-right: 15px;}
+/* end of EN & EM interface */
+
+/* More resources */
+.legResources #content .innerContent {float: left; margin: 35px 18px 3px;} /* gives a canvas of 930px */
+.colSection {margin-bottom: 25px;}
+.legResources h3 {margin-bottom: 0.5em; font-size:1.2em; font-weight:bold;}
+.legResources h4 {margin-bottom: 0.5em; font-size: 1em; color: #4B4C4E; font-weight: bold;}
+.colSection h3 {border-bottom: 1px solid #CCC; padding-bottom: 0.25em;}
+.colSection h3 .aside {font-size: 0.8333em; font-style: normal; font-weight: normal}
+.colSection li {margin: 0.5em 0;}
+.legResources .intro,
+.legResources .printPdf
+{margin-top: 0;}
+.legResources .printPdf h3 {width: 310px; float:left; border-bottom: none; margin-left: 8px; margin-bottom: 5px; font-size: 1.3em;}
+.legResources .printPdf * {margin-left: 12px; border: none;}
+.legResources .printPdf li,
+.legResources .printPdf img, 
+.legResources .printPdf a {margin-left: 0;}
+.legResources .printPdf #printPDFIcon {float:right; margin-right: 10px;}
+.legResources .printPdf .plainList a {font-weight: bold;}
+.legResources .printPdf ul {margin-top: 0;}
+.legResources .printPdf h4 {margin-top: 0.75em; margin-bottom: 0.25em;}
+.legResources .printPdf p {margin-right: 70px; margin-bottom: 0.25em; margin-top: 0;}
+.legResources .printPdf p.helpAside {margin-right: 3%;}
+.legResources .column1, .legResources .column2 {margin-right: 5px;}
+.legResources .p_one {clear: left;}
+.filesizeShow li {position: relative; margin-top: 0; margin-bottom: 0}
+.filesizeShow li a {display: inline-block; width: 85%;}
+#layout1 .filesizeShow a.pdfLink {padding-top: 3px;}
+.filesizeShow li .filesize {position: absolute; right:0; font-size: 0.9em; top: 0; color:#676767;}
+.allChanges {border-bottom: 1px solid #CCCCCC; float: left; margin-bottom: 0.5em; width:100%}
+.allChanges h3 {border-bottom: none; float: left; margin-bottom: 0;}
+.relDocs {width: 100%;}
+
+/* Rework grid system for more resources - each col width is, n(930px/12) - 10px where n is the number of columns*/
+#content .legResources .innerContent {margin: 10px 0 10px 6px;}
+.legResources .s_3 {width:222.5px; margin-right: 8px;}
+.legResources .s_3_5 {width:258.25px; margin-right: 8px;}
+.legResources .s_4 {width:300px; margin-right: 8px;}
+.legResources .s_6 {width:455px; margin-right: 8px;}
+.legResources .s_7 {width:532.5px; margin-right: 8px;}
+.legResources .s_7_5 {width:571.25px; margin-right: 8px;}
+.legResources .s_8 {width:610px; margin-right: 8px;}
+.legResources .s_9 {width:687.5px; margin-right: 8px;}
+.legResources .s_10 {width:765px; margin-right: 8px;}
+.legResources .s_12 {width:930px;}
+.legResources .half_col_margin {margin-right: 46.75px;}
+
+/* Confers power and blanket amendments */
+.js .confers_section {border: 1px solid #CCC; border-top: 0; float: left; width:100%; margin-bottom:10px;}
+.legResources .anchors {border: 1px solid #CCC; list-style: none; margin: 0; padding: 0; float: left; background: #EBEFF8;}
+.legResources .anchors li {float: left; margin: 0; border-right: 1px solid #ccc;}
+.legResources .anchors a {display: block; padding: 10px; font-size: 1.2em; font-weight: bold; background: #EBEFF8;}
+.confers_section .plainList {clear: none;}
+.confers_section .p_one {clear: left;}
+.confers_section .s_3 {margin:7px;width:222px;}
+.confers_section .p_one {margin-left: 13px;}
+.confers_section p {margin-bottom: 1em; margin-left: 13px;}
+.js .colSection .confers_title {border: none;}
+.legResources .printPdf {width: 380px; background:#F5F5F5; padding: 10px 0px; border: 1px solid #EBEBEB; float: right; margin:-12px 0 10px;}
+#confers .s_3 {margin:0;width:232.5px;}
+#confers .plainList li {padding: 6px 13px 6px 10px; margin: 0;}
+/* end of more resources */
+
+/* Tools */
+#tools .section {float: left;}
+#tools .userFunctionalElement {position: static;}
+#tools a.userFunctionalElement {color: #069;}
+#tools .section .title {display: block; float: left; width:184px;}
+#tools .section .title h2, 
+#tools .section .title h3 {margin: 0; padding: 0; font-size: 1.0833em; color: #333; float: left;}
+#tools .section .title h2 a {color: #333;}
+#tools .section .title a.helpIcon {display: inline; margin-left: .25em; vertical-align: middle;}
+#tools .section .content {clear: left;}
+#tools .section ul.toolList {padding:0 0 0 4px;}
+#tools .section ul.toolList li {list-style: none; margin-bottom: 5px;}
+#tools .section .toolItem {padding: 0; overflow: auto; margin: 0 0 4px 0;}
+#tools .section .toolItem input {float: left; margin-left: 0;}
+#tools .section .toolItem label {padding-left: 1.8em; display: block;}
+#tools .viewMoreLink {text-align: right;}
+#tools .pdfLink {display: block; float: left; clear: left;}
+
+#whatVersion .userFunctionalElement {width: 167px; text-align: left; position: relative; padding-right: 8px;}
+#whatVersion .background {display: block;padding-left: 17px;margin-left:-10px;}
+#whatVersion #moreOptions .userFunctionalElement {position: static}
+
+#tools #advFeatures li.first { border-top: none;}
+#tools #advFeatures li { border-top: 1px dotted #ccc;}
+#tools #advFeatures li a.userFunctionalElement {color: #4B4C4E; background: url(/images/chrome/iconSprites.gif) no-repeat -5px -2275px; border: none; font-weight: normal; padding:6px 0 0.15em 25px; min-height: 20px; text-align: left;}
+#tools #advFeatures li a.close {background: url(/images/chrome/iconSprites.gif) no-repeat -5px -2425px; font-weight: bold; color: #069;}
+#tools #advFeatures li span.userFunctionalElement {width: 155px; background: url(/images/chrome/iconSprites.gif) no-repeat -5px -2265px; border: none; font-weight: normal; padding:6px 0 0.15em 25px; min-height: 20px; text-align: left;}
+#tools #advFeatures li span.close {background: url(/images/chrome/iconSprites.gif) no-repeat -5px -2425px; font-weight: bold; color: #069;}
+#advFeatures h2 {width: 155px; display: block;}
+#tools .linkContainer {float:right; margin-right: -22px;}
+#advFeatures .content {clear: left;}
+#advFeatures .content a {padding-left: 20px; padding-bottom: 8px;}
+
+#tools #moreOptions li { border-top: 1px dotted #ccc;}
+#tools #moreOptions li a.userFunctionalElement {background: url(/images/chrome/iconSprites.gif) no-repeat -5px -2265px; border: none; font-weight: normal; padding-left: 25px; padding-bottom: 0.15em; padding-top: 6px; min-height: 20px; text-align: left;}
+#tools #moreOptions li a.close {background: url(/images/chrome/iconSprites.gif) no-repeat -5px -2415px; font-weight: bold; color: #069;}
+#moreOptions h2 {width: 155px; display: block;}
+#tools .linkContainer {float:right;}
+#moreOptions a.expandCollapseLink {display: block; height: 20px; float: left; clear: none;}
+#moreOptions .content {clear: left;}
+#moreOptions .content a {padding-left: 20px; padding-bottom: 8px;}
+
+#tools .toolList .userFunctionalElement .background	{background: url(/images/chrome/iconSprites.gif) no-repeat 1px -598px; color: #666;}
+#tools .toolList span.userFunctionalElement .background {background: url(/images/chrome/iconSprites.gif) no-repeat 1px -598px; color: #878787}
+#tools .toolList span.active .background {background: url(/images/chrome/iconSprites.gif) no-repeat 1px -498px; color: #069;}
+#tools .toolList span.disabled .background {background: url("/images/chrome/iconSprites.gif") no-repeat 0px -4649px; color: #ACACAC}
+#tools a.userFunctionalElement {background:url(/images/chrome/interfacebuttonSprites.gif) no-repeat scroll -1px -495px transparent; border:1px solid #666;}
+#tools a.userFunctionalElement .btl {background-position: 0 -494px;}
+#tools a.userFunctionalElement .btr {background-position: 100% -494px;}
+#tools a.userFunctionalElement .bbl {background-position: 0 -557px;}
+#tools a.userFunctionalElement .bbr {background-position: -293px -557px;}
+#tools .userFunctionalElement.active {background:url(/images/chrome/interfacebuttonSprites.gif) no-repeat scroll -1px -424px transparent; border:1px solid #069;}
+#tools .userFunctionalElement.active .btl{background-position: 0 -423px;}
+#tools .userFunctionalElement.active .btr{background-position: 100% -423px;}
+#tools .userFunctionalElement.active .bbl{background-position: 0 -486px;}
+#tools .userFunctionalElement.active .bbr{background-position: -293px -486px;}
+/* Opening options */
+#openingOptions h2 {width: 155px; display: block;}
+#tools .linkContainer {}
+#openingOptions a.expandCollapseLink {display: inline; float: none; clear: none;}
+#openingOptions .content {clear: left;}
+#openingOptions .content a {clear: left; float: left; padding-left: 20px; padding-bottom: 2px; margin:0 0 4px; color:#4B4C4E;}
+#openingOptions .whole a {background: url(/images/chrome/iconSprites.gif) no-repeat 0 -700px;}
+#openingOptions .minusSched a {background: url(/images/chrome/iconSprites.gif) no-repeat 0 -801px;}
+#openingOptions .onlySched a {background: url(/images/chrome/iconSprites.gif) no-repeat 0 -900px;}
+/* end of opening options */
+
+.geoExtent span {font-size: 0.9em; padding-left: 25px; display: block;}
+.geoExtent span.userFunctionalElement { font-size: 1em; }
+dl.geoExtentDict dd {margin-left: 25px; margin-bottom: 0.1em}
+dl.geoExtentDict dd span {font-weight: bold;}
+#advFeaturesContent a.userFunctionalElement {position: static;}
+/* end of tools */
+
+/* expandCollapse Links */
+#tools .section a.helpItem,
+a.expandCollapseLink {display: block; float: right; text-align: right; font-weight: bold; padding-right: 22px; padding-top: 0px; background: url(/images/chrome/iconSprites.gif) no-repeat right -403px;}
+#tools .section a.helpItem {background: none; padding: 0;}
+a.expandCollapseLink span.accessibleText {position: absolute; top: -2000px; left: -5000px; }
+#statusWarning a.expandCollapseLink {float: none;}
+#statusWarning #statusWarningSubSections a.expandCollapseLink {float: right;}
+a.expandCollapseLink.close {background-position:right -302px;}
+/* end of expandCollapse links */
+
+
+/* Status warning box */
+#statusWarning {background: #EACDD2; border-left: 2px solid #cc0001; border-bottom: 2px solid #fff; padding: 10px; width: 744px;}
+#statusWarning p.intro, #statusWarning h2 {display: inline !important; padding-right: 0.25em; font-size: 1em;}
+#statusWarning h2 {color: #990100; float: left; margin: 0; font-size: 1.05em}
+#statusWarning #statusWarningSubSections {display: block; width: 737px;}
+#statusWarning #statusWarningSubSections .section {display: block; border: 1px solid #B87889; background: #F9F7F8; margin-top: 10px; }
+#statusWarning #statusWarningSubSections .section .title {font-size: 1em; padding: 0.3em 15px 0.4em ; background: #f3e7e7 url(/images/chrome/statusWarningSubSectionTitleBg.gif) bottom left repeat-x; overflow: auto;}
+#statusWarning #statusWarningSubSections ul {margin: 0.25em 0; list-style: none; line-height: 1.8em; display: block;}
+#statusWarning #statusWarningSubSections ul li {list-style: none; display: block;}
+#statusWarningSubSections .section .title h3 {font-size: 1em; width: 600px; color: #000; display: inline;}
+
+.hideChangestoLegislation #statusWarning {display:none;}
+.pointInTimeView #statusWarning {background: #FFF9EE; border-left-color: #FF9900;}
+.pointInTimeView #statusWarning h2 {color: #090909;}
+
+#statusWarning #statusWarningSubSections a { font-weight: bold; }
+#statusWarning #statusWarningSubSections .LegAffected { font-weight: bold; }
+
+/* JS placement of close button */
+.js #statusWarning .title .linkContainer a {margin-top: 0.5em; display: inline; color: #4B4C4E}
+.js #statusWarning .title .linkContainer {text-align: right;}
+.js #statusWarning #statusWarningSubSections .title .linkContainer a {margin-top: -1.4em;}
+/* end of JS placement of button */
+
+/* End of Status warning box */
+
+/* Info section box */
+#infoSection {background: #E6EAF5; border-left: 2px solid #333; border-bottom: 2px solid #fff; padding: 10px;}
+#infoSection p.intro, #infoSection h2 {display: inline; padding-right: 0.25em; font-size: 1em;}
+/* End of Info section box */
+
+/* Info draft box */
+#infoDraft {background: #FFF9EE; border-left: 2px solid #f90; border-bottom: 2px solid #fff; padding: 10px;}
+#infoDraft p.intro, #infoDraft h2 {display: inline; padding-right: 0.25em; font-size: 1em;}
+h1.draft {background: #FFF9EE;margin-bottom:10px !important;}
+/* End of Info section box */
+
+/* Info proposed box */
+#infoProposed {background: #FFF9EE; border-left: 2px solid #f90; border-bottom: 2px solid #fff; padding: 10px;}
+#infoProposed p.intro, #infoProposed h2 {display: inline; padding-right: 0.25em; font-size: 1em;}
+h1.proposed {background: #FFF9EE;margin-bottom:10px !important;}
+/* End of Info section box */
+
+/* Back to top */
+#leg #content p.backToTop {margin: 0; text-align: right; background: #E6E6E6; padding: 0; padding-top: 1px; float: left; /* added to stop scrollbars appearing in FF */ bottom: 0; width: 100%; /* can't be 100% because of the border of 1px to the left and right */}
+#leg #content p.backToTop a {font-size: 1em; font-weight: bold; padding: 0.25em 32px 0.35em 0.35em; background: url(/images/chrome/iconSprites.gif) no-repeat top right; color: #069; border-top: 1px solid #fff; display: block; margin-top: -1px;} 
+/* End of Back to top */
+
+/* Back to top periphery pages */
+#per p.backToTop {clear: both; margin: 0; text-align: right; background: #E6E6E6;padding: 0; padding-top: 1px; border: 1px solid #c7c7c7; border-bottom: 0;}
+#per p.backToTop a {font-size: 1em; font-weight: bold; padding: 0.35em 32px 0.25em 0.35em; background: url(/images/chrome/iconSprites.gif) no-repeat top right; color: #069; border-top: 1px solid #fff; display: block; margin: -1px 0;} 
+/* End of Back to top periphery pages */
+    
+#viewLeg .LegSnippet .geoExtInfo {display: block; text-align: right; margin: 0.5em 0 0 0;}
+#viewLeg .LegSnippet .geoExtInfo p {font-weight: bold; display: inline;}
+#viewLeg .LegSnippet .geoExtInfo ul {list-style: none; margin: 0; display: inline;}
+#viewLeg .LegSnippet .geoExtInfo ul li {padding: 0 0.5em; font-size: 0.83em; display: inline;}
+
+/* Crest*/
+.LegSnippet p.crest {text-align:center;}
+
+/* interfaceOptions */
+.interfaceOptionsHeader {border-bottom:1px solid #999999;clear:both; padding:2em 0 0; margin-bottom: 1em; }
+.interfaceOptions {width: 966px; margin: 0 auto;}
+.js .interfaceOptions {clear:both; background: #fff; width: 766px; right: 0; border: 1px solid #0099CB; margin: 0 0 5px 0; float: left; /* add for IE to fix float issue height: 1px; */}
+.legEnToc .interfaceOptions,
+.legEnContent .interfaceOptions {width: 966px; float: none;}
+.js .interfaceOptions, .js .interfaceOptionsHeader {display: none; position: absolute;}
+.closeLink {position: absolute; right: 0; margin: 5px;}
+.interfaceOptions h4 {display: inline; font-size: 1.2em;}
+
+.js ul.optionList {float: right; margin: 0 35px 0 10px; padding: 0;}
+ul.optionList li {list-style: none; float: left;border-left: 2px solid #0099CB;display: block; height: 3.8em; margin: 0.5em 0; padding: 0.5em 0.5em 0 0.5em; margin-right: 0.5em;}
+ul.optionList li a {padding: 0.25em 0.25em 0.25em 0; margin:0.75em 0em 0.75em 0; font-size: 1.2em; font-weight: bold;  font-size: 0.9em; font-weight: normal; color: #000}
+ul.optionList ul {margin-left: 0; margin-top: 0.25em; padding-left: 0;}
+ul.optionList ul li {padding: 0;display: inline; float: none; border-left: none; height: auto;}
+
+#breadCrumb h3 {font-size: 1em; margin: 0.5em 0 0 1.3em;}
+#breadCrumb ul {list-style: none; padding: 0 18px 8px 18px; margin: 0;}
+#breadCrumb ul li {padding: 0 0 0 17px; margin: 0; display: inline; font-weight: bold; background: url(/images/chrome/iconSprites.gif) no-repeat scroll -2px -2747px}
+#breadCrumb ul li.first {background: none; padding: 0;}
+#breadCrumb ul li.active {color: #333;}
+#breadCrumb a {color: #666}
+/* end of Interface Options */
+
+/* Modal Windows */
+.modWin {width: 600px; border: 5px solid #006599; background: #FAFAFA; margin-top: 30px; clear: both; margin-left: auto; margin-right: auto;}
+.js .modWin {display: none;}
+.modWin .title {padding: 1em 30px 0 30px;}
+.modWin .content {padding: 0 30px 1.5em 30px; margin: 0 0 0 0; background: url(/images/chrome/navBgShadow.png) no-repeat bottom left;}
+.modWin h3 {font-size: 1.7em; font-weight: bold; color: #666;}
+.modWin p {font-size: 1.2em;color: #666; line-height: 1.6em;}
+.modWin .interface {float: none;}
+.modWin .interface ul {width: 100%;}
+.modWin li.cancel {float:left; margin-left: 10px;}
+
+.modWin li.continue {float: right;}
+.modWin .interface .userFunctionalElement {padding: 4px 8px;}
+
+/* Individual modal window styles */
+.pdfWarningTitle {margin-left: -12px;}
+.pdfWarningTitle h3 {background: url(/images/chrome/iconSprites.gif) no-repeat 5px -1000px; padding-left: 60px; min-height: 55px; }
+.webWarningTitle h3 {background: url(/images/chrome/iconSprites.gif) no-repeat 0 -1950px; padding-left: 60px; min-height: 55px; }
+.openingWholeWarningTitle h3 {background: url(/images/chrome/iconSprites.gif) no-repeat 0 -700px; padding-left: 60px; min-height: 55px; }
+.openingWholeWithoutSchedulesWarningTitle h3 {background: url(/images/chrome/iconSprites.gif) no-repeat 0 -801px; padding-left: 60px; min-height: 55px; }
+.openingSchedulesOnlyWarningTitle h3 {background: url(/images/chrome/iconSprites.gif) no-repeat 0 -900px; padding-left: 60px; min-height: 55px; }
+/* end of modal windows */
+/*---------------
+6. Homepage
+---------------*/
+
+#per.home #siteLinks {background: #F6FAFD; padding-top: 2em; float: left; width: 970px;}
+
+/* Homepage items  */
+#per.home .section {border-right: 1px dotted #99999B; margin-left: 1px;  min-height: 18.5em; border-bottom: none; margin-bottom: 0.5em;}
+#per.home .section  ul.linkList {min-height: 11.5em;}
+#per.home .section p.info {}
+#per.home .section p.viewMoreLink {padding-bottom: 0; margin-bottom: 0.25em;}
+
+#per.home .importantLink {border-color:#999}
+#per.home .importantLink h2 {background: #fff; border: 0; color:#333; font-size: 1.1em;}
+#per.home h2 {font-size: 1.25em;}
+
+#per.home #intro #animContent {position: relative; background: #02385A; border-right: 1px solid #fff;}
+#per.home #intro #animContent {width: 968px; height: 22em; display: block;  position: relative;}
+#per.home #layout1 #animContent {height: 22em;}
+#per.home #intro #animContent div {display: inline; clear: left; overflow: hidden}
+#per.home #intro #animContent div, #per.home #intro {width: 968px; margin: 0 auto; position: relative; }
+#per.home #intro #layout1.js #animContent, 
+#per.home #intro #animContent div {height: 17.85em; border-right: 1px solid #fff;}
+#per.home #intro #animContent h2 {height: 100%; width: 45px; overflow: hidden}
+
+#per.home #intro ul#countryLeg {display: block;list-style: none; width: 969px; margin: 0 auto; padding: 0; display: block;background: #F9F9F9 url(/images/chrome/navBg.gif) repeat-x bottom left; height: 4.15em; position: relative; margin-top: -4.15em;}
+#per.home #intro ul#countryLeg {display: none}
+#per.home #intro ul#countryLeg li {list-style: none; display: inline;}
+#per.home #intro ul#countryLeg li a {font-size: 1.3em; font-weight: bold; color: #0F2741; padding: 1em 1.375em 0.8em; float: left; border-right: 1px solid #C0C5C8;} 
+
+#per.home .welcome ul#countryLeg li a#welcome {background: #02385A url(/images/chrome/homeButtonBgWelcome.gif) bottom right; color: #fff}
+#per.home .uk ul#countryLeg li a#uk{background:#9D6123 url(/images/chrome/homeButtonBgUk.gif) bottom right; color: #fff}
+#per.home .scotland ul#countryLeg li a#scotland {background: #430021 url(/images/chrome/homeButtonBgScotland.gif) bottom right; color: #fff}
+#per.home .wales ul#countryLeg li a#wales {background: #002E2E url(/images/chrome/homeButtonBgWales.gif) bottom right; color: #fff}
+#per.home .ni ul#countryLeg li a#ni {background:#5B4F65 url(/images/chrome/homeButtonBgNi.gif) bottom right; color: #fff}
+
+#per.home #intro #animContent .welcome, #per.home #intro #animContent .scotland, #per.home #intro #animContent .wales, #per.home #intro #animContent .uk, #per.home #intro #animContent .ni {display: none;}
+.welcome #animContent .welcome, .js .scotland #animContent .scotland, .js .wales #animContent .wales, .js .uk #animContent .uk, .js .ni #animContent .ni {display: block !important;}
+
+#per.home #intro.welcome #animContent .welcome{background: #02385A url(/images/chrome/homepageCountryBG/welcome.jpg) no-repeat bottom left;}
+#per.home #intro.scotland #animContent .scotland{background: #430021 url(/images/chrome/homepageCountryBG/scotland.jpg) no-repeat bottom left; display: none}
+#per.home #intro.wales #animContent .wales {background: #002E2E url(/images/chrome/homepageCountryBG/wales.jpg) no-repeat bottom left; display: none}
+#per.home #intro.uk #animContent .uk{background: #9D6123 url(/images/chrome/homepageCountryBG/uk.jpg) no-repeat bottom left; display: none}
+#per.home #intro.ni #animContent .ni{background: #5B4F65 url(/images/chrome/homepageCountryBG/ni.jpg) no-repeat bottom left; display: none;}
+
+#per.home #intro div#animContent h2 {margin: 0; padding: 0;}
+#per.home #intro.welcome div#animContent h2 {}
+#per.home #intro.scotland div#animContent h2 {background: url(/images/chrome/homepageCountryBG/scotland_title.jpg) no-repeat;}
+
+#per.home #intro.wales div#animContent h2 {background: url(/images/chrome/homepageCountryBG/wales_title.jpg) no-repeat;}
+#per.home #intro.uk div#animContent h2 {background: url(/images/chrome/homepageCountryBG/uk_title.jpg) no-repeat;}
+#per.home #intro.ni div#animContent h2 {background: url(/images/chrome/homepageCountryBG/ni_title.jpg) no-repeat;}
+
+#per.home #intro.ni div.animContent.js h2 {position: absolute; top: -8px;}
+#per.home #intro div ul {width: 520px; left: 76px; position: absolute; bottom: 10px; padding: 0; text-align: right;}
+#per.home #intro div ul a {color: #fff; font-weight: bold;}
+#per.home #intro div ul a span.pageLinkIcon {display: none;}
+#per.home #intro div ul li {list-style: none; display: inline;  background:transparent url(/images/chrome/greyBg.png) no-repeat scroll right 14.2%; margin-left: 15px; padding: 5px 16px 5px 8px;}
+#per.home #intro div ul li a:hover {text-decoration: underline;}
+
+/* IE 6 NOTE - All min-heights need replacing to height to function correctly /*
+
+/* Search box - homepage only */
+#per.home #contentSearch {position: absolute; right: 5px; top: -3.4em; width: 302px; background: #FFF; border: 1px solid #F7F7F7; border-top: 2px solid red; min-height: 19.85em; padding: 0 6px 9px 6px;}
+#per.home #contentSearch h2 {position: relative; left: 0; text-align: right; margin: 0.7em 0 1.2em 0; font-size: 1.2em}
+#per.home #intro div.animContent.js #contentSearch h2 {font-size: 1.2em; text-align: right; margin-bottom: 1.1em; background: none; width: auto;}
+#per.home #contentSearch select {font-size: 0.9em; margin-left: 0;}
+#per.home #contentSearch input { margin-right: 0; width: 84.5%; margin-left: 0;}
+#per.home #contentSearch button {float: right; margin-right: 0;}
+#per.home #contentSearch label {display: block; float: left; width: 2.5em; padding: 0.3em 0.3em 0.3em 0;}
+#per.home #contentSearch label em {display: none;}
+#per.home #contentSearch div {float: left; width: inherit}
+#per.home #contentSearch .title {margin-bottom: 15px; width: 298px}
+#per.home #contentSearch .title input {}
+#per.home #contentSearch .year{width: 132px;}
+#per.home #contentSearch .year input {width: 4.5em;}
+#per.home #contentSearch .number {text-align: right; width: 130px; float: right; margin-right: 0;}
+#per.home #contentSearch .number label {width: 3.5em;}
+#per.home #contentSearch .number input {width: 4.75em; margin-left: 5px;}
+#per.home #contentSearch .type {margin-top: 10px;}
+#per.home #contentSearch .type input {}
+#per.home #contentSearch .submit {text-align: right; padding: 15px 0 9px 0; width:97%;}
+#per.home #contentSearch .advSearch {text-align: right; font-size: 1.15em; font-weight: bold; clear: both; width: 96.5%;}
+#per.home #contentSearch .advSearch a {color: #069;margin-right:0;}
+/* IE corrections */
+/* Give search button auto width back IE6 & 7 */
+*:first-child+html #contentSearch .userFunctionalElement {min-width: 0;} * html #contentSearch .userFunctionalElement {min-width: 0;}
+/* End of IE corrections */
+
+/*---------------
+7. Misc. ID & Class typography
+---------------*/
+
+.plainList {list-style: none; padding: 0; margin-left: 0; clear: left;}
+.plainList li {list-style: none;}
+
+/* Header items {*/
+#header h1 {line-height: 1.2em; margin: 10px 10px 20px 10px; display: block; float: left;}
+/* end of header items */
+
+.sci h1 {padding: 8px 9px 0 11px;}
+
+.searchResults dt {font-weight: bold; display: inline; float: none; clear: none;}
+.searchResults dd {display: inline;}
+
+/* Help icons */
+a.helpItem {padding-left: 0.25em;}
+a.helpItem img {vertical-align: middle; margin-bottom: 1px;}
+
+ul#legSubNav .help a {background:none}
+ul#legSubNav .help span {background:none}
+ul#legSubNav .helpItem {right: 0px; background:none; padding: 0; display:block; float:left}
+ul#legSubNav li a.helpItem {border: none; background: none; padding: 0.65em 0.5em 0 0.5em;}
+
+#legSubNav #enTab a.helpItem img {right: -5px;}
+
+#tools .helpItem {margin-left: 0.35em;}
+/* end of help icons */
+
+/* Begin misc classes */
+p.advSearch {text-align: right;}
+.jsHiddenText {display: inherit}
+.jsShownText  {display: none;}
+.js .jsHiddenText {display: none;}
+.js .jsShownText {display: inherit;}
+.htabs a {border-bottom: 1px solid #CCC}
+.htabs a:hover {background: #fff; color: #069; text-decoration: underline}
+.legResources .htabs li {margin-bottom: -1px; }
+.legResources .htabs .active,
+.htabs .active {background: #fff; border-bottom: 1px solid #FFF}
+/* end misc classes */
+
+/* Link list layout */
+ul.linkList, ol.linkList {margin-bottom: 1em;}
+ul.linkList li, ol.linkList li {list-style: none; margin: 0; padding: 0 0 0.35em 0;}
+ul.linkList li a, ol.linkList li a {display: inline;}
+/* End of link list layout */
+
+/* View more links */
+ul.linkList li.viewMoreLink, ol.linkList li.viewMoreLink, p.viewMoreLink {border: 0; font-weight: bold; padding-top: 1em;}
+p.viewMoreLink {clear: left;padding-bottom:0.75em;padding-top:0;}
+/* End of view more links */
+
+/* special case content item */
+.noBorder {border: 0;}
+.noBorder ul.linkList {padding: 0;}
+/* end of special case content item */
+
+/* periphery page styles */
+#doc h2,
+#doc legend {color: #494949; font-size:1.6em; line-height: 1.6em; font-weight: normal;}
+#doc h3 {margin-bottom: 0.5em; font-size:1.2em; font-weight:bold;}
+#doc h4 {margin-bottom: 0.5em; font-size: 1em; color: #4B4C4E; font-weight: bold;}
+#error h3, 
+#doc h3 {margin-bottom: 0.5em; font-size:1.2em; font-weight:bold;}
+#doc h4 {margin-bottom: 0.5em; font-size: 1em; color: #4B4C4E; font-weight: bold;}
+#error p, 
+#doc p, 
+#doc address  
+{margin-top: 0; margin-bottom: 1em; display: block;}
+#doc p.intro, 
+#doc p.first 
+{margin-top: 0.25em;}
+#error p.first,
+#doc p.first
+{font-size:1em;}
+#doc #content ul, 
+#doc #content ol 
+{margin: 0 0 1em 0;}
+#doc #content ul.plainList {padding-left: 0; list-style: none;}
+#doc #content ul.plainList li {margin-bottom: 0.5em;}
+#doc p.contentBackToTop {text-align: right; margin-top: -0.75em;}
+.helpPage dt {display: block; float: none;}
+
+#error .subNavPage #content,
+#doc .subNavPage #content
+{padding: 10px 14px 10px 10px;}
+#doc .subNavPage #pageTitle {padding-left: 245px;}
+#subNav .section {border: 0;}
+#subNav .section li, 
+#subNav .section h3
+{padding: 10px 8px;}
+#subNav ul {list-style: none; margin: 0; padding: 0;}
+#subNav li {border-bottom: 1px dotted #CCC; display: block}
+#subNav .sectionNav li.last {border-bottom: 1px solid #CCC; }
+#subNav .resources {background: #FFF url(../images/chrome/subNavResourcesBg.gif) no-repeat top right; border: 1px solid #FFF; min-height: 615px;}
+#subNav .resources h3 {font-size: 1em; margin-top: 0.5em; padding-top: 5px; padding-bottom: 0;}
+#subNav .resources li {border: 0; padding-top: 2px; padding-bottom: 4px;}
+
+#doc h2.source {margin-top: 1.5em;}
+.visit {font-size: 1.3em; font-weight: bold; color: #666;}
+.visit a {color: #0f3f9f}
+
+/*---------------
+8. Misc. Sections
+These sections are large enough to contain their own subsection but are not generic to one section of the site.
+---------------*/
+.subscribe a .background {background: url(/images/chrome/iconSprites.gif) no-repeat 100% -4547px; padding-right: 16px; display: block;}
+
+ul.docLinks li {background: url(/images/chrome/iconSprites.gif) no-repeat -6px -4150px; padding-left: 16px;}
+span.pageLinkIcon {background: transparent url(/images/chrome/iconSprites.gif) no-repeat 100% -3546px; height: 12px; width: 8px; display:inline-block}
+
+/* Table sorting - asc arrows points up, desc arrow points down */
+table a.sortAsc, 
+table a.sortDesc, 
+table span.sortAsc,
+table span.sortDesc   {background: url(../images/chrome/tableSortIcons.gif) no-repeat 0 2px; padding-left: 16px;}
+/*table span.sortAsc:hover,  !IMPORTANT DO NOT USE THIS RULE - causes massive rendering hit to IE 7 & 8*/
+table a.sortAsc:hover{background-position: 0 -98px; color: #069}
+table a.sortAsc:hover, table a.sortAsc.active:hover, table a.sortDesc.active {background-position: 0 -98px; color: #069}
+table a.sortDesc:hover, table a.sortDesc.active:hover, table a.sortAsc.active {background-position:0 -298px; color: #069}
+table a.sortAsc {background-position: 0 -198px;}
+table span.active {background-position: 0 -98px; color: #069}
+
+.userFunctionalElement {color: #666; font-weight: bold; border: 1px solid #E5E5E5; border-bottom: 1px solid #fff; padding:1px 12px 2px; position: relative; text-decoration: none; display: inline-block; text-align: center; margin-right: 9px; min-width: 3.5em; font-family: "Gill Sans / Gill Sans MT", sans-serif; margin-bottom: 0;  background:transparent url(/images/chrome/interfacebuttonSprites.gif) no-repeat scroll -1px -211px;}
+a.userFunctionalElement {cursor: pointer; cursor: hand; line-height: 1.5em;}
+.userFunctionalElement .btl, .userFunctionalElement .btr, .userFunctionalElement .bbl, .userFunctionalElement .bbr {position: absolute;  width: 8px;  height: 8px; margin: -1px;}
+.btl {background: url(/images/chrome/interfacebuttonSprites.gif) no-repeat 0 -211px;  top:    0px;  left:  0px;}
+.btr {background: url(/images/chrome/interfacebuttonSprites.gif) no-repeat 100% -211px;  top:    0px;  right: 0px;}
+.bbl {background: url(/images/chrome/interfacebuttonSprites.gif) no-repeat 0px -273px;  bottom: 0px;  left:  0px;}
+.bbr {background: url(/images/chrome/interfacebuttonSprites.gif) no-repeat -293px -273px;  bottom: 0px;  right: 0px;}
+a.userFunctionalElement:hover {text-decoration: underline}
+
+/* For blue links - all should be navigational */
+a.userFunctionalElement.nav {border: 1px solid #006599; background: url(/images/chrome/interfacebuttonSprites.gif) no-repeat -1px -71px !important;}
+.userFunctionalElement.nav .btl {background-position: 0px -70px}
+.userFunctionalElement.nav .btr {background-position: -293px -70px}
+.userFunctionalElement.nav .bbl {background-position: 0px -132px}
+.userFunctionalElement.nav .bbr {background-position: -293px -132px}
+
+/* To turn the links white when active */
+a.userFunctionalElement.close {background: #fff; color: #069}
+.interface .userFunctionalElement.active,
+.interface .userFunctionalElement.close 
+{border: 1px solid #069; background: #FFF url(/images/chrome/interfacebuttonSprites.gif) no-repeat -1px -141px !important;}
+.interface .userFunctionalElement.active .btl,
+.interface .userFunctionalElement.close .btl {background-position: 0px -140px}
+.interface .userFunctionalElement.active .btr,
+.interface .userFunctionalElement.close .btr {background-position: -293px -140px}
+.interface .userFunctionalElement.active .bbl,
+.interface .userFunctionalElement.close .bbl {background-position: 0px -202px}
+.interface .userFunctionalElement.active .bbr,
+.interface .userFunctionalElement.close .bbr {background-position: -293px -202px}
+
+button.userFunctionalElement span {display: none;}
+button.userFunctionalElement {background:#676767 url(/images/chrome/grey_button.gif) repeat-x bottom left;font-size: 1.2em; color: #fff; padding: 0.25em; border: none;}
+
+/*.interface .userFunctionalElement.active.nav {background:url(/images/chrome/interfacebuttonSprites.gif) no-repeat scroll -1px -424px transparent !important; border:1px solid #069;}
+.interface .userFunctionalElement.active.nav .btl{background-position: 0 -423px;}
+.interface .userFunctionalElement.active.nav .btr{background-position: 100% -423px;}
+.interface .userFunctionalElement.active.nav .bbl{background-position: 0 -486px;}
+.interface .userFunctionalElement.active.nav .bbr{background-position: -293px -486px;}*/
+/* button link end */
+
+/* Help aside */
+.helpAside {text-align: right;}
+
+/* Begin help boxes */
+/* reset font-sizes based on where help items are loaded */
+#layout1 #layout2 #tools .help {font-size: 96.5%;}
+
+/* Default is for a help item with arrow pointing up */
+.help {z-index:1000; text-align: left; width:500px; margin: 10px auto;}
+.js .help {position: absolute; width: 300px; margin: 0;}
+.help .content {background:#fff; border: 1px solid #20A4D4; padding: 15px; clear:both;}
+.help .close, 
+.help .icon {display: none;}
+.js .help .close {padding: 2px !important;float: right !important; margin: -15px -15px 0 0 !important; display: block;}
+.js .help .icon {background: url(/images/chrome/triangle.png) no-repeat 0 0 !important; width: 12px; height: 10px; display:block; position: absolute;}
+#statusWarning p.intro span.icon {padding: 0; display: block;}   
+
+#layout1 #layout2 .help ul {margin: 0; padding: 0 1.5em; list-style: disc outside;}
+#layout1 #layout2 .help ul * {float: none; background: none; font-weight: normal; padding: 0; line-height: 1.5em; list-style: disc outside; display:list-item}
+#layout1 #layout2 .help ul li {color: #494949}
+
+/* Pointer styles - added to XHTML by JS */
+/* Use of !important to overwrite any predexisting styles when injected by DOM */
+.helpToLeftTop {padding-right: 8px;}
+.helpToLeftTop .content {border-right: 3px solid #20A4D4;}
+.js .helpToLeftTop .icon {top: 12.5px; right: 0; background-position: -40px 0 !important;}
+
+.helpToLeftMid {padding-right: 8px;}
+.helpToLeftMid .content {border-right: 3px solid #20A4D4;}
+.js .helpToLeftMid .icon {top: 50%; right:0; background-position: -40px 0 !important; margin-top: -6px;}
+
+.helpToLeftBot { padding-right: 8px;}
+.helpToLeftBot .content {border-right: 3px solid #20A4D4;}
+.js .helpToLeftBot .icon {}
+
+.helpToRightTop { padding-left: 8px;}
+.helpToRightTop .content {border-left: 3px solid #20A4D4;}
+.js .helpToRightTop .icon {top: 12.5px; left: 0; background-position: -26px 0 !important;}
+
+.helpToRightMid {padding-left: 8px;}
+.helpToRightMid .content {border-left: 3px solid #20A4D4;}
+.js .helpToRightMid .icon {top: 50%; left:0; background-position: -26px 0 !important; margin-top: -6px;}
+
+.helpToRightBot {padding-left: 8px;}
+.helpToRightBot .content {border-left: 3px solid #20A4D4;}
+.js .helpToRightBot .icon {}
+
+.helpToMidBot {padding-bottom: 8px;}
+.helpToMidBot .content {border-bottom: 3px solid #20A4D4;}
+.js .helpToMidBot .icon {bottom: 0 !important; right: 152px; background-position: -15px 0 !important;}
+
+.LegSnippet div.helpToMidTop,
+.helpToMidTop {padding-top: 8px; background-color: transparent;}
+.helpToMidTop .content {border-top: 3px solid #20A4D4;}
+.helpToMidTop .icon {top: 0; right: 144px;}
+.LegSnippet .helpToMidTop .content {font-size: 1.2em;}
+
+
+/* Create the typographic layout and overwrite any defaults carried over from the DOM injection */
+#layout1 #layout2 .help p {margin:0; font-weight:normal; padding: 0; line-height: 1.5em;}
+#layout1 #layout2 .help p + p {margin-top: 1em;} /* ignored by IE 6, slightly different looking typography */
+#layout1 #layout2 .help p b {font-size: 1em; color: #000; margin-bottom: 0.75em; margin-right: 0.25em;}
+#layout1 #layout2 .help h3 {font-size: 1.1em; color: #000; margin-bottom: 0.75em; display: block; float: none;}
+.help dl {margin-top: 0;}
+.help dd {margin: 0;}
+.help dd + dt, .help dd {margin-top: 1em;}
+.help dt {color: #000; margin-right: 0.3em;}
+/* end of help boxes */
+
+/* Modal windows */
+#printModalWin {display: none; width: 250px; background: #fff; position: absolute; }
+#modalBg {background: #000;position: absolute; height: 400px; width: 400px; display: none; top: 0; left: 0; opacity: 0.8;}
+#previewImgWin {text-align:center;}
+#previewImgWin iframe {border: 0; margin-top: 40px; border:2px solid #069; margin-top:3em;}
+#previewImgWin .title {font-size:1.6em;margin:0.25em 0.45%;padding:0;position:absolute;}
+#previewImgWin .closeLink {margin:5px;position:absolute;right:0;}
+/* end of Modal windows */
+
+/* link bgs - use the #layout1 to overide cascadence where needed */
+#layout1 a.pdfLink {background: url(/images/chrome/iconSprites.gif) no-repeat 0px -1320px; padding-left: 23px; padding-top: 5px; padding-bottom: 5px}
+#layout1 a.htmLink {background: url(/images/chrome/iconSprites.gif) no-repeat 0 -1443px;  padding-left: 23px}
+/* end of link bgs */
+
+/* View PDF versions of Leg */
+#viewLegContents .downloadPdfVersion {margin-top: 1.5em; text-align: center; margin: 0 auto;}
+#viewLegContents .downloadPdfVersion a.pdfLink {padding-top: 0.25em; line-height: 3em; font-weight: bold; background: none;}
+#viewLegContents .downloadPdfVersion a.pdfLink:hover {text-decoration: none;} /* removed to stop icon link errors */
+#viewLegContents .downloadPdfVersion a.pdfLink img.imgIcon {margin-bottom: -10px; margin-left: -10px; margin-right: 5px;}
+#viewLegContents .downloadPdfVersion a.pdfLink img.pdfThumb {display: block; margin: 0 auto; width: 440px;}
+
+#viewLegContents .downloadPdfVersion span {display: block; width: 500px; text-align: center; margin:0 auto;}
+#viewLegContents .downloadPdfVersion span a.pdfLink {width: 220px; display: block; float: left; background: none;}
+#viewLegContents .downloadPdfVersion span a.pdfLink img.pdfThumb {width: 220px; float: left;}
+/* end of view PDF versions of Leg */
+
+/*---------------
+9. Z-Axis amendments
+All z-axis orders are contained in this section for easy updates.
+---------------*/
+.modWin {z-index: 4000 !important}
+#modalBg {z-index: 3999}
+.interfaceOptions {z-index:50;}
+
+#contentSearch {z-index: 38990}
+body.home #intro .content {z-index: 3800}
+body.home #intro {z-index: 3799}
+ul#navTabs li.active {z-index: 25}
+ul#navTabs li {z-index: 24}
+
+/*------------------
+10. Plain view
+Used for printing or viewing without menus, to print successfully the print stylesheet also needs to be used.
+-------------------*/
+.plainView #layout1 {margin-top: 0;}
+.plainView #layout2 {margin-top: 0;}
+
+.plainView #layout1 #content {border: 0; overflow: hidden; width: 100%;}
+.plainView #layout1 .LegSnippet {min-width: 0; margin: 0 auto; padding: 0 5px; border: 0;}
+
+.plainView #layout1 #header {min-height: 47px;}
+.plainView #layout1 #header h2 {float: left; margin: 2px 0 5px 0; height: auto;}
+.plainView #layout1 #header a {font-weight: bold; color: #000; float: right; margin-top: 1.3em}
+
+.plainView #layout1 #background {height: 1px; width: 100%; background: #999; clear: both;}
+
+.plainView #layout1 .interface {border: 0; margin: 0 auto; float: none; background-repeat: repeat-x; background:none;}
+.plainView .interface .prevNextNav ul {float: none; margin: 0 auto;text-align:center; width:60%;}
+
+.plainView #layout2 h1 {width: 960px; border: none; padding-left: 0;}
+
+/*
+ Change userInterfaceElements for white background - 
+ This adds a bg gradient to their surrounding <li> element, this is because the link elements already have icon backgrounds.
+ Remember that the coordinates on css backgrounds are x and then y
+*/
+
+/* Elements that need gradient backgrounds */
+.plainView .interface .prevNextNav ul li {display: inline; position: relative; margin: 0 5px; padding-right: 0; padding: 0.25em 0;}
+
+.plainView .userFunctionalElement {background-position:  0 -282px;margin-right: 0;}
+.plainView .btl {background-position: 0 -281px;top: 0px; left:0px;}
+.plainView .btr {background-position:  -293px -281px;top: 0px; right: 0px;}
+.plainView .bbl {background-position:  0 -344px; bottom: 0px; left:  0px;}
+.plainView .bbr {background-position:  -293px -344px;bottom: 0px; right: 0px;}
+
+/*------------------
+11. Search pages and static search browse pages
+-------------------*/
+#search #content, 
+#browse #content
+{border-left: 0; border-right: 0; padding-left: 4px; padding-right: 0px;}
+
+#search #tools, 
+#browse #tools
+{border-left: 1px solid #FFF;}
+
+.contentFooter {padding-top: 5px; background: url(/images/chrome/navBgShadow.png) repeat-x top left; float: left; width: 100%; clear: left;}
+
+#search .contentFooter,
+#browse .contentFooter,
+#doc .contentFooter
+{ margin-bottom: 1px;}
+
+#search .interface,
+#browse .interface,
+#doc .interface
+{float: none; width: auto; height: auto; overflow: visible; position: relative;}
+
+#browse .contentFooter .interface,
+#search .contentFooter .interface,
+#doc .contentFooter .interface,
+#content .contentFooter .interface
+{border: 1px solid #CFCFCF;}
+
+/* Table styles */
+#search table, 
+#browse table 
+{border: 0; border-bottom: 1px solid #CFCFCF; border-right: 1px solid #CFCFCF}
+
+#search.fullPageResults table {border: 1px solid #CFCFCF; margin: -1px 1px; width: 949px;/* to force border collapse if not working correctly */}
+
+#search td,
+#browse td
+{border-left: 1px solid #E4E4E4;}
+
+#search th img,
+#browse th img
+{vertical-align: middle; margin-right: 5px;}
+
+#search tr td:first-child,
+
+#browse tr td:first-child
+{border-left: none;} /* this fixes an IE8 bug where td is given precedence over the table border */
+
+#search tr.oddRow td,
+#browse tr.oddRow td
+{background: #F1F1F1;}
+
+#search td,
+#search td a,
+#browse td,
+#browse td a {line-height: 1.5em;}
+
+#search td a:visited,
+#browse td a:visited
+{color: #2790C4}
+
+#browse tr td.bilingual.cy {border-top: 1px solid #E4E4E4;}
+#browse tr td.bilingual {padding: 0.25em;}
+/* end of table styles */
+
+/* Interface */
+.prevPagesNextNav {width: auto; text-align: center;}
+div.prevPagesNextNav ul {width: auto; float: none; display: block; margin: 0 auto; overflow: visible;}
+.prevPagesNextNav ul li {display: inline;}
+.prevPagesNextNav li.prev {}
+.prevPagesNextNav li.last {margin-left: 10px;}
+
+.prevPagesNextNav li { overflow: hidden;}
+.prevPagesNextNav li.pageLink,
+.prevPagesNextNav li.lastPageLink {font-size: 0.95em; letter-spacing: 0.1em; line-height:2.5em; padding: 8px 8px; display: block; display: inline; background: url(/images/chrome/navDivider.gif) no-repeat bottom right;}
+.prevPagesNextNav li.pageLink a {padding-left: 0.1em; border-bottom: 1px solid; text-decoration: none; font-weight: bold; color: #3886AC;}
+.prevPagesNextNav li.pageLink a:hover {text-decoration: none; border: 0;}
+.prevPagesNextNav li.lastPageLink {background: none;}
+.prevPagesNextNav li.next {background: none; /* remove the divider */}
+
+.contentFooter .prevNextNav {width: 86.6%}
+/* End of interface */
+
+/* Back to top */
+#search p.backToTop,
+#browse p.backToTop,
+#doc p.backToTop,
+p.backToTop
+{margin: 0; text-align: right; background: #E6E6E6; padding: 0; padding-top: 1px; clear: left; border: 1px solid #CFCFCF; border-top: 0; border-bottom: 0; margin-bottom: -2px;}
+#search p.backToTop a,
+#browse p.backToTop a,
+#doc p.backToTop a 
+{font-size: 1em; font-weight: bold; padding: 0.05em 32px 0 0; line-height: 2em; background: url(/images/chrome/iconSprites.gif) no-repeat top right; color: #3886AC; margin: 1px; display: block;}
+#doc.changeLeg p.backToTop {margin-bottom: 20px;}
+/* End of Back to top */
+
+/* Results info */
+#search .info,
+#browse .info {background:transparent url(/images/chrome/navBgShadow.png) no-repeat left bottom; padding-bottom: 10px;}
+
+#search .info h2,
+#browse .info h2 {font-weight: 600; padding: 0 20px; margin: 0;}
+
+#search .info h2,
+#browse .info h2,
+#search .info h2 strong strike { color: #666; }
+#search .info h2 strong,
+#browse .info h2 strong { color: #333; }
+
+#search .info p { padding: 0 20px; margin: 0; }
+/* end of results info */
+
+/* Tools section */
+#search #tools h3, 
+#browse #tools h3,
+#search #tools h4, 
+#browse #tools h4
+{color: #3B3B3B}
+
+#search #tools .section ul,
+#browse #tools .section ul 
+{float: left; width: 88.5%;}
+#search #tools .section ul li,
+#browse #tools .section ul li
+{float: left; width: 50%;}
+
+#search #tools #miniPageNav,
+#browse #tools #miniPageNav 
+{float: left; padding: 0; width: 100%;}
+#search #tools #miniPageNav li,
+#browse #tools #miniPageNav li 
+{width: auto; padding: 5px;}
+#search #tools #miniPageNav li a.disabled,
+#browse #tools #miniPageNav li a.disabled 
+{cursor:default;}
+#search #tools #miniPageNavCurrent,
+#browse #tools #miniPageNavCurrent 
+{font-size: 0.9em; font-weight: bold;}
+
+#search #tools ul li, 
+#browse #tools ul li 
+{list-style: none;}
+
+#search #tools ul li.legType, 
+#browse #tools ul li.legType
+{clear: left; width: 100%; padding: 0.25em 0;} 
+
+#search #tools .section, 
+#browse #tools .section 
+{float: left; width: 199px; border-bottom: 1px dotted #DDD}
+
+#search #tools .userFunctionalElement,
+#browse #tools .userFunctionalElement 
+{text-align: left; background: none;}
+
+#search #tools ul li.returnLink, 
+#browse #tools ul li.returnLink
+{width: 175px; border: 0;}
+
+#search #tools ul li.returnLink a, 
+#browse #tools ul li.returnLink a 
+{background: url(/images/chrome/iconSprites.gif) no-repeat -5px -2588px; padding-left: 15px; font-weight: bold; color: #006193; width: 180px;}
+
+#search #tools .content span.disabled,
+#browse #tools .content span.disabled 
+{font-weight: bold; color: #006193; border: 0; padding-left: 0; padding-right: 0;}
+
+#browse #tools #heading ul,
+#search #tools #heading ul
+{margin-bottom: 0; padding-bottom: 10px;}
+
+#browse #tools #heading li.legHeading,
+#search #tools #heading li.legHeading 
+{width: 20px; height: 20px; border: 1px solid #cdcdcd; margin: 1px;  text-align:center; font-weight: bold;}
+
+#browse #tools #heading li.legHeading.legHeading a, 
+#search #tools #heading li a 
+{padding-top: 1px; width: 100%; height: 100%; display: block;}
+
+#browse #tools #heading, 
+#search #tools #heading 
+li.empty {color: #9a9a9a;}
+
+#browse #tools #heading li a:hover,
+#search #tools #heading li a:hover,
+#browse #tools #heading li.active,
+#search #tools #heading li.active
+{background: #2680bf; color: #FFFFFF}
+
+#browse #tools a:visited,
+#search #tools a:visited
+{color: #2790C4}
+
+#tools #refineSearch form {padding:0 7px;}
+#tools #refineSearch form p {padding: 0; clear: both; margin: 0.75em 0 0.25em}
+#tools #refineSearch select {width:100%;  margin-top: 0.25em; padding:5px 3px; }
+#tools #refineSearch input  {width:174px; margin-top: 0.25em}
+#tools #refineSearch label {}
+#tools #refineSearch .group {width: 182px; margin: 5px 0; clear: left; float:left}
+#tools #refineSearch .submit {text-align: right}
+#tools #refineSearch .radio {width: auto; background: none; border:none;padding: 0}
+#tools #refineSearch .englishLang {float: left; width: 45%}
+#tools #refineSearch .welshLang {margin-left: 45%}
+#tools #refineSearch .yearChoiceFields div {margin: 5px 0}
+#tools #refineSearch .yearChoiceFields input {width: 50px;}
+#tools #refineSearch .yearChoiceFields label {float:left;line-height:2.5em;margin-right:5px;text-align:right;width:60px;}
+#tools #refineSearch .userFunctionalElement {background: #676767 url(/images/chrome/grey_button.gif) repeat-x scroll left bottom; margin: 0.5em 0}
+#refineSearch .searchExtendsTo {padding-bottom: 5px; float: left;}
+#refineSearch .searchExtendsTo .radio {}
+#refineSearch .searchExtendsTo label {float: left; clear: left; width: 95%}
+#refineSearch .searchExtendsTo .opt2 {padding-left: 18px}
+#refineSearch .searchExtendsTo #extentSearchInfo h4 { line-height: 1.5em; }
+#refineSearch .searchExtendsTo .LegExtentRestriction {font-size: 0.9em; line-height: 1.2em; margin-top: 0.2em; padding: 2px 1.25em 3px 1.25em; margin-right: 5px; vertical-align: top; position: relative;}
+#refineSearch .searchExtendsTo .LegExtentRestriction { color: #fff; background: #660066 url(/images/chrome/extentBg.gif) top left no-repeat; font-weight: bold; float: left; margin-bottom: 5px;}
+#refineSearch .searchExtendsTo .LegExtentRestriction .btl, .LegExtentRestriction .btr, .LegExtentRestriction .bbl, .LegExtentRestriction .bbr {position: absolute;  width: 10px;  height: 10px; margin: 0;}
+#refineSearch .searchExtendsTo .LegExtentRestriction .btr {background: url(/images/chrome/extentBg.gif) no-repeat -290px 0;  top:    0px;  right: 0;}
+#refineSearch .searchExtendsTo .LegExtentRestriction .bbl {background: url(/images/chrome/extentBg.gif) no-repeat 0 -90px;  bottom: 0px;  left:  0px;}
+#refineSearch .searchExtendsTo .LegExtentRestriction .bbr {background: url(/images/chrome/extentBg.gif) no-repeat -290px -90px;  bottom: 0px;  right: 0em;}
+/* end of tools section */
+
+/* a-z styling */
+div.alphaLinkList {display: block; background: #ccc; float: left;}
+.alphaLinkList ul {width: 90%; display: block; margin: 0 auto; }
+.alphaLinkList li {list-style: none; display: inline; margin: 0; padding: 0; float: left; }
+.alphaLinkList a {line-height: 1.8em; width: 1.4em; text-align: center; font-size: 1.4em; background: #CCC; text-decoration: none; font-weight: bold; border: 1px solid #000;display: block; margin: 2px;}
+.alphaLinkList a:hover {background: #EFEFEF; text-decoration: underline;}
+/* end of a-z styling */
+
+#leg #content p.backToTop {margin-bottom: -1.9em;} 
+#browseMapHelp { display:inline-block;}
+
+#layout1 #layout2 .clear {clear: left}
+
+/*------------------
+12. JS FOUC hide
+-------------------*/
+.js #statusWarning div#statusWarningSubSections {display: none;}
+.js .help {display: none;}
+
+/* Text skip links */
+#skipLinks {background:#fff; border: 1px solid #069; border-bottom: 0; padding: 0;position: fixed; right:0; bottom: 0px; z-index: 50; list-style: none;}
+#skipLinks a {display: block; padding: 6px; border-bottom: 1px solid #069; font-weight: bold;}
+#skipLinks a:hover {color: #fff; background: #069;}
+.js .skipLink {display: none !important;}
+
+.subNavPage .navLinks {float: none; text-align: center;}
+.subNavPage .navLinks a {display: inline-block; padding: 3px; margin-right: 5px; margin-top: 10px}
+#chron .privateActName,
+#chron .indentNum1 span
+ {display: block; margin-left: 7.5%;width: 80%; margin-bottom: 0.5em;}
+#chron .indentNum1 .actNumMedium,
+#chron .actNumMedium
+ {width: 7.5%; float: left; width: auto; margin-left: 0;}
+#chron .actNumLarge {width: 10%; float: left;}
+#chron .indentNum1 {padding-left: 5%;}
+#chron .indentNum2 {padding-left: 12.5%;}
+#chron .indentNum3 {padding-left: 17.5%;}          
+#chron .indentNum4 {padding-left: 22.5%;}          
+#chron .indentNum5 {padding-left: 27.5%;}
+#chron .indentNum6 {padding-left: 32.5%;}          
+#chron .indentNum7 {padding-left: 37.5%;}          
+#chron .indentNum8 {padding-left: 42.5%;}
+#chron .head {}
+#chron  h2 {font-size: 1.4em; font-weight: bold;}
+#chron  h2 span {font-weight: normal}
+#chron  h3 {font-size: 1em; margin: 0 0 0.5em 0; clear: left;}
+#chron  h3 span {font-weight: normal !important;}
+#chron  h2 * {font-size: 1em;}
+#chron  p { margin: 0 0 0.5em 0;}
+
+#chron h2.head {display: block;}
+#chron .footnote {clear: both; padding-top: 10px;}
+#chron .footnote a[id] {color: #494949; }
+#chron .footnote a[id]:hover {text-decoration: none;}
+
+.extentMarkerInfo {margin: 0.5em 0;}
+.extentMarkerInfo ul {list-style: none; padding: 0; display: inline;}
+.extentMarkerInfo li {margin: 0; padding: 0; display: inline}
+.extentMarkerInfo .LegExtentRestriction {margin: 0;}
+.extentMarkerInfo .description {margin-right: 0.5em;}
+.extentMarkerInfo a {font-weight: bold;}
+
+.extentMarkerInfo .LegExtentRestriction { color: #fff; background: #606 url(/images/chrome/extentSkipLinksBg.gif) top left no-repeat; }
+.extentMarkerInfo .LegExtentRestriction .btr {background: url(/images/chrome/extentSkipLinksBg.gif) no-repeat -290px 0;  top:    0px;  right: 0;}
+.extentMarkerInfo .LegExtentRestriction .bbl {background: url(/images/chrome/extentSkipLinksBg.gif) no-repeat 0 -90px;  bottom: 0px;  left:  0px;}
+.extentMarkerInfo .LegExtentRestriction .bbr {background: url(/images/chrome/extentSkipLinksBg.gif) no-repeat -290px -90px;  bottom: 0px;  right: 0em;}
+
+.hithighlight { background-color:#FFFF3D !important;}

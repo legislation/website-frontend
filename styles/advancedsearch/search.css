@@ -1,0 +1,153 @@
+/*
+©  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/
+
+*/
+html {overflow-y: scroll;} /* Stop any flickering caused by JS items being larger than screen area */
+
+.titles {border-bottom: 1px dotted;}
+
+#tools div {padding:  5px 10px 0 10px;}
+#tools div h2 {font-size: 1.18em; color: #353535; margin: 10px 0 0 0; padding-bottom: 0;}
+#tools #links {padding-left: 31px;}
+#tools a {display:block; padding-top: 5px;}
+#tools .current {color:#006498; font-weight:bold;}
+
+#content form {padding: 10px;}
+
+[disabled] {color: #c6c6c6; border-color: #c6c6c6; background: none;}
+
+input {background:transparent url(/images/chrome/home_form_shadow.gif) no-repeat scroll left top; border:1px solid #7B85AD; padding:5px 3px; margin-left: 10px; width: auto; vertical-align: middle;}
+select {vertical-align: middle;}
+
+.searchHelp {clear:both; width: 200px; background: #f0f0f0; padding: 5px}
+.searchHelp .icon {background: url(/images/chrome/advancedsearchicon.gif) no-repeat; position:absolute; left: -21px; top: 0; width:21px; height:54px; display: none}
+.searchHelp h2 {font-size: 1em}
+
+#searchTitle {width: 375px}
+#searchText {width: 375px; margin-top: 0.75em;}
+#specificText {margin: 0 80px 0 30px;}
+#yearStart {margin: 0 10px 0 10px}
+
+#searchKeywords {margin-top: 8px; width: 400px;}
+.searchKeyword .searchCol3 {margin-top: 15px;}
+
+#PITDateLink img {margin-left: 10px;}
+#ui-datepicker-div a {color: #227AD4}
+#ui-datepicker-div .ui-icon-circle-triangle-w {background: url(/images/chrome/datepickerArrowLeft.gif);}
+#ui-datepicker-div .ui-icon-circle-triangle-e {background: url(/images/chrome/datepickerArrowRight.gif);}
+.ui-datepicker-trigger {background: url(/images/chrome/PITDatePicker.gif); width: 16px; height: 13px; border: 0; margin-left: 10px; cursor: pointer; cursor: hand;}
+.error {}
+input.error  { border: #870600 solid 1px; color: #000000}
+span.error {color: #870600;display:block; clear:left}
+label.error {color: #870600;font-weight:bold}
+#errorBar {background:#f5e5e5; color:#870600; height: 40px; line-height: 40px; padding-left: 20px; font-weight: bold; border:1px solid #DFCFD0;}
+#content .submit button {width: 150px; height: 30px; margin: 10px 10px; clear: left}
+
+.searchFieldCategory {border-bottom: 1px dotted #D2D2D2; padding-bottom: 5px; float: left;}	
+.searchFieldCategory input[type=text] {width:40px; }
+
+#searchNumber{ width: 10em;}
+
+.searchFieldCategory input[type=radio], .searchFieldCategory input[type=checkbox]{ width:15px; border-style: none; background-image:none; }
+.searchCol1 { display: block; float: left; width: 80px; padding: 0; margin: 0.75em 0 0 0; text-align: left; }
+.searchCol2 { display: block; float:left; width: 460px; padding: 0; text-align: left; }
+.searchCol3 { display: block; float: right; width: 20px; margin:0.75em 20px 0 0; text-align: left; }
+.extendsCol1 { display: block; float: left; width: 470px; padding: 0; margin: 5px 0 0 0; text-align: left; }
+#content .submit {display: block; float: left; width: 580px;}
+
+.searchFieldGroup { display: block; padding: 0; margin: 5px 0 0; text-align: left; }
+.searchFieldGroup span { display: block; margin-left: 10px; }
+
+.searchTitle { margin-top: 10px; display: block; float: left; padding-bottom: 5px; padding-bottom: 5px; }
+
+.searchLang .englishLang { display: block; float: left; width: 10em;}
+.searchLang .welshLang { margin-left: 10.5em;}
+.searchLang .searchCol2 {margin-top: 5px;}
+
+.searchYear { margin-top: 10px; display: block; float: left; padding-bottom: 5px; }
+.searchYear .specificYear { display: block; float: left; width: 10em;}
+.searchYear .rangeOfYears { margin-left: 10.5em}
+.searchYear input { margin-top:5px; }
+.searchYear .specificYear input#specificYear{margin-left: 32px;}
+.searchYear .PIT input#specificYear{margin-left: 10px;}
+.searchYear div.rangeOfYears div {margin-left: 12px;}
+.searchYear div.rangeOfYears div input {margin-right: 40px;}
+.searchYear .error {margin-left: 10px;}
+
+select {border: 1px solid #7B85AD; padding:5px 3px; background: url(/images/chrome/home_form_shadow.gif) no-repeat top left;}
+
+.searchNumber {padding-top: 5px;  display: block; float: left;}
+.searchNumber .numberSearch { display: block; float: left; margin-top: 5px;}
+.searchNumber .numberSearch select { margin-left: 10px; margin-right: 10px; }
+.searchNumber span.error { margin-left: 10px; }
+
+.searchType { margin-top: 10px; padding-bottom: 10px;}
+.searchType select {margin-left:10px;}
+.searchType .typeCheckBoxCol div {clear: left; margin-top: 5px;}
+.searchType .typeCheckBoxCol div input {float: left; padding-top: 0; margin-top: 2px;}
+.searchType .typeCheckBoxCol div label {width: 80%; padding-left: 28px; display: block;}
+.searchType .error {margin-left: 10px;}
+
+.typeCheckBoxCol {width: 200px;}
+
+.typeCheckBoxCol div {clear: left;}
+
+#checkboxes { display:block; float:left; }
+#primaryLeg, #draftLeg {width: 225px; clear: left; float:left}
+#secondaryLeg {width: 205px; float:left}
+#allSecondary { float: left; }
+
+.typeCheckBoxDoubleCol, .typeCheckBoxCol { display: block; float: left; padding-top: 4px; padding-bottom: 4px;}
+.typeCheckBoxDoubleCol { width:225px; }
+.typeCheckBoxCol { width:auto; }
+.typeCheckBoxCol input[type=checkbox], .typeCheckBoxDoubleCol input[type=checkbox] { width:15px; padding-left:0px; margin-left:10px;}
+.typeCheckBoxCol input[type=checkbox] { display: block; float: left; }	
+.typeCheckBoxDoubleCol label { width:80px; margin-left: 5px; }
+.typeCheckBoxCol label {margin-left: 5px;}
+
+.searchKeywords { float: left; margin-top: 10px; padding-bottom: 10px; }
+.searchKeywords textarea { display: block; float: left; height:50px; width:420px; margin-left:10px; }
+
+.yearRange div {float: left; margin-top: 5px;}
+.yearRange input {margin-top: 0;}
+
+.pointInTime { margin-top: 10px; margin-bottom: 15px; display: block; float: left; padding-bottom: 5px; }
+.pointInTime input[type=text] { width: 100px; }
+.pointInTime .error {margin-left: 10px;}
+
+.searchExtendsTo { margin-top:10px; float: left; padding-bottom: 10px; width: 580px;}
+.searchExtendsTo h2 {}
+.searchExtendsTo h3 {padding-right: 0.75em; display:inline}
+.searchExtendsTo .searchFieldGroup { clear: both;}
+.searchExtendsTo .searchLabelWithHelp { width: 800px; }
+.searchExtendsToInput { display: block; float: left;}
+.searchExtendsTo .opt1 {margin: 10px 0;}
+
+.searchPIT { float: left; padding-bottom: 10px; margin-top: 10px; }
+#contentSearchSubmit { float:right; }
+
+.help {clear:both;}
+
+#uniqueExtents {float: right; margin-right: 18px; margin-bottom: -1px; padding-left: 8px; padding-right: 8px; border: 1px solid #fff;  }
+#uniqueExtents input {margin-left: 0;}
+#lex {float: left; background: #EBEFF8; border: 1px solid #ccc; width: 440px; clear: both;}
+#uniqueExtents.expanded {background: #EBEFF8; border: 1px solid #ccc; border-bottom: 1px solid #EBEFF8; z-index: 500; position: relative;}
+
+/* IE6 addition */
+* html .searchType .typeCheckBoxCol div label {padding-left: 40px; margin-top: -20px;} /* chkbox align fixes */
+
+/* IE7 addition */
+*:first-child+html .searchType .typeCheckBoxCol div label { margin-top: -20px;} /* chkbox align fixes */
+
+#extentSearchInfo {clear: both; padding-top: 10px; float: left;}
+#extentSearchInfo h4 {clear: both; float:left;margin: 0; margin-right: 5px; font-size: 1em; }
+.LegExtentRestriction {font-size: 0.9em; line-height: 1.2em; margin-top: -0.2em; padding: 2px 1.25em 3px 1.25em; margin-right: 5px; vertical-align: top; position: relative;}
+.LegExtentRestriction { color: #fff; background: #660066 url(/images/chrome/extentBg.gif) top left no-repeat; font-weight: bold; float: left; margin-bottom: 5px;}
+.LegExtentRestriction .btl, .LegExtentRestriction .btr, .LegExtentRestriction .bbl, .LegExtentRestriction .bbr {position: absolute;  width: 10px;  height: 10px; margin: 0;}
+.LegExtentRestriction .btr {background: url(/images/chrome/extentBg.gif) no-repeat -290px 0;  top:    0px;  right: 0;}
+.LegExtentRestriction .bbl {background: url(/images/chrome/extentBg.gif) no-repeat 0 -90px;  bottom: 0px;  left:  0px;}
+.LegExtentRestriction .bbr {background: url(/images/chrome/extentBg.gif) no-repeat -290px -90px;  bottom: 0px;  right: 0em;}

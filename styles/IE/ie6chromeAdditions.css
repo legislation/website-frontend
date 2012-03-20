@@ -1,0 +1,106 @@
+/*
+©  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/
+
+*/
+/* 
+IE 6 page chrome additions 
+This stylesheet is used to make changes to the UI layout so that it looks correct in IE6
+*/
+
+/* Legislation chrome fixes */
+body#leg #legSubNav {margin: 0; background: none;}
+.LegSnippet {height: 300px;}
+#content {float: left;}
+#pageTitle {zoom: 1;}
+h3, h4, h5 {font-weight: 800;}
+
+/* Fix to see helpboxes over main content + reset widths caused by differences with IE calculating the paddings differently to standards browsers */
+body#leg #layout2 {padding: 0 !important; width: 972px !important;}
+body#leg #content {position: static !important; overflow: visible !important; padding: 0 !important; width: 752px !important;}
+body#leg #content .LegSnippet {overflow: visible !important;width:737px}
+body#leg .interfaceOptions {right: 0; left: auto; padding-bottom:10px;}
+body#leg #statusWarning {width:730px}
+
+/* Navigation Tab rework */
+ul#legSubNav { background-image: none; border-bottom:1px solid #CCC;}
+ul#legSubNav li { margin-bottom:-1px; border-bottom:1px solid #CCC;}
+ul#legSubNav li span.presentation { background-image: none; }
+.legContent li#legContentLink, .legComplete li#legContentLink, .legToc li#legTocLink, .legEnContent li#legEnLink, .legEnToc li#legEnLink, .legCommencement li#legConmmencementLink {border-bottom: 1px solid #FAFAFA; margin-bottom:-1px;}
+
+/* #tools width correction */
+#whatVersion .userFunctionalElement {width: 155px;}
+
+/* removal of relative positioning for helpbox fix means that margins are used for backToTop positioning */
+/*#leg #content p.backToTop {margin-bottom: -2em; position: static !important;} 
+#leg #content p.backToTop {margin-top: -1.8em; margin-bottom: 0;}*/
+body#leg #content p.backToTop {width:766px; margin-bottom: -0.5em;}
+
+#tools .linkContainer {margin-top: -23px; margin-right: 0}
+
+/* Help items */
+.help h3 {width: auto !important;}
+
+/* More resources */
+.legResources #content {width: 966px !important;}
+.legResources .p_one {clear: none;}
+
+/* Homepage fixes */
+#per.home #contentSearch .number input {margin-left: 0;}
+#per.home #contentSearch .submit button {padding-top: 0; padding-bottom: 0;}
+
+/* Adv search fixes */
+#search form #secondaryLeg {padding-top: 2.1em;}
+.pageLink a {border-bottom: none !important; text-decoration: underline !important;}
+.pageLink a:hover {text-decoration: none !important;}
+
+/* Button fixes - remove corners from IE6 */
+.userFunctionalElement {position: static !important;}
+.userFunctionalElement .btl {display: none !important;}
+.userFunctionalElement .btr {display: none !important;}
+.userFunctionalElement .bbl {display: none !important;}
+.userFunctionalElement .bbr {display: none !important;}
+
+/* New Legislation */
+.newLeg .tabWrapper {padding-bottom: 10px;}
+
+/* Static page overwrites */
+#doc #content ul, #doc #content ol {padding-left: 30px}
+#subNav .resources {height:615px}
+
+/* changes to legislation arrow fix */
+.changeLeg .results .headerRow2 .downArrow div {margin-top: -1px;}
+
+/* Modal windows */
+/* IE specific script to enable IE to absolutely position the element */
+/*.js .modWin {
+  position: absolute;
+  right: auto; bottom: auto;
+  left: expression( ( -20 - modWin.offsetWidth + ( document.documentElement.clientWidth ? document.documentElement.clientWidth : document.body.clientWidth ) + ( ignoreMe2 = document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft ) ) + 'px' );
+  top: expression( ( -10 - modWin.offsetHeight + ( document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight ) + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+}*/
+.js .modWin {
+position:absolute; /* position fixed for IE6 */
+top:expression(115+((e=document.documentElement.scrollTop)?e:document.body.scrollTop)+'px'); 
+left:expression(35+((e=document.documentElement.scrollLeft)?e:document.body.scrollLeft)+'px');
+}
+
+/* More resources */
+#layout2.legResources #content {width: 966px !important;}
+#layout2.legResources .printPdf h3 {padding-bottom: 1em;}
+.legResources .p_one {clear: none !important;}
+#layout2.legResources p.backToTop {margin-top: 0 !important; width: 100% !important; clear: both;}
+#layout2.legResources .relDocs {clear: left !important;}
+
+/* Changes to Legislation */
+#effectsOptions .helpItem {padding-right: 0 !important; padding-top: 0.6em !important}
+#affect .helpItem {padding-right: 0 !important; padding-left: 0 !important; padding-bottom: 0 !important; padding-top: 1.2em !important;}
+#affecting .helpItem {padding-right: 0 !important; padding-left: 0 !important; padding-bottom: 0 !important; padding-top: 1.2em !important;}
+
+.jsHiddenText {display: inherit}
+.jsShownText  {display: block;}
+.js .jsHiddenText {display: none;}
+.js .jsShownText {display: block;}

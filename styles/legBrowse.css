@@ -1,0 +1,83 @@
+/*
+©  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/
+
+*/
+/* CSS only for Browse pages */
+
+/* General page layout */
+#browse.intro #content {padding: 0 20px 20px 20px; width: 930px; overflow: visible; min-height: 480px; position: relative;}
+
+#browse .p_one .p_two {margin-left: 8px; padding-top: 0;}
+#browse .intro {padding: 15px 0;}
+#browse .infoArea {border: 1px solid #CCC; margin-bottom: 10px; width: 604px;}
+#browse .infoArea .s_4 {width: 290px}
+#browse .infoArea .p_one {margin-left: 8px;}
+
+#browse ul.legTypes {list-style: none; margin: 0; padding: 0; width: 100%;}
+#browse ul.legTypes li {list-style: none;}
+#browse ul.legTypes li a {padding: 0.5em 5px 0.5em 25px; display:block; border-bottom:1px dotted #D7D7D7; line-height:1.1em; margin-bottom: 2px;}
+#browse .key {margin: 10px;}
+#browse .key dt {margin-left: 10px; width: 20px; clear: none;}
+#browse .key dt.first {margin-left: 0}
+#browse .key dd {margin-left: 0; width: 160px; float: left;}
+
+#browse .helpPara h2 {margin: 0; padding: 0; font-size: 1em; color: #333; display: inline;}
+#browse .helpPara p {display: inline;}
+
+#browse .legCol {margin: 1em 0 1.5em 0;}
+#browse .legCol h2 {font-size: 1em;}
+
+/* Quicklinks */
+#browse .quickLinks {background: #F3F3F3; padding: 0.5em 10px 0.5em 20px; margin-bottom: 10px; margin-left: -20px; width: 616px;}
+#browse .quickLinks h2 {font-size: 1em;}
+#browse .quickLinks ul {list-style: none;float: left; margin: 1px 0 0 0; padding: 0;}
+#browse .quickLinks ul li {float: left; margin-right: 10px;}
+#browse .quickLinks ul li a {display: block; padding: 5px; padding-left: 12px; background: url(/images/chrome/iconSprites.gif) no-repeat -6px -3142px;}
+
+/* Map positioning */
+#browse .p_absTopRight {top: 0;	right: 0; position:absolute; background: url(/images/chrome/mapBg.gif) no-repeat top right; padding-top: 30px; height: 430px; width:322px;}
+#browse .p_absTopRight  p {margin-top: 0.4em; width:265px; float: left}
+#browse .p_absTopRight #map {width:284px; height:341px; float: left; position:absolute;top: 8em; right: 20px;}
+#browse .p_absTopRight .mapImage {position:absolute; z-index:20; opacity: 0; filter: alpha(opacity = 0); zoom: 1;}
+#browse .p_absTopRight #blank {position:absolute; z-index:1;}
+#browse.region .p_absTopRight #blank {position:relative; z-index:1;}
+#browse .p_absTopRight .helpItemToMidLeft {float: right; padding-right: 25px; margin-top: 5px;}
+#browse .help p {float: none;}
+#browse .helpIcon {margin-top: 0.75em;}
+
+/* Map styling */
+#browse.region .p_absTopRight #map {width:256px; height:auto;  float: left;border: 1px solid #ccc; margin: 0 5px 0 20px;}
+#browse .p_absTopRight .returnLink {border-top: 1px solid #ccc; display: block; height: 100px; clear: left;}
+#browse .p_absTopRight .returnLink a {font-weight: bold; display: block; margin: 42px 0 0 10px; width: 140px; padding-left: 20px; background: url(/images/chrome/iconSprites.gif) no-repeat 0 -3347px;}
+
+/* Regional map overview */
+.niRegion       {background: url(/images/maps/niRegionOverview.gif) no-repeat top right;}
+.ukRegion       {background: url(/images/maps/ukRegionOverview.gif) no-repeat top right;}
+.walesRegion    {background: url(/images/maps/walesRegionOverview.gif) no-repeat top right;}
+.scotlandRegion {background: url(/images/maps/scotlandRegionOverview.gif) no-repeat top right;}
+
+/* Default on hover */
+#browse ul.legTypes li a {background: url(/images/chrome/iconSprites.gif) no-repeat 0 -2742px;}
+#browse ul.legTypes li a.active,
+#browse ul.legTypes li a:hover {font-weight: normal; /* add extra pixel to margin to replace border */}
+
+/* Backgrounds applied when activated by JS */
+#browse ul.legTypes li.legE a {color: #FFF;border-bottom: none;}
+#browse ul.legTypes li.legA a {color: #FFF;border-bottom: none;}
+
+/* Class to use when highlighting primary legislation */
+#browse ul.legTypes li.legE {background: #000 url(/images/chrome/browseButtonBg.gif) repeat-x 0 0; font-weight: bold; margin-bottom: 3px;}
+#browse ul.legTypes li.legE a {background: url(/images/chrome/iconSprites.gif) no-repeat 0 -2942px;}
+#browse ul.legTypes li.legE a:hover {font-weight: bold; }
+
+/* Class to use when highlighting applicable legislation */
+#browse ul.legTypes li.legA {background: #CCC url(/images/chrome/browseButtonBg.gif) repeat-x 0 -84px; font-weight: bold; margin-bottom: 3px;}
+#browse ul.legTypes li.legA a {background: url(/images/chrome/iconSprites.gif) no-repeat 0 -3142px;}
+#browse ul.legTypes li.legA a:hover {font-weight: bold; }
+
+/* Draft slegislation box */
+#browse  .draftHelpIcon {float: right; margin-right: 10px}

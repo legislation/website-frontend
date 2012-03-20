@@ -1,0 +1,270 @@
+/*
+©  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/
+
+*/
+/* CSS for chrome view */
+#resultsTimeline {padding: 0.5em 3px 1em 61px; background: #F2F7FA url(/images/chrome/navBgShadow.png) no-repeat scroll bottom left; position: relative;}
+
+#resultsTimeline .key {list-style: none; margin: 0 0 0.5em 0; width: 60%; float: left;}
+#resultsTimeline .key dt {display: inline; float: none;}
+#resultsTimeline .key dt.partial img {background-color: #BDBF83;} /* For accessibility if the images don't load colour the bg */
+#resultsTimeline .key dt.complete img {background-color: #66A1BF;}
+#resultsTimeline .key dd {display: inline; margin: 0; margin-right: 15px;}
+#resultsTimeline .key dd em {font-weight: bold; font-style:normal; font-size: 1.2em;}
+#resultsTimeline .key dd img {vertical-align: middle;}
+
+#resultsTimeline h3.groupInfo {width: 35%; float: right; text-align: right; padding-right: 5px; font-weight: 400;}
+#resultsTimeline h3.groupInfo strong {font-weight: 800;}
+
+#resultsTimeline .dataDescription {list-style: none; margin: 0; padding: 0; position: absolute; left: 0;}
+#resultsTimeline .dataDescription li {list-style: none; margin: 0; padding: 0; width: 55px; text-align: right; font-size: 1.15em; font-weight: bold; color: #069;}
+#resultsTimeline .dataDescription li.year {float: left; margin: 173px 0 0 0;}
+#resultsTimeline .dataDescription li.number {float: left; margin: 70px 0 0 -54px;}
+
+/* CSS for the timeline histogram */
+#timeline * {margin: 0; float: none; clear: none; padding: 0;}
+
+/* The viewport */
+#timeline {overflow: auto; width: 900px; position: relative; border: 1px solid #000;}
+
+/* histogram width will be calculated by a script created by Orbeon */
+#timeline #timelineData {float: left;}
+
+/* decade/century seperator */
+#timeline .decade,
+#timeline .century 
+{float: left; width: 35em;}
+
+#timeline .even {background-color: #E5EFF5}
+#timeline .odd {background-color: #FFF}
+
+/* Decades list */
+#resultsTimeline .decades {border: none; list-style: none; margin: 0; padding: 0; text-align: center; font-weight: bold; color: #676B6C; font-size: 0.9em; width: 850px; margin-left: 25px; margin-right: 25px;}
+#resultsTimeline .decades td{ background: none; border: none; text-align:center;}
+#resultsTimeline .decades td:first-child {margin-left: 0;}
+
+/* histogram bar styles */
+#timeline h3 {margin: 0; color: #069; border-bottom: 1px dotted #67A2C0; padding: 0.25em 0 0.4em 0.567em; font-size: 1.2em; width: 28.6em;}
+#timeline h3 a { color: #069;}
+#timeline ul {clear: none; float: left; padding-left:0.475em; list-style: none;} 
+#timeline .last ul {padding-right:0.475em;}
+#timeline .last h3 {width: }
+#timeline li {float: left; margin-right:0.5em; position: relative;}
+#timeline li.last {margin-right: 0;}
+#timeline li a * {font-size:0.95em;}
+#timeline li a strong {position: absolute; bottom: 0; left: 0; display:block; text-align: center; width:100%;}
+#timeline li strong img {position: absolute; top: 0; top: -15000px;}
+
+#timeline li a {display: block; width: 3em;  height: 115px; background: #BDBF83; color: #fff; text-align: center;} /* default bg colour is for partial data */
+#timeline li.complete a {background: #66A1BF;}
+
+#timeline li.currentYear a,
+#timeline li a:hover {background: #777856}
+#timeline li.currentYear.complete a,
+#timeline li.complete a:hover {background: #006599}
+
+#timeline li a em {display: block; position:relative; font-style: normal;}
+#timeline .odd li a em  {background: #FFFFFF;}
+#timeline .even li a em {background: #E5EFF5;}
+
+#timeline li a em span {position: absolute; bottom: 0; left: 0; color: #333; width: 100%; text-align: center;}
+
+/* Positioning for histogram blocks when data is missing */
+#timeline .noDataforPrev1yrs,
+#timeline .noDataforPrev10yrs 
+{margin-left: 3.5em}
+#timeline .noDataforPrev2yrs,
+#timeline .noDataforPrev20yrs 
+{margin-left: 7em}
+#timeline .noDataforPrev3yrs,
+#timeline .noDataforPrev30yrs  
+{margin-left: 10.5em}
+#timeline .noDataforPrev4yrs,
+#timeline .noDataforPrev40yrs 
+{margin-left: 14em}
+#timeline .noDataforPrev5yrs,
+#timeline .noDataforPrev50yrs 
+{margin-left: 17.5em}
+#timeline .noDataforPrev6yrs,
+#timeline .noDataforPrev60yrs 
+{margin-left: 21em}
+#timeline .noDataforPrev7yrs,
+#timeline .noDataforPrev70yrs 
+{margin-left: 24.5em}
+#timeline .noDataforPrev8yrs,
+#timeline .noDataforPrev80yrs 
+{margin-left: 28em}
+#timeline .noDataforPrev9yrs,
+#timeline .noDataforPrev90yrs 
+{margin-left: 31.5em}
+
+/* Re position information on hover 
+.js #timelineData li a:focus em,
+.js #timelineData li a:hover em {top: 5px; left: -60px; width: 150px; z-index: 50; background: #fff; border: 1px solid #000; padding: 5px;}
+.js #timelineData li a:hover em {z-index: 51;}
+*/
+
+/* IE6 amends */
+/* Positioning for histogram blocks when data is missing - IE 6 has real problems with this */
+* html #timeline .noDataforPrev1yrs,
+* html #timeline .noDataforPrev10yrs 
+{margin-left: 15px}
+* html #timeline .noDataforPrev2yrs,
+* html #timeline .noDataforPrev20yrs 
+{margin-left: 30px}
+* html #timeline .noDataforPrev3yrs,
+* html #timeline .noDataforPrev30yrs  
+{margin-left: 45px}
+* html #timeline .noDataforPrev4yrs,
+* html #timeline .noDataforPrev40yrs 
+{margin-left: 60px}
+* html #timeline .noDataforPrev5yrs,
+* html #timeline .noDataforPrev50yrs 
+{margin-left: 75px}
+* html #timeline .noDataforPrev6yrs,
+* html #timeline .noDataforPrev60yrs 
+{margin-left: 90px}
+* html #timeline .noDataforPrev7yrs,
+* html #timeline .noDataforPrev70yrs 
+{margin-left: 105px}
+* html #timeline .noDataforPrev8yrs,
+* html #timeline .noDataforPrev80yrs 
+{margin-left: 120px}
+* html #timeline .noDataforPrev9yrs,
+* html #timeline .noDataforPrev90yrs 
+{margin-left: 135px}
+/* end of IE amends */
+
+/* Percentage heights - these spans act as a layer mask covering the link bg */
+#timeline .per100 a em {height: 15px;}
+#timeline .per99 a em {height: 16px;}
+#timeline .per98 a em {height: 16px;}
+#timeline .per97 a em {height: 16px;}
+#timeline .per96 a em {height: 16px;}
+#timeline .per95 a em {height: 16px;}
+#timeline .per94 a em {height: 16px;}
+#timeline .per93 a em {height: 17px;}
+#timeline .per92 a em {height: 17px;}
+#timeline .per91 a em {height: 17px;}
+#timeline .per90 a em {height: 17px;}
+#timeline .per89 a em {height: 17px;}
+#timeline .per88 a em {height: 18px;}
+#timeline .per87 a em {height: 18px;}
+#timeline .per86 a em {height: 18px;}
+#timeline .per85 a em {height: 18px;}
+#timeline .per84 a em {height: 19px;}
+#timeline .per83 a em {height: 19px;}
+#timeline .per82 a em {height: 19px;}
+#timeline .per81 a em {height: 20px;}
+#timeline .per80 a em {height: 20px;}
+#timeline .per79 a em {height: 21px;}
+#timeline .per78 a em {height: 22px;}
+#timeline .per77 a em {height: 23px;}
+#timeline .per76 a em {height: 24px;}
+#timeline .per75 a em {height: 25px;}
+#timeline .per74 a em {height: 26px;}
+#timeline .per73 a em {height: 27px;}
+#timeline .per72 a em {height: 28px;}
+#timeline .per71 a em {height: 29px;}
+#timeline .per70 a em {height: 30px;}
+#timeline .per69 a em {height: 31px;}
+#timeline .per68 a em {height: 32px;}
+#timeline .per67 a em {height: 33px;}
+#timeline .per66 a em {height: 34px;}
+#timeline .per65 a em {height: 35px;}
+#timeline .per64 a em {height: 36px;}
+#timeline .per63 a em {height: 37px;}
+#timeline .per62 a em {height: 38px;}
+#timeline .per61 a em {height: 39px;}
+#timeline .per60 a em {height: 40px;}
+#timeline .per59 a em {height: 41px;}
+#timeline .per58 a em {height: 42px;}
+#timeline .per57 a em {height: 43px;}
+#timeline .per56 a em {height: 44px;}
+#timeline .per55 a em {height: 45px;}
+#timeline .per54 a em {height: 46px;}
+#timeline .per53 a em {height: 47px;}
+#timeline .per52 a em {height: 48px;}
+#timeline .per51 a em {height: 49px;}
+#timeline .per50 a em {height: 50px;}
+#timeline .per49 a em {height: 51px;}
+#timeline .per48 a em {height: 52px;}
+#timeline .per47 a em {height: 53px;}
+#timeline .per46 a em {height: 54px;}
+#timeline .per45 a em {height: 55px;}
+#timeline .per44 a em {height: 56px;}
+#timeline .per43 a em {height: 57px;}
+#timeline .per42 a em {height: 58px;}
+#timeline .per41 a em {height: 59px;}
+#timeline .per40 a em {height: 60px;}
+#timeline .per39 a em {height: 61px;}
+#timeline .per38 a em {height: 62px;}
+#timeline .per37 a em {height: 63px;}
+#timeline .per36 a em {height: 64px;}
+#timeline .per35 a em {height: 65px;}
+#timeline .per34 a em {height: 66px;}
+#timeline .per33 a em {height: 67px;}
+#timeline .per32 a em {height: 68px;}
+#timeline .per31 a em {height: 69px;}
+#timeline .per30 a em {height: 70px;}
+#timeline .per29 a em {height: 71px;}
+#timeline .per28 a em {height: 72px;}
+#timeline .per27 a em {height: 73px;}
+#timeline .per26 a em {height: 74px;}
+#timeline .per25 a em {height: 75px;}
+#timeline .per24 a em {height: 76px;}
+#timeline .per23 a em {height: 77px;}
+#timeline .per22 a em {height: 78px;}
+#timeline .per21 a em {height: 79px;}
+#timeline .per20 a em {height: 80px;}
+#timeline .per19 a em {height: 81px;}
+#timeline .per18 a em {height: 82px;}
+#timeline .per17 a em {height: 83px;}
+#timeline .per16 a em {height: 84px;}
+#timeline .per15 a em {height: 85px;}
+#timeline .per14 a em {height: 86px;}
+#timeline .per13 a em {height: 87px;}
+#timeline .per12 a em {height: 88px;}
+#timeline .per11 a em {height: 89px;}
+#timeline .per10 a em {height: 90px;}
+#timeline .per09 a em {height: 91px;}
+#timeline .per08 a em {height: 92px;}
+#timeline .per07 a em {height: 93px;}
+#timeline .per06 a em {height: 94px;}
+#timeline .per05 a em {height: 95px;}
+#timeline .per04 a em {height: 96px;}
+#timeline .per03 a em {height: 97px;}
+#timeline .per02 a em {height: 98px;}
+#timeline .per01 a em {height: 99px;}
+#timeline .per00 a em {height: 100px;}
+
+/* Slider */
+#resultsTimeline .decades {z-index: 30;}
+#resultsTimeline {z-index: 20;}
+#resultsTimeline #fisheye {bottom: 10px; height: 30px; border: 1px solid #6CA1C0; position:absolute; background: #FFFFFF; z-index: -1;}
+#resultsTimeline #arrowLeft {float:left;}
+#resultsTimeline #arrowRight {float:right;}
+
+#resultsTimeline .arrowLeftEnabled {background:url(/images/scrollbar/scrollbar.gif) -44px 0px;}
+#resultsTimeline .arrowRightEnabled {background:url(/images/scrollbar/scrollbar.gif) -66px 0px;}
+#resultsTimeline .arrowLeftDisabled {background:url(/images/scrollbar/scrollbar.gif) 0px 0px;}
+#resultsTimeline .arrowRightDisabled {background:url(/images/scrollbar/scrollbar.gif) -22px 0px;}
+
+#resultsTimeline .arrow {display:block; width:22px; height: 22px;} 
+#resultsTimeline #slider {position:relative; float:left; width: 727px; margin: 5px 0px 0px 67px;}
+#resultsTimeline #scrollbar {height: 30px; margin-top: 3px; background:url(/images/scrollbar/scrollbar.gif) no-repeat 37px -33px;}
+#resultsTimeline .ui-slider .ui-slider-handle {background:url(/images/scrollbar/scrollbar.gif) -88px 0px; 
+ width: 133px; height:22px; margin-top: -5px; margin-left: -66px; position:absolute; z-index: 2;}
+#resultsTimeline .ui-slider-horizontal {height: 0.8em;}
+
+/* IE amends - slider */
+/* IE6 */
+* html #resultsTimeline.fisheye {width: 907px;} /* for some reasopn IE6 doesn't auto calc width correctly and doesn't display the fisheye properly, this fixes it */
+* html #resultsTimeline {position: relative !important}
+* html #resultsTimeline #fisheye {bottom: auto; margin-top: -30px; /* height of fisheye */ clear: left; float: left;}
+* html #resultsTimeline #scrollbar {position: relative; zoom: 1;}
+* html #resultsTimeline #slider {margin: 5px 0px 0px 45px;}

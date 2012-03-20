@@ -1,0 +1,21 @@
+/*
+©  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/
+
+*/
+/* IE6 Browse Amends */
+#browse div.s_8 { width:635px; } 
+#browse .s_4,
+#browse .infoArea .s_4 
+{width: 290px;}
+
+#browse.intro #content {height: 480px;}
+
+#browse .quickLinks {margin-left:0px; }
+#browse .p_absTopRight {margin-right:-179px; } 
+#browse div.p_two {border: solid white; }
+#browse div.p_one {border: solid white; }
+#browse div.infoArea {border: 1px solid #CCC;} 

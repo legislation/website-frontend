@@ -1,0 +1,153 @@
+/*
+©  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/
+
+*/
+/* Changes to legislation */
+.changeLeg .tabWrapper {border: 1px solid #CCC;}
+
+/* Form layout */
+#searchChanges {background: url(/images/chrome/changesLegSearchBg.gif) no-repeat 47% 0; border: 1px solid #CCCCCC; margin-bottom:10px;}
+#searchChanges.modifySearchBtnAdded {border-top: 0;}
+/* If the 'create new search' button/link is there: */
+.createNewSearchOpt {margin: 0 0 20px 0;}
+
+#searchChanges fieldset {margin:0 35px 0 25px ; border: 0;}
+#searchChanges fieldset.s_5 {margin-top: 10px;}
+#searchChanges div {padding: 8px; float: left; width: 370px}
+#searchChanges .typeChoice label {width: 115px; padding-bottom: 0.25em;}
+#searchChanges label {width: 73px; display:block; float: left; padding-top:0.35em; text-align:right}
+#searchChanges input {width: 280px; float: left; vertical-align: middle; margin: 0 0 0 5px}
+
+.changeLeg .interface {margin-left: -1px; padding: 10px 0 0 0; border:1px solid #CFCFCF;}
+.results .interface { overflow: visible; padding-bottom: 0.5em;}
+.changeLeg .createNewSearchOpt {border: none;}
+#doc.changeLeg p.backToTop {margin-left: -1px; border:1px solid #CFCFCF; border-top:none; width: 100%;}
+#doc #content .interface ul {margin: 0;}
+#doc #content .prevPagesNextNav {padding-bottom: 5px; margin:0 auto;}
+#doc #content #newSearch {padding: 0; margin: 0;}
+
+#resetSearch {height: 20px;}
+
+.changeLeg table th.applied {min-width:80px;}
+
+#searchChanges INPUT[type=radio] {
+	BACKGROUND-IMAGE: none;
+	BORDER-BOTTOM-STYLE: none;
+	BORDER-RIGHT-STYLE: none;
+	WIDTH: 15px;
+	BORDER-TOP-STYLE: none;
+	BORDER-LEFT-STYLE: none;
+}
+
+#searchChanges #effectsOptions .radio {
+	width: 19px;
+	height: 25px;
+	padding: 0 5px 0 0;	
+	display: block;
+	float: left;
+	background:	url(/images/chrome/iconSprites.gif) no-repeat scroll -5px -2275px;
+	margin: 0 5px;
+}
+
+#searchChanges #effectsOptions .checked {
+	background: url(/images/chrome/iconSprites.gif) no-repeat scroll -5px -2425px;	
+}
+
+/* Results info */
+.changeLeg .info {border-bottom: 1px solid #C6C6C6; padding-bottom: 10px;}
+#doc .info #pageTitle {border-bottom: none; padding-bottom: 0.25em;}
+#doc .info h2 {font-weight: 600; padding: 0 20px; margin: 0; color:#333333; font-size:1.3em;}
+/* end of results info */
+
+.changeLeg table {margin: 0;}
+.changeLeg .results .downArrow {vertical-align:top; padding: 0;}
+.changeLeg .results .downArrow div {margin-top: -2px; position:relative;}
+.changeLeg .results .downArrow img {margin-left: 3px;}
+.changeLeg .results .downArrow a {width: 15px; height: 15px; padding: 0; margin: auto; display:block;}
+* html .results .headerRow2 .downArrow div {margin-top: -1px;}
+
+#searchChanges legend {float: left;}
+#searchChanges fieldset div .helpItem {padding: 0.6em; float: left;}
+#searchChanges .yearChoiceFields input {width: 70px;}
+#searchChanges .number input {width: 105px}
+#searchChanges select { margin: 0 0 0 5px;}
+#searchChanges select.disabled {color: #aca899}
+#searchChanges .yearChoiceFields select {width: 80px;}
+#searchChanges .number,
+#searchChanges .to
+{width:194px; padding-right: 0}
+#searchChanges .from
+{width: 130px; padding-right: 0; margin-left: 10px;}
+#searchChanges .from label
+{width: 35px}
+#searchChanges .title label {padding-left: 25px;}
+#searchChanges .radio {margin-top: 0.5em;}
+#searchChanges .yearChoice, #legChanges .yearChoiceFields {padding: 0 4px;}
+
+#searchChanges input.radio {width: 25px;}
+#searchChanges .yearChoice label, #searchChanges #effectsOptions label, #searchChanges .title label {width: auto;}
+#searchChanges .submit {display: inline; margin-top: 5px !important; text-align:right; padding: 0; background: #FFF; margin: 0 auto; text-align: center; padding: 0 0 10px 0;}
+#searchChanges #legChangesSearchSubmit {margin-left: 20px; margin-bottom: 10px; position: static}
+#searchChanges #effectsOptions {margin: 0 auto; width: 570px;}
+#searchChanges #effectsOptions legend {font-size: 1em; text-align: left;}
+.changeLeg #searchInfo {width: 100%;padding:10px 0 0; margin: 0 auto; clear: both; background: #fff; text-align: center; border-top:1px solid #CCC}
+
+#searchInfo p {margin-bottom:0; padding:10px; clear: left;}
+
+/* results list layout */
+.changeLeg #newSearch {display: none; background: none;}
+.changeLeg #newSearch a {margin: 10px;}
+
+#searchChanges .submit button {clear:both; width: 100px;}
+
+.changeLeg .results {padding-top:10px; background:url("/images/chrome/navBgShadow.png") no-repeat scroll left 5px transparent;}
+.changeLeg .results table {border: 1px solid #CCC; border-top: 0;}
+
+.changeLeg .results td, .changeLeg .results th {border-collapse: collapse; border: 1px solid #CCC}
+td.centralCol, 
+.headerRow1 th.centralCol
+{background-color: #F6F5FA}
+tr.oddRow td {background: #F6F6F6;}
+tr.oddRow td.centralCol {background-color: #F2F2F4}
+
+.headerRow1 th {font-size: 1.3em;}
+.headerRow1 td {font-weight: bold;}
+
+.results .prevPagesNextNav {float: left; padding-bottom: 0.5em; text-align: center; width: 60%;}
+.results .prevPagesNextNav li {line-height: normal;}
+.contentFooter .prevPagesNextNav {float: none; width:auto}
+.changeLeg .resultsInfo {float: left; width:19%; margin-left: 1%; font-weight: bold; color: #666;}
+.changeLeg .subscribe  {float: right; width:19%; text-align: right;}
+
+/*.error {color: #870600;}*/
+input.error  { border: #870600 solid 2px; color: #000000}
+span.error {display:block; clear:left; color: #870600;}
+label.error {font-weight:bold;color: #870600;}
+#errorBar {margin-right: 82px; background:#f5e5e5; color:#870600; height: 40px; line-height: 40px; padding-left: 20px; font-weight: bold; border:1px solid #DFCFD0;}
+
+#affect .helpItem {position: relative; float: left; left:0px; padding: 0.6em;}
+#affecting .helpItem {position: relative; float: left; left:0px; padding: 0.6em;}
+#effectsOptions div {width: 600px; text-align: left; padding: 2px;}
+.radioBtns {clear: left;}
+#effectsOptions #resultsShowingHelp {padding: 8px;}
+
+#searchChanges .help {z-index:1000; text-align: left; width:500px; margin: 10px auto;}
+ .js #searchChanges .help {position: absolute; width: 300px; margin: 0;}
+#searchChanges .help .content {background:#fff; padding: 15px; clear:both; width:auto;}
+#searchChanges .help .close, 
+#searchChanges .help .icon {display: none;}
+.js #searchChanges .help .close {padding: 2px !important;float: right !important; margin: -15px -15px 0 0 !important; display: block;}
+.js #searchChanges .help .icon { width: 12px; height: 10px; display:block; position: absolute;}
+#statusWarning p.intro span.icon {padding: 0; display: block;}   
+
+fieldset#effectsOptions div a.helpItem {position: relative; float: left; left:0px; padding: 0; padding-right: 0.3em;}
+
+#searchChanges #madeByHelp {width: 700px !important;}
+#searchChanges #madeByHelp .icon {left: 352px}
+
+#searchChanges #changesThatAffectHelp {padding-left: 590px; width: 700px !important;}
+#searchChanges #changesThatAffectHelp .icon {left: 642px}

@@ -1,0 +1,132 @@
+/*
+©  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/
+
+*/
+.LegSnippet * {font-family: arial, helvetica, verdana, sans-serif; letter-spacing: 0em}
+.LegSnippet p {color: black; background-color: white; line-height: 1.5em;}
+.LegSnippet div {color: black; background-color: white; font-size: 100%}
+.LegSnippet ol {font-size: 100%; margin-left: 0em}
+.LegSnippet ul {font-size: 100%; margin-left: 0em}
+.LegSnippet li {font-size: 100%; margin-left: 0em}
+.LegSnippet a {font-size: 100%}
+.LegSnippet h1 {color: black; background-color: white; font-size: 1em; line-height: 1.2em; font-weight: normal; font-style: normal}
+.LegSnippet h2 {color: black; background-color: white; font-size: 1em; line-height: 1.2em; font-weight: normal; font-style: normal}
+.LegSnippet h3 {color: black; background-color: white; font-size: 1em; line-height: 1.2em; font-weight: normal; font-style: normal}
+.LegSnippet h4 {color: black; background-color: white; font-size: 1em; line-height: 1.2em; font-weight: normal; font-style: normal}
+.LegSnippet h5 {color: black; background-color: white; font-size: 1em; line-height: 1.2em; font-weight: normal; font-style: normal}
+.LegSnippet h6 {color: black; background-color: white; font-size: 1em; line-height: 1.2em; font-weight: normal; font-style: normal}
+.LegSnippet td, .LegSnippet th {padding: 7px;}
+
+.LegSnippet .crest {text-align: center}
+
+.LegSnippet .LegError {font-weight: bold; color: red}
+
+.LegSnippet .LegAddition {}
+.LegSnippet .LegProposedAddition {color: green; text-decoration: underline;}
+.LegSnippet .LegRepeal {}
+.LegSnippet .LegProposedRepeal {color: red; text-decoration: line-through;}
+.LegSnippet .LegSubstitution {}
+.LegSnippet .LegProposedSubstitution {color: #FF4500; text-decoration: underline;}
+
+.LegSnippet .LegBlockRepeal {background-color: #EFF5F5; padding: 10px; zoom: 1; border: 1px solid #7A8093; float: left;}
+.LegSnippet .LegBlockRepealHeading {margin:-10px 0 20px -10px; padding-bottom: 8px; background: url(/images/LegDisplay/blockRepealArrow.gif) no-repeat 92% 100%;}
+.LegSnippet .LegBlockRepealHeading span {text-transform:uppercase; background: #7A8093; width: 100%; display: block; font-weight: bold; font-size: 120%; color: #FFF; text-align: right; font-style: normal; padding: 0.25em 10px 0.25em 0;}
+.LegSnippet .LegBlockRepeal p {background-color: #EFF5F5}
+.LegSnippet .LegBlockRepeal .LegAnnotations {background-color: #EFF5F5; margin-left: -10px; margin-right: -10px;}
+.LegSnippet .LegBlockRepeal .LegCommentaryItem,
+.LegSnippet .LegBlockRepeal .LegAssociatedAnnotations 
+{background-color: #EFF5F5}
+
+.LegSnippet .LegNotYetInForce {}
+
+.LegSnippet .LegBlockNotYetInForce {background-color: #EFF5F5; padding: 10px; zoom: 1; clear: both; width:728px; border: 1px solid #7A8093; float: left;}
+.LegSnippet .LegBlockNotYetInForceHeading {margin:-10px 0 20px -10px; padding-bottom: 8px; background: url(/images/LegDisplay/blockNotYetInForceArrow.gif) no-repeat 92% 100%;}
+.LegSnippet .LegBlockNotYetInForceHeading span {text-transform:uppercase; background: #7A8093; width: 100%; display: block; font-weight: bold; font-size: 120%; color: #FFF; text-align: right; font-style: normal; padding: 0.25em 10px 0.25em 0;}
+.LegSnippet .LegBlockNotYetInForce * {background-color: #EFF5F5}
+.LegSnippet .LegBlockNotYetInForce .LegP1No,
+.LegSnippet .LegBlockNotYetInForce .LegP2No,
+.LegSnippet .LegBlockNotYetInForce .LegP3No,
+.LegSnippet .LegBlockNotYetInForce .LegSN1No
+{background-color: transparent;}
+.LegSnippet .LegBlockNotYetInForce .LegAnnotations {background-color: #EFF5F5; margin-left: -10px; margin-right: -10px;}
+.LegSnippet .LegBlockNotYetInForce .LegCommentaryItem,
+.LegSnippet .LegBlockNotYetInForce .LegAssociatedAnnotations 
+{background-color: #EFF5F5}
+
+.LegSnippet .LegNotification {font-weight: bold; margin-top: 1em; margin-bottom: 1em; border-top: solid 1px black; border-bottom: solid 1px black; text-align: justify}
+.LegSnippet .LegAnnotations {clear: both; margin:0 0 1em 0; border:solid #C2C2C2 1px; border-bottom: 4px solid #C2C2C2; background-color: #FFF; color: #000; padding: 7px; text-align: left}
+.LegSnippet .LegCommentaryItem {margin: 0; padding: 0 0 0 3em; font-size: 1em; color: #000}
+.LegSnippet .LegCommentaryLink {vertical-align: top; position: relative; top: -0.2em; color: #000; font-size: 100%; font-weight: bold; font-style: normal; padding: 0 0.1em;}
+.LegSnippet .LegCommentaryType {float:left; font-size: 1em; color:#666; display: inline-block; font-weight: 600; width: 3em;  margin: 0 0 0 -3.2em}
+.LegSnippet .LegCommentaryText {margin: 0; display: block;}
+.LegSnippet .LegCommentaryPara {margin: 0; padding: 0.5em 0 0 0; font-size: 0.7em; color: #000}
+.LegSnippet .LegAnnotationsHeading {font-weight: 600; margin: 0; font-size: 0.8em; color: #000}
+.LegSnippet .LegAnnotationsGroupHeading {font-weight: bold; margin: 0.5em 0 0 0; padding: 0.5em 0 0 0.5em; font-size: 0.8em; color: #333; border-top:dotted #999 1px}
+.LegSnippet .LegAmendingText {}
+.LegSnippet .LegAffectedLink {vertical-align: middle}
+.LegSnippet .LegChangeDelimiter {color: black; font-weight: bolder; font-style: normal; font-size: 1.4em;}
+.LegSnippet .LegExtentRestriction {font-weight: bold; font-style: normal}
+.LegSnippet .LegConcurrent {color: red; font-weight: bold; font-style: normal}
+.LegSnippet .LegTerm {}
+.LegSnippet .LegCitation {}
+
+.LegExtentRestriction {display: none; font-size: 0.9em; line-height: 1.2em; margin-top: -0.2em; padding: 2px 1em 3px 1.25em; margin-left: 10px; vertical-align: top; position: relative;}
+.LegExtentRestriction { color: #fff; background: #660066 url(/images/chrome/extentBg.gif) top left no-repeat; }
+a.LegExtentRestriction { color: #fff; background: #A41BB6 url(/images/chrome/extentHighlightBg.gif) top left no-repeat; }
+.LegExtentRestriction .btl, .LegExtentRestriction .btr, .LegExtentRestriction .bbl, .LegExtentRestriction .bbr {position: absolute;  width: 10px;  height: 10px; margin: 0;}
+.LegExtentRestriction .btr {background: url(/images/chrome/extentBg.gif) no-repeat -290px 0;  top:    0px;  right: 0;}
+.LegExtentRestriction .bbl {background: url(/images/chrome/extentBg.gif) no-repeat 0 -90px;  bottom: 0px;  left:  0px;}
+.LegExtentRestriction .bbr {background: url(/images/chrome/extentBg.gif) no-repeat -290px -90px;  bottom: 0px;  right: 0em;}
+a.LegExtentRestriction .btr {background: url(/images/chrome/extentHighlightBg.gif) no-repeat -290px 0;  top:    0px;  right: 0;}
+a.LegExtentRestriction .bbl {background: url(/images/chrome/extentHighlightBg.gif) no-repeat 0 -90px;  bottom: 0px;  left:  0px;}
+a.LegExtentRestriction .bbr {background: url(/images/chrome/extentHighlightBg.gif) no-repeat -290px -90px;  bottom: 0px;  right: 0em;}
+
+.LegSnippet .LegPerspective .LegExtentRestriction  {display: none;}
+.LegSnippet .LegConcurrent .LegExtentRestriction  {display: inline-block} 
+.geoExtShowing .LegExtentRestriction {display: inline !important; display: inline-block !important; position: relative}
+
+.LegSnippet div.LegAssociatedAnnotations {border-top: dotted #999 1px; margin-top: 0.25em;}
+.LegSnippet .LegAssociatedAnnotations .LegCommentaryItem {padding-bottom: 0.25em; background-color: #EACDD2;}
+.LegSnippet .LegAssociatedAnnotations .LegAnnotationsGroupHeading {border-top: 0;}
+.LegSnippet .LegAssociatedAnnotations div, 
+.LegSnippet .LegAssociatedAnnotations span, 
+.LegSnippet .LegAssociatedAnnotations p {background-color: #EACDD2;}
+
+.LegSnippet .LegContents {text-align: center; font-size: 1em}
+.LegSnippet .LegContentsWhole {text-align: center; font-size: 1.5em; margin-bottom: 1em; font-weight: bold}
+.LegSnippet .LegContentsIntroduction {text-align: center; font-size: 1em; margin-bottom: 1em}
+.LegSnippet .LegContentsBody {text-align: center; font-size: 1em; margin-bottom: 1em}
+.LegSnippet .LegContentsPart  {display: block; text-align: center; font-size: 1em; font-variant: small-caps; padding-top: 1em}
+.LegSnippet .LegContentsPart  .LegContentsNumber {display: block; text-align: center; font-size: 1em}
+.LegSnippet .LegContentsPart  .LegContentsTitle {display: block; text-align: center; font-size: 1em}
+.LegSnippet .LegContentsChapter {display: block; text-align: center; font-size: 1em; font-variant: small-caps; padding-top: 1em}
+.LegSnippet .LegContentsChapter  .LegContentsNumber {display: block; text-align: center; font-size: 1em}
+.LegSnippet .LegContentsChapter  .LegContentsTitle {display: block; text-align: center; font-size: 1em}
+.LegSnippet .LegContentsPblock {display: block; text-align: center; font-size: 1em; font-variant: normal; font-style: italic; padding-top: 0.5em}
+.LegSnippet .LegContentsPblock  .LegContentsNumber {display: block; text-align: center; font-size: 1em}
+.LegSnippet .LegContentsPblock  .LegContentsTitle {display: block; text-align: center; font-size: 1em}
+.LegSnippet .LegContentsSchedules {display: block; text-align: left; font-size: 1em; padding-top: 2em}
+.LegSnippet .LegProvision {text-align: left; font-size: 0.8em; font-variant: normal; font-style: normal; padding-top: 0em}
+
+.LegSnippet .LegContents ol {list-style-type: none; margin: 0em; padding: 0 0 0 6.5em;}
+.LegSnippet .LegContents li {margin: 0em; padding: 0.14em 0 0 0; display: block;}
+.LegSnippet .LegContents li.LegContentsEntry {margin: 0em; padding: 0em}
+.LegSnippet .LegContents li a {color: #069}
+.LegSnippet .LegContents li a:visited {color: #2790C4}
+.LegSnippet .LegContents li a:active  {color: #2790C4}
+
+.LegSnippet a:visited {color: #2790C4}
+.LegSnippet a:active  {color: #2790C4}
+
+/* Alternative colours
+   - yellow #FFFF3D
+   - gold   #FFE778
+   - green  #C0FF66
+   - light blue #CAFFFB
+*/
+
+.LegSnippet .LegSearchResult {background-color: #FFFF3D}

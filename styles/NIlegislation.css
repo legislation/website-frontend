@@ -1,0 +1,38 @@
+/*
+©  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/
+
+*/
+/* CSS for primary NI legislation as part of the XML schema XHTML output */
+
+#viewLegContents .LegPrelims {text-align: center; margin: 0px auto}
+
+#viewLegContents .LegBanner {text-transform: uppercase; letter-spacing: 0.5em; border-top: solid 1px black; border-bottom: solid 1px black; padding: 0.5em; font-size: 1em; margin-top: 2em; margin-bottom: 2em}
+
+#viewLegContents .LegNo {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em; text-transform: uppercase; font-weight: bold; border: none}
+#viewLegContents .LegNo strong {font-weight: normal;}
+#viewLegContents .LegSubject {text-transform: uppercase; font-size: 1.5em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+#viewLegContents .LegTitle {padding: 0em; text-align: center; margin-top: 1em; margin-bottom: 1em; font-size: 1.5em; font-weight: bold; border: none;}
+
+#viewLegContents .LegLongTitle {text-align: justify; font-size: 0.8em; clear: both; border: none}
+
+#viewLegContents .LegSchedulesTitle {border: none}
+
+#viewLegContents .LegApproved {font-style: italic}
+#viewLegContents .LegApproved em {font-style: normal}
+
+#viewLegContents .LegDate {clear: left; text-align: center; width: 70%; margin: 0px auto}
+#viewLegContents .LegDateText {float: left; margin-top: 0em; margin-bottom: 1em; width: 58%; text-align: left}
+#viewLegContents .LegDateDate {float: right; margin-top: 0em; margin-bottom: 1em; width: 38%; text-align: right}
+
+#viewLegContents p.LegLongTitle {margin-top: 1em; text-align: justify; margin-bottom: 0em; padding-bottom: 0em}
+#viewLegContents p.LegDateOfEnactment {margin-top: 0em; text-align: right; padding-bottom: 1em}
+#viewLegContents .LegLongTitleScottish {margin-top: 0em; text-align: justify; margin-bottom: 0em}
+#viewLegContents .LegDateOfEnactmentScottish {margin-top: 1em; text-align: justify; margin-bottom: 1em; font-weight: bold}
+#viewLegContents .LegDateOfEnactmentScottish strong {font-weight: normal}
+#viewLegContents .LegIntroductoryText {margin-top: 1em; text-align: justify; margin-bottom: 0em}
+#viewLegContents .LegEnactingText {margin-top: 1em; text-align: justify; margin-bottom: 2em}
+

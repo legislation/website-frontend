@@ -1,0 +1,16 @@
+/*
+©  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/
+
+*/
+/* IE6 Legislation Presentation Overwrites */
+
+/* remove curves from GeoExtent */
+.LegExtentRestriction .btl, .LegExtentRestriction .btr, .LegExtentRestriction .bbl, .LegExtentRestriction .bbr {display: none;}
+.LegSnippet .LegExtentRestriction {background: #660066;}
+.LegSnippet a.LegExtentRestriction {background: #A41BB6;}
+
+.LegExtentContainer {padding-right: 12% !important; }

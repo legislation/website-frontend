@@ -1,0 +1,61 @@
+/*
+©  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/
+
+*/
+/* 
+IE 7 page chrome additions 
+This section is used to make changes to the UI layout so that it looks correct in IE7
+*/
+body#leg #content {position: static !important;}
+body#leg .interfaceOptions {right: 0; left: auto; padding-bottom:10px;}
+body#leg #content p.backToTop {width:766px, margin-bottom: -2em;}
+body#leg #content .contentFooter {width:766px}
+h3, h4, h5 {font-weight: 800;}
+
+#per.home #intro div ul, #per.home #intro div a {zoom:1 !important;}
+
+#tools .linkContainer {margin-top: -23px; margin-right: 0}
+#tools .userFunctionalElement {min-width: 4em;}
+
+span.pageLinkIcon {height: auto;}
+
+#per.home #contentSearch .submit button {padding-top: 0; padding-bottom: 0;}
+
+form#advancedSearch {width: 590px;}
+
+/* Adv search fixes */
+.pageLink a {border-bottom: none !important; text-decoration: underline !important;}
+.pageLink a:hover {text-decoration: none !important;}
+#draftLeg {clear: left;}
+
+/* Button fix */
+#contentSearch .userFunctionalElement {position: static !important;}
+
+/* New Legislation */
+.newLeg .tabWrapper {padding-bottom: 10px;}
+
+/* More resources */
+.legResources .p_one {clear: none;}
+#layout2.legResources .backToTop {clear: both; width: 100% !important;}
+
+#doc #content ul, #doc #content ol {padding-left: 30px}
+
+/* changes to legislation arrow fix */
+.changeLeg .results .headerRow2 .downArrow div {margin-top: -1px;}
+.legResources .relDocs {clear: left;}
+
+.changeLeg form .userFunctionalElement {min-width: auto;}
+
+/* Changes to Legislation */
+#effectsOptions .helpItem {padding-right: 0 !important; padding-top: 0.6em !important}
+#affect .helpItem {padding-right: 0 !important; padding-left: 0 !important; padding-bottom: 0 !important; padding-top: 1.2em !important;}
+#affecting .helpItem {padding-right: 0 !important; padding-left: 0 !important; padding-bottom: 0 !important; padding-top: 1.2em !important;}
+
+.jsHiddenText {display: inherit}
+.jsShownText  {display: block;}
+.js .jsHiddenText {display: none;}
+.js .jsShownText {display: block;}

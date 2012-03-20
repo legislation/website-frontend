@@ -1,0 +1,343 @@
+/*
+©  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/
+
+*/
+#viewLegContents .DocContainer {
+  position: relative !important; 
+  width: 100% !important; 
+}
+
+* html #viewLegContents .DocContainer {
+	width: 99% !important;
+}
+
+/*
+* html .LegClearFix { 
+	height: 1%; 
+	position: relative; 
+}
+*/
+
+#viewLegContents #viewLegContents {
+	padding-left: 5%;
+	width: 95%;
+}
+
+* html #viewLegContents #viewLegContents {
+	padding-left: 0;
+	margin-left: 5%;
+}
+
+#viewLegContents #viewLegContents .LegSLDMessages {margin-bottom: 2em; position: relative; left: -5%}
+
+#viewLegContents h2#viewLegContentsSourceMessageTitle {
+	padding-top: 0em;
+	margin-top: 0em;
+	padding-bottom: 0.5em;
+	color: #003366;
+	font: 120% arial, helvetica, verdana, sans-serif;
+	letter-spacing: .05em;
+}
+	
+#viewLegContents h3#viewLegContentsSourceMessageSubtitle {
+	font: bold 90% arial, helvetica, verdana, sans-serif;
+	color: #cc0000;
+	margin-bottom: 0.5em;
+	letter-spacing: .05em;
+}
+	
+.LegSN1No,
+.LegP1No,
+.LegP2No,
+.LegP3No {
+  float: left !important;
+  overflow: visible !important;
+  text-align: right !important;
+  padding: 0em !important;
+}
+
+.LegP1No,
+.LegSN1No {
+	width: auto !important;
+	margin-left: 0 !important;
+}
+
+.LegP1No .LegP1No,
+.LegSN1No .LegP1No {
+	float: none !important;
+	width: 100% !important;
+	margin-left: 0 !important;
+}
+
+.LegSN2No {
+	width: 5% !important;
+}
+
+* html span.LegSN1No,
+* html span.LegP1No {
+	position: relative !important;
+	width: 20% !important;
+}
+
+.LegP2No {
+	width: 28% !important;
+}
+
+.LegP3No {
+	width: 15% !important;
+}
+
+.LegP2No {
+	margin-left: -20% !important;
+}
+
+.LegP1No .LegCommentaryRefs {
+	padding-right: 0.2em;
+}
+
+* html .LegP1No,
+* html .LegP2No,
+* html .LegP3No {
+  position: absolute !important;
+}
+
+/* Override in amendments */
+#viewLegContents .LegSP1Container .LegP1NoC1Amend .LegP1No,
+#viewLegContents .LegSP1Container .LegP1NoC3Amend .LegP1No,
+#viewLegContents .LegSN1NoC1Amend .LegP1No,
+#viewLegContents .LegSN1NoC3Amend .LegP1No,
+#viewLegContents .LegSN1NoC4Amend .LegP1No {
+	margin-left: 0 !important;
+	width: 100% !important;
+}
+
+/* Grey lines in tables */
+#viewLegContents tbody td.LegTD,
+#viewLegContents tbody td.LegTDplain,
+#viewLegContents tbody th.LegTH,
+#viewLegContents tbody th.LegTHplain {
+	border: 1px dotted #CCCCCC;
+}
+
+/* Spacing around content of <P> elements following <P1group> elements */
+#viewLegContents .LegPafterP1group {
+	margin-top: 2em;
+}
+
+/* Upper case schedule numbers */
+#viewLegContents .LegScheduleNo,
+#viewLegContents #viewLegContentssSchedule #viewLegContentssNo {
+	text-transform: uppercase;
+}
+
+/* Adjust P1 titles to the side when the numbers are long */
+.LegSnippet .LegP1GroupTitle {
+    width: 90% !important;
+}
+
+.LegSnippet .LegP1GroupTitle {
+    float: right;
+    text-align: justify;
+    width: 90%;
+}
+
+
+/* Pushing Schedule titles in the contents to the side when the numbers are long */
+#viewLegContents li#viewLegContentssSchedule p#viewLegContentssNo { 
+	width: auto !important;
+	min-width: 25% !important;
+	padding-right: 2%; }
+	
+#viewLegContents li#viewLegContentssSchedule p#viewLegContentssTitle {
+	float: none !important;
+	margin-left: 27% !important;
+	width: auto !important; }
+
+/* Content Source Message styling */
+#viewLegContents #viewLegContentsSourceMessageTitle,
+#viewLegContents #viewLegContentsSourceMessageSubtitle { 
+	font-weight: bold;
+	font-size: 0.85em;
+	padding: 0;
+	margin: 0.5em 0; }
+
+/* ** COMMENTARY REFERENCES ** */
+/* Commentary reference styling */
+
+#viewLegContents .LegCommentaryRef { 
+	font-weight: bold;
+	font-size: 0.85em;
+	position: relative;
+	top: -0.3em;
+	text-decoration: none;
+	font-style: normal; 
+}
+
+/* Extra space before P1 numbers */
+/*
+#viewLegContents .LegP1ContainerFirst .LegCommentaryRef,
+#viewLegContents .LegP1Container .LegCommentaryRef { padding-right: 0.em; }
+*/
+
+#viewLegContents .LegCommentaryRefInvisible { display: none; }
+
+/* Commentary reference colours */
+#viewLegContents .LegCommentaryRef,
+#viewLegContents .LegCommentaryRef:visited,
+#viewLegContents .LegCommentaryRef:link,
+#viewLegContents .LegCommentaryRef:active,
+#viewLegContents .LegCommentaryRef:hover { 
+  color: #DC143C;
+  background-color: white;
+}
+
+#viewLegContents .LegCommentaryRef:hover { text-decoration: underline; } 
+
+/* ** COMMENTARY BLOCKS ** */
+#viewLegContents .LegCommentaryBlock { font-size: 90%; 
+                                   clear: both; }
+
+#viewLegContents .LegCommentaryBlockTitle { font-weight: bold;
+                                        padding: 0;
+                                        margin: 0;
+                                        font-family: verdana, arial, helvetica, sans-serif;
+                                        font-size: 0.85em; }
+
+#viewLegContents .LegCommentarySubBlockTitle { font-weight: bold;
+                                           padding: 0;
+                                           margin: 0.2em 0 0 0;
+                                           font-size: 80%; }
+
+#viewLegContents .LegCommentaryItem { margin-left: 1em; }
+
+#viewLegContents .LegCommentaryNumber { font-weight: bold;
+                                    padding-right: 0.5em;
+                                    display: block;
+                                    float: left; 
+                                    min-width: 2em; }
+
+#viewLegContents .LegCommentaryNumber,
+#viewLegContents .LegCommentaryNumber:visited,
+#viewLegContents .LegCommentaryNumber:link,
+#viewLegContents .LegCommentaryNumber:active { color: black;
+                                           background-color: white;
+                                           text-decoration: none; }
+
+#viewLegContents .LegCommentaryNumber:hover { color: #DC143C;
+                                          background-color: white;
+                                          text-decoration: underline; }
+
+#viewLegContents .LegCommentaryText { display: block;
+                                  margin-left: 3em; }
+																	
+/* Weird IE6/IE5.5 bug means that the lines in .LegCommentaryText aren't
+   being aligned properly */
+* html #viewLegContents .LegCommentaryText {
+	text-indent: -0.5%;
+}																	
+
+/* These all have width: 100% because otherwise IE seems to inherit the width 
+   from the containing block when that block is floating! */
+/* But then having width: 100% causes problems in IE 5.5. Perhaps the other
+   fixes (reducing floating) have made this unnecessary; commenting out for
+	 not, otherwise might have to find a way to enable in IEs > 5.5 */
+/*
+#viewLegContents .LegAmended,
+#viewLegContents .LegNIAmended,
+#viewLegContents .LegProspectiveAmended,
+#viewLegContents .LegProspectiveRepealed,
+#viewLegContents .LegAmending,
+#viewLegContents .LegAmendmentQuote .LegAmending {
+	width: 100%;
+}
+*/
+
+#viewLegContents .LegAmended { color: blue;
+                           background: white; }
+              
+#viewLegContents .LegProspectiveAmended { color: blue;
+                                      background-color: white;
+                                      font-style: italic; }
+                         
+#viewLegContents .LegProspectiveRepealed { font-style: italic; }
+
+#viewLegContents .LegAmending { color: green;
+                            background-color: white; }
+                            
+#viewLegContents .LegAmendmentQuote .LegAmending { color: black;
+                                               background-color: white; }
+																							 																					
+																							 																					
+		
+/* ** SLDPanel.htm ** */		
+		
+/* h2.additionallinks can be added to appearance.css as uses same styles as h2.relatedlinks, h2.relatedlinks,
+h2.externallinks and h2.whatsnew */
+
+#Additionallinks h2.additionallinks {
+	background: #003366 url("/images/white-crest.gif") no-repeat left;
+	color: #fff;
+
+}
+
+
+/* All text below to be inserted into appearance.css after styles for #ContentSub2 h2 #ContentSub1 h2 */
+#ContentSub2 h2.additionallinks {
+	padding: 3px 10px 3px 40px;
+}
+
+
+/*Same as div#Relatedlinks ul except there's a white bg*/
+div#Additionallinks ul {
+	font: 65% verdana, arial, helvetica, sans-serif;
+	margin: 0;
+	padding: 5px 0 0 0;
+	list-style-type: none;
+	background-color: #ffffff;
+	color: black;
+	border: 1px solid #036;
+}
+
+/*Same as div#Relatedlinks li except no bottom border*/
+div#Additionallinks li
+{
+	border-bottom: none;
+	padding-top: 0;
+}
+
+#Additionallinks
+{
+	margin-top: 0px;
+}	
+	
+
+#Additionallinks ul li a {
+  background: white;
+  display: inline;
+  padding-left: 0px;
+  line-height: 1.2em;
+  color: black;
+}
+
+#Additionallinks h2 a {
+  color: white;
+  background-color: #003366;
+  background-image: none;
+}
+
+#Additionallinks a:hover,
+#Additionallinks a:active {
+	text-decoration: none;
+}
+
+#Additionallinks li span {
+  display: block;
+  padding-left: 10px;
+  background: url("/images/library/drilldown.gif")  no-repeat left top;
+}
+
+

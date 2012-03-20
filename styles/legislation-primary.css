@@ -1,0 +1,67 @@
+/*
+©  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/
+
+*/
+.LegPrelims {text-align: center; margin: 0px auto}
+.LegNo {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em; font-weight: bold}
+.LegNo strong {font-weight: normal}
+.LegTitle {padding: 0em; text-align: center; margin-bottom: 1em; font-size: 1.5em; font-weight: bold; margin-top: 1em}
+.LegLongTitle {text-align: justify; margin-top: 2em}
+p.LegDateOfEnactment {margin-top: 0em; text-align: right}
+
+.LegPart {clear: both; padding-top: 2em} 
+.LegChapter {clear: both; padding-top: 2em}
+
+.LegPartNumber {display: block; text-align: center; font-weight: bold; font-variant: small-caps; margin-bottom: 0.25em}
+.LegPartTitle {display: block; text-align: center; font-weight: normal; font-variant: small-caps; margin-bottom: 0.25em}
+.LegPartNumber strong {font-weight: normal}
+
+.LegChapterNumber {display: block; text-align: center; font-variant: small-caps; font-weight: bold; margin-bottom: 0.25em}
+.LegChapterTitle {display: block; text-align: center; font-variant: small-caps; font-weight: normal; margin-bottom: 0.25em}
+.LegChapterNumber strong {font-weight: normal}
+
+.LegPblockTitle {display: block; text-align: center; font-style: italic; font-size: 1em; font-weight: normal; padding-top: 2em; margin-bottom: 1em}
+
+.LegP1group {font-style: normal; font-weight: bold; font-size: 1em; padding-top: 1.5em; margin-bottom: 1em}
+.LegP1groupTitle {float: right; text-align: justify; width: 92%; margin-bottom: 1em}
+.LegSchedule .LegP1groupTitle {text-align: left; font-style: italic; font-weight: normal; font-size: 1em; padding-top: 1.5em; margin-bottom: 1em}
+
+.LegSchedulesTitle {display: block; text-align: center; font-style: normal; font-size: 1.4em; font-weight: normal; padding-top: 2em; margin-bottom: 1em; text-transform: uppercase}
+.LegScheduleNumber {display: block; text-align: center; font-style: normal; font-size: 1em; font-weight: normal; padding-top: 2em; margin-bottom: 0em; text-transform: uppercase}
+.LegScheduleHeading {text-align: center; font-style: normal; font-size: 1.2em; font-weight: normal; padding-top: 1em; margin-bottom: 1em; font-variant: small-caps}
+.LegScheduleTitle {display: block; text-align: center; font-style: normal; font-size: 1em; font-weight: normal; padding-top: 0em; margin-bottom: 1em}
+.LegScheduleSubTitle {display: block; text-align: center; font-style: normal; font-size: 1em; font-weight: normal; padding-top: 0em; margin-bottom: 1em}
+
+
+.LegP1 {clear: both}
+.LegP1number {display: inline-block; width: 8%; float: left}
+.LegSchedule .LegP1number {float: left; width: 5%}
+.LegP1para {float: right; width: 92%}
+
+.LegP2 {clear: both}
+.LegSchedule .LegP1 .LegP2 {margin-left: -5.25%}
+.LegP2number {float: left; width: 5%; text-align: right; margin-left: -2%}
+.LegP2para {float: right; width: 95%}
+
+.LegP3 {margin-left: 5%; clear: both}
+.LegP3number {float: left; width: 5%; text-align: right; margin-left: -2%}
+.LegP3para {float: right; width: 95%}
+
+.LegP4 {margin-left: 5%; clear: both}
+.LegP4number {float: left; width: 3%; text-align: right}
+.LegP4para {float: right; width: 95%}
+
+.LegP5 {margin-left: 5%; clear: both}
+.LegP5number {float: left; width: 3%; text-align: right}
+.LegP5para {float: right; width: 95%}
+
+.LegP6 {margin-left: 5%; clear: both}
+.LegP6number {float: left; width: 3%; text-align: right}
+.LegP6para {float: right; width: 95%}
+
+.LegBlockAmendment {margin-left: 10%}
+

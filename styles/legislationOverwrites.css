@@ -1,0 +1,198 @@
+/*
+©  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/
+
+*/
+/* Legislation overwrites */
+.LegSnippet {display: block; font-size: 100%; background: #fff; font-size: 1.25em; /* This undoes the initial body font-size setting */ float: none; clear: none;  padding: 10px; min-height: 300px;}
+#viewLeg, #viewLegContents, #viewEN {}
+.LegSnippet h2, .LegSnippet h3, #ContentMain h4, #ContentMain h5, #ContentMain h6 {background: none; border: none;}
+.LegClearPart {}
+.LegSnippet {}
+#viewLegContents .LegSnippet {display: block;}
+#viewEN .LegSnippet {border-top: none; border-bottom: none;}
+/* end of Legislation overwrites */
+
+/* Quick fix to keep all styles the same between ToC and content page */
+h1.LegTitle {font-weight: normal !important; font-size:1.35em !important;}
+
+/* Reworking of the ToC layout 
+Use of !important is strictly temporary, if these styles can stay then integrate them into the main stylesheets!
+*/
+
+/* First reset all styles of elements to nothing */
+.LegSnippet .LegContents {position: relative !important;}
+.LegSnippet .LegContents * {float: none !important; text-align: left !important; clear: none !important; margin: 0 !important; padding: 0 !important; text-transform: none !important; font-variant: normal !important;}
+.LegSnippet .LegContents span {display: inline !important; padding-right: 0.25em !important;}
+
+/* Table of contents amends */
+
+/* Main restyling of ToC */
+
+	/* Typography */
+	.LegSnippet .LegContents .LegBanner {text-align: center !important; margin-bottom: 2em !important; margin-top: 0.5em !important; text-transform: uppercase !important;}
+	
+
+	.LegContentsPart .expandCollapseTocLink
+	{
+		/* padding-top: 5em! important;		*/
+	}
+
+	.LegSnippet .LegContents p.LegContentsNo 
+	{
+		display: inline !important; 
+		font-size: 85% !important; 
+		font-weight: bold !important; 
+		padding-right: 0.25em !important; 
+	}
+
+	
+	.LegSnippet .LegContentsChapter
+	{
+		margin-top: 1em! important;		
+	}
+    
+    .LegSnippet .LegContents p.LegContentsNo a {line-height: 1.25em !important; margin-bottom: 2em;}
+    .LegSnippet .LegContents p.LegContentsTitle {display: inline !important; margin-left: 0 !important; font-weight: bold; font-size: 85% !important; font-weight: bold !important;}
+    .LegSnippet .LegContents .LegContentsChapter {padding-left: 15px !important; padding-top: 0.45em !important;}
+    
+    /*.LegSnippet .LegContents .LegContentsPblock p.LegContentsTitle {color: #000; margin-left: 1.5em !important; font-weight: normal !important; padding-bottom: 1em !important; display: block !important; text-align: left !important; float: none !important;}*/
+    .LegSnippet .LegContents .LegContentsPblock p.LegContentsTitle {color: #000; margin-left: 1.5em !important; font-weight: normal !important; display: block !important; text-align: left !important; float: none !important;}
+    
+    
+    .LegSnippet .LegContents h2.LegContentsHeading {text-align: center !important; font-size: 1.35em; font-weight: 400 !important; padding-bottom: 0.8em !important; padding-top: 1em !important;}
+    .LegSnippet .LegContents h2.LegContentsHeading a {color: #000; text-decoration:none !important;}
+    .LegSnippet .LegContents p.LegContentsHeading {}
+    .LegSnippet .LegContents p.LegContentsHeading {font-size: 1em; font-weight: bold !important; padding: 0.5em 0 !important; color: #333333}
+    .LegSnippet h1.LegNo {text-align: center !important; margin-bottom: 1em !important; font-weight: bold !important}
+	.LegSnippet .LegContents p.LegSubject {text-transform: uppercase !important; text-align: center !important;}
+    
+    /* Basic ToC layout */
+    .LegSnippet .LegContents p.LegContentsItem,
+    .LegSnippet .LegContents .LegContentsEntry,
+    .LegSnippet .LegContents .LegContentsEntry p.LegContentsItem
+    {padding-bottom: 0 !important; padding: 0 !important;}
+    .LegSnippet .LegContents ol li {display: block !important; padding: 0.14em 0 !important;}
+    .LegSnippet .LegContents ol {margin-left: 0em !important; padding-left: 7em !important; background: transparent url(/images/chrome/legTocBg.gif) repeat-y 2.5em 0;}
+    .LegSnippet .LegContents ol ol {margin-left: 1em !important; padding-left: 0 !important; background: none !important;}
+    
+    /* Schedules */
+    .LegSnippet .LegContents ol li.LegContentsSchedules ol ol li.LegContentsPart ol {margin-left: 1em !important;}
+    .LegSnippet .LegContents ol li.LegContentsSchedules ol {margin-left: 0em !important;}
+    .LegSnippet .LegContents ol li.LegContentsSchedules ol ol {margin-left: 1em !important;} /* this level controls where the expand collapse links appear */
+    .LegSnippet .LegContents ol li.LegContentsSchedules ol ol .expandCollapseTocLink {margin-left: -9.5em !important;}
+    
+    /* Indentation */
+    /*.LegSnippet .LegContents ol ol li.LegContentsPblock p.LegContentsTitle {margin-left: 0em!important; display: block !important; padding: 0.5em 0 !important}*/
+    .LegSnippet .LegContents ol ol li.LegContentsPblock p.LegContentsTitle {margin-left: 0em!important; display: block !important; }
+    
+    .LegSnippet .LegContents ol ol li.LegContentsPblock ol {margin-left: 1em !important;}
+    
+    /*.LegSnippet .LegContents ol ol .LegContentsChapter p.LegContentsTitle {padding-bottom: 1em !important;}*/
+        
+    /*.LegSnippet .LegContents ol ol ol .LegContentsPblock p.LegContentsTitle {padding-bottom: 0 0 0.5em 0 !important;}*/
+    .LegSnippet .LegContents ol ol li.LegContentsChapter p.LegContentsNo {margin-left: 0em !important; padding-top: -0 !important; margin-top: 0 !important;}
+    .LegSnippet .LegContents ol ol li.LegContentsChapter {padding: 0 !important;}
+    .LegSnippet .LegContents ol ol ol{margin-left: 0em !important; padding-left: 0 !important;}
+    .LegSnippet .LegContents ol ol ol ol{margin-left: 0em !important; padding-left: 0 !important;}
+    .LegSnippet .LegContents ol ol ol ol ol{margin-left: 0em !important; padding-left: 0 !important;}
+    .LegSnippet .LegContents ol ol ol ol ol ol{margin-left: 0em !important; padding-left: 0 !important;}
+    .LegSnippet .LegContents ol ol ol ol ol ol ol{margin-left: 0em !important; padding-left: 0 !important;}
+    .LegSnippet .LegContents ol ol ol ol ol ol ol ol{margin-left: 0em !important; padding-left: 0 !important;}
+    .LegSnippet .LegContents .LegClearFix {display: block !important; padding-bottom: 0.25em !important;}    
+/* end of ToC rework */
+
+/* Leg ToC buttons */
+
+/*.LegSnippet .LegContents a.LegContentsNo {width: 4.25em; text-align: center !important; background:#fff; color: #2F82AC; float: left; margin-left: -6.5em !important; margin-right: 2.15em !important; position: static !important; padding: 0 !important;}*/
+
+.LegSnippet .LegContents a.userFunctionalElement {width: 4.25em; text-align: center !important; background:#fff; color: #2F82AC; float: left; margin-left: -6.5em !important; margin-right: 2.15em !important; position: static !important; padding: 0 !important;}
+
+
+.LegSnippet .LegContents a.userFunctionalElement {background: #FFF; border: 1px solid #2F82AC}
+.LegSnippet .LegContents a.userFunctionalElement:hover {color: #fff; background:#2F82AC; border-color: #2F82AC}
+.LegSnippet .LegContents a.userFunctionalElement span {font-size: 0.75em; padding: 0 !important; margin: 0 !important;}
+
+.LegSnippet .LegContents ol ol ol li.tocDefaultExpanded,
+.LegSnippet .LegContents ol ol ol li.tocDefaultCollapse{margin-left: 0em !important; padding-left: 2em !important;}
+.LegSnippet .LegContents ol ol ol a.userFunctionalElement {margin-left: -0em !important; margin-right: 3.1em !important;}
+
+.LegSnippet .LegContents ul.tocGlobalControls {list-style: none !important; height: 2.5em !important; width: 100% !important; clear: both !important; float: left !important; display: block !important;}
+.LegSnippet .LegContents ul.tocGlobalControls li {clear: none !important;}
+.LegSnippet .LegContents a.tocCollapseAll,
+.LegSnippet .LegContents a.tocExpandAll
+{line-height: 24px; clear: none !important; margin: 0 !important; font-size: 0.75em; width: 7em; padding: 0 !important;}
+
+/* Styles to show different text depending on context */
+.LegSnippet .LegContents .tocCollapseText {display: none !important;}
+.LegSnippet .LegContents .tocExpandText {display: inline !important;}
+.LegSnippet .LegContents .expand .tocExpandText {display: none !important;}
+.LegSnippet .LegContents .expand .tocCollapseText {display: inline !important;}
+.LegSnippet .LegContents a span.tocTextDivider {display: none !important;}
+/* end of ToC buttons */
+
+/* Table font-size fixes */
+.LegSnippet table .LegAddition,
+.LegSnippet table .LegRepeal, 
+.LegSnippet table .LegSubstitution 
+{font-size: 100% !important;}
+
+.LegSnippet table .LegAddition .LegAddition,
+.LegSnippet table .LegAddition .LegRepeal,
+.LegSnippet table .LegAddition .LegSubstitution,
+.LegSnippet table .LegRepeal .LegRepeal,
+.LegSnippet table .LegRepeal .LegAddition ,
+.LegSnippet table .LegRepeal .LegSubstitution,
+.LegSnippet table .LegSubstitution .LegAddition,
+.LegSnippet table .LegSubstitution .LegRepeal,
+.LegSnippet table .LegSubstitution .LegSubstitution
+{font-size: 100% !important;}
+/* End of table font-size fixes */
+
+li.ENContentsCommentaryChapter>p.ENContentsTitle>a {font-weight:bold !important; }
+
+ol li p.ENContentsTitle a {font-weight:bold; padding-top: 0.25em; display: block;}
+ol li ol li p.ENContentsTitle a {font-weight:normal !important;}
+ol li ol li ol li p.ENContentsTitle a {font-weight:bold;}
+ol li ol li ol li ol li p.ENContentsTitle a {font-weight:normal;}
+/* End of EN ToC */
+
+/* Leg ToC buttons */
+.LegSnippet .ENContents a.userFunctionalElement {width: 4.25em; text-align: center !important; background:#fff; color: #2F82AC; float: left; margin-left: -6.5em !important; margin-right: 2.15em !important; position: static !important; padding: 0 !important; border:1px solid #2F82AC;}
+.LegSnippet .ENContents a.userFunctionalElement:hover {color: #fff; background:#2F82AC; border-color: #2F82AC}
+.LegSnippet .ENContents a.userFunctionalElement span {font-size: 0.75em; padding: 0 !important; margin: 0 !important;}
+
+.LegSnippet .ENContents ol ol li.tocDefaultExpanded,
+.LegSnippet .ENContents ol ol li.tocDefaultCollapse{ padding-right: 0em !important; margin-bottom: .25em;}
+.LegSnippet .ENContents ol ol a.userFunctionalElement {margin-left: -8.5em !important; margin-right: 3.1em !important;}
+
+.LegSnippet .ENContents ul.tocGlobalControls {list-style: none !important; height: 2.5em !important; width: 100% !important; clear: both !important; float: left !important; display: block !important;}
+.LegSnippet .ENContents ul.tocGlobalControls li {float: right !important; clear: none !important; line-height: 2.5em !important;}
+.LegSnippet .ENContents a.tocCollapseAll,
+.LegSnippet .ENContents a.tocExpandAll
+{clear: none !important; display: inline !important; margin: 0 !important; font-size: 0.75em; width: 7em; padding: 0.25em !important;}
+
+/* Styles to show different text depending on context */
+.LegSnippet .ENContents .tocCollapseText {display: none !important;}
+.LegSnippet .ENContents .tocExpandText {display: inline !important;}
+.LegSnippet .ENContents .expand .tocExpandText {display: none !important;}
+.LegSnippet .ENContents .expand .tocCollapseText {display: inline !important;}
+.LegSnippet .ENContents a span.tocTextDivider {display: none !important;}
+/* end of ToC buttons */
+.LegSnippet .LegContents .skipLink a {width: 150px; font-size: 0.7em!important; background: #fff !important; border: 1px solid #069; margin-left: 3px !important; padding: 0.25em 0.5em !important; line-height: 3em !important;}
+.LegSnippet .LegContents .skipLink a:hover {background: #069 !important; color: #fff;}
+.js .LegSnippet .LegContents .skipLink {display: none !important;}
+
+/* Apply styles to image that open modal windows 
+.LegSnippet a.previewImg {display: block;}
+.LegSnippet a.previewImg img {border: 2px solid #069; width: 740px;}
+.LegSnippet a.previewImg .zoomIcon {background: #069 url(../images/chrome/imgPreviewCorner.png) no-repeat bottom left; color: #fff; display: block; position: absolute; font-weight: bold; padding: 5px 10px 5px 25px; right: 15px;}
+*/
+
+.LegExtentContainer .LegExtentRestriction {display:none;margin-left:0; right: 4px;position:absolute !important; max-width: 6%}
+.LegExtentContainer .LegRHS {padding-right: 12% !important; max-width: 78% !important;}
+
+.eniw {display: none}

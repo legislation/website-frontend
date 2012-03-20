@@ -1,0 +1,97 @@
+/*
+©  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/
+
+*/
+/* CSS for chrome view */
+#changesOverTime {padding: 0 10px 0 10px; margin-bottom: 1px; background: #F2F7FA url(/images/chrome/navBgShadow.png) no-repeat scroll bottom left; border: 1px solid #67A2C0;}
+
+/* Typography */
+#changesOverTime h2 {font-size: 1em; text-align: center; margin: 0 0 10px 0;}
+#changesOverTime p {font-size: 0.9em; text-align: center; margin: -10px 0 10px 0;}
+#changesOverTime p.warning  {color: #990100;}
+
+/* CSS for the timeline histogram */
+#changesOverTime #timeline * {margin: 0; float: none; clear: none; padding: 0; list-style: none;}
+
+/* The viewport */
+#changesOverTime #timeline {overflow: scroll;}
+.js #changesOverTime #timeline {overflow:hidden;}
+
+/* timeline width will be calculated by a script created by Orbeon */
+#changesOverTime #timeline #timelineData {float: left;}
+
+/* Timeline list layout */
+#changesOverTime #timeline #timelineData ul {float: left; height: 7em; min-height: 84px; padding-top:4.6em; padding-left: 53px; width: 100%; background: url(/images/chrome/pointInTimeBg.gif) 0 6em repeat-x;}
+#changesOverTime #timeline #timelineData ul li {background: url(/images/chrome/pointInTimeTimelineBg.png) 0 0 repeat-x; padding:15px 0 0 0; float: left; margin-top:30px; font-size: 0.9em;}
+#changesOverTime #timeline #timelineData ul li.beginning {}
+#changesOverTime #timeline #timelineData ul li .currentVersion,
+#changesOverTime #timeline #timelineData ul li a {color:#000; text-decoration:none; padding: 0;text-decoration: underline; float: left; margin: -24px 0 0 -20px; font-weight: bold; text-decoration: none}
+#changesOverTime #timeline #timelineData ul li a:hover {text-decoration: underline;}
+#changesOverTime #timeline #timelineData ul li span.stop {color:#990100; text-decoration:none; padding: 0;text-decoration: underline; float: left; margin: -24px 0 0 -20px; font-weight: bold; text-decoration: none}
+#changesOverTime #timeline #timelineData ul li span.stop span.label {}
+
+/* Line */
+#changesOverTime #timeline #timelineData ul li.currentVersion {background: url(/images/chrome/pointInTimeTimelineBgActive.png) 0 0 repeat-x;}
+#changesOverTime #timeline #timelineData ul li.currentProspective {background: url(/images/chrome/pointInTimeBgProspActive.gif) 0 0 repeat-x;}
+#changesOverTime #timeline #timelineData ul li.prospective {background: url(/images/chrome/pointInTimeBgProspective.gif) 0 0 repeat-x;}
+#changesOverTime #timeline #timelineData ul li.dash {background: url(/images/chrome/pointInTimeBgProspective.gif) 0 0 repeat-x;}
+
+/* Point in time indicator box */
+#changesOverTime #timeline #timelineData ul li.pointInTime {margin-right: -40000px; margin-top: -4.1em; margin-bottom: -3.9em; text-align: center; width: 110px; font-size: 1em; padding-bottom: 9px; background: url(/images/chrome/pointInTimePointer.gif) no-repeat bottom center; font-size: 1em;}
+#changesOverTime #timeline #timelineData ul li.pointInTime span {float: left;  width: 108px; background: #fff; border: 1px solid #7D8675; border-bottom: 0; margin-bottom: 0; padding: 2px 0;}
+#changesOverTime #timeline #timelineData ul li.pointInTime strong {font-size: 1.1em;}
+#changesOverTime #timeline #timelineData ul li.pointInTime em {font-size: 0.8em;}
+#changesOverTime #timeline #timelineData ul li.prospectivePIT {margin-top:-5.8em;}
+
+/* Arrow ends and round circle starts - remove as necessary */
+#changesOverTime #timeline .pointer {display: block; background-color:#000; background: url(/images/chrome/pointInTimeTimelineMarker.png) 0 0 no-repeat; height: 40px; width: 30px; margin-left: 10px}
+#changesOverTime #timeline .currentVersion .pointer {background: url(/images/chrome/pointInTimeMarkerActive.gif) 0 0 no-repeat;}
+#changesOverTime #timeline .stopDate .pointer {background: url(/images/chrome/pointInTimeMarkerStop.gif) 0 0 no-repeat;}
+#changesOverTime #timeline span.end {display: block; background-color:#000; background: url(/images/chrome/pointInTimeTimelineBgArr.png) 0 0 no-repeat; height: 40px; width: 18px; float: right; margin-top: -22px; margin-right: -10px;}
+#changesOverTime #timeline .currentVersion span.end {background: url(/images/chrome/pointInTimeTimelineBgActArr.png) 0 0 no-repeat;}
+#changesOverTime #timeline .currentProspective span.end {background: url(/images/chrome/pointInTimeTimelineBgActArr.png) 0 0 no-repeat;}
+
+/* Link colours */
+#changesOverTime #timeline #timelineData ul li.currentVersion a {color: #3186AC}
+
+/* Slider */
+#scrollbar #arrowLeft {float:left;}
+#scrollbar #arrowRight {float:right;}
+
+#scrollbar .arrowLeftEnabled {background:url(/images/scrollbar/scrollbar.gif) -44px 0px;}
+#scrollbar .arrowRightEnabled {background:url(/images/scrollbar/scrollbar.gif) -66px 0px;}
+#scrollbar .arrowLeftDisabled {background:url(/images/scrollbar/scrollbar.gif) 0px 0px;}
+#scrollbar .arrowRightDisabled {background:url(/images/scrollbar/scrollbar.gif) -22px 0px;}
+
+#scrollbar .arrow {display:block; width:22px; height: 22px;} 
+#scrollbar #slider {position:relative; float:left; width: 565px; margin: 5px 0px 0px 67px;}
+#scrollbar {height: 30px; margin-top: 3px; background:url(/images/scrollbar/scrollbar.gif) no-repeat 37px -86px;}
+
+#scrollbar .ui-slider .ui-slider-handle {background:url(/images/scrollbar/scrollbar.gif) -88px 0px; 
+ width: 133px; height:22px; margin-top: -5px; margin-left: -66px; position:absolute; z-index: 2;}
+#scrollbar .ui-slider-horizontal {height: 0.8em;}
+
+/* HelpItem */
+.timelineHelp {float:right; margin-top:-20px; padding-right:0;}
+#timelineHelp p {font-size: 1em; text-align: left;}
+
+/* IE amends - slider */
+/* IE6 */
+* html #scrollbar .fisheye {} /* for some reasopn IE6 doesn't auto calc width correctly and doesn't display the fisheye properly, this fixes it */
+* html #changesOverTime {width: 735px; overflow: scroll;}
+* html #changesOverTime #scrollbar {display: none;} /* hide due to incompatibilities */
+* html #changesOverTime #timeline #timelineData ul li {background: url(/images/chrome/pointInTimeTimelineBg.png) 0 10px repeat-x; margin-top: 20px}
+* html #changesOverTime #timeline #timelineData ul li.pointInTime {margin-top: -4.1em;}
+* html #changesOverTime #timeline #timelineData ul li.currentVersion {background: url(/images/chrome/pointInTimeTimelineBgActive.png) 0 10px repeat-x;}
+* html #changesOverTime #timeline #timelineData ul li.currentProspective {background: url(/images/chrome/pointInTimeBgProspActive.gif) 0 10px repeat-x;}
+* html #changesOverTime #timeline #timelineData ul li.prospective {background: url(/images/chrome/pointInTimeBgProspective.gif) 0 10px repeat-x;}
+* html #changesOverTime #timeline #timelineData ul li.dash {background: url(/images/chrome/pointInTimeBgProspective.gif) 0 10px repeat-x;}
+* html #changesOverTime #timeline #timelineData ul li .currentVersion,
+* html #changesOverTime #timeline #timelineData ul li a {margin: -15px 0 0 0;}
+* html #changesOverTime #timeline .pointer {margin-left: 0;}
+* html #changesOverTime #timeline span.end {margin-top: -12px; margin-right: 0;}
+* html #changesOverTime #timeline #timelineData ul li.prospectivePIT {margin: -5.7em;}
