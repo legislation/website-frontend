@@ -59,7 +59,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<xsl:comment><![CDATA[[if lte IE 7]><link rel="stylesheet" href="/styles/IE/ie7chromeAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 			<xsl:if test="not(contains(xhtml:body/@class, 'removeScripting'))">
 			<script type="text/javascript" src="/scripts/jquery-1.4.js"></script>
-			<script type="text/javascript" src="/scripts/sitestat.js"></script>
+			<!-- <script type="text/javascript" src="/scripts/sitestat.js"></script> -->
       <script type="text/javascript" src="/scripts/survey/survey.js"></script>
 			</xsl:if>
 			<xsl:choose>
@@ -269,7 +269,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 <xsl:template name="NetStats">
 
 	<xsl:variable name="counterName" select="leg:GetNetStatsCounterName()"/>
-	<xsl:comment>Begin Sitestat4 code</xsl:comment>
+	<!-- <xsl:comment>Begin Sitestat4 code</xsl:comment>
 	<script language='JavaScript1.1' type='text/javascript'>
 		<xsl:text>//</xsl:text>
 		<xsl:comment>
@@ -286,7 +286,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<noscript>
 		<img src="http://uk.sitestat.com/opsi/legislation/s?{$counterName}" width="1" height="1" alt=""/>
 	</noscript>
-	<xsl:comment>End Sitestat4 code</xsl:comment>
+	<xsl:comment>End Sitestat4 code</xsl:comment -->>
 </xsl:template>
 
 <xsl:function  name="leg:GetNetStatsCounterName">
