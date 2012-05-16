@@ -95,7 +95,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:when test="$g_strDocType = 'ScottishStatutoryInstrument' or $g_strDocType='ScottishStatutoryInstrumentLocal' or $g_strDocType='ScottishDraftStatutoryInstrument'">
 					<xsl:text>SCOTTISH STATUTORY  INSTRUMENTS</xsl:text>
 				</xsl:when>
-				<xsl:when test="($g_strDocType = 'WelshStatutoryInstrument' or $g_strDocType = 'WelshStatutoryInstrumentLocal') and /(leg:Legislation | leg:EN)/ukm:Metadata/dc:language = 'cy'">OFFERYNNAU STATUDOL</xsl:when>
+				<!-- Yashasri: Added to make welsh banner text correct HA049222-->
+				<xsl:when test="($g_strDocType = 'WelshStatutoryInstrument' or $g_strDocType ='WelshStatutoryInstrumentLocal') and not(/(leg:Legislation | leg:EN)/ukm:Metadata/dc:language = 'cy')">WELSH STATUTORY INSTRUMENTS</xsl:when>				
+				<xsl:when test="($g_strDocType = 'WelshStatutoryInstrument' or $g_strDocType = 'WelshStatutoryInstrumentLocal') and /(leg:Legislation | leg:EN)/ukm:Metadata/dc:language = 'cy'">OFFERYNNAU STATUDOL CYMRU</xsl:when>
 				<xsl:otherwise>
 					<xsl:text>STATUTORY  INSTRUMENTS</xsl:text>
 				</xsl:otherwise>

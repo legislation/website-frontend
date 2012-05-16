@@ -53,6 +53,7 @@ version="2.0">
 <!-- ========= Preliminary Matter ========== -->
     
 <xsl:template match="leg:SecondaryPrelims">
+	
 	<div class="LegPrelims">
 		<xsl:call-template name="FuncOutputSecondaryPrelims"/>
 		<xsl:apply-templates select="/leg:Legislation/leg:Contents"/>
@@ -73,8 +74,10 @@ version="2.0">
 				<xsl:when test="@Value = 'ScottishStatutoryInstrument' or @Value = 'ScottishStatutoryInstrumentLocal' or @Value = 'ScottishDraftStatutoryInstrument'">Scottish Statutory Instruments</xsl:when>
        			<xsl:when test="@Value = 'UnitedKingdomChurchInstrument' or @Value = 'UnitedKingdomChurchInstrumentLocal'">Church Instruments</xsl:when>
       			<xsl:when test="@Value = 'UnitedKingdomMinisterialOrder' or @Value = 'UnitedKingdomMinisterialOrderLocal'">Ministerial Order</xsl:when>
+				<!-- Yashasri: Added to make welsh banner text correct HA049222-->
+				<xsl:when test="(@Value = 'WelshStatutoryInstrument' or @Value='WelshStatutoryInstrumentLocal') and not($g_ndsMetadata/dc:language = 'cy')">Welsh Statutory Instruments</xsl:when>
 				<!-- Can have Welsh-language UKSIs, so don't test for type here -->
-				<xsl:when test="$g_ndsMetadata/dc:language = 'cy'">Offerynnau Statudol</xsl:when>
+				<xsl:when test="$g_ndsMetadata/dc:language = 'cy'">Offerynnau Statudol Cymru</xsl:when>
 				<xsl:otherwise>Statutory Instruments</xsl:otherwise>
 			</xsl:choose>
 		</xsl:for-each>
