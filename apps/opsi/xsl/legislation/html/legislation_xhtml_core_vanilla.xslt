@@ -363,7 +363,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	</p>
 	<!--Chunyu Added changed for Approved text in the correct place for  NI secondary legislation HA048652  -->
 	<xsl:choose>
-		<xsl:when test="$g_strDocumentMainType = 'NorthernIrelandStatutoryRule'">
+		<xsl:when test="$g_strDocumentMainType = 'NorthernIrelandStatutoryRule' and leg:Approved">
 			<xsl:apply-templates select="leg:Number | leg:SubjectInformation | leg:Title | leg:Approved | leg:LaidDraft | leg:LaidDate  | processing-instruction()"/>
 		</xsl:when>
 		<xsl:otherwise>
