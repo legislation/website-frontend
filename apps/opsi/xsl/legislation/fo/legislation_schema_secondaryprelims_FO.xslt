@@ -74,8 +74,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			</xsl:choose>
 		</fo:block>
 		
-		<xsl:apply-templates select="$g_ndsLegPrelims/leg:Approved"/>
-
+		<xsl:if test="not($g_strDocType = 'NorthernIrelandStatutoryRule')">
+			<fo:block space-before="24pt" text-align="center" font-style="italic">
+				<xsl:apply-templates select="$g_ndsLegPrelims/leg:Approved"/>
+			</fo:block>
+		</xsl:if>
+		
 		<xsl:if test="$g_ndsLegPrelims/leg:LaidDraft">
 			<fo:block text-align="center" font-style="italic">
 				<xsl:attribute name="space-before" select="if ($g_ndsLegPrelims/leg:Approved) then '12pt' else '24pt'"/>
@@ -84,8 +88,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		</xsl:if>
 		
 		<xsl:if test="$g_ndsLegPrelims[leg:MadeDate or leg:LaidDate or leg:ComingIntoForce]">
-			<fo:block text-align="center" margin-left="90pt" margin-right="90pt" space-after="24pt">
+			<fo:block text-align="center" margin-left="90pt" margin-right="90pt">
 				<xsl:attribute name="space-before" select="if ($g_ndsLegPrelims[leg:Approved or leg:LaidDraft]) then '12pt' else '24pt'"/>
+				<xsl:attribute name="space-after" select="if ($g_ndsLegPrelims[leg:Approved] and $g_strDocType = 'NorthernIrelandStatutoryRule') then '0pt' else '24pt'"/>
 				<fo:table font-size="{$g_strBodySize}" font-style="italic" margin-left="0pt" margin-right="0pt" table-layout="fixed" width="100%">
 					<fo:table-column column-width="57%"/>
 					<fo:table-column column-width="5%"/>
@@ -99,6 +104,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			</fo:block>
 		</xsl:if>
 
+		<xsl:if test="$g_strDocType = 'NorthernIrelandStatutoryRule'">
+			<fo:block space-before="6pt" space-after="24pt" text-align="center" font-style="italic">
+				<xsl:apply-templates select="$g_ndsLegPrelims/leg:Approved"/>
+			</fo:block>
+		</xsl:if>
+		
 		<xsl:apply-templates select="/leg:Legislation/leg:Contents"/>
 
 		<xsl:apply-templates select="$g_ndsLegPrelims/leg:RoyalPresence,
@@ -223,9 +234,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 </xsl:template>
 
 <xsl:template match="leg:Approved">
-	<fo:block space-before="24pt" text-align="center" font-style="italic">
-		<xsl:apply-templates/>
-	</fo:block>
+	<xsl:apply-templates/>
 </xsl:template>
 
 </xsl:stylesheet>

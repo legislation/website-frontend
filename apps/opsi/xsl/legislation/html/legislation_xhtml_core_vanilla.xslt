@@ -351,10 +351,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		</xsl:if>
 		<xsl:for-each select="$g_ndsMetadata//ukm:DocumentClassification/ukm:DocumentMainType">
 			<xsl:choose>
-				<xsl:when test="@Value = 'NorthernIrelandStatutoryRule' or @Value = 'NorthernIrelandStatutoryRuleLocal'">Statutory Rules of Northern Ireland</xsl:when>
-				<xsl:when test="@Value = 'ScottishStatutoryInstrument' or @Value = 'ScottishStatutoryInstrumentLocal'">Scottish Statutory Instruments</xsl:when>
-       	<xsl:when test="@Value = 'UnitedKingdomChurchInstrument' or @Value = 'UnitedKingdomChurchInstrumentLocal'">Church Instruments</xsl:when>
-      	<xsl:when test="@Value = 'UnitedKingdomMinisterialOrder' or @Value = 'UnitedKingdomMinisterialOrderLocal'">Ministerial Order</xsl:when>
+				<xsl:when test="@Value = 'NorthernIrelandStatutoryRule' or @Value = 'NorthernIrelandStatutoryRuleLocal' or @Value = 'NorthernIrelandDraftStatutoryRule'">Statutory Rules of Northern Ireland</xsl:when>
+				<xsl:when test="@Value = 'ScottishStatutoryInstrument' or @Value = 'ScottishStatutoryInstrumentLocal'or @Value = 'ScottishDraftStatutoryInstrument'">Scottish Statutory Instruments</xsl:when>
+       			<xsl:when test="@Value = 'UnitedKingdomChurchInstrument' or @Value = 'UnitedKingdomChurchInstrumentLocal'">Church Instruments</xsl:when>
+      			<xsl:when test="@Value = 'UnitedKingdomMinisterialOrder' or @Value = 'UnitedKingdomMinisterialOrderLocal'">Ministerial Order</xsl:when>
 				<!-- Can have Welsh-language UKSIs, so don't test for type here -->
 				<xsl:when test="$g_ndsMetadata/dc:language = 'cy'">Offerynnau Statudol</xsl:when>
 				<xsl:otherwise>Statutory Instruments</xsl:otherwise>

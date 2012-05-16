@@ -69,18 +69,25 @@ version="2.0">
 		</xsl:if>
 		<xsl:for-each select="$g_ndsMetadata//ukm:DocumentClassification/ukm:DocumentMainType">
 			<xsl:choose>
-				<xsl:when test="@Value = 'NorthernIrelandStatutoryRule' or @Value = 'NorthernIrelandStatutoryRuleLocal'">Statutory Rules of Northern Ireland</xsl:when>
-				<xsl:when test="@Value = 'ScottishStatutoryInstrument' or @Value = 'ScottishStatutoryInstrumentLocal'">Scottish Statutory Instruments</xsl:when>
-       	<xsl:when test="@Value = 'UnitedKingdomChurchInstrument' or @Value = 'UnitedKingdomChurchInstrumentLocal'">Church Instruments</xsl:when>
-      	<xsl:when test="@Value = 'UnitedKingdomMinisterialOrder' or @Value = 'UnitedKingdomMinisterialOrderLocal'">Ministerial Order</xsl:when>
+				<xsl:when test="@Value = 'NorthernIrelandStatutoryRule' or @Value = 'NorthernIrelandStatutoryRuleLocal' or @Value = 'NorthernIrelandDraftStatutoryRule'">Statutory Rules of Northern Ireland</xsl:when>
+				<xsl:when test="@Value = 'ScottishStatutoryInstrument' or @Value = 'ScottishStatutoryInstrumentLocal' or @Value = 'ScottishDraftStatutoryInstrument'">Scottish Statutory Instruments</xsl:when>
+       			<xsl:when test="@Value = 'UnitedKingdomChurchInstrument' or @Value = 'UnitedKingdomChurchInstrumentLocal'">Church Instruments</xsl:when>
+      			<xsl:when test="@Value = 'UnitedKingdomMinisterialOrder' or @Value = 'UnitedKingdomMinisterialOrderLocal'">Ministerial Order</xsl:when>
 				<!-- Can have Welsh-language UKSIs, so don't test for type here -->
 				<xsl:when test="$g_ndsMetadata/dc:language = 'cy'">Offerynnau Statudol</xsl:when>
 				<xsl:otherwise>Statutory Instruments</xsl:otherwise>
 			</xsl:choose>
 		</xsl:for-each>
 	</p>
-	<xsl:apply-templates select="leg:Number | leg:SubjectInformation | leg:Title | leg:Approved | leg:LaidDraft | leg:MadeDate | leg:LaidDate | leg:ComingIntoForce | processing-instruction()"/>
-</xsl:template>
+	<!--Chunyu Added changed for Approved text in the correct place for  NI secondary legislation HA048652  -->
+	<xsl:choose>
+		<xsl:when test="$g_strDocumentMainType = 'NorthernIrelandStatutoryRule' and leg:Approved">
+			<xsl:apply-templates select="leg:Number | leg:SubjectInformation | leg:Title | leg:Approved | leg:LaidDraft | leg:LaidDate  | processing-instruction()"/>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:apply-templates select="leg:Number | leg:SubjectInformation | leg:Title | leg:Approved | leg:LaidDraft | leg:MadeDate | leg:LaidDate | leg:ComingIntoForce | processing-instruction()"/>
+		</xsl:otherwise>
+	</xsl:choose>
 
 <xsl:template match="leg:SecondaryPrelims/leg:Correction">
 	<xsl:apply-templates/>
@@ -160,6 +167,27 @@ version="2.0">
 		</p>
 	</div>
 </xsl:template>
+
+<xsl:template match="leg:SecondaryPrelims/leg:Approved">
+<xsl:choose>
+	<xsl:when test="$g_strDocumentMainType = 'NorthernIrelandStatutoryRule'">
+		<xsl:apply-templates select="following-sibling::leg:MadeDate"/>
+	<xsl:apply-templates select="following-sibling::leg:ComingIntoForce"/>
+	<p class="LegApproved">
+		<xsl:apply-templates/>
+	</p>
+	<xsl:call-template name="FuncApplyVersions"/>
+	</xsl:when>
+	<xsl:otherwise>
+	<p class="LegApproved">
+		<xsl:apply-templates/>
+	</p>
+	<xsl:call-template name="FuncApplyVersions"/>
+	</xsl:otherwise>
+</xsl:choose>
+	
+</xsl:template>
+
 
 <xsl:template match="leg:SecondaryPrelims/leg:ComingIntoForce">
 	<div class="LegDate">
