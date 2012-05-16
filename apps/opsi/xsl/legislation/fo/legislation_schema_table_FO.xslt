@@ -96,7 +96,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	</xsl:if>
 	
 	<!-- Hack to get around footnote issue in FOP - footnotes in lists/tables disappear!-->
-	<xsl:for-each select="descendant::leg:FootnoteRef">
+	<!-- Chunyu :Added the condition for fop0.95 -->
+	<xsl:if test="g_FOprocessor = 'FOP0.95'">
+		<xsl:for-each select="descendant::leg:FootnoteRef">
 		<xsl:variable name="strFootnoteRef" select="@Ref" as="xs:string"/>
 		<xsl:variable name="intFootnoteNumber" select="count($g_ndsFootnotes[@id = $strFootnoteRef]/preceding-sibling::*) + 1" as="xs:integer"/>
 		<xsl:if test="$g_ndsFootnotes[@id = $strFootnoteRef]">
@@ -128,7 +130,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				</fo:footnote>
 			</fo:block>
 		</xsl:if>
-	</xsl:for-each>
+		</xsl:for-each>
+	</xsl:if>
 </xsl:template>
 
 <xsl:template match="xhtml:caption">
