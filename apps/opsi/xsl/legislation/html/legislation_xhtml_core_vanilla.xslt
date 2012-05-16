@@ -1120,7 +1120,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			 and parent::*[(self::leg:P2para and $g_strDocumentType = $g_strPrimary) 
 			 or (self::leg:P1para and ancestor::*[self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:Schedule or self::leg:BlockAmendment[@Context = 'schedule' or (@Context = 'unknown' and not(descendant::leg:P1group))]] and $g_strDocumentType = $g_strPrimary)
 			or self::leg:P3para[not($g_strDocumentType = $g_strSecondary and preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P3[not(preceding-sibling::*)]/parent::leg:P1para/preceding-sibling::*[1][self::leg:Pnumber])]
-			 or self::leg:P4para[not($g_strDocumentType = $g_strSecondary and preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P4[not(preceding-sibling::*)]/parent::leg:P3para/preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P3[not(preceding-sibling::*)]/parent::leg:P1para/preceding-sibling::*[1][self::leg:Pnumber])]
+			or self::leg:P4para[not($g_strDocumentType = $g_strSecondary and preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P4[not(preceding-sibling::*)]/parent::leg:P3para/preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P3[not(preceding-sibling::*)]/parent::leg:P1para/preceding-sibling::*[1][self::leg:Pnumber])]
 			 or self::leg:P5para or self::leg:P6para or self::leg:P7para]/preceding-sibling::*[1][self::leg:Pnumber]">
 			
 			<!-- Calculate if in a primary schedule -->
@@ -1257,7 +1257,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 								</span>		
 							</xsl:when>
 							<xsl:otherwise>
-								
+								<!-- Chunyu added condition for p1para/p3group/title see uksi19922792 schedule  HA048533-->
+								<xsl:if test="not(parent::leg:P3para/ancestor::leg:P3group[1]/parent::leg:P1para)">
 								<span class="LegDS LegLHS {concat('Leg', name(parent::*/parent::*), 'No', $strAmendmentSuffix)}">
 									<xsl:for-each select="parent::*/preceding-sibling::leg:Pnumber">
 										<xsl:for-each select="..">
@@ -1266,6 +1267,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 										<xsl:apply-templates select="."/>
 									</xsl:for-each>
 								</span>
+							</xsl:if>
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:otherwise>
@@ -1865,6 +1867,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:variable name="intHeadingLevel">
 		<xsl:call-template name="FuncCalcHeadingLevel"/>
 	</xsl:variable>
+	<xsl:variable name="p3no" select="following-sibling::*[1][self::leg:P3]/leg:Pnumber"/>
 	<xsl:element name="h{$intHeadingLevel}">
 		<xsl:attribute name="class">
 			<xsl:text>LegP3GroupTitle</xsl:text>
@@ -1874,6 +1877,15 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			</xsl:if>
 		</xsl:attribute>
 		<xsl:call-template name="FuncCheckForID"/>
+<!-- Chunyu added condition for p1para/p3group/title see uksi19922792 schedule  HA048533-->
+		<xsl:if test="ancestor::leg:P1para[1]">
+			<span class="LegP3No">
+			<xsl:call-template name="FuncGetPnumberID"/>
+		<xsl:apply-templates select="$p3no"/>
+		<xsl:text>    </xsl:text>
+		</span>
+	
+	</xsl:if>
 		<xsl:apply-templates/>
 	</xsl:element>
 </xsl:template>
