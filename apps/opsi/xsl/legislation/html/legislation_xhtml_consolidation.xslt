@@ -770,7 +770,6 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		</xsl:if>	
 	</xsl:element>
 </xsl:template>
-
 <xsl:template name="FuncGenerateMajorHeadingTitle">
 	<xsl:param name="strHeading"/>
 	<!-- Generate suffix to be added for CSS classes for amendments -->
@@ -781,17 +780,23 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:variable name="blnConcurrent" as="xs:boolean" 
 		select="parent::*/@Concurrent = 'true'" />
 	<xsl:variable name="blnHasNumber" as="xs:boolean" select="exists(../leg:Number) or exists(parent::leg:TitleBlock/../leg:Number)" />
-	<xsl:element name="span">
+	<xsl:element name="span">		
 		<xsl:attribute name="class">
-			<xsl:text>Leg</xsl:text>
-			<xsl:value-of select="$strHeading"/>
-			<xsl:text>Title</xsl:text>
-			<xsl:if test="$strAmendmentSuffix != ''">
-				<xsl:text> Leg</xsl:text>
-				<xsl:value-of select="$strAmendmentSuffix"/>
-			</xsl:if>
-			<xsl:if test="not($blnHasNumber) and $blnConcurrent"> LegConcurrent</xsl:if>
-		</xsl:attribute>
+			<!-- Yashashri: Changed To make Headings Left alligned - Support call - HA047941-->
+				<xsl:choose>
+					<xsl:when test="leg:Emphasis">LegClearFix LegSP1GroupTitle</xsl:when>
+					<xsl:otherwise>	
+						<xsl:text>Leg</xsl:text>
+						<xsl:value-of select="$strHeading"/>
+						<xsl:text>Title</xsl:text>
+						<xsl:if test="$strAmendmentSuffix != ''">
+							<xsl:text> Leg</xsl:text>
+							<xsl:value-of select="$strAmendmentSuffix"/>
+						</xsl:if>
+						<xsl:if test="not($blnHasNumber) and $blnConcurrent"> LegConcurrent</xsl:if>
+					</xsl:otherwise>
+				</xsl:choose>
+		</xsl:attribute>	
 		<xsl:apply-templates/>
 		<xsl:if test="not($blnHasNumber) and ancestor-or-self::*/@RestrictExtent">
 			<xsl:sequence select="tso:generateExtentInfo(if (parent::leg:TitleBlock) then parent::leg:TitleBlock/.. else ..)" />

@@ -3624,12 +3624,11 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:apply-templates/>
 	</strong>
 </xsl:template>
-
-<xsl:template match="leg:Emphasis">
-	<em>
+	
+	<!-- Yashashri : changed to make Headings Italic - Support call- 	HA047941-->
+<xsl:template match="leg:Emphasis">	
 		<xsl:call-template name="FuncCheckForID"/>
-		<xsl:apply-templates/>
-	</em>
+		<xsl:apply-templates/>	
 </xsl:template>
 
 <xsl:template match="leg:Underline">
