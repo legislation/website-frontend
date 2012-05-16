@@ -21,13 +21,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:text>DRAFT  </xsl:text>
 			</xsl:if>
 			<xsl:choose>
-				<xsl:when test="$g_strDocType= 'NorthernIrelandStatutoryRule'">
+				<xsl:when test="$g_strDocType= 'NorthernIrelandStatutoryRule' or $g_strDocType='NorthernIrelandStatutoryRuleLocal' or $g_strDocType='NorthernIrelandDraftStatutoryRule' ">
 					<xsl:text>STATUTORY  RULES OF NORTHERN IRELAND</xsl:text>
 				</xsl:when>
 				<xsl:when test="$g_strDocType= 'UnitedKingdomChurchInstrument'">
 					<xsl:text>CHURCH  INSTRUMENTS</xsl:text>
 				</xsl:when>
-				<xsl:when test="$g_strDocType = 'ScottishStatutoryInstrument'">
+				<xsl:when test="$g_strDocType = 'ScottishStatutoryInstrument' or $g_strDocType='ScottishStatutoryInstrumentLocal' or $g_strDocType='ScottishDraftStatutoryInstrument'">
 					<xsl:text>SCOTTISH STATUTORY  INSTRUMENTS</xsl:text>
 				</xsl:when>
 				<xsl:when test="($g_strDocType = 'WelshStatutoryInstrument' or $g_strDocType = 'WelshStatutoryInstrumentLocal') and /(leg:Legislation | leg:EN)/ukm:Metadata/dc:language = 'cy'">OFFERYNNAU STATUDOL</xsl:when>
