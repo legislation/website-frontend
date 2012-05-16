@@ -1,5 +1,5 @@
 /*
-©  Crown copyright
+ï¿½  Crown copyright
  
 You may use and re-use this code free of charge under the terms of the Open Government Licence
  
@@ -640,6 +640,7 @@ ul.optionList ul li {padding: 0;display: inline; float: none; border-left: none;
 .modWin li.cancel {float:left; margin-left: 10px;}
 
 .modWin li.continue {float: right;}
+.modWin li.close {float: right;}
 .modWin .interface .userFunctionalElement {padding: 4px 8px;}
 
 /* Individual modal window styles */

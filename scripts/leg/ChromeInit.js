@@ -1,5 +1,5 @@
 /*
-©  Crown copyright
+ï¿½  Crown copyright
  
 You may use and re-use this code free of charge under the terms of the Open Government Licence
  
@@ -225,6 +225,10 @@ $(document).ready(function(){
 	// Modal windows for interface controls, only functions on a link if the class 'warning' is present
 	$(".warning", "#printOptions").legModalWin();
 	$(".warning", "#openingOptions").legModalWin();				   
+});
+
+$(document).ready(function(){
+	$(this).showModalDialog();
 });
 
 $(document).ready(function(){
