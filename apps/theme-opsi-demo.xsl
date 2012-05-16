@@ -120,7 +120,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				</xsl:choose>
 				
 				<!-- adding the netstats -->
-				<xsl:call-template name="NetStats"/>
+				<!-- <xsl:call-template name="NetStats"/> -->
 				
 				<!-- footer -->				
 				<xsl:call-template name="footer"/>
@@ -266,10 +266,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 </xsl:template>
 
 <!-- ============= Nets Stats ========================-->
-<xsl:template name="NetStats">
+<!-- <xsl:template name="NetStats">
 
 	<xsl:variable name="counterName" select="leg:GetNetStatsCounterName()"/>
-	<!-- <xsl:comment>Begin Sitestat4 code</xsl:comment>
+	<xsl:comment>Begin Sitestat4 code</xsl:comment>
 	<script language='JavaScript1.1' type='text/javascript'>
 		<xsl:text>//</xsl:text>
 		<xsl:comment>
@@ -286,7 +286,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<noscript>
 		<img src="http://uk.sitestat.com/opsi/legislation/s?{$counterName}" width="1" height="1" alt=""/>
 	</noscript>
-	<xsl:comment>End Sitestat4 code</xsl:comment -->>
+	<xsl:comment>End Sitestat4 code</xsl:comment 
 </xsl:template>
 
 <xsl:function  name="leg:GetNetStatsCounterName">
@@ -333,6 +333,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	
 	<xsl:value-of select="concat(encode-for-uri(string-join($url, '.')), '&amp;', string-join($queryParams, '&amp;'))"/>
 </xsl:function>
-
+ -->
 
 </xsl:stylesheet>
