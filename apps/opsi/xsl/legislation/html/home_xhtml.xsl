@@ -205,7 +205,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					</div>
 					<div class="s_3 section p_two">
 						<div class="title">
-							<h2>Most requested Acts</h2>
+							<h2>Most Requested Acts</h2>
 						</div>
 								<xsl:if test="exists($g_nstMostRequested)">
 									<xsl:copy-of select="$g_nstMostRequested/xhtml:html/xhtml:body/node()" />
