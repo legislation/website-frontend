@@ -1261,7 +1261,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 								</span>
 							</xsl:when>
 							<!-- Special handling for P1 numbers in schedules in primary legislation -->
-							<xsl:when test="$g_strDocumentType = $g_strPrimary and parent::leg:P1para">
+							<xsl:when test="$g_strDocumentType = $g_strPrimary and parent::leg:P1para and not(normalize-space(.) = '') ">
 								<span class="LegDS {concat('LegP1No', $strAmendmentSuffix)}">
 									<xsl:for-each select="parent::*/preceding-sibling::leg:Pnumber">
 										<xsl:for-each select="..">
@@ -1273,7 +1273,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 							</xsl:when>
 							<xsl:otherwise>
 								<!-- Chunyu added condition for p1para/p3group/title see uksi19922792 schedule  HA048533-->
-								<xsl:if test="not(parent::leg:P3para/ancestor::leg:P3group[1]/parent::leg:P1para)">
+								<xsl:if test="not(parent::leg:P3para/ancestor::leg:P3group[1]/parent::leg:P1para) and not (normalize-space(.) = '')">
 								<span class="LegDS LegLHS {concat('Leg', name(parent::*/parent::*), 'No', $strAmendmentSuffix)}">
 									<xsl:for-each select="parent::*/preceding-sibling::leg:Pnumber">
 										<xsl:for-each select="..">
