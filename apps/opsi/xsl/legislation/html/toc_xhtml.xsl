@@ -46,7 +46,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:variable name="wholeActURI" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act' and @title='whole act']/@href" />
 	<xsl:variable name="wholeActWithoutSchedulesURI" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/body' and @title='body']/@href" />
 	<xsl:variable name="schedulesOnlyURI" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/schedules' and @title='schedules']/@href" />
-	<xsl:variable name="introURI" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/introduction' and @title='introduction']/@href" />			
+	<xsl:variable name="introURI" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/introduction' and @title='introduction']/@href" />
+		
 
 	<xsl:variable name="language" select="if (/leg:Legislation/@xml:lang) then 
 			/leg:Legislation/@xml:lang
@@ -144,7 +145,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:variable name="selectedSection" as="element()?"
 		select="
 			if ($wholeActURI = $dcIdentifier) then /leg:Legislation
-			else if ($dcIdentifier = ($introURI, $wholeActWithoutSchedulesURI)) then  /leg:Legislation/(leg:Primary | leg:Secondary)//*[@DocumentURI = $strCurrentURIs]
+			else if ($dcIdentifier = ($introURI, $signatureURI, $noteURI, $wholeActWithoutSchedulesURI)) then  /leg:Legislation/(leg:Primary | leg:Secondary)//*[@DocumentURI = $strCurrentURIs]
 			else if ($dcIdentifier = $schedulesOnlyURI)  then /leg:Legislation/(leg:Primary | leg:Secondary)/leg:Schedules
 			else $nstSection" />
 	
