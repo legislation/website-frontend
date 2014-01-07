@@ -26,7 +26,6 @@ exclude-result-prefixes="tso">
 	<xsl:param name="flSmallCaps" select="false()" tunnel="yes"/>
 	<xsl:param name="seqLastTextNodes" tunnel="yes" as="xs:string*"/>
 	
-
 	<xsl:call-template name="TSOcheckStartOfAmendment"/>
 
 	<!-- Need to allow for PuncBefore and PuncAfter here -->
@@ -104,6 +103,8 @@ exclude-result-prefixes="tso">
 						<xsl:with-param name="strNodeId" select="generate-id()"/>
 					</xsl:call-template>
 				</xsl:when>
+				<!-- Chunyu HA049446 21/05/12 Fop1.0 cant handle the text has only one single '-' -->
+				<xsl:when test=".='-'"/>
 				<xsl:otherwise>
 					<xsl:value-of select="$ndsText"/>
 				</xsl:otherwise>
@@ -133,9 +134,9 @@ exclude-result-prefixes="tso">
 		</xsl:for-each>								
 	</xsl:if>
 	
-
 	
-</xsl:template>
+	
+	</xsl:template>
 
 <xsl:template name="TSOcheckStartOfAmendment">
 	<!-- If part of a long quote and first text node output quote -->
@@ -213,6 +214,10 @@ exclude-result-prefixes="tso">
 		<entity unicode=" or (f)"> or&#x00a0;(f)</entity>
 		<entity unicode=" &#8212;">&#x00a0;&#8212;</entity>
 		<entity unicode="&#x2605;">*</entity>
+		<!-- Chunyu HA049446 21/05/12 Fop1.0 cant handle the text has only one single '-' -->
+		<entity unicode="­">&#x00A0;-</entity>
+	
+		
 		<!-- 8203 is a zero-width space -->
 <!--		<entity unicode="/">/&#8203;</entity>
 		<entity unicode="&#8212;">&#8212;&#8203;</entity>		-->
