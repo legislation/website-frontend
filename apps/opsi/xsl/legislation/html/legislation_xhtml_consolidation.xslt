@@ -556,10 +556,15 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:if test="empty($commentaryItem)">
 		<span class="LegError">No commentary item could be found for this reference <xsl:value-of select="@Ref"/></span>
 	</xsl:if>
-	<xsl:choose>
+	<xsl:choose>		
 		<xsl:when test="../(self::leg:Addition | self::leg:Repeal | self::leg:Substitution)">
-			<xsl:if test="tso:showCommentary(.) and $commentaryItem/@Type = ('F', 'M', 'X') and key('commentaryRef', @Ref)[1] is .">
-				<xsl:sequence select="tso:OutputCommentaryRef(key('commentaryRef', @Ref)[1] is ., $commentaryItem,  translate($versionRef,' ',''))"/>
+			<!--#HA050337 - updated to fix missing footnote referance. earlier code was only allowing to display first footnote referance . so if the same referance occurs twice
+				the code was avoiding it from display 
+			http://www.legislation.gov.uk/nisi/1996/275/article/8
+			http://www.legislation.gov.uk/nisi/1996/274/article/8A
+			-->
+			<xsl:if test="$commentaryItem/@Type = ('F', 'M', 'X') and key('commentaryRef', @Ref) = .">
+				<xsl:sequence select="tso:OutputCommentaryRef(key('commentaryRef', @Ref) = ., $commentaryItem,  translate($versionRef,' ',''))"/>				
 			</xsl:if>
 		</xsl:when>
 		<xsl:otherwise>
@@ -567,8 +572,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:sequence select="tso:OutputCommentaryRef(key('commentaryRef', @Ref)[1] is ., $commentaryItem,  translate($versionRef,' ',''))"/>
 			</xsl:if>
 		</xsl:otherwise>
-	</xsl:choose>
-	
+	</xsl:choose>	
 </xsl:template>
 	
 <xsl:function name="tso:OutputCommentaryRef" as="element(xhtml:a)">
@@ -585,6 +589,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<!--<xsl:value-of select="count($commentaryItem/preceding-sibling::*[@Type = $commentaryItem/@Type]) + 1"/>-->
 		<!-- we need to reference the document order of the commentaries rather than the commentary order in order to gain the correct numbering sequence -->
 		<xsl:value-of select="count($g_commentaryOrder/leg:commentary[@id = $thisId][1]/preceding-sibling::*[@Type = $commentaryItem/@Type]) + 1"/>
+		
 	</a>
 </xsl:function>
 
