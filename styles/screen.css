@@ -112,7 +112,7 @@ table th a {color: #494949;}
 #per.home #primaryNav ul {width: 670px;}
 /* longer width for welsh language */
 #per.home #primaryNav ul.cy {width: 740px; font-size: 90%;}
-#primaryNav ul li 	{background: url(/images/chrome/navDivider.gif) no-repeat bottom right; list-style: none; margin: 0; padding-right: 2px; float: left;} /* removed display:inline to prevent FF3.0 from misaligning first element */
+#primaryNav ul li 	{background: url(/images/chrome/navDivider.gif) no-repeat bottom right; list-style: none; margin: 0; padding-right: 1px; float: left;} /* removed display:inline to prevent FF3.0 from misaligning first element */
 #primaryNav ul li a	{color: #0D2840; font-weight: bold; text-decoration:none; font-size: 1.15em; line-height: 2em;}
 #primaryNav ul li#quickSearch a.active {border-top: 2px solid #CCC; color: #000;}
 #primaryNav a {float:left;text-decoration:none;padding:5px 12px 4px 13px;}
