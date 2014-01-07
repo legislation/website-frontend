@@ -212,6 +212,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<xsl:sort select="exists(ancestor::ukm:Notes)" order="descending" />
 						<xsl:sort select="@Title = 'Explanatory Note' " order="descending" />
 						<xsl:sort select="@Title = 'Executive Note' " order="descending" />
+						<xsl:sort select="@Title = 'Policy Note' " order="descending" />
 						<xsl:sort select="@Title = 'Explanatory Memorandum' " order="descending" />
 						<!-- group by type -->
 						<xsl:sort select="local-name(.)" />

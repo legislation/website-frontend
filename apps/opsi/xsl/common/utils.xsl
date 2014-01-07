@@ -66,7 +66,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		em="Explanatory Memorandum" singular="Wales Statutory Instrument" plural="Wales Statutory Instruments"
   	start="1999" complete="1999" revised="false" />
   <tso:legType schemaType="ScottishStatutoryInstrument" class="secondary" category="Instrument" abbrev="ssi" 
-  	en="Executive Note" singular="Scottish Statutory Instrument" plural="Scottish Statutory Instruments"
+  	en="Executive Note" pn="Policy Note" singular="Scottish Statutory Instrument" plural="Scottish Statutory Instruments"
   	start="1999" complete="1999" revised="false" />
   <tso:legType schemaType="NorthernIrelandOrderInCouncil" class="primary" category="Order" abbrev="nisi" 
   	em="Explanatory Memorandum" singular="Northern Ireland Order in Council" plural="Northern Ireland Orders in Council"
@@ -99,7 +99,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
   	start="1999" complete="1999" legType="WelshStatutoryInstrument" />
   -->
   <tso:legType schemaType="ScottishDraftStatutoryInstrument" class="draft" category="Instrument" abbrev="sdsi" 
-  	en="Draft Executive Notes" singular="Scottish Draft Statutory Instrument" plural="Scottish Draft Statutory Instruments"
+  	en="Draft Executive Notes"  pn="Draft Policy Note" singular="Scottish Draft Statutory Instrument" plural="Scottish Draft Statutory Instruments"
   	start="2001" complete="2001" legType="ScottishStatutoryInstrument" revised="false" />
   <tso:legType schemaType="NorthernIrelandDraftStatutoryRule" class="draft" category="Rule" abbrev="nidsr" 
   	em="Draft Explanatory Memorandum" singular="Northern Ireland Draft Statutory Rule" plural="Northern Ireland Draft Statutory Rules"
@@ -589,6 +589,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:param name="enType" as="xs:string?" />
 	<xsl:variable name="type" as="element(tso:legType)?" select="tso:getType($legType, ())" />
 	<xsl:choose>
+		<xsl:when test="exists($type/@pn) and $enType ='pn'">
+			<xsl:value-of select="$type/@pn"/>
+		</xsl:when>
 		<xsl:when test="exists($type/@en) and $enType ='en'">
 			<xsl:value-of select="$type/@en"/>
 		</xsl:when>

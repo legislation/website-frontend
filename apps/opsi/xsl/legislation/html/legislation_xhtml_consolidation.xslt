@@ -970,19 +970,22 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:variable name="enType" 
 		select="if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/notes/toc' and not(@hreflang = 'cy')]/@href) then 'notes'
 					else if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/executive-note/toc']/@href) then 'executive-notes'
+					else if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/policy-note/toc' and not(@hreflang = 'cy')]/@href) then 'policy-notes'
 					else if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/memorandum/toc' and not(@hreflang = 'cy')]/@href) then 'memorandum'
 					else '' "/>
 		
 	<xsl:if test="$enType != ''">
 		<div class="eniw">
 			<span class="enNote">
-				<xsl:value-of select="if ($enType = 'executive-note') then 'Executive Note' 
+				<xsl:value-of select="if ($enType = 'executive-notes') then 'Executive Note' 
+											   else if ($enType = 'policy-notes') then 'Policy Notes'
 											   else if ($enType = 'memorandum') then 'Explanatory Memorandum' 
 											   else 'Explanatory Notes'"/>
 			</span>
 			<a class="LegDS noteLink" href="{substring-after(@NotesURI, 'http://www.legislation.gov.uk')}">
 				<xsl:text>Show </xsl:text>
-				<xsl:value-of select="if ($enType = 'executive-note') then 'EN' 
+				<xsl:value-of select="if ($enType = 'executive-notes') then 'EN' 
+											   else if ($enType = 'policy-notes') then 'PN'
 											   else if ($enType = 'memorandum') then 'EM' 
 											   else 'EN'"/>
 			</a>
@@ -995,6 +998,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:variable name="enType" 
 			select="if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/notes/toc' and not(@hreflang = 'cy')]/@href) then 'notes'
 						else if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/executive-note/toc']/@href) then 'executive-notes'
+						else if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/policy-note/toc' and not(@hreflang = 'cy')]/@href) then 'policy-notes'
 						else if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/memorandum/toc' and not(@hreflang = 'cy')]/@href) then 'memorandum'
 						else '' "/>
 			
@@ -1004,8 +1008,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					<xsl:text>This </xsl:text>
 					<xsl:value-of select="if (self::leg:P1) then 'section' else 'schedule'" />
 					<xsl:text> has no associated </xsl:text>
-					<xsl:value-of select="if ($enType = 'executive-note') then 'Executive Note' 
-												   else if ($enType = 'memorandum') then 'Explanatory Memorandum' 
+					<xsl:value-of select="if ($enType = 'executive-notes') then 'Executive Note' 
+												  else if ($enType = 'policy-notes') then 'Policy Notes'
+												  else if ($enType = 'memorandum') then 'Explanatory Memorandum' 
 												   else 'Explanatory Notes'"/>
 				</span>
 			</div>		

@@ -190,7 +190,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<!-- loading the Explanatory Memorandum-->
 				<xsl:if test="$IsEnAvailable">
 					<xsl:call-template name="TSOOutputSubNavTabsENs">
-						<xsl:with-param name="typeOfEn" select="'en'"/>
+						<xsl:with-param name="typeOfEn" select="if (contains($enURI,'policy-note')) then 'pn' else 'en'"/>
 						<xsl:with-param name="hrefOfEn" select="$enURI" />
 					</xsl:call-template>
 				</xsl:if>				
@@ -245,7 +245,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		<xsl:param name="enType" as="xs:string?"/>
 		
 		<xsl:choose>
-			<xsl:when test="$enType = 'en' ">
+			<xsl:when test="$enType = ('en','pn') ">
 				<xsl:choose>
 					<xsl:when test="$uriPrefix ='ukpga'">
 						Text created by the government department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes were introduced in 1999 and accompany all Public Acts except Appropriation, Consolidated Fund, Finance and Consolidation Acts.
@@ -258,6 +258,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					</xsl:when>
 					<xsl:when test="$uriPrefix ='mwa'">
 						Text created by the Welsh Assembly Government department responsible for the subject matter of the Measure to explain what the Measure sets out to achieve and to make the Measure accessible to readers who are not legally qualified. Explanatory Notes accompany all Measures of the National Assembly for Wales.
+					</xsl:when>
+					<xsl:when test="$uriPrefix =('ssi') and $enType = ('pn') ">
+						Policy Note sets out a brief statement of the purpose of a Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2012 onwards. Prior to this date these type of notes existed as ‘Executive Notes’ and accompanied Scottish Statutory Instruments from July 2005 until July 2012.
+					</xsl:when>
+					<xsl:when test="$uriPrefix =('sdsi') and $enType = ('pn') ">
+						Draft Policy Note sets out a brief statement of the purpose of a Draft Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Draft Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2012 onwards. Prior to this date these type of notes existed as 'Executive Notes' and accompanied Draft Scottish Statutory Instruments from July 2005 until July 2012.
 					</xsl:when>
 					<xsl:when test="$uriPrefix =('ssi', 'uksi') ">
 						Executive Note sets out a brief statement of the purpose of a Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2005 onwards.
@@ -305,7 +311,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<xsl:call-template name="TSOOutputENHelpTip">
 				<xsl:with-param name="uriPrefix" select="$uriPrefix"/>
 				<xsl:with-param name="documentMainType" select="$documentMainType"/>
-				<xsl:with-param name="enType" select="'en'"/>				
+				<xsl:with-param name="enType" select="if (contains($enURI,'policy-note')) then 'pn' else 'en'"/>				
 			</xsl:call-template>
 		</xsl:if>
 		

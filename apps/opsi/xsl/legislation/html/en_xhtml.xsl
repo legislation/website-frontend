@@ -60,6 +60,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:variable name="enURI" as="xs:string?" 
 		select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/notes/toc']/@href | 
 			/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/executive-note/toc']/@href |
+			/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/policy-note/toc']/@href |
 			/leg:EN/ukm:Metadata/atom:link[@rel='http://purl.org/dc/terms/tableOfContents']/@href" />
 
 	<xsl:variable name="uriPrefix" as="xs:string" 
@@ -74,7 +75,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:variable name="IsImpactAssessmentsAvailable" as="xs:boolean" 
 		select="tso:ShowImpactAssessments(/)"/>			
 	
-	<xsl:variable name="enType" as="xs:string?" select="if (contains(/leg:EN/ukm:Metadata/dc:identifier, '/memorandum')) then 'em' else 'en'" />
+	<xsl:variable name="enType" as="xs:string?" select="if (contains(/leg:EN/ukm:Metadata/dc:identifier, '/memorandum')) then 'em' 
+						else if (contains(/leg:EN/ukm:Metadata/dc:identifier, '/policy-note')) then 'pn' else 'en'" />
 	<xsl:variable name="enLabel" select="tso:GetENLabel(/leg:EN/ukm:Metadata/ukm:ENmetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value, $enType)" />
 	
 	<xsl:template match="/">
@@ -128,6 +130,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 									<xsl:choose>
 										<xsl:when test="contains($enLabel, 'Explanatory Notes')">notes</xsl:when>
 										<xsl:when test="contains($enLabel, 'Executive Note')">note</xsl:when>
+										<xsl:when test="contains($enLabel, 'Policy Note')">note</xsl:when>
 										<xsl:when test="contains($enLabel, 'Explanatory Memorandum')">memorandum</xsl:when>
 									</xsl:choose>									
 									<span class="bbl"/>
@@ -156,7 +159,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 													
 												<xsl:variable name="enShortLabel">
 													<xsl:choose>
-														<xsl:when test="contains($enLabel, 'Explanatory Notes') or contains($enLabel, 'Executive Note') ">Note</xsl:when>
+														<xsl:when test="contains($enLabel, 'Explanatory Notes') or contains($enLabel, 'Executive Note')  or contains($enLabel, 'Policy Note')">Note</xsl:when>
 														<xsl:when test="contains($enLabel, 'Explanatory Memorandum')">Memorandum</xsl:when>
 													</xsl:choose>
 												</xsl:variable>															
@@ -566,6 +569,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:choose>
 						<xsl:when test="contains($enLabel, 'Explanatory Notes')">notes</xsl:when>					
 						<xsl:when test="contains($enLabel, 'Executive Note') ">note</xsl:when>
+						<xsl:when test="contains($enLabel, 'Policy Note') ">note</xsl:when>
 						<xsl:when test="contains($enLabel, 'Explanatory Memorandum') ">memorandum</xsl:when>
 					</xsl:choose>
 				</li>
