@@ -3001,7 +3001,10 @@ exclude-result-prefixes="tso atom">
 		<xsl:choose>
 			<xsl:when test="parent::*/@AltVersionRefs">
 				<fo:block space-before="6pt" space-after="6pt" text-align="left">
-					<xsl:apply-templates select="//leg:Version[@id = current()/parent::*/@AltVersionRefs]/*"/>
+					<!-- old comment said "We'll assume here that there is only one version"
+						This SHOULD be the case but bugs in augment.xsl caused duplciation if the version with 
+						same ID if the same image was referrenced twice as is the case with HA052048 -->
+					<xsl:apply-templates select="(//leg:Version[@id = current()/parent::*/@AltVersionRefs])[1]/*"/>
 				</fo:block>
 			</xsl:when>
 			<xsl:otherwise>
