@@ -2687,7 +2687,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		<xsl:variable name="removeExtent" as="xs:string+" >
 			<xsl:for-each select="tokenize($url, '/')">
 				<xsl:choose>
-					<xsl:when test="position() = last() and matches(., '(england|wales|scotland|ni)(\+(england|wales|scotland|ni))*$')"/>
+					<!-- Chunyu HA049961 Added the condition for crossheading which need to keep the extent see http://www.legislation.gov.uk/ukpga/1997/40/crossheading/england-and-wales -->
+					<xsl:when test="position() = last() and matches(., '(england|wales|scotland|ni)(\+(england|wales|scotland|ni))*$') and not(contains($url,'crossheading'))"/>
 					<xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
 				</xsl:choose>
 			</xsl:for-each>
