@@ -39,7 +39,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <xsl:import href="../../common/utils.xsl"/>
 
-<xsl:output method="xml" version="1.0" omit-xml-declaration="yes"  indent="no" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<xsl:output method="xml" version="1.0" omit-xml-declaration="yes"  indent="yes" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <xsl:key name="citations" match="leg:Citation" use="@id" />
 <xsl:key name="commentary" match="leg:Commentary" use="@id"/>
@@ -82,7 +82,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <xsl:param name="selectedSection" as="element()?" select="()" />
 
-<xsl:variable name="selectedSectionSubstituted" as="xs:boolean" select="tso:isSubstituted($selectedSection)" />
+<xsl:variable name="selectedSectionSubstituted" as="xs:boolean" select="false()" />
 
 <!-- ========= Code for consolidation ========== -->
 
@@ -540,7 +540,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <!-- Make assumption here that comments have been filtered to only contain those relevant for content being viewed -->
-
+<!--Chunyu HA051080 added the logic for CommentaryRef. We need to display each individual commentaryref if it is not the child of additon and etc. We only output the first one if  the commentaryrefs with same ref are the chidren of addtion and etc.-->
 <xsl:template match="leg:Primary/leg:CommentaryRef | leg:Secondary/leg:CommentaryRef" />
 
 <xsl:template match="leg:CommentaryRef">
@@ -549,9 +549,19 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:if test="empty($commentaryItem)">
 		<span class="LegError">No commentary item could be found for this reference <xsl:value-of select="@Ref"/></span>
 	</xsl:if>
-	<xsl:if test="tso:showCommentary(.) and $commentaryItem/@Type = ('F', 'M', 'X') and key('commentaryRef', @Ref)[1] is .">
-		<xsl:sequence select="tso:OutputCommentaryRef(key('commentaryRef', @Ref)[1] is ., $commentaryItem,  translate($versionRef,' ',''))"/>
-	</xsl:if>
+	<xsl:choose>
+		<xsl:when test="../(self::leg:Addition | self::leg:Repeal | self::leg:Substitution)">
+			<xsl:if test="tso:showCommentary(.) and $commentaryItem/@Type = ('F', 'M', 'X') and key('commentaryRef', @Ref)[1] is .">
+				<xsl:sequence select="tso:OutputCommentaryRef(key('commentaryRef', @Ref)[1] is ., $commentaryItem,  translate($versionRef,' ',''))"/>
+			</xsl:if>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:if test="tso:showCommentary(.) and $commentaryItem/@Type = ('F', 'M', 'X') ">
+				<xsl:sequence select="tso:OutputCommentaryRef(key('commentaryRef', @Ref)[1] is ., $commentaryItem,  translate($versionRef,' ',''))"/>
+			</xsl:if>
+		</xsl:otherwise>
+	</xsl:choose>
+	
 </xsl:template>
 	
 <xsl:function name="tso:OutputCommentaryRef" as="element(xhtml:a)">
@@ -600,7 +610,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body or parent::leg:Schedules or parent::leg:ScheduleBody)">			
 				<xsl:sequence select="descendant::leg:CommentaryRef"/>
 			</xsl:when>
-			<xsl:when test="self::leg:Tabular and (parent::*[@id] or parent::leg:Body)">
+			<xsl:when test="self::leg:Tabular and (parent::*[@id] or parent::leg:Body )">
 				<xsl:sequence select="descendant::leg:CommentaryRef" />
 			</xsl:when>
 			<xsl:otherwise>
@@ -620,7 +630,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body or parent::leg:Schedules or parent::leg:ScheduleBody)">
 				<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
 			</xsl:when>
-			<xsl:when test="self::leg:Tabular and (parent::*[@id] or parent::leg:Body or parent::leg:Schedules)">
+			<xsl:when test="self::leg:Tabular and (parent::*[@id] or parent::leg:Body or parent::leg:Schedules or parent::leg:ScheduleBody)">
 				<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution" />
 			</xsl:when>
 			<xsl:otherwise>
@@ -966,7 +976,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	</xsl:choose>
 </xsl:template>
 
-<xsl:template match="*[not(ancestor::leg:Contents) and ((@Match = 'false' and @Status = 'Prospective') or (@Status = 'Dead' and $version castable as xs:date and xs:date(@RestrictEndDate) &gt; xs:date($version)))]" priority="50">
+<xsl:template match="*[not(ancestor::leg:Contents) and ((@Match = 'false' and @Status = 'Prospective') or (@Status = 'Dead' and $version castable as xs:date and xs:date(@RestrictEndDate) &gt; xs:date($version)))]" priority="60">
 	<xsl:param name="showingProspective" tunnel="yes" as="xs:boolean" select="false()" />
 	<xsl:choose>
 		<xsl:when test="not($showingProspective)">
