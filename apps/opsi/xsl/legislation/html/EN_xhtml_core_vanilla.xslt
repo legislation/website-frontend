@@ -3109,7 +3109,7 @@ TODO: need to add semantic id based on EN structure
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:if test="not(ancestor::leg:MarginNote)">
-					<p class="ENText">
+					<p class="ENDS ENRHS ENNumParaText">
 						<xsl:call-template name="FuncCheckForID"/>
 						<xsl:call-template name="FuncGetLocalTextStyle"/>
 						<xsl:call-template name="FuncGetTextClass">
