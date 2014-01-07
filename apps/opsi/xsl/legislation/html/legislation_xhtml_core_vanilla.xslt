@@ -1102,7 +1102,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			</xsl:choose>
 		</xsl:when>
 		<!-- N1 without a P1group -->
-		<xsl:when test="not(preceding-sibling::*) and parent::leg:P1para and parent::leg:P1para/preceding-sibling::leg:*[1][self::leg:Pnumber] and not(parent::leg:P1para/parent::leg:P1/parent::leg:P1group) and $g_strDocumentType = $g_strPrimary">
+		<xsl:when test="not(preceding-sibling::*) and parent::leg:P1para and parent::leg:P1para/preceding-sibling::leg:*[1][self::leg:Pnumber] and not(parent::leg:P1para/parent::leg:P1[not(preceding-sibling::leg:P1)]/parent::leg:P1group) and $g_strDocumentType = $g_strPrimary">
 			<!-- Calculate if in a primary schedule -->
 			<xsl:variable name="strScheduleContext">
 				<xsl:call-template name="FuncGetScheduleContext"/>
@@ -1300,7 +1300,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:if test="not(ancestor::leg:MarginNote)">
 				<!-- Chunyu Added if condition for empty text -->
 				<xsl:if test=". !=''">
-				<p class="{concat('LegText', $strAmendmentSuffix)}">
+				<span class="{concat('LegText', $strAmendmentSuffix)}">
 					<xsl:call-template name="FuncCheckForID"/>
 					<xsl:call-template name="FuncGetLocalTextStyle"/>
 						<xsl:call-template name="FuncGetTextClass">
@@ -1308,7 +1308,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					</xsl:call-template>
 					<xsl:apply-templates select="node()[not(position() = 1 and self::text() and normalize-space() = '')] | processing-instruction()"/>
 					<xsl:text>&#13;</xsl:text>
-				</p>
+				</span>
 				</xsl:if>	
 			</xsl:if>
 		</xsl:otherwise>
@@ -1799,20 +1799,51 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <xsl:template match="leg:P1">
 <!--	<xsl:if test="not(parent::leg:P1group) or preceding-sibling::leg:P1">
 		<xsl:call-template name="FuncCheckForIDelement"/>
-	</xsl:if>-->
-	<xsl:apply-templates select="." mode="showEN" /> 
-
-	<xsl:apply-templates select="*[not(self::leg:Pnumber)] | processing-instruction()"/>
-	<xsl:call-template name="FuncApplyVersions"/>
+		</xsl:if>-->
+<xsl:apply-templates select="." mode="showEN" /> 
+		<xsl:apply-templates select="*[not(self::leg:Pnumber)] | processing-instruction()"/>
+		<xsl:call-template name="FuncApplyVersions"/>
 </xsl:template>
+
+
 
 <xsl:template match="*" mode="showEN" />
 
 <xsl:template match="leg:P1/leg:Pnumber">
-	<span class="LegP1No">
+	<xsl:variable name="strAmendmentSuffix">
+		<xsl:call-template name="FuncCalcAmendmentNo"/>
+	</xsl:variable>
+	<xsl:variable name="strContext">
+		<xsl:call-template name="FuncGetContext"/>
+	</xsl:variable>
+	<!--<span class="LegP1No">
 		<xsl:call-template name="FuncGetPnumberID"/>
 		<xsl:apply-templates/> 
-	</span>
+		</span>-->
+	<!-- Chunyu HA049771 asp/2005/6 Added the condition for P1 is not the first in P1group -->
+	<xsl:choose>
+		<xsl:when test="parent::leg:P1[not(preceding-sibling::leg:P1) and (parent::leg:P1group)]">
+			<span>
+				<xsl:attribute name="class">
+					<xsl:text>LegP1No</xsl:text>
+					<xsl:if test="$strAmendmentSuffix != ''">
+						<xsl:if test="$strContext = $g_strSecondary and $g_strDocumentType = $g_strSecondary">
+							<xsl:text> Leg</xsl:text>
+						</xsl:if>
+						<xsl:value-of select="$strAmendmentSuffix"/>
+					</xsl:if>
+				</xsl:attribute>
+				<xsl:call-template name="FuncGetPnumberID"/>
+				<xsl:apply-templates/> 
+			</span>
+		</xsl:when>
+		<xsl:otherwise>
+			<span>
+			<xsl:apply-templates/>
+			</span> 
+		</xsl:otherwise>
+	</xsl:choose>
+	
 </xsl:template>
 
 <xsl:template match="leg:Pnumber">
