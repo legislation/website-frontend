@@ -2659,7 +2659,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:sequence select="node()" />
 					<xsl:if test="position() != last()"> and </xsl:if>
 				</xsl:for-each>
-				<xsl:text>. The matching provisions are highlighted below.</xsl:text>
+				<xsl:text>. The matching provisions are highlighted below.  Where no highlighting is shown the matching result may be contained within a footnote.</xsl:text>
 			</p>
 		</div>
 	</xsl:template>
