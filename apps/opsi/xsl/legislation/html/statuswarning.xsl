@@ -142,6 +142,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 			<xsl:choose>
 				<xsl:when test="not(leg:IsPDFOnlyNotRevised(.)) and ($Scenario = '1' or  $Scenario = '5' or leg:IsCurrentRevised(.)) ">
 					<xsl:attribute name="id">statusWarning</xsl:attribute>
+					<xsl:attribute name="class"><xsl:if test="$Scenario = '1'">uptoDate</xsl:if></xsl:attribute>
 					<div class="title">
 						<h2>Changes to legislation:</h2>
 						<p class="intro">

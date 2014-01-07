@@ -586,6 +586,9 @@ a.expandCollapseLink.close {background-position:right -302px;}
 #statusWarning #statusWarningSubSections ul li {list-style: none; display: block;}
 #statusWarningSubSections .section .title h3 {font-size: 1em; width: 600px; color: #000; display: inline;}
 
+#statusWarning.uptoDate{background: #c7e6c9; border-left: 2px solid #337135;}
+#statusWarning.uptoDate h2{color: #337135}
+
 .hideChangestoLegislation #statusWarning {display:none;}
 .pointInTimeView #statusWarning {background: #FFF9EE; border-left-color: #FF9900;}
 .pointInTimeView #statusWarning h2 {color: #090909;}
