@@ -30,12 +30,12 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 	<xsl:variable name="commencementOrders" as="element(ukm:UnappliedEffect)*" select="*[ukm:Commenced or @Type = 'Commencement Order']" />
 	<xsl:variable name="effects" as="element(ukm:UnappliedEffect)*" select="*[not(ukm:Commenced)]" />
 	
-	<!--Chunyu HA050183 Added last() condition for section as there are more than one section. See http://www.legislation.gov.uk/ukpga/2005/5/section/2	-->
+	<!--Chunyu HA050183 changed the condition for section as there are more than one section. See http://www.legislation.gov.uk/ukpga/2005/5/section/2	-->
 	<xsl:variable name="largerEffects"
 								as="element(ukm:UnappliedEffect)*"
 								select="($effects except $commencementOrders)
-													[not(ukm:AffectedProvisions//ukm:Section[last()][not(@Missing = 'true')] or
-													     ukm:AffectedProvisions//ukm:SectionRange[not(@MissingStart = 'true' or @MissingEnd = 'true')]) or
+													[ukm:AffectedProvisions//*[name() = 'ukm:Section'][@Missing = 'true'] or
+													     ukm:AffectedProvisions//ukm:SectionRange[@MissingStart = 'true' or @MissingEnd = 'true'] or
 													 @AffectedProvisions[normalize-space(lower-case(.)) = $largerProvisions]]" />
 	<xsl:variable name="sectionEffects"
 								as="element(ukm:UnappliedEffect)*"
