@@ -91,6 +91,8 @@ version="2.0">
 			<xsl:apply-templates select="leg:Number | leg:SubjectInformation | leg:Title | leg:Approved | leg:LaidDraft | leg:MadeDate | leg:LaidDate | leg:ComingIntoForce | processing-instruction()"/>
 		</xsl:otherwise>
 	</xsl:choose>
+	<!-- DP. Closed off the template element. Was open - agreed with Chunyu-->
+</xsl:template>
 
 <xsl:template match="leg:SecondaryPrelims/leg:Correction">
 	<xsl:apply-templates/>
