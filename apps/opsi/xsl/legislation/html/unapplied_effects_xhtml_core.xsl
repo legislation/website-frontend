@@ -29,10 +29,12 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 	<xsl:variable name="strTitle" select="ancestor::ukm:Metadata/dc:title" as="xs:string"/>
 	<xsl:variable name="commencementOrders" as="element(ukm:UnappliedEffect)*" select="*[ukm:Commenced or @Type = 'Commencement Order']" />
 	<xsl:variable name="effects" as="element(ukm:UnappliedEffect)*" select="*[not(ukm:Commenced)]" />
+	
+	<!--Chunyu HA050183 Added last() condition for section as there are more than one section. See http://www.legislation.gov.uk/ukpga/2005/5/section/2	-->
 	<xsl:variable name="largerEffects"
 								as="element(ukm:UnappliedEffect)*"
 								select="($effects except $commencementOrders)
-													[not(ukm:AffectedProvisions//ukm:Section[not(@Missing = 'true')] or
+													[not(ukm:AffectedProvisions//ukm:Section[last()][not(@Missing = 'true')] or
 													     ukm:AffectedProvisions//ukm:SectionRange[not(@MissingStart = 'true' or @MissingEnd = 'true')]) or
 													 @AffectedProvisions[normalize-space(lower-case(.)) = $largerProvisions]]" />
 	<xsl:variable name="sectionEffects"
@@ -46,7 +48,7 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 	<xsl:if test="exists($sectionEffects) and $introURI != ancestor::ukm:Metadata/dc:identifier">
 		<div class="section" id="statusEffectsAppliedSection">
 			<div class="title">
-				<h3>Changes and effects yet to be applied to <xsl:value-of select="tso:TitleCase(translate($paramsDoc/parameters/section,'/',' '))"/>:</h3>
+				<h3>Changes and effects yet to be applied to <xsl:value-of select="test"/>:</h3>
 				<xsl:if test="$includeTooltip">
 					<a href="#ChangesEffectSectionHelp" class="helpItem helpItemToBot">
 						<img src="/images/chrome/helpIcon.gif" alt=" Help about changes and effects"/>
