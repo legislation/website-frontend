@@ -425,7 +425,13 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 											<xsl:text> part </xsl:text>
 											<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
 										</xsl:when>
-										<xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
+										<!-- <xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
+												<xsl:value-of select="$title"/>
+											<xsl:text> part 1</xsl:text>
+										
+										</xsl:when>	 -->
+										
+										<xsl:when test="self::ukm:ImpactAssessment[not(exists($ia[4]))]">
 												<xsl:value-of select="$title"/>
 											<xsl:text> part 1</xsl:text>
 										
@@ -489,7 +495,13 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 							<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
 							
 						</xsl:when>
-						<xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
+						<!-- <xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
+									<xsl:value-of select="$title"/>
+							<xsl:text> part 1</xsl:text>
+							
+						</xsl:when>	 -->
+						
+						<xsl:when test="self::ukm:ImpactAssessment[not(exists($ia[4]))] and (following-sibling::*/@Title = self::ukm:ImpactAssessment/@Title or preceding-sibling::*/@Title = self::ukm:ImpactAssessment/@Title)">
 									<xsl:value-of select="$title"/>
 							<xsl:text> part 1</xsl:text>
 							

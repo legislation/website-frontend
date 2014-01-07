@@ -296,16 +296,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		<div id="viewLegContents">                            
 			<div class="LegSnippet" id="viewLegSnippet">
 				<p class="downloadPdfVersion">
-		
-			<a class="pdfLink" href="{leg:FormatURL($pdf/@URI)}">
-				<img class="imgIcon" alt="" src="/images/chrome/pdfIconMed.gif" />
-				<xsl:text>View PDF</xsl:text>
-				<img class="pdfThumb" 
-					src="{leg:FormatURL(replace(replace($pdf/@URI, '/pdfs/', '/images/'), '.pdf', '.jpeg'))}"
-					title="{$iaTitle}"
-					alt="{$iaTitle}" />
-			</a>
-				
+	
+				<xsl:for-each select="$pdf">
+					<xsl:sort select="./@Title"/>
+					<a class="pdfLink" href="{leg:FormatURL(./@URI)}">
+						<img class="imgIcon" alt="" src="/images/chrome/pdfIconMed.gif" />
+						<xsl:text>View PDF</xsl:text>
+						<img class="pdfThumb" 
+							src="{leg:FormatURL(replace(replace(./@URI, '/pdfs/', '/images/'), '.pdf', '.jpeg'))}"
+							title="{$iaTitle}"
+							alt="{$iaTitle}" />
+					</a>
+				</xsl:for-each>	
 		</p>
 				<span class="LegClearFix" />
 			</div>
@@ -315,9 +317,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		</div>
 	</xsl:template>	
 	
-	<xsl:variable name="assessmentTypes" as="xs:string+" select="('Consultation', 'Final', 'Enactment', 'Post Implementation')" />
+	<xsl:variable name="assessmentTypes" as="xs:string+" select="('Consultation',  'Enactment', 'Final','Post Implementation')" />
 	
 	<xsl:template match="leg:ImpactAssessment" mode="TSOOutputWhatVersion">
+	<xsl:variable name="iaTitle">
+		<xsl:value-of select="$part/*/@Title"/>
+	</xsl:variable>
 		<div class="section" id="whatVersion">
 			<div class="title">
 				<h2>What Stage</h2>
@@ -332,7 +337,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<xsl:variable name="assessmentType" as="xs:string" select="." />
 						<xsl:variable name="button" as="element()?">
 							<xsl:choose>
-								<xsl:when test="count($part/*) > 1 and starts-with($iaStage, $assessmentType)"></xsl:when>
+								<xsl:when test="count($part/*[contains(./@Title,$assessmentType)]) gt 1 and contains($iaTitle,$assessmentType) "></xsl:when>
 								<xsl:otherwise>
 									<span class="background">
 									<span class="btl" /><span class="btr" /><xsl:value-of select="$assessmentType" /><span class="bbl" /><span class="bbr" />
@@ -343,12 +348,20 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						</xsl:variable>
 						<li>
 							<xsl:choose>
-								<xsl:when test="starts-with($iaStage, $assessmentType) and count($part/*) = 1">
+								
+								<xsl:when test="starts-with($iaStage, $assessmentType) and not(contains(lower-case($iaTitle),lower-case($iaStage)))  and (count($part/*) le 2 ) ">
 									<span class="userFunctionalElement active">
 										<xsl:sequence select="$button" />
 									</span>
 								</xsl:when>
-								<xsl:when test="starts-with($iaStage, $assessmentType) and count($part/*) > 1"/>
+								
+								<xsl:when test="contains($iaTitle,$assessmentType)   and (count($part/*[contains(./@Title,$assessmentType)]) = 1 )">
+									<span class="userFunctionalElement active">
+										<xsl:sequence select="$button" />
+									</span>
+								</xsl:when>
+								<xsl:when test="contains($iaTitle,$assessmentType) and count($part/*[contains(./@Title,$assessmentType)]) gt 1"/>
+									
 									
 								<xsl:when test="exists($iaStage[starts-with(., $assessmentType)])">
 									<a class="userFunctionalElement" href="{leg:FormatURL(concat($impactURI, '/', lower-case(replace($assessmentType, ' ', '-'))))}">
@@ -362,10 +375,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								</xsl:otherwise>
 							</xsl:choose>
 						</li>
-						<xsl:if test="count($part/*) > 1 and starts-with($iaStage, $assessmentType) ">
+						<xsl:if test="count($part/*[contains(./@Title,$assessmentType)]) > 1 and contains($iaTitle,$assessmentType)  ">
 							<xsl:choose>
 								<xsl:when test="$impactId = 'impacts' ">
-									<xsl:for-each select="$part/*">
+									<xsl:for-each select="$part/*[contains(./@Title,$assessmentType)]">
 										<xsl:sort select="@URI" order="ascending"></xsl:sort>
 										<xsl:variable name="uri">
 											<xsl:value-of select="translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','')"/>
@@ -410,7 +423,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 									</xsl:for-each>
 								</xsl:when>
 								<xsl:otherwise>
-									<xsl:for-each select="$part/*">
+									<xsl:for-each select="$part/*[contains(./@Title,$assessmentType)]">
 										<xsl:sort select="@URI" order="ascending"></xsl:sort>
 										<xsl:variable name="uri">
 											<xsl:value-of select="translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','')"/>
