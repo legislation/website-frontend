@@ -846,11 +846,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							</xsl:for-each-group>
 						</xsl:when>
 						<xsl:otherwise>
-							<!--<xsl:apply-templates select="atom:entry" mode="searchresults" />-->
-							<!-- call no:	HA055133 - updated to avoid duplicate search results-->
-							<xsl:for-each-group select="atom:entry" group-by="atom:title">
-								<xsl:apply-templates select="." mode="searchresults" />
-							</xsl:for-each-group>
+							<xsl:apply-templates select="atom:entry" mode="searchresults" />
+								
 						</xsl:otherwise>
 					</xsl:choose>
 				</tbody>
