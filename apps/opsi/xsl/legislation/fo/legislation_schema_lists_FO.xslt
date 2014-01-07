@@ -64,7 +64,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 <xsl:template match="leg:OrderedList">
 	<xsl:variable name="strDecoration" select="@Decoration" as="xs:string?"/>
 	<xsl:variable name="strListType" select="@Type" as="xs:string?"/>
+	
 	<xsl:for-each select="leg:ListItem">
+		<!--Added by Yash - call HA051278 - to correct numbering-->
+		<xsl:variable name="strListNumberOverride" select="@NumberOverride" as="xs:string?"/>
 	<fo:block>
 	
 		<xsl:if test="$g_strDocClass = $g_strConstantPrimary">
@@ -88,7 +91,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		
 
 		<xsl:variable name="strFormat" as="xs:string">
-			<xsl:choose>
+			<xsl:choose>	
 				<xsl:when test="$strListType = 'alpha'">a</xsl:when>
 				<xsl:when test="$strListType = 'alphaupper'">A</xsl:when>
 				<xsl:when test="$strListType = 'roman'">i</xsl:when>
@@ -125,8 +128,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								<xsl:when test="$strDecoration = 'parens'">(</xsl:when>
 								<xsl:when test="$strDecoration = 'brackets'">[</xsl:when>
 							</xsl:choose>
-
-							<xsl:number value="$intItemCount" format="{$strFormat}"/>
+							
+							<!--Added by Yash - call HA051278 - to correct numbering-->
+							<xsl:choose>
+								<xsl:when test="$strListNumberOverride">
+									<xsl:value-of select="$strListNumberOverride"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:number value="$intItemCount" format="{$strFormat}"/>
+								</xsl:otherwise>
+							</xsl:choose>
+							
 
 							<xsl:choose>
 								<xsl:when test="$strDecoration = ('parens', 'parenRight')">)</xsl:when>
