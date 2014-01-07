@@ -70,6 +70,30 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							<xsl:value-of select="$year"/>
 							<xsl:text> c. </xsl:text>
 						</xsl:when>
+						<!-- addedy by Yash call	HA051710 - corrected number for wlaes measures and act-->
+						<xsl:when test="$g_strDocType = 'WelshAssemblyMeasure'">
+							<xsl:value-of select="$year"/>
+							<xsl:choose >
+								<xsl:when test="$g_documentLanguage = 'cy'">
+									<xsl:text> mccc </xsl:text>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text> nawm </xsl:text>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:when>
+						<xsl:when test="$g_strDocType = 'WelshNationalAssemblyAct'">
+							<xsl:value-of select="$year"/>
+							<xsl:choose >
+								<xsl:when test="$g_documentLanguage = 'cy'">
+									<xsl:text> dccc </xsl:text>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text> anaw </xsl:text>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:when>	
+						
 						<xsl:otherwise>
 							<xsl:attribute name="margin-top">18pt</xsl:attribute>
 							<xsl:text>CHAPTER </xsl:text>
@@ -307,7 +331,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					</fo:table-row>
 						</fo:table-body>
 					</fo:table>
-				</xsl:when>
+				</xsl:when>	
+				
 				<xsl:when test="$g_strDocType = 'ScottishAct'">
 					<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt">
 						<fo:table-column column-width="20%"/>									
@@ -338,6 +363,81 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						</fo:table-body>
 					</fo:table>
 				</xsl:when>
+				<!-- addedy by Yash call	HA051710 - corrected number for wlaes measures and act-->
+				<xsl:when test="$g_strDocType = 'WelshAssemblyMeasure'">
+					<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt">
+						<fo:table-column column-width="20%"/>									
+						<fo:table-column column-width="80%"/>
+						<fo:table-body border-bottom="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
+							<fo:table-row margin-left="0pt" margin-right="0pt">
+								<fo:table-cell text-align="left" font-size="10pt" margin-left="0pt" margin-right="0pt">
+									<fo:block font-family="{$g_strMainFont}">
+										<fo:inline><fo:page-number/></fo:inline>
+									</fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="right" margin-left="0pt" margin-right="0pt">
+									<fo:block font-size="{$g_strHeaderSize}" font-family="Times" font-style="italic">
+										<xsl:apply-templates select="leg:ContentsTitle"/>
+										<xsl:choose>
+											<xsl:when test="$g_documentLanguage = 'cy'">
+												<xsl:text> mccc </xsl:text>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:text> nawm </xsl:text>
+											</xsl:otherwise>
+										</xsl:choose>
+										<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
+									</fo:block>
+									<xsl:call-template name="TSOdocDateTime"/>
+								</fo:table-cell>
+							</fo:table-row>
+							<fo:table-row border-bottom="solid 0.5pt black" border-top="solid 0.5pt black" >
+								<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
+									<fo:block>
+										<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
+									</fo:block>
+								</fo:table-cell>
+							</fo:table-row>
+						</fo:table-body>
+					</fo:table>
+				</xsl:when>				
+				<xsl:when test="$g_strDocType = 'WelshNationalAssemblyAct'">
+					<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt">
+						<fo:table-column column-width="20%"/>									
+						<fo:table-column column-width="80%"/>
+						<fo:table-body border-bottom="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
+							<fo:table-row margin-left="0pt" margin-right="0pt">
+								<fo:table-cell text-align="left" font-size="10pt" margin-left="0pt" margin-right="0pt">
+									<fo:block font-family="{$g_strMainFont}">
+										<fo:inline><fo:page-number/></fo:inline>
+									</fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="right" margin-left="0pt" margin-right="0pt">
+									<fo:block font-size="{$g_strHeaderSize}" font-family="Times" font-style="italic">
+										<xsl:apply-templates select="leg:ContentsTitle"/>
+										<xsl:choose>
+											<xsl:when test="$g_documentLanguage = 'cy'">
+												<xsl:text> dccc </xsl:text>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:text> anaw </xsl:text>
+											</xsl:otherwise>
+										</xsl:choose>
+										<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
+									</fo:block>
+									<xsl:call-template name="TSOdocDateTime"/>
+								</fo:table-cell>
+							</fo:table-row>
+							<fo:table-row border-bottom="solid 0.5pt black" border-top="solid 0.5pt black" >
+								<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
+									<fo:block>
+										<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
+									</fo:block>
+								</fo:table-cell>
+							</fo:table-row>
+						</fo:table-body>
+					</fo:table>
+				</xsl:when>	
 				<xsl:otherwise>
 					<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt">
 						<fo:table-column column-width="20%"/>									
@@ -455,6 +555,86 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						</fo:table-body>
 					</fo:table>
 				</xsl:when>
+				<!-- addedy by Yash call	HA051710 - corrected number for wlaes measures and act-->
+				<xsl:when test="$g_strDocType = 'WelshAssemblyMeasure'">
+					<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt">
+						<fo:table-column column-width="80%"/>									
+						<fo:table-column column-width="20%"/>
+						<fo:table-body border-bottom="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
+							<fo:table-row margin-left="0pt" margin-right="0pt">
+								<fo:table-cell text-align="left" margin-left="0pt" margin-right="0pt">
+									<fo:block font-size="{$g_strHeaderSize}" font-family="Times" font-style="italic">
+										<xsl:apply-templates select="leg:ContentsTitle"/>
+										<xsl:choose>
+											<xsl:when test="$g_documentLanguage = 'cy'">
+												<xsl:text> mccc </xsl:text>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:text> nawm </xsl:text>
+											</xsl:otherwise>
+										</xsl:choose>
+										<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
+									</fo:block>
+									<xsl:call-template name="TSOdocDateTime"/>
+								</fo:table-cell>
+								<fo:table-cell text-align="right" margin-left="0pt" margin-right="0pt">
+									<fo:block font-family="{$g_strMainFont}" font-size="10pt">
+										<fo:inline><fo:page-number/></fo:inline>
+									</fo:block>
+								</fo:table-cell>
+							</fo:table-row>
+							<fo:table-row border-bottom="solid 0.5pt black" border-top="solid 0.5pt black" >
+								<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
+									<fo:block>
+										<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
+									</fo:block>
+								</fo:table-cell>
+							</fo:table-row>
+						</fo:table-body>
+					</fo:table>
+				</xsl:when>
+				
+				
+				
+				<xsl:when test="$g_strDocType = 'WelshNationalAssemblyAct'">
+					<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt">
+						<fo:table-column column-width="80%"/>									
+						<fo:table-column column-width="20%"/>
+						<fo:table-body border-bottom="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
+							<fo:table-row margin-left="0pt" margin-right="0pt">
+								<fo:table-cell text-align="left" margin-left="0pt" margin-right="0pt">
+									<fo:block font-size="{$g_strHeaderSize}" font-family="Times" font-style="italic">
+										<xsl:apply-templates select="leg:ContentsTitle"/>
+										<xsl:choose>
+											<xsl:when test="$g_documentLanguage = 'cy'">
+												<xsl:text> dccc </xsl:text>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:text> anaw </xsl:text>
+											</xsl:otherwise>
+										</xsl:choose>
+										<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
+									</fo:block>
+									<xsl:call-template name="TSOdocDateTime"/>
+								</fo:table-cell>
+								<fo:table-cell text-align="right" margin-left="0pt" margin-right="0pt">
+									<fo:block font-family="{$g_strMainFont}" font-size="10pt">
+										<fo:inline><fo:page-number/></fo:inline>
+									</fo:block>
+								</fo:table-cell>
+							</fo:table-row>
+							<fo:table-row border-bottom="solid 0.5pt black" border-top="solid 0.5pt black" >
+								<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
+									<fo:block>
+										<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
+									</fo:block>
+								</fo:table-cell>
+							</fo:table-row>
+						</fo:table-body>
+					</fo:table>
+				</xsl:when>
+				
+				
 				<xsl:otherwise>
 					<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt">
 						<fo:table-column column-width="80%"/>									

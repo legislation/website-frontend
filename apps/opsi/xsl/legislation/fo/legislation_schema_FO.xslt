@@ -792,8 +792,6 @@ exclude-result-prefixes="tso atom">
 						</xsl:if>-->
 						<xsl:choose>
 							<xsl:when test="$g_strDocClass = $g_strConstantPrimary">
-
-
 								<fo:marker marker-class-name="runninghead2">
 									<xsl:choose>
 										<xsl:when test="$g_ndsLegPrelims/leg:Title">
@@ -803,9 +801,40 @@ exclude-result-prefixes="tso atom">
 											<xsl:apply-templates select="/leg:Legislation/ukm:Metadata/dc:title"  mode="header"/>
 										</xsl:otherwise>
 									</xsl:choose>
-									<xsl:text> (c. </xsl:text>
-									<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
-									<xsl:text>)</xsl:text>
+									<!-- addedy by Yash call	HA051710 - corrected number for wlaes measures and act-->
+									<xsl:choose>
+										<xsl:when test="$g_strDocType = 'ScottishAct'">
+											<xsl:text> asp </xsl:text>
+											<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>											
+										</xsl:when>
+										<xsl:when test="$g_strDocType = 'WelshAssemblyMeasure'">
+											<xsl:choose>
+												<xsl:when test="$g_documentLanguage = 'cy'">
+													<xsl:text> mccc </xsl:text>
+												</xsl:when>
+												<xsl:otherwise>
+													<xsl:text> nawm </xsl:text>
+												</xsl:otherwise>
+											</xsl:choose>
+											<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>	
+										</xsl:when>
+										<xsl:when test="$g_strDocType = 'WelshNationalAssemblyAct'">
+											<xsl:choose>
+												<xsl:when test="$g_documentLanguage = 'cy'">
+													<xsl:text> dccc </xsl:text>
+												</xsl:when>
+												<xsl:otherwise>
+													<xsl:text> anaw </xsl:text>
+												</xsl:otherwise>
+											</xsl:choose>
+											<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:text> (c. </xsl:text>
+											<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
+											<xsl:text>)</xsl:text>
+										</xsl:otherwise>
+									</xsl:choose>									
 								</fo:marker>
 							</xsl:when>
 							<xsl:otherwise>
@@ -910,9 +939,40 @@ exclude-result-prefixes="tso atom">
 									<xsl:apply-templates select="/leg:Legislation/ukm:Metadata/dc:title"  mode="header"/>
 								</xsl:otherwise>
 							</xsl:choose>
-							<xsl:text> (c. </xsl:text>
-							<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
-							<xsl:text>)</xsl:text>
+							<!-- addedy by Yash call	HA051710 - corrected number for wlaes measures and act-->
+							<xsl:choose>
+								<xsl:when test="$g_strDocType = 'ScottishAct'">
+									<xsl:text> asp </xsl:text>
+									<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>											
+								</xsl:when>
+								<xsl:when test="$g_strDocType = 'WelshAssemblyMeasure'">
+									<xsl:choose>
+										<xsl:when test="$g_documentLanguage = 'cy'">
+											<xsl:text> mccc </xsl:text>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:text> nawm </xsl:text>
+										</xsl:otherwise>
+									</xsl:choose>
+									<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>	
+								</xsl:when>
+								<xsl:when test="$g_strDocType = 'WelshNationalAssemblyAct'">
+									<xsl:choose>
+										<xsl:when test="$g_documentLanguage = 'cy'">
+											<xsl:text> dccc </xsl:text>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:text> anaw </xsl:text>
+										</xsl:otherwise>
+									</xsl:choose>
+									<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text> (c. </xsl:text>
+									<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
+									<xsl:text>)</xsl:text>
+								</xsl:otherwise>
+							</xsl:choose>	
 						</fo:marker>
 						<xsl:apply-templates select="$statusWarningHTML" mode="statuswarning"/>
 					</fo:flow>

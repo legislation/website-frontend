@@ -65,6 +65,52 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
 						</fo:marker>
 					</xsl:when>
+					<!-- addedy by Yash call	HA051710 - corrected number for wlaes measures and act-->
+					<xsl:when test="$g_ndsLegMetadata/ukm:Number/@Value != '' and  $g_strDocType = 'WelshAssemblyMeasure'">
+						<fo:marker marker-class-name="runninghead2">
+							<xsl:choose>
+								<xsl:when test="$g_ndsLegPrelims/leg:Title">
+									<xsl:apply-templates select="$g_ndsLegPrelims/leg:Title"  mode="header"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:apply-templates select="/leg:Legislation/ukm:Metadata/dc:title"  mode="header"/>
+								</xsl:otherwise>
+							</xsl:choose>
+							<xsl:choose>
+								<xsl:when test="$g_documentLanguage = 'cy'">
+									<xsl:text> mccc </xsl:text>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text> nawm </xsl:text>
+								</xsl:otherwise>
+							</xsl:choose>
+							<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
+						</fo:marker>
+					</xsl:when>	
+					
+					<xsl:when test="$g_ndsLegMetadata/ukm:Number/@Value != '' and  $g_strDocType = 'WelshNationalAssemblyAct'">
+						<fo:marker marker-class-name="runninghead2">
+							<xsl:choose>
+								<xsl:when test="$g_ndsLegPrelims/leg:Title">
+									<xsl:apply-templates select="$g_ndsLegPrelims/leg:Title"  mode="header"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:apply-templates select="/leg:Legislation/ukm:Metadata/dc:title"  mode="header"/>
+								</xsl:otherwise>
+							</xsl:choose>
+							<xsl:choose>
+								<xsl:when test="$g_documentLanguage = 'cy'">
+									<xsl:text> dccc </xsl:text>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text> anaw </xsl:text>
+								</xsl:otherwise>
+							</xsl:choose>
+							<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
+						</fo:marker>
+					</xsl:when>
+					
+					
 					<xsl:when test="$g_ndsLegMetadata/ukm:Number/@Value != ''">
 						<fo:marker marker-class-name="runninghead2">
 							<xsl:choose>
@@ -140,6 +186,27 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:choose>
 						<xsl:when test="$g_strDocType = 'ScottishAct'">
 							<xsl:text> asp </xsl:text>
+						</xsl:when>
+						<!-- addedy by Yash call	HA051710 - corrected number for wlaes measures and act-->
+						<xsl:when test="$g_strDocType = 'WelshAssemblyMeasure'">						
+							<xsl:choose>
+								<xsl:when test="$g_documentLanguage = 'cy'">
+									<xsl:text> mccc </xsl:text>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text> nawm </xsl:text>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:when>
+						<xsl:when test="$g_strDocType = 'WelshNationalAssemblyAct'">						
+							<xsl:choose>
+								<xsl:when test="$g_documentLanguage = 'cy'">
+									<xsl:text> dccc </xsl:text>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text> anaw </xsl:text>
+								</xsl:otherwise>
+							</xsl:choose>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:text> CHAPTER </xsl:text>
