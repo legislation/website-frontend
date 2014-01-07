@@ -314,7 +314,7 @@ ul#legSubNav li.base {margin-left: 0;}
 .legPnToc li#legPnLink a,
 .legResources li#legResourcesLink a,
 .legCommencement li#legConmmencementLink a,
-.legIA li#legIALink a
+.legIA li#legIALink a,
 .legIAContent li#legIALink a
 {background:url("/images/chrome/tab.gif") no-repeat 0 -103px; color: #069;}
 
@@ -329,7 +329,7 @@ ul#legSubNav li.base {margin-left: 0;}
 .legEnToc li#legEnLink,
 .legResources li#legResourcesLink,
 .legCommencement li#legConmmencementLink,
-.legIA li#legIALink 
+.legIA li#legIALink,
 .legIAContent li#legIALink 
 {background:url("/images/chrome/tab.gif") no-repeat top right;}
 
@@ -344,7 +344,7 @@ ul#legSubNav li.base {margin-left: 0;}
 .legPnToc li#legPnLink span.presentation,
 .legResources li#legResourcesLink span.presentation,
 .legCommencement li#legConmmencementLink span.presentation,
-.legIA li#legIALink span.presentation
+.legIA li#legIALink span.presentation,
 .legIAContent li#legIALink span.presentation
 {background: none;}
 /* end of Legislation sub navigation */
@@ -384,10 +384,6 @@ div.interface .active {color: #016398; background: #fff}
 .legEnToc div.interface .prevNextNav ul,
 .legEnContent div.interface .prevNextNav ul,
 .legPnToc div.interface .prevNextNav ul,
-.legPnContent div.interface .prevNextNav ul
-
-.legEnContent div.interface .prevNextNav ul,
-.legPnToc div.interface .prevNextNav ul,
 .legPnContent div.interface .prevNextNav ul,
 .legIAContent div.interface .prevNextNav ul
 {text-align: center; margin-left: 7%; width: 55%}
@@ -397,10 +393,6 @@ div.interface .active {color: #016398; background: #fff}
 .legEnToc div.interface #viewPrintControl,
 .legEnContent div.interface #viewPrintControl,
 .legPnToc div.interface #viewPrintControl,
-.legPnContent div.interface #viewPrintControl
-
-.legEnContent div.interface #viewPrintControl,
-.legPnToc div.interface #viewPrintControl,
 .legPnContent div.interface #viewPrintControl,
 .legIAContent div.interface #viewPrintControl
 {text-align: right; width: 23%;  float: right;}
@@ -408,11 +400,7 @@ div.interface .active {color: #016398; background: #fff}
 .legEmContent div.interface #wholeNav,
 .legEmToc div.interface #wholeNav,
 .legEnContent div.interface #wholeNav,
-.legEnToc div.interface #wholeNav,
-.legPnContent div.interface #wholeNav,
-.legPnToc div.interface #wholeNav
-
-.legEnToc div.interface #wholeNav,
+legEnToc div.interface #wholeNav,
 .legPnContent div.interface #wholeNav,
 .legPnToc div.interface #wholeNav,
 .legIAContent div.interface #wholeNav
@@ -425,10 +413,6 @@ div.interface .active {color: #016398; background: #fff}
 .legEnContent #content div.interface .prevNextNav ul,
 .legEnToc #content div.interface .prevNextNav ul,
 .legPnContent #content div.interface .prevNextNav ul,
-.legPnToc #content div.interface .prevNextNav ul
-
-.legEnToc #content div.interface .prevNextNav ul,
-.legPnContent #content div.interface .prevNextNav ul,
 .legPnToc #content div.interface .prevNextNav ul,
 .legIAContent #content div.interface .prevNextNav ul
 {margin-left: 0; text-align: center; width: 100%;}
@@ -436,10 +420,6 @@ div.interface .active {color: #016398; background: #fff}
 .legEmContent .prevNextNav ul li.toc .userFunctionalElement,
 .legEmToc .prevNextNav ul li.toc .userFunctionalElement,
 .legEnContent .prevNextNav ul li.toc .userFunctionalElement,
-.legEnToc .prevNextNav ul li.toc .userFunctionalElement,
-.legPnContent .prevNextNav ul li.toc .userFunctionalElement,
-.legPnToc .prevNextNav ul li.toc .userFunctionalElement
-
 .legEnToc .prevNextNav ul li.toc .userFunctionalElement,
 .legPnContent .prevNextNav ul li.toc .userFunctionalElement,
 .legPnToc .prevNextNav ul li.toc .userFunctionalElement,

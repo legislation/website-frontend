@@ -82,7 +82,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		
 		
 	<xsl:variable name="IsImpactAssessmentsAvailable" as="xs:boolean" 
-		select="tso:ShowImpactAssessments(/)"/>			
+		select="exists($iaURI)"/>			
 					
 	
 	<xsl:variable name="enType" as="xs:string?" select="if (contains(/leg:EN/ukm:Metadata/dc:identifier, '/memorandum')) then 'em' 
