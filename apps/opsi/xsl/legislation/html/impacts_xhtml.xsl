@@ -99,7 +99,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		</xsl:sequence>
 	</xsl:variable>
 		
-		
+	<xsl:variable name="associatedIAs" as="element(atom:link)*" 
+		select="/leg:ImpactAssessment/ukm:Metadata/atom:link[starts-with(@rel, 'http://www.legislation.gov.uk/def/navigation/impacts')]" />	
 
 
 	<!-- used by uicommon.xsl - this is the legislation main type -->
@@ -125,7 +126,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		select="if ($documentMainType) then tso:ShowMoreResources(/) else false()"/>	
 		
 	<xsl:variable name="IsImpactAssessmentsAvailable" as="xs:boolean" 
-		select="exists($impactURI)"/>
+		select="exists($impactURI) or /leg:ImpactAssessment"/>
 	
 	
 	<xsl:variable name="IsLegislationView" as="xs:boolean" 
@@ -266,7 +267,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		<xsl:variable name="version" as="xs:string?">
 			<xsl:value-of>
 				<xsl:text>the </xsl:text>
-				<xsl:value-of select="$iaStage" />
+				<xsl:value-of select="if ($iaStage != '') then $iaStage else 'Final'" />
 				<xsl:text> version of the </xsl:text>
 			</xsl:value-of>
 		</xsl:variable>
@@ -323,6 +324,34 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:variable name="iaTitle">
 		<xsl:value-of select="$part/*/@Title"/>
 	</xsl:variable>
+	
+	<xsl:variable name="orderedAssociatedIAs" as="element()*">
+		<xsl:for-each select="$associatedIAs">
+			<xsl:variable name="uriTokens" select="tokenize(substring-after(@href,'impacts/'),'/')"/>
+			<associatedIA stage="{translate(lower-case(substring-after(@rel,'http://www.legislation.gov.uk/def/navigation/impacts/')),'_',' ')}" 
+							uri="{@href}" 
+							title="{@title}"
+							year="{$uriTokens[1]}"
+							number="{$uriTokens[2]}"/>
+		</xsl:for-each>
+		<!--  TNA request - treat as a final stage if there is no stage declared  -->
+		<associatedIA stage="{if ($iaStage != '') then lower-case($iaStage) else 'final'}" 
+							uri="" 
+							title=""
+							year="{$impactYear}"
+							number="{$impactNumber}"
+							self="true"/>
+	</xsl:variable>
+	<xsl:variable name="orderedAssociatedIAs" as="element()*">
+		<xsl:for-each select="$orderedAssociatedIAs">
+			<xsl:sort select="@stage"/>
+			<xsl:sort select="@year"/>
+			<xsl:sort select="@number"/>
+			<xsl:copy-of select="."/>
+		</xsl:for-each>
+	</xsl:variable>
+	
+	
 		<div class="section" id="whatVersion">
 			<div class="title">
 				<h2>What Stage</h2>
@@ -336,142 +365,52 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:for-each select="$assessmentTypes">
 						<xsl:variable name="assessmentType" as="xs:string" select="." />
 						<xsl:variable name="button" as="element()?">
-							<xsl:choose>
-								<xsl:when test="count($part/*[contains(./@Title,$assessmentType)]) gt 1 and contains($iaTitle,$assessmentType) "></xsl:when>
-								<xsl:otherwise>
-									<span class="background">
-									<span class="btl" /><span class="btr" /><xsl:value-of select="$assessmentType" /><span class="bbl" /><span class="bbr" />
-								</span></xsl:otherwise>
-							</xsl:choose>
-							
-							
+							<span class="background">
+								<span class="btl" /><span class="btr" /><xsl:value-of select="$assessmentType" /><span class="bbl" /><span class="bbr" />
+							</span>
 						</xsl:variable>
-						<li>
+						
+						
+						<xsl:variable name="intTotalStage" select="count($orderedAssociatedIAs[lower-case(@stage) = lower-case($assessmentType)])"/>
+						<xsl:for-each select="$orderedAssociatedIAs[lower-case(@stage) = lower-case($assessmentType)]">
+							<xsl:variable name="intIaNo" select="position()"/>
+							<xsl:variable name="buttonPart" as="element()">
+								<span class="background">
+									<span class="btl" /><span class="btr" /><xsl:value-of select="concat($assessmentType,' part ',$intIaNo)" /><span class="bbl" /><span class="bbr" />
+								</span>
+							</xsl:variable>
+							<li>
 							<xsl:choose>
-								
-								<xsl:when test="starts-with($iaStage, $assessmentType) and not(contains(lower-case($iaTitle),lower-case($iaStage)))  and (count($part/*) le 2 ) ">
+								<xsl:when test="$intTotalStage &gt; 1 and @self = 'true'">
 									<span class="userFunctionalElement active">
-										<xsl:sequence select="$button" />
+										<xsl:sequence select="$buttonPart" />
 									</span>
 								</xsl:when>
-								
-								<xsl:when test="contains($iaTitle,$assessmentType)   and (count($part/*[contains(@Title,$assessmentType)]) = 1 )">
-									<span class="userFunctionalElement active">
-										<xsl:sequence select="$button" />
-									</span>
-								</xsl:when>
-								<xsl:when test="contains($iaTitle,$assessmentType) and count($part/*[contains(@Title,$assessmentType)]) gt 1"/>
-									
-									
-								<xsl:when test="exists($iaStage[starts-with(., $assessmentType)])">
-									<a class="userFunctionalElement" href="{leg:FormatURL(concat($impactURI, '/', lower-case(replace($assessmentType, ' ', '-'))))}">
-										<xsl:sequence select="$button" />
+								<xsl:when test="$intTotalStage &gt; 1">
+									<a class="userFunctionalElement" href="{@uri}">
+										<xsl:sequence select="$buttonPart" />
 									</a>
 								</xsl:when>
-								<xsl:otherwise>
-									<span class="userFunctionalElement disabled">
+								<xsl:when test="@self = 'true'">
+									<span class="userFunctionalElement active">
 										<xsl:sequence select="$button" />
 									</span>
-								</xsl:otherwise>
-							</xsl:choose>
-						</li>
-						<xsl:if test="count($part/*[contains(@Title,$assessmentType)]) gt 1 and contains($iaTitle,$assessmentType)  ">
-							<xsl:choose>
-								<xsl:when test="$impactId = 'impacts' ">
-									<xsl:for-each select="$part/*[contains(@Title,$assessmentType)]">
-										<xsl:sort select="@URI" order="ascending"></xsl:sort>
-										<xsl:variable name="uri">
-											<xsl:value-of select="translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','')"/>
-										</xsl:variable>
-										<xsl:variable name="iauri">
-											<xsl:value-of select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@title = 'Impact Assessment']/@href[tokenize(.,'/')[last()] = $impactId]"/>
-										</xsl:variable>
-										<xsl:variable name="ia" select="tokenize(@URI, '_')" />
-										<xsl:variable name="iaNo">
-											<xsl:choose>
-												<xsl:when test="exists($ia[4])">
-													<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
-												</xsl:when>
-												<xsl:otherwise>1</xsl:otherwise>
-											</xsl:choose>
-										
-										</xsl:variable>
-										<xsl:variable name="buttonPart" as="element()">
-											<span class="background">
-												<span class="btl" /><span class="btr" /><xsl:value-of select="concat($assessmentType,' part ',$iaNo)" /><span class="bbl" /><span class="bbr" />
-											</span>
-										</xsl:variable>
-										<li>
-										<xsl:choose>
-											<xsl:when test="position() = 1">
-												<span class="userFunctionalElement active">
-													<xsl:sequence select="$buttonPart" />
-												</span>
-												<!--<a class="userFunctionalElement" href="{/leg:ImpactAssessment/ukm:Metadata/dc:identifier}">
-													<xsl:sequence select="$buttonPart" />
-												</a>-->
-											</xsl:when>
-											<xsl:otherwise>
-												<a class="userFunctionalElement" href="{concat(/leg:ImpactAssessment/ukm:Metadata/dc:identifier,'/',$impactLegYear,'/',$uri)}">
-													<xsl:sequence select="$buttonPart" />
-												</a>
-											</xsl:otherwise>
-										</xsl:choose>
-										
-								
-									</li>
-									</xsl:for-each>
 								</xsl:when>
 								<xsl:otherwise>
-									<xsl:for-each select="$part/*[contains(@Title,$assessmentType)]">
-										<xsl:sort select="@URI" order="ascending"></xsl:sort>
-										<xsl:variable name="uri">
-											<xsl:value-of select="translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','')"/>
-										</xsl:variable>
-										<xsl:variable name="iauri">
-											<xsl:value-of select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@title = 'Impact Assessment']/@href[tokenize(.,'/')[last()] = $impactId]"/>
-										</xsl:variable>
-										
-										<xsl:variable name="ia" select="tokenize(@URI, '_')" />
-										<xsl:variable name="iaNo">
-											<xsl:choose>
-												<xsl:when test="exists($ia[4])">
-													
-													<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
-													
-												</xsl:when>
-												<xsl:otherwise>1</xsl:otherwise>
-											</xsl:choose>
-											
-										</xsl:variable>
-										<xsl:variable name="buttonPart" as="element()">
-											<span class="background">
-												<span class="btl" /><span class="btr" /><xsl:value-of select="concat($assessmentType,' part ',$iaNo)" /><span class="bbl" /><span class="bbr" />
-											</span>
-										</xsl:variable>
-										<li>
-											
-										<xsl:choose>
-											<xsl:when test="$uri = $impactId">
-												<span class="userFunctionalElement active">
-													<xsl:sequence select="$buttonPart" />
-												</span>
-											
-											</xsl:when>
-											<xsl:otherwise>
-												<a class="userFunctionalElement" href="{replace(/leg:ImpactAssessment/ukm:Metadata/dc:identifier,$impactId,$uri)}">
-														<xsl:sequence select="$buttonPart" />
-													</a>
-												
-											</xsl:otherwise>
-										</xsl:choose>
-				
-										</li>
-									</xsl:for-each>
-									
+									<a class="userFunctionalElement" href="{@uri}">
+										<xsl:sequence select="$button" />
+									</a>
 								</xsl:otherwise>
 							</xsl:choose>
-
+							</li>
+						</xsl:for-each>
+						<!-- this will add in a blank button for the stage if no IAs are available  -->
+						<xsl:if test="not($orderedAssociatedIAs[lower-case(@stage) = lower-case($assessmentType)])">
+							<li>
+								<span class="userFunctionalElement disabled">
+									<xsl:sequence select="$button" />
+								</span>
+							</li>
 						</xsl:if>
 					</xsl:for-each>
 				</ul>
