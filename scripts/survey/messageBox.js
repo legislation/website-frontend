@@ -1,9 +1,9 @@
 
-  $(document).ready(function(){
+/*  $(document).ready(function(){
  
 	$(this).showModalDialog();
 });
-
+*/
 
 /*
 ?  Crown copyright
@@ -29,7 +29,7 @@ Div acting as modal window to already have been loaded
 
 
 */
-$.fn.showModalDialog = function(options) {
+/*$.fn.showModalDialog = function(options) {
 	
 		var defaults = {
 			classes: {
@@ -80,12 +80,12 @@ $.fn.showModalDialog = function(options) {
 			//	}
 			}
 };
-
+*/
 /*
  * Opens the modal window to display a message on page load, this function does not require any click event to trigger itself.
  * 
  */
-$.fn.legModalWinOnce = function(options){
+/*$.fn.legModalWinOnce = function(options){
 	// required for chaining, refer to jQuery API for more details
 
 		// Create variables and constants for storage, these can be overwritten in the normal jQuery way
@@ -240,5 +240,5 @@ $.fn.legModalWinOnce = function(options){
 			}
 			   
 };
-
+*/
 
