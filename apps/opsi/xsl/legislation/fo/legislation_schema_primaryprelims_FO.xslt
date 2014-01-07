@@ -208,6 +208,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:when>
+					<xsl:when test="$g_strDocType = 'UnitedKingdomChurchMeasure'">
+						<xsl:text> No. </xsl:text>
+					</xsl:when>
 						<xsl:otherwise>
 							<xsl:text> CHAPTER </xsl:text>
 						</xsl:otherwise>
