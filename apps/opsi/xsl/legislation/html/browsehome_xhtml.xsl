@@ -105,7 +105,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								<dd><xsl:value-of select="leg:TranslateText('Browse_UKApplies1')"/></dd>
 								
 								<dt><img src="/images/chrome/mapAppliesKeyIcon.gif" alt="A light grey background" /></dt>
-								<dd><xsl:value-of select="leg:TranslateText('Browse_UKApplies1')"/></dd>
+								<dd><xsl:value-of select="leg:TranslateText('Browse_UKApplies4')"/></dd>
 								
 								<dt><img src="/images/chrome/mapNAKeyIcon.gif" alt="No background" /></dt>
 								<dd><xsl:value-of select="leg:TranslateText('Not applicable')"/></dd>
