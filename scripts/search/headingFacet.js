@@ -19,7 +19,9 @@ $(document).ready(function() {
     
     var 
         $selectSubHeadingComboBox = $( "#subheading ul:first" )
-                                        .comboboxFromLinks()
+                                        .comboboxFromLinks({
+										   title: 'Start Typing ...'
+										})
                                         .parent()
                                             .find('.ui-combobox'),                                        
         $navJumpBtn = $('<a class="userFunctionalElement disabled" />').attr({
@@ -29,7 +31,7 @@ $(document).ready(function() {
                         })
                         .append('<span class="btl"/>')
                         .append('<span class="btr"/>')
-                        .append('View subheading results')
+                        .append('View Refined Results')
                         .append('<span class="bbl"/>')
                         .append('<span class="bbr"/>')
                         .button();

@@ -8,11 +8,14 @@
  */
 (function( $ ) {
 $.widget( "ui.comboboxFromLinks", {
+	options: {
+                title: 'Start Typing ...'
+				},
     _create: function() {
         var input,
             that = this,
             list = this.element.hide(),
-            selected = "", // @TODO - use the page heading
+            selected = this.options.title, // @TODO - use the page heading
                 //list.children( ":selected" ), // unused old version of selected
             value = selected,
                 //selected.val() ? selected.text() : "",

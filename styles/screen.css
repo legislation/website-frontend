@@ -194,6 +194,7 @@ ul#secondaryNav li a:hover {text-decoration: underline;}
 /* sub sections */
 .content .title {border-top: 1px dotted #CCC}
 .content .section {border: none; margin-bottom: 0;}
+.subheading {border-top:none}
 .content .section ul {margin: 0}
 /* end sub sections */
 /* end of section styles */
@@ -1232,6 +1233,10 @@ p.backToTop
 #search #tools .section, 
 #browse #tools .section 
 {float: left; width: 199px; border-bottom: 1px dotted #DDD}
+
+#search #tools #heading , 
+#browse #tools #heading 
+{float: left; width: 199px; border-bottom: none}
 
 #search #tools .userFunctionalElement,
 #browse #tools .userFunctionalElement 
