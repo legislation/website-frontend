@@ -2247,6 +2247,7 @@ exclude-result-prefixes="tso atom">
 								<xsl:when test="ancestor::xhtml:td[1][@align = 'right']">right</xsl:when>
 								<xsl:when test="ancestor::xhtml:td or ancestor::xhtml:th">left</xsl:when>
 								<xsl:when test="ancestor::leg:Comment or ancestor::leg:RoyalPresence">center</xsl:when>
+								<xsl:when test="parent::leg:P/parent::leg:ExplanatoryNotes">center</xsl:when>
 								<xsl:otherwise>justify</xsl:otherwise>
 							</xsl:choose>
 						</xsl:variable>
@@ -2518,6 +2519,12 @@ exclude-result-prefixes="tso atom">
 					<xsl:apply-templates/>
 				</fo:inline>
 			</xsl:when>
+			<!--Chunyu	HA051074 if parent only has emphasis and strong children and not other nodes,each of them should be individual block. See ukci/2010/5/note/sld/created-->
+			<xsl:when test="parent::leg:Text/node()[not(self::text())] and preceding-sibling::*[1][self::leg:Strong]">
+				<fo:block>
+					<xsl:apply-templates/>
+				</fo:block>
+			</xsl:when>
 			<xsl:otherwise>
 				<fo:inline font-style="italic">
 					<xsl:apply-templates/>
@@ -2533,8 +2540,14 @@ exclude-result-prefixes="tso atom">
 					<xsl:apply-templates/>
 				</fo:inline>
 			</xsl:when>
+			<!--Chunyu	HA051074 if parent only has emphasis and strong children and not other nodes,each of them should be individual block. See ukci/2010/5/note/sld/created-->
+			<xsl:when test="parent::leg:Text/node()[not(self::text())] and following-sibling::*[1][self::leg:Emphasis]">
+				<fo:block font-weight="bold"  >
+					<xsl:apply-templates/>
+				</fo:block>
+			</xsl:when>
 			<xsl:otherwise>
-				<fo:inline font-weight="bold">
+				<fo:inline font-weight="bold" >
 					<xsl:apply-templates/>
 				</fo:inline>
 			</xsl:otherwise>

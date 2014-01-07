@@ -1303,15 +1303,30 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:if test="not(ancestor::leg:MarginNote)">
 				<!-- Chunyu Added if condition for empty text -->
 				<xsl:if test=". !=''">
-				<p class="{concat('LegText', $strAmendmentSuffix)}">
-					<xsl:call-template name="FuncCheckForID"/>
-					<xsl:call-template name="FuncGetLocalTextStyle"/>
-						<xsl:call-template name="FuncGetTextClass">
-						<xsl:with-param name="flMode" select="'Block'"/>
-					</xsl:call-template>
-					<xsl:apply-templates select="node()[not(position() = 1 and self::text() and normalize-space() = '')] | processing-instruction()"/>
-					<xsl:text>&#13;</xsl:text>
-				</p>
+					<!--Chunyu HA051074 Added a condition for the instance of ukci/2010/5/note/sld/created-->
+				<xsl:choose>
+					<xsl:when test="leg:Strong and leg:Emphasis and parent::leg:P/parent::leg:ExplanatoryNotes and node()[not(self::text())]">
+						<xsl:for-each select="leg:Strong | leg:Emphasis">
+							<p class="LegExpNoteText">
+								<xsl:apply-templates select="."/>
+								<xsl:text>&#13;</xsl:text>
+							</p>
+						</xsl:for-each>
+					</xsl:when>
+					<xsl:otherwise>
+						<p class="{concat('LegText', $strAmendmentSuffix)}">
+							<xsl:call-template name="FuncCheckForID"/>
+							<xsl:call-template name="FuncGetLocalTextStyle"/>
+							<xsl:call-template name="FuncGetTextClass">
+								<xsl:with-param name="flMode" select="'Block'"/>
+							</xsl:call-template>
+							<xsl:apply-templates select="node()[not(position() = 1 and self::text() and normalize-space() = '')] | processing-instruction()"/>
+							<xsl:text>&#13;</xsl:text>
+						</p>
+					</xsl:otherwise>
+				</xsl:choose>
+					
+					
 				</xsl:if>	
 			</xsl:if>
 		</xsl:otherwise>
@@ -3675,9 +3690,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	
 	<!-- Yashashri : changed to make Headings Italic - Support call- 	HA047941-->
 	<!-- Chunyu HA050076 Added em back to the template with the condition -->
+	<!-- Chunyu HA051074 ukci/2010/5/note/sld/created -->
 <xsl:template match="leg:Emphasis">	
 	<xsl:choose>
-		<xsl:when test="parent::leg:Title/parent::leg:Pblock">
+		<xsl:when test="parent::leg:Title/parent::leg:Pblock or parent::leg:Text/parent::leg:P/parent::leg:ExplanatoryNotes ">
 			<xsl:call-template name="FuncCheckForID"/>
 		<xsl:apply-templates/>	
 		</xsl:when>
