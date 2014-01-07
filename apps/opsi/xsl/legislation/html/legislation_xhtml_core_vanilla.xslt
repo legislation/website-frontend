@@ -1350,7 +1350,11 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 	
 <!-- Chunyu Added the following two specific templates to mach P1para/Text[empty]/P3/P3para/text. It is very rare.  see call HA048670 SI 20111824 schedule 1-->
-<xsl:template match="leg:P1para/leg:Text[$g_strDocumentType = $g_strSecondary and self::leg:Text[normalize-space() = ''] and parent::leg:P1para[preceding-sibling::*[1][self::leg:Pnumber]]]" priority="1000">
+	<!-- CRM changed the match from 
+		match="leg:P1para/leg:Text[$g_strDocumentType = $g_strSecondary and self::leg:Text[normalize-space() = '']
+	and parent::leg:P1para[preceding-sibling::*[1][self::leg:Pnumber]]]"
+		to as it is now so that it does not causes duplicate number error see Sunrise HA052087 -->
+	<xsl:template match="leg:P1para/leg:Text[$g_strDocumentType = $g_strSecondary and self::leg:Text[normalize-space() = '' and leg:P3para/leg:Text] and parent::leg:P1para[preceding-sibling::*[1][self::leg:Pnumber]]]" priority="1000">
 	<p class="LegP1ParaText">
 		<xsl:apply-templates select="parent::leg:P1para/preceding-sibling::leg:Pnumber"/>
 	</p>
