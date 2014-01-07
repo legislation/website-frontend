@@ -225,12 +225,14 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						<xsl:sort select=". instance of element(ukm:Alternative)" order="descending" />
 						<!-- ENs & EMs after print PDFs -->
 						<xsl:sort select="exists(ancestor::ukm:Notes)" order="descending" />
+						<!-- group by type - this comes first as we cannot trust the title -->
+						<xsl:sort select="local-name(.)" />
+						<!-- ENs & EMs after print PDFs -->
 						<xsl:sort select="@Title = 'Explanatory Note' " order="descending" />
 						<xsl:sort select="@Title = 'Executive Note' " order="descending" />
 						<xsl:sort select="@Title = 'Policy Note' " order="descending" />
 						<xsl:sort select="@Title = 'Explanatory Memorandum' " order="descending" />
-						<!-- group by type -->
-						<xsl:sort select="local-name(.)" />
+						
 						<!-- sort by title -->
 						<xsl:sort select="@Title"/>
 						<!-- English first -->
@@ -262,7 +264,10 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 			
 			<xsl:call-template name="AssociatedImpact">
 				<xsl:with-param name="associatedDocuments">
+					<!-- determine the display order of the IA stages -->
+					<!-- first will be all non-IA IA's -->
 					<xsl:apply-templates select="$sortedIAs/ukm:ImpactAssessment[not(@Stage = ('Post-Implementation','Enactment','Final','Consultation'))]" mode="AssociatedDocuments"/>
+					<!-- then follow the order used in the IA tab -->
 					<xsl:apply-templates select="$sortedIAs/ukm:ImpactAssessment[@Stage = 'Consultation']" mode="AssociatedDocuments"/>
 					<xsl:apply-templates select="$sortedIAs/ukm:ImpactAssessment[@Stage = 'Enactment']" mode="AssociatedDocuments"/>
 					<xsl:apply-templates select="$sortedIAs/ukm:ImpactAssessment[@Stage = 'Final']" mode="AssociatedDocuments"/>
@@ -375,40 +380,63 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 	</xsl:template>
 
 	
+	<!-- ia generation of an associated document list item -->
 	<xsl:template match="ukm:ImpactAssessment" mode="AssociatedDocuments">
 		<xsl:variable name="stage" select="@Stage"/>
 		<xsl:variable name="totalStage" as="xs:integer" select="count(../ukm:ImpactAssessment[@Stage = $stage])"/>
 		<xsl:variable name="draftText" as="xs:string?" select="if ($isDraft) then 'Draft ' else ()"/>
-		<li>
-			<a href="{@URI}" class="pdfLink">
-				<xsl:choose>
-					<xsl:when test="$totalStage &gt; 1">
-					<xsl:value-of select="concat($draftText, $stage, ' Impact Assessment part ',count(preceding-sibling::ukm:ImpactAssessment[@Stage = $stage]) + 1)"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="concat($draftText, $stage, ' Impact Assessment')"/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</a>
-			<xsl:text>   </xsl:text>
-			<span class="filesize"><xsl:sequence select="tso:GetFileSize(@Size)"/></span>
-		</li>
+		<xsl:variable name="title" select="if ($totalStage &gt; 1) then 
+					concat($draftText, $stage, ' Impact Assessment part ', count(preceding-sibling::ukm:ImpactAssessment[@Stage = $stage]) + 1) 
+					else 
+					concat($draftText, $stage, ' Impact Assessment')"/>
+		<xsl:sequence select="tso:makeAssociatedDocListItem(@URI,$title,@Size)"/>
 	</xsl:template>
 
+	<!-- tod generation of an associated document list item -->
+	<xsl:template match="ukm:TableOfDestinations" mode="AssociatedDocuments">
+		<xsl:variable name="draftText" as="xs:string?" select="if ($isDraft) then 'Draft ' else ()"/>
+		<xsl:sequence select="tso:makeAssociatedDocListItem(@URI,concat($draftText, 'Table of Destinations'),@Size)"/>
+	</xsl:template>
 
+	<!-- too generation of an associated document list item -->
+	<xsl:template match="ukm:TableOfOrigins" mode="AssociatedDocuments">
+		<xsl:variable name="draftText" as="xs:string?" select="if ($isDraft) then 'Draft ' else ()"/>
+		<xsl:sequence select="tso:makeAssociatedDocListItem(@URI,concat($draftText, 'Table of Origins'),@Size)"/>
+	</xsl:template>
+	
+	<!-- cop generation of an associated document list item -->
+	<xsl:template match="ukm:CodeOfPractice" mode="AssociatedDocuments">
+		<xsl:variable name="draftText" as="xs:string?" select="if ($isDraft) then 'Draft ' else ()"/>
+		<xsl:sequence select="tso:makeAssociatedDocListItem(@URI,concat($draftText, 'Code of Practice'),@Size)"/>
+	</xsl:template>	
+
+	
+	<!-- this will generate the list item for associated documents from the supplied parameters -->
+	<xsl:function name="tso:makeAssociatedDocListItem" as="element(xhtml:li)">
+		<xsl:param name="uri" as="xs:string?"/>
+		<xsl:param name="title" as="xs:string?"/>
+		<xsl:param name="size" as="xs:integer?"/>
+		<li>
+			<a href="{$uri}" class="pdfLink">
+				<xsl:value-of select="$title"/>
+			</a>
+			<xsl:text>   </xsl:text>
+			<span class="filesize"><xsl:sequence select="tso:GetFileSize($size)"/></span>
+		</li>
+	</xsl:function>
+
+
+
+	<!-- generation of an associated document list item - this really needs separating out as above -->
 	<xsl:template match="ukm:Metadata/ukm:Alternatives/ukm:Alternative 
 	 	| ukm:Metadata/ukm:Notes/ukm:Alternatives/ukm:Alternative 
-	 	| ukm:TableOfDestinations|ukm:TableOfOrigins
 	 	|ukm:CorrectionSlip
 	 	|ukm:TableOfEffects
-	 	|ukm:CodeOfPractice
 	 	|ukm:OrderInCouncil
 	 	|ukm:OrdersInCouncil
-	 	|ukm:TableOfOrigins
 	 	|ukm:UKRPCOpinion
 	 	|ukm:TranspositionNote
 	 	|ukm:CodeofConduct
-	 	|ukm:TableOfDestinations
 	 	|ukm:UKExplanatoryMemorandum
 	 	|ukm:NIExplanatoryMemorandum
 	 	|ukm:OtherDocument" mode="AssociatedDocuments">
@@ -455,101 +483,60 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						<xsl:when test="matches(@URI, '_en(_[0-9]{3})?.pdf$') and leg:GetDocumentMainType(./root()) = ('WelshAssemblyMeasure','WelshStatutoryInstrument','WelshNationalAssemblyAct')"><xsl:value-of select="concat($title, $dateSuffix, ' - English')"/></xsl:when>
 						<!-- There are sometimes Welsh-language versions of UKSIs, so don't restrict this to MWAs & WSIs -->
 						<xsl:when test="matches(@URI, '_we(_[0-9]{3})?.pdf$')"><xsl:value-of select="concat($title, $dateSuffix, ' - Welsh')"/></xsl:when>
+						
 						<xsl:when test="$isDraft">
-							
-									<xsl:if test="not(contains(@Title, 'Draft'))">
-										<xsl:text>Draft </xsl:text>
-									</xsl:if>
-									<xsl:choose>
-										<xsl:when test="self::ukm:CorrectionSlip">
-											<xsl:text>Correction Slip - </xsl:text>
-											<xsl:value-of select="leg:FormatDate(@Date)"/>
-										</xsl:when>
-										<!--<xsl:when test="self::ukm:ImpactAssessment[exists($ia[4])]">
-										
-											<xsl:value-of select="$title"/>
-											<xsl:text> part </xsl:text>
-											<xsl:value-of select="number(replace($ia[4],'.pdf','','i')) + 1 "/>
-										</xsl:when>-->
-										<!-- <xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
-												<xsl:value-of select="$title"/>
-											<xsl:text> part 1</xsl:text>
-										
-										</xsl:when>	 -->
-										
-										<!--<xsl:when test="self::ukm:ImpactAssessment[not(exists($ia[4]))]">
-												<xsl:value-of select="$title"/>
-											<xsl:text> part 1</xsl:text>
-										
-										</xsl:when>	-->
-										
-										<xsl:when test="self::ukm:Alternative[exists($ia[4])]">
-											<xsl:value-of select="$title"/>
-											<xsl:text> </xsl:text>
-											<xsl:value-of select="number(replace($ia[4],'.pdf','','i')) + 1 "/>
-										</xsl:when>
-										<xsl:when test="self::ukm:Alternative[preceding-sibling::*[self::ukm:Alternative] and not(following-sibling::*)]						
-											">
-											<xsl:value-of select="$title"/>
-											
-										</xsl:when>
-										<xsl:when test="self::ukm:ComingIntoForce[exists($ia[4])] 
-											| self::ukm:CodeOfPractice[exists($ia[4])] | 
-											self::ukm:UKRPCOpinion[exists($ia[4])] |
-											self::ukm:CodeofConduct[exists($ia[4])] | 
-											self::ukm:OtherDocument[exists($ia[4])] | 
-											self::ukm:UKExplanatoryMemorandum[exists($ia[4])] | 
-											self::ukm:NIExplanatoryMemorandum[exists($ia[4])] | 
-											self::ukm:TranspositionNote[exists($ia[4])] ">
-											<xsl:value-of select="$title"/>
-											<xsl:text> </xsl:text>
-											<xsl:value-of select="number(replace($ia[4],'.pdf','','i')) + 1 "/>
-											
-										</xsl:when>
-										<xsl:when test="self::ukm:ComingIntoForce[preceding-sibling::*[self::ukm:ComingIntoForce] and not(following-sibling::*)]
-											| self::ukm:CodeOfPractice[preceding-sibling::*[self::ukm:CodeOfPractice] and not(following-sibling::*)]
-											| self::ukm:UKRPCOpinion[preceding-sibling::*[self::ukm:UKRPCOpinion] and not(following-sibling::*)]
-											| self::ukm:CodeofConduct[preceding-sibling::*[self::ukm:CodeofConduct] and not(following-sibling::*)]
-											| self::ukm:OtherDocument[preceding-sibling::*[self::ukm:OtherDocument] and not(following-sibling::*)]
-											| self::ukm:TranspositionNote[preceding-sibling::*[self::ukm:TranspositionNote] and not(following-sibling::*)]
-											| self::ukm:UKExplanatoryMemorandum[preceding-sibling::*[self::ukm:UKExplanatoryMemorandum] and not(following-sibling::*)]
-											| self::NIExplanatoryMemorandum[preceding-sibling::*[self::NIExplanatoryMemorandum] and not(following-sibling::*)]
-											">
-											<xsl:value-of select="$title"/>
-											<xsl:text> 1</xsl:text>
-										</xsl:when>	
-										<xsl:otherwise>
-											<xsl:value-of select="$title" />
-										</xsl:otherwise>
-									</xsl:choose>
-													
-								
-						
+							<xsl:if test="not(contains(@Title, 'Draft'))">
+								<xsl:text>Draft </xsl:text>
+							</xsl:if>
+							<xsl:choose>
+								<xsl:when test="self::ukm:CorrectionSlip">
+									<xsl:text>Correction Slip - </xsl:text>
+									<xsl:value-of select="leg:FormatDate(@Date)"/>
+								</xsl:when>
+																		
+								<xsl:when test="self::ukm:Alternative[exists($ia[4])]">
+									<xsl:value-of select="$title"/>
+									<xsl:text> </xsl:text>
+									<xsl:value-of select="number(replace($ia[4],'.pdf','','i')) + 1 "/>
+								</xsl:when>
+								<xsl:when test="self::ukm:Alternative[preceding-sibling::*[self::ukm:Alternative] and not(following-sibling::*)]						
+									">
+									<xsl:value-of select="$title"/>
+									
+								</xsl:when>
+								<xsl:when test="self::ukm:ComingIntoForce[exists($ia[4])]  | 
+									self::ukm:UKRPCOpinion[exists($ia[4])] |
+									self::ukm:CodeofConduct[exists($ia[4])] | 
+									self::ukm:OtherDocument[exists($ia[4])] | 
+									self::ukm:UKExplanatoryMemorandum[exists($ia[4])] | 
+									self::ukm:NIExplanatoryMemorandum[exists($ia[4])] | 
+									self::ukm:TranspositionNote[exists($ia[4])] ">
+									<xsl:value-of select="$title"/>
+									<xsl:text> </xsl:text>
+									<xsl:value-of select="number(replace($ia[4],'.pdf','','i')) + 1 "/>
+									
+								</xsl:when>
+								<xsl:when test="self::ukm:ComingIntoForce[preceding-sibling::*[self::ukm:ComingIntoForce] and not(following-sibling::*)]
+									| self::ukm:UKRPCOpinion[preceding-sibling::*[self::ukm:UKRPCOpinion] and not(following-sibling::*)]
+									| self::ukm:CodeofConduct[preceding-sibling::*[self::ukm:CodeofConduct] and not(following-sibling::*)]
+									| self::ukm:OtherDocument[preceding-sibling::*[self::ukm:OtherDocument] and not(following-sibling::*)]
+									| self::ukm:TranspositionNote[preceding-sibling::*[self::ukm:TranspositionNote] and not(following-sibling::*)]
+									| self::ukm:UKExplanatoryMemorandum[preceding-sibling::*[self::ukm:UKExplanatoryMemorandum] and not(following-sibling::*)]
+									| self::NIExplanatoryMemorandum[preceding-sibling::*[self::NIExplanatoryMemorandum] and not(following-sibling::*)]
+									">
+									<xsl:value-of select="$title"/>
+									<xsl:text> 1</xsl:text>
+								</xsl:when>	
+								<xsl:otherwise>
+									<xsl:value-of select="$title" />
+								</xsl:otherwise>
+							</xsl:choose>
 						</xsl:when>
-						
-					
 						
 						<xsl:when test="self::ukm:CorrectionSlip">
 							<xsl:text>Correction Slip - </xsl:text>
 							<xsl:value-of select="leg:FormatDate(@Date)"/>
 						</xsl:when>
-						<!--<xsl:when test="self::ukm:ImpactAssessment[exists($ia[4])]">
-							<xsl:value-of select="$title"/>
-							<xsl:text> part </xsl:text>
-							<xsl:value-of select="number(replace($ia[4],'.pdf','','i')) + 1 "/>
-							
-						</xsl:when>-->
-						<!-- <xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
-									<xsl:value-of select="$title"/>
-							<xsl:text> part 1</xsl:text>
-							
-						</xsl:when>	 -->
-						
-						<!--<xsl:when test="self::ukm:ImpactAssessment[not(exists($ia[4]))] and (following-sibling::*/@Title = self::ukm:ImpactAssessment/@Title or preceding-sibling::*/@Title = self::ukm:ImpactAssessment/@Title)">
-									<xsl:value-of select="$title"/>
-							<xsl:text> part 1</xsl:text>
-							
-						</xsl:when>	-->
 						
 						<xsl:when test="self::ukm:Alternative[exists($ia[4])]">
 							<xsl:value-of select="$title"/>
@@ -563,8 +550,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 							
 							
 						</xsl:when>
-						<xsl:when test="self::ukm:ComingIntoForce[exists($ia[4])] 
-							| self::ukm:CodeOfPractice[exists($ia[4])] | 
+						<xsl:when test="self::ukm:ComingIntoForce[exists($ia[4])] | 
 							self::ukm:UKRPCOpinion[exists($ia[4])] |
 							self::ukm:CodeofConduct[exists($ia[4])] | 
 							self::ukm:OtherDocument[exists($ia[4])] | 
@@ -577,7 +563,6 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						
 						</xsl:when>
 						<xsl:when test="self::ukm:ComingIntoForce[preceding-sibling::*[self::ukm:ComingIntoForce] and not(following-sibling::*)]
-							| self::ukm:CodeOfPractice[preceding-sibling::*[self::ukm:CodeOfPractice] and not(following-sibling::*)]
 							| self::ukm:UKRPCOpinion[preceding-sibling::*[self::ukm:UKRPCOpinion] and not(following-sibling::*)]
 							| self::ukm:CodeofConduct[preceding-sibling::*[self::ukm:CodeofConduct] and not(following-sibling::*)]
 							| self::ukm:OtherDocument[preceding-sibling::*[self::ukm:OtherDocument] and not(following-sibling::*)]
