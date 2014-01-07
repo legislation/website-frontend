@@ -58,7 +58,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<xsl:comment><![CDATA[[if lte IE 6]><link rel="stylesheet" href="/styles/IE/ie6chromeAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 			<xsl:comment><![CDATA[[if lte IE 7]><link rel="stylesheet" href="/styles/IE/ie7chromeAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 			<xsl:if test="not(contains(xhtml:body/@class, 'removeScripting'))">
-			<script type="text/javascript" src="/scripts/jquery-1.4.js"></script>
+			<script type="text/javascript" src="/scripts/jquery-1.6.2.js"></script>
 			<!-- <script type="text/javascript" src="/scripts/sitestat.js"></script> -->
       <script type="text/javascript" src="/scripts/survey/survey.js"></script>
 			</xsl:if>
