@@ -1606,11 +1606,13 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	</xsl:choose>
 </xsl:template>
 
+
 <xsl:template name="TSOgetListLevel">
 	<xsl:choose>
 		<xsl:when test="parent::xhtml:td or parent::xhtml:th">3</xsl:when>
 		<xsl:when test="parent::leg:Para">3</xsl:when>
-		<xsl:when test="parent::leg:P">3</xsl:when>
+		<!--Chunyu:HA051074 Added an extra conditiion for EN see http://www.legislation.gov.uk/ukci/2010/5/note/sld/created		-->
+		<xsl:when test="parent::leg:P and not(parent::leg:P/parent::leg:ExplanatoryNotes)">3</xsl:when>
 		<xsl:when test="parent::leg:P1para">3</xsl:when>
 		<xsl:when test="parent::leg:P2">3</xsl:when>
 		<xsl:when test="parent::leg:P2para">3</xsl:when>
