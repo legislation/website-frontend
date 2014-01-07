@@ -9,7 +9,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 -->
 <xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0" xmlns:ukm="http://www.legislation.gov.uk/namespaces/metadata" xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:rx="http://www.renderx.com/XSL/Extensions" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-<xsl:template match="leg:UnorderedList">
+<!--HA054109: added as FOP doesn't like empty list-block elements-->
+<xsl:template match="leg:UnorderedList[not(leg:ListItem/leg:Para/leg:Text/node())]">
+<xsl:apply-templates/>
+</xsl:template>
+
+<!--HA054109: match altered as FOP doesn't like empty list-block elements-->
+<xsl:template match="leg:UnorderedList[leg:ListItem/leg:Para/leg:Text/node()]">
 	<xsl:for-each select="leg:ListItem">
 	<fo:block>
 		<xsl:if test="parent::leg:P1para">
