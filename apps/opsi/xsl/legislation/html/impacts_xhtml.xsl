@@ -945,10 +945,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								</a>	
 							</li>
 						</xsl:for-each>
-						
-						
-	
-						
 					</ul>
 				</div>
 								
@@ -957,6 +953,55 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 
 
 		</xsl:if>
+		
+		<xsl:if test="exists(/leg:ImpactAssessment/ukm:Metadata/ukm:AssociatedIAs/ukm:AssociatedIA)">
+			<div class="section" id="moreResources">
+				<div class="title">
+				  <h2>Associated IAs</h2>
+						<!--<a href="#moreResourcesHelp" class="helpItem helpItemToMidRight">
+							<img src="/images/chrome/helpIcon.gif" alt=" Help about more resources"/>
+					</a>-->
+				</div>
+				<div class="content">
+					<ul class="toolList">
+						
+					
+						<xsl:for-each select="/leg:ImpactAssessment/ukm:Metadata/ukm:AssociatedIAs/ukm:AssociatedIA">
+							
+							
+							<li>
+								<xsl:variable name="tokens" select="tokenize(substring-after(@URI,'http://www.legislation.gov.uk/id/'),'/')"/>
+								
+								<xsl:variable name="year" select="@Year" as="xs:string?"/>
+								<xsl:variable name="number" select="@Number" as="xs:string?"/>
+								<xsl:variable name="type" select="$tso:legTypeMap[@abbrev = $tokens[1]]" as="element(tso:legType)?"/>
+								
+								
+								<a href="{@URI}">
+									<xsl:choose>
+										<!--added revised version-->
+										<xsl:when test="exists(@Title)">
+											<xsl:value-of select="@Title"/>
+										</xsl:when>
+										<xsl:when test="exists($year) and exists($number)">
+											<xsl:value-of select="concat('IA ',$year, ' No.',$number)"/>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:text>Impact Assessment</xsl:text>
+										</xsl:otherwise>
+									</xsl:choose>
+								</a>	
+							</li>
+						</xsl:for-each>
+					</ul>
+				</div>
+								
+			</div> 
+
+
+
+		</xsl:if>
+		
 	</xsl:template>	
 	
 	<!-- ========== CSS Styles for Legislation =============-->
