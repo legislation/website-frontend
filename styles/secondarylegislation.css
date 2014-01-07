@@ -514,7 +514,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 .LegSnippet .LegFormula {clear: both; margin-top: 1em; height: 5em; text-align: center}
 .LegSnippet .LegFormulaAmend {clear: both; margin-top: 1em; height: 5em; text-align: center; margin-left: 10%}
 .LegSnippet .LegMessage {margin-left: auto; margin-right: auto; text-align: center; margin-top: 2em}
-.LegSnippet .LegWhere {clear: both; margin-left: 10%}
+.LegSnippet .LegWhere {clear: both; margin-left: 10%; *padding-top:8px; *margin-top:5px;}
 
 .LegSnippet .LegMaths {text-align: center; margin-top: 0.5em; font-size: 0.8em}
 .LegSnippet .LegErrorMaths {clear: both; text-align: center; margin-top: 0.5em; border: solid 1px red}
