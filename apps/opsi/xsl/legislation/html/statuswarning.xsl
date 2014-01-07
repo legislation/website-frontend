@@ -326,9 +326,26 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 					<xsl:text> No. </xsl:text>
 					<xsl:value-of select="ukm:Number/@Value" />
 				</xsl:when>
-				<xsl:otherwise>
+				<xsl:when test="ukm:ISBN">
 					<xsl:text> ISBN </xsl:text>
 					<xsl:value-of select="tso:formatISBN(ukm:ISBN/@Value)"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:variable name="tokens" select="tokenize(substring-after(@URI,'/id/'), '/')"/>
+					<xsl:variable name="number" as="xs:string?" select="$tokens[3]"/>
+					<xsl:choose>
+						<xsl:when test="string-length($number) &lt; 5 and $number != ''">
+							<xsl:text> No. </xsl:text>
+							<xsl:value-of select="$number" />
+						</xsl:when>
+						<xsl:when test="string-length($number) &gt; 5">
+							<xsl:text> ISBN </xsl:text>
+							<xsl:value-of select="tso:formatISBN($number)"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<!-- cannot determine the number so display nothing  -->
+						</xsl:otherwise>
+					</xsl:choose>	
 				</xsl:otherwise>
 			</xsl:choose>
 		</a>
