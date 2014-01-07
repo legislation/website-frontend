@@ -284,7 +284,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:when test="$impactId = 'impacts' ">
 					<xsl:sequence select="ukm:Metadata/ukm:Alternatives/ukm:Alternative[not(exists(tokenize(@URI, '_')[4]))]"></xsl:sequence>
 				</xsl:when>
-				<xsl:when test="contains(//dc:identifier,'ukia') ">
+				<xsl:when test="contains(//dc:identifier,'ukia') or matches($impactId,'[0-9]+')">
 					<xsl:sequence select="ukm:Metadata/ukm:Alternatives/ukm:Alternative"></xsl:sequence>
 				</xsl:when>
 				<xsl:otherwise>
