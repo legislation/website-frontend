@@ -843,7 +843,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					select="tso:GetNumberForLegislation(@AffectedClass, @AffectedYear, @AffectedNumber)"
 				/>
 			</xsl:variable>
-			<a href="{$TranslateLangPrefix}/id/{tso:GetUriPrefixFromType(@AffectedClass, @AffectedYear)}/{@AffectedYear}/{@AffectedNumber}">
+			<a href="/id/{tso:GetUriPrefixFromType(@AffectedClass, @AffectedYear)}/{@AffectedYear}/{@AffectedNumber}">
 				<xsl:value-of select="$effectedYearNumber"/>
 			</a>
 		</td>
@@ -857,7 +857,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:apply-templates select="ukm:AffectedProvisions" />
 				</xsl:when>
 				<xsl:otherwise>
-					<a href="{$TranslateLangPrefix}/{substring-after(@AffectedURI, 'www.legislation.gov.uk/')}">
+					<a href="/{substring-after(@AffectedURI, 'www.legislation.gov.uk/')}">
 						<xsl:value-of select="@AffectedProvisions"/>
 					</a>
 				</xsl:otherwise>
@@ -886,7 +886,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<!-- Affecting Year and Number-->
 	<xsl:template match="ukm:Effect" mode="resultsAffectingYearNumber">
 		<td class="centralCol">
-			<a href="{$TranslateLangPrefix}/id/{tso:GetUriPrefixFromType(@AffectingClass, @AffectingYear)}/{@AffectingYear}/{@AffectingNumber}">
+			<a href="/id/{tso:GetUriPrefixFromType(@AffectingClass, @AffectingYear)}/{@AffectingYear}/{@AffectingNumber}">
 				<xsl:value-of select="@AffectingYear"/>
 				<xsl:text>&#160;</xsl:text>
 				<xsl:value-of select="tso:GetNumberForLegislation(@AffectingClass, @AffectingYear, @AffectingNumber)" />
@@ -902,7 +902,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:apply-templates select="ukm:AffectingProvisions" />
 				</xsl:when>
 				<xsl:otherwise>
-					<a href="{$TranslateLangPrefix}/{substring-after(@AffectingURI, 'www.legislation.gov.uk/')}">
+					<a href="/{substring-after(@AffectingURI, 'www.legislation.gov.uk/')}">
 						<xsl:value-of select="@AffectingProvisions" />
 					</a>
 				</xsl:otherwise>
@@ -959,7 +959,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:apply-templates />
 			</xsl:when>
 			<xsl:otherwise>
-				<a href="{$TranslateLangPrefix}/{substring-after(@URI, 'www.legislation.gov.uk/')}">
+				<a href="/{substring-after(@URI, 'www.legislation.gov.uk/')}">
 					<xsl:apply-templates />
 				</a>
 			</xsl:otherwise>
@@ -969,7 +969,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:template match="ukm:Citation">
 		<xsl:choose>
 			<xsl:when test="exists(@URI)">
-				<a href="{$TranslateLangPrefix}/{substring-after(@URI, 'www.legislation.gov.uk/')}">
+				<a href="/{substring-after(@URI, 'www.legislation.gov.uk/')}">
 					<xsl:apply-templates />
 				</a>
 			</xsl:when>

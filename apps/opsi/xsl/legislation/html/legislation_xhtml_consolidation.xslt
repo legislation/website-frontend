@@ -1255,10 +1255,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<a class="LegCitation" title="{if (@Title) then @Title else 'Go to item of legislation'}" rel="cite">
 		<xsl:choose>
 			<xsl:when test="@URI">
-				<xsl:attribute name="href" select=" if ($isWrap and $TranslateLangPrefix) then concat('http://legislation.gov.uk',$TranslateLangPrefix, substring-after($uri,'http://www.legislation.gov.uk')) else $uri" />
+				<xsl:attribute name="href" select="$uri" />
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:attribute name="href" select="concat((if ($isWrap and $TranslateLangPrefix) then $TranslateLangPrefix else()),'/', tso:GetUriPrefixFromType(@Class, @Year), '/', @Year, '/', @Number, if (@SectionRef) then concat('/', translate(@SectionRef, '-', '/')) else())" />
+				<xsl:attribute name="href" select="concat('/', tso:GetUriPrefixFromType(@Class, @Year), '/', @Year, '/', @Number, if (@SectionRef) then concat('/', translate(@SectionRef, '-', '/')) else())" />
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:apply-templates/>

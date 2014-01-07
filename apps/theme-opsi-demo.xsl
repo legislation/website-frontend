@@ -159,8 +159,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				the URI already has an english or welsh part of the URI
 				- this is done carefully so that if we ever had a document type like 'ensi' it would not cause an issue
 				-->
-				<xsl:if test="not(starts-with($uriAfterDomain,'/en/') or starts-with($uriAfterDomain,'/cy/') or $uriAfterDomain='/en' or $uriAfterDomain='/cy')">
-					<xsl:value-of select="$TranslateLangPrefix"/>
+				<xsl:if test="not(contains(.,'/id'))">
+					<xsl:if test="not(starts-with($uriAfterDomain,'/en/') or starts-with($uriAfterDomain,'/cy/') or $uriAfterDomain='/en' or $uriAfterDomain='/cy')">
+						<xsl:value-of select="$TranslateLangPrefix"/>
+					</xsl:if>					
 				</xsl:if>
 				<xsl:value-of select="substring-after(., 'http://www.legislation.gov.uk')"/>
 				<xsl:if test="string-length($paramsDoc/request/query-string) > 0 and not(contains(., '?'))">?<xsl:value-of select="$paramsDoc/request/query-string"/></xsl:if>
