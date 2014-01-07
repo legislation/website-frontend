@@ -2829,9 +2829,11 @@ exclude-result-prefixes="tso atom">
 	<!-- Chunyu 09/05/12: Added a condition for portrait dislay images see nisr/1996/447 -->
 		<xsl:when test="@Orientation = 'portrait'">
 				<fo:block-container>
+		
 				<xsl:for-each select="leg:Image">
 					<fo:block>
 						<xsl:apply-templates select="."/>
+						<xsl:text>&#xA;</xsl:text>
 					</fo:block>
 				</xsl:for-each>
 			</fo:block-container>
