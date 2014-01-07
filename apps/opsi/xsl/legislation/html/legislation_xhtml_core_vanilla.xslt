@@ -1304,8 +1304,16 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<!-- Chunyu Added if condition for empty text -->
 				<xsl:if test=". !=''">
 					<!--Chunyu HA051074 Added a condition for the instance of ukci/2010/5/note/sld/created-->
+					<!--2013-04-30 Update to HA051074 GC -->
+					<!--This fix needs to be a very specific otherwise it has knock on effects to other legislation -->
+					<!--Only apply to ENs in ukci's where there is either an Emphasis or Strong element and no textual content-->
 				<xsl:choose>
-					<xsl:when test="(leg:Strong or leg:Emphasis) and parent::leg:P/parent::leg:ExplanatoryNotes and node()[not(self::text())]">
+					<xsl:when test="$g_strDocumentMainType = 'UnitedKingdomChurchInstrument' and
+									parent::leg:P and 
+									ancestor::leg:ExplanatoryNotes and
+									(leg:Emphasis or leg:Strong) and
+									(every $node in node() satisfies ($node instance of element(leg:Emphasis) or $node instance of element(leg:Strong) or ($node instance of text() and normalize-space($node) = '')))  
+									">
 						<xsl:for-each select="* ">
 							<xsl:choose>
 								<xsl:when test="local-name(.) = 'Strong'">
