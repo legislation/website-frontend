@@ -1300,7 +1300,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:if test="not(ancestor::leg:MarginNote)">
 				<!-- Chunyu Added if condition for empty text -->
 				<xsl:if test=". !=''">
-				<span class="{concat('LegText', $strAmendmentSuffix)}">
+				<p class="{concat('LegText', $strAmendmentSuffix)}">
 					<xsl:call-template name="FuncCheckForID"/>
 					<xsl:call-template name="FuncGetLocalTextStyle"/>
 						<xsl:call-template name="FuncGetTextClass">
@@ -1308,7 +1308,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					</xsl:call-template>
 					<xsl:apply-templates select="node()[not(position() = 1 and self::text() and normalize-space() = '')] | processing-instruction()"/>
 					<xsl:text>&#13;</xsl:text>
-				</span>
+				</p>
 				</xsl:if>	
 			</xsl:if>
 		</xsl:otherwise>
