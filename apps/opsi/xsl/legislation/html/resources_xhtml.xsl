@@ -13,8 +13,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 <!-- Created by Faiz Muhammad -->
 <!-- Last changed 31/08/2010 by Faiz Muhammad -->
 <!-- Change history
-
+Chunyu 23/11/2012 Changed the display for accociated documents according to the requirement of VSRS. Two major changes. One is to display all docs in one column. The other is to seperate IAs to a invidual list
 -->
+
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml"  version="2.0" 
 	xmlns:xhtml="http://www.w3.org/1999/xhtml" 
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
@@ -204,7 +205,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<!-- displaying the associated documents -->
 			<xsl:call-template name="AssociatedDocuments">
 				<xsl:with-param name="associatedDocuments">
-					<xsl:apply-templates select="ukm:Metadata//*[@URI]" mode="AssociatedDocuments">
+					<xsl:apply-templates select="ukm:Metadata//*[not(name() = 'ukm:ImpactAssessment')][@URI]" mode="AssociatedDocuments">
 						<!-- alternative versions first -->
 						<xsl:sort select="@Title = 'Print Version'" order="descending" />
 						<xsl:sort select=". instance of element(ukm:Alternative)" order="descending" />
@@ -226,6 +227,22 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<xsl:sort select="xs:date(@Date)" order="descending" />
 					</xsl:apply-templates>
 					<xsl:apply-templates select="ukm:Supersedes" mode="AssociatedDocuments"/>
+				</xsl:with-param>
+			</xsl:call-template>
+			
+			<xsl:call-template name="AssociatedImpact">
+				<xsl:with-param name="associatedDocuments">
+					<xsl:apply-templates select="ukm:Metadata//ukm:ImpactAssessments//*[@URI]" mode="AssociatedDocuments">
+						
+						<xsl:sort select="@Title"/>
+						<!-- English first -->
+						<xsl:sort select="exists(@Language)" />
+						<!-- Mixed language last -->
+						<xsl:sort select="@Language = 'Mixed'" />
+						<!-- Most recent first -->
+						<xsl:sort select="xs:date(@Date)" order="descending" />
+					</xsl:apply-templates>
+					
 				</xsl:with-param>
 			</xsl:call-template>
 			
@@ -252,7 +269,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<h3>Associated Documents</h3>
 			<xsl:choose>
 				<xsl:when test="count($associatedDocuments/*) &gt; 0">
-					<xsl:variable name="columns" as="xs:integer" select="2" />
+					<xsl:variable name="columns" as="xs:integer" select="1" />
 					<xsl:variable name="groups" as="xs:integer"
 						select="xs:integer(ceiling(count($associatedDocuments/*) div $columns))" />
 					<!-- adjust the groups size to make sure there are at lease 3 three items in the list -->
@@ -268,7 +285,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:for-each select="$minColumn to $maxColumn">
 						<xsl:variable name="startGroup" as="xs:integer" select="((.-1) * $groups) + 1" />
 						<xsl:variable name="endGroup" as="xs:integer" select=". * $groups" />
-						<div class="column1 s_3_5 p_{if (. = 1) then 'one' else 'two'}">
+						<!--<div class="column1 s_3_5 p_{if (. = 1) then 'one' else 'two'}">-->
+							<div>
 							<ul class="plainList">
 								<xsl:copy-of
 									select="$associatedDocuments/*[position() &gt;= $startGroup and position() &lt;= $endGroup]"
@@ -280,6 +298,47 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:otherwise>
 					<!-- default message -->
 					<p>There are no associated documents for this legislation.</p>
+				</xsl:otherwise>
+			</xsl:choose>
+		</div>
+	</xsl:template>
+	
+	<xsl:template name="AssociatedImpact">
+		<xsl:param name="associatedDocuments" />
+
+		<div class="assocDocs filesizeShow colSection p_one s_7">
+			<h4>Impact Assessments</h4>
+			<xsl:choose>
+				<xsl:when test="count($associatedDocuments/*) &gt; 0">
+					<xsl:variable name="columns" as="xs:integer" select="1" />
+					<xsl:variable name="groups" as="xs:integer"
+						select="xs:integer(ceiling(count($associatedDocuments/*) div $columns))" />
+					<!-- adjust the groups size to make sure there are at lease 3 three items in the list -->
+					<xsl:variable name="groups" as="xs:integer"
+						select="if ($groups &lt; $columns) then $columns else $groups" />
+
+					<xsl:variable name="minColumn" as="xs:integer" select="1" />
+					<!-- adjust the maxColumn to make sure there are at most three groups -->
+					<xsl:variable name="maxColumn" as="xs:integer"
+						select="if ($groups &gt; $columns) then $columns else $groups" />
+
+
+					<xsl:for-each select="$minColumn to $maxColumn">
+						<xsl:variable name="startGroup" as="xs:integer" select="((.-1) * $groups) + 1" />
+						<xsl:variable name="endGroup" as="xs:integer" select=". * $groups" />
+						<!--<div class="column1 s_3_5 p_{if (. = 1) then 'one' else 'two'}">-->
+						<div>
+							<ul class="plainList">
+								<xsl:copy-of
+									select="$associatedDocuments/*[position() &gt;= $startGroup and position() &lt;= $endGroup]"
+								 />
+							</ul>
+						</div>
+					</xsl:for-each>
+				</xsl:when>
+				<xsl:otherwise>
+					<!-- default message -->
+					<p>There are no associated impact assessment for this legislation.</p>
 				</xsl:otherwise>
 			</xsl:choose>
 		</div>
@@ -360,28 +419,28 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 											<xsl:value-of select="leg:FormatDate(@Date)"/>
 										</xsl:when>
 										<xsl:when test="self::ukm:ImpactAssessment[exists($ia[4])]">
-											<xsl:text>Impact Assessment: </xsl:text>
-											<!-- <xsl:value-of select="tokenize($title,' ')[1]"/> -->
-											<xsl:text> version part </xsl:text>
+										
+											<xsl:value-of select="$title"/>
+											<xsl:text> [ part </xsl:text>
 											<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
+											<xsl:text> ]</xsl:text>
 										</xsl:when>
 										<xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
-											<xsl:text>Impact Assessment: </xsl:text>
-											<!-- <xsl:value-of select="tokenize($title,' ')[1]"/> -->
-											<xsl:text> version part </xsl:text>
-											<xsl:text>1</xsl:text>
+												<xsl:value-of select="$title"/>
+											<xsl:text> [ part 1 ]</xsl:text>
+										
 										</xsl:when>	
 										
 										<xsl:when test="self::ukm:Alternative[exists($ia[4])]">
 											<xsl:value-of select="$title"/>
-											<xsl:text>: version part </xsl:text>
+											<xsl:text> [ part </xsl:text>
 											<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
+											<xsl:text> ]</xsl:text>
 										</xsl:when>
 										<xsl:when test="self::ukm:Alternative[preceding-sibling::*[self::ukm:Alternative] and not(following-sibling::*)]						
 											">
 											<xsl:value-of select="$title"/>
-											<xsl:text>: version part </xsl:text>
-											<xsl:text>1</xsl:text>
+											<xsl:text> [ part 1 ]</xsl:text>
 										</xsl:when>
 										<xsl:when test="self::ukm:ComingIntoForce[exists($ia[4])] 
 											| self::ukm:CodeOfPractice[exists($ia[4])] | 
@@ -392,8 +451,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 											self::ukm:NIExplanatoryMemorandum[exists($ia[4])] | 
 											self::ukm:TranspositionNote[exists($ia[4])] ">
 											<xsl:value-of select="$title"/>
-											<xsl:text>: version part </xsl:text>
+											<xsl:text> [ part </xsl:text>
 											<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
+											<xsl:text> ]</xsl:text>
 										</xsl:when>
 										<xsl:when test="self::ukm:ComingIntoForce[preceding-sibling::*[self::ukm:ComingIntoForce] and not(following-sibling::*)]
 											| self::ukm:CodeOfPractice[preceding-sibling::*[self::ukm:CodeOfPractice] and not(following-sibling::*)]
@@ -405,8 +465,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 											| self::NIExplanatoryMemorandum[preceding-sibling::*[self::NIExplanatoryMemorandum] and not(following-sibling::*)]
 											">
 											<xsl:value-of select="$title"/>
-											<xsl:text>: version part </xsl:text>
-											<xsl:text>1</xsl:text>
+											<xsl:text> [ part 1 ]</xsl:text>
 										</xsl:when>	
 										<xsl:otherwise>
 											<xsl:value-of select="$title" />
@@ -426,31 +485,27 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							
 						</xsl:when>
 						<xsl:when test="self::ukm:ImpactAssessment[exists($ia[4])]">
-							<xsl:text>Impact Assessment: </xsl:text>
-							<xsl:value-of select="tokenize($title,' ')[1]"/>
-							<xsl:text> version part </xsl:text>
+							<xsl:value-of select="$title"/>
+							<xsl:text> [ part </xsl:text>
 							<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
-							
+							<xsl:text> ]</xsl:text>
 						</xsl:when>
 						<xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
-							<xsl:text>Impact Assessment: </xsl:text>
-							<xsl:value-of select="tokenize($title,' ')[1]"/>
-							<xsl:text> version part </xsl:text>
-							<xsl:text>1</xsl:text>
+									<xsl:value-of select="$title"/>
+							<xsl:text> [ part 1 ]</xsl:text>
 							
 						</xsl:when>	
 						
 						<xsl:when test="self::ukm:Alternative[exists($ia[4])]">
 							<xsl:value-of select="$title"/>
-							<xsl:text>: version part </xsl:text>
+							<xsl:text> [ part </xsl:text>
 							<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
-							
+								<xsl:text> ]</xsl:text>
 						</xsl:when>
 						<xsl:when test="self::ukm:Alternative[preceding-sibling::*[self::ukm:Alternative] and not(following-sibling::*)]						
 							">
 							<xsl:value-of select="$title"/>
-							<xsl:text>: version part </xsl:text>
-							<xsl:text>1</xsl:text>
+							<xsl:text> [ part 1 ]</xsl:text>
 							
 						</xsl:when>
 						<xsl:when test="self::ukm:ComingIntoForce[exists($ia[4])] 
@@ -462,9 +517,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							self::ukm:NIExplanatoryMemorandum[exists($ia[4])] | 
 							self::ukm:TranspositionNote[exists($ia[4])] ">
 								<xsl:value-of select="$title"/>
-							<xsl:text>: version part </xsl:text>
+							<xsl:text> [ part </xsl:text>
 							<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
-							
+							<xsl:text> ]</xsl:text>
 						</xsl:when>
 						<xsl:when test="self::ukm:ComingIntoForce[preceding-sibling::*[self::ukm:ComingIntoForce] and not(following-sibling::*)]
 							| self::ukm:CodeOfPractice[preceding-sibling::*[self::ukm:CodeOfPractice] and not(following-sibling::*)]
@@ -476,8 +531,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							| self::NIExplanatoryMemorandum[preceding-sibling::*[self::NIExplanatoryMemorandum] and not(following-sibling::*)]
 							">
 							<xsl:value-of select="$title"/>
-							<xsl:text>: version part </xsl:text>
-							<xsl:text>1</xsl:text>
+							<xsl:text> [ part 1 ]</xsl:text>
 							
 						</xsl:when>	
 						<!--<xsl:value-of select="$dateSuffix" />-->
