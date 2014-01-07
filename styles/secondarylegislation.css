@@ -25,6 +25,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 
 
 .LegSnippet p {font-size: 0.8em; margin-bottom: 0.5em; margin-top: 0em; padding: 0em; font-style: normal; font-weight: normal;color:#494949}
+.LegSnippet td p {font-size: 1em;}
 .LegSnippet div {margin: 0em; padding: 0em}
 .LegSnippet .LegDS {display: block}
 
@@ -235,6 +236,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 .LegSnippet .LegP1No {font-weight: bold}
 .LegSnippet .LegP1NoAmend {font-weight: bold}
 .LegSnippet .LegP1ParaText {clear: both; text-indent: 1em; text-align: justify; font-size: 0.8em}
+.LegSnippet td .LegP1ParaText {font-size: 1em}
 
 .LegSnippet .LegP2GroupTitle {clear: both; font-size: 0.8em; padding-left: 2%; font-weight: normal; font-style: italic; text-align: justify; padding-top: 0.5em; padding-bottom: 0em; margin-bottom: 0em}
 .LegSnippet .LegP2GroupTitle em {font-style: normal}
@@ -487,9 +489,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 .LegSnippet tbody .LegTH .LegText strong {font-weight: bold}
 .LegSnippet tbody .LegTHplain strong {font-weight: normal}
 
-.LegSnippet .LegTD {font-style: normal; font-size: 1em; font-weight: normal; border: none; vertical-align: top}
+.LegSnippet .LegTD {font-style: normal; font-size: 0.8em; font-weight: normal; border: none; vertical-align: top}
 .LegSnippet .LegTDplain {font-style: normal; font-size: 0.8em; font-weight: normal; vertical-align: top; border: none}
 .LegSnippet .LegTDmixedText {font-style: normal; font-size: 0.8em; font-weight: normal}
+.LegSnippet td .LegTDmixedText {font-size: 1em;}
 
 
 /* ========== Amends ========== */
