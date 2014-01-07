@@ -861,10 +861,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:template match="atom:entry" mode="searchresults">
 		<xsl:param name="position" as="xs:integer" select="position()"/>
 		<xsl:variable name="tocLink" as="xs:string"
-			select="if (atom:link[@rel='http://purl.org/dc/terms/tableOfContents' and not(@hreflang)]) then substring-after(atom:link[@rel='http://purl.org/dc/terms/tableOfContents' and not(@hreflang)]/@href, 'http://www.legislation.gov.uk/') else if (ukm:DocumentMainType/@Value='UnitedKingdomImpactAssessment' and atom:link[@rel='alternate']) then
-			substring-after(atom:link[@rel='alternate'][last()]/@href, 'http://www.legislation.gov.uk/')
+			select="if (atom:link[@rel='http://purl.org/dc/terms/tableOfContents' and not(@hreflang)]) 
+			then 
+				substring-after(atom:link[@rel='http://purl.org/dc/terms/tableOfContents' and not(@hreflang)]/@href, 'http://www.legislation.gov.uk/') 
+			else if (ukm:DocumentMainType/@Value='UnitedKingdomImpactAssessment' and atom:link[@rel='alternate'][not(@type='application/pdf')]) 
+			then
+				substring-after(atom:link[@rel='alternate'][not(@type='application/pdf')][last()]/@href, 'http://www.legislation.gov.uk/')
 			else
-			substring-after(atom:link[@rel='self']/@href, 'http://www.legislation.gov.uk/')"/>
+				substring-after(atom:link[@rel='self']/@href, 'http://www.legislation.gov.uk/')"/>
 		<xsl:variable name="hasWelshTitle" as="xs:boolean" select="atom:title/@type = 'xhtml'" />
 		<xsl:variable name="rowspan" as="attribute(rowspan)?">
 			<xsl:if test="$hasWelshTitle">
