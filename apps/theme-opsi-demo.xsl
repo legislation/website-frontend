@@ -152,9 +152,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 
 <xsl:template match="@href[starts-with(., 'http://www.legislation.gov.uk/') and not(ends-with(.,'htm')) and not(ends-with(.,'feed')) and not(ends-with(.,'pdf'))]" priority="100">
 	<xsl:choose>
-		<xsl:when test="$TranslateLangPrefix !='' ">
+		<xsl:when test="$TranslateLangPrefix !=''">
+			<xsl:variable name="uriAfterDomain" as="xs:string" select="substring-after(.,'http://www.legislation.gov.uk')"/>
 			<xsl:attribute name="href">
-				<xsl:value-of select="$TranslateLangPrefix"/>
+				<!-- do not add wrapper if 
+				the URI already has an english or welsh part of the URI
+				- this is done carefully so that if we ever had a document type like 'ensi' it would not cause an issue
+				-->
+				<xsl:if test="not(starts-with($uriAfterDomain,'/en/') or starts-with($uriAfterDomain,'/cy/') or $uriAfterDomain='/en' or $uriAfterDomain='/cy')">
+					<xsl:value-of select="$TranslateLangPrefix"/>
+				</xsl:if>
 				<xsl:value-of select="substring-after(., 'http://www.legislation.gov.uk')"/>
 				<xsl:if test="string-length($paramsDoc/request/query-string) > 0 and not(contains(., '?'))">?<xsl:value-of select="$paramsDoc/request/query-string"/></xsl:if>
 			</xsl:attribute>		
