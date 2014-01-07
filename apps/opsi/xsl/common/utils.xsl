@@ -29,25 +29,25 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 <xsl:variable name="tso:legTypeMap" as="element()+">
 	<!-- The order here is significant; it's a preferential order for displaying the types in lists -->
   <tso:legType schemaType="UnitedKingdomPublicGeneralAct" abbrev="ukpga" class="primary" category="Act" 
-  	en="Explanatory Notes" singular="UK Public General Act" plural="UK Public General Acts"
+  	en="Explanatory Notes" pn="Policy Note" singular="UK Public General Act" plural="UK Public General Acts"
   	start="1801" complete="1988" revised="true" />
   <tso:legType schemaType="UnitedKingdomLocalAct" abbrev="ukla" class="primary" category="Act" 
   	singular="UK Local Act" plural="UK Local Acts"
   	start="1857" complete="1991" revised="false" />
   <tso:legType schemaType="ScottishAct" abbrev="asp" class="primary" category="Act" 
-  	en="Explanatory Notes" singular="Act of the Scottish Parliament" plural="Acts of the Scottish Parliament"
+  	en="Explanatory Notes" pn="Policy Note" singular="Act of the Scottish Parliament" plural="Acts of the Scottish Parliament"
   	start="1999" complete="1999" revised="true" />
   <tso:legType schemaType="WelshNationalAssemblyAct" class="primary" category="Act" abbrev="anaw" 
-	en="Explanatory Notes" singular="Act of the National Assembly for Wales" plural="Acts of the National Assembly for Wales"
+	en="Explanatory Notes" pn="Policy Note" singular="Act of the National Assembly for Wales" plural="Acts of the National Assembly for Wales"
   	start="2012" complete="2012" revised="true" />
   <tso:legType schemaType="WelshAssemblyMeasure" class="primary" category="Measure" abbrev="mwa" 
-	en="Explanatory Notes" singular="Measure of the National Assembly for Wales" plural="Measures of the National Assembly for Wales"
+	en="Explanatory Notes" pn="Policy Note" singular="Measure of the National Assembly for Wales" plural="Measures of the National Assembly for Wales"
   	start="2008" complete="2008" revised="true" />
   <tso:legType schemaType="UnitedKingdomChurchMeasure" class="primary" category="Measure" abbrev="ukcm" 
   	singular="Church Measure" plural="Church Measures"
   	start="1920" complete="1988" revised="true" />
   <tso:legType schemaType="NorthernIrelandAct" class="primary" category="Act" abbrev="nia" 
-  	en="Explanatory Notes" singular="Act of the Northern Ireland Assembly" plural="Acts of the Northern Ireland Assembly"
+  	en="Explanatory Notes" pn="Policy Note" singular="Act of the Northern Ireland Assembly" plural="Acts of the Northern Ireland Assembly"
   	start="2000" complete="2000" revised="true" />
   <tso:legType schemaType="ScottishOldAct" abbrev="aosp" class="primary" category="Act" 
   	singular="Act of the Old Scottish Parliament" plural="Acts of the Old Scottish Parliament"
@@ -63,10 +63,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		start="1707" end="1800" revised="true" />
 	<!-- half way point -->
 	<tso:legType schemaType="UnitedKingdomStatutoryInstrument" class="secondary" category="Instrument" abbrev="uksi" 
-		en="Executive Note" em="Explanatory Memorandum" singular="UK Statutory Instrument" plural="UK Statutory Instruments"
+		en="Executive Note" em="Explanatory Memorandum" pn="Policy Note" singular="UK Statutory Instrument" plural="UK Statutory Instruments"
 		start="1948" complete="1987" revised="false" />
   <tso:legType schemaType="WelshStatutoryInstrument" class="secondary" category="Instrument" abbrev="wsi" 
-		em="Explanatory Memorandum" singular="Wales Statutory Instrument" plural="Wales Statutory Instruments"
+		em="Explanatory Memorandum" singular="Wales Statutory Instrument" pn="Policy Note" plural="Wales Statutory Instruments"
   	start="1999" complete="1999" revised="false" />
   <tso:legType schemaType="ScottishStatutoryInstrument" class="secondary" category="Instrument" abbrev="ssi" 
   	en="Executive Note" pn="Policy Note" singular="Scottish Statutory Instrument" plural="Scottish Statutory Instruments"
@@ -84,7 +84,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
   	singular="UK Ministerial Order" plural="UK Ministerial Orders"
   	start="1992" timeline="none" revised="false" />
 	<tso:legType schemaType="UnitedKingdomStatutoryRuleOrOrder" class="secondary" category="Order" abbrev="uksro" 
-		en="Executive Note" em="Explanatory Memorandum" singular="UK Statutory Rule Or Order" plural="UK Statutory Rules and Orders"
+		en="Executive Note" em="Explanatory Memorandum" pn="Policy Note" singular="UK Statutory Rule Or Order" plural="UK Statutory Rules and Orders"
 		start="1900" end="1948" revised="false" />
 	<tso:legType schemaType="NorthernIrelandAssemblyMeasure" class="primary" category="Measure" abbrev="mnia" 
 		singular="Measure of the Northern Ireland Assembly" plural="Measures of the Northern Ireland Assembly"
