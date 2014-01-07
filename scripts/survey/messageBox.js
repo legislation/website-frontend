@@ -42,7 +42,7 @@ $.fn.showModalDialog = function(options) {
 			titleText: 'Invitiation to survey',
 			textLine1: 'Thank you for using legislation.gov.uk',
 			textLine2: 'Can you help us to better understand how users read and interact with legislation by taking our survey? ',
-			textLine3: 'By accepting to take part in this survey, you are also accepting the use of cookies',
+			textLine3: 'We use cookies for this survey pop-up. If you do not wish a cookie to be installed, please change the settings in your browser.',
 			textLine4: 'Survey closes on 26 September 2012.',
 			debug: false,
 			continueURL: function() {return '/'}
@@ -72,8 +72,8 @@ $.fn.showModalDialog = function(options) {
 			//	if((welsh == 'mwa') || (welsh == 'anaw') || (welsh == 'wsi') || (welsh == 'wdsi'))
 			//	{
 			//		if(($("body").find('#layout2').attr('class') == "legToc") && ($("body").find('#layout2').attr('class') != undefined) && ($("body").find('#layout2').attr('class') != '')){
-					
-						if($.cookie('surveyMessage5') == null){
+				
+						if($.cookie('surveyMessage') == null){
 						$(this).legModalWinOnce({type: 'testingModal', closeLinkTxt: 'Close', parentDiv: parentDiv});
 						}
 			//		}
@@ -122,13 +122,14 @@ $.fn.legModalWinOnce = function(options){
 			var close= modalWinJquery_str.find('.close')
 			close.click(function(event){
 				event.preventDefault();		
+				$.cookie('surveyMessage', '2');
 				closeModWin();
 			});
 			var survey =modalWinJquery_str.find('.continue a');
 			survey.click(function(event){
 				event.preventDefault();	
 				closeModWin();	
-                $.cookie('surveyMessage5', '2');			
+                $.cookie('surveyMessage', '2');			
 				window.open("http://www.surveygizmo.co.uk/s3/987479/legislation-survey-0812");
 				
 			});
