@@ -279,8 +279,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<h2>Please note:</h2>
 			<p class="intro">This impact assessment is only available to download and view as PDF.</p>
 		</div>
-		<!--<xsl:variable name="pdf" as="element()*" select="ukm:Metadata/ukm:Alternatives/ukm:Alternative[translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','') = $impactId]"/>-->
-		<xsl:variable name="pdf" as="element()*">
+		<xsl:variable name="pdf" as="element()*" select="ukm:Metadata/ukm:Alternatives/ukm:Alternative[translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','') = $impactId]"/>
+		<!--<xsl:variable name="pdf" as="element()*">
 			<xsl:choose>
 				<xsl:when test="$impactId = 'impacts' ">
 					<xsl:sequence select="ukm:Metadata/ukm:Alternatives/ukm:Alternative[not(exists(tokenize(@URI, '_')[4])) and not(contains(lower-case(@Title),'equality'))]"></xsl:sequence>
@@ -292,7 +292,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:sequence select="ukm:Metadata/ukm:Alternatives/ukm:Alternative[translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','') = $impactId and not(contains(lower-case(@Title),'equality'))]" ></xsl:sequence>
 				</xsl:otherwise>
 			</xsl:choose>
-			</xsl:variable>
+			</xsl:variable>-->
 		
 		<div id="viewLegContents">                            
 			<div class="LegSnippet" id="viewLegSnippet">
