@@ -72,6 +72,15 @@ exclude-result-prefixes="leg ukm math msxsl dc fo xsl svg xhtml xs tso">
 	</xsl:choose>
 </xsl:template>
 
+<!-- JDC: template copied from EN_xhtml_core_vanilla.xslt and "FuncCheckForStartOfQuote" commented back in -->
+<xsl:template name="FuncTextPreOperations">
+	<xsl:call-template name="FuncCheckForStartOfQuote"/>
+	<!-- Output generated text around paragraph numbers in legislation extracts -->
+	<xsl:if test="ancestor::leg:Pnumber[parent::leg:P2 or parent::leg:P3 or parent::leg:P4 or parent::leg:P5]">
+		<xsl:text>(</xsl:text>
+	</xsl:if>
+</xsl:template>
+
 <xsl:template name="FuncTextPostOperations">
 	<xsl:param name="nstLastTextNode" as="text()?" tunnel="yes" select="(ancestor::leg:Text[1]//text())[last()]" />
 	<xsl:param name="nstRunOnAmendmentText" as="element(leg:Text)?" tunnel="yes" select="()" />
@@ -284,6 +293,14 @@ exclude-result-prefixes="leg ukm math msxsl dc fo xsl svg xhtml xs tso">
 			<xsl:sequence select="$strText" />
 		</xsl:otherwise>
 	</xsl:choose>
+</xsl:template>
+
+<!-- JDC: template copied from EN_xhtml_core_vanilla.xslt and blockquote commented back in -->
+<xsl:template match="leg:BlockExtract">
+	<blockquote>
+	<xsl:apply-templates select="* | processing-instruction()"/>
+	<xsl:call-template name="FuncApplyVersions"/>
+	</blockquote>
 </xsl:template>
 
 </xsl:stylesheet>
