@@ -2133,6 +2133,7 @@ exclude-result-prefixes="tso atom">
 				<xsl:otherwise>
 					<xsl:apply-templates select="leg:TitleBlock"/>	
 					<xsl:apply-templates select="." mode="ProcessAnnotations"/>
+					<xsl:apply-templates select="leg:Contents"/>
 					<xsl:apply-templates select="leg:ScheduleBody"/>
 					<!-- CRM Appendix not being output in schedules -->
 					<xsl:apply-templates select="leg:Appendix"/>
