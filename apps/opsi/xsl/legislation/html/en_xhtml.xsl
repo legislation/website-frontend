@@ -306,7 +306,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	</xsl:template>		
 	
 	<xsl:template match="ukm:Alternative" mode="PDFOnly">
-
+	<xsl:variable name="fileName" select="tokenize(@URI, '_')" />
 	 	<xsl:variable name="dateSuffix">
 			<!-- add a date suffix if there are other versions of this type with the same Title and Language -->
 			<xsl:if test="count(../*[concat(@Title, ':', @Language) = current()/concat(@Title, ':', @Language)]) > 1">
@@ -318,7 +318,19 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		<xsl:variable name="title">
 			<xsl:choose>
 				<xsl:when test="exists(@Title)">
-					<xsl:value-of select="@Title" />
+					<xsl:choose>
+						<xsl:when test="self::ukm:Alternative[exists($fileName[4])]">
+											<xsl:value-of select="@Title"/>
+											<xsl:text> </xsl:text>
+											<xsl:value-of select="number(substring($fileName[4],3,1)) + 1 "/>
+										</xsl:when>
+										<xsl:when test="self::ukm:Alternative[preceding-sibling::*[self::ukm:Alternative] and not(following-sibling::*)]						
+											">
+											<xsl:value-of select="@Title" />
+											
+										</xsl:when>
+					</xsl:choose>
+				
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:analyze-string select="local-name(.)" regex="[A-Z][a-z]+">
