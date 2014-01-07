@@ -1375,6 +1375,12 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	</xsl:next-match>
 </xsl:template>
 
+<!-- JDC HA056626 http://www.legislation.gov.uk/uksi/2013/2005/regulation/2/made - paragraphs 8 and 9 -->			
+<!-- If we are in an empty List Item/Paragraph/Text within a leg:BlockAmendment//leg:OrderedList, with a non-empty one before it, the quote needs to go here. -->
+<xsl:template match="leg:BlockAmendment//leg:OrderedList/leg:ListItem[last()][preceding-sibling::*[self::leg:ListItem]/leg:Para/leg:Text != '']/leg:Para[last()]/leg:Text[. = ''] ">
+	<xsl:call-template name="FuncOutputAmendmentEndQuote"/>
+</xsl:template>
+
 <!-- This catches the first leg:Text within a P1 that hasn't got a P1group parent and that has some extent restriction applied -->
 <!--Chunyu HA049670 Added [last()] for P1 which has a scenario with two P1 see nisi/2007/1351 schedule 5 -->
 <xsl:template match="*[not(self::leg:P1group)]/leg:P1[ancestor-or-self::*/@RestrictExtent]//leg:*[preceding-sibling::leg:*[1][self::leg:Pnumber]]/leg:Text[not(preceding-sibling::*) and not(ancestor::leg:BlockAmendment)]">

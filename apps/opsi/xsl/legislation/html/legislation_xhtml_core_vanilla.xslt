@@ -4208,6 +4208,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		</xsl:variable>
 	<xsl:if test="$strIsTableFootnoteAtEnd = 'true' or $seqLastTextNodes = generate-id()">
 		<xsl:choose>
+			<!-- JDC HA056626 http://www.legislation.gov.uk/uksi/2013/2005/regulation/2/made - paragraphs 8 and 9 -->			
+			<!-- If we are in a leg:BlockAmendment//leg:OrderedList and there is an empty List Item/Paragraph/Text following this text node, the quote needs to go after that, not here. -->
+			<xsl:when test="ancestor::leg:BlockAmendment//leg:OrderedList and ../../../following-sibling::*[self::leg:ListItem]/leg:Para/leg:Text = '' "/>
 			<!-- If last node of amendment is in a table body and that table has footnote do not output at this point as will need to go after footnotes -->
 			<xsl:when test="not(ancestor::xhtml:tfoot) and ancestor::*[self::xhtml:table or self::leg:BlockAmendment][1][self::xhtml:table][xhtml:tfoot]"/>
 			<xsl:when test="self::leg:IncludedDocument or self::leg:Image">
