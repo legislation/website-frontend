@@ -30,7 +30,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:value-of select="$paramsDoc/request/request-path"/>
 				<xsl:if test="contains($paramsDoc/request/query-string, 'extent')">?view=extent</xsl:if>
 			</xsl:attribute>
-			Back to full view		
+			<xsl:value-of select="leg:TranslateText('Back to full view')"/>
 		</a>
 	</div>
 </xsl:template>

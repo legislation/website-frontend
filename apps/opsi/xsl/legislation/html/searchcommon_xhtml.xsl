@@ -134,7 +134,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							</div>
 
 							<p class="backToTop">
-								<a href="#top">Back to top</a>
+								<a href="#top"><xsl:value-of select="leg:TranslateText('Back to top')"/></a>
 							</p>						
 						
 							<!--
@@ -270,8 +270,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<span class="btl"/>
 				<span class="btr"/>
 				<xsl:choose>
-					<xsl:when test="@rel = 'prev'">Previous</xsl:when>
-					<xsl:when test="@rel=  'next'">Next</xsl:when>
+					<xsl:when test="@rel = 'prev'"><xsl:value-of select="leg:TranslateText('Previous')"/></xsl:when>
+					<xsl:when test="@rel=  'next'"><xsl:value-of select="leg:TranslateText('Next')"/></xsl:when>
 				</xsl:choose>
 				<span class="accessibleText"> results page</span>
 				<span class="bbl"/>
@@ -373,6 +373,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			</xsl:variable>
 			<xsl:variable name="pageSize" as="xs:integer" select="openSearch:itemsPerPage"/>
 			<h2>
+				<xsl:variable name="searchResultMessage">
 				<xsl:choose>
 					<xsl:when test="$params[self::theme]">
 						<xsl:for-each select="$searchParams/*">
@@ -418,14 +419,38 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<xsl:if test="not(openSearch:totalResults = 1)">s</xsl:if>
 						<xsl:text>.</xsl:text>
 					</xsl:otherwise>
-				</xsl:choose>
+				</xsl:choose>				
+				</xsl:variable>				
+				
+				<!-- added this code to display messages in welsh languages for welsh version of site-->
+				<xsl:variable name="fr" select="('Your text search for','Your search for','Your title search for', 'in legislation from', 'legislation from', 'numbered','has returned no results','in legislation','has returned','results','in Secondary Legislation','result')"/>
+				<xsl:variable name="to" select="('Mae eich chwiliad testun am ','Mae eich chwiliad am','Nid yw eich chwiliad teitl am', 'mewn deddfwriaeth o ', 'deddfwriaeth o ', 'wedi ei rifo ','wedi dod o hyd i unrhyw ganlyniadau','mewn deddfwriaeth','wedi dod o hyd i ','o ganlyniadau','mewn Deddfwriaeth Eilaidd','ganlyniad')"/>
+				
+				<xsl:choose>
+					<xsl:when test="$TranslateLang='cy'">
+						<xsl:choose>
+							<xsl:when test="$searchResultMessage='Your search for legislation has returned more than 200 results.'">Mae eich chwiliad am ddeddfwriaeth wedi dychwelyd mwy na 200 o ganlyniadau.</xsl:when>
+							<xsl:when test="$searchResultMessage='Your search for Primary Legislation has returned   more than 200  results.'">Mae eich chwiliad am ddeddfwriaeth sylfaenol wedi dychwelyd mwy na 200 o ganlyniadau.</xsl:when>
+							<xsl:when test="$searchResultMessage='Your search for Secondary Legislation has returned   more than 200  results.'">Mae eich chwiliad am is-ddeddfwriaeth wedi dychwelyd mwy na 200 o ganlyniadau.</xsl:when>
+							<xsl:when test="$searchResultMessage='Your search for Draft Legislation has returned   more than 200  results.'">Mae eich chwiliad am Deddfwriaeth ddrafft wedi dychwelyd mwy na 200 o ganlyniadau.</xsl:when>
+							<xsl:when test="$searchResultMessage='Your search for Asesiadau Effaith y Deyrnas Unedig has returned   more than 200  results.'">Mae eich chwiliad am Asesiadau Effaith DU wedi dychwelyd mwy na 200 o ganlyniadau.</xsl:when>
+							<xsl:when test="$searchResultMessage='Your search for UK Statutory Instruments has returned   more than 200  results.'">Mae eich chwiliad am UK Offerynnau Statudol wedi dychwelyd mwy na 200 o ganlyniadau.</xsl:when>
+							<xsl:when test="contains($searchResultMessage,'more than 200  results')"><xsl:value-of select="$searchResultMessage"/></xsl:when>
+							<xsl:otherwise><xsl:value-of select="leg:replace-multi($searchResultMessage,$fr,$to)"/></xsl:otherwise>
+						</xsl:choose>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$searchResultMessage"/>
+					</xsl:otherwise>
+				</xsl:choose>				
 			</h2>
 			<xsl:variable name="messages" as="xs:string*">
 				<xsl:if test="$sort = ''">
-					<xsl:text>Search results are ordered according to relevance.</xsl:text>
+					<xsl:value-of select="leg:TranslateText('Search results are ordered according to relevance.')"/>
 				</xsl:if>
 			<xsl:if test="leg:text//leg:term[@ignored = 'true'] or leg:title//leg:term[@ignored = 'true']">
-					<xsl:text>Common words were ignored for this search. Use double quotes around common words to include them.</xsl:text>
+				<xsl:value-of select="leg:TranslateText('Common_word_text_message')"/>
+				<!--<xsl:text>Common words were ignored for this search. Use double quotes around common words to include them.</xsl:text>-->
 			</xsl:if>
 			</xsl:variable>
 			<xsl:if test="exists($messages)">
@@ -720,8 +745,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 									</xsl:choose>
 									<xsl:attribute name="title">Sort ascending by Title</xsl:attribute>
 									<span class="accessibleText">Sort ascending by </span>
-								</xsl:if>
-							<xsl:text>Title</xsl:text>
+								</xsl:if>							
+								<xsl:value-of select="leg:TranslateText('Title')" />
 							</xsl:element>
 						</th>
 						<th>
@@ -746,7 +771,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 									<xsl:attribute name="title">Sort descending by <xsl:value-of select="$title" /></xsl:attribute>
 									<span class="accessibleText">Sort descending by </span>
 								</xsl:if>
-								<xsl:value-of select="$title" />
+								<xsl:value-of select="leg:TranslateText($title)" />
 							</xsl:element>
 						</th>
 						<th>
@@ -777,7 +802,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 									<xsl:attribute name="title">Sort ascending by <xsl:value-of select="$legType"/></xsl:attribute>
 									<span class="accessibleText">Sort ascending by </span>
 								</xsl:if>
-								<xsl:value-of select="'Legislation type'"/>
+								<xsl:value-of select="leg:TranslateText('Legislation type')"/>
 							</xsl:element>
 						</th>
 					</tr>
@@ -1053,7 +1078,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				</h1>
 			</xsl:when>
 			<xsl:otherwise>
-				<h1 id="pageTitle">Search Results</h1>
+				<h1 id="pageTitle"><xsl:value-of select="leg:TranslateText('Search Results')"/></h1>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -1100,5 +1125,33 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		</xsl:attribute>
 	</xsl:template>
 
-
+	<xsl:function name="leg:replace-multi" as="xs:string?" >
+		<xsl:param name="arg" as="xs:string?"/> 
+		<xsl:param name="changeFrom" as="xs:string*"/> 
+		<xsl:param name="changeTo" as="xs:string*"/> 
+		
+		<xsl:sequence select=" 
+			if (count($changeFrom) > 0)
+			then leg:replace-multi(
+			replace($arg, $changeFrom[1],
+			leg:if-absent($changeTo[1],'')),
+			$changeFrom[position() > 1],
+			$changeTo[position() > 1])
+			else $arg
+			"/>
+		
+	</xsl:function>
+	
+	<xsl:function name="leg:if-absent" as="item()*" >
+		<xsl:param name="arg" as="item()*"/> 
+		<xsl:param name="value" as="item()*"/> 
+		
+		<xsl:sequence select=" 
+			if (exists($arg))
+			then $arg
+			else $value
+			"/>
+		
+	</xsl:function>
+	
 </xsl:stylesheet>

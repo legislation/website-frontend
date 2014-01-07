@@ -32,13 +32,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	
 	<xsl:template match="leg:facets" mode="searchfacets">
 		<xsl:variable name="type" as="xs:string?" select="/atom:feed/openSearch:Query/@leg:type"/>
-		<xsl:variable name="legType" as="xs:string" select="if (matches($type,'(impacts|ukia|sia|wia|niia)')) then 'Impact Assessments' else 'Legislation'"/>
+		<xsl:variable name="legType" as="xs:string" select="leg:TranslateText(if (matches($type,'(impacts|ukia|sia|wia|niia)')) then 'Impact Assessments' else 'Legislation')"/>
 		<div id="tools">
 			<h2 class="accessibleText">Narrow results by:</h2>
 			<xsl:if test="count(leg:facetTypes/leg:facetType)>0">
 				<div class="section">
 					<div class="title">
-						<h3><xsl:value-of select="$legType"/> By Type</h3>
+						<h3><xsl:value-of select="$legType"/> <xsl:value-of select="leg:TranslateText('By Type')"/></h3>
 					</div>
 					<div class="content">
 						<ul>
@@ -53,7 +53,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								<xsl:otherwise>
 									<li class="returnLink">
 										<a href="{replace($link, concat('type=',  tso:GetUriPrefixFromType(leg:facetTypes/leg:facetType[1]/@type,()) ),  'type=*')}">
-											<span class="accessibleText">Browse by </span>Any type 
+											<span class="accessibleText"><xsl:value-of select="leg:TranslateText('Browse by')"/> </span><xsl:value-of select="leg:TranslateText('Any type')"/>
 										</a>
 									</li>
 									<li class="legType">
@@ -70,7 +70,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<xsl:if test="count(leg:facetYears/leg:facetYear)>0">
 				<div id="year" class="section">
 					<div class="title">
-						<h3><xsl:value-of select="$legType"/> By Year|</h3>
+						<h3><xsl:value-of select="leg:TranslateText($legType)"/><xsl:value-of select="leg:TranslateText('By Year')"/>|</h3>
 					</div>
 					<div class="content">
 						<xsl:choose>
@@ -78,8 +78,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								<ul>
 									<li class="returnLink">
 										<a href="{replace($link, '&amp;year=\d+','' )}">
-											<span class="accessibleText">Browse by </span>
-											Any year 
+											<span class="accessibleText"><xsl:value-of select="leg:TranslateText('Browse by')"/> </span>
+											<xsl:value-of select="leg:TranslateText('Any year')"/> 
 										</a>
 									</li>
 									<li>
@@ -122,7 +122,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	</xsl:template>	
 
 	<xsl:template name="heading">
-		<h1 id="pageTitle">Search Results</h1>		
+		<h1 id="pageTitle"><xsl:value-of select="leg:TranslateText('Search Results')"/></h1>		
 	</xsl:template>	
 
 </xsl:stylesheet>

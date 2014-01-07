@@ -7,6 +7,7 @@ You may use and re-use this code free of charge under the terms of the Open Gove
 http://www.nationalarchives.gov.uk/doc/open-government-licence/
 
 -->
+<!-- NOT adapted for Welsh UI wrapper as this XSL is not used on legislation site -->
 <xsl:stylesheet
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"

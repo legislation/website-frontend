@@ -73,50 +73,49 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				
 			</head>		
 		
-			<body lang="en" xml:lang="en" dir="ltr" id="search" class="intro">
-				<div id="layout2">
-				
+			<body lang="{$TranslateLang}" xml:lang="{$TranslateLang}" dir="ltr" id="search" class="intro">
+				<div id="layout2">				
 					<!-- adding quick search  -->
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					
 					<div class="titles">
-						<h1 id="pageTitle">Advanced Search</h1>
+						<h1 id="pageTitle"><xsl:value-of select="leg:TranslateText('Advanced Search')"/></h1>						
 					</div>					
 					
 					<div id="tools">
 						<div>
-							<h2>Find legislation</h2>
+							<h2><xsl:value-of select="leg:TranslateText('Find legislation')"/></h2>
 						</div>
 						<div id="links">
-							<a href="/search">
+							<a href="{$TranslateLangPrefix}/search">
 								<xsl:if test="$generalSearch">
 									<xsl:attribute name="class">current</xsl:attribute>
 								</xsl:if>
-								<xsl:text>General</xsl:text>
+								<xsl:value-of select="leg:TranslateText('General')"/>								
 							</a>
-							<a href="/search/extent">
+							<a href="{$TranslateLangPrefix}/search/extent">
 								<xsl:if test="$extentSearch">
 									<xsl:attribute name="class">current</xsl:attribute>
 								</xsl:if>
-								<xsl:text>Geographical Extent</xsl:text>
+								<xsl:value-of select="leg:TranslateText('Geographical Extent')"/>
 							</a>
-							<a href="/search/point-in-time">
+							<a href="{$TranslateLangPrefix}/search/point-in-time">
 								<xsl:if test="$pointInTimeSearch">
 									<xsl:attribute name="class">current</xsl:attribute>
 								</xsl:if>
-								<xsl:text>Point in Time</xsl:text>
+								<xsl:value-of select="leg:TranslateText('Point in Time')"/>
 							</a>
-							<a href="/search/draft-legislation">
+							<a href="{$TranslateLangPrefix}/search/draft-legislation">
 								<xsl:if test="$draftLegislationSearch">
 									<xsl:attribute name="class">current</xsl:attribute>
 								</xsl:if>
-								<xsl:text>Draft Legislation</xsl:text>
+								<xsl:value-of select="leg:TranslateText('Draft Legislation')"/>							
 							</a>							
-							<a href="/search/impacts">
+							<a href="{$TranslateLangPrefix}/search/impacts">
 								<xsl:if test="$impactAssessmentSearch">
 									<xsl:attribute name="class">current</xsl:attribute>
 								</xsl:if>
-								<xsl:text>Impact Assessments</xsl:text>
+								<xsl:value-of select="leg:TranslateText('Impact Assessments')"/>
 							</a>
 						</div>
 					</div>					
@@ -125,7 +124,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					
 						<xsl:if test="exists($errorSearchingDoc)">
 							<div id="errorBar" class="error errorMessage">
-								<xsl:value-of select="concat('Please check the form fields which are highlighted in red. ', $errorSearchingDoc/errorsearching/message)"/>
+								<xsl:value-of select="concat(leg:TranslateText('Please check the form fields which are highlighted in red'),'. ', $errorSearchingDoc/errorsearching/message)"/>
 							</div>
 						</xsl:if>
 						
@@ -139,34 +138,34 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	</xsl:template>	
 	
 	<xsl:template name="TSOSearch">
-		<form id="advancedSearch" class="advancedSearch" method="get" action="/search" style="display: block;">
+		<form id="advancedSearch" class="advancedSearch" method="get" action="{$TranslateLangPrefix}/search" style="display: block;">
 			<h2>
 				<xsl:choose>
 					<xsl:when test="$pointInTimeSearch">
-						<xsl:text>Legislation as it stood at a specific point in time (for revised legislation only)</xsl:text>
+						<xsl:value-of select="leg:TranslateText('Legislation as it stood at a specific point in time (for revised legislation only)')"/>
 					</xsl:when>
                     <xsl:when test="$extentSearch">
-                        <xsl:text>Geographical extent search (for revised legislation only)</xsl:text>
+                    	<xsl:value-of select="leg:TranslateText('Geographical extent search (for revised legislation only)')"/>
                     </xsl:when>
                     <xsl:when test="$draftLegislationSearch">
-                        <xsl:text>Draft Legislation search</xsl:text>
+                    	<xsl:value-of select="leg:TranslateText('Draft Legislation search')"/>
                     </xsl:when>    
 					<xsl:when test="$impactAssessmentSearch">
-                        <xsl:text>Impact Assessment search</xsl:text>
-						<small> (UK only)</small>
+						<xsl:value-of select="leg:TranslateText('Impact Assessment search')"/>                       
+						<small><xsl:text> </xsl:text>(<xsl:value-of select="leg:TranslateText('UK only')"/>)</small>
                     </xsl:when> 
 					<xsl:otherwise>
-						<xsl:text>General search</xsl:text>
+						<xsl:value-of select="leg:TranslateText('General search')"/>						
 					</xsl:otherwise>
 				</xsl:choose>
 			</h2>
 
 			<!-- extends search -->
 			<xsl:if test="$extentSearch">
-				<p>These advanced features are only available on searches for revised legislation e.g. Acts. Secondary legislation will not be included in search results.</p>
+				<p><xsl:value-of select="leg:TranslateText('Extent_search_desc')"/></p>
 				<div class="searchExtendsTo searchFieldCategory">
 					<div class="searchFieldGroup">
-						<h3>Extends to</h3>
+						<h3><xsl:value-of select="leg:TranslateText('Extends to')"/></h3>
 						<!--
 						<a class="helpIcon advancedSearchHelp" href="#extendsHelp">
 							<img alt=" Help about Extends searching" src="/images/chrome/helpIcon.gif"/>
@@ -176,50 +175,53 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 
 					<div class="searchFieldGroup">
 						<div class="searchCol1">
-							<xsl:text>Geographical extent</xsl:text>
+							<xsl:value-of select="leg:TranslateText('Geographical extent')"/>
 						</div>
 
 						<div class="searchCol2 searchExtendsToInput">
 							<div class="opt1 group">
 								<label>
 									<input type="radio" name="extent-match" value="applicable" checked="checked" class="radio yearChoice" />
-										<xsl:text>Applicable to:</xsl:text>
+									<xsl:value-of select="leg:TranslateText('Applicable to')"/>
+										<xsl:text>:</xsl:text>
 									</label>
 								<label>
 									<input type="radio" name="extent-match" value="exact" class="radio yearChoice" />
-										<xsl:text>Exclusively extends to:</xsl:text>
+									<xsl:value-of select="leg:TranslateText('Exclusively extends to')"/>
+										<xsl:text>:</xsl:text>
 								</label>
 							</div>
 							<div class="opt2">
 								<label>
 									<input type="checkbox" name="extent" value="uk" class="checkbox" />
-									<xsl:text>United Kingdom</xsl:text>
+									<xsl:value-of select="leg:TranslateText('United Kingdom')"/>
 								</label>
 								<label>
 									<input type="checkbox" name="extent" value="gb" class="checkbox" />
-									<xsl:text>Great Britain</xsl:text>
+									<xsl:value-of select="leg:TranslateText('Great Britain')"/>
 								</label>
 								<label>
 									<input type="checkbox" name="extent" value="ew" class="checkbox" />
-									<xsl:text>England &amp; Wales</xsl:text>
+									<xsl:value-of select="leg:TranslateText('England &amp; Wales')"/>
+									<!--<xsl:text>England &amp; Wales</xsl:text>-->
 								</label>
 							</div>
 							<div class="opt2">
 								<label>
 									<input type="checkbox" name="extent" checked="checked" value="england" class="checkbox" />
-									<xsl:text>England</xsl:text>
+									<xsl:value-of select="leg:TranslateText('England')"/>
 								</label>
 								<label>
 									<input type="checkbox" name="extent" checked="checked" value="wales" class="checkbox" />
-									<xsl:text>Wales</xsl:text>
+									<xsl:value-of select="leg:TranslateText('Wales')"/>
 								</label>
 								<label>
 									<input type="checkbox" name="extent" checked="checked" value="scotland" class="checkbox" />
-									<xsl:text>Scotland</xsl:text>
+									<xsl:value-of select="leg:TranslateText('Scotland')"/>									
 								</label>
 								<label>
 									<input type="checkbox" name="extent" checked="checked" value="ni" class="checkbox" />
-									<xsl:text>Northern Ireland</xsl:text>
+									<xsl:value-of select="leg:TranslateText('Northern Ireland')"/>
 								</label>
 							</div>
 						</div>
@@ -231,13 +233,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<div class="searchTitle searchFieldCategory">
 				<div class="searchCol1">
 				<label for="searchTitle">
-					<xsl:text>Title:</xsl:text>
+					<xsl:value-of select="leg:TranslateText('Title')"/>:
 				</label>
 				</div>
 				<div class="searchCol2">
 					<div class="searchFieldGroup">
 						<input type="text" id="searchTitle" name="title" value="{$paramsDoc/parameters/title}"/>
-						<span>(or keywords in the title)</span>
+						<span><xsl:value-of select="leg:TranslateText('Key_title_text')"/></span>
 					</div>
 				</div>
 				<div class="searchCol3">
@@ -251,12 +253,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<xsl:if test="$generalSearch or $extentSearch or $draftLegislationSearch or $impactAssessmentSearch">
 				<div class="searchKeywords searchFieldCategory">
 					<div class="searchCol1">
-						<label for="text">Keywords in content: </label>
+						<label for="text"><xsl:value-of select="leg:TranslateText('Keywords in content:')"/></label>
 					</div>
 					<div class="searchCol2">
 						<div class="searchFieldGroup">
 							<input type="text" id="searchText" name="text" value="{$paramsDoc/parameters/text}" />
-							<span>(using double quotes around a phrase will give faster results)</span>
+							<span><xsl:value-of select="leg:TranslateText('Use_double_quote_text')"/></span>
 						</div>
 					</div>
 					<div class="searchCol3">
@@ -274,12 +276,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<xsl:if test="$impactAssessmentSearch">
 				<div class="searchKeywords searchFieldCategory">
 					<div class="searchCol1">
-						<label for="text">Stage: </label>
+						<label for="text"><xsl:value-of select="leg:TranslateText('Stage')"/>: </label>
 					</div>
 					<div class="searchCol2">
 						<div class="searchFieldGroup">
 							<input type="text" id="stageText" name="stage" value="{$paramsDoc/parameters/stage}" />
-							<span>(whole name of the stage required)</span>
+							<span>(<xsl:value-of select="leg:TranslateText('whole name of the stage required')"/>)</span>
 						</div>
 					</div>
 					<div class="searchCol3">
@@ -293,12 +295,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 
 				<div class="searchKeywords searchFieldCategory">
 					<div class="searchCol1">
-						<label for="text">Department: </label>
+						<label for="text"><xsl:value-of select="leg:TranslateText('Department')"/>: </label>
 					</div>
 					<div class="searchCol2">
 						<div class="searchFieldGroup">
 							<input type="text" id="departmentText" name="department" value="{$paramsDoc/parameters/department}" />
-							<span>(whole name of the department required)</span>
+							<span>(<xsl:value-of select="leg:TranslateText('whole name of the department required')"/>)</span>
 						</div>
 					</div>
 					<div class="searchCol3">
@@ -340,7 +342,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								<xsl:if test="$invalidYear">
 									<xsl:attribute name="class">error</xsl:attribute>
 								</xsl:if>
-								<xsl:text>Year:</xsl:text>
+								<xsl:value-of select="leg:TranslateText('Year')"/>:
 							</label>
 						</div>
 						
@@ -348,7 +350,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							<div class="specificYear formGroup">
 								<input type="radio" id="specificRadio" name="yearRadio" value="specific"
 									checked="true"/>
-								<label for="specificRadio">Specific Year</label>
+								<label for="specificRadio"><xsl:value-of select="leg:TranslateText('Specific Year')"/></label>
 								<div>
 									<input type="text" id="specificYear" name="year" maxlength="4"
 										value="{$paramsDoc/parameters/year}">
@@ -363,10 +365,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						select="exists($paramsDoc/parameters/start-year[. != '*' and . != '' and not(. castable as xs:integer)]) or
 							    exists($paramsDoc/parameters/end-year[. != '*' and . != '' and not(. castable as xs:integer)])"/>
 								<input type="radio" id="rangeRadio" name="yearRadio" value="range"/>
-								<label for="rangeRadio">Year Range</label>
+								<label for="rangeRadio"><xsl:value-of select="leg:TranslateText('Year Range')"/></label>
 								<div class="yearRange">
 									<div>
-										<label for="yearStart">From</label>
+										<label for="yearStart"><xsl:value-of select="leg:TranslateText('From')"/></label>
 										<input type="text" id="yearStart" name="start-year" maxlength="4"
 											value="{$paramsDoc/parameters/start-year}">
 											<xsl:if test="$invalidYearRange">
@@ -375,7 +377,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 										</input>
 									</div>
 									<div>
-										<label for="yearEnd">To</label>
+										<label for="yearEnd"><xsl:value-of select="leg:TranslateText('To')"/></label>
 										<input type="text" id="yearEnd" name="end-year" maxlength="4"
 											value="{$paramsDoc/parameters/end-year}">
 											<xsl:if test="$invalidYearRange">
@@ -388,10 +390,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							
 							<div class="rangeOfDates formGroup searchDateRange">
 								<input type="radio" id="rangeRadio" name="yearRadio" value="range"/>
-								<label for="rangeRadio">Date Range</label>
+								<label for="rangeRadio"><xsl:value-of select="leg:TranslateText('Date Range')"/></label>
 								<div class="yearRange">
 									<div>
-										<label for="yearStart">From</label>
+										<label for="yearStart"><xsl:value-of select="leg:TranslateText('From')"/></label>
 										<input id="start" type="text" name="start" 
 							value="{if ($paramsDoc/parameters/start[matches(., '[0-9]{2}/[0-9]{2}/[0-9]{4}')]) then $paramsDoc/parameters/start	
 										else if ($paramsDoc/parameters/start[. castable as xs:date]) then format-date($paramsDoc/parameters/start, '[D01]/[M01]/[Y0001]')
@@ -402,7 +404,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 										</input>
 									</div>
 									<div>
-										<label for="yearEnd">To</label>
+										<label for="yearEnd"><xsl:value-of select="leg:TranslateText('To')"/></label>
 										<input id="end" type="text" name="end" 
 										value="{if ($paramsDoc/parameters/start[matches(., '[0-9]{2}/[0-9]{2}/[0-9]{4}')]) then $paramsDoc/parameters/start	
 													else if ($paramsDoc/parameters/start[. castable as xs:date]) then format-date($paramsDoc/parameters/start, '[D01]/[M01]/[Y0001]')
@@ -418,7 +420,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							</div>
 							
 							<xsl:if test="$invalidYear">
-								<span class="error errorMessage">Not a valid year (YYYY)</span>
+								<span class="error errorMessage"><xsl:value-of select="concat(leg:TranslateText('Not a valid year'),' (', leg:TranslateText('YYYY'),')')"/></span>
 							</xsl:if>
 						</div>
 						
@@ -435,16 +437,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<xsl:if test="$generalSearch">
 				<div class="searchLang searchFieldCategory">
 					<div class="searchCol1">
-						<label for="lang">Language: </label>
+						<label for="lang"><xsl:value-of select="leg:TranslateText('Language')"/>: </label>
 					</div>
 					<div class="searchCol2">
 						<div class="englishLang formGroup">
 							<input type="radio" id="englishRadio" name="lang" value="en" checked="true"/>
-							<label for="englishRadio">English</label>
+							<label for="englishRadio"><xsl:value-of select="leg:TranslateText('English')"/></label>
 						</div>
 						<div class="welshLang formGroup">
 							<input type="radio" id="welshRadio" name="lang" value="cy"/>
-							<label for="welshRadio">Welsh</label>
+							<label for="welshRadio"><xsl:value-of select="leg:TranslateText('Welsh')"/></label>
 						</div>
 					</div>
 					<div class="searchCol3">
@@ -478,7 +480,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								<xsl:if test="$invalidYear">
 									<xsl:attribute name="class">error</xsl:attribute>
 								</xsl:if>
-								<xsl:text>Year: </xsl:text>
+								<xsl:value-of select="leg:TranslateText('Year')"/>:								
 							</label>
 						</div>
 						<div class="searchCol2">
@@ -490,7 +492,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								</input>
 							</div>
 							<xsl:if test="$invalidYear">
-								<span class="error errorMessage">The year must be valid and before the point in time search</span>
+								<span class="error errorMessage"><xsl:value-of select="leg:TranslateText('The year must be valid and before the point in time search')"/></span>
 							</xsl:if>									
 						</div>
 						<div class="searchCol3">
@@ -517,7 +519,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								<xsl:if test="$invalidYear or $invalidYearRange">
 									<xsl:attribute name="class">error</xsl:attribute>
 								</xsl:if>
-								<xsl:text>Year:</xsl:text>
+								<xsl:value-of select="leg:TranslateText('Year')"/>:
 							</label>
 						</div>
 						
@@ -525,7 +527,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							<div class="specificYear formGroup">
 								<input type="radio" id="specificRadio" name="yearRadio" value="specific"
 									checked="true"/>
-								<label for="specificRadio">Specific Year</label>
+								<label for="specificRadio"><xsl:value-of select="leg:TranslateText('Specific Year')"/></label>
 								<div>
 									<input type="text" id="specificYear" name="year" maxlength="4"
 										value="{$paramsDoc/parameters/year}">
@@ -537,10 +539,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							</div>
 							<div class="rangeOfYears formGroup">
 								<input type="radio" id="rangeRadio" name="yearRadio" value="range"/>
-								<label for="rangeRadio">Range</label>
+								<label for="rangeRadio"><xsl:value-of select="leg:TranslateText('Range')"/></label>
 								<div class="yearRange">
 									<div>
-										<label for="yearStart">From</label>
+										<label for="yearStart"><xsl:value-of select="leg:TranslateText('From')"/></label>
 										<input type="text" id="yearStart" name="start-year" maxlength="4"
 											value="{$paramsDoc/parameters/start-year}">
 											<xsl:if test="$invalidYearRange">
@@ -549,7 +551,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 										</input>
 									</div>
 									<div>
-										<label for="yearEnd">To</label>
+										<label for="yearEnd"><xsl:value-of select="leg:TranslateText('To')"/></label>
 										<input type="text" id="yearEnd" name="end-year" maxlength="4"
 											value="{$paramsDoc/parameters/end-year}">
 											<xsl:if test="$invalidYearRange">
@@ -560,7 +562,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								</div>
 							</div>
 							<xsl:if test="$invalidYear or $invalidYearRange">
-								<span class="error errorMessage">Not a valid year (YYYY)</span>
+								<span class="error errorMessage"><xsl:value-of select="concat(leg:TranslateText('Not a valid year'),' (', leg:TranslateText('YYYY'),')')"/></span>
 							</xsl:if>
 						</div>
 						
@@ -598,7 +600,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<div class="searchCol1">
 							<label for="type">
 								<xsl:if test="($pointInTimeSearch or $extentSearch or $draftLegislationSearch) and not($isRevisedLegislation)"><xsl:attribute name="class">error</xsl:attribute></xsl:if>
-								<xsl:text>Type:</xsl:text>
+								<xsl:value-of select="leg:TranslateText('Type')"/><xsl:text>:</xsl:text>								
 							</label>
 						</div>
 						
@@ -615,7 +617,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 											<xsl:with-param name="error" select="not($isRevisedLegislation)" />
 										</xsl:call-template>
 										<xsl:if test="not($isRevisedLegislation)">
-											<span class="error">Please select revised legislations only</span>
+											<span class="error"><xsl:value-of select="leg:TranslateText('Please select revised legislations only')"/></span>
 										</xsl:if>
 								</xsl:when>
 								<!--
@@ -686,7 +688,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							<xsl:if test="$invalidPointInTime">
 								<xsl:attribute name="class">error</xsl:attribute>
 							</xsl:if>
-							Point in time:
+							<xsl:value-of select="leg:TranslateText('Point in time')"/><xsl:text>:</xsl:text>
 						</label>
 					 </div>
 					 <div class="searchCol2 pointInTime">
@@ -702,7 +704,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							</input>
 						
 						<xsl:if test="$invalidPointInTime">
-							<span class="error errorMessage">Point in Time must be after 01/01/2006 if you have selected Northern Ireland legislation, and after 01/02/1991 for other primary legislation types</span>
+							<span class="error errorMessage"><xsl:value-of select="leg:TranslateText('Point_in_time_error')"/></span>
 						</xsl:if>						
 					 </div>
 					 
@@ -720,7 +722,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<!-- submit -->
 			<div class="submit">
 				<button class="userFunctionalElement" id="contentSearchSubmit" type="submit">
-					Advanced Search
+					<xsl:value-of select="leg:TranslateText('Advanced Search')"/>
 				</button>
 			</div>			
 		</form>
@@ -730,23 +732,23 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<span class="icon"></span>
 			<div class="content">
 				<a href="#" class="close"><img alt="Close" src="/images/chrome/closeIcon.gif" /></a>
-			<h3>Title</h3>
-			<p>
-				Enter a full title or part of a title to find results based on title.  The search will show results that match on any part of the title. For example ‘Data’ will match ‘Data Protection Act’ and ‘The Data Retention Regulations’. To exclude a term, use the minus operator before the term you wish to exclude. For example searching ‘Data -protection’ would return ‘The Data Retention Regulations’ but not the ‘Data Protection Act’.  Use double quotes for an exact match on a phrase e.g “Data Protection” would return ‘The Data Protection Act’ but not ‘The Protection of Vulnerable Groups (Data Handling) Regulations’. Alternatively, leave blank if you do not wish to specify a title match.  
-			</p>
+				<h3><xsl:value-of select="leg:TranslateText('Title')"/></h3>
+				<p>
+					<xsl:value-of select="leg:TranslateText('Search_tooltip_title')"/>
+				</p>
 			</div>
 		</div>
 		<div class="help" id="yearHelp">
 			<span class="icon"></span>
 			<div class="content">
 				<a href="#" class="close"><img alt="Close" src="/images/chrome/closeIcon.gif" /></a>
-				<h3>Year</h3>				
+				<h3><xsl:value-of select="leg:TranslateText('Year')"/></h3>				
 				<xsl:choose>
 					<xsl:when test="$pointInTimeSearch">
-						<p>Enter the year of the legislation you would like to view. This is the year it was enacted/made.</p>
+						<p><xsl:value-of select="leg:TranslateText('Search_tooltip_year_pit')"/></p>
 					</xsl:when>
 					<xsl:otherwise>
-						<p>Select whether you would like to search across legislation for a particular year or range of years. This is not a required field and can be left empty if you do not wish to narrow your search by year. </p>
+						<p><xsl:value-of select="leg:TranslateText('Search_tooltip_year')"/></p>
 					</xsl:otherwise>
 				</xsl:choose>
 			</div>
@@ -756,13 +758,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<span class="icon"></span>
 			<div class="content">
 				<a href="#" class="close"><img alt="Close" src="/images/chrome/closeIcon.gif" /></a>
-				<h3>Number</h3>								
+				<h3><xsl:value-of select="leg:TranslateText('Number')"/></h3>								
 				<xsl:choose>
 					<xsl:when test="$pointInTimeSearch or $extentSearch">
-						<p>Use this field to specify the number of the legislation if you know it. This field is not mandatory. Please note that a point in time or geographic extent search is only possible on the legislation that we revise (primary legislation). For example, an SI number will not be a valid search.</p>
+						<p><xsl:value-of select="leg:TranslateText('Search_tooltip_number_pit_extent')"/></p>
 					</xsl:when>
 					<xsl:otherwise>
-						<p>If you know the number of the legislation item you are looking for enter it here. There are several ways to search by number as some items of legislation are assigned multiple numbers each from different numbering systems.  Where multiple numbering systems have been used, you can select which one you wish to search by from the drop down box. If you are unsure, we recommend you keep ‘main series’ selected. </p>
+						<p><xsl:value-of select="leg:TranslateText('Search_tooltip_number')"/></p>
 					</xsl:otherwise>
 				</xsl:choose>
 			</div>
@@ -772,16 +774,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<span class="icon"></span>
 			<div class="content">
 				<a href="#" class="close"><img alt="Close" src="/images/chrome/closeIcon.gif" /></a>
-				<h3>Type</h3>												
+				<h3><xsl:value-of select="leg:TranslateText('Type')"/></h3>												
 				<xsl:choose>
 					<xsl:when test="$pointInTimeSearch or $extentSearch">
-						<p>Use the drop down to specify the type of legislation for the search. Please note that point in time and geographic extent search is only possible on legislation that we revise so only primary legislation types are listed. </p>
+						<p><xsl:value-of select="leg:TranslateText('Search_tooltip_type_pit_extent')"/></p>
 					</xsl:when>
 					<xsl:when test="$draftLegislationSearch">
-						<p>It is possible to narrow your search across a particular legislation type or set of legislation types by using the checkboxes. Select ‘All Draft' if you do not wish to restrict your search to particular types of draft legislation.  See the Help section for advice about understanding different legislation types.</p>					
+						<p><xsl:value-of select="leg:TranslateText('Search_tooltip_type_draft')"/></p>					
 					</xsl:when>
 					<xsl:otherwise>
-						<p>It is possible to narrow your search across a particular legislation type or set of legislation types by using the checkboxes. The first column shows all the possible primary legislation types, and the second column all the secondary legislation types.  Select ‘All Legislation’ if you do not wish to restrict your search to particular types of legislation.  See the Help section for advice about understanding different legislation types.</p>
+						<p><xsl:value-of select="leg:TranslateText('Search_tooltip_type')"/></p>
 					</xsl:otherwise>
 				</xsl:choose>				
 			</div>
@@ -804,9 +806,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<span class="icon"></span>
 				<div class="content">
 					<a href="#" class="close"><img alt="Close" src="/images/chrome/closeIcon.gif" /></a>
-					<h3>Point in time</h3>												
-					<p>Use this field to select a date and see how your specified legislation stood at a particular point in time. Only dates after the basedate (01/02/1991) are valid we do not have versions that precede this date in the data. For Northern Ireland legislation the basedate is 01/01/ 2006.</p>
-			</div>
+					<h3><xsl:value-of select="leg:TranslateText('Point in time')"/></h3>												
+					<p><xsl:value-of select="leg:TranslateText('Search_tooltip_pit')"/></p>
+				</div>
 			</div>			
 		</xsl:if>		
 		
@@ -815,7 +817,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<span class="icon"></span>
 				<div class="content">
 					<a href="#" class="close"><img alt="Close" src="/images/chrome/closeIcon.gif" /></a>
-					<h2>Extends</h2>
+					<h2><xsl:value-of select="leg:TranslateText('Extends')"/></h2>
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at tortor lorem. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce non sem felis</p>
 				</div>
 			</div>
@@ -834,7 +836,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:if test="$invalidNumber or $invalidSeries">
 						<xsl:attribute name="class">error</xsl:attribute>
 					</xsl:if>
-					Number:
+					<xsl:value-of select="leg:TranslateText('Number')"/>:
 				</label>
 				</div>
 			<div class="searchCol2 numberSearch">
@@ -849,21 +851,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<xsl:if test="$invalidSeries">
 							<xsl:attribute name="class">error</xsl:attribute>
 						</xsl:if>					
-						<option value="">Main</option>
-						<option value="w">Welsh</option>
-						<option value="s">Scottish</option>
-						<option value="ni">N.I.</option>
-						<option value="c">Commencement</option>
-						<option value="l">Legal</option>
+						<option value=""><xsl:value-of select="leg:TranslateText('Main')"/></option>
+						<option value="w"><xsl:value-of select="leg:TranslateText('Welsh')"/></option>
+						<option value="s"><xsl:value-of select="leg:TranslateText('Scottish')"/></option>
+						<option value="ni"><xsl:value-of select="leg:TranslateText('N.I.')"/></option>
+						<option value="c"><xsl:value-of select="leg:TranslateText('Commencement')"/></option>
+						<option value="l"><xsl:value-of select="leg:TranslateText('Legal')"/></option>
 					</select>
-					<xsl:text>Series Number</xsl:text>
+					<xsl:value-of select="leg:TranslateText('Series Number')"/>
 					<xsl:if test="$invalidSeries">
-						<span class="error errorMessage">Not a valid series</span>
+						<span class="error errorMessage"><xsl:value-of select="leg:TranslateText('Not a valid series')"/></span>
 					</xsl:if>						
 				</xsl:if>
 			
 				<xsl:if test="$invalidNumber">
-					<span class="error errorMessage">Not a valid number</span>
+					<span class="error errorMessage"><xsl:value-of select="leg:TranslateText('Not a valid number')"/></span>
 				</xsl:if>				
 			</div>			
 			<div class="searchCol3">

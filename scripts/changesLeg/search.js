@@ -41,10 +41,10 @@ $(document).ready(function(){
 	$("input:[name=affecting-year-choice]").showHideFields();   
 	
 	// Add the form hints to the textboxes (selects should already be populated)
-	$("#affected-year").validate("year").addDefaultText("Any");		
-	$("#affected-number, #affecting-number").validate("number").addDefaultText('Any');	
-	$("#affected-start-year, #affected-end-year").validate("year").addDefaultText("YYYY");	
-	$("#affected-title, #affecting-title").addDefaultText("All legislation (or insert title)");
+	$("#affected-year").validate("year").addDefaultText(config.validate.year[LANG]);		
+	$("#affected-number, #affecting-number").validate("number").addDefaultText(config.validate.number[LANG]);	
+	$("#affected-start-year, #affected-end-year").validate("year").addDefaultText(config.validate.year[LANG]);	
+	$("#affected-title, #affecting-title").addDefaultText(config.search.affectingTitle[LANG]);
 	$("#affected-type, #affecting-type").data("defaultText", $("#affected-type option:first").text()); // the first option is the default text
 	
 	// Remove these values from the submitted form so that the backend doesn't need to handle them
@@ -60,8 +60,8 @@ $(document).ready(function(){
 	if ($(".results", "#content").length > 0){
 		$("#modifySearch")
 		.legExpandCollapse(
-			['<span class="btl"></span><span class="btr"></span>Modify search<span class="bbl"></span><span class="bbr"></span>',
-			 '<span class="btl"></span><span class="btr"></span>Hide search form<span class="bbl"></span><span class="bbr"></span>']
+			['<span class="btl"></span><span class="btr"></span>' + config.search.expandCollapse.message1[LANG] +   '<span class="bbl"></span><span class="bbr"></span>',
+			 '<span class="btl"></span><span class="btr"></span>' + config.search.expandCollapse.message2[LANG] +  '<span class="bbl"></span><span class="bbr"></span>']
 		).click(function() {
 			// if the initial view of the form is hidden then so are the overlays used in the showHideFields plugin, these need resetting
 			$("input:[name=affected-year-choice]").showHideFields();
@@ -99,7 +99,7 @@ $(document).ready(function(){
 	
 	// Add the reset button
 	$("#newSearch")
-	.append('<a id="resetSearch" href="#searchChanges" class="userFunctionalElement"><span class="btl" /><span class="btr" />Reset Fields<span class="bbl" /><span class="bbr" /></a>')
+	.append('<a id="resetSearch" href="#searchChanges" class="userFunctionalElement"><span class="btl" /><span class="btr" />' + config.search.newSearch.message1[LANG] + '<span class="bbl" /><span class="bbr" /></a>')
 	.show();
 	
 	// Reset button functionality
@@ -200,7 +200,7 @@ function searchQueryPreviewTxt($applyTo){
 	changesBy.year   = byYear(changesBy);
 	changesBy.number   = byNumber(changesBy);
 	
-	$applyTo.html("You want to search for changes that affect " + affects.type + affects.year + affects.number + " made by " + changesBy.type + changesBy.year + changesBy.number);
+	$applyTo.html(config.search.affect.apply.part1[LANG] + affects.type + affects.year + affects.number + config.search.affect.apply.part2[LANG] + changesBy.type + changesBy.year + changesBy.number);
 	
 	// Pattern for testing/amending output within function:
 	// (Only need to use this if the input cannot be directly passes straight to variable)

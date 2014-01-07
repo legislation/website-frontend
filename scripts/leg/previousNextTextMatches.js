@@ -9,11 +9,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 function previousNextTextMatchLinks(){
 		
 	// Add the skip links
-	$("#viewLegContents").prepend('<ul id="skipLinks"><li><a href="" id="previous">Previous match</a></li><li><a href="" id="next">Next match</a></li></ul>');
+	$("#viewLegContents").prepend('<ul id="skipLinks"><li><a href="" id="previous">' + config.viewLegContents.previous[LANG] + '</a></li><li><a href="" id="next">' + config.viewLegContents.next[LANG] + '</a></li></ul>');
 	
 	// If the referrer is a text search, add a button back to search
 	if (document.referrer.match(/^http:\/\/www\.legislation\.gov\.uk\/.*(\?|&)text=.*/)){
-		$('#skipLinks li:first').after('<li><a href="javascript:history.back()" id="backToSearch">Back to search results</a></li>');
+		$('#skipLinks li:first').after('<li><a href="javascript:history.back()" id="backToSearch">' + config.viewLegContents.backToSearch[LANG] + '</a></li>');
 	}
 
 	

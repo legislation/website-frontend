@@ -2386,7 +2386,7 @@ TODO: need to add semantic id based on EN structure
 	<xsl:template match="leg:CitationSubRef">
 		<xsl:choose>
 			<xsl:when test="ancestor::leg:Title and starts-with(@URI, 'http://www.legislation.gov.uk/id')">
-				<a href="{substring-after(@URI, 'http://www.legislation.gov.uk/id')}">
+				<a href="{$TranslateLangPrefix}{substring-after(@URI, 'http://www.legislation.gov.uk/id')}">
 					<xsl:apply-templates/>
 				</a>
 			</xsl:when>

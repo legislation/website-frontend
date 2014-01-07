@@ -14,7 +14,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 <!-- Last changed 14/09/2006 by Manjit Jootle -->
 
 <!-- Change history
-
+Colin 06/06/13 NOT added code to output Welsh as this template is only used by  old code (new code uses format-date XSLT2)
 -->
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0" xmlns="http://www.w3.org/1999/xhtml" exclude-result-prefixes="xsl">

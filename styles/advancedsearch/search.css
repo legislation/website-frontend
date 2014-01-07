@@ -32,7 +32,7 @@ select {vertical-align: middle;}
 #stageText {width: 200px; margin-top: 0.75em;}
 #departmentText {width: 200px; margin-top: 0.75em;}
 #specificText {margin: 0 80px 0 30px;}
-#yearStart {margin: 0 10px 0 10px}
+#yearStart {margin: 0 10px 0 10px ; *width:40px;}
 
 #searchKeywords {margin-top: 8px; width: 400px;}
 .searchKeyword .searchCol3 {margin-top: 15px;}
@@ -50,7 +50,7 @@ label.error {color: #870600;font-weight:bold}
 #content .submit button {width: 150px; height: 30px; margin: 10px 10px; clear: left}
 
 .searchFieldCategory {border-bottom: 1px dotted #D2D2D2; padding-bottom: 5px; float: left;}	
-.searchFieldCategory input[type=text] {width:40px; }
+.searchFieldCategory input[type=text] {width:63px;}
 
 #searchNumber{ width: 10em;}
 
@@ -70,8 +70,8 @@ label.error {color: #870600;font-weight:bold}
 .searchLang .welshLang { margin-left: 10.5em;}
 .searchLang .searchCol2 {margin-top: 5px;}
 
-.searchYear { margin-top: 10px; display: block; float: left; padding-bottom: 5px; }
-.searchYear .specificYear { display: block; float: left; width: 10em;}
+.searchYear { margin-top: 10px; display: block; float: left; padding-bottom: 5px;}
+.searchYear .specificYear { display: block; float: left; width: 11em;}
 .searchYear .rangeOfYears { margin-left: 10.5em}
 .searchYear input { margin-top:5px; }
 .searchYear .specificYear input#specificYear{margin-left: 32px;}
@@ -140,7 +140,7 @@ select {border: 1px solid #7B85AD; padding:5px 3px; background: url(/images/chro
 
 .help {clear:both;}
 
-#uniqueExtents {float: right; margin-right: 18px; margin-bottom: -1px; padding-left: 8px; padding-right: 8px; border: 1px solid #fff;  }
+#uniqueExtents { margin-right: 18px; margin-bottom: -1px; padding-left: 11px; padding-right: 8px; border: 1px solid #fff;  }
 #uniqueExtents input {margin-left: 0;}
 #lex {float: left; background: #EBEFF8; border: 1px solid #ccc; width: 440px; clear: both;}
 #uniqueExtents.expanded {background: #EBEFF8; border: 1px solid #ccc; border-bottom: 1px solid #EBEFF8; z-index: 500; position: relative;}
@@ -159,3 +159,15 @@ select {border: 1px solid #7B85AD; padding:5px 3px; background: url(/images/chro
 .LegExtentRestriction .btr {background: url(/images/chrome/extentBg.gif) no-repeat -290px 0;  top:    0px;  right: 0;}
 .LegExtentRestriction .bbl {background: url(/images/chrome/extentBg.gif) no-repeat 0 -90px;  bottom: 0px;  left:  0px;}
 .LegExtentRestriction .bbr {background: url(/images/chrome/extentBg.gif) no-repeat -290px -90px;  bottom: 0px;  right: 0em;}
+
+
+/*welsh* search page check boxes fixes */
+
+.typeCheckBoxDoubleColCy {width: 450px;}
+
+/*IE 6 fixes for search page*/
+
+#specificYear {*width: 60px;}
+#yearEnd{*width:40px;}
+
+

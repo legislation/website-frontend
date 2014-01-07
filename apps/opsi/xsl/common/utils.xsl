@@ -28,73 +28,83 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 
 <xsl:variable name="tso:legTypeMap" as="element()+">
 	<!-- The order here is significant; it's a preferential order for displaying the types in lists -->
+	<!-- updated to use function leg:TranslateText to display text in welsh lang in legislation dropdownlist-->
+	
+	<!-- Colin : We  may need to revist how theis lookup works with regards to translations
+		The original developer has added a call to the translateion function for the plural version of the string but not for the singualar or the name of the notes.
+		It is not simply a matter of simply adding translations to these as in some places in the code there are funtions that use thes evalues and then the returned values are tested  like IF values contains string
+		and this will cause problems if value is already translated. Further, I am not sure if the single value is test gainst in english form.
+		There are also many places in the code where these values are then joined to other strings and the resulting string may then be translated. In these cases it may have been better to always return english for this
+		and then translate at point of use TBD.
+	-->
+	
   <tso:legType schemaType="UnitedKingdomPublicGeneralAct" abbrev="ukpga" class="primary" category="Act" 
-  	en="Explanatory Notes" pn="Policy Note" singular="UK Public General Act" plural="UK Public General Acts"
+  	en="Explanatory Notes" pn="Policy Note" singular="UK Public General Act" plural="{leg:TranslateText('UK Public General Acts')}"
   	start="1801" complete="1988" revised="true" />
   <tso:legType schemaType="UnitedKingdomLocalAct" abbrev="ukla" class="primary" category="Act" 
-  	singular="UK Local Act" plural="UK Local Acts"
+  	singular="UK Local Act" plural="{leg:TranslateText('UK Local Acts')}"
   	start="1857" complete="1991" revised="false" />
   <tso:legType schemaType="ScottishAct" abbrev="asp" class="primary" category="Act" 
-  	en="Explanatory Notes" pn="Policy Note" singular="Act of the Scottish Parliament" plural="Acts of the Scottish Parliament"
+  	en="Explanatory Notes" pn="Policy Note" singular="Act of the Scottish Parliament" plural="{leg:TranslateText('Acts of the Scottish Parliament')}"
   	start="1999" complete="1999" revised="true" />
   <tso:legType schemaType="WelshNationalAssemblyAct" class="primary" category="Act" abbrev="anaw" 
-	en="Explanatory Notes" pn="Policy Note" singular="Act of the National Assembly for Wales" plural="Acts of the National Assembly for Wales"
+  	en="Explanatory Notes" pn="Policy Note" singular="Act of the National Assembly for Wales" plural="{leg:TranslateText('Acts of the National Assembly for Wales')}"
   	start="2012" complete="2012" revised="true" />
   <tso:legType schemaType="WelshAssemblyMeasure" class="primary" category="Measure" abbrev="mwa" 
-	en="Explanatory Notes" pn="Policy Note" singular="Measure of the National Assembly for Wales" plural="Measures of the National Assembly for Wales"
+  	en="Explanatory Notes" pn="Policy Note" singular="Measure of the National Assembly for Wales" plural="{leg:TranslateText('Measures of the National Assembly for Wales')}"
   	start="2008" complete="2008" revised="true" />
   <tso:legType schemaType="UnitedKingdomChurchMeasure" class="primary" category="Measure" abbrev="ukcm" 
-  	singular="Church Measure" plural="Church Measures"
+  	singular="Church Measure" plural="{leg:TranslateText('Church Measures')}"
   	start="1920" complete="1988" revised="true" />
   <tso:legType schemaType="NorthernIrelandAct" class="primary" category="Act" abbrev="nia" 
-  	en="Explanatory Notes" pn="Policy Note" singular="Act of the Northern Ireland Assembly" plural="Acts of the Northern Ireland Assembly"
+  	en="Explanatory Notes" pn="Policy Note" singular="Act of the Northern Ireland Assembly" plural="{leg:TranslateText('Acts of the Northern Ireland Assembly')}"
   	start="2000" complete="2000" revised="true" />
   <tso:legType schemaType="ScottishOldAct" abbrev="aosp" class="primary" category="Act" 
-  	singular="Act of the Old Scottish Parliament" plural="Acts of the Old Scottish Parliament"
+  	singular="Act of the Old Scottish Parliament" plural="{leg:TranslateText('Acts of the Old Scottish Parliament')}"
   	start="1424" end="1707" timeline="century" revised="true" />
   <tso:legType schemaType="EnglandAct" abbrev="aep" class="primary" category="Act" 
-  	singular="Act of the English Parliament" plural="Acts of the English Parliament"
+  	singular="Act of the English Parliament" plural="{leg:TranslateText('Acts of the English Parliament')}"
   	start="1267" end="1706" timeline="century" revised="true" />
   <tso:legType schemaType="IrelandAct" abbrev="aip" class="primary" category="Act" 
-  	singular="Act of the Old Irish Parliament" plural="Acts of the Old Irish Parliament"
+  	singular="Act of the Old Irish Parliament" plural="{leg:TranslateText('Acts of the Old Irish Parliament')}"
   	start="1495" end="1800" timeline="century" revised="true" />
 	<tso:legType schemaType="GreatBritainAct" abbrev="apgb" class="primary" category="Act" 
-		singular="Act of the Parliament of Great Britain" plural="Acts of the Parliament of Great Britain"
+		singular="Act of the Parliament of Great Britain" plural="{leg:TranslateText('Acts of the Parliament of Great Britain')}"
 		start="1707" end="1800" revised="true" />
 	<!-- half way point -->
 	<tso:legType schemaType="UnitedKingdomStatutoryInstrument" class="secondary" category="Instrument" abbrev="uksi" 
-		en="Executive Note" em="Explanatory Memorandum" pn="Policy Note" singular="UK Statutory Instrument" plural="UK Statutory Instruments"
+		en="Executive Note" em="Explanatory Memorandum" pn="Policy Note" singular="UK Statutory Instrument" plural="{leg:TranslateText('UK Statutory Instruments')}"
 		start="1948" complete="1987" revised="false" />
   <tso:legType schemaType="WelshStatutoryInstrument" class="secondary" category="Instrument" abbrev="wsi" 
-		em="Explanatory Memorandum" singular="Wales Statutory Instrument" pn="Policy Note" plural="Wales Statutory Instruments"
+  	em="Explanatory Memorandum" singular="Wales Statutory Instrument" pn="Policy Note" plural="{leg:TranslateText('Wales Statutory Instruments')}"
   	start="1999" complete="1999" revised="false" />
   <tso:legType schemaType="ScottishStatutoryInstrument" class="secondary" category="Instrument" abbrev="ssi" 
-  	en="Executive Note" pn="Policy Note" singular="Scottish Statutory Instrument" plural="Scottish Statutory Instruments"
+  	en="Executive Note" pn="Policy Note" singular="Scottish Statutory Instrument" plural="{leg:TranslateText('Scottish Statutory Instruments')}"
   	start="1999" complete="1999" revised="false" />
   <tso:legType schemaType="NorthernIrelandOrderInCouncil" class="primary" category="Order" abbrev="nisi" 
-  	em="Explanatory Memorandum" singular="Northern Ireland Order in Council" plural="Northern Ireland Orders in Council"
+  	em="Explanatory Memorandum" singular="Northern Ireland Order in Council" plural="{leg:TranslateText('Northern Ireland Orders in Council')}"
   	start="1972" complete="1987" revised="true" />
   <tso:legType schemaType="NorthernIrelandStatutoryRule" class="secondary" category="Rule" abbrev="nisr" 
-  	em="Explanatory Memorandum" singular="Northern Ireland Statutory Rule" plural="Northern Ireland Statutory Rules"
+  	em="Explanatory Memorandum" singular="Northern Ireland Statutory Rule" plural="{leg:TranslateText('Northern Ireland Statutory Rules')}"
   	start="1991" complete="1991" revised="false" />
   <tso:legType schemaType="UnitedKingdomChurchInstrument" class="secondary" category="Instrument" abbrev="ukci" 
-  	singular="Church Instrument" plural="Church Instruments"
+  	singular="Church Instrument" plural="{leg:TranslateText('Church Instruments')}"
   	start="1991" complete="1991" revised="false" />
   <tso:legType schemaType="UnitedKingdomMinisterialOrder" class="secondary" category="Order" abbrev="ukmo" 
-  	singular="UK Ministerial Order" plural="UK Ministerial Orders"
+  	singular="UK Ministerial Order" plural="{leg:TranslateText('UK Ministerial Orders')}"
   	start="1992" timeline="none" revised="false" />
 	<tso:legType schemaType="UnitedKingdomStatutoryRuleOrOrder" class="secondary" category="Order" abbrev="uksro" 
-		en="Executive Note" em="Explanatory Memorandum" pn="Policy Note" singular="UK Statutory Rule Or Order" plural="UK Statutory Rules and Orders"
+		en="Executive Note" em="Explanatory Memorandum" pn="Policy Note" singular="UK Statutory Rule Or Order" plural="{leg:TranslateText('UK Statutory Rules and Orders')}"
 		start="1900" end="1948" revised="false" />
 	<tso:legType schemaType="NorthernIrelandAssemblyMeasure" class="primary" category="Measure" abbrev="mnia" 
-		singular="Measure of the Northern Ireland Assembly" plural="Measures of the Northern Ireland Assembly"
+		singular="Measure of the Northern Ireland Assembly" plural="{leg:TranslateText('Measures of the Northern Ireland Assembly')}"
 		start="1974" end="1974" timeline="none" revised="true" />
   <tso:legType schemaType="NorthernIrelandParliamentAct" class="primary" category="Act" abbrev="apni" 
-  	singular="Act of the Northern Ireland Parliament" plural="Acts of the Northern Ireland Parliament"
+  	singular="Act of the Northern Ireland Parliament" plural="{leg:TranslateText('Acts of the Northern Ireland Parliament')}"
   	start="1921" end="1972" revised="true" />
 	<!-- draft types -->
 	<tso:legType schemaType="UnitedKingdomDraftStatutoryInstrument" class="draft" category="Instrument" abbrev="ukdsi" 
-		en="Draft Executive Notes" em="Draft Explanatory Memorandum" singular="UK Draft Statutory Instrument" plural="UK Draft Statutory Instruments"
+		en="Draft Executive Notes" em="Draft Explanatory Memorandum" singular="UK Draft Statutory Instrument" plural="{leg:TranslateText('UK Draft Statutory Instruments')}"
 		start="1998" complete="1998" legType="UnitedKingdomStatutoryInstrument" revised="false" />
 	<!--
   <tso:legType schemaType="WelshDraftStatutoryInstrument" class="draft" category="Instrument" abbrev="wdsi" 
@@ -102,14 +112,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
   	start="1999" complete="1999" legType="WelshStatutoryInstrument" />
   -->
   <tso:legType schemaType="ScottishDraftStatutoryInstrument" class="draft" category="Instrument" abbrev="sdsi" 
-  	en="Draft Executive Notes"  pn="Draft Policy Note" singular="Scottish Draft Statutory Instrument" plural="Scottish Draft Statutory Instruments"
+  	en="Draft Executive Notes"  pn="Draft Policy Note" singular="Scottish Draft Statutory Instrument" plural="{leg:TranslateText('Scottish Draft Statutory Instruments')}"
   	start="2001" complete="2001" legType="ScottishStatutoryInstrument" revised="false" />
   <tso:legType schemaType="NorthernIrelandDraftStatutoryRule" class="draft" category="Rule" abbrev="nidsr" 
-  	em="Draft Explanatory Memorandum" singular="Northern Ireland Draft Statutory Rule" plural="Northern Ireland Draft Statutory Rules"
+  	em="Draft Explanatory Memorandum" singular="Northern Ireland Draft Statutory Rule" plural="{leg:TranslateText('Northern Ireland Draft Statutory Rules')}"
   	start="2000" complete="2000" legType="NorthernIrelandStatutoryRule" revised="false" />
 	
 	<tso:legType schemaType="UnitedKingdomImpactAssessment" class="IA" category="Impact Assemssment" abbrev="ukia" 
-  	em="" singular="UK Impact Assessment" plural="UK Impact Assessments"
+		em="" singular="UK Impact Assessment" plural="{leg:TranslateText('UK Impact Assessments')}"
   	start="2008" complete="2008" legType="UnitedKingdomImpactAssessment" revised="false" />
 	
 </xsl:variable>
@@ -233,10 +243,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:if test="$selected = ''">
 					<xsl:attribute name="selected" select="'selected'" />
 				</xsl:if>
-				<xsl:text>All </xsl:text>
-				<xsl:if test="not($showUnrevised)">Revised </xsl:if>
-				<xsl:text>Legislation</xsl:text>
-				<xsl:if test="$showUnrevised"> (excluding draft)</xsl:if>
+				<xsl:value-of select="leg:TranslateText('All')"/>
+				<xsl:text> </xsl:text>
+				<xsl:if test="not($showUnrevised)"><xsl:value-of select="leg:TranslateText('Revised')"/><xsl:text> </xsl:text></xsl:if>
+				<xsl:value-of select="leg:TranslateText('Legislation')"/>
+				<xsl:if test="$showUnrevised"> (<xsl:value-of select="leg:TranslateText('excluding draft')"/>)</xsl:if>
 			</option>
 		</xsl:if>	
 		
@@ -246,7 +257,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:if test="$selected = 'primary'">
 						<xsl:attribute name="selected" select="'selected'" />
 					</xsl:if>
-					<xsl:text>All Primary Legislation</xsl:text>
+					<xsl:value-of select="leg:TranslateText('All Primary Legislation')"/>
 				</option>
 			</xsl:if>
 			<xsl:apply-templates select="$tso:legTypeMap[@class = 'primary' and ($showUnrevised or @revised = 'true')]" mode="DisplaySelectOptions">
@@ -263,7 +274,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:if test="$selected = 'secondary'">
 						<xsl:attribute name="selected" select="'selected'" />
 					</xsl:if>			
-					<xsl:text>All Secondary Legislation</xsl:text>
+					<xsl:value-of select="leg:TranslateText('All Secondary Legislation')"/>
 				</option>
 			</xsl:if>
 			
@@ -280,7 +291,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:if test="$selected = 'draft'">
 					<xsl:attribute name="selected" select="'selected'" />
 				</xsl:if>			
-				<xsl:text>All Draft Legislation</xsl:text>
+				<xsl:value-of select="leg:TranslateText('All Draft Legislation')"/>
 			</option>
 			
 			<xsl:apply-templates select="$tso:legTypeMap[@class='draft']" mode="DisplaySelectOptions">
@@ -295,7 +306,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:if test="$selected = 'ukia'">
 					<xsl:attribute name="selected" select="'selected'" />
 				</xsl:if>			
-				<xsl:text>All Impact Assessments</xsl:text>
+				<xsl:value-of select="leg:TranslateText('All Impact Assessments')"/>
 			</option>
 			
 			<xsl:apply-templates select="$tso:legTypeMap[@class='IA']" mode="DisplaySelectOptions">
@@ -430,7 +441,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 									<xsl:attribute name="checked"/>
 								</xsl:if>					
 							</input>
-							<label>All Draft</label>	
+						<label><xsl:value-of select="leg:TranslateText('All Draft')"/></label>	
 					</div>				
 				</xsl:when>
 				<xsl:when test="$showImpacts">
@@ -454,7 +465,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 											<xsl:attribute name="checked"/>
 										</xsl:if>
 									</input>
-							<label>All Legislation</label>
+							<label><xsl:value-of select="leg:TranslateText('All Legislation')"/></label>
 						</xsl:if>
 				
 						<xsl:if test="$showPrimary">
@@ -463,7 +474,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 											<xsl:attribute name="checked"/>
 										</xsl:if>
 									</input>
-							<label>All Primary</label>
+							<label><xsl:value-of select="leg:TranslateText('All Primary')"/></label>
 						</xsl:if>
 					</div>
 						
@@ -474,7 +485,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 										<xsl:attribute name="checked"/>
 									</xsl:if>					
 								</input>
-						<label>All Secondary</label>	
+								<label><xsl:value-of select="leg:TranslateText('All Secondary')"/></label>	
 							</div>
 					</xsl:if>					
 				</xsl:otherwise>
@@ -868,5 +879,124 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		</xsl:for-each>
 	</xsl:value-of>
 </xsl:function>
+	
+<!-- Resource file to have welsh text - for welsh version of site-->
+<xsl:variable name="allLangResources" as="element()+" select="doc('../../../../config/resources.xml')/allResources/resources"/>
+<xsl:variable name="currentLangResources" as="element()+" select="doc('../../../../config/resources.xml')/allResources/resources[@lang=$TranslateLang]"/>
+	
+<!--WELSH version of site: the prefix attached to URLs of links from this page -->
+<xsl:variable name="TranslateLangPrefix" select="leg:LangPrefix()"/>
+<xsl:function name="leg:LangPrefix" as="xs:string?">
+	<xsl:choose>
+		<xsl:when test="$paramsDoc/parameters/wrapper = 'cy' or $paramsDoc/conditions/parameters/wrapper = 'cy' or starts-with($paramsDoc/request/request-path, '/cy')"><xsl:text>/cy</xsl:text></xsl:when>
+		<xsl:when test="$paramsDoc/parameters/wrapper = 'en' or $paramsDoc/conditions/parameters/wrapper = 'en' or starts-with($paramsDoc/request/request-path, '/en')"><xsl:text>/en</xsl:text></xsl:when>		
+		<xsl:otherwise></xsl:otherwise>
+	</xsl:choose>
+</xsl:function>
 
+<!-- the 2 charcater string language used for translation text - if no language prefix specified, default to "en" -->
+	<xsl:variable name="TranslateLang" select="if (substring($TranslateLangPrefix,1,1) = '/') then substring($TranslateLangPrefix,2,2) else 'en' "/>
+
+<!-- This is a generic function to pick up english and welsh text for english and welsh version of site
+	It will get correct language string for the current language -->
+<xsl:function name="leg:TranslateText" as="xs:string">
+	<xsl:param name="id" as="xs:string"/>
+	<!-- to reduce size of resources.xml, short pieces of English text have the same value as id attribute, so can use that instead -->
+	<xsl:choose>
+		<xsl:when test="$id = $currentLangResources/resource/@id">
+			<xsl:choose>
+				<xsl:when test="$TranslateLang = 'en' and not ($currentLangResources/resource[@id=$id]/text())">
+					<xsl:value-of select="$id"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$currentLangResources/resource[@id=$id]/text()"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:value-of select="$id"/>
+		</xsl:otherwise>	
+	</xsl:choose>
+</xsl:function>
+
+<!-- So this version takes a sequence of paramater name/value pairs -->
+<xsl:function name="leg:TranslateText" as="xs:string">
+	<xsl:param name="id" as="xs:string"/>
+	<xsl:param name="params" as="xs:string*"/>
+	
+	<xsl:variable name="paramXML" as="element()*">
+		<xsl:for-each select="$params[contains(.,'=')]">
+			<tso:param id="{substring-before(.,'=')}">
+				<xsl:value-of select="substring-after(.,'=')"/>
+			</tso:param>
+		</xsl:for-each>
+	</xsl:variable>
+	<!-- to reduce size of resources.xml, short pieces of English text have the same value as id attribute, so can use that instead -->
+	<xsl:value-of>
+		<xsl:choose>
+			<xsl:when test="$id = $currentLangResources/resource/@id">
+				<xsl:choose>
+					<xsl:when test="$TranslateLang = 'en' and not ($currentLangResources/resource[@id=$id]/text())">
+						<xsl:value-of select="$id"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="$currentLangResources/resource[@id=$id]/node()" mode="utilsTranslate">
+							<xsl:with-param name="paramXML" select="$paramXML"/>
+						</xsl:apply-templates>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$id"/>
+			</xsl:otherwise>	
+		</xsl:choose>
+	</xsl:value-of>
+</xsl:function>
+
+<xsl:template match="*" mode="utilsTranslate">
+	<xsl:param name="paramXML" as="element()*"/>
+	
+	<xsl:choose>
+		<xsl:when test="local-name()='param'">
+			<xsl:value-of select="$paramXML[@id=current()/@ref-id]"/>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:copy>
+				<xsl:copy-of select="@*"/>
+				<xsl:apply-templates select="node()" mode="utilsTranslate">
+					<xsl:with-param name="paramXML" select="$paramXML"/>
+				</xsl:apply-templates>
+			</xsl:copy>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+	
+<xsl:template match="text()|processing-instruction()" mode="utilsTranslate">
+	<xsl:param name="paramXML" as="element()*"/>
+	<xsl:value-of select="."/>
+</xsl:template>
+
+<!-- Added a function to allow access to a different languages string
+	e.g. on english page a message like "switch to welsh" would be in Welsh language (and vice versa) -->
+<xsl:function name="leg:TranslateTextToLang" as="xs:string">
+	<xsl:param name="id" as="xs:string"/>
+	<xsl:param name="lang" as="xs:string"/>
+	<xsl:variable name="resources" select="$allLangResources[@lang=$lang]"/>
+	<!-- to reduce size of resources.xml, short pieces of English text have the same value as id attribute, so can use that instead -->
+	<xsl:choose>
+		<xsl:when test="$id = $resources/resource/@id">
+			<xsl:choose>
+				<xsl:when test="$lang = 'en' and not ($resources/resource[@id=$id]/text())">
+					<xsl:value-of select="$id"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="$resources/resource[@id=$id]/text()"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:value-of select="$id"/>
+		</xsl:otherwise>	
+	</xsl:choose>
+</xsl:function>
 </xsl:stylesheet>

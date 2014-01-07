@@ -41,7 +41,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				</div>
 				<div class="content">
 					<p><xsl:value-of select="$message"/></p>
-					<p>Would you like to continue?</p>
+					<p><xsl:value-of select="leg:TranslateText('Would you like to continue?')"/></p>
 				</div>
 			
 				<div class="interface">
@@ -50,7 +50,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								<xsl:if test="$messageType = 'pdfWarning' or  $messageType = 'webWarning' ">
 									<xsl:attribute name="target">_blank</xsl:attribute>
 								</xsl:if>
-						<span class="btl"></span><span class="btr"></span>Continue to open<span class="bbl"></span><span class="bbr"></span></a></li>
+							<span class="btl"></span><span class="btr"></span><xsl:value-of select="leg:TranslateText('Continue to open')"/><span class="bbl"></span><span class="bbr"></span></a></li>
 					</ul>
 				</div>
 			</div>
@@ -166,16 +166,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		<ul id="legSubNav">
 				<li id="legTocLink">
 					<span class="presentation"></span>
-					<a href="{leg:FormatURL($tocURI, false())}">Table of Contents</a>
+					<a href="{leg:FormatURL($tocURI, false())}"><xsl:value-of select="leg:TranslateText('Table of Contents')"/></a>					
 				</li>
 				<li id="legContentLink">
 					<span class="presentation"></span>
 						<xsl:choose>
 							<xsl:when test="exists($introURI)">
-								<a href="{leg:FormatURL($introURI, false())}" class="disabled">Content</a>							
+								<a href="{leg:FormatURL($introURI, false())}" class="disabled"><xsl:value-of select="leg:TranslateText('Content')"/></a>							
 							</xsl:when>
 							<xsl:otherwise>
-								<span class="disabled">Content</span>
+								<span class="disabled"><xsl:value-of select="leg:TranslateText('Content')"/></span>
 							</xsl:otherwise>
 						</xsl:choose>
 				</li>
@@ -206,11 +206,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:if test="$IsImpactAssessmentsAvailable">
 					<li id="legIALink">
 						<span class="presentation" />
-						<a href="{leg:FormatURL($impactURI, false())}">
-						<xsl:if test="contains(lower-case($documentMainType),'draft')">
-							<xsl:text>Draft </xsl:text>
-						</xsl:if>
-						<xsl:text>Impact Assessments</xsl:text></a>
+						<a href="{leg:FormatURL($impactURI, false())}"><xsl:value-of select="leg:TranslateText(if (contains(lower-case($documentMainType),'draft')) then 'Draft Impact Assessments' else 'Impact Assessments')"/></a>
 						<a href="#moreIATabHelp" class="helpItem helpItemToBot">
 							<img src="/images/chrome/helpIcon.gif" alt=" Help about ImpactAssessments" />
 						</a>
@@ -220,7 +216,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:if test="$IsMoreResourcesAvailable">
 					<li id="legResourcesLink">
 						<span class="presentation"></span>
-						<a href="{leg:FormatURL($resourceURI, false())}">More Resources</a>
+						<a href="{leg:FormatURL($resourceURI, false())}"><xsl:value-of select="leg:TranslateText('More Resources')"/></a>
 						<a href="#moreResourcesTabHelp" class="helpItem helpItemToBot">
 							<img src="/images/chrome/helpIcon.gif" alt=" Help about More Resources"/>
 						</a>
@@ -238,7 +234,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		<li id="leg{concat(upper-case(substring($typeOfEn,1,1)),substring($typeOfEn,2))}Link">
 			<span class="presentation"></span>							
 			<a href="{leg:FormatURL($hrefOfEn, false())}">
-				<xsl:value-of select="$labelOfEn" />
+				<xsl:value-of select="leg:TranslateText($labelOfEn)"/>
 			</a>
 			<xsl:if test="string-length(leg:GetENHelpText($uriPrefix,$typeOfEn)) ne 0">
 				<a href="#{$typeOfEn}TabHelp" class="helpItem helpItemToBot">
@@ -257,53 +253,53 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		<xsl:param name="enType" as="xs:string?"/>
 		
 		<xsl:choose>
-			<xsl:when test="$enType = ('en','pn') ">
+			<xsl:when test="$enType = ('en','pn')">
 				<xsl:choose>
 					<xsl:when test="$uriPrefix ='ukpga'">
-						Text created by the government department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes were introduced in 1999 and accompany all Public Acts except Appropriation, Consolidated Fund, Finance and Consolidation Acts.
+						<xsl:value-of select="leg:TranslateText('EN_Help_1')"/>
 					</xsl:when>
 					<xsl:when test="$uriPrefix ='nia'">
-						Text created by the Northern Ireland Assembly department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes accompany all Acts of the Northern Ireland Assembly.
+						<xsl:value-of select="leg:TranslateText('EN_Help_2')"/>
 					</xsl:when>
 					<xsl:when test="$uriPrefix ='asp'">
-						Text created by the Scottish Executive department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes were introduced in 1999 and accompany all Acts of the Scottish Parliament except those which result from Budget Bills
+						<xsl:value-of select="leg:TranslateText('EN_Help_3')"/>
 					</xsl:when>
 					<xsl:when test="$uriPrefix ='mwa'">
-						Text created by the Welsh Assembly Government department responsible for the subject matter of the Measure to explain what the Measure sets out to achieve and to make the Measure accessible to readers who are not legally qualified. Explanatory Notes accompany all Measures of the National Assembly for Wales.
+						<xsl:value-of select="leg:TranslateText('helpText_en_mwa')"/>
 					</xsl:when>
 					<xsl:when test="$uriPrefix ='anaw'">
-						Text created by the Welsh Government department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes accompany all Acts of the National Assembly for Wales.
+						<xsl:value-of select="leg:TranslateText('EN_Help_4')"/>
 					</xsl:when>
-					<xsl:when test="$uriPrefix =('ssi') and $enType = ('pn') ">
-						Policy Note sets out a brief statement of the purpose of a Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2012 onwards. Prior to this date these type of notes existed as ‘Executive Notes’ and accompanied Scottish Statutory Instruments from July 2005 until July 2012.
+					<xsl:when test="$uriPrefix =('ssi') and $enType = ('pn')">
+						<xsl:value-of select="leg:TranslateText('EN_Help_5')"/>
 					</xsl:when>
-					<xsl:when test="$uriPrefix =('sdsi') and $enType = ('pn') ">
-						Draft Policy Note sets out a brief statement of the purpose of a Draft Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Draft Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2012 onwards. Prior to this date these type of notes existed as 'Executive Notes' and accompanied Draft Scottish Statutory Instruments from July 2005 until July 2012.
+					<xsl:when test="$uriPrefix =('sdsi') and $enType = ('pn')">
+						<xsl:value-of select="leg:TranslateText('EN_Help_6')"/>
 					</xsl:when>
 					<xsl:when test="$uriPrefix =('ssi', 'uksi') ">
-						Executive Note sets out a brief statement of the purpose of a Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2005 onwards.
+						<xsl:value-of select="leg:TranslateText('EN_Help_7')"/>
 					</xsl:when>	
 					<xsl:when test="$uriPrefix = ('sdsi', 'ukdsi')">
-						Draft Executive Note sets out a brief statement of the purpose of a Draft Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Draft Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2005 onwards.
-					</xsl:when>										
+						<xsl:value-of select="leg:TranslateText('EN_Help_8')"/>
+					</xsl:when>
 				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="$enType = 'em' ">
 				<xsl:choose>
 					<xsl:when test="$uriPrefix ='uksi'">
-						Explanatory Memorandum sets out a brief statement of the purpose of a Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Statutory Instrument accessible to readers who are not legally qualified accompany any Statutory Instrument or Draft Statutory Instrument laid before Parliament from June 2004 onwards.
+						<xsl:value-of select="leg:TranslateText('helpText_em_mwa')"/>
 					</xsl:when>
 					<xsl:when test="$uriPrefix ='nisi'">
-						Explanatory Memorandum sets out a brief statement of the purpose of a Northern Ireland Order in Council and provides information about its policy objective and policy implications. They aim to make the Order accessible to readers who are not legally qualified and accompany any Northern Ireland Order in Council made since 2002.
+						<xsl:value-of select="leg:TranslateText('EN_Help_9')"/>
 					</xsl:when>					
 					<xsl:when test="$uriPrefix ='nisr'">
-						Explanatory Memorandum sets out a brief statement of the purpose of a Statutory Rule and provides information about its policy objective and policy implications. They aim to make the Statutory Rule accessible to readers who are not legally qualified and accompany any Northern Ireland Statutory Rule or Draft Northern Ireland Statutory Rule laid before the UK Parliament during the suspension of the Northern Ireland Assembly.
+						<xsl:value-of select="leg:TranslateText('EN_Help_10')"/>
 					</xsl:when>
 					<xsl:when test="$uriPrefix = 'ukdsi'">
-						Draft Explanatory Memorandum sets out a brief statement of the purpose of a Draft Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Draft Statutory Instrument accessible to readers who are not legally qualified accompany any Statutory Instrument or Draft Statutory Instrument laid before Parliament from June 2004 onwards.					
+						<xsl:value-of select="leg:TranslateText('EN_Help_11')"/>					
 					</xsl:when>
 					<xsl:when test="$uriPrefix = 'nidsr'">
-						Draft Explanatory Memorandum sets out a brief statement of the purpose of a Draft Statutory Rule and provides information about its policy objective and policy implications. They aim to make the Draft Statutory Rule accessible to readers who are not legally qualified and accompany any Statutory Rule laid before the UK Parliament during the suspension of the Northern Ireland Assembly.
+						<xsl:value-of select="leg:TranslateText('EN_Help_12')"/>
 					</xsl:when>					
 				</xsl:choose>
 			</xsl:when>
@@ -337,15 +333,20 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<a href="#" class="close">
 						<img alt="Close" src="/images/chrome/closeIcon.gif"/>
 					</a>
-					<h3>More Resources</h3>
-					<p>Access essential accompanying documents and information for this legislation item from this tab. Dependent on the legislation item being viewed this may include:</p>
+					<h3><xsl:value-of select="leg:TranslateText('More Resources')"/></h3>
+					<p><xsl:value-of select="leg:TranslateText('moreResourcesHelp_alt_para1')"/></p>
 					<ul>
-						<li>the original print PDF of the as enacted version that was used for the print copy</li>
-						<li>lists of changes made by and/or affecting this legislation item</li>
-						<li>confers power and blanket amendment details</li>
-						<li>all formats of all associated documents</li>
-						<li>correction slips</li>
-						<li>links to related legislation and further information resources</li>																														
+						<li>
+							<xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul_li_1_part1')"/>
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="leg:TranslateText('enacted')"/> 
+							<xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul_li_1_part3')"/>
+						</li>
+						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_1')"/></li>
+						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_2')"/></li>
+						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_3')"/></li>
+						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul_li_2')"/></li>
+						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_4')"/></li>																														
 					</ul>
 				</div>
 			</div>		
@@ -358,13 +359,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<a href="#" class="close">
 						<img alt="Close" src="/images/chrome/closeIcon.gif"/>
 					</a>
-					<h3>Impact Assessments</h3>
-					<p>Impact Assessments generally accompany all UK Government interventions of a regulatory nature that affect the private sector, civil society organisations and public services. They apply regardless of whether the regulation originates from a domestic or international source and can accompany primary (Acts etc) and secondary legislation (SIs). An Impact Assessment allows those with an interest in the policy area to understand:</p>
+					<h3><xsl:value-of select="leg:TranslateText('Impact Assessments')"/></h3>
+					<p><xsl:value-of select="leg:TranslateText('IA_tooltip_1')"/></p>
 					<ul>
-						<li>Why the government is proposing to intervene;</li>
-						<li>The main options the government is considering, and which one is preferred;</li>
-						<li>How and to what extent new policies may impact on them; and,</li>
-						<li>The estimated costs and benefits of proposed measures.</li>
+						<li><xsl:value-of select="leg:TranslateText('IA_tooltip_2')"/></li>
+						<li><xsl:value-of select="leg:TranslateText('IA_tooltip_3')"/></li>
+						<li><xsl:value-of select="leg:TranslateText('IA_tooltip_4')"/></li>
+						<li><xsl:value-of select="leg:TranslateText('IA_tooltip_5')"/></li>
 					</ul>
 				</div>
 			</div>		
@@ -407,15 +408,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<a href="#" class="close">
 						<img alt="Close" src="/images/chrome/closeIcon.gif"/>
 					</a>
-					<h3>More Resources</h3>
-					<p>Access essential accompanying documents and information for this legislation item from this tab. Dependent on the legislation item being viewed this may include:</p>
+					
+					<h3><xsl:value-of select="leg:TranslateText('More Resources')"/></h3>
+					<p><xsl:value-of select="leg:TranslateText('moreResourcesHelp_alt_para1')"/></p>
 					<ul>
-						<li>the original print PDF of the as enacted version that was used for the print copy</li>
-						<li>lists of changes made by and/or affecting this legislation item</li>
-						<li>confers power and blanket amendment details</li>
-						<li>all formats of all associated documents</li>
-						<li>correction slips</li>
-						<li>links to related legislation and further information resources</li>																														
+						<li>
+							<xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul_li_1_part1')"/>
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="leg:TranslateText('enacted')"/> 
+							<xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul_li_1_part3')"/>
+						</li>
+						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_1')"/></li>
+						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_2')"/></li>
+						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_3')"/></li>
+						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul_li_2')"/></li>
+						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_4')"/></li>																														
 					</ul>
 				</div>
 			</div>		
@@ -428,13 +435,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<a href="#" class="close">
 						<img alt="Close" src="/images/chrome/closeIcon.gif"/>
 					</a>
-					<h3>Impact Assessments</h3>
-					<p>Impact Assessments generally accompany all UK Government interventions of a regulatory nature that affect the private sector, civil society organisations and public services. They apply regardless of whether the regulation originates from a domestic or international source and can accompany primary (Acts etc) and secondary legislation (SIs). An Impact Assessment allows those with an interest in the policy area to understand:</p>
+					<h3><xsl:value-of select="leg:TranslateText('Impact Assessments')"/></h3>
+					<p><xsl:value-of select="leg:TranslateText('IA_tooltip_1')"/></p>
 					<ul>
-						<li>Why the government is proposing to intervene;</li>
-						<li>The main options the government is considering, and which one is preferred;</li>
-						<li>How and to what extent new policies may impact on them; and,</li>
-						<li>The estimated costs and benefits of proposed measures.</li>
+						<li><xsl:value-of select="leg:TranslateText('IA_tooltip_2')"/></li>
+						<li><xsl:value-of select="leg:TranslateText('IA_tooltip_3')"/></li>
+						<li><xsl:value-of select="leg:TranslateText('IA_tooltip_4')"/></li>
+						<li><xsl:value-of select="leg:TranslateText('IA_tooltip_5')"/></li>
 					</ul>
 				</div>
 			</div>		
@@ -459,7 +466,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<a href="#" class="close">
 						<img alt="Close" src="/images/chrome/closeIcon.gif"/>
 					</a>
-					<h3><xsl:value-of select="$enLabel"/></h3>
+					<h3><xsl:value-of select="leg:TranslateText($enLabel)"/></h3>
 					<p>
 						<xsl:value-of select="$enhelpText" />
 					 </p>

@@ -12,7 +12,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
 	xmlns:xhtml="http://www.w3.org/1999/xhtml"
 	exclude-result-prefixes="xhtml xs"
-	xmlns="http://www.w3.org/1999/xhtml">
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation"
+	>
 	
 <xsl:import href="legislation/html/quicksearch.xsl"/>
 <xsl:variable name="fileListDoc" select="if (doc-available('input:link-directory-scan')) then doc('input:link-directory-scan') else ()"/>
@@ -82,7 +84,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				</div>
 			</div>			
 		</div>
-		<p class="backToTop"><a href="#top">Back to top</a></p>
+		<p class="backToTop"><a href="#top"><xsl:value-of select="leg:TranslateText('Back to top')"/></a></p>
 		
 	</xsl:if>
 </xsl:template>
@@ -113,7 +115,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<xsl:variable name="fileDoc" select="if (doc-available($filePath)) then doc($filePath) else ()"/>
 			
 			<xsl:if test="exists($fileDoc)">
-				<a href="/changes{$file}" class="userFunctionalElement">
+				<a href="{$TranslateLangPrefix}/changes{$file}" class="userFunctionalElement">
 					<span class="btl"></span>
 					<span class="btr"></span>
 					
@@ -163,10 +165,25 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 
 <xsl:template match="directory" mode="sectionNav">
 	<xsl:variable name="items" as="element(xhtml:li)*">
-		<xsl:apply-templates mode="sectionNav" />
+		<xsl:choose>
+			<xsl:when test="$TranslateLang='cy'">
+				<xsl:apply-templates mode="sectionNavcy"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates mode="sectionNav" />
+			</xsl:otherwise>
+		</xsl:choose>
+		
 	</xsl:variable>
 	<xsl:variable name="resources" as="element(xhtml:div)?">
-		<xsl:apply-templates mode="usefulResources" />
+		<xsl:choose>
+			<xsl:when test="$TranslateLang='cy'">
+				<xsl:apply-templates mode="usefulResourcescy"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates mode="usefulResources" />
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:variable>
 	<xsl:if test="exists($items) or exists($resources)">
 		<div id="subNav" class="s_3 p_one">
@@ -181,7 +198,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	</xsl:if>
 </xsl:template>
 
-<xsl:template match="file[@name != 'usefulresources.xhtml']" mode="sectionNav">
+<xsl:template match="file[@name != 'usefulresources.xhtml' and not (ends-with(@name ,'.cy.xhtml'))]" mode="sectionNav">
 	<xsl:variable name="filePath" select="concat('../www/', parent::directory/@name, '/', @name)"/>
 	<xsl:variable name="fileUri" select="concat('/', parent::directory/@name, '/', substring-before(@name,'.xhtml') )"/>	
 	<xsl:variable name="fileDoc" select="if (doc-available($filePath)) then doc($filePath) else ()"/>
@@ -196,8 +213,26 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		</li>
 	</xsl:if>
 </xsl:template>
+	
+<xsl:template match="file[(@name != 'usefulresources.xhtml' and @name != 'usefulresources.cy.xhtml' and  ends-with(@name ,'.cy.xhtml') )]" mode="sectionNavcy">
+		<xsl:variable name="filePath" select="concat('../www/', parent::directory/@name, '/', @name)"/>
+		<xsl:variable name="fileUri" select="concat('/', parent::directory/@name, '/', substring-before(@name,'.cy.xhtml') )"/>
+		<xsl:variable name="fileDoc" select="if (doc-available($filePath)) then doc($filePath) else ()"/>
+		<xsl:if test="exists($fileDoc)">
+			<li>
+				<xsl:if test="position() = last()">
+					<xsl:attribute name="class">last</xsl:attribute>				
+				</xsl:if>
+				<a href="{if (parent::directory/@name ='chron-tables') then '/cy/changes' else ''}{$fileUri}">
+					<xsl:value-of select="$fileDoc/xhtml:html/xhtml:head/xhtml:title"/>
+				</a>			
+			</li>
+		</xsl:if>
+</xsl:template>
+	
 <xsl:template match="file" mode="sectionNav"/>
-
+<xsl:template match="file" mode="sectionNavcy"/>
+	
 <xsl:template match="file[@name = 'usefulresources.xhtml']" mode="usefulResources">
 	<xsl:variable name="filePath" select="concat('../www/', parent::directory/@name, '/', @name)"/>
 	<xsl:variable name="fileUri" select="concat('/', parent::directory/@name, '/', substring-before(@name,'.xhtml') )"/>	
@@ -208,7 +243,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		</div>				
 	</xsl:if>
 </xsl:template>
+	
+<xsl:template match="file[@name = 'usefulresources.cy.xhtml']" mode="usefulResourcescy">
+		<xsl:variable name="filePath" select="concat('../www/', parent::directory/@name, '/', @name)"/>
+		<xsl:variable name="fileUri" select="concat('/', parent::directory/@name, '/', substring-before(@name,'.cy.xhtml') )"/>	
+		<xsl:variable name="fileDoc" select="if (doc-available($filePath)) then doc($filePath) else ()"/>
+		<xsl:if test="exists($fileDoc)">
+			<div class="section resources">
+				<xsl:copy-of select="$fileDoc/xhtml:html/xhtml:body/*" copy-namespaces="no"/>
+			</div>				
+		</xsl:if>
+</xsl:template>
+
+	
+
 <xsl:template match="file" mode="usefulResources"/>
-
-
+<xsl:template match="file" mode="usefulResourcescy"/>
+	
 </xsl:stylesheet>

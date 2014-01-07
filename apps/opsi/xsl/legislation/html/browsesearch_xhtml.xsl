@@ -39,30 +39,30 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<h2 class="accessibleText">Narrow results by:</h2>
 			<div class="section" id="refineSearch">
 				<div class="title">
-					<h3>Refine your search:</h3>
+					<h3><xsl:value-of select="leg:TranslateText('Refine your search:')"/></h3>
 				</div>
 				<div class="content">
 					<form id="advancedSearch" name="advancedSearch" action="/search" method="get">
 						<xsl:if test="$paramsDoc/parameters/title[. != '']">
 							<div class="group">
-								<label for="searchText">Title: </label>
+								<label for="searchText"><xsl:value-of select="leg:TranslateText('Title')"/>: </label>
 								<input type="title" id="searchTitle" name="title" value="{/atom:feed/openSearch:Query[@role = 'request']/@leg:title}" />
 							</div>
 						</xsl:if>
 						<div class="group">
-							<label for="searchText">Keywords in content: </label>
+							<label for="searchText"><xsl:value-of select="leg:TranslateText('Keywords in content:')"/></label>
 							<input type="text" id="searchText" name="text" value="{/atom:feed/openSearch:Query[@role = 'request']/@searchTerms}" />
 						</div>
 						<xsl:if test="$paramsDoc/parameters/lang[. = 'cy']">
-							<p>Language:</p>
+							<p><xsl:value-of select="leg:TranslateText('Language:')"/></p>
 							<div class="searchLang group">
 								<div class="englishLang formGroup">
 									<input type="radio" name="lang" id="englishRadio" value="en" class="radio" />
-									<label for="englishRadio">English</label>
+									<label for="englishRadio"><xsl:value-of select="leg:TranslateText('English')"/></label>
 								</div>
 								<div class="welshLang formGroup">
 									<input type="radio" name="lang" id="welshRadio" value="cy" class="radio" checked="checked" />
-									<label for="welshRadio">Welsh</label>
+									<label for="welshRadio"><xsl:value-of select="leg:TranslateText('Welsh')"/></label>
 								</div>
 							</div>
 						</xsl:if>
@@ -74,7 +74,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<xsl:variable name="start-year" as="xs:string?" select="if ($start-year = '*') then () else $start-year" />
 						<xsl:variable name="end-year" as="xs:string?" select="if ($end-year = '*') then () else $end-year" />
 						<xsl:variable name="year" as="xs:string?" select="if ($start-year = $end-year) then $start-year else if ($start-year or $end-year) then () else $year" />
-						<p>Year:</p>
+						<p><xsl:value-of select="leg:TranslateText('Year')"/>:</p>
 						<div class="searchYear searchFieldCategory group">
 							<div class="specificYear formGroup">
 								<input type="radio" name="yearRadio" id="specificRadio" value="specific" class="yearChoice radio">
@@ -83,10 +83,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 									</xsl:if>
 								</input>
 								
-								<label for="specificRadio">Specific year</label>
+								<label for="specificRadio"><xsl:value-of select="leg:TranslateText('Specific year')"/></label>
 								<div class="yearChoiceFields" id="singleYear">
 									<div class="from">
-										<label for="specificYear">Year:</label>
+										<label for="specificYear"><xsl:value-of select="leg:TranslateText('Year')"/>:</label>
 										<input type="text" id="specificYear" name="year" value="{$year}" />
 									</div>
 								</div>
@@ -97,14 +97,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 										<xsl:attribute name="checked">checked</xsl:attribute>
 									</xsl:if>
 								</input>
-								<label for="rangeRadio">Range of years</label>
+								<label for="rangeRadio"><xsl:value-of select="leg:TranslateText('Range of years')"/></label>
 								<div class="yearChoiceFields" id="rangeYears">
 									<div class="from">
-										<label for="yearStart">From:</label>
+										<label for="yearStart"><xsl:value-of select="leg:TranslateText('From')"/>:</label>
 										<input type="text" id="yearStart" name="start-year" value="{$start-year}"/>
 									</div>
 									<div class="to">
-										<label for="yearEnd">To:</label>
+										<label for="yearEnd"><xsl:value-of select="leg:TranslateText('To')"/>:</label>
 										<input type="text" id="yearEnd" name="end-year" value="{$end-year}"/>
 									</div>
 								</div>
@@ -122,7 +122,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 													<xsl:attribute name="checked">checked</xsl:attribute>
 												</xsl:if>
 											</input>
-											<xsl:text>Applicable to:</xsl:text>
+											<xsl:value-of select="leg:TranslateText('Applicable to')"/>
+											<xsl:text>:</xsl:text>
 										</label>
 										<label>
 											<input type="radio" name="extent-match" id="extent-match-2" value="exact" class="radio yearChoice">
@@ -130,7 +131,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 													<xsl:attribute name="checked">checked</xsl:attribute>
 												</xsl:if>
 											</input>
-											<xsl:text>Exclusively extends to:</xsl:text>
+											<xsl:value-of select="leg:TranslateText('Exclusively extends to')"/>
+											<xsl:text>:</xsl:text>
 										</label>                                        
 									</div>
 									<div class="opt2">
@@ -140,7 +142,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 													<xsl:attribute name="checked">checked</xsl:attribute>
 												</xsl:if>
 											</input>
-											<xsl:text>United Kingdom</xsl:text>
+											<xsl:value-of select="leg:TranslateText('United Kingdom')"/>
 										</label>
 										<label>
 											<input type="checkbox" name="extent" value="gb" class="radio">
@@ -148,7 +150,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 													<xsl:attribute name="checked">checked</xsl:attribute>
 												</xsl:if>
 											</input>
-											<xsl:text>Great Britain</xsl:text>
+											<xsl:value-of select="leg:TranslateText('Great Britain')"/>
 										</label>
 										<label>
 											<input type="checkbox" name="extent" value="ew" class="radio">
@@ -156,7 +158,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 													<xsl:attribute name="checked">checked</xsl:attribute>
 												</xsl:if>
 											</input>
-											<xsl:text>England &amp; Wales</xsl:text>
+											<xsl:value-of select="leg:TranslateText('England &amp; Wales')"/>
 										</label>
 										<label>
 											<input type="checkbox" name="extent" value="england" class="radio">
@@ -164,7 +166,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 													<xsl:attribute name="checked">checked</xsl:attribute>
 												</xsl:if>
 											</input>
-											<xsl:text>England</xsl:text>
+											<xsl:value-of select="leg:TranslateText('England')"/>
 										</label>
 										<label>
 											<input type="checkbox" name="extent" value="wales" class="radio">
@@ -172,7 +174,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 													<xsl:attribute name="checked">checked</xsl:attribute>
 												</xsl:if>
 											</input>
-											<xsl:text>Wales</xsl:text>
+											<xsl:value-of select="leg:TranslateText('Wales')"/>
 										</label>
 										<label>
 											<input type="checkbox" name="extent" value="scotland" class="radio">
@@ -180,7 +182,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 													<xsl:attribute name="checked">checked</xsl:attribute>
 												</xsl:if>
 											</input>
-											<xsl:text>Scotland</xsl:text>
+											<xsl:value-of select="leg:TranslateText('Scotland')"/>
 										</label>
 										<label>
 											<input type="checkbox" name="extent" value="ni" class="radio">
@@ -188,14 +190,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 													<xsl:attribute name="checked">checked</xsl:attribute>
 												</xsl:if>
 											</input>
-											<xsl:text>Northern Ireland</xsl:text>
+											<xsl:value-of select="leg:TranslateText('Northern Ireland')"/>
 										</label>
 									</div>
 								</div>
 							</div>		
 						</xsl:if>				
 						<div class="group">
-							<label for="type">Type:</label>
+							<label for="type"><xsl:value-of select="leg:TranslateText('Type')"/>:</label>
 							
 							<xsl:variable name="isDraftSearched" select="tokenize($paramsDoc/parameters/type, '\+') = ('draft', 'ukdsi', 'sdsi', 'nidsr')" />
 							<xsl:call-template name="tso:TypeSelect">
@@ -208,7 +210,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							</xsl:call-template>
 						</div>
 						<div class="group submit">
-							<button type="submit" id="contentSearchSubmit" class="userFunctionalElement"><span class="btl"></span><span class="btr"></span>Search<span class="bbl"></span><span class="bbr"></span></button>
+							<button type="submit" id="contentSearchSubmit" class="userFunctionalElement"><span class="btl"></span><span class="btr"></span><xsl:value-of select="leg:TranslateText('Search')"/><span class="bbl"></span><span class="bbr"></span></button>
 						</div>
 					</form>
 				</div>
@@ -231,12 +233,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<xsl:variable name="selected" as="xs:boolean" select="exists(@remove)" />
 			<div id="heading" class="section">
 				<div class="title">
-					<h3>Legislation by Subject Heading</h3>
+					<h3><xsl:value-of select="leg:TranslateText('Legislation by Subject Heading')"/></h3>
 	
 				</div>
 				<xsl:if test="not(exists(//openSearch:Query/leg:subject))">
 					<div class="title">
-						<h4>1. Select First Letter of Heading</h4>
+						<h4>1. <xsl:value-of select="leg:TranslateText('Select First Letter of Heading')"/></h4>
 						</div>
 				</xsl:if>
 				<div class="content">
@@ -244,7 +246,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<ul>
 							<li class="returnLink">
 								<a href="{leg:GetLink(@remove)}">
-								<span class="accessibleText">Browse by </span>all headings
+									<span class="accessibleText">
+										<xsl:value-of select="leg:TranslateText('Browse by')"/>
+										<xsl:text> </xsl:text>
+									</span>
+									<xsl:value-of select="leg:TranslateText('all headings')"/>
 								</a>
 							</li>		
 						</ul>							
@@ -281,7 +287,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			</div>
 			<div id="subheading" class="section">
 			<div class="title">
-				<h4>2. Refine Results</h4>
+				<h4>2. <xsl:value-of select="leg:TranslateText('Refine Results')"/></h4>
 			</div>
 			<div class="content">
 				<ul>
@@ -334,7 +340,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<xsl:variable name="selected" as="xs:boolean" select="exists(@remove) and count(*[@value]) = 1" />
 			<div class="section" id="{lower-case($facetType)}">
 				<div class="title">
-					<h3><xsl:value-of select="$legType" /> <xsl:value-of select="$facetType" /></h3>
+					<h3>
+						<xsl:variable name="legTitle">
+							<xsl:value-of select="$legType" />
+							<xsl:value-of select="$facetType" />
+						</xsl:variable>
+						<xsl:value-of select="leg:TranslateText($legTitle)"/></h3>
 				</div>
 				<div class="content">
 				
@@ -362,7 +373,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	
 							<li class="returnLink">
 								<a href="{leg:GetLink(@remove)}">
-									<span class="accessibleText">Browse by </span>Any <xsl:value-of select="lower-case($facetType)" />
+									<span class="accessibleText">Browse by </span><xsl:value-of select="leg:TranslateText(concat('Any ',lower-case($facetType)))"/>
 								</a>
 							</li>
 						</xsl:if>
@@ -407,7 +418,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				</li>
 			</xsl:when>
 			<xsl:otherwise>
-				<li class="legType">
+				<li class="legType">					
 					<a href="{leg:GetLink(@href)}">
 						<xsl:value-of select="tso:GetTitleFromType(@type, $maxYear)"/>
 						<xsl:if test="exists(@value)"> (<xsl:value-of select="@value"/>)</xsl:if>
@@ -551,9 +562,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<img src="/images/chrome/timelinePartialKey.gif" alt="Partial"/>
 					</dt>
 					<dd>
-						<em>Partial dataset 
+						<em>
+							<xsl:value-of select="leg:TranslateText('Partial dataset')"/>
+							<xsl:text> </xsl:text>
 							<xsl:if test="empty($legTypes/@complete) or min($legTypes/@start) &lt; min($legTypes/@complete)">
-								<xsl:value-of select="min($legTypes/@start)" /> - <xsl:value-of select="if (exists($legTypes/@complete)) then (min($legTypes/@complete)-1) else if (exists($legTypes/@end)) then max($legTypes/@end) else 'Present'" />
+								<xsl:value-of select="min($legTypes/@start)" /> - <xsl:value-of select="if (exists($legTypes/@complete)) then (min($legTypes/@complete)-1) else if (exists($legTypes/@end)) then max($legTypes/@end) else leg:TranslateText('Present')" />
 							</xsl:if>
 						</em>
 						<!--
@@ -566,9 +579,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<img src="/images/chrome/timelineCompleteKey.gif" alt="Complete"/>
 					</dt>
 					<dd>
-						<em>Complete dataset 
+						<em>
+							<xsl:value-of select="leg:TranslateText('Complete dataset')"/>
+							<xsl:text> </xsl:text>
 							<xsl:if test="exists($legTypes/@complete)">
-								<xsl:value-of select="min($legTypes/@complete)" /> - <xsl:value-of select="if (exists($legTypes/@end)) then max($legTypes/@end) else 'Present'" />
+								<xsl:value-of select="min($legTypes/@complete)" /> - <xsl:value-of select="if (exists($legTypes/@end)) then max($legTypes/@end) else leg:TranslateText('Present')" />
 							</xsl:if>
 						</em>
 						<!--
@@ -578,12 +593,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						-->
 					</dd>
 				</dl>
-				<h3 class="groupInfo">Results grouped by <strong><xsl:value-of select="if ($timeline = 'century') then '100' else '10'" /> year</strong> periods</h3>
+				<h3 class="groupInfo">
+					<xsl:value-of select="leg:TranslateText('Results grouped by')"/>
+					<xsl:text> </xsl:text>
+					<strong>
+						<xsl:value-of select="if ($timeline = 'century') then '100' else '10'" />
+						<xsl:text> </xsl:text>
+						<xsl:value-of select="leg:TranslateText('year')"/>
+					</strong>
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="leg:TranslateText('periods')"/></h3>
 
 				<h3 class="accessibleText">Data is ordered by:</h3>
 				<ul class="dataDescription">
-					<li class="year">Time<span class="accessibleText"> of results</span></li>
-					<li class="number">Count<span class="accessibleText"> of results</span></li>
+					<li class="year"><xsl:value-of select="leg:TranslateText('Time')"/><span class="accessibleText"><xsl:text> </xsl:text><xsl:value-of select="leg:TranslateText('of results')"/></span></li>
+					<li class="number"><xsl:value-of select="leg:TranslateText('Count')"/><span class="accessibleText"><xsl:text> </xsl:text><xsl:value-of select="leg:TranslateText('of results')"/></span></li>
 				</ul>
 
 				

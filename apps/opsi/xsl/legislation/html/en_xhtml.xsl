@@ -100,7 +100,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				
 				<xsl:call-template name="TSOOutputAddLegislationStyles" />
 			</head>		
-			<body xml:lang="en" lang="en" dir="ltr" id="leg" about="{$dcIdentifier}"  class="toc">
+			<body xml:lang="{$TranslateLang}" lang="{$TranslateLang}" dir="ltr" id="leg" about="{$dcIdentifier}"  class="toc">
 				<div id="layout2" class="leg{if ($enType='en' or $enType='' ) then 'En' else if ($enType='pn') then 'Pn' else 'Em'}{if (leg:IsEnTOC()) then 'Toc' else 'Content'}">
 			
 					<!-- adding quick search  -->
@@ -136,13 +136,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 									</xsl:choose>
 									<span class="btl"/>
 									<span class="btr"/>
-									<xsl:text>Open full </xsl:text>  
-									<xsl:choose>
-										<xsl:when test="contains($enLabel, 'Explanatory Notes')">notes</xsl:when>
-										<xsl:when test="contains($enLabel, 'Executive Note')">note</xsl:when>
-										<xsl:when test="contains($enLabel, 'Policy Note')">note</xsl:when>
-										<xsl:when test="contains($enLabel, 'Explanatory Memorandum')">memorandum</xsl:when>
-									</xsl:choose>									
+									<xsl:variable name="openfullNotestext">
+										<xsl:text>Open full </xsl:text>  
+										<xsl:choose>
+											<xsl:when test="contains($enLabel, 'Explanatory Notes')">notes</xsl:when>
+											<xsl:when test="contains($enLabel, 'Executive Note')">note</xsl:when>
+											<xsl:when test="contains($enLabel, 'Policy Note')">note</xsl:when>
+											<xsl:when test="contains($enLabel, 'Explanatory Memorandum')">memorandum</xsl:when>
+										</xsl:choose>	
+									</xsl:variable>
+									<xsl:value-of select="leg:TranslateText($openfullNotestext)"/>
 									<span class="bbl"/>
 									<span class="bbr"/>
 								</xsl:element>
@@ -158,55 +161,48 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					</div>
 					<!-- /interface  -->					
 					
+					<xsl:variable name="enShortLabel">
+						<xsl:choose>
+							<xsl:when test="contains($enLabel, 'Explanatory Notes') or contains($enLabel, 'Executive Note')  or contains($enLabel, 'Policy Note')">
+								<xsl:value-of select="leg:TranslateText('Note')"/>
+							</xsl:when>
+							<xsl:when test="contains($enLabel, 'Explanatory Memorandum')">
+								<xsl:value-of select="leg:TranslateText('Memorandum')"/>
+							</xsl:when>
+						</xsl:choose>
+					</xsl:variable>	
 					<div id="content">
 											
 							<xsl:if test="leg:IsEnTOC()">
 								<div id="info{if (leg:IsDraft(.)) then 'Draft' else 'Section'}">
-									<h2>Please note: </h2>
+									<h2><xsl:value-of select="leg:TranslateText('Please note')" />: </h2>
 									<p class="intro">
 										<xsl:choose>
 											<xsl:when test="leg:IsEnPDFOnly(.)">
-													
-												<xsl:variable name="enShortLabel">
-													<xsl:choose>
-														<xsl:when test="contains($enLabel, 'Explanatory Notes') or contains($enLabel, 'Executive Note')  or contains($enLabel, 'Policy Note')">Note</xsl:when>
-														<xsl:when test="contains($enLabel, 'Explanatory Memorandum')">Memorandum</xsl:when>
-													</xsl:choose>
-												</xsl:variable>															
+												<xsl:variable name="translatedTitleType" select="leg:TranslateText(tso:GetTitleFromType($documentMainType,''))"/>														
 												<xsl:choose>
 
 													<xsl:when test="leg:IsDraft(.)">
-														<xsl:text>This is a draft </xsl:text>
-														<xsl:value-of select="$enShortLabel"/>
-														<xsl:text> to accompany this </xsl:text>
-														<xsl:value-of select="tso:GetSingularTitleFromType($documentMainType,'')"/>
-														<xsl:text>.</xsl:text>
+														<xsl:value-of select="leg:TranslateText('EN_draft_message',(concat('type=',$enShortLabel),concat('legtype=',$translatedTitleType)))"/>
 													</xsl:when>
 
 													<xsl:when test="$uriPrefix = 'uksi' and $IsEnAvailable and $IsEmAvailable">
-														<xsl:text>This Statutory Instrument was laid before the UK Parliament and the Scottish Parliament and is, therefore, accompanied by an Explanatory Memorandum and an Executive Note for each parliament respectively. Navigate between the two documents using the tabs above. The Memorandum and the Note are only available to view and download in PDF.</xsl:text>
+														<xsl:value-of select="leg:TranslateText('EN_Intro')" />
 													</xsl:when>
-													<xsl:when test="$uriPrefix = 'mwa' and exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Mixed Language')])">
-															<xsl:text>This is the mixed language version of these Notes. See the More Resources tab for links to the Welsh language and English language versions. These Notes are only available to download and view in PDF.</xsl:text>													
-													</xsl:when>
-													<xsl:when test="$uriPrefix = 'anaw' and exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Mixed Language')])">
-															<xsl:text>This is the mixed language version of these Notes. See the More Resources tab for links to the Welsh language and English language versions. These Notes are only available to download and view in PDF.</xsl:text>													
+													<xsl:when test="$uriPrefix = ('mwa','anaw') and exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Mixed Language')])">
+														<xsl:value-of select="leg:TranslateText('EN_Intro2')" />			
 													</xsl:when>
 													<xsl:when test="exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Revised')])">
-															<xsl:text>This is a revised </xsl:text><xsl:value-of select="$enShortLabel"/><xsl:text> to </xsl:text>
-															<xsl:value-of select="$legislationTitle"/>
-															<xsl:text>. The unrevised version of the </xsl:text><xsl:value-of select="$enShortLabel"/><xsl:text> can be accessed via the More Resources tab. This </xsl:text><xsl:value-of select="$enShortLabel"/><xsl:text> is only available to download and view in PDF.</xsl:text>
+														<xsl:value-of select="leg:TranslateText('EN_Intro3',(concat('type=',$enShortLabel),concat('legtype=',$translatedTitleType)))"/>
 													</xsl:when>
 													<xsl:otherwise>
-														<xsl:text>This </xsl:text>
-														<xsl:value-of select="$enShortLabel"/>
-														<xsl:text> is only available to download and view as PDF.</xsl:text>
+														<xsl:value-of select="leg:TranslateText('EN_Intro4',concat('type=',$enShortLabel))"/>
 													</xsl:otherwise>
 												</xsl:choose>
 											</xsl:when>
 											<xsl:otherwise>
-												<xsl:text>All reference to 'Parts' and 'sections' are from the </xsl:text><xsl:value-of select="$legislationTitle"/>
-												<xsl:text>. For more information about understanding </xsl:text><xsl:value-of select="concat($enLabel, ' ')"/><a href="/help#faqs">click here</a>.
+												<xsl:value-of select="leg:TranslateText('EN_Intro5',(concat('title=',$legislationTitle), concat('type=',$enShortLabel)))"/>
+												<a href="/help#faqs"><xsl:value-of select="leg:TranslateText('click here')"/></a>.
 											</xsl:otherwise>
 										</xsl:choose>
 									</p>
@@ -225,7 +221,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<!-- /interface  -->						
 					
 					<p class="backToTop">
-						<a href="#top">Back to top</a>
+						<a href="#top"><xsl:value-of select="leg:TranslateText('Back to top')"/></a>
 					</p>							
 					
 					</div>
@@ -237,7 +233,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<!--#layout2-->
 				
 				<!-- Where all of the Help divs and modal windows are loaded -->
-				<h2 class="interfaceOptionsHeader">Options/Help</h2>
+				<h2 class="interfaceOptionsHeader"><xsl:value-of select="leg:TranslateText('Options')"/>/<xsl:value-of select="leg:TranslateText('Help')"/></h2>
 				
 				<!-- adding the view/print options-->
 				<xsl:call-template name="TSOOutputPrintOptions"	/>				
@@ -368,7 +364,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		
 		<a class="pdfLink" href="{@URI}">
 			<img class="imgIcon" alt="" src="/images/chrome/pdfIconMed.gif"/>										
-				 <xsl:text>View PDF</xsl:text>
+				 <xsl:value-of select="leg:TranslateText('View PDF')"/>
 			<img class="pdfThumb"  src="{replace(replace(substring-after(@URI, 'http://www.legislation.gov.uk'), '/pdfs/', '/images/'), '.pdf', '.jpg')}" 
 			  title="{$title}" 
 			  alt="{$title}" />
@@ -557,7 +553,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:value-of select="$nstMetadata/ukm:Year/@Value"/>&#160;<xsl:value-of select="tso:GetNumberForLegislation($nstMetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value, $nstMetadata/ukm:Year/@Value, $nstMetadata/ukm:Number/@Value)" /><xsl:apply-templates select="$nstMetadata/ukm:AlternativeNumber" mode="series"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:text>ISBN </xsl:text>
+					<xsl:value-of select="leg:TranslateText('ISBN')"/>
+					<xsl:text> </xsl:text>
 					<xsl:value-of select="tso:formatISBN($nstMetadata/ukm:ISBN/@Value)" />
 				</xsl:otherwise>
 			</xsl:choose>
@@ -589,17 +586,20 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		<xsl:choose>
 			<xsl:when test="leg:IsEnPDFOnly(/)"/>
 			<xsl:when test="leg:IsTOC()">
-				<li class="activetext">Table of contents</li>
+				<li class="activetext"><xsl:value-of select="leg:TranslateText('Table of contents')"/></li>
 			</xsl:when>
 			<xsl:when test="$explanatoryNotesWholeURI = $strCurrentURIs">
 				<li class="activetext">
-					<xsl:text>Open full </xsl:text>
-					<xsl:choose>
-						<xsl:when test="contains($enLabel, 'Explanatory Notes')">notes</xsl:when>					
-						<xsl:when test="contains($enLabel, 'Executive Note') ">note</xsl:when>
-						<xsl:when test="contains($enLabel, 'Policy Note') ">note</xsl:when>
-						<xsl:when test="contains($enLabel, 'Explanatory Memorandum') ">memorandum</xsl:when>
-					</xsl:choose>
+					<xsl:variable name="openFulltext">
+						<xsl:text>Open full </xsl:text>
+						<xsl:choose>
+							<xsl:when test="contains($enLabel, 'Explanatory Notes')">notes</xsl:when>					
+							<xsl:when test="contains($enLabel, 'Executive Note') ">note</xsl:when>
+							<xsl:when test="contains($enLabel, 'Policy Note') ">note</xsl:when>
+							<xsl:when test="contains($enLabel, 'Explanatory Memorandum') ">memorandum</xsl:when>
+						</xsl:choose>
+					</xsl:variable>
+					<xsl:value-of select="leg:TranslateText($openFulltext)"/>
 				</li>
 			</xsl:when>
 			<xsl:otherwise>
@@ -656,7 +656,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					</xsl:choose>
 					<span class="btl"/>
 					<span class="btr"/>
-					Plain View
+					<xsl:value-of select="leg:TranslateText('Plain View')"/>					
 					<span class="bbl"/>
 					<span class="bbr"/>
 				</xsl:element>
@@ -673,7 +673,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						</xsl:otherwise>
 					</xsl:choose>				
 					<span class="btl"/>
-					<span class="btr"/>Print Options
+					<span class="btr"/><xsl:value-of select="leg:TranslateText('Print Options')"/>
 					<span class="bbl"/>
 					<span class="bbr"/>
 				</xsl:element>
@@ -740,10 +740,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			</xsl:when>
 			<xsl:when test="leg:IsEnTOC()">
 			<li class="printToc">
-				<h4><span class="accessibleText">Print </span>Table of Contents</h4>
+				<h4><span class="accessibleText">Print </span><xsl:value-of select="leg:TranslateText('Table of Contents')"/></h4>
 				<ul>
-					<li><a href="{leg:FormatPDFDataURL($dcIdentifier)}" target="_blank" class="pdfLink">PDF<span class="accessibleText"> table of contents</span></a></li>
-					<li><a href="{leg:FormatHTMLDataURL($dcIdentifier)}" target="_blank" class="htmLink">Web page<span class="accessibleText"> table of contents</span></a></li>
+					<li><a href="{leg:FormatPDFDataURL($dcIdentifier)}" target="_blank" class="pdfLink">PDF<span class="accessibleText"><xsl:text> </xsl:text><xsl:value-of select="leg:TranslateText('table of contents')"/></span></a></li>
+					<li><a href="{leg:FormatHTMLDataURL($dcIdentifier)}" target="_blank" class="htmLink"><xsl:value-of select="leg:TranslateText('Web page')"/><span class="accessibleText"><xsl:text> </xsl:text><xsl:value-of select="leg:TranslateText('table of contents')"/></span></a></li>
 				</ul>
 			</li>				
 			</xsl:when>
@@ -756,7 +756,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<xsl:variable name="displayText">
 				 <xsl:choose>
 					<xsl:when test="@DocumentURI = $dcIdentifier and not(self::leg:EN)">This <xsl:apply-templates select="." mode="TSOPrintOptionsXXX"/> only</xsl:when>
-						<xsl:otherwise>The <xsl:if test="not(self::leg:EN)">Whole </xsl:if><xsl:apply-templates select="." mode="TSOPrintOptionsXXX"/></xsl:otherwise>						
+					<xsl:otherwise>The <xsl:if test="not(self::leg:EN)">Whole </xsl:if><xsl:apply-templates select="." mode="TSOPrintOptionsXXX"/></xsl:otherwise>						
 				</xsl:choose>					
 			</xsl:variable>			
 	
@@ -767,7 +767,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				</xsl:choose>
 			</xsl:variable>
 	
-			<h4><span class="accessibleText">Print </span><xsl:value-of select="$displayText"/></h4>
+			<h4><span class="accessibleText">Print </span><xsl:value-of select="leg:TranslateText($displayText)"/></h4>
 			<ul>
 						<li><a class="pdfLink">
 							<xsl:choose>
@@ -780,7 +780,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							<xsl:attribute name="target">_blank</xsl:attribute>							
 								</xsl:otherwise>
 							</xsl:choose>	
-					PDF<span class="accessibleText"> <xsl:value-of select="$displayText"/></span></a></li>
+							<xsl:text>PDF</xsl:text>
+							<span class="accessibleText"> <xsl:value-of select="leg:TranslateText($displayText)"/></span></a></li>
 				<li><a class="htmLink">
 							<xsl:choose>
 						<xsl:when test="$provisions > $paragraphThreshold">
@@ -791,8 +792,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							<xsl:attribute name="href" select="leg:FormatHTMLDataURL(@DocumentURI)"/>
 							<xsl:attribute name="target">_blank</xsl:attribute>							
 								</xsl:otherwise>
-							</xsl:choose>	
-					Web page<span class="accessibleText"> <xsl:value-of select="$displayText"/></span></a></li>
+							</xsl:choose>
+						<xsl:value-of select="leg:TranslateText('Web page')"/>
+						<span class="accessibleText"> <xsl:value-of select="leg:TranslateText($displayText)"/></span></a></li>
 			</ul>
 		</li>		
 	</xsl:template>	
@@ -825,19 +827,19 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			</xsl:variable>		
 					
 		<xsl:call-template name="TSOOutputWarningMessage">
-				<xsl:with-param name="messageId" select="concat('print',  name(), 'ModHtm')"/>	
+			<xsl:with-param name="messageId" select="concat('print',  name(), 'ModHtm')"/>	
 			<xsl:with-param  name="messageType" select=" 'webWarning' " />
-				<xsl:with-param  name="messageHeading" >You have chosen to open <xsl:value-of select="$displayText" /></xsl:with-param>
-				<xsl:with-param  name="message"><xsl:value-of select="$displayText"/> you have selected contains over <xsl:value-of select="$paragraphThreshold"/> provisions and might take some time to download.</xsl:with-param>		
-				<xsl:with-param  name="continueURL" select="leg:FormatHTMLDataURL(@DocumentURI)" />							
+			<xsl:with-param  name="messageHeading" select="concat(leg:TranslateText('You have chosen to open'),' ', leg:TranslateText($displayText))" />
+			<xsl:with-param  name="message" select="concat(leg:TranslateText($displayText), ' ', leg:TranslateText('EN_selected_count', concat('count=',$paragraphThreshold)))"/>		
+			<xsl:with-param  name="continueURL" select="leg:FormatHTMLDataURL(@DocumentURI)" />							
 		</xsl:call-template>	
 		 
 		<xsl:call-template name="TSOOutputWarningMessage">
-				<xsl:with-param name="messageId" select="concat('print',  name(), 'ModPdf')"/>	
+			<xsl:with-param name="messageId" select="concat('print',  name(), 'ModPdf')"/>	
 			<xsl:with-param  name="messageType" select=" 'pdfWarning' " />
-				<xsl:with-param  name="messageHeading" >You have chosen to open <xsl:value-of select="$displayText" /> as a PDF</xsl:with-param> 
-				<xsl:with-param  name="message"><xsl:value-of select="$displayText"/> you have selected contains over <xsl:value-of select="$paragraphThreshold"/> provisions and might take some time to download.</xsl:with-param>		
-				<xsl:with-param  name="continueURL" select="leg:FormatPDFDataURL(@DocumentURI)" />							
+			<xsl:with-param  name="messageHeading" select="concat(leg:TranslateText('You have chosen to open'),' ', leg:TranslateText($displayText),' as a PDF')"/> 
+			<xsl:with-param  name="message" select="concat(leg:TranslateText($displayText), ' ', leg:TranslateText('EN_selected_count', concat('count=',$paragraphThreshold)))"/>		
+			<xsl:with-param  name="continueURL" select="leg:FormatPDFDataURL(@DocumentURI)" />							
 		</xsl:call-template>	
 			
 		</xsl:if>
@@ -854,8 +856,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:when test="$requestInfoDoc/request/server-name = 'test.legislation.gov.uk'">http://test.legislation.data.gov.uk</xsl:when>
 				<xsl:otherwise>http://legislation.data.gov.uk</xsl:otherwise>
 			</xsl:choose>
-		</xsl:variable>
-		<xsl:sequence select="concat($legislationDataURL, substring-after($url,'http://www.legislation.gov.uk'), '/data.htm?',leg:set-query-params('wrap', 'true' )) "/>
+		</xsl:variable>		
+	<xsl:sequence select="concat($legislationDataURL, substring-after($url,'http://www.legislation.gov.uk'), '/data.htm?',leg:set-query-params('wrap', 'true' )) "/>
 	</xsl:function>		
 	
 	
@@ -896,7 +898,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						</xsl:choose>
 						<span class="btl"/>
 						<span class="btr"/>
-						<xsl:text>Previous</xsl:text>
+						<xsl:value-of select="leg:TranslateText('Previous')"/>						
 						<span class="bbl"/>
 						<span class="bbr"/>
 					</xsl:element>
@@ -919,7 +921,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						</xsl:choose>
 						<span class="btl"/>
 						<span class="btr"/>
-						<xsl:value-of select="$enLabel"/><xsl:if test="not(leg:IsEnPDFOnly(.))"> Table of contents</xsl:if>
+						<xsl:value-of select="leg:TranslateText($enLabel)"/><xsl:if test="not(leg:IsEnPDFOnly(.))"><xsl:text> </xsl:text><xsl:value-of select="leg:TranslateText('Table of contents')"/></xsl:if>
 						<span class="bbl"/>
 						<span class="bbr"/>
 					</xsl:element>
@@ -944,7 +946,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						</xsl:choose>
 						<span class="btl"/>
 						<span class="btr"/>
-						<xsl:text>Next</xsl:text>
+						<xsl:value-of select="leg:TranslateText('Next')"/>						
 						<span class="bbl"/>
 						<span class="bbr"/>
 					</xsl:element>

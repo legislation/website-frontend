@@ -87,16 +87,16 @@ $.fn.validate = function (type) {
             // Paterns and responses for each data type
             switch (type) {
                 case "year":
-                    testRegexp = /(^$)|(YYYY)|(Any)|(^\d{4}$)/;
-                    errorMsg = "Not a valid year";
+                    testRegexp = /(^$)|(YYYY)|(BBBB)|(Unrhyw un)|(Any)|(^\d{4}$)/;
+                    errorMsg = config.forms.errormsg1[LANG];
                     break;
                 case "date":
-                    testRegexp = /(^$)|(^(\d{1,2}\/\d{1,2}\/\d{4})*$)|(^^DD\/MM\/YYYY$)/;
-                    errorMsg = "Not a valid date (dd/mm/yyyy)";
+                    testRegexp = /(^$)|(^(\d{1,2}\/\d{1,2}\/\d{4})*$)|(^^DD\/MM\/BBBB$)|(^^DD\/MM\/YYYY$)/;
+                    errorMsg = config.forms.errormsg2[LANG];
                     break;
                 case "number":
-                    testRegexp = /(^$)|(^\d*$)|(Any)/;
-                    errorMsg = "Not a valid number"
+                    testRegexp = /(^$)|(^\d*$)|(Unrhyw un)|(Any)/;
+                    errorMsg =  config.forms.errormsg3[LANG]        
                     break;
             }
 
@@ -112,7 +112,7 @@ $.fn.validate = function (type) {
                     // If the error message hasn't been added yet, add it
                     if (!$("#errorBar", $form).length) {
                         $form
-						.prepend('<div id="errorBar" class="error errorMessage">Please check the form fields which are highlighted in red</div>')
+						.prepend('<div id="errorBar" class="error errorMessage">' + config.errorBar.error[LANG] + '</div>' )
                     }
 
                     $form.addClass("error");

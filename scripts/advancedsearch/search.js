@@ -35,14 +35,14 @@ $(document).ready(function () {
 
     // validate form - use of ID's rather than input@name is for speed   
     $("#specificYear").validate("year");
-    $("#yearStart").validate("year").addDefaultText("YYYY");
-    $("#yearEnd").validate("year").addDefaultText("YYYY");
+    $("#yearStart").validate("year").addDefaultText(config.validate.year[LANG]);
+    $("#yearEnd").validate("year").addDefaultText(config.validate.year[LANG]);
     $("#searchNumber").validate("number");
-    $(".searchPIT input").validate("date").addDefaultText("DD/MM/YYYY");
-	$("#start").validate("date").addDefaultText("DD/MM/YYYY");
-	$("#end").validate("date").addDefaultText("DD/MM/YYYY");
+    $(".searchPIT input").validate("date").addDefaultText(config.validate.date[LANG]);
+	$("#start").validate("date").addDefaultText(config.validate.date[LANG]);
+	$("#end").validate("date").addDefaultText(config.validate.date[LANG]);
     if ($("#PIT").length) {
-        $("#specificYear").addDefaultText("Any");
+        $("#specificYear").addDefaultText(config.validate.specificYear[LANG]);
     }
 
     // Remove these values from the submitted form so that the backend doesn't need to handle them
@@ -87,7 +87,7 @@ function addDatePicker() {
 
 function typeShowHide() {
     // add show/hide checkbox
-    $('#allSecondary').after('<div id="uniqueExtents" class="typeCheckBoxCol extent"><input type="checkbox" id="ind" name="type" value="individual"/><label for="ind">Select types</label></div>');
+    $('#allSecondary').after('<div id="uniqueExtents" class="typeCheckBoxCol extent"><input type="checkbox" id="ind" name="type" value="individual"/><label for="ind">'+config.search.showHide.selectTypes[LANG]+'</label> </div>');
 
     // Wrap content in a single block to prevent columns of different heights 
     // from animating at different speeds
@@ -208,7 +208,7 @@ $.fn.showExtentInfo = function (inputs) {
         // Output the html to a jQuery selector
         outputHtmlToElement: function (jQuerySelector) {
 			// First clear the existing html out and replace
-            $(jQuerySelector).html('').append('<h4>Extent combinations this search will include:</h4>' + this.html);
+            $(jQuerySelector).html('').append('<h4>'+ config.search.extentCombonation[LANG]+ '</h4>' + this.html);
         },
 
         // Internal methods ------------------------

@@ -65,7 +65,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:apply-templates select="/atom:feed/atom:link" mode="HTMLmetadata"/>
 			</head>
 
-			<body lang="en" xml:lang="en" dir="ltr" id="doc" class="changeLeg">
+			<body lang="{$TranslateLang}" xml:lang="{$TranslateLang}" dir="ltr" id="doc" class="changeLeg">
 
 				<div id="layout2">
 					<!-- <span class="debug">
@@ -84,8 +84,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<div class="info">
 						
 							<h1 id="pageTitle">
-								<xsl:text>Changes to Legislation</xsl:text>
-								<xsl:if test="atom:feed"> <xsl:text> Results</xsl:text></xsl:if>
+								<xsl:variable name="pageTitle">
+									<xsl:text>Changes to Legislation</xsl:text>
+									<xsl:if test="atom:feed"><xsl:text> Results</xsl:text></xsl:if>
+								</xsl:variable>
+								<xsl:value-of select="leg:TranslateText($pageTitle)"/>
 							</h1>
 
 							<!-- adding search summary -->
@@ -96,22 +99,25 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<div id="content">
 						<xsl:if test="not(atom:feed)">
 							<div class="s_12 p_one introWrapper">
-								<h2>Changes made by legislation enacted from 2002 &#8211; present</h2>
-								<p>The search form below provides access to lists detailing changes made by all legislation enacted from 2002 &#8211; present to the revised legislation held on legislation.gov.uk. Changes made by legislation enacted prior to 2002 have already been incorporated into the content and are not available as searchable lists. These lists provide details of changes including repeals, amendments and other effects (e.g. modifications and commencement information).</p>
-								<p>The lists are updated with changes made by new legislation as soon as possible after the legislation is received by the legislation.gov.uk editorial team. There will usually, however, be some delay between the publication of new legislation to the website and the effects of it appearing in these tables. In most cases the delay will be less than two weeks.</p>
-								<p>Note: Where changes and effects have yet to be applied to the legislation you are viewing on this site by the legislation.gov.uk editorial team then any &#8216;Changes to Legislation&#8217; are also displayed alongside the content of the legislation at provision level.</p>
+								<h2><xsl:value-of select="leg:TranslateText('New_subtitle')"/></h2>
+								<p><xsl:value-of select="leg:TranslateText('New_p1')"/></p>
+								<p><xsl:value-of select="leg:TranslateText('New_p2')"/></p>
+								<p><xsl:value-of select="leg:TranslateText('New_p3')"/></p>
 							</div>
 						</xsl:if>
 						<div class="s_12 p_one tabWrapper createNewSearchOpt">
-							<h2 class="accessibleText">Search</h2>
+							<h2 class="accessibleText"><xsl:value-of select="leg:TranslateText('Search')"/></h2>
 							<xsl:choose>
 								<xsl:when test="atom:feed">
 									<div id="existingSearch">
 										<div id="newSearch" class="interface">
 											<a id="modifySearch" href="#searchChanges"
 												class="userFunctionalElement">
-												<span class="btl"/><span class="btr"/>Modify existing
-													search<span class="bbl"/><span class="bbr"/>
+												<span class="btl"/>
+												<span class="btr"/>
+												<xsl:value-of select="leg:TranslateText('Modify existing search')"/>
+												<span class="bbl"/>
+												<span class="bbr"/>
 											</a>
 										</div>
 										<xsl:call-template name="TSOOutputChangesSearch"/>
@@ -125,14 +131,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						
 						<xsl:if test="not(atom:feed)">
 							<div class="s_12 p_one introWrapper">
-								<h2>Changes to Local and Private and Personal Acts</h2>
-								<p>The Chronological Tables list changes to Local, Private and Personal Acts dating from 1797 &#8211; 2008. They are updated each year and as the title suggests, the tables list Local, Private and Personal Acts in their chronological sequence along with details about repeals of, and changes (including amendments and substitutions) made to those Acts. They have been published in parts to make navigation easier.</p>
+								<h2><xsl:value-of select="leg:TranslateText('Changes to Local and Private and Personal Acts')"/></h2>
+								<p><xsl:value-of select="leg:TranslateText('Changes_chnoTable_desc')"/></p>
 								<ul class="linkList">
 									<li>
-										<a href="http://www.legislation.gov.uk/changes/chron-tables/local">Chronological Table of Local Acts <span class="pageLinkIcon"></span></a>
+										<a href="http://www.legislation.gov.uk/changes/chron-tables/local"><xsl:value-of select="leg:TranslateText('Chronological Table of Local Acts')"/> <span class="pageLinkIcon"></span></a>
 									</li>
 									<li>
-										<a href="http://www.legislation.gov.uk/changes/chron-tables/private">Chronological Table of Private and Personal Acts <span class="pageLinkIcon"></span></a>
+										<a href="http://www.legislation.gov.uk/changes/chron-tables/private"><xsl:value-of select="leg:TranslateText('Chronological Table of Private and Personal Acts')"/> <span class="pageLinkIcon"></span></a>
 									</li>
 								</ul>
 							</div>
@@ -148,37 +154,46 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				</div>
 			</body>
 		</html>
-	</xsl:template>
+	</xsl:template>	
 
 	<!-- ========== Standard code for search summary========= -->
 	<xsl:template match="atom:feed" mode="summary">
 		<h2>
-			<xsl:text>Your search for</xsl:text>
-			<xsl:apply-templates select="$paramsDoc/parameters/applied" mode="summary"/>
-			<xsl:text> that affect</xsl:text>
-			<xsl:apply-templates select="$paramsDoc/parameters/affected-type" mode="summary"/>
-			<xsl:apply-templates select="$paramsDoc/parameters/affected-year" mode="summary"/>			
-			<xsl:apply-templates select="$paramsDoc/parameters/affected-number" mode="summary"/>			
-			<xsl:text> made by</xsl:text>			
-			<xsl:apply-templates select="$paramsDoc/parameters/affecting-type" mode="summary"/>
-			<xsl:apply-templates select="$paramsDoc/parameters/affecting-year" mode="summary"/>			
-			<xsl:apply-templates select="$paramsDoc/parameters/affecting-number" mode="summary"/>		
-			<xsl:text> has returned </xsl:text>
-
-			<xsl:variable name="pageSize" as="xs:integer" select="20"/>
+			<xsl:variable name="searchResultMessage">
+				<xsl:text>Your search for</xsl:text>
+				<xsl:apply-templates select="$paramsDoc/parameters/applied" mode="summary"/>
+				<xsl:text> that affect</xsl:text>
+				<xsl:apply-templates select="$paramsDoc/parameters/affected-type" mode="summary"/>
+				<xsl:apply-templates select="$paramsDoc/parameters/affected-year" mode="summary"/>			
+				<xsl:apply-templates select="$paramsDoc/parameters/affected-number" mode="summary"/>			
+				<xsl:text> made by</xsl:text>			
+				<xsl:apply-templates select="$paramsDoc/parameters/affecting-type" mode="summary"/>
+				<xsl:apply-templates select="$paramsDoc/parameters/affecting-year" mode="summary"/>			
+				<xsl:apply-templates select="$paramsDoc/parameters/affecting-number" mode="summary"/>		
+				<xsl:text> has returned </xsl:text>
+	
+				<xsl:variable name="pageSize" as="xs:integer" select="20"/>
+				<xsl:choose>
+					<xsl:when test="openSearch:totalResults > 200">more than 200</xsl:when>
+					<xsl:when test="openSearch:totalResults">
+						<xsl:value-of select="openSearch:totalResults" />
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:choose>
+							<xsl:when test="round-half-to-even((leg:page + leg:morePages) * $pageSize, -1) > 200">  more than 200 </xsl:when>
+							<xsl:otherwise> about <xsl:value-of select="round-half-to-even((leg:page + leg:morePages) * $pageSize, -1)"/></xsl:otherwise>
+						</xsl:choose>
+					</xsl:otherwise>
+				</xsl:choose>			
+				<xsl:text> results:</xsl:text>		
+			</xsl:variable>
+			<!-- added this code to display messages in welsh language for welsh version of site-->
+			<xsl:variable name="fr" select="('Your search for','changes','that affect','has returned','more than','results','made by','all legislation','in','between','and','unapplied','applied','numbered')"/>
+			<xsl:variable name="to" select="('Mae eich chwiliad am','newidiadau','sy’n effeithio ar','wedi dod o hyd i ','fwy na','o ganlyniadau','a wnaed gan','holl ddeddfwriaeth','yn','rhwng','a','heb eu gweithredu','weithredwyd','rhifo')"/>
 			<xsl:choose>
-				<xsl:when test="openSearch:totalResults > 200">more than 200</xsl:when>
-				<xsl:when test="openSearch:totalResults">
-					<xsl:value-of select="openSearch:totalResults" />
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:choose>
-						<xsl:when test="round-half-to-even((leg:page + leg:morePages) * $pageSize, -1) > 200">  more than 200 </xsl:when>
-						<xsl:otherwise> about <xsl:value-of select="round-half-to-even((leg:page + leg:morePages) * $pageSize, -1)"/></xsl:otherwise>
-					</xsl:choose>
-				</xsl:otherwise>
-			</xsl:choose>			
-			<xsl:text> results:</xsl:text>
+				<xsl:when test="$TranslateLang='cy'"><xsl:value-of select="leg:replace-multi($searchResultMessage,$fr,$to)"/></xsl:when>
+				<xsl:otherwise>	<xsl:value-of select="$searchResultMessage"/></xsl:otherwise>
+			</xsl:choose>		
 		</h2>
 	</xsl:template>
 	<xsl:template match="affected-type | affecting-type" mode="summary">
@@ -233,19 +248,19 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 
 	<!-- ========== Standard code for search form========= -->
 	<xsl:template name="TSOOutputChangesSearch">
-		<form action="/changes" id="searchChanges" class="s_12 p_one">
+		<form action="{$TranslateLangPrefix}/changes" id="searchChanges" class="s_12 p_one">
 			<xsl:if test="/errorsearching">
-				<div id="errorBar" class="error errorMessage">Please check the form fields which are highlighted in red</div>		
+				<div id="errorBar" class="error errorMessage"><xsl:value-of select="leg:TranslateText('Please check the form fields which are highlighted in red')"/></div>		
 			</xsl:if>
 			<fieldset id="affect" class="s_5 p_one">
 				<div>
 					<a class="helpItem helpItemToTop" href="#changesThatAffectHelp">
 						<img alt="Changes that affect help" src="/images/chrome/helpIcon.gif" />
 					</a>
-					<legend>Changes that affect:</legend>						
+					<legend><xsl:value-of select="leg:TranslateText('Changes that affect')"/>:</legend>						
 				</div>
 				<div class="title">
-					<label for="affected-title">Title:</label>
+					<label for="affected-title"><xsl:value-of select="leg:TranslateText('Title')"/>:</label>
 					<input id="affected-title" name="affected-title" type="text" value="{$paramsDoc/parameters/affected-title}"/>
 				</div>
 				<div class="typeChoice">
@@ -257,13 +272,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<xsl:if test="$invalidAffectedType">
 							<xsl:attribute name="class">error</xsl:attribute>						
 						</xsl:if>
-						<xsl:text>Legislation type:</xsl:text>
+						<xsl:value-of select="leg:TranslateText('Legislation type')"/>
+						<xsl:text>:</xsl:text>
 					</label>
 					<select id="affected-type" name="affected-type">
 						<xsl:if test="$invalidAffectedType">
 							<xsl:attribute name="class">error</xsl:attribute>						
 						</xsl:if>					
-						<option value="">Any</option>
+						<option value=""><xsl:value-of select="leg:TranslateText('Any')"/></option>
 						<xsl:for-each
 							select="$g_nstCodeLists[@name = 'DocumentMainType']/Code[@status='revised']">
 							<option value="{@uri}">
@@ -275,7 +291,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						</xsl:for-each>
 					</select>
 					<xsl:if test="$invalidAffectedType">
-						<span class="error errorMessage">Not a valid revised legislation type</span>									
+						<span class="error errorMessage"><xsl:value-of select="leg:TranslateText('Not a valid revised legislation type')"/></span>									
 					</xsl:if>					
 				</div>
 
@@ -294,14 +310,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							<xsl:attribute name="checked">checked</xsl:attribute>
 						</xsl:if>
 					</input>
-					<label for="affected-year-specific">Specific year and number</label>
+					<label for="affected-year-specific"><xsl:value-of select="leg:TranslateText('Specific year and number')"/></label>
 					<div class="yearChoiceFields" id="affectsSingleYear">
 						<div class="from">
 							<label for="affected-year">
 								<xsl:if test="$invalidAffectedYear">
 									<xsl:attribute name="class">error</xsl:attribute>
 								</xsl:if>
-								<xsl:text>Year:</xsl:text>
+								<xsl:value-of select="leg:TranslateText('Year')"/>
+								<xsl:text>:</xsl:text>
 							</label>
 							
 							<input id="affected-year" name="affected-year" type="text"
@@ -312,12 +329,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							</input>
 							
 							<xsl:if test="$invalidAffectedYear">
-								<span class="error errorMessage">Year must be before or equal to <xsl:value-of select="year-from-date(current-date())"/></span>									
+								<span class="error errorMessage"><xsl:value-of select="leg:TranslateText('Year_before_current',concat('year=',string(year-from-date(current-date()))))"/></span>									
 							</xsl:if>	
 							
 						</div>
 						<div class="number">
-							<label for="affected-number">Number:</label>
+							<label for="affected-number"><xsl:value-of select="leg:TranslateText('Number')"/>:</label>
 							<input id="affected-number" name="affected-number" type="text"
 								value="{$paramsDoc/parameters/affected-number}"/>
 						</div>
@@ -361,14 +378,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							<xsl:attribute name="checked">checked</xsl:attribute>
 						</xsl:if>
 					</input>
-					<label for="affected-year-choice-range">Range of years</label>
+					<label for="affected-year-choice-range"><xsl:value-of select="leg:TranslateText('Range of years')"/></label>
 					<div class="yearChoiceFields" id="affectedRangeYears">
 						<div class="from">
 							<label for="affected-start-year">
 								<xsl:if test="$invalidAffectedYearStart">
 									<xsl:attribute name="class">error</xsl:attribute>
 								</xsl:if>
-								<xsl:text>From:</xsl:text>
+								<xsl:value-of select="leg:TranslateText('From')"/>
+								<xsl:text>:</xsl:text>
 							</label>
 							<input id="affected-start-year" name="affected-start-year" type="text"
 								value="{
@@ -385,7 +403,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								<xsl:if test="$invalidAffectedYearEnd">
 									<xsl:attribute name="class">error</xsl:attribute>
 								</xsl:if>
-								<xsl:text>To:</xsl:text>							
+								<xsl:value-of select="leg:TranslateText('To')"/>
+								<xsl:text>:</xsl:text>							
 							</label>
 							<input id="affected-end-year" name="affected-end-year" type="text"
 								value="{
@@ -399,7 +418,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						</div>
 
 						<xsl:if test="$invalidAffectedYearStart or $invalidAffectedYearEnd">
-							<span class="error errorMessage">Year range must be before or equal to <xsl:value-of select="year-from-date(current-date())"/> and the From year must be an earlier date than the To year</span>									
+							<span class="error errorMessage"><xsl:value-of select="leg:TranslateText('Year_before_range',concat('year=',string(year-from-date(current-date()))))"/></span>									
 						</xsl:if>	
 					</div>
 				</div>
@@ -409,7 +428,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<a class="helpItem helpItemToTop" href="#madeByHelp">
 						<img alt="Made by help" src="/images/chrome/helpIcon.gif" />
 					</a>	
-					<legend>made by:</legend>										
+					<legend><xsl:value-of select="leg:TranslateText('made by')"/>:</legend>										
 				</div>
 				<div class="title">
 					<label for="affecting-title">Title:</label>
@@ -423,13 +442,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<xsl:if test="$invalidAffectingType">
 							<xsl:attribute name="class">error</xsl:attribute>
 						</xsl:if>
-						<xsl:text>Legislation type:</xsl:text>
+						<xsl:value-of select="leg:TranslateText('Legislation type')"/>
+						<xsl:text>:</xsl:text>
 					</label>
 					<select id="affecting-type" name="affecting-type">
 						<xsl:if test="$invalidAffectingType">
 							<xsl:attribute name="class">error</xsl:attribute>
 						</xsl:if>
-						<option value="">Any</option>
+						<option value=""><xsl:value-of select="leg:TranslateText('Any')"/></option>
 						<xsl:for-each select="tso:GetEffectingTypes()">
 							<option value="{@abbrev}">
 								<xsl:if test="$paramsDoc/parameters/affecting-type = @abbrev">
@@ -440,7 +460,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						</xsl:for-each>
 					</select>
 					<xsl:if test="$invalidAffectingType">
-						<span class="error errorMessage">Not a valid legislation type</span>									
+						<span class="error errorMessage"><xsl:value-of select="leg:TranslateText('Not a valid legislation type')"/></span>									
 					</xsl:if>					
 				</div>
 				<div class="yearChoice">
@@ -456,20 +476,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							<xsl:attribute name="checked">checked</xsl:attribute>
 						</xsl:if>
 					</input>
-					<label for="affecting-year-choice-specific">Specific year and number</label>
+					<label for="affecting-year-choice-specific"><xsl:value-of select="leg:TranslateText('Specific year and number')"/></label>
 					<div class="yearChoiceFields" id="affectingSingleYear">
 						<div class="from">
 							<label for="affecting-year">
 								<xsl:if test="$invalidAffectingYear">
 									<xsl:attribute name="class">error</xsl:attribute>
-								</xsl:if>										
-								<xsl:text>Year:</xsl:text>
+								</xsl:if>	
+								<xsl:value-of select="leg:TranslateText('Year')"/>
+								<xsl:text>:</xsl:text>
 							</label>
 							<select name="affecting-year" id="affecting-year">
 								<xsl:if test="$invalidAffectingYear">
 									<xsl:attribute name="class">error</xsl:attribute>
 								</xsl:if>										
-								<option value="" selected="selected">Any</option>
+								<option value="" selected="selected"><xsl:value-of select="leg:TranslateText('Any')"/></option>
 								<xsl:for-each select="2002 to year-from-date(current-date())">
 									<option value="{.}">
 										<xsl:if
@@ -482,12 +503,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							</select>
 							
 							<xsl:if test="$invalidAffectingYear">
-								<span class="error errorMessage">Year must be between 2002 and <xsl:value-of select="year-from-date(current-date())"/></span>									
+								<span class="error errorMessage">
+									<xsl:value-of select="year-from-date(current-date())"/>
+								</span>									
 							</xsl:if>	
 														
 						</div>
 						<div class="number">
-							<label for="affecting-number">Number:</label>
+							<label for="affecting-number"><xsl:value-of select="leg:TranslateText('Number')"/>:</label>
 							<input id="affecting-number" name="affecting-number" type="text"
 								value="{$paramsDoc/parameters/affecting-number}"/>
 						</div>
@@ -531,20 +554,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							<xsl:attribute name="checked">checked</xsl:attribute>
 						</xsl:if>
 					</input>
-					<label for="affecting-year-choice-range">Range of years</label>
+					<label for="affecting-year-choice-range"><xsl:value-of select="leg:TranslateText('Range of years')"/></label>
 					<div class="yearChoiceFields" id="affectingRangeYears">
 						<div class="from">
 							<label for="affecting-start-year">
 								<xsl:if test="$invalidAffectingYearStart">
 									<xsl:attribute name="class">error</xsl:attribute>
 								</xsl:if>
-								<xsl:text>From:</xsl:text>
+								<xsl:value-of select="leg:TranslateText('From')"/>
+								<xsl:text>:</xsl:text>
 							</label>
 							<select name="affecting-start-year" id="affecting-start-year">
 								<xsl:if test="$invalidAffectingYearStart">
 									<xsl:attribute name="class">error</xsl:attribute>
 								</xsl:if>
-								<option value="" selected="selected">YYYY</option>
+								<option value="" selected="selected"><xsl:value-of select="leg:TranslateText('YYYY')"/></option>
 								<xsl:for-each select="2002 to year-from-date(current-date())">
 									<option value="{.}">
 										<xsl:if
@@ -563,14 +587,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								<xsl:if test="$invalidAffectingYearEnd">
 									<xsl:attribute name="class">error</xsl:attribute>
 								</xsl:if>
-								<xsl:text>To:</xsl:text>
+								<xsl:value-of select="leg:TranslateText('To')"/>
+								<xsl:text>:</xsl:text>
 							</label>
 							<select name="affecting-end-year" id="affecting-end-year">
 								<xsl:if test="$invalidAffectingYearEnd">
 									<xsl:attribute name="class">error</xsl:attribute>
 								</xsl:if>
 							
-								<option value="" selected="selected">YYYY</option>
+								<option value="" selected="selected"><xsl:value-of select="leg:TranslateText('YYYY')"/></option>
 								<xsl:for-each select="2002 to year-from-date(current-date())">
 									<option value="{.}">
 										<xsl:if
@@ -586,7 +611,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						</div>
 						
 						<xsl:if test="$invalidAffectingYearStart or $invalidAffectingYearEnd">
-							<span class="error errorMessage">Year range must be between 2002 and <xsl:value-of select="year-from-date(current-date())"/> and the From year must be an earlier date than the To year</span>									
+							<span class="error errorMessage">
+								<xsl:value-of select="leg:TranslateText('Year_after_2002',concat('year=',string(year-from-date(current-date()))))"/>	
+							</span>									
 						</xsl:if>						
 					</div>
 				</div>
@@ -599,7 +626,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<a class="helpItem helpItemToMidRight" href="#resultsShowingHelp">
 							<img alt="Results showing help" src="/images/chrome/helpIcon.gif" />
 						</a>						
-						<legend>Results showing</legend>
+						<legend><xsl:value-of select="leg:TranslateText('Results showing')"/></legend>
 					</div>
 					<div>
 						<input type="radio" id="appliedAll" value="all" name="applied" class="radio"
@@ -608,14 +635,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								<xsl:attribute name="checked">checked</xsl:attribute>
 							</xsl:if>
 						</input>
-						<label for="appliedAll">All changes</label>
+						<label for="appliedAll"><xsl:value-of select="leg:TranslateText('All changes')"/></label>
 						
 						<input type="radio" id="applied" value="applied" name="applied" class="radio">
 							<xsl:if test="$paramsDoc/parameters/applied = 'applied' ">
 								<xsl:attribute name="checked">checked</xsl:attribute>
 							</xsl:if>
 						</input>
-						<label for="applied">Applied changes</label>
+						<label for="applied"><xsl:value-of select="leg:TranslateText('Applied changes')"/></label>
 						
 						<input type="radio" id="unapplied" value="unapplied" name="applied"
 							class="radio">
@@ -623,10 +650,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								<xsl:attribute name="checked">checked</xsl:attribute>
 							</xsl:if>
 						</input>
-						<label for="unapplied">Unapplied changes</label>
+						<label for="unapplied"><xsl:value-of select="leg:TranslateText('Unapplied changes')"/></label>
 						<button type="submit" id="legChangesSearchSubmit" class="userFunctionalElement">
 							<span class="btl"/>
-							<span class="btr"/>Get Results<span class="bbl"/>
+							<span class="btr"/><xsl:value-of select="leg:TranslateText('Get Results')"/><span class="bbl"/>
 							<span class="bbr"/>
 						</button>
 					</div>
@@ -658,8 +685,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<table>
 							<thead>
 								<tr class="headerRow1">
-									<th colspan="4">Changes that affect</th>
-									<th colspan="3" class="centralCol">Made by</th>
+									<th colspan="4"><xsl:value-of select="leg:TranslateText('Changes that affect')"/></th>
+									<th colspan="3" class="centralCol"><xsl:value-of select="leg:TranslateText('Made by')"/></th>
 									<td colspan="2" />							
 								</tr>
 								<tr class="headerRow2">
@@ -667,19 +694,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 										<xsl:call-template name="TSOOutputColumnHeader">
 											<xsl:with-param name="link" select="$link"/>
 											<xsl:with-param name="fieldName" select="'affected-title'"/>
-											<xsl:with-param name="fieldTitle" select="'Changed Legislation'" />
+											<xsl:with-param name="fieldTitle" select="leg:TranslateText('Changed Legislation')" />
 										</xsl:call-template>
 									</th>
 									<th>
 										<xsl:call-template name="TSOOutputColumnHeader">
 											<xsl:with-param name="link" select="$link"/>
 											<xsl:with-param name="fieldName" select="'affected-year-number'"/>
-											<xsl:with-param name="fieldTitle" select="'Year and Number'"/>
+											<xsl:with-param name="fieldTitle" select="leg:TranslateText('Year and Number')" />
 										</xsl:call-template>
 									</th>
-									<th>Changed Provision</th>
 									<th>
-										Type of effect
+										<xsl:value-of select="leg:TranslateText('Changed Provision')"/>	
+									</th>
+									<th>
+										<xsl:value-of select="leg:TranslateText('Type of effect')"/>
 										<a class="helpItem helpItemToMidRight" href="#typeofEffectHelp">
 											<img alt="Type of effect help" src="/images/chrome/helpIcon.gif" />
 										</a>	
@@ -690,7 +719,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 											<xsl:with-param name="link" select="$link"/>
 											<xsl:with-param name="fieldName" select="'affecting-title'"/>
 											<xsl:with-param name="fieldTitle"
-												select="'Affecting Legislation Title'"/>
+												select="leg:TranslateText('Affecting Legislation Title')"/>
 										</xsl:call-template>
 									</th>
 									<th class="centralCol">
@@ -698,16 +727,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 											<xsl:with-param name="link" select="$link"/>
 											<xsl:with-param name="fieldName"
 												select="'affecting-year-number'"/>
-											<xsl:with-param name="fieldTitle" select="'Year and Number'"/>
+											<xsl:with-param name="fieldTitle" select="leg:TranslateText('Year and Number')"/>
 										</xsl:call-template>
 									</th>
-									<th class="centralCol">Affecting Provision</th>
+									<th class="centralCol">
+										<xsl:value-of select="leg:TranslateText('Affecting Provision')"/>
+									</th>
 									<th class="applied">
 									
 										<xsl:call-template name="TSOOutputColumnHeader">
 											<xsl:with-param name="link" select="$link"/>
 											<xsl:with-param name="fieldName" select="'applied'"/>
-											<xsl:with-param name="fieldTitle" select="'Applied'"/>
+											<xsl:with-param name="fieldTitle" select="leg:TranslateText('Applied')"/>
 										</xsl:call-template>
 											
 										<a class="helpItem helpItemToMidLeft" href="#appliedHelp">
@@ -731,32 +762,36 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:otherwise>
 						<div>
 							<br/>
-							<p>This may be because either:</p>
+							<p><xsl:value-of select="leg:TranslateText('This may be because either')"/>:</p>
 							<ul>
-								<li>There are no changes listed in relation to the legislation you specified. </li>
-								<li>Changes have not yet been recorded by the legislation.gov.uk editorial team for the legislation you specified</li>
+								<li><xsl:value-of select="leg:TranslateText('No_changes')"/></li>
+								<li><xsl:value-of select="leg:TranslateText('No_changes_recorded')"/></li>
 							</ul>
-							<p>Next steps:</p>
+							<p><xsl:value-of select="leg:TranslateText('Next steps')"/>:</p>
 							<ul>
 								<xsl:if test="exists($requestInfoDoc/request/headers/header[name='referer' and contains(value, '/resources')])">
 									<li>
-										 <a href="{$requestInfoDoc/request/headers/header[name='referer']/value}">Back to legislation</a>
+										<a href="{$requestInfoDoc/request/headers/header[name='referer']/value}"><xsl:value-of select="leg:TranslateText('Back to legislation')"/></a>
 									 </li>
 								</xsl:if>
-								<li><a href="/changes">New Search</a></li>
+								<li><a href="{$TranslateLangPrefix}/changes"><xsl:value-of select="leg:TranslateText('New Search')"/></a></li>
 								<li>
 									<a href="{atom:link[@rel = 'self']/@href}">
-									Subscribe to feed in order to be alerted if/when changes are recorded in related to this legislation item
-								</a> </li>
-								<li><a href="/changes">Learn more about changes to legislation</a></li>
+										<xsl:value-of select="leg:TranslateText('Subscribe_feed')"/>
+									</a>
+								</li>
+								<li>
+									<a href="{$TranslateLangPrefix}/changes">
+										<xsl:value-of select="leg:TranslateText('Learn_more')"/>
+									</a>
+								</li>
 							</ul>
 							
 						</div>
 					</xsl:otherwise>
 				</xsl:choose>
-
 				<p class="backToTop">
-					<a href="#top">Back to top</a>
+					<a href="#top"><xsl:value-of select="leg:TranslateText('Back to top')"/></a>
 				</p>
 			</div>
 	</xsl:template>
@@ -786,7 +821,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		<td>
 			<xsl:choose>
 				<xsl:when test="not(ukm:AffectedTitle)">
-					<span>not available</span>
+					<span><xsl:value-of select="leg:TranslateText('not available')"/></span>
 				</xsl:when>
 				<xsl:when test="ukm:AffectedTitle[1]">
 					<strong>
@@ -808,7 +843,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					select="tso:GetNumberForLegislation(@AffectedClass, @AffectedYear, @AffectedNumber)"
 				/>
 			</xsl:variable>
-			<a href="/id/{tso:GetUriPrefixFromType(@AffectedClass, @AffectedYear)}/{@AffectedYear}/{@AffectedNumber}">
+			<a href="{$TranslateLangPrefix}/id/{tso:GetUriPrefixFromType(@AffectedClass, @AffectedYear)}/{@AffectedYear}/{@AffectedNumber}">
 				<xsl:value-of select="$effectedYearNumber"/>
 			</a>
 		</td>
@@ -822,7 +857,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:apply-templates select="ukm:AffectedProvisions" />
 				</xsl:when>
 				<xsl:otherwise>
-					<a href="/{substring-after(@AffectedURI, 'www.legislation.gov.uk/')}">
+					<a href="{$TranslateLangPrefix}/{substring-after(@AffectedURI, 'www.legislation.gov.uk/')}">
 						<xsl:value-of select="@AffectedProvisions"/>
 					</a>
 				</xsl:otherwise>
@@ -837,7 +872,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		<td class="centralCol">
 			<xsl:choose>
 				<xsl:when test="not(ukm:AffectingTitle)">
-					<span>not available</span>
+					<span><xsl:value-of select="leg:TranslateText('not available')"/></span>
 				</xsl:when>
 				<xsl:otherwise>
 					<strong>
@@ -851,7 +886,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<!-- Affecting Year and Number-->
 	<xsl:template match="ukm:Effect" mode="resultsAffectingYearNumber">
 		<td class="centralCol">
-			<a href="/id/{tso:GetUriPrefixFromType(@AffectingClass, @AffectingYear)}/{@AffectingYear}/{@AffectingNumber}">
+			<a href="{$TranslateLangPrefix}/id/{tso:GetUriPrefixFromType(@AffectingClass, @AffectingYear)}/{@AffectingYear}/{@AffectingNumber}">
 				<xsl:value-of select="@AffectingYear"/>
 				<xsl:text>&#160;</xsl:text>
 				<xsl:value-of select="tso:GetNumberForLegislation(@AffectingClass, @AffectingYear, @AffectingNumber)" />
@@ -867,7 +902,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:apply-templates select="ukm:AffectingProvisions" />
 				</xsl:when>
 				<xsl:otherwise>
-					<a href="/{substring-after(@AffectingURI, 'www.legislation.gov.uk/')}">
+					<a href="{$TranslateLangPrefix}/{substring-after(@AffectingURI, 'www.legislation.gov.uk/')}">
 						<xsl:value-of select="@AffectingProvisions" />
 					</a>
 				</xsl:otherwise>
@@ -924,7 +959,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:apply-templates />
 			</xsl:when>
 			<xsl:otherwise>
-				<a href="/{substring-after(@URI, 'www.legislation.gov.uk/')}">
+				<a href="{$TranslateLangPrefix}/{substring-after(@URI, 'www.legislation.gov.uk/')}">
 					<xsl:apply-templates />
 				</a>
 			</xsl:otherwise>
@@ -934,7 +969,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:template match="ukm:Citation">
 		<xsl:choose>
 			<xsl:when test="exists(@URI)">
-				<a href="/{substring-after(@URI, 'www.legislation.gov.uk/')}">
+				<a href="{$TranslateLangPrefix}/{substring-after(@URI, 'www.legislation.gov.uk/')}">
 					<xsl:apply-templates />
 				</a>
 			</xsl:when>
@@ -955,23 +990,30 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<xsl:choose>
 				<xsl:when test="exists(atom:entry)">
 					<xsl:value-of select="openSearch:startIndex"/>
-					<xsl:text> to </xsl:text>
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="leg:TranslateText('to')"/>
+					<xsl:text> </xsl:text>
 					<xsl:value-of
 						select="openSearch:startIndex + min((openSearch:itemsPerPage, count(atom:entry))) - 1"/>
-					<xsl:text> of </xsl:text>
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="leg:TranslateText('of')"/>
+					<xsl:text> </xsl:text>
 					<xsl:choose>
 						<xsl:when test="openSearch:totalResults">
 							<xsl:value-of select="openSearch:totalResults"/>
 						</xsl:when>
 						<xsl:otherwise>
-							<xsl:text>over </xsl:text>
+							<xsl:value-of select="leg:TranslateText('over')"/>
+							<xsl:text> </xsl:text>
 							<xsl:value-of select="openSearch:itemsPerPage * leg:morePages"/>
 						</xsl:otherwise>
 					</xsl:choose>
-					<xsl:text> results</xsl:text>						
+					<xsl:text> </xsl:text>		
+					<xsl:value-of select="leg:TranslateText('results')"/>
 				</xsl:when>
-				<xsl:otherwise>
-					<xsl:text>Your search returned 0 results </xsl:text>
+				<xsl:otherwise>					
+					<xsl:value-of select="leg:TranslateText('Changes_noResultFound_message')"/>
+					<xsl:text> </xsl:text>
 				</xsl:otherwise>
 			</xsl:choose>
 		</div>			
@@ -1140,7 +1182,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						select="leg:GetLink(replace($fieldLink, 'order=[-a-z]+', 'order=ascending'))"/>
 				</xsl:otherwise>
 			</xsl:choose>
-			<span class="accessibleText">Sort <xsl:value-of select="$order"/> by </span>
+			<span class="accessibleText">Sort
+				<xsl:text> </xsl:text>
+				<xsl:value-of select="$order"/>
+				<xsl:text> </xsl:text>
+				<xsl:value-of select="leg:TranslateText('by')"/>
+				<xsl:text> </xsl:text>
+			</span>
 			<xsl:value-of select="$fieldTitle"/>
 		</a>
 	</xsl:template>
@@ -1151,7 +1199,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<a href="{@href}" class="userFunctionalElement">
 				<span class="background">
 					<span class="btl"/>
-					<span class="btr"/> Subscribe to this list <span class="bbl"/>
+					<span class="btr"/> <xsl:value-of select="leg:TranslateText('Subscribe to this list')"/> <span class="bbl"/>
 					<span class="bbr"/>
 				</span>
 			</a>
@@ -1161,20 +1209,20 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		</div>
 	</xsl:template>
 
+
 	<xsl:template name="TSOOutputTooltips">
-		
 		<div class="help" id="changesThatAffectHelp">
 			<span class="icon" />
 			<div class="content">
 				<a href="#" class="close">
 					<img alt="Close" src="/images/chrome/closeIcon.gif" />
 				</a>
-				<h3>Changes that affect</h3>
-				<p>Use this facility to search for changes that affect one or more items of legislation based on the criteria below. Alternatively you can leave this side of the form blank to find the changes and effects on any revised legislation.</p>
+				<h3><xsl:value-of select="leg:TranslateText('Changes that affect')"/></h3>
+				<p><xsl:value-of select="leg:TranslateText('Changes_affect_tooltip_p')"/></p>
 				<ul>
-					<li>Legislation type: This optional field allows you to narrow down your search to changes affecting the legislation type you are interested in. The drop down list only includes those legislation types for which we hold revised versions for on legislation.gov.uk.</li>
-					<li>Specific year/Range of years: These optional fields allow you to restrict your search to changes that affect legislation of a particular year or over a range of years.</li>
-					<li>Number: If you are looking for changes that affect a specific item of legislation and you know its series number you can enter it in the number field.</li>
+					<li><xsl:value-of select="leg:TranslateText('Changes_affect_tooltip_li_1')"/></li>
+					<li><xsl:value-of select="leg:TranslateText('Changes_affect_tooltip_li_2')"/></li>
+					<li><xsl:value-of select="leg:TranslateText('Changes_affect_tooltip_li_3')"/></li>
 				</ul>
 			</div>
 		</div>		
@@ -1185,12 +1233,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<a href="#" class="close">
 					<img alt="Close" src="/images/chrome/closeIcon.gif" />
 				</a>
-				<h3>Made by</h3>
-				<p>Narrow down your search for changed legislation by entering details about the legislation that made the effects using this side of the form. Alternatively, leave his side of the form blank for effects and changes made by any legislation.</p>
+				<h3><xsl:value-of select="leg:TranslateText('Made by')"/></h3>
+				<p><xsl:value-of select="leg:TranslateText('Changes_madeby_tooltip_p')"/></p>
 				<ul>
-					<li>Legislation type: This optional field allows you to narrow down your search to the legislation type you are interested in using the drop down box.</li>
-					<li>Specific year/Range of years: These optional fields allow you to restrict your search to changes made by legislation in a particular year or over a range of years. Tip: to search for all changes made by all legislation in a particular year, enter the year in this side of the form, leaving the ‘Changes that affect’ side blank.</li>
-					<li>Number: If you are looking for changes that are made by a specific item of legislation and you know its series number you can enter it in the number field.</li>
+					<li><xsl:value-of select="leg:TranslateText('Changes_madeby_tooltip_li_1')"/></li>
+					<li><xsl:value-of select="leg:TranslateText('Changes_madeby_tooltip_li_2')"/></li>
+					<li><xsl:value-of select="leg:TranslateText('Changes_madeby_tooltip_li_3')"/></li>
 				</ul>
 			</div>
 		</div>	
@@ -1201,11 +1249,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<a href="#" class="close">
 					<img alt="Close" src="/images/chrome/closeIcon.gif" />
 				</a>
-				<h3>Use the tick boxes to see either: </h3>
+				<h3><xsl:value-of select="leg:TranslateText('Changes_resultsShowing_tooltip_h3')"/></h3>
 				<ul>
-					<li>All changes: All the changes and effects that match your search</li>
-					<li>Applied changes: Those changes and effects that match your search criteria and have been applied to the text of legislation held on this website by the legislation.gov.uk editorial team.</li>
-					<li>Unapplied changes: Those changes and effects that match your search criteria but have not yet been applied to the legislation held on this website by the legislation.gov.uk editorial team.</li>
+					<li><xsl:value-of select="leg:TranslateText('Changes_resultsShowing_tooltip_li_1')"/></li>
+					<li><xsl:value-of select="leg:TranslateText('Changes_resultsShowing_tooltip_li_2')"/></li>
+					<li><xsl:value-of select="leg:TranslateText('Changes_resultsShowing_tooltip_li_3')"/></li>
 				</ul>
 			</div>
 		</div>		
@@ -1217,9 +1265,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<a href="#" class="close">
 						<img alt="Close" src="/images/chrome/closeIcon.gif" />
 					</a>
-					<h3>Applied</h3>
-					<p>A green tick indicates that the change has been applied to the text of the legislation on this site by the legislation.gov.uk editorial team.</p>
-					<p>Where there is no green tick, the changes and effects have not yet been applied and they are also displayed alongside the content of the legislation at provision level in the ‘Changes to Legislation’ red box.</p>
+					<h3><xsl:value-of select="leg:TranslateText('Applied')"/></h3>
+					<p><xsl:value-of select="leg:TranslateText('Changes_applied_tooltip_p_1')"/></p>
+					<p><xsl:value-of select="leg:TranslateText('Changes_applied_tooltip_p_2')"/></p>
 				</div>
 			</div>		
 			
@@ -1229,15 +1277,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<a href="#" class="close">
 						<img alt="Close" src="/images/chrome/closeIcon.gif" />
 					</a>
-					<h3>Type of effect</h3>
+					<h3><xsl:value-of select="leg:TranslateText('Type of effect')"/></h3>
 					<p>
-						There are many different types of effects. An “effect” can denote any way in which legislation impacts on or changes other legislation. There are three main types of effect which result in the text of the legislation changing: insertions (text is added), substitutions (text is replaced) and repeals (where existing text ceases to have effect and may also be removed from the legislation). In addition there are some effects that we record that do not result in a change to the text of the legislation e.g. “Applied” which is used where provisions of existing legislation are applied to new legislation or to some set of circumstances specified in the applying legislation.
+						<xsl:value-of select="leg:TranslateText('Changes_typeofEffect_tooltip_p')"/>
 					</p>
 				</div>
 			</div>	
 		</xsl:if>		
 			
 	</xsl:template>
-
 
 </xsl:stylesheet>

@@ -30,7 +30,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:variable name="number" select="/ukm:Metadata/ukm:Number/@Value" />
 	<xsl:variable name="section" select="/ukm:Metadata/ukm:Section/@Value" />
 	<xsl:variable name="reference">
-		<xsl:value-of select="tso:GetSingularTitleFromType($type, $year)" />
+		<xsl:value-of select="leg:TranslateText(tso:GetSingularTitleFromType($type, $year))" />
 		<xsl:text> </xsl:text>
 		<xsl:value-of select="$year" />
 		<xsl:text> </xsl:text>
@@ -40,16 +40,23 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		<head>
 			<title><xsl:value-of select="$reference" /></title>
 		</head>
-		<body id="doc" xml:lang="en" lang="en" dir="ltr">
+		<body id="doc" xml:lang="{$TranslateLang}" lang="{$TranslateLang}" dir="ltr">
 			<div id="layout2">
 				<xsl:call-template name="TSOOutputQuickSearch" />
 				<div id="title">
-					<h1 id="pageTitle">Found References</h1>
+					<h1 id="pageTitle"><xsl:value-of select="leg:TranslateText('Found References')"/></h1>
 				</div>
 				<div id="content">
 					<h2 class="intro"><xsl:value-of select="$reference" /></h2>
-					<p>This item of legislation isn’t available on this site as it isn’t currently available in a web-publishable format.  We are always striving to complete our dataset by adding older legislation to the site. If this is an item you would particularly like to see on this site, please let us know via <a href="mailto: legislation@nationalarchives.gsi.gov.uk?subject=Legislation%20Enquiry?subject={$reference}">legislation@nationalarchives.gsi.gov.uk</a>.</p>
-					<p>You may be interested to know that <xsl:value-of select="tso:GetShortCitation($type, $year, $number, $section)" /> is also referenced by other legislation items such as:</p>
+					<p>
+						<xsl:value-of select="leg:TranslateText('Foundref_p_1')"/>
+						<xsl:text> </xsl:text>
+						<a href="mailto: legislation@nationalarchives.gsi.gov.uk?subject=Legislation%20Enquiry?subject={$reference}">legislation@nationalarchives.gsi.gov.uk</a>
+						<xsl:text>.</xsl:text>
+					</p>
+					<p>
+						<xsl:value-of select="leg:TranslateText('Foundref_p_2', concat('citation=', string-join(tso:GetShortCitation($type, $year, $number, $section),'')))"/>
+					</p>
 					<ul>
 						<xsl:apply-templates select="/ukm:Metadata/ukm:Citations/ukm:Citation" />
 					</ul>

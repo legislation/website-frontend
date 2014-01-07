@@ -37,7 +37,7 @@ $.widget( "ui.comboboxFromLinks", {
                 // remove invalid value, as it didn't match anything
                 $( element )
                     .val( "" )
-                    .attr( "title", value + " didn't match any item" )
+                    .attr( "title", value + config.forms.errormsg3[LANG] )
                 list.val( "" );
                 input.data( "autocomplete" ).term = "";
                 return false;

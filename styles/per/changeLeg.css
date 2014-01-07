@@ -18,7 +18,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 #searchChanges fieldset {margin:0 35px 0 25px ; border: 0;}
 #searchChanges fieldset.s_5 {margin-top: 10px;}
 #searchChanges div {padding: 8px; float: left; width: 370px}
-#searchChanges .typeChoice label {width: 115px; padding-bottom: 0.25em;}
+#searchChanges .typeChoice label { padding-bottom: 0.25em; padding-left: 24px; text-align: left; width: 145px;}
 #searchChanges label {width: 73px; display:block; float: left; padding-top:0.35em; text-align:right}
 #searchChanges input {width: 280px; float: left; vertical-align: middle; margin: 0 0 0 5px}
 
@@ -73,15 +73,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 #searchChanges legend {float: left;}
 #searchChanges fieldset div .helpItem {padding: 0.6em; float: left;}
 #searchChanges .yearChoiceFields input {width: 70px;}
-#searchChanges .number input {width: 105px}
+#searchChanges .number input {width: 70px}
 #searchChanges select { margin: 0 0 0 5px;}
 #searchChanges select.disabled {color: #aca899}
-#searchChanges .yearChoiceFields select {width: 80px;}
+#searchChanges .yearChoiceFields select {width: 90px;}
 #searchChanges .number,
 #searchChanges .to
-{width:194px; padding-right: 0}
+{width:140px; padding-right: 0}
 #searchChanges .from
-{width: 130px; padding-right: 0; margin-left: 10px;}
+{width: 160px; padding-right: 0; margin-left: 10px;}
 #searchChanges .from label
 {width: 35px}
 #searchChanges .title label {padding-left: 25px;}
@@ -117,11 +117,11 @@ tr.oddRow td.centralCol {background-color: #F2F2F4}
 .headerRow1 th {font-size: 1.3em;}
 .headerRow1 td {font-weight: bold;}
 
-.results .prevPagesNextNav {float: left; padding-bottom: 0.5em; text-align: center; width: 60%;}
+.results .prevPagesNextNav {float: left; padding-bottom: 0.5em; text-align: center; width: 56%;}
 .results .prevPagesNextNav li {line-height: normal;}
 .contentFooter .prevPagesNextNav {float: none; width:auto}
 .changeLeg .resultsInfo {float: left; width:19%; margin-left: 1%; font-weight: bold; color: #666;}
-.changeLeg .subscribe  {float: right; width:19%; text-align: right;}
+.changeLeg .subscribe  {float: right; width:23%; text-align: right;}
 
 /*.error {color: #870600;}*/
 input.error  { border: #870600 solid 2px; color: #000000}
@@ -131,7 +131,7 @@ label.error {font-weight:bold;color: #870600;}
 
 #affect .helpItem {position: relative; float: left; left:0px; padding: 0.6em;}
 #affecting .helpItem {position: relative; float: left; left:0px; padding: 0.6em;}
-#effectsOptions div {width: 600px; text-align: left; padding: 2px;}
+#effectsOptions div {width: 650px; text-align: left; padding: 2px; *width: 720px;}
 .radioBtns {clear: left;}
 #effectsOptions #resultsShowingHelp {padding: 8px;}
 

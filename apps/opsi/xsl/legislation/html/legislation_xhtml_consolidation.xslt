@@ -73,6 +73,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <xsl:variable name="legislationNumber" select="/leg:Legislation/ukm:Metadata//ukm:Number/@Value"/>
 <xsl:variable name="uriPrefix" select="tso:GetUriPrefixFromType(/leg:Legislation/ukm:Metadata//ukm:DocumentMainType/@Value, $legislationYear)"/>
 <xsl:variable name="dcIdentifier" select="/leg:Legislation/ukm:Metadata/dc:identifier"/>
+<xsl:variable name="isWrap" as="xs:boolean" select="$paramsDoc/parameters/wrap='true'"/>
 
 <xsl:param name="version" as="xs:string" select="($paramsDoc/parameters/version, '')[1]"/>
 <xsl:variable name="contentsLinkParams" as="xs:string" select="if ($paramsDoc/parameters/extent[. != '']) then '?view=extent' else ''" />
@@ -414,13 +415,13 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<!-- adding previous link-->			
 		<xsl:if test="$matchIndex &gt; 1">
 			<span class="skipLink prev">
-				<a href="{concat('#match-', $matchIndex -1 )}">Previous Match</a>
+				<a href="{concat('#match-', $matchIndex -1 )}"><xsl:value-of select="leg:TranslateText('Previous Match')"/></a>
 			</span>
 		</xsl:if>
 		<!-- adding next link-->
 		<xsl:if test="$matchIndex &lt; count($matchRefs)">
 			<span class="skipLink next">
-				<a href="{concat('#match-', $matchIndex + 1)}">Next Match</a>
+				<a href="{concat('#match-', $matchIndex + 1)}"><xsl:value-of select="leg:TranslateText('Next Match')"/></a>
 			</span>
 		</xsl:if>
 	</xsl:if>		
@@ -701,7 +702,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 										<img alt="Close" src="/images/chrome/closeIcon.gif"/>
 									</a>
 									<!--<h3><xsl:value-of select="Annotations"/></h3>-->
-									<p>Annotations are used to give authority for changes and other effects on the legislation you are viewing and to convey editorial information. They appear at the foot of the relevant provision or under the associated heading. Annotations are categorised by annotation type, such as F-notes for textual amendments and I-notes for commencement information (a full list can be found in the Editorial Practice Guide). Each annotation is identified by a sequential reference number. For F-notes, M-notes and X-notes, the number also appears in bold superscript at the relevant location in the text. All annotations contain links to the affecting legislation.</p>
+									<p><xsl:value-of select="leg:TranslateText('Annotation_text')"/></p>
 								</div>
 							</div>
 						</xsl:if>
@@ -747,15 +748,18 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					
 					<xsl:if test="not(($oldNI or $revisedSI) and $groupType = 'F' )">
 						<p class="LegAnnotationsGroupHeading">
-							<xsl:if test="$showingHigherLevel">Associated </xsl:if>
+							<xsl:if test="$showingHigherLevel">
+								<xsl:value-of select="leg:TranslateText('Associated')"/>
+								<xsl:text> </xsl:text>
+							</xsl:if>
 							<xsl:choose>
-								<xsl:when test="$groupType = 'I'">Commencement Information</xsl:when>
-								<xsl:when test="$groupType = 'F'">Amendments (Textual)</xsl:when>
-								<xsl:when test="$groupType = 'M'">Marginal Citations</xsl:when>		
-								<xsl:when test="$groupType = 'C'">Modifications etc. (not altering text)</xsl:when>
-								<xsl:when test="$groupType = 'P'">Subordinate Legislation Made</xsl:when>
-								<xsl:when test="$groupType = 'E'">Extent Information</xsl:when>
-								<xsl:when test="$groupType = 'X'">Editorial Information</xsl:when>
+								<xsl:when test="$groupType = 'I'"><xsl:value-of select="leg:TranslateText('Commencement Information')"/></xsl:when>
+								<xsl:when test="$groupType = 'F'"><xsl:value-of select="leg:TranslateText('Amendments (Textual)')"/></xsl:when>
+								<xsl:when test="$groupType = 'M'"><xsl:value-of select="leg:TranslateText('Marginal Citations')"/></xsl:when>		
+								<xsl:when test="$groupType = 'C'"><xsl:value-of select="leg:TranslateText('Modifications etc. (not altering text)')"/></xsl:when>
+								<xsl:when test="$groupType = 'P'"><xsl:value-of select="leg:TranslateText('Subordinate Legislation Made')"/></xsl:when>
+								<xsl:when test="$groupType = 'E'"><xsl:value-of select="leg:TranslateText('Extent Information')"/></xsl:when>
+								<xsl:when test="$groupType = 'X'"><xsl:value-of select="leg:TranslateText('Editorial Information')"/></xsl:when>
 							</xsl:choose>				
 						</p>
 					</xsl:if>  
@@ -884,7 +888,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<!--</xsl:if>-->
 		<xsl:attribute name="title">
 			<xsl:variable name="extentsToken" select="tokenize($extent, '\+')" />
-			<xsl:text>Applies to </xsl:text>
+			<xsl:value-of select="leg:TranslateText('Applies to')"/>
+			<xsl:text> </xsl:text>
 			<xsl:value-of select="tso:extentDescription($extentsToken)" />
 		</xsl:attribute>
 		<span class="btr"></span>
@@ -986,7 +991,13 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:choose>
 		<xsl:when test="empty($showingValidFromDate) or xs:date(@RestrictStartDate) != $showingValidFromDate">
 			<div class="LegBlockNotYetInForce">
-				<p class="LegClearFix LegBlockNotYetInForceHeading"><span>Valid from <xsl:value-of select="format-date(xs:date(@RestrictStartDate), '[D01]/[M01]/[Y0001]')"/></span></p>
+				<p class="LegClearFix LegBlockNotYetInForceHeading">
+					<span>
+						<xsl:value-of select="leg:TranslateText('over')"/>
+						<xsl:text> </xsl:text>
+						<xsl:value-of select="format-date(xs:date(@RestrictStartDate), '[D01]/[M01]/[Y0001]')"/>
+					</span>
+				</p>
 				<xsl:next-match>
 					<xsl:with-param name="showingValidFromDate" tunnel="yes" select="xs:date(@RestrictStartDate)" />
 				</xsl:next-match>
@@ -1003,7 +1014,11 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:choose>
 		<xsl:when test="not($showingProspective)">
 			<div class="LegBlockNotYetInForce">
-				<p class="LegClearFix LegBlockNotYetInForceHeading"><span>Prospective</span></p>
+				<p class="LegClearFix LegBlockNotYetInForceHeading">
+					<span>
+						<xsl:value-of select="leg:TranslateText('Prospective')"/>
+					</span>
+				</p>
 				<xsl:next-match>
 					<xsl:with-param name="showingProspective" tunnel="yes" select="true()" />
 				</xsl:next-match>
@@ -1026,13 +1041,14 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:if test="$enType != ''">
 		<div class="eniw">
 			<span class="enNote">
-				<xsl:value-of select="if ($enType = 'executive-notes') then 'Executive Note' 
+				<xsl:value-of select="leg:TranslateText(if ($enType = 'executive-notes') then 'Executive Note' 
 											   else if ($enType = 'policy-notes') then 'Policy Notes'
 											   else if ($enType = 'memorandum') then 'Explanatory Memorandum' 
-											   else 'Explanatory Notes'"/>
+											   else 'Explanatory Notes')"/>
 			</span>
 			<a class="LegDS noteLink" href="{substring-after(@NotesURI, 'http://www.legislation.gov.uk')}">
-				<xsl:text>Show </xsl:text>
+				<xsl:value-of select="leg:TranslateText('Show')"/>
+				<xsl:text> </xsl:text>
 				<xsl:value-of select="if ($enType = 'executive-notes') then 'EN' 
 											   else if ($enType = 'policy-notes') then 'PN'
 											   else if ($enType = 'memorandum') then 'EM' 
@@ -1054,13 +1070,16 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:if test="$enType != ''">
 			<div class="eniw">
 				<span class="enNote">
-					<xsl:text>This </xsl:text>
-					<xsl:value-of select="if (self::leg:P1) then 'section' else 'schedule'" />
-					<xsl:text> has no associated </xsl:text>
-					<xsl:value-of select="if ($enType = 'executive-notes') then 'Executive Note' 
-												  else if ($enType = 'policy-notes') then 'Policy Notes'
-												  else if ($enType = 'memorandum') then 'Explanatory Memorandum' 
-												   else 'Explanatory Notes'"/>
+					<xsl:value-of select="leg:TranslateText('No_associated_note',
+											concat('type=',
+												leg:TranslateText(if (self::leg:P1) then 'section' else 'schedule'),
+												'noteType=',
+												leg:TranslateText(if ($enType = 'executive-notes') then 'Executive Note' 
+												else if ($enType = 'policy-notes') then 'Policy Notes'
+												else if ($enType = 'memorandum') then 'Explanatory Memorandum' 
+												else 'Explanatory Notes')
+											)
+										)"/>
 				</span>
 			</div>		
 		</xsl:if>
@@ -1236,10 +1255,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<a class="LegCitation" title="{if (@Title) then @Title else 'Go to item of legislation'}" rel="cite">
 		<xsl:choose>
 			<xsl:when test="@URI">
-				<xsl:attribute name="href" select="$uri" />
+				<xsl:attribute name="href" select=" if ($isWrap and $TranslateLangPrefix) then concat('http://legislation.gov.uk',$TranslateLangPrefix, substring-after($uri,'http://www.legislation.gov.uk')) else $uri" />
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:attribute name="href" select="concat('/', tso:GetUriPrefixFromType(@Class, @Year), '/', @Year, '/', @Number, if (@SectionRef) then concat('/', translate(@SectionRef, '-', '/')) else())" />
+				<xsl:attribute name="href" select="concat((if ($isWrap and $TranslateLangPrefix) then $TranslateLangPrefix else()),'/', tso:GetUriPrefixFromType(@Class, @Year), '/', @Year, '/', @Number, if (@SectionRef) then concat('/', translate(@SectionRef, '-', '/')) else())" />
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:apply-templates/>
@@ -1254,7 +1273,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:variable name="uri">
 		<xsl:value-of select="replace(./@URI,'&amp;','and')"/>
 		</xsl:variable>
-	<a class="LegCitation" href="{$uri}" title="{$title}" rel="cite">
+	<a class="LegCitation" href="{if ($isWrap and $TranslateLangPrefix) then concat('http://legislation.gov.uk',$TranslateLangPrefix, substring-after($uri,'http://www.legislation.gov.uk')) else $uri}" title="{$title}" rel="cite">
 		<xsl:choose>
 			<xsl:when test="@Operative = 'true'">
 				<strong><xsl:apply-templates /></strong>

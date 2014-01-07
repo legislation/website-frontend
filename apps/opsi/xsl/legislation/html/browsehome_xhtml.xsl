@@ -53,7 +53,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		</xsl:choose>	
 	</xsl:template>
 	
-
 	<!-- Home -->
 	<xsl:template name="TSOBrowseHome">
 		<html>
@@ -65,19 +64,19 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<script type="text/javascript" src="/scripts/browse/map.js"></script>  
 			</head>
 			<!-- TSOBrowseHome has a different body@class -->
-			<body lang="en" xml:lang="en" dir="ltr" id="browse" class="intro"> 
+			<body lang="{$TranslateLang}" xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro"> 
 				<div id="layout2" >
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
-						<h1 id="pageTitle">Browse</h1>
+						<h1 id="pageTitle"><xsl:value-of select="leg:TranslateText('Browse')"/></h1>
 					</div>
 					<div id="content">
 						<div class="s_8 p_one intro">
 							<div class="s_8 p_one">
-								<p>Legislation.gov.uk carries most types of UK Legislation.  The list below is a complete breakdown of the types of legislation held on this site.  From this page you can select any legislation type and continue browsing or you can hover over the map to see which legislation types are applicable to the geographical area you are interested in.</p>
+								<p><xsl:value-of select="leg:TranslateText('Browse_Intro_p')"/></p>
 							</div>							
 							<div class="s_4 p_absTopRight">
-								<p><strong>Hover over the map</strong> to highlight legislation types or click to view legislation for the area selected.</p>
+								<p><strong><xsl:value-of select="leg:TranslateText('Browse_Hover')"/></strong><xsl:value-of select="leg:TranslateText('Browse_Hover2')"/></p>
 								<div class="helpIcon">
 									<a href="#browseMapHelp" class="helpItemToMidLeft"><img src="/images/chrome/helpIcon.gif" alt="Map help" /></a>
 								</div>
@@ -89,10 +88,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 									<img class="mapImage" id="wales" src="/images/maps/wales.png" usemap="#imgmap" alt="" /> 
 									<img class="mapImage" id="northernireland" src="/images/maps/northernireland.png" usemap="#imgmap" alt="" />
 									<map name="imgmap" id="imgmap">
-										<area title="NORTHERN IRELAND" id="niarea" shape="poly" coords="87,133,79,142,79,171,102,171,103,177,124,178,112,133" href="/browse/ni"/>
-										<area title="SCOTLAND" id="scotlandarea" shape="poly" coords="127,155,114,133,80,107,80,1,210,0,210,140,193,155" href="/browse/scotland"/>
-										<area title="WALES" id="walesarea" shape="poly" coords="167,209,187,227,187,279,151,288,120,271,121,194" href="/browse/wales"/>
-										<area title="UK" id="englandarea" shape="poly" coords="127,156,131,181,187,226,188,278,152,289,112,294,101,339,283,316,283,226,212,141,192,156" href="/browse/uk"/>
+										<area title="{upper-case(leg:TranslateText('Northern Ireland'))}" id="niarea" shape="poly" coords="87,133,79,142,79,171,102,171,103,177,124,178,112,133" href="{$TranslateLangPrefix}/browse/ni"/>
+										<area title="{upper-case(leg:TranslateText('Scotland'))}" id="scotlandarea" shape="poly" coords="127,155,114,133,80,107,80,1,210,0,210,140,193,155" href="{$TranslateLangPrefix}/browse/scotland"/>
+										<area title="{upper-case(leg:TranslateText('Wales'))}" id="walesarea" shape="poly" coords="167,209,187,227,187,279,151,288,120,271,121,194" href="{$TranslateLangPrefix}/browse/wales"/>
+										<area title="{upper-case(leg:TranslateText('UK'))}" id="englandarea" shape="poly" coords="127,156,131,181,187,226,188,278,152,289,112,294,101,339,283,316,283,226,212,141,192,156" href="{$TranslateLangPrefix}/browse/uk"/>
 									</map>
 								</div>
 							</div>
@@ -103,28 +102,28 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<div class="s_8 p_one infoArea">
 							<dl class="key">
 								<dt class="first"><img src="/images/chrome/mapExclusiveKeyIcon.gif" alt="A blue background" /></dt>
-								<dd>Exclusively or primarily applies to the area on the map</dd>
+								<dd><xsl:value-of select="leg:TranslateText('Browse_UKApplies1')"/></dd>
 								
 								<dt><img src="/images/chrome/mapAppliesKeyIcon.gif" alt="A light grey background" /></dt>
-								<dd>Contains legislation that applies/may apply to the whole or part of the area on the map</dd>
+								<dd><xsl:value-of select="leg:TranslateText('Browse_UKApplies1')"/></dd>
 								
 								<dt><img src="/images/chrome/mapNAKeyIcon.gif" alt="No background" /></dt>
-								<dd>Not applicable</dd>
+								<dd><xsl:value-of select="leg:TranslateText('Not applicable')"/></dd>
 							</dl>
 							<div class="s_4 p_one legCol">
 								<ul class="legTypes">
 									<xsl:for-each select="$nonDraftTypes[position() &lt;= ceiling(count($nonDraftTypes) div 2)]">
-										<li><a id="{@abbrev}" href="/{@abbrev}"><xsl:value-of select="@plural" />
-										<xsl:choose>
-											<xsl:when test="exists(@start) and exists(@end) and @start != @end">
-												<xsl:text> </xsl:text>
-												<xsl:value-of select="@start" />-<xsl:value-of select="@end" />
-											</xsl:when>
-											<xsl:when test="exists(@start) and exists(@end) and @start = @end">
-												<xsl:text> </xsl:text>
-												<xsl:value-of select="@start" />
-											</xsl:when>
-										</xsl:choose>
+										<li><a id="{@abbrev}" href="{$TranslateLangPrefix}/{@abbrev}"><xsl:value-of select="@plural" />
+											<xsl:choose>
+												<xsl:when test="exists(@start) and exists(@end) and @start != @end">
+													<xsl:text> </xsl:text>
+													<xsl:value-of select="@start" />-<xsl:value-of select="@end" />
+												</xsl:when>
+												<xsl:when test="exists(@start) and exists(@end) and @start = @end">
+													<xsl:text> </xsl:text>
+													<xsl:value-of select="@start" />
+												</xsl:when>
+											</xsl:choose>
 										</a></li>
 									</xsl:for-each>
 								</ul>
@@ -132,17 +131,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							<div class="s_4 p_two legCol">
 								<ul class="legTypes">
 									<xsl:for-each select="$nonDraftTypes[not(@class ='draft')][position() > ceiling(count($nonDraftTypes) div 2)]">
-										<li><a id="{@abbrev}" href="/{@abbrev}"><xsl:value-of select="@plural" />
-										<xsl:choose>
-											<xsl:when test="exists(@start) and exists(@end) and @start != @end">
-												<xsl:text> </xsl:text>
-												<xsl:value-of select="@start" />-<xsl:value-of select="@end" />
-											</xsl:when>
-											<xsl:when test="exists(@start) and exists(@end) and @start = @end">
-												<xsl:text> </xsl:text>
-												<xsl:value-of select="@start" />
-											</xsl:when>
-										</xsl:choose>
+										<li><a id="{@abbrev}" href="{$TranslateLangPrefix}/{@abbrev}"><xsl:value-of select="@plural" />
+											<xsl:choose>
+												<xsl:when test="exists(@start) and exists(@end) and @start != @end">
+													<xsl:text> </xsl:text>
+													<xsl:value-of select="@start" />-<xsl:value-of select="@end" />
+												</xsl:when>
+												<xsl:when test="exists(@start) and exists(@end) and @start = @end">
+													<xsl:text> </xsl:text>
+													<xsl:value-of select="@start" />
+												</xsl:when>
+											</xsl:choose>
 										</a></li>
 									</xsl:for-each>
 								</ul>
@@ -150,37 +149,37 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						</div>
 						
 						<div class="s_8 p_one infoArea">
-							<h2 class="s_7 p_one">Draft legislation</h2>
+							<h2 class="s_7 p_one"><xsl:value-of select="leg:TranslateText('Draft legislation')"/></h2>
 							<a href="#browseDraftHelp" class="helpItemToMidLeft helpIcon p_two draftHelpIcon"><img src="/images/chrome/helpIcon.gif" alt="Draft Legislation Help" /></a>							
 							<div class="s_4 p_one legCol">
 								<ul class="legTypes">
 									<xsl:for-each select="$draftTypes[position() &lt;= ceiling(count($draftTypes) div 2)]">
-										<li><a id="{@abbrev}" href="/{@abbrev}"><xsl:value-of select="@plural" /></a></li>
+										<li><a id="{@abbrev}" href="{$TranslateLangPrefix}/{@abbrev}"><xsl:value-of select="@plural" /></a></li>
 									</xsl:for-each>
 								</ul>							
 							</div>
 							<div class="s_4 p_two legCol">
 								<ul class="legTypes">
 									<xsl:for-each select="$draftTypes[position() > ceiling(count($draftTypes) div 2)]">
-										<li><a id="{@abbrev}" href="/{@abbrev}"><xsl:value-of select="@plural" /></a></li>
+										<li><a id="{@abbrev}" href="{$TranslateLangPrefix}/{@abbrev}"><xsl:value-of select="@plural" /></a></li>
 									</xsl:for-each>
 								</ul>							
 							</div>
 						</div>						
 						<div class="s_8 p_one infoArea">
-							<h2 class="s_7 p_one">Impact Assessments</h2>
+							<h2 class="s_7 p_one"><xsl:value-of select="leg:TranslateText('Impact Assessments')"/></h2>
 							<a href="#browseIaHelp" class="helpItemToMidLeft helpIcon p_two draftHelpIcon"><img src="/images/chrome/helpIcon.gif" alt="Draft Legislation Help" /></a>							
 							<div class="s_4 p_one legCol">
 								<ul class="legTypes">
 									<xsl:for-each select="$iaTypes[position() &lt;= ceiling(count($iaTypes) div 2)]">
-										<li><a id="{@abbrev}" href="/{@abbrev}"><xsl:value-of select="@plural" /></a></li>
+										<li><a id="{@abbrev}" href="{$TranslateLangPrefix}/{@abbrev}"><xsl:value-of select="@plural" /></a></li>
 									</xsl:for-each>
 								</ul>							
 							</div>
 							<div class="s_4 p_two legCol">
 								<ul class="legTypes">
 									<xsl:for-each select="$iaTypes[position() > ceiling(count($iaTypes) div 2)]">
-										<li><a id="{@abbrev}" href="/{@abbrev}"><xsl:value-of select="@plural" /></a></li>
+										<li><a id="{@abbrev}" href="{$TranslateLangPrefix}/{@abbrev}"><xsl:value-of select="@plural" /></a></li>
 									</xsl:for-each>
 								</ul>							
 							</div>
@@ -190,33 +189,32 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<span class="icon"></span>
 						<div class="content">
 							<a href="#" class="close"> <img alt="Close" src="/images/chrome/closeIcon.gif" /></a>
-						  <h3>Browse map help</h3>
-						  <p>The UK parliament has power to make legislation for the whole of the UK. However, the parliaments and assemblies of Scotland, Wales and Northern Ireland all have powers to make certain types of legislation specific to their geographical areas. This interactive map and legislation list aims to show the different legislation types that may be applicable to different areas.</p>
+							<h3><xsl:value-of select="leg:TranslateText('Browse_MapHelp_Title')"/></h3>
+							<p><xsl:value-of select="leg:TranslateText('Browse_MapHelp_Text')"/></p>
 						</div>
-					 </div>
-					 
+					</div>
+					
 					<div class="help" id="browseDraftHelp">
 						<span class="icon"></span>
 						<div class="content">
 							<a href="#" class="close"> <img alt="Close" src="/images/chrome/closeIcon.gif" /></a>
-						  <h3>Draft Legislation help</h3>
-						  <p>Draft legislation is legislation that is awaiting approval. It generally either becomes law or in some cases is withdrawn. Also, sometimes draft legislation is replaced by another draft. For these reasons, these draft legislation types are not reflected by the interactive map above.</p>
+							<h3><xsl:value-of select="leg:TranslateText('Browse_DraftLegislationHelp_Title')"/></h3>
+							<p><xsl:value-of select="leg:TranslateText('Browse_DraftLegislationHelp_Text')"/></p>
 						</div>
-					 </div>	
+					</div>	
 					
 					<div class="help" id="browseIaHelp">
 						<span class="icon"></span>
 						<div class="content">
 							<a href="#" class="close"> <img alt="Close" src="/images/chrome/closeIcon.gif" /></a>
-						  <h3>Impact Assessment help</h3>
-						  <p>Impact Assessment are assessments of the likely cost, benefits and impacts of any legislation.</p>
+							<h3><xsl:value-of select="leg:TranslateText('Browse_IAHelp_Title')"/></h3>
+							<p><xsl:value-of select="leg:TranslateText('Browse_IAHelp_Text')"/></p>
 						</div>
-					 </div>	 
+					</div>	 
 				</div>
 			</body>
 		</html>
 	</xsl:template>
-	
 	
 	<!-- UK -->
 	<xsl:template name="TSOBrowseUK">
@@ -226,15 +224,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:comment><![CDATA[[if lte IE 6]><link rel="stylesheet" href="/styles/IE/ie6browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 				<xsl:comment><![CDATA[[if IE 7]><link rel="stylesheet" href="/styles/IE/ie7browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 			</head>
-			<body lang="en" xml:lang="en" dir="ltr" id="browse" class="intro region"> 
+			<body lang="{$TranslateLang}" xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro region"> 
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
-						<h1 id="pageTitle">Browse Legislation: <abbr title="United Kingdom">UK</abbr></h1>
+						<h1 id="pageTitle"><xsl:value-of select="leg:TranslateText('Browse Legislation')"/>: <abbr title="United Kingdom">UK</abbr></h1>
 					</div>
 					<div id="content">
 						<div class="s_8 p_one intro">				
-								<p class="">Legislation.gov.uk carries most types of UK Legislation.  The list below is a breakdown of the types of legislation held on this site that are applicable to the whole or some part of the UK. From this page you can select any legislation type to continue browsing.</p>
+							<p class=""><xsl:value-of select="leg:TranslateText('Browse_UKIntro')"/></p>
 								<!--<div class="helpPara">
 									<h2>Need more help?</h2>
 									<p>
@@ -244,56 +242,56 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								</div>-->
 							<div class="s_4 p_absTopRight">
 								<div id="map">					
-									<img id="blank" src="/images/maps/activeUk.gif" alt="United Kingdom (UK)" /> 
+									<img id="blank" src="/images/maps/activeUk.gif" alt="{leg:TranslateText('United Kingdom')} ({leg:TranslateText('UK')})" /> 
 									<div class="returnLink ukRegion">
-										<a href="/browse">Back to all legislation</a>
+										<a href="{$TranslateLangPrefix}/browse"><xsl:value-of select="leg:TranslateText('Browse_Back')"/></a>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="s_8 p_one">					
 							<div class="s_4 p_one legCol">
-								<h2>Exclusively or primarily applies to the UK</h2>
+								<h2><xsl:value-of select="leg:TranslateText('Browse_UKApplies2')"/></h2>
 								<ul class="legTypes">
-									<li> <a id="ukpga" href="/ukpga">UK Public General Acts<span></span></a> </li>
-									<li> <a id="ukla" href="/ukla">UK Local Acts<span></span></a> </li>
-									<li> <a id="uksi" href="/uksi">UK Statutory Instruments<span></span></a> </li>
-									<li> <a id="ukmo" href="/ukmo">UK Ministerial Order<span></span></a> </li>
-									<li> <a id="uksro" href="/uksro">UK Statutory Rules and Orders 1900-1948<span></span></a> </li>
-									<li> <a id="ukdsi" href="/ukdsi">UK Draft Statutory Instruments<span></span></a> </li>
+									<li> <a id="ukpga" href="{$TranslateLangPrefix}/ukpga"><xsl:value-of select="leg:TranslateText('UK Public General Acts')"/><span></span></a> </li>
+									<li> <a id="ukla" href="{$TranslateLangPrefix}/ukla"><xsl:value-of select="leg:TranslateText('UK Local Acts')"/><span></span></a> </li>
+									<li> <a id="uksi" href="{$TranslateLangPrefix}/uksi"><xsl:value-of select="leg:TranslateText('UK Statutory Instruments')"/><span></span></a> </li>
+									<li> <a id="ukmo" href="{$TranslateLangPrefix}/ukmo"><xsl:value-of select="leg:TranslateText('UK Ministerial Orders')"/><span></span></a> </li>
+									<li> <a id="uksro" href="{$TranslateLangPrefix}/uksro"><xsl:value-of select="leg:TranslateText('UK Statutory Rules and Orders')"/> 1900-1948<span></span></a> </li>
+									<li> <a id="ukdsi" href="{$TranslateLangPrefix}/ukdsi"><xsl:value-of select="leg:TranslateText('UK Draft Statutory Instruments')"/><span></span></a> </li>
 								</ul>
 							</div>
 							<div class="s_4 p_two legCol">
-								<h2>May contain legislation that applies to the UK</h2>
+								<h2><xsl:value-of select="leg:TranslateText('Browse_UKApplies3')"/></h2>
 								<ul class="legTypes">
-									<li> <a id="asp" href="/asp">Acts of the Scottish Parliament<span></span></a> </li>
-									<li> <a id="nia" href="/nia">Acts of the Northern Ireland Assembly<span></span></a> </li>
-									<li> <a id="aosp" href="/aosp">Acts of the Old Scottish Parliament 1424-1707<span></span></a> </li>
-									<li> <a id="aep" href="/aep">Acts of English Parliament 1267-1706<span></span></a> </li>
-									<li> <a id="aip" href="/aip">Acts of the Old Irish Parliament 1495-1800<span></span></a> </li>
-									<li> <a id="apgb" href="/apgb">Acts of Parliament of Great Britain 1707-1800<span></span></a> </li>
-									<li> <a id="nisr" href="/nisr">Northern Ireland Statutory Rules<span></span></a> </li>
-									<li> <a id="anaw" href="/anaw">Acts of the National Assembly for Wales<span></span></a> </li>
-									<li> <a id="mwa" href="/mwa">Measures of the National Assembly for Wales<span></span></a> </li>
-									<li> <a id="ukcm" href="/ukcm">UK Church Measures<span></span></a> </li>
-									<li> <a id="wsi" href="/wsi">Wales Statutory Instruments<span></span></a> </li>
-									<li> <a id="ssi" href="/ssi">Scottish Statutory Instruments<span></span></a> </li>
-									<li> <a id="nisi" href="/nisi">Northern Ireland Orders in Council<span></span></a> </li>
-									<li> <a id="ukci" href="/ukci">Church Instruments<span></span></a> </li>						
-									<li> <a id="mnia" href="/mnia">Northern Ireland Assembly Measures 1974<span></span></a> </li>
-									<li> <a id="apni" href="/apni">Acts of the Northern Ireland Parliament 1921-1972<span></span></a> </li>
-									<li> <a id="nidsr" href="/nidsr">Northern Ireland Draft Statutory Rules<span></span></a> </li>
-									<li> <a id="wdsi" href="/wdsi">Wales Draft Statutory Instruments<span></span></a> </li>
-									<li> <a id="sdsi" href="/sdsi">Scottish Draft Statutory Instruments<span></span></a> </li>
-									<li> <a id="nidsi" href="/nidsi">Northern Ireland Draft Orders in Council<span></span></a> </li>
+									<li> <a id="asp" href="{$TranslateLangPrefix}/asp"><xsl:value-of select="leg:TranslateText('Acts of the Scottish Parliament')"/><span></span></a> </li>
+									<li> <a id="nia" href="{$TranslateLangPrefix}/nia"><xsl:value-of select="leg:TranslateText('Acts of the Northern Ireland Assembly')"/><span></span></a> </li>
+									<li> <a id="aosp" href="{$TranslateLangPrefix}/aosp"><xsl:value-of select="leg:TranslateText('Acts of the Old Scottish Parliament')"/> 1424-1707<span></span></a> </li>
+									<li> <a id="aep" href="{$TranslateLangPrefix}/aep"><xsl:value-of select="leg:TranslateText('Acts of the English Parliament')"/> 1267-1706<span></span></a> </li>
+									<li> <a id="aip" href="{$TranslateLangPrefix}/aip"><xsl:value-of select="leg:TranslateText('Acts of the Old Irish Parliament')"/> 1495-1800<span></span></a> </li>
+									<li> <a id="apgb" href="{$TranslateLangPrefix}/apgb"><xsl:value-of select="leg:TranslateText('Acts of the Parliament of Great Britain')"/> 1707-1800<span></span></a> </li>
+									<li> <a id="nisr" href="{$TranslateLangPrefix}/nisr"><xsl:value-of select="leg:TranslateText('Northern Ireland Statutory Rules')"/> <span></span></a> </li>
+									<li> <a id="anaw" href="{$TranslateLangPrefix}/anaw"><xsl:value-of select="leg:TranslateText('Acts of the National Assembly for Wales')"/><span></span></a> </li>
+									<li> <a id="mwa" href="{$TranslateLangPrefix}/mwa"><xsl:value-of select="leg:TranslateText('Measures of the National Assembly for Wales')"/><span></span></a> </li>
+									<li> <a id="ukcm" href="{$TranslateLangPrefix}/ukcm"><xsl:value-of select="leg:TranslateText('UK Church Measures')"/><span></span></a> </li>
+									<li> <a id="wsi" href="{$TranslateLangPrefix}/wsi"><xsl:value-of select="leg:TranslateText('Wales Statutory Instruments')"/><span></span></a> </li>
+									<li> <a id="ssi" href="{$TranslateLangPrefix}/ssi"><xsl:value-of select="leg:TranslateText('Scottish Statutory Instruments')"/><span></span></a> </li>
+									<li> <a id="nisi" href="{$TranslateLangPrefix}/nisi"><xsl:value-of select="leg:TranslateText('Northern Ireland Orders in Council')"/><span></span></a> </li>
+									<li> <a id="ukci" href="{$TranslateLangPrefix}/ukci"><xsl:value-of select="leg:TranslateText('Church Instruments')"/><span></span></a> </li>						
+									<li> <a id="mnia" href="{$TranslateLangPrefix}/mnia"><xsl:value-of select="leg:TranslateText('Northern Ireland Assembly Measures')"/> 1974<span></span></a> </li>
+									<li> <a id="apni" href="{$TranslateLangPrefix}/apni"><xsl:value-of select="leg:TranslateText('Acts of the Northern Ireland Parliament')"/> 1921-1972<span></span></a> </li>
+									<li> <a id="nidsr" href="{$TranslateLangPrefix}/nidsr"><xsl:value-of select="leg:TranslateText('Northern Ireland Draft Statutory Rules')"/><span></span></a> </li>
+									<li> <a id="wdsi" href="{$TranslateLangPrefix}/wdsi"><xsl:value-of select="leg:TranslateText('Wales Draft Statutory Instruments')"/><span></span></a> </li>
+									<li> <a id="sdsi" href="{$TranslateLangPrefix}/sdsi"><xsl:value-of select="leg:TranslateText('Scottish Draft Statutory Instruments')"/><span></span></a> </li>
+									<li> <a id="nidsi" href="{$TranslateLangPrefix}/nidsi"><xsl:value-of select="leg:TranslateText('Northern Ireland Draft Orders in Council')"/><span></span></a> </li>
 								</ul>
 							</div>
 							<div class="s_8 p_one quickLinks">					
-								<h2>Quick links</h2>
+								<h2><xsl:value-of select="leg:TranslateText('Browse_QuickLinks')"/></h2>
 								<ul>
-									<li><a href="/browse/scotland">Scotland Legislation</a></li>
-									<li><a href="/browse/wales">Wales Legislation</a></li>
-									<li><a href="/browse/ni">Northern Ireland Legislation</a></li>
+									<li><a href="{$TranslateLangPrefix}/browse/scotland"><xsl:value-of select="leg:TranslateText('Browse_ScotlandLegislation')"/></a></li>
+									<li><a href="{$TranslateLangPrefix}/browse/wales"><xsl:value-of select="leg:TranslateText('Browse_WalesLegislation')"/></a></li>
+									<li><a href="{$TranslateLangPrefix}/browse/ni"><xsl:value-of select="leg:TranslateText('Browse_NILegislation')"/></a></li>
 								</ul>
 							</div>					
 						</div>		
@@ -312,15 +310,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:comment><![CDATA[[if lte IE 6]><link rel="stylesheet" href="/styles/IE/ie6browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 				<xsl:comment><![CDATA[[if IE 7]><link rel="stylesheet" href="/styles/IE/ie7browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 			</head>
-			<body lang="en" xml:lang="en" dir="ltr" id="browse" class="intro region"> 		
+			<body lang="{$TranslateLang}" xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro region"> 		
 				<div id="layout2" >
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
-						<h1 id="pageTitle">Browse Legislation: Wales</h1>
+						<h1 id="pageTitle"><xsl:value-of select="leg:TranslateText('Browse Legislation')"/>: <xsl:value-of select="leg:TranslateText('Wales')"/></h1>
 					</div>
 					<div id="content">
 						<div class="s_8 p_one intro">			
-							<p>Legislation.gov.uk carries most types of UK Legislation including Welsh Legislation.  The list below is a breakdown of the types of legislation held on this site that are either exclusively applicable to Wales or contain legislation that may pertain to Wales. From this page you can select any legislation type to continue browsing.</p>
+							<p><xsl:value-of select="leg:TranslateText('Browse_WalesIntro')"/></p>
 							<!--<div class="helpPara">
 								<h2 class="">Need more help?</h2>
 								<p>
@@ -332,39 +330,39 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								<div id="map">					
 									<img id="blank" src="/images/maps/activeWales.gif" />
 									<div class="returnLink walesRegion">
-										<a href="/browse">Back to all legislation</a>
+										<a href="{$TranslateLangPrefix}/browse"><xsl:value-of select="leg:TranslateText('Browse_Back')"/></a>
 									</div>
 								</div>
 							</div>	
 						</div>
 						<div class="s_8 p_one">
 							<div class="s_4 p_one legCol">
-								<h2>Exclusively or primarily applies to Wales</h2>
+								<h2><xsl:value-of select="leg:TranslateText('Browse_WalesApplies1')"/></h2>
 								<ul class="legTypes">
-									<li> <a id="anaw" href="/anaw">Acts of the National Assembly for Wales<span></span></a> </li>
-									<li> <a id="mwa" href="/mwa">Measures of the National Assembly for Wales<span></span></a> </li>
-									<li> <a id="wsi" href="/wsi">Wales Statutory Instruments<span></span></a> </li>						
-									<li> <a id="wdsi" href="/wdsi">Wales Draft Statutory Instruments<span></span></a> </li>
+									<li> <a id="anaw" href="{$TranslateLangPrefix}/anaw"><xsl:value-of select="leg:TranslateText('Acts of the National Assembly for Wales')"/><span></span></a> </li>
+									<li> <a id="mwa" href="{$TranslateLangPrefix}/mwa"><xsl:value-of select="leg:TranslateText('Measures of the National Assembly for Wales')"/><span></span></a> </li>
+									<li> <a id="wsi" href="{$TranslateLangPrefix}/wsi"><xsl:value-of select="leg:TranslateText('Wales Statutory Instruments')"/><span></span></a> </li>						
+									<li> <a id="wdsi" href="{$TranslateLangPrefix}/wdsi"><xsl:value-of select="leg:TranslateText('Wales Draft Statutory Instruments')"/><span></span></a> </li>
 								</ul>
 							</div>
 							<div class="s_4 p_two legCol">
-								<h2>May contain legislation that applies to Wales</h2>
+								<h2><xsl:value-of select="leg:TranslateText('Browse_WalesApplies2')"/></h2>
 								<ul class="legTypes">
-									<li> <a id="ukpga" href="/ukpga">UK Public General Acts<span></span></a> </li>
-									<li> <a id="ukla" href="/ukla">UK Local Acts<span></span></a> </li>
-									<li> <a id="aep" href="/aep">Acts of English Parliament 1267-1706<span></span></a> </li>
-									<li> <a id="apgb" href="/apgb">Acts of Parliament of Great Britain 1707-1800<span></span></a> </li>
-									<li> <a id="uksi" href="/uksi">UK Statutory Instruments<span></span></a> </li>
-									<li> <a id="uksro" href="/uksro">UK Statutory Rules and Orders 1900-1948<span></span></a> </li>
-									<li> <a id="ukdsi" href="/ukdsi">UK Draft Statutory Instruments<span></span></a> </li>
+									<li> <a id="ukpga" href="{$TranslateLangPrefix}/ukpga"><xsl:value-of select="leg:TranslateText('UK Public General Acts')"/><span></span></a> </li>
+									<li> <a id="ukla" href="{$TranslateLangPrefix}/ukla"><xsl:value-of select="leg:TranslateText('UK Local Acts')"/><span></span></a> </li>
+									<li> <a id="aep" href="{$TranslateLangPrefix}/aep"><xsl:value-of select="leg:TranslateText('Acts of the English Parliament')"/> 1267-1706<span></span></a> </li>
+									<li> <a id="apgb" href="{$TranslateLangPrefix}/apgb"><xsl:value-of select="leg:TranslateText('Acts of the Parliament of Great Britain')"/> 1707-1800<span></span></a> </li>
+									<li> <a id="uksi" href="{$TranslateLangPrefix}/uksi"><xsl:value-of select="leg:TranslateText('UK Statutory Instruments')"/><span></span></a> </li>
+									<li> <a id="uksro" href="{$TranslateLangPrefix}/uksro"><xsl:value-of select="leg:TranslateText('UK Statutory Rules and Orders')"/> 1900-1948<span></span></a> </li>
+									<li> <a id="ukdsi" href="{$TranslateLangPrefix}/ukdsi"><xsl:value-of select="leg:TranslateText('UK Draft Statutory Instruments')"/><span></span></a> </li>
 								</ul>
 							</div>
 							<div class="s_8 p_one quickLinks">					
-								<h2>Quick links</h2>
+								<h2><xsl:value-of select="leg:TranslateText('Browse_QuickLinks')"/></h2>
 								<ul>
-									<li><a href="/browse/uk">UK Legislation</a></li>
-									<li><a href="/browse/scotland">Scotland Legislation</a></li>
-									<li><a href="/browse/ni">Northern Ireland Legislation</a></li>
+									<li><a href="{$TranslateLangPrefix}/browse/uk"><xsl:value-of select="leg:TranslateText('Browse_UKLegislation')"/></a></li>
+									<li><a href="{$TranslateLangPrefix}/browse/scotland"><xsl:value-of select="leg:TranslateText('Browse_ScotlandLegislation')"/></a></li>
+									<li><a href="{$TranslateLangPrefix}/browse/ni"><xsl:value-of select="leg:TranslateText('Browse_NILegislation')"/></a></li>
 								</ul>
 							</div>
 						</div>
@@ -373,7 +371,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			</body>
 		</html>	
 	</xsl:template>
-	
 
 	<!-- Scotland -->
 	<xsl:template name="TSOBrowseScotland">
@@ -383,15 +380,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:comment><![CDATA[[if lte IE 6]><link rel="stylesheet" href="/styles/IE/ie6browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 				<xsl:comment><![CDATA[[if IE 7]><link rel="stylesheet" href="/styles/IE/ie7browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 			</head>
-			<body lang="en" xml:lang="en" dir="ltr" id="browse" class="intro region"> 		
+			<body lang="{$TranslateLang}" xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro region"> 		
 				<div id="layout2" >
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
-						<h1 id="pageTitle">Browse Legislation: Scotland</h1>
+						<h1 id="pageTitle"><xsl:value-of select="leg:TranslateText('Browse Legislation')"/>: <xsl:value-of select="leg:TranslateText('Scotland')"/></h1>
 					</div>
 					<div id="content">
 						<div class="s_8 p_one intro">				
-							<p>Legislation.gov.uk carries most types of UK Legislation including Scottish Legislation.  The list below is a breakdown of the types of legislation held on this site that are either exclusively applicable to Scotland or contain legislation that may pertain to Scotland. From this page you can select any legislation type to continue browsing.</p>
+							<p><xsl:value-of select="leg:TranslateText('Browse_ScotlandIntro')"/></p>
 							<!--<div class="helpPara">
 								<h2 class="">Need more help?</h2>
 								<p>
@@ -401,40 +398,40 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							</div>-->
 							<div class="s_4 p_absTopRight">
 								<div id="map">					
-									<img id="blank" src="/images/maps/activeScotland.gif" alt="Scotland" />
+									<img id="blank" src="/images/maps/activeScotland.gif" alt="{leg:TranslateText('Scotland')}" />
 									<div class="returnLink scotlandRegion">
-										<a href="/browse">Back to all legislation</a>
+										<a href="{$TranslateLangPrefix}/browse"><xsl:value-of select="leg:TranslateText('Browse_Back')"/></a>
 									</div>
 								</div>
 							</div>	
 						</div>	
 						<div class="s_8 p_one">		
 							<div class="s_4 p_one legCol">
-								<h2>Exclusively or primarily applies to Scotland</h2>
+								<h2><xsl:value-of select="leg:TranslateText('Browse_ScotlandApplies1')"/></h2>
 								<ul class="legTypes">
-									<li> <a id="asp" href="/asp">Acts of the Scottish Parliament</a> </li>
-									<li> <a id="aosp" href="/aosp">Acts of the Old Scottish Parliament 1424-1707</a> </li>
-									<li> <a id="ssi" href="/ssi">Scottish Statutory Instruments</a> </li>
-									<li> <a id="sdsi" href="/sdsi">Scottish Draft Statutory Instruments<span></span></a> </li>
+									<li> <a id="asp" href="{$TranslateLangPrefix}/asp"><xsl:value-of select="leg:TranslateText('Acts of the Scottish Parliament')"/></a> </li>
+									<li> <a id="aosp" href="{$TranslateLangPrefix}/aosp"><xsl:value-of select="leg:TranslateText('Acts of the Old Scottish Parliament')"/> 1424-1707</a> </li>
+									<li> <a id="ssi" href="{$TranslateLangPrefix}/ssi"><xsl:value-of select="leg:TranslateText('Scottish Statutory Instruments')"/></a> </li>
+									<li> <a id="sdsi" href="{$TranslateLangPrefix}/sdsi"><xsl:value-of select="leg:TranslateText('Scottish Draft Statutory Instruments')"/><span></span></a> </li>
 								</ul>
 							</div>
 							<div class="s_4 p_two legCol">
-								<h2>May contain legislation that applies to Scotland</h2>
+								<h2><xsl:value-of select="leg:TranslateText('Browse_ScotlandApplies2')"/></h2>
 								<ul class="legTypes">
-									<li> <a id="ukpga" href="/ukpga">UK Public General Acts</a> </li>
-									<li> <a id="ukla" href="/ukla">UK Local Acts</a> </li>
-									<li> <a id="apgb" href="/apgb">Acts of Parliament of Great Britain 1707-1800</a> </li>
-									<li> <a id="uksi" href="/uksi">UK Statutory Instruments</a> </li>						
-									<li> <a id="uksro" href="/uksro">UK Statutory Rules and Orders 1900-1948<span></span></a> </li>
-									<li> <a id="ukdsi" href="/ukdsi">UK Draft Statutory Instruments<span></span></a> </li>
+									<li> <a id="ukpga" href="{$TranslateLangPrefix}/ukpga"><xsl:value-of select="leg:TranslateText('UK Public General Acts')"/></a> </li>
+									<li> <a id="ukla" href="{$TranslateLangPrefix}/ukla"><xsl:value-of select="leg:TranslateText('UK Local Acts')"/></a> </li>
+									<li> <a id="apgb" href="{$TranslateLangPrefix}/apgb"><xsl:value-of select="leg:TranslateText('Acts of the Parliament of Great Britain')"/> 1707-1800</a> </li>
+									<li> <a id="uksi" href="{$TranslateLangPrefix}/uksi"><xsl:value-of select="leg:TranslateText('UK Statutory Instruments')"/></a> </li>						
+									<li> <a id="uksro" href="{$TranslateLangPrefix}/uksro"><xsl:value-of select="leg:TranslateText('UK Statutory Rules and Orders')"/> 1900-1948<span></span></a> </li>
+									<li> <a id="ukdsi" href="{$TranslateLangPrefix}/ukdsi"><xsl:value-of select="leg:TranslateText('UK Draft Statutory Instruments')"/><span></span></a> </li>
 								</ul>
 							</div>
 							<div class="s_8 p_one quickLinks">					
-								<h2>Quick links</h2>
+								<h2><xsl:value-of select="leg:TranslateText('Browse_QuickLinks')"/></h2>
 								<ul>
-									<li><a href="/browse/uk">UK Legislation</a></li>
-									<li><a href="/browse/wales">Wales Legislation</a></li>
-									<li><a href="/browse/ni">Northern Ireland Legislation</a></li>
+									<li><a href="{$TranslateLangPrefix}/browse/uk"><xsl:value-of select="leg:TranslateText('Browse_UKLegislation')"/></a></li>
+									<li><a href="{$TranslateLangPrefix}/browse/wales"><xsl:value-of select="leg:TranslateText('Browse_WalesLegislation')"/></a></li>
+									<li><a href="{$TranslateLangPrefix}/browse/ni"><xsl:value-of select="leg:TranslateText('Browse_NILegislation')"/></a></li>
 								</ul>
 							</div>							
 						</div>
@@ -443,7 +440,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			</body>
 		</html>	
 	</xsl:template>
-	
 
 	<!-- NI -->
 	<xsl:template name="TSOBrowseNI">
@@ -453,15 +449,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:comment><![CDATA[[if lte IE 6]><link rel="stylesheet" href="/styles/IE/ie6browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 				<xsl:comment><![CDATA[[if IE 7]><link rel="stylesheet" href="/styles/IE/ie7browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 			</head>
-			<body lang="en" xml:lang="en" dir="ltr" id="browse" class="intro region"> 		
+			<body lang="{$TranslateLang}" xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro region"> 		
 				<div id="layout2" >
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
-						<h1 id="pageTitle">Browse Legislation: Northern Ireland</h1>
+						<h1 id="pageTitle"><xsl:value-of select="leg:TranslateText('Browse Legislation')"/>: <xsl:value-of select="leg:TranslateText('Northern Ireland')"/></h1>
 					</div>
 					<div id="content">
 						<div class="s_8 p_one intro">				
-							<p>Legislation.gov.uk carries most types of UK Legislation including Northern Irish Legislation.  The list below is a breakdown of the types of legislation held on this site that are either exclusively applicable to Northern Ireland or contain legislation that may pertain to Northern Ireland. From this page you can select any legislation type to continue browsing.</p>
+							<p><xsl:value-of select="leg:TranslateText('Browse_NIIntro')"/></p>
 							<!--<div class="helpPara">
 								<h2 class="">Need more help?</h2>
 								<p>
@@ -473,41 +469,41 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								<div id="map">					
 									<img id="blank" src="/images/maps/activeNi.gif" alt="Northern Ireland" />
 									<div class="returnLink niRegion">
-										<a href="/browse">Back to all legislation</a>
+										<a href="{$TranslateLangPrefix}/browse"><xsl:value-of select="leg:TranslateText('Browse_Back')"/></a>
 									</div>
 								</div>
 							</div>	
 						</div>
 						<div class="s_8 p_one">
 							<div class="s_4 p_one legCol">
-								<h2>Exclusively or primarily applies to Northern Ireland</h2>
+								<h2><xsl:value-of select="leg:TranslateText('Browse_NIApplies1')"/></h2>
 								<ul class="legTypes">
-									<li> <a id="nia" href="/nia">Acts of the Northern Ireland Assembly<span></span></a> </li>
-									<li> <a id="aip" href="/aip">Acts of the Old Irish Parliament 1495-1800<span></span></a> </li>
-									<li> <a id="nisr" href="/nisr">Northern Ireland Statutory Rules<span></span></a> </li>
-									<li> <a id="nisi" href="/nisi">Northern Ireland Orders in Council<span></span></a> </li>
-									<li> <a id="mnia" href="/mnia">Northern Ireland Assembly Measures 1974<span></span></a> </li>
-									<li> <a id="apni" href="/apni">Acts of the Northern Ireland Parliament 1921-1972<span></span></a> </li>
-									<li> <a id="nidsr" href="/nidsr">Northern Ireland Draft Statutory Rules<span></span></a> </li>
-									<li> <a id="nidsi" href="/nidsi">Northern Ireland Draft Orders in Council<span></span></a> </li>
+									<li> <a id="nia" href="{$TranslateLangPrefix}/nia"><xsl:value-of select="leg:TranslateText('Acts of the Northern Ireland Assembly')"/><span></span></a> </li>
+									<li> <a id="aip" href="{$TranslateLangPrefix}/aip"><xsl:value-of select="leg:TranslateText('Acts of the Old Irish Parliament')"/> 1495-1800<span></span></a> </li>
+									<li> <a id="nisr" href="{$TranslateLangPrefix}/nisr"><xsl:value-of select="leg:TranslateText('Northern Ireland Statutory Rules')"/><span></span></a> </li>
+									<li> <a id="nisi" href="{$TranslateLangPrefix}/nisi"><xsl:value-of select="leg:TranslateText('Northern Ireland Orders in Council')"/><span></span></a> </li>
+									<li> <a id="mnia" href="{$TranslateLangPrefix}/mnia"><xsl:value-of select="leg:TranslateText('Northern Ireland Assembly Measures')"/> 1974<span></span></a> </li>
+									<li> <a id="apni" href="{$TranslateLangPrefix}/apni"><xsl:value-of select="leg:TranslateText('Acts of the Northern Ireland Parliament')"/> 1921-1972<span></span></a> </li>
+									<li> <a id="nidsr" href="{$TranslateLangPrefix}/nidsr"><xsl:value-of select="leg:TranslateText('Northern Ireland Draft Statutory Rules')"/><span></span></a> </li>
+									<li> <a id="nidsi" href="{$TranslateLangPrefix}/nidsi"><xsl:value-of select="leg:TranslateText('Northern Ireland Draft Orders in Council')"/><span></span></a> </li>
 								</ul>
 							</div>
 							<div class="s_4 p_two legCol">
-								<h2>May contain legislation that applies to Northern Ireland</h2>
+								<h2><xsl:value-of select="leg:TranslateText('Browse_NIApplies2')"/></h2>
 								<ul class="legTypes">
-									<li> <a id="ukpga" href="/ukpga">UK Public General Acts<span></span></a> </li>
-									<li> <a id="ukla" href="/ukla">UK Local Acts<span></span></a> </li>
-									<li> <a id="uksi" href="/uksi">UK Statutory Instruments<span></span></a> </li>
-									<li> <a id="uksro" href="/uksro">UK Statutory Rules and Orders 1900-1948<span></span></a> </li>
-									<li> <a id="ukdsi" href="/ukdsi">UK Draft Statutory Instruments<span></span></a> </li>
+									<li> <a id="ukpga" href="{$TranslateLangPrefix}/ukpga"><xsl:value-of select="leg:TranslateText('UK Public General Acts')"/><span></span></a> </li>
+									<li> <a id="ukla" href="{$TranslateLangPrefix}/ukla"><xsl:value-of select="leg:TranslateText('UK Local Acts')"/><span></span></a> </li>
+									<li> <a id="uksi" href="{$TranslateLangPrefix}/uksi"><xsl:value-of select="leg:TranslateText('UK Statutory Instruments')"/><span></span></a> </li>
+									<li> <a id="uksro" href="{$TranslateLangPrefix}/uksro"><xsl:value-of select="leg:TranslateText('UK Statutory Rules and Orders')"/> 1900-1948<span></span></a> </li>
+									<li> <a id="ukdsi" href="{$TranslateLangPrefix}/ukdsi"><xsl:value-of select="leg:TranslateText('UK Draft Statutory Instruments')"/><span></span></a> </li>
 								</ul>
 							</div>
 							<div class="s_8 p_one quickLinks">					
-								<h2>Quick links</h2>
+								<h2><xsl:value-of select="leg:TranslateText('Browse_QuickLinks')"/></h2>
 								<ul>
-									<li><a href="/browse/uk">UK Legislation</a></li>
-									<li><a href="/browse/scotland">Scotland Legislation</a></li>
-									<li><a href="/browse/wales">Wales Legislation</a></li>
+									<li><a href="{$TranslateLangPrefix}/browse/uk"><xsl:value-of select="leg:TranslateText('Browse_UKLegislation')"/></a></li>
+									<li><a href="{$TranslateLangPrefix}/browse/scotland"><xsl:value-of select="leg:TranslateText('Browse_ScotlandLegislation')"/></a></li>
+									<li><a href="{$TranslateLangPrefix}/browse/wales"><xsl:value-of select="leg:TranslateText('Browse_WalesLegislation')"/></a></li>
 								</ul>
 							</div>							
 						</div>
@@ -516,6 +512,5 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			</body>
 		</html>	
 	</xsl:template>
-
 	
 </xsl:stylesheet>

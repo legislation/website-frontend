@@ -24,8 +24,11 @@ $.fn.legTocExpandCollapse = function(pageID, cookieExpire){
 	
 	// using this method for inserting text and relying on CSS to show correct atrribute as less intensive on DOM.
 	// The divider is made availalable in case CSS is disabled.
-	$(this).html('<span class="tocExpandText">Expand +</span><span class="tocTextDivider"> / </span><span class="tocCollapseText">Collapse -</span>');
 	
+	$(this).html('<span class="tocExpandText">' + config.links.message3[LANG] + '</span><span class="tocTextDivider">/</span><span class="tocCollapseText">' + config.links.message4[LANG] + '</span>');
+
+ 
+
 	// Find the default state from the XHTML and apply
 	var tocDefaultState;
 	

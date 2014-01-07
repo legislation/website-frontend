@@ -124,7 +124,7 @@ $.fn.miniPagination = function(miniPaginationOptions){
 			$(".page:eq(" + (currentPage-1) + ")", $container)
 			.css({"display" : "block"});// Shows the current page
 						
-			$currPageInfo.text("Page " + currentPage + " of " + numPages);							
+			$currPageInfo.text(config.pagination.currPageInfo.textPage[LANG] + currentPage + config.pagination.currPageInfo.textOf[LANG] + numPages);							
 		}
 		
 		// Checks bounds of links and enables/disables links as appropriate

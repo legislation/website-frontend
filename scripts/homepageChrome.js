@@ -74,8 +74,9 @@ function fadeTransition(newSectionId){
 		ss.CONTAINER_JQ.addClass($newSection.attr("id"));
 		ss.CONTENT_JQ.fadeIn();
 	});
-	ss.CONTAINER_JQ.removeClass()
+ss.CONTAINER_JQ.removeClass();
 }
+
 
 function timedTransition($linkList)
 {

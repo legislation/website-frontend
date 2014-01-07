@@ -48,7 +48,8 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 	<xsl:if test="exists($sectionEffects) and $introURI != ancestor::ukm:Metadata/dc:identifier">
 		<div class="section" id="statusEffectsAppliedSection">
 			<div class="title">
-				<h3>Changes and effects yet to be applied to <xsl:value-of select="test"/>:</h3>
+				<xsl:variable name="test"><xsl:value-of select="test"/></xsl:variable>
+				<h3><xsl:value-of select="leg:TranslateText('unapp_effects_applied_section',concat('test=',$test))"/></h3>
 				<xsl:if test="$includeTooltip">
 					<a href="#ChangesEffectSectionHelp" class="helpItem helpItemToBot">
 						<img src="/images/chrome/helpIcon.gif" alt=" Help about changes and effects"/>
@@ -59,8 +60,8 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 							<a href="#" class="close">
 								<img alt="Close" src="/images/chrome/closeIcon.gif"/>
 							</a>
-							<h3>Changes and effects</h3>
-							<p>This section lists the changes and effects yet to be applied to the specific provision you are viewing.</p>
+							<h3><xsl:value-of select="leg:TranslateText('Changes and effects')"/></h3>
+							<p><xsl:value-of select="leg:TranslateText('unapp_effects_sectionList_message')"/></p>
 						</div>
 					</div>				
 				</xsl:if>
@@ -84,7 +85,7 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 	<xsl:if test="exists($largerEffects)">
 		<div class="section" id="changesAppliedSection">
 			<div class="title">
-				<h3>Changes and effects yet to be applied to the whole <xsl:value-of select="tso:type($strDocType)"/>, associated Parts and Chapters:</h3>
+				<h3><xsl:value-of select="leg:TranslateText('unapp_effects_changes_app_section',concat('docType=',tso:type($strDocType)))"/></h3>				
 				<xsl:if test="$includeTooltip">
 					<a href="#ChangesEffectWholeHelp" class="helpItem helpItemToBot">
 						<img src="/images/chrome/helpIcon.gif" alt=" Help about changes and effects"/>
@@ -95,8 +96,8 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 							<a href="#" class="close">
 								<img alt="Close" src="/images/chrome/closeIcon.gif"/>
 							</a>
-							<h3>Changes and effects</h3>
-							<p>This section lists the changes and effects yet to be applied to the whole <xsl:value-of select="tso:type($strDocType)"/>, associated Parts and Chapters where applicable. This includes any insertions of whole new Parts, Chapters or provisions yet to be inserted into this <xsl:value-of select="tso:type($strDocType)"/>. These effects are included in this view as they may be (but won’t necessarily be) relevant to the specific provision that you are viewing.</p>
+							<h3><xsl:value-of select="leg:TranslateText('Changes and effects')"/></h3>
+							<p><xsl:value-of select="leg:TranslateText('unapp_effect_tooltip_wholehelp',concat('docType=',tso:type($strDocType)))"/></p>
 						</div>
 					</div>
 				</xsl:if>				
@@ -112,7 +113,7 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 					</ul>
 				</xsl:if>
 				<xsl:if test="exists($largerEffects[not(@AffectedProvisions[normalize-space(lower-case(.)) = $largerProvisions])])">
-					<p class="coIntro">Whole provisions yet to be inserted into this <xsl:value-of select="tso:type($strDocType)"/> (including any effects on those provisions):</p>
+					<p class="coIntro"><xsl:value-of select="leg:TranslateText('unapp_effect_wholeprovision',concat('docType=',tso:type($strDocType)))"/></p>
 					<ul>
 						<xsl:apply-templates select="$largerEffects[not(@AffectedProvisions[normalize-space(lower-case(.)) = $largerProvisions])]" mode="filterUnappliedEffects">
 							<xsl:sort select="if (ukm:AffectedProvisions//ukm:Section or ukm:AffectedProvisions//ukm:SectionRange) then tso:SortOrder((ukm:AffectedProvisions//(ukm:Section/@Ref | ukm:SectionRange/@Start))[1], 1) else if (@AffectedProvisions) then tso:SortOrder(translate(@AffectedProvisions,' ()','---'), 1) else 1"/>
@@ -132,7 +133,7 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 	<xsl:if test="exists($commencementOrders)">
 		<div class="section" id="commencementAppliedSection">
 			<div class="title">
-				<h3>Commencement Orders yet to be applied to the <xsl:value-of select="$strTitle"/>:</h3>
+				<h3><xsl:value-of select="leg:TranslateText('unapp_effect_commencement_orders',concat('title=',$strTitle))"/></h3>
 				<xsl:if test="$includeTooltip">
 					<a href="#CommencementOrdersHelp" class="helpItem helpItemToBot">
 						<img src="/images/chrome/helpIcon.gif" alt=" Help about changes and effects"/>
@@ -143,15 +144,15 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 							<a href="#" class="close">
 								<img alt="Close" src="/images/chrome/closeIcon.gif"/>
 							</a>
-							<h3>Commencement Orders</h3>
-							<p>This section lists the commencement orders yet to be applied to the whole <xsl:value-of select="tso:type($strDocType)"/>. These effects are included in this view as they may be (but won’t necessarily be) relevant to the specific provision that you are viewing. Where applicable the commencement orders are listed under two headings, firstly those that bring some part of the <xsl:value-of select="tso:type($strDocType)"/> you are viewing into force and secondly, those that bring into force legislation that affects some part of the legislation you are viewing.  If you are viewing a prospective version or there is a prospective version available there may be commencement orders listed here that are relevant to the provision you are viewing.</p>
+							<h3><xsl:value-of select="leg:TranslateText('Commencement Orders')"/></h3>
+							<p><xsl:value-of select="leg:TranslateText('unapp_effect_tooltip_commencement_orders',concat('docType=',tso:type($strDocType)))"/></p>
 						</div>
 					</div>	
 				</xsl:if>			
 			</div>
 			<div class="content" id="commencementAppliedContent">				
 				<xsl:if test="$commencementOrders[not(matches(@Type, 'Commencement Order', 'i'))]">
-					<p class="coIntro">Commencement Orders bringing provisions within this <xsl:value-of select="tso:type($strDocType)"/> into force:</p>
+					<p class="coIntro"><xsl:value-of select="leg:TranslateText('unapp_effect_commencement_orders_provisions',concat('docType=',tso:type($strDocType)))"/></p>
 					<ul>
 						<xsl:apply-templates select="$commencementOrders[not(matches(@Type, 'Commencement Order', 'i'))]" mode="filterUnappliedEffects">
 							<xsl:sort select="if (@AffectingURI = ancestor::leg:Legislation/@IdURI) then 1 else 2"/>
@@ -168,7 +169,7 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 					</ul>
 				</xsl:if>
 				<xsl:if test="$commencementOrders[matches(@Type, 'Commencement Order', 'i')]">
-					<p class="coIntro">Commencement Orders bringing legislation that affects this <xsl:value-of select="tso:type($strDocType)"/> into force:</p>
+					<p class="coIntro"><xsl:value-of select="leg:TranslateText('unapp_effect_commencement_orders_legislation',concat('docType=',tso:type($strDocType)))"/></p>					
 					<ul>
 						<xsl:apply-templates select="$commencementOrders[matches(@Type, 'Commencement Order', 'i')]" mode="filterUnappliedEffects">
 							<xsl:sort select="if (@AffectingURI = ancestor::leg:Legislation/@IdURI) then 1 else 2"/>
@@ -214,7 +215,9 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 		</xsl:choose>
 		<xsl:text> </xsl:text>
 		<xsl:value-of select="@Type"/>
-		<xsl:text> by </xsl:text>
+		<xsl:text> </xsl:text>
+		<xsl:value-of select="leg:TranslateText('by')"/>
+		<xsl:text> </xsl:text>
 		<xsl:apply-templates select="ukm:AffectingProvisions" mode="filterUnappliedEffects" />
 		<xsl:if test="normalize-space(@Notes) != ''">
 			<span class="notes"> (<xsl:value-of select="@Notes"/>)</span>
@@ -240,7 +243,9 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 			<xsl:if test="not(@AffectingURI = preceding-sibling::*[ukm:Commenced/ukm:Citation[1]/@URI = $CommencingURI]/@AffectingURI)">
 				<li>
 					<xsl:apply-templates select="ukm:AffectingProvisions" mode="filterUnappliedEffects" />
-					<xsl:text> commences </xsl:text>
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="leg:TranslateText('commences')"/>
+					<xsl:text> </xsl:text>
 					<xsl:text>(</xsl:text>
 					<!-- in certain instances we may not get the correct commencing attributes and the processing will be arse about face - so just in case this happens check that we do have the @CommencingURI -->
 					<xsl:choose>

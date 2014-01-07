@@ -147,7 +147,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				
 				<xsl:call-template name="TSOOutputAddLegislationStyles" />
 			</head>		
-			<body xml:lang="en" lang="en" dir="ltr" id="leg" about="{$dcIdentifier}"  class="toc">
+			<body xml:lang="{$TranslateLang}" lang="{$TranslateLang}" dir="ltr" id="leg" about="{$dcIdentifier}"  class="toc">
 				<div id="layout2" class="legIAContent">
 			
 					<!-- adding quick search  -->
@@ -165,7 +165,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							<ul id="legSubNav">
 								<li id="legIALink">
 									<span class="presentation" />
-									<a href="{leg:FormatURL($impactURI)}">Impact Assessments</a>
+									<a href="{leg:FormatURL($impactURI)}"><xsl:value-of select="leg:TranslateText('Impact Assessments')"/></a>
 									<a href="#moreIATabHelp" class="helpItem helpItemToBot">
 										<img src="/images/chrome/helpIcon.gif" alt=" Help about ImpactAssessments" />
 									</a>
@@ -235,7 +235,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<!-- /interface  -->						
 					
 					<p class="backToTop">
-						<a href="#top">Back to top</a>
+						<a href="#top"><xsl:value-of select="leg:TranslateText('Back to top')"/></a>
 					</p>							
 					
 					</div>
@@ -247,7 +247,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<!--#layout2-->
 				
 				<!-- Where all of the Help divs and modal windows are loaded -->
-				<h2 class="interfaceOptionsHeader">Options/Help</h2>
+				<h2 class="interfaceOptionsHeader"><xsl:value-of select="leg:TranslateText('Options')"/>/<xsl:value-of select="leg:TranslateText('Help')"/></h2>
 				
 				<!-- adding the view/print options - not needed as IAs are only PDF
 				<xsl:call-template name="TSOOutputPrintOptions"	/>		-->		
@@ -266,18 +266,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		
 		<xsl:variable name="version" as="xs:string?">
 			<xsl:value-of>
-				<xsl:text>the </xsl:text>
-				<xsl:value-of select="if ($iaStage != '') then translate($iaStage,'-',' ') else 'Final'" />
-				<xsl:text> version of the </xsl:text>
+				<xsl:value-of select="leg:TranslateText('the')"/>
+				<xsl:text> </xsl:text>
+				<xsl:value-of select="leg:TranslateText(if ($iaStage != '') then translate($iaStage,'-',' ') else 'Final')" />
+				<xsl:text> </xsl:text>
+				<xsl:value-of select="leg:TranslateText('version of the')"/>
+				<xsl:text> </xsl:text>
 			</xsl:value-of>
 		</xsl:variable>
 		<div id="infoSection">
-			<h2>Status:</h2>
-			<p class="intro">This is <xsl:value-of select="$version" />Impact Assessment.</p>
+			<h2><xsl:value-of select="leg:TranslateText('Status')"/>:</h2>
+			<p class="intro"><xsl:value-of select="leg:TranslateText('Ia_status_message',concat('version=',$version))"/></p>
 		</div>
 		<div id="infoSection">
-			<h2>Please note:</h2>
-			<p class="intro">This impact assessment is only available to download and view as PDF.</p>
+			<h2><xsl:value-of select="leg:TranslateText('Please note')"/>:</h2>
+			<p class="intro"><xsl:value-of select="leg:TranslateText('Please_note_message')"/></p>
 		</div>
 		<!-- there should only really be one alternative pdf so we will use that  -->
 		<xsl:variable name="pdf" as="element()*" select="if (count(ukm:Metadata/ukm:Alternatives/ukm:Alternative) = 1 and (ends-with(ukm:Metadata/ukm:Alternatives/ukm:Alternative/@URI,'.pdf'))) then ukm:Metadata/ukm:Alternatives/ukm:Alternative else ukm:Metadata/ukm:Alternatives/ukm:Alternative[translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','') = $impactId]"/>
@@ -303,7 +306,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:sort select="./@Title"/>
 					<a class="pdfLink" href="{leg:FormatURL(./@URI)}">
 						<img class="imgIcon" alt="" src="/images/chrome/pdfIconMed.gif" />
-						<xsl:text>View PDF</xsl:text>
+						<xsl:value-of select="leg:TranslateText('View PDF')"/>
 						<img class="pdfThumb" 
 							src="{leg:FormatURL(replace(replace(./@URI, '/pdfs/', '/images/'), '.pdf', '.jpeg'))}"
 							title="{$iaTitle}"
@@ -356,7 +359,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	
 		<div class="section" id="whatVersion">
 			<div class="title">
-				<h2>What Stage</h2>
+				<h2><xsl:value-of select="leg:TranslateText('What Stage')"/></h2>
 				<!-- we dont currently have a help tip for this-->
 				<a href="#whatStageIaHelp" class="helpItem helpItemToMidRight">  
 					<img src="/images/chrome/helpIcon.gif" alt=" Help about what version" />
@@ -368,7 +371,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<xsl:variable name="assessmentType" as="xs:string" select="." />
 						<xsl:variable name="button" as="element()?">
 							<span class="background">
-								<span class="btl" /><span class="btr" /><xsl:value-of select="$assessmentType" /><span class="bbl" /><span class="bbr" />
+								<span class="btl" /><span class="btr" /><xsl:value-of select="leg:TranslateText($assessmentType)" /><span class="bbl" /><span class="bbr" />
 							</span>
 						</xsl:variable>
 						
@@ -378,7 +381,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							<xsl:variable name="intIaNo" select="position()"/>
 							<xsl:variable name="buttonPart" as="element()">
 								<span class="background">
-									<span class="btl" /><span class="btr" /><xsl:value-of select="concat($assessmentType,' part ',$intIaNo)" /><span class="bbl" /><span class="bbr" />
+									<span class="btl" /><span class="btr" /><xsl:value-of select="concat($assessmentType,' ',leg:TranslateText('part'),' ',$intIaNo)" /><span class="bbl" /><span class="bbr" />
 								</span>
 							</xsl:variable>
 							<li>
@@ -476,11 +479,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:value-of select="$legislationYear"/>&#160;<xsl:value-of select="tso:GetNumberForLegislation($documentMainType, $legislationYear, $legislationNumber)" /><xsl:apply-templates select="$legislationAlternativeNumber" mode="series"/>
 				</xsl:when>
 				<xsl:when test="$isbn">
-					<xsl:text>ISBN </xsl:text>
+					<xsl:value-of select="leg:TranslateText('ISBN')"/>
+					<xsl:text> </xsl:text>
 					<xsl:value-of select="tso:formatISBN($isbn)" />
 				</xsl:when>
 				<xsl:otherwise>
-					<li class="activetext">Impact Assessment </li>
+					<li class="activetext"><xsl:value-of select="leg:TranslateText('Impact Assessment')"/><xsl:text> </xsl:text></li>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
@@ -499,22 +503,23 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		<li class="activetext">
 			<xsl:choose>
 				<xsl:when test="$IsLegislationView">
-					<xsl:text>Impact Assessment </xsl:text>
-					 <xsl:value-of select="$impactYear"/> No.<xsl:value-of select="$impactNumber"/>
+					<xsl:value-of select="leg:TranslateText('Impact Assessment')"/>
+					 <xsl:text> </xsl:text>
+					<xsl:value-of select="$impactYear"/><xsl:text> </xsl:text> <xsl:value-of select="leg:TranslateText('No.')"/><xsl:value-of select="$impactNumber"/>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:value-of select="$impactYear"/> No.<xsl:value-of select="$impactNumber"/> 
+					<xsl:value-of select="$impactYear"/><xsl:text> </xsl:text><xsl:value-of select="leg:TranslateText('No.')"/><xsl:value-of select="$impactNumber"/> 
 				</xsl:otherwise>
 			</xsl:choose>
 		</li>
 		<xsl:choose>
 			<xsl:when test="leg:IsIaPDFOnly(/)"/>
 			<xsl:when test="leg:IsTOC()">
-				<li class="activetext">Table of contents</li>
+				<li class="activetext"><xsl:value-of select="leg:TranslateText('Table of contents')"/></li>
 			</xsl:when>
 			<xsl:when test="$iaWholeURI = $strCurrentURIs">
 				<li class="activetext">
-					<xsl:text>Open full Impact Assessment</xsl:text>
+					<xsl:value-of select="leg:TranslateText('Open_full_Impact_Assessment')"/>
 				</li>
 			</xsl:when>
 			<xsl:otherwise>
@@ -880,7 +885,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 											<xsl:value-of select="concat($tokens[2],' ',tso:GetNumberForLegislation($type/@schemaType,$year,$number))"/>
 										</xsl:when>
 										<xsl:otherwise>
-											<xsl:text>Applicable Legislation</xsl:text>
+											<xsl:value-of select="leg:TranslateText('Applicable Legislation')"/>
 										</xsl:otherwise>
 									</xsl:choose>
 								</a>	
@@ -928,7 +933,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 											<xsl:value-of select="concat('IA ',$year, ' No.',$number)"/>
 										</xsl:when>
 										<xsl:otherwise>
-											<xsl:text>Impact Assessment</xsl:text>
+											<xsl:value-of select="leg:TranslateText('Impact Assessment')"/>
 										</xsl:otherwise>
 									</xsl:choose>
 								</a>	
@@ -1023,16 +1028,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<a href="#" class="close">
 					<img alt="Close" src="/images/chrome/closeIcon.gif" />
 				</a>
-				<h3>Impact Assessments are published at different stages of the legislation making process.  These different versions can be viewed on legislation.gov.uk where available:</h3>
+				<h3><xsl:value-of select="leg:TranslateText('whatStageIaHelp_para1')"/>:</h3>
 				<dl>
-					<dt>Consultation:</dt>
-					<dd>This version/stage refers to when a formal public consultation is published and focuses on the cost and benefits of each option under consideration.</dd>
-					<dt>Final:</dt>
-					<dd>When a preferred option has been decided upon following the consultation stage, a ‘Final’ version is published. This is the version that accompanied the proposed legislation when it was introduced to Parliament. It is the version that accompanies any Draft Statutory Instrument which requires and Impact Assessment.</dd>
-					<dt>Enactment:</dt>
-					<dd>Published when the legislation is enacted, (sometimes this may be the same as the Final version depending whether changes have been introduced to the final proposal during the Parliamentary process);</dd>
-					<dt>Post Implementation Review:</dt>
-					<dd>This stage captures the impact of the implemented policy, and assesses any modifications to the policy objectives or its implementation recommended as a result of the review.</dd>
+					<dt><xsl:value-of select="leg:TranslateText('Consultation')"/>:</dt>
+					<dd><xsl:value-of select="leg:TranslateText('whatStageIaHelp_para2')"/></dd>
+					<dt><xsl:value-of select="leg:TranslateText('Final')"/>:</dt>
+					<dd><xsl:value-of select="leg:TranslateText('whatStageIaHelp_para3')"/></dd>
+					<dt><xsl:value-of select="leg:TranslateText('Enactment')"/>:</dt>
+					<dd><xsl:value-of select="leg:TranslateText('whatStageIaHelp_para4')"/></dd>
+					<dt><xsl:value-of select="leg:TranslateText('Post Implementaion Review')"/>:</dt>
+					<dd><xsl:value-of select="leg:TranslateText('whatStageIaHelp_para5')"/></dd>
 				</dl>
 			</div>
 		</div>

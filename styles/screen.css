@@ -110,11 +110,14 @@ table th a {color: #494949;}
 #primaryNav ul {display: block; margin: 0; margin-left: -1px; padding: 0; float: left; width: 973px; background: url(/images/chrome/navDivider.gif) no-repeat bottom left;}
 /* shorten the width for the homepage */
 #per.home #primaryNav ul {width: 670px;}
+/* longer width for welsh language */
+#per.home #primaryNav ul.cy {width: 740px; font-size: 90%;}
 #primaryNav ul li 	{background: url(/images/chrome/navDivider.gif) no-repeat bottom right; list-style: none; margin: 0; padding-right: 2px; float: left;} /* removed display:inline to prevent FF3.0 from misaligning first element */
 #primaryNav ul li a	{color: #0D2840; font-weight: bold; text-decoration:none; font-size: 1.15em; line-height: 2em;}
 #primaryNav ul li#quickSearch a.active {border-top: 2px solid #CCC; color: #000;}
 #primaryNav a {float:left;text-decoration:none;padding:5px 12px 4px 13px;}
 #primaryNav a span {float:left;display:block; cursor: pointer }
+#primaryNav a span.cy{float:left;display:block; cursor: pointer;}   
 #primaryNav li#quickSearch {float: right;}
 #primaryNav li#quickSearch a {background: url(/images/chrome/navDivider.gif) no-repeat bottom left;}
 .js #primaryNav li#quickSearch a span {background: url("/images/chrome/iconSprites.gif") no-repeat right -398px; padding-right: 22px;}
@@ -133,7 +136,7 @@ table th a {color: #494949;}
 /* end of primary nav active */
 
 /* Search bar */
-#contentSearch { background: #DEDEDE; float: left; overflow: auto; padding: 6px 10px 5px 10px; width: 950px; float: none; margin: 0 auto; border-bottom: 1px solid #CCC}
+#contentSearch { background: #DEDEDE; float: left; overflow: auto; padding: 6px 10px 5px 10px; width: 950px; float: none; margin: 0 auto; border-bottom: 1px solid #CCC; margin-top:2px; * margin-top:0px;}
 /* NOTE: the title is for accessibility only, not dependent on JS */
 #contentSearch h2 {position: absolute; left: -5000px;}
 #contentSearch label {display: block; height: 1.8em; float: left; padding-top: 0.35em;}
@@ -143,6 +146,7 @@ table th a {color: #494949;}
 #contentSearch div.title {width: 22em;}
 #contentSearch .title input {width: 83%;}
 #contentSearch .type select {float: left; margin-left: 5px;}
+#contentSearch .year.cy{width: 13em;} 
 #contentSearch .year{width: 8em;} 
 #contentSearch .number {width: 11em;}
 #contentSearch .submit {float: right;}
@@ -160,6 +164,11 @@ ul#secondaryNav li a:hover {text-decoration: underline;}
 .natArch a {width: 215px; height: 35px; display: block; float: right; position: relative; overflow: hidden; margin: 18px 8px 0 0;}
 .natArch a span {position: absolute; background: url("/images/chrome/natArchTitle.gif") no-repeat;left: 0; top: 0; height: 100%; width: 100%;}
 /* end of secondary nav */
+
+/*verion change link*/
+
+ul#secondaryNav li a.langaugeSwitch {font-weight: bold; color: red;}
+/*end here*/
 
 /* Footer begin */
 #footer	div	{padding-right:6em;}
@@ -387,7 +396,7 @@ div.interface .active {color: #016398; background: #fff}
 .legPnToc div.interface .prevNextNav ul,
 .legPnContent div.interface .prevNextNav ul,
 .legIAContent div.interface .prevNextNav ul
-{text-align: center; margin-left: 7%; width: 55%}
+{text-align: center; margin-left: 1%; width: 53%;}
 
 .legEmToc div.interface #viewPrintControl,
 .legEmContent div.interface #viewPrintControl,
@@ -396,7 +405,7 @@ div.interface .active {color: #016398; background: #fff}
 .legPnToc div.interface #viewPrintControl,
 .legPnContent div.interface #viewPrintControl,
 .legIAContent div.interface #viewPrintControl
-{text-align: right; width: 23%;  float: right;}
+{text-align: right; width: 29%;  float: right;}
 
 .legEmContent div.interface #wholeNav,
 .legEmToc div.interface #wholeNav,
@@ -405,7 +414,7 @@ legEnToc div.interface #wholeNav,
 .legPnContent div.interface #wholeNav,
 .legPnToc div.interface #wholeNav,
 .legIAContent div.interface #wholeNav
-{width: 13%; padding-left: 6px;}
+{width: 16%; padding-left: 6px;}
 
 .legEnContent div.interface #wholeNav span.disabled {background: #fff; color: #016398;}
 /* for the secondary bottom options */
@@ -582,10 +591,10 @@ a.expandCollapseLink.close {background-position:right -302px;}
 #statusWarning #statusWarningSubSections {display: block; width: 737px;}
 #statusWarning #statusWarningSubSections .section {display: block; border: 1px solid #B87889; background: #F9F7F8; margin-top: 10px; }
 #statusWarning #statusWarningSubSections .section .title {font-size: 1em; padding: 0.3em 15px 0.4em ; background: #f3e7e7 url(/images/chrome/statusWarningSubSectionTitleBg.gif) bottom left repeat-x; overflow: auto;}
+
 #statusWarning #statusWarningSubSections ul {margin: 0.25em 0; list-style: none; line-height: 1.8em; display: block;}
 #statusWarning #statusWarningSubSections ul li {list-style: none; display: block;}
 #statusWarningSubSections .section .title h3 {font-size: 1em; width: 600px; color: #000; display: inline;}
-
 #statusWarning.uptoDate{background: #c7e6c9; border-left: 2px solid #337135;}
 #statusWarning.uptoDate h2{color: #337135}
 
@@ -727,9 +736,22 @@ ul.optionList ul li {padding: 0;display: inline; float: none; border-left: none;
 
 #per.home #intro.welcome #animContent .welcome{background: #02385A url(/images/chrome/homepageCountryBG/welcome.jpg) no-repeat bottom left;}
 #per.home #intro.scotland #animContent .scotland{background: #430021 url(/images/chrome/homepageCountryBG/scotland.jpg) no-repeat bottom left; display: none}
-#per.home #intro.wales #animContent .wales {background: #002E2E url(/images/chrome/homepageCountryBG/wales.jpg) no-repeat bottom left; display: none}
+#per.home #intro.wales #animContent .wales {background: #002E2E url(/images/chrome/homepageCountryBG/wales.png) no-repeat bottom left; display: none}
 #per.home #intro.uk #animContent .uk{background: #9D6123 url(/images/chrome/homepageCountryBG/uk.jpg) no-repeat bottom left; display: none}
 #per.home #intro.ni #animContent .ni{background: #5B4F65 url(/images/chrome/homepageCountryBG/ni.jpg) no-repeat bottom left; display: none;}
+
+/* home page images for Welsh version*/
+
+#per.home #intro #animContent .welcomecy, #per.home #intro #animContent .scotlandcy, #per.home #intro #animContent .walescy, #per.home #intro #animContent .ukcy, #per.home #intro #animContent .nicy {display: none;}
+.welcomecy #animContent .welcomecy, .js .scotlandcy #animContent .scotlandcy, .js .walescy #animContent .walescy, .js .ukcy #animContent .ukcy, .js .nicy #animContent .nicy {display: block !important;}
+
+#per.home #intro.welcomecy #animContent .welcomecy{background: #02385A url("/images/chrome/homepageCountryWelshBG/Welcome.jpg") no-repeat bottom left;} 
+#per.home #intro.scotlandcy #animContent .scotlandcy{background: #430021 url(/images/chrome/homepageCountryWelshBG/scotland.jpg) no-repeat bottom left; display: none}
+#per.home #intro.walescy #animContent .walescy {background: #002E2E url(/images/chrome/homepageCountryWelshBG/wales.png) no-repeat bottom left; display: none}
+#per.home #intro.ukcy #animContent .ukcy{ background: #9D6123 url(/images/chrome/homepageCountryWelshBG/uk.jpg) no-repeat bottom left; display: none}
+#per.home #intro.nicy #animContent .nicy{background: #5B4F65 url(/images/chrome/homepageCountryWelshBG/ni.png) no-repeat bottom left; display: none;}
+
+/*end here*/
 
 #per.home #intro div#animContent h2 {margin: 0; padding: 0;}
 #per.home #intro.welcome div#animContent h2 {}
@@ -749,21 +771,21 @@ ul.optionList ul li {padding: 0;display: inline; float: none; border-left: none;
 /* IE 6 NOTE - All min-heights need replacing to height to function correctly /*
 
 /* Search box - homepage only */
-#per.home #contentSearch {position: absolute; right: 5px; top: -3.4em; width: 302px; background: #FFF; border: 1px solid #F7F7F7; border-top: 2px solid red; min-height: 19.85em; padding: 0 6px 9px 6px;}
+#per.home #contentSearch {position: absolute; right: 5px; top: -3.5em; width: 302px; background: #FFF; border: 1px solid #F7F7F7; border-top: 2px solid red; min-height: 19.85em; padding: 0 6px 9px 6px;}
 #per.home #contentSearch h2 {position: relative; left: 0; text-align: right; margin: 0.7em 0 1.2em 0; font-size: 1.2em}
 #per.home #intro div.animContent.js #contentSearch h2 {font-size: 1.2em; text-align: right; margin-bottom: 1.1em; background: none; width: auto;}
-#per.home #contentSearch select {font-size: 0.9em; margin-left: 0;}
-#per.home #contentSearch input { margin-right: 0; width: 84.5%; margin-left: 0;}
+#per.home #contentSearch select {font-size: 0.9em; margin-left: 0;width: 236px;}
+#per.home #contentSearch input { margin-right: 0; width: 76.6%; margin-left: 0;}
 #per.home #contentSearch button {float: right; margin-right: 0;}
-#per.home #contentSearch label {display: block; float: left; width: 2.5em; padding: 0.3em 0.3em 0.3em 0;}
+#per.home #contentSearch label {display: block; float: left; width: 2.5em; padding: 0.3em 2.2em 0.3em 0;}
 #per.home #contentSearch label em {display: none;}
 #per.home #contentSearch div {float: left; width: inherit}
 #per.home #contentSearch .title {margin-bottom: 15px; width: 298px}
 #per.home #contentSearch .title input {}
-#per.home #contentSearch .year{width: 132px;}
+#per.home #contentSearch .year{width: 132px; *width: 166px;}
 #per.home #contentSearch .year input {width: 4.5em;}
-#per.home #contentSearch .number {text-align: right; width: 130px; float: right; margin-right: 0;}
-#per.home #contentSearch .number label {width: 3.5em;}
+#per.home #contentSearch .number {text-align: right; width: 154px; float: right; margin-right: 0; *width: 130px;}
+#per.home #contentSearch .number label {width: 3.5em; *width: 1.5em;}
 #per.home #contentSearch .number input {width: 4.75em; margin-left: 5px;}
 #per.home #contentSearch .type {margin-top: 10px;}
 #per.home #contentSearch .type input {}
@@ -1214,7 +1236,7 @@ p.backToTop
 
 #search #tools #miniPageNav,
 #browse #tools #miniPageNav 
-{float: left; padding: 0; width: 100%;}
+{float: left; padding: 0; width: 107%; _width: 100%;}
 #search #tools #miniPageNav li,
 #browse #tools #miniPageNav li 
 {width: auto; padding: 5px;}
@@ -1389,3 +1411,26 @@ div.alphaLinkList {display: block; background: #ccc; float: left;}
 .extentMarkerInfo .LegExtentRestriction .bbr {background: url(/images/chrome/extentSkipLinksBg.gif) no-repeat -290px -90px;  bottom: 0px;  right: 0em;}
 
 .hithighlight { background-color:#FFFF3D !important;}
+
+/* add class for English to Welsh language convert link */
+.changeLang{margin:0px; padding:0px;font-weight: bold;} 
+
+
+
+/*Add new class for fixing issue's */
+
+#contentSearch .titleCy.cy{width: 13em;} 
+#contentSearch .typeCy select {float: left; margin-left: 5px; width: 342px; *width: 331px; .width: 300px;}
+#contentSearch .typeCy  {float: left; margin-left: -21px;}
+
+#contentSearch div.title.titlecy {width: 18em; *width: 19em;}
+
+
+
+
+
+
+
+
+
+

@@ -113,7 +113,7 @@ $(document).ready(function(){
 		.attr('href', '#statusWarningSubSections')
 		.appendTo("#statusWarning .title:first .linkContainer")
 		.addClass("expandCollapseLink")
-		.legExpandCollapse(['View outstanding changes<span class="accessibleText"> status warnings</span>', 'Close<span class="accessibleText"> status warnings</span>']);
+		.legExpandCollapse([config.statusWarning.expandCollapseLink.message1[LANG] + '<span class="accessibleText">' + config.statusWarning.expandCollapseLink.message2[LANG] + '</span>', config.statusWarning.expandCollapseLink.message3[LANG] + '<span class="accessibleText">' + config.statusWarning.expandCollapseLink.message2[LANG] +'</span>']);
 	}
 	
 	// Effects to be applied
@@ -123,7 +123,7 @@ $(document).ready(function(){
 	.attr('href', '#statusEffectsAppliedContent')
 	.appendTo("#statusEffectsAppliedSection .title .linkContainer")
 	.addClass("expandCollapseLink")
-	.legExpandCollapse(['More<span class="accessibleText"> effects to be announced</span>', 'Close<span class="accessibleText"> effects to be announced</span>']);
+	.legExpandCollapse([config.statusEffectsAppliedSection.expandCollapseLink.message1[LANG] + '<span class="accessibleText">' + config.statusEffectsAppliedSection.expandCollapseLink.message2[LANG] + '</span>', config.statusEffectsAppliedSection.expandCollapseLink.message3[LANG] + '<span class="accessibleText">' +  config.statusEffectsAppliedSection.expandCollapseLink.message2[LANG] + '</span>']);
 	
 	// Changes to be applied
 	$("<div/>").addClass("linkContainer").appendTo("#changesAppliedSection .title");
@@ -132,7 +132,7 @@ $(document).ready(function(){
 	.attr('href', '#changesAppliedContent')
 	.appendTo("#changesAppliedSection .title .linkContainer")
 	.addClass("expandCollapseLink")
-	.legExpandCollapse(['More<span class="accessibleText"> effects to be announced</span>', 'Close<span class="accessibleText"> effects to be announced</span>']);
+	.legExpandCollapse([config.changesAppliedContent.expandCollapseLink.message1[LANG] + '<span class="accessibleText">' + config.changesAppliedContent.expandCollapseLink.message2[LANG] + '</span>', config.changesAppliedContent.expandCollapseLink.message3[LANG]+  '<span class="accessibleText">' + config.changesAppliedContent.expandCollapseLink.message2[LANG] + '</span>']);
 	
 	// Commencement orders to be applied
 	$("<div/>").addClass("linkContainer").appendTo("#commencementAppliedSection .title");
@@ -141,20 +141,20 @@ $(document).ready(function(){
 	.attr('href', '#commencementAppliedContent')
 	.appendTo("#commencementAppliedSection .title .linkContainer")
 	.addClass("expandCollapseLink")
-	.legExpandCollapse(['More<span class="accessibleText"> changes to be applied</span>', 'Close<span class="accessibleText"> changes to be applied</span>']);				   
+	.legExpandCollapse([config.commencementAppliedContent.expandCollapseLink.message1[LANG] + '<span class="accessibleText">'+ config.commencementAppliedContent.expandCollapseLink.message2[LANG]+'</span>',  config.commencementAppliedContent.expandCollapseLink.message3[LANG] + '<span class="accessibleText">' + config.commencementAppliedContent.expandCollapseLink.message2[LANG]+ '</span>']);				   
 });
 						   
 $(document).ready(function(){	
 	// Quicksearch	
 	$("#quickSearch").children().filter("a")
 	.addClass("expandCollapseLink")
-	.legExpandCollapse(['<span>Search Legislation<span class="accessibleText"> Show</span></span>','<span>Search Legislation<span class="accessibleText"> Hide</span></span>'], {
+	.legExpandCollapse(['<span>' + config.quickSearch.expandCollapseLink.message1[LANG] + '<span class="accessibleText">' + config.quickSearch.expandCollapseLink.message2[LANG] + '</span></span>','<span>' + config.quickSearch.expandCollapseLink.message1[LANG] + '<span class="accessibleText">' +config.quickSearch.expandCollapseLink.message3[LANG] + '</span></span>','<span>'], {
 		state: legGlobals.expandCollapseState,
 		expires: legGlobals.legCookieExpire,
 		open: "open"
 	});	
 });
-
+                                       
 $(document).ready(function(){
 	// ToC Scripts -----------------------------------------
 	// Create the links that expand/collapse the small trees 
@@ -200,14 +200,14 @@ $(document).ready(function(){
 			.attr('href', '#')
 			.addClass("userFunctionalElement tocExpandAll")
 			.appendTo(".tocGlobalControls li:last")
-			.html("Collapse all -")
+			.html(config.links.message1[LANG])
 			.toggle(function (event) {
-					$(this).html("Expand all +");					
+					$(this).html(config.links.message2[LANG]);					
 					event.preventDefault();
 					$("a.expandCollapseTocLink").removeClass("expand").nextAll("ol").hide();								
 			},
 				function (event) {
-					$(this).html("Collapse all -");				
+					$(this).html(config.links.message1[LANG]);				
 					event.preventDefault();
 					$("a.expandCollapseTocLink").removeClass("expand").addClass("expand").nextAll("ol").show();						
 			});

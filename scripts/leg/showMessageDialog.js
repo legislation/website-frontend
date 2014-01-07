@@ -167,7 +167,7 @@ $.fn.legModalWinOnce = function(options){
 					$(modalWinJquery_str)
 					.html('<iframe src="' + modalWinIframeSrc + '"></iframe>')
 					.prepend('<a href="#" class="closeLink"><img src="/images/chrome/closeIcon.gif" alt="Close"/></a>')
-					.prepend('<h2 class="title">Large image view</h2>')
+					.prepend('<h2 class="title">'+ config.modalwin.title[LANG] + '</h2>')
 					
 					// If the closelink is pressed, close the window
 					$('a', modalWinJquery_str)

@@ -57,7 +57,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 				<xsl:call-template name="TSOOutputAddLegislationStyles" />
 				
 			</head>
-			<body xml:lang="en" lang="en" dir="ltr" id="leg" about="{$dcIdentifier}" class="resources">
+			<body xml:lang="{$TranslateLang}" lang="{$TranslateLang}" dir="ltr" id="leg" about="{$dcIdentifier}" class="resources">
 			
 				<div id="layout2" class="legResources">
 				
@@ -82,7 +82,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						<xsl:apply-templates select="/leg:Legislation" mode="TSOOutputLegislationContent"/>
 
 						<p class="backToTop">
-							<a href="#top">Back to top</a>
+							<a href="#top"><xsl:value-of select="leg:TranslateText('Back to top')"/></a>
 						</p>
 						
 					</div>
@@ -134,20 +134,22 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 				<xsl:variable name="status" select="leg:GetCodeSchemaStatus(/)" />
 				<div class="printPdf colSection s_4">
 					<h3>
-						<xsl:text>Original Print PDF</xsl:text>
-						
+						<xsl:variable name="labelPdf">
+							<xsl:text>Original Print PDF</xsl:text>
+
 							<!--<xsl:when test="$status = 'draft'">draft</xsl:when>-->
-						<xsl:if test="not($isDraft)"> of as <xsl:value-of select="$status"/> version</xsl:if>
-						
+							<xsl:if test="not($isDraft)"> of as <xsl:value-of select="$status"/> version</xsl:if>
+						</xsl:variable>
+						<xsl:value-of select="leg:TranslateText($labelPdf)"/>
 					</h3>
 					<img id="printPDFIcon" src="/images/chrome/largePdfIcon.gif"/>
 					<p>
 						<xsl:choose>
 							<xsl:when test="$isDraft">
-								<xsl:text>This is the print PDF version of this draft legislation item.</xsl:text>
+								<xsl:value-of select="leg:TranslateText('This is the print PDF version of this draft legislation item.')"/>
 							</xsl:when>
 							<xsl:otherwise>
-								<xsl:text>This PDF does not include any changes made by correction slips.</xsl:text>
+								<xsl:value-of select="leg:TranslateText('This PDF does not include any changes made by correction slips.')"/>
 							</xsl:otherwise>
 						</xsl:choose>
 						<a class="helpItem helpItemToTop" href="#printHelp">
@@ -160,15 +162,17 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 							<a href="#" class="close">
 								<img alt="Close" src="/images/chrome/closeIcon.gif"/>
 							</a>
-							<h3>Original Print PDF</h3>
-							<xsl:choose>
-								<xsl:when test="$isDraft">
-									<p>This is the original PDF that was used to publish the printed copy. The printed copy of this draft would have been laid before parliament. Please note, that draft legislation items may be replaced with another draft version and/or be superseded by a numbered SI if it has been subsequently made by the Government department. You can find out if this has happened by entering the title of the instrument using the search bar at the top of this page. In the search results, any relevant replacement/superseding information will be displayed underneath the title.</p>
-								</xsl:when>
-								<xsl:otherwise>
-									<p>This is the original PDF of the as <xsl:value-of select="leg:GetCodeSchemaStatus(/)"/> version that was used to publish the official printed copy. It therefore does not include any changes made by correction slips issued after it was published. Correction slips if issued will be listed separately under 'Associated Documents' and will have been applied to the HTML version viewable via the content tab.</p>
-								</xsl:otherwise>
-							</xsl:choose>
+							<h3><xsl:value-of select="leg:TranslateText('Original Print PDF')"/></h3>
+							<p>
+								<xsl:choose>
+									<xsl:when test="$isDraft">
+										<xsl:value-of select="leg:TranslateText('printHelp')"/>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="leg:TranslateText('printHelpOriginal',concat('status=',leg:GetCodeSchemaStatus(/)))"/>
+									</xsl:otherwise>
+								</xsl:choose>
+							</p>
 						</div>
 					</div>
 					<ul class="plainList">
@@ -197,23 +201,31 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 										<xsl:when test="matches(@URI, '_mi(_[0-9]{3})?.pdf$')"> - Mixed Language</xsl:when>
 									</xsl:choose>
 								</xsl:if>
-							</xsl:variable>
+							</xsl:variable>							
 							<li>
 								<a href="{@URI}">
+									<xsl:value-of select="leg:TranslateText('Download')"/>
+									<xsl:text> </xsl:text>
 									<xsl:choose>
-										<!-- if there is no title then display the download label-->
-										<xsl:when test="@Title = '' or not(@Title)">Download<xsl:value-of select="$strLanguageSuffix" /></xsl:when>
+										<!-- if there is no title then display the download label-->									
+										<xsl:when test="@Title = '' or not(@Title)">
+											<xsl:value-of select="leg:TranslateText($strLanguageSuffix)"/>
+										</xsl:when>
 										<!-- if the title is print then display the Download label-->
-										<xsl:when test="@Title = 'Print Version' or @Title = 'Mixed Language Measure'">Download<xsl:value-of select="$strLanguageSuffix" /></xsl:when>
+										<xsl:when test="@Title = 'Print Version' or @Title = 'Mixed Language Measure'">
+											<xsl:value-of select="leg:TranslateText($strLanguageSuffix)"/>											
+										</xsl:when>
 										<!-- for anything else display the title -->
-										<xsl:otherwise>Download <xsl:value-of select="@Title"/><xsl:value-of select="$strLanguageSuffix" /></xsl:otherwise>
+										<xsl:otherwise>
+											<xsl:value-of select="leg:TranslateText(concat(@Title,$strLanguageSuffix))"/>
+										</xsl:otherwise>
 									</xsl:choose>
 								</a>
 								<span class="filesize"><xsl:sequence select="tso:GetFileSize(@Size)"/></span>
 							</li>
 						</xsl:for-each>
 					</ul>
-					<p class="helpAside"><a href="http://get.adobe.com/reader/" target="_blank">Requires Adobe Acrobat Reader <img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)" /></a></p>
+					<p class="helpAside"><a href="http://get.adobe.com/reader/" target="_blank"><xsl:value-of select="leg:TranslateText('Requires Adobe Acrobat Reader')"/> <img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)" /></a></p>
 				</div>
 			</xsl:if>
 			<!-- displaying the associated documents -->
@@ -232,7 +244,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						<xsl:sort select="@Title = 'Executive Note' " order="descending" />
 						<xsl:sort select="@Title = 'Policy Note' " order="descending" />
 						<xsl:sort select="@Title = 'Explanatory Memorandum' " order="descending" />
-						
+
 						<!-- sort by title -->
 						<xsl:sort select="@Title"/>
 						<!-- English first -->
@@ -261,7 +273,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 					<!-- <xsl:sort select="xs:date(@Date)" order="descending" /> -->
 				</xsl:perform-sort>
 			</xsl:variable>
-			
+
 			<xsl:call-template name="AssociatedImpact">
 				<xsl:with-param name="associatedDocuments">
 					<!-- determine the display order of the IA stages -->
@@ -274,12 +286,6 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 					<xsl:apply-templates select="$sortedIAs/ukm:ImpactAssessment[@Stage = ('Post-Implementation','Post Implementation')]" mode="AssociatedDocuments"/>
 				</xsl:with-param>
 			</xsl:call-template>
-			
-
-	
-	
-	
-			
 			
 			<xsl:call-template name="ListAllChanges">
 				<xsl:with-param name="theTitle" select="$theTitle"/>
@@ -301,7 +307,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 		<xsl:param name="associatedDocuments" />
 
 		<div class="assocDocs filesizeShow colSection p_one s_7">
-			<h3>Associated Documents</h3>
+			<h3><xsl:value-of select="leg:TranslateText('Associated Documents')"/></h3>
 			<xsl:choose>
 				<xsl:when test="count($associatedDocuments/*) &gt; 0">
 					<xsl:variable name="columns" as="xs:integer" select="1" />
@@ -332,7 +338,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 				</xsl:when>
 				<xsl:otherwise>
 					<!-- default message -->
-					<p>There are no associated documents for this legislation.</p>
+					<p><xsl:value-of select="leg:TranslateText('There are no associated documents for this legislation.')"/></p>
 				</xsl:otherwise>
 			</xsl:choose>
 		</div>
@@ -342,7 +348,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 		<xsl:param name="associatedDocuments" />
 
 		<div class="assocDocs filesizeShow colSection p_one s_7">
-			<h4>Impact Assessments</h4>
+			<h4><xsl:value-of select="leg:TranslateText('Impact Assessments')"/></h4>
 			<xsl:choose>
 				<xsl:when test="count($associatedDocuments/*) &gt; 0">
 					<xsl:variable name="columns" as="xs:integer" select="1" />
@@ -373,13 +379,12 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 				</xsl:when>
 				<xsl:otherwise>
 					<!-- default message -->
-					<p>There are no associated impact assessments for this legislation.</p>
+					<p><xsl:value-of select="leg:TranslateText('There are no associated impact assessment for this legislation.')"/></p>
 				</xsl:otherwise>
 			</xsl:choose>
 		</div>
 	</xsl:template>
 
-	
 	<!-- ia generation of an associated document list item -->
 	<xsl:template match="ukm:ImpactAssessment" mode="AssociatedDocuments">
 		<xsl:variable name="stage" select="translate(@Stage,'-',' ')"/>
@@ -425,8 +430,6 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 			<span class="filesize"><xsl:sequence select="tso:GetFileSize($size)"/></span>
 		</li>
 	</xsl:function>
-
-
 
 	<!-- generation of an associated document list item - this really needs separating out as above -->
 	<xsl:template match="ukm:Metadata/ukm:Alternatives/ukm:Alternative 
@@ -478,12 +481,12 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 		  	<li>
 				<a href="{@URI}" class="pdfLink">
 					<xsl:choose>
-						<xsl:when test="starts-with($title, 'Mixed Language')"><xsl:value-of select="concat(substring-after($title, 'Mixed Language'), $dateSuffix, ' - ', 'Mixed Language')"/></xsl:when>
-						<xsl:when test="@Language = 'Mixed'"><xsl:value-of select="concat($title, $dateSuffix, ' - Mixed Language')" /></xsl:when>
-						<xsl:when test="exists(@Language)"><xsl:value-of select="concat($title, $dateSuffix, ' - ', @Language)" /></xsl:when>
-						<xsl:when test="matches(@URI, '_en(_[0-9]{3})?.pdf$') and leg:GetDocumentMainType(./root()) = ('WelshAssemblyMeasure','WelshStatutoryInstrument','WelshNationalAssemblyAct')"><xsl:value-of select="concat($title, $dateSuffix, ' - English')"/></xsl:when>
+						<xsl:when test="starts-with($title, 'Mixed Language')"><xsl:value-of select="leg:TranslateText(concat(substring-after($title, 'Mixed Language'), $dateSuffix, ' - ', 'Mixed Language'))"/></xsl:when>
+						<xsl:when test="@Language = 'Mixed'"><xsl:value-of select="leg:TranslateText(concat($title, $dateSuffix, ' - Mixed Language'))" /></xsl:when>
+						<xsl:when test="exists(@Language)"><xsl:value-of select="leg:TranslateText(concat($title, $dateSuffix, ' - ', @Language))" /></xsl:when>
+						<xsl:when test="matches(@URI, '_en(_[0-9]{3})?.pdf$') and leg:GetDocumentMainType(./root()) = ('WelshAssemblyMeasure','WelshStatutoryInstrument','WelshNationalAssemblyAct')"><xsl:value-of select="leg:TranslateText(concat($title, $dateSuffix, ' - English'))"/></xsl:when>
 						<!-- There are sometimes Welsh-language versions of UKSIs, so don't restrict this to MWAs & WSIs -->
-						<xsl:when test="matches(@URI, '_we(_[0-9]{3})?.pdf$')"><xsl:value-of select="concat($title, $dateSuffix, ' - Welsh')"/></xsl:when>
+						<xsl:when test="matches(@URI, '_we(_[0-9]{3})?.pdf$')"><xsl:value-of select="leg:TranslateText(concat($title, $dateSuffix, ' - Welsh'))"/></xsl:when>
 						
 						<xsl:when test="$isDraft">
 							<xsl:if test="not(contains(@Title, 'Draft'))">
@@ -547,7 +550,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						</xsl:when>
 						<xsl:when test="self::ukm:Alternative[preceding-sibling::*[self::ukm:Alternative] and not(following-sibling::*)]						
 							">
-							<xsl:value-of select="$title"/>
+							<xsl:value-of select="leg:TranslateText($title)" />	
 							
 							
 						</xsl:when>
@@ -558,7 +561,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 							self::ukm:UKExplanatoryMemorandum[exists($ia[4])] | 
 							self::ukm:NIExplanatoryMemorandum[exists($ia[4])] | 
 							self::ukm:TranspositionNote[exists($ia[4])] ">
-								<xsl:value-of select="$title"/>
+							<xsl:value-of select="leg:TranslateText($title)" />	
 							<xsl:text> </xsl:text>
 							<xsl:value-of select="number(replace($ia[4],'.pdf','','i')) + 1 "/>
 						
@@ -571,14 +574,13 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 							| self::ukm:UKExplanatoryMemorandum[preceding-sibling::*[self::ukm:UKExplanatoryMemorandum] and not(following-sibling::*)]
 							| self::NIExplanatoryMemorandum[preceding-sibling::*[self::NIExplanatoryMemorandum] and not(following-sibling::*)]
 							">
-							<xsl:value-of select="$title"/>
+							<xsl:value-of select="leg:TranslateText($title)" />	
 							<xsl:text> 1</xsl:text>
 							
 						</xsl:when>	
 						<!--<xsl:value-of select="$dateSuffix" />-->
 						<xsl:otherwise>
-							<xsl:value-of select="$title" />
-							
+							<xsl:value-of select="leg:TranslateText($title)" />							
 						</xsl:otherwise>
 					</xsl:choose>
 				</a>
@@ -592,7 +594,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 		 <xsl:if test="not($isDraft)"> <!-- only showing the current legislation is not draft-->
 			<li>
 				<a href="{concat(replace(@URI,'/id/','/'),'/contents')}" class="htmLink">
-					<xsl:text>Draft Version</xsl:text>
+					<xsl:value-of select="leg:TranslateText('Draft Version')"/>
 				</a>
 			</li>
 		</xsl:if>			
@@ -628,7 +630,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 		<xsl:if test="($isRevised or $isEffectingTypeValid) and $hasXML">
 			<div class="colSection p_one s_7">
 					<div class="allChanges">
-						<h3>List of all changes <em class="aside">(made to the revised version after 2002)</em>:</h3>
+						<h3><xsl:value-of select="leg:TranslateText('List of all changes')"/><xsl:text> </xsl:text> <em class="aside">(<xsl:value-of select="leg:TranslateText('made to the revised version after 2002')"/>)</em>:</h3>
 						<a class="helpItem helpItemToTop" href="#listAllChangesHelp">
 								<img alt="Help about List of all changes" src="/images/chrome/helpIcon.gif"/>
 						</a>
@@ -636,16 +638,16 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 					<ul class="plainList">
 						<xsl:if test="$isRevised">
 							<li>
-								<a href="/changes/affected/{$uriPrefix}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Number/@Value}">
-									<strong>Affecting <xsl:value-of select="$theTitle"/></strong>
+								<a href="{$TranslateLangPrefix}/changes/affected/{$uriPrefix}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Number/@Value}">
+									<strong><xsl:value-of select="leg:TranslateText('Affecting')"/><xsl:text> </xsl:text><xsl:value-of select="$theTitle"/></strong>
 								</a>
 								<span class="pageLinkIcon"/>	
 							</li>
 						</xsl:if>
 						<xsl:if test="$isEffectingTypeValid">
 							<li>
-								<a href="/changes/affecting/{$uriPrefix}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Number/@Value}">
-									<strong>Made by <xsl:value-of select="$theTitle"/> affecting other Legislation</strong>
+								<a href="{$TranslateLangPrefix}/changes/affecting/{$uriPrefix}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Number/@Value}">
+									<strong><xsl:value-of select="leg:TranslateText('Made by')"/><xsl:text> </xsl:text> <xsl:value-of select="$theTitle"/><xsl:text> </xsl:text> <xsl:value-of select="leg:TranslateText('affecting other Legislation')"/></strong>
 								</a>
 								<span class="pageLinkIcon"/>									
 							</li>
@@ -659,24 +661,24 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 	<xsl:template name="FurtherInformation">
 		<div class="relDocs colSection p_one">
 			<div class="furtherInfo column1 s_4 p_one half_col_margin">
-				<h3>Further Information</h3>
+				<h3><xsl:value-of select="leg:TranslateText('Further Information')"/></h3>
 				<ul class="plainList">
 					<li>
-						<a href="http://www.parliament.uk" target="_blank">UK Parliament website<img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)" class="newWin" /></a>
+						<a href="http://www.parliament.uk" target="_blank"><xsl:value-of select="leg:TranslateText('UK Parliament website')"/><img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)" class="newWin" /></a>
 					</li>
 					<xsl:if test="tso:countryType($documentMainType) = 'Scotland'">
 						<li>
-							<a href="http://www.scottish.parliament.uk" target="_blank">Scottish Parliament website<img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)" class="newWin" /></a>
+							<a href="http://www.scottish.parliament.uk" target="_blank"><xsl:value-of select="leg:TranslateText('Scottish Parliament website')"/><img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)" class="newWin" /></a>
 						</li>
 					</xsl:if>
 					<xsl:if test="tso:countryType($documentMainType) = 'Wales'">
 						<li>
-							<a href="http://www.assemblywales.org" target="_blank">National Assembly for Wales<img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)" class="newWin" /></a>
+							<a href="http://www.assemblywales.org" target="_blank"><xsl:value-of select="leg:TranslateText('National Assembly for Wales')"/><img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)" class="newWin" /></a>
 						</li>
 					</xsl:if>
 					<xsl:if test="tso:countryType($documentMainType) = 'Northern Ireland'">
 						<li>
-							<a href="http://www.niassembly.gov.uk" target="_blank">Northern Ireland Assembly<img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)" class="newWin" /></a>
+							<a href="http://www.niassembly.gov.uk" target="_blank"><xsl:value-of select="leg:TranslateText('Northern Ireland Assembly')"/><img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)" class="newWin" /></a>
 						</li>																		
 					</xsl:if>	
 					<!--<li><a href="">Further info 2</a></li>-->
@@ -684,17 +686,17 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 			</div>
 				
 			<div class="furtherInfo s_7_5 p_two">
-				<h3>Next Steps</h3>
+				<h3><xsl:value-of select="leg:TranslateText('Next Steps')"/></h3>
 				<ul class="plainList">
-					<li><a href="/{$uriPrefix}">
-						More <xsl:value-of select="tso:GetTitleFromType($documentMainType, ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value)"/> <span class="pageLinkIcon"/>
+					<li><a href="{$TranslateLangPrefix}/{$uriPrefix}">
+						<xsl:value-of select="leg:TranslateText('More')"/><xsl:text> </xsl:text><xsl:value-of select="tso:GetTitleFromType($documentMainType, ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value)"/> <span class="pageLinkIcon"/>
 					</a>
 					</li>
-					<li><a href="/{$uriPrefix}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value}">
-						More <xsl:value-of select="tso:GetTitleFromType($documentMainType, ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value)"/> from <xsl:value-of select="ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value"/> <span class="pageLinkIcon"/>
+					<li><a href="{$TranslateLangPrefix}/{$uriPrefix}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value}">
+						<xsl:value-of select="leg:TranslateText('More')"/><xsl:text> </xsl:text><xsl:value-of select="tso:GetTitleFromType($documentMainType, ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value)"/><xsl:text> </xsl:text><xsl:value-of select="leg:TranslateText('from')"/><xsl:text> </xsl:text><xsl:value-of select="ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value"/> <span class="pageLinkIcon"/>
 					</a>
 					</li>
-					<li><a href="/search">Advanced Search<span class="pageLinkIcon"/></a></li>
+					<li><a href="{$TranslateLangPrefix}/search"><xsl:value-of select="leg:TranslateText('Advanced Search')"/><span class="pageLinkIcon"/></a></li>
 				</ul>			
 			</div>
 		</div>	
@@ -710,7 +712,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 		<!-- this needs a s_(3 * num) class based upon the larget number of the <ul> elements within each .confers_section, e.g. if 
 			there are 3 <ul> elements then the classs added would be s_9 (3 * 3), if there were 4 <ul> elements then it would be s_12 -->				
 			
-				<h3 class="confers_title">Sections that <span class="accessibleText">Confers power or Apply Blanket Amendments </span>:
+			<h3 class="confers_title"><xsl:value-of select="leg:TranslateText('Sections that')"/> <span class="accessibleText">Confers power or Apply Blanket Amendments </span>:
 					<a class="helpItem helpItemToMidRight" href="#sectionsThatHelp">
 							<img alt="Help about Sections That" src="/images/chrome/helpIcon.gif"/>
 					</a>						
@@ -718,8 +720,8 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 	
 							
 				<ul class="anchors jsShownText s_12 htabs">
-					<li><a href="#confers">Confers power</a></li>
-					<li><a href="#blanket">Apply Blanket Amendments</a></li>
+					<li><a href="#confers"><xsl:value-of select="leg:TranslateText('Confers power')"/></a></li>
+					<li><a href="#blanket"><xsl:value-of select="leg:TranslateText('Apply Blanket Amendments')"/></a></li>
 				</ul>
 				
 				<div id="confers" class="confers_section tab">
@@ -744,14 +746,14 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 							</table>
 						</xsl:when>
 						<xsl:otherwise>
-							<p>There are currently no matches for this criteria.</p>
+							<p><xsl:value-of select="leg:TranslateText('There are currently no matches for this criteria.')"/></p>
 						</xsl:otherwise>
 					</xsl:choose>
 	
 				</div><!--/#confers-->
 				
 				<div id="blanket" class="confers_section tab">
-					<h4 class="jsHiddenText">Apply blanket amendments</h4>
+					<h4 class="jsHiddenText"><xsl:value-of select="leg:TranslateText('Apply blanket amendments')"/></h4>
 					<xsl:choose>
 						<xsl:when test="exists(ukm:Metadata/ukm:BlanketAmendment)">
 							<table>
@@ -772,7 +774,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 							</table>
 						</xsl:when>
 						<xsl:otherwise>
-							<p>There are currently no matches for this criteria</p>
+							<p><xsl:value-of select="leg:TranslateText('There are currently no matches for this criteria')"/></p>
 						</xsl:otherwise>
 					</xsl:choose>
 				</div><!--/#blanked amendments-->
@@ -796,7 +798,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 				<h3 class="accessibleText">You are here:</h3>		
 				<ul>
 					<xsl:apply-templates select="/leg:Legislation" mode="TSOBreadcrumbItem"/>
-					<li class="activetext">More Resources</li>
+					<li class="activetext"><xsl:value-of select="leg:TranslateText('moreResourcesHelp_head')"/></li>
 				</ul>
 		</div>
 	</xsl:template>
@@ -813,9 +815,9 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 					<a href="#" class="close">
 						<img alt="Close" src="/images/chrome/closeIcon.gif" />
 					</a>
-					<h3>List of all changes</h3>
+					<h3><xsl:value-of select="leg:TranslateText('List of all changes')"/></h3>
 					<p>
-						Link(s) to the Changes to Legislation facility which provides access to lists detailing changes made by all legislation enacted from 2002 - present to the revised legislation held on legislation.gov.uk, along with details about those changes which have and have not been applied by the legislation.gov.uk editorial team to this legislation item. Details of changes are only available back to 2002. Changes made before 2002 are already incorporated into the text of the revised legislation on legislation.gov.uk
+						<xsl:value-of select="leg:TranslateText('moreResources_changeListExplanation')"/>
 					</p>	
 				</div>
 			</div>
@@ -828,9 +830,9 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 					<a href="#" class="close">
 						<img alt="Close" src="/images/chrome/closeIcon.gif" />
 					</a>
-					<h3>Sections that</h3>
+					<h3><xsl:value-of select="leg:TranslateText('Sections that')"/></h3>
 					<p>
-						These lists are based on information contained in latest available (revised) version as recorded by the legislation.gov.uk editorial team. For legislation enacted before the basedate (1/1/2006 for Northern Ireland legislation and 1/2/1991 for all other revised legislation) this information may not be available.
+						<xsl:value-of select="leg:TranslateText('moreResources_reviseListExplanation')"/>
 					</p>	
 				</div>
 			</div>		
