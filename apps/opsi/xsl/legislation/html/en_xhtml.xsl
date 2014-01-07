@@ -35,6 +35,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:import href="quicksearch.xsl"/>
 	<xsl:import href="uicommon.xsl"/>	
 	
+	<xsl:variable name="isReferrerWelsh" as="xs:boolean" select="contains($requestInfoDoc/request/headers/header[name='referer']/value,'/enacted/welsh')"/>
 	<xsl:variable name="paragraphThreshold" select="200"/>
 	<xsl:variable name="dcIdentifier" select="leg:EN/ukm:Metadata/dc:identifier"/>
 	<xsl:variable name="strCurrentURIs" select="/leg:EN/ukm:Metadata/dc:identifier, 
@@ -45,10 +46,45 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:variable name="language" select="if (/leg:EN/@xml:lang) then /leg:Legislation/@xml:lang else 'en'"/>
 	
 	<xsl:variable name="legislationTitle"><xsl:call-template name="TSOOutputLegislationTitle"/></xsl:variable>
-
-	<xsl:variable name="introURI" as="xs:string?" select="leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href" />			
-	<xsl:variable name="explanatoryNotesWholeURI" as="xs:string" select="leg:EN/@DocumentURI" />				
-	<xsl:variable name="tocURI" as="xs:string?" select="leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/toc']/@href" />	
+	<!-- HA052620: updated to have switching from welsh EN tab to welsh version of TOC and Content page-->
+	<!--<xsl:variable name="introURI" as="xs:string?" select="leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href" />-->
+	<xsl:variable name="introURI" as="xs:string?">
+		<xsl:choose>
+			<xsl:when test="$documentMainType = ('WelshAssemblyMeasure','WelshNationalAssemblyAct') and $isReferrerWelsh">
+				<xsl:choose>
+					<xsl:when test="contains(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href,'/enacted')">
+						<xsl:value-of select="concat(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href,'/welsh')"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="concat(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href,'/enacted/welsh')"/>
+					</xsl:otherwise>
+				</xsl:choose>				
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:variable name="explanatoryNotesWholeURI" as="xs:string" select="leg:EN/@DocumentURI" />	
+	<!-- HA052620: updated to have switching from welsh EN tab to welsh version of TOC and Content page-->
+	<!--<xsl:variable name="tocURI" as="xs:string?" select="leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/toc']/@href" />	-->
+	<xsl:variable name="tocURI" as="xs:string?">
+		<xsl:choose>
+			<xsl:when test=" $documentMainType = ('WelshAssemblyMeasure','WelshNationalAssemblyAct') and $isReferrerWelsh">
+				<xsl:choose>
+					<xsl:when test="contains(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/toc']/@href,'/enacted')">
+						<xsl:value-of select="concat(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/toc']/@href,'/welsh')"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="concat(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/toc']/@href,'/enacted/welsh')"/>
+					</xsl:otherwise>
+				</xsl:choose>				
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/toc']/@href"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
 	<xsl:variable name="explanatoryNotesTOCURI" as="xs:string?" select="leg:EN/ukm:Metadata/atom:link[@rel='http://purl.org/dc/terms/tableOfContents']/@href" />		
 
 	<xsl:variable name="legislationIdURI"  select="replace(/leg:EN/@IdURI, '/notes', '')"/>		
@@ -253,13 +289,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:choose>
 					<xsl:when test="leg:IsEnPDFOnly(.)">
 						<!-- If EN/EM is only available in PDFOnly then display PDF link -->
-						<p class="downloadPdfVersion">
-						
+						<p class="downloadPdfVersion">					
 							<xsl:variable name="pdfLinks" 
 								select="/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_'))]"/>
 						
 							<!-- filter out if we have mixed language available -->
-							<xsl:variable name="pdfLinks"
+							<!--<xsl:variable name="pdfLinks"
 								select="if ($documentMainType = ('WelshAssemblyMeasure','WelshStatutoryInstrument','WelshNationalAssemblyAct')) then 
 												if (exists($pdfLinks[@Language = 'Mixed' or contains(@Title, 'Mixed Language')])) then 
 													$pdfLinks[@Language = 'Mixed' or contains(@Title, 'Mixed Language')]
@@ -270,7 +305,20 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 													$pdfLinks[contains(@Title, 'Revised')]
 												else 
 													$pdfLinks">
-							</xsl:variable>			
+							</xsl:variable>		-->
+							<!-- HA052620: updated to display welsh pdf for welsh explanatory note and english pdf for english EN instead of Mixed PDF-->							
+							<xsl:variable name="pdfLinks"
+								select="if ($documentMainType = ('WelshAssemblyMeasure','WelshStatutoryInstrument','WelshNationalAssemblyAct')) then
+								if ($isReferrerWelsh) then
+								$pdfLinks[@Language = 'Welsh']
+								else 
+								$pdfLinks[not(@Language)]
+								else 
+								if (exists($pdfLinks[contains(@Title, 'Revised')])) then 
+								$pdfLinks[contains(@Title, 'Revised')]
+								else 
+								$pdfLinks">
+							</xsl:variable>	
 
 							<xsl:choose>
 								<xsl:when test="count($pdfLinks) > 1">
@@ -347,7 +395,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		 	
 
 		<xsl:variable name="title" >
-			<xsl:choose>
+			<xsl:choose>				
 				<xsl:when test="starts-with($title, 'Mixed Language')"><xsl:value-of select="concat(substring-after($title, 'Mixed Language'), $dateSuffix, ' - ', 'Mixed Language')"/></xsl:when>
 				<xsl:when test="@Language = 'Mixed'"><xsl:value-of select="concat($title, $dateSuffix, ' - Mixed Language')" /></xsl:when>
 				<xsl:when test="exists(@Language)"><xsl:value-of select="concat($title, $dateSuffix, ' - ', @Language)" /></xsl:when>
@@ -427,7 +475,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	</xsl:template>	
 
 	<xsl:function name="leg:IsEnTOC" as="xs:boolean">
-		 <xsl:sequence select="$paramsDoc/parameters/view ='contents' " />
+		 <xsl:sequence select="$paramsDoc/parameters/view ='contents' " />		
 	</xsl:function>	
 	
 	<xsl:function name="leg:IsEnPDFOnly" as="xs:boolean">
