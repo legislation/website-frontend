@@ -6,8 +6,8 @@ You may use and re-use this code free of charge under the terms of the Open Gove
 http://www.nationalarchives.gov.uk/doc/open-government-licence/
 
 */
-/* Survey disabled, remove to enable */
-#feedback {display: none;} 
+/* Survey disabled, remove to enable 
+#feedback {display: none;} */
 
 /*#feedback {position:fixed; right: 0; top: 200px; background: url(/images/chrome/feedback.png) 0 0; width: 30px; height: 144px; z-index: 100001}*/
 #feedback a {width: 100%; height: 100%; display: block;}
