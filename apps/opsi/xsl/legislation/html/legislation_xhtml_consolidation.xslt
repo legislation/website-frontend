@@ -309,7 +309,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <!-- Chunyu  HA050364 deleted leg:ContentsPart/leg:ContentsTitle in this template. It has casused the titles were missing see nisi/2007/1351,NISI 2007/287 (NI 1) and etc.-->
-<xsl:template match="leg:ContentsChapter[leg:ContentsNumber]/leg:ContentsTitle">
+	<!-- Yashashri HA051273 - Reverted code changed by chunyu to existing one  as it was creating other issue(HA051273)with one extra condition so that it can fix both issue in call HA051273 and HA049670(the issue chunuy fixed)-->
+	<xsl:template match="leg:ContentsPart[leg:ContentsNumber]/leg:ContentsTitle | leg:ContentsChapter[leg:ContentsNumber]/leg:ContentsTitle">
 <!--  FM U437: Chapter Headings should appear even if there is no chapter number-->   
 </xsl:template>
 
