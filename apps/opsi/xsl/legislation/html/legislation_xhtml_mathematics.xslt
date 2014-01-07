@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-©  Crown copyright
+(c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence
+You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 
 -->
 <!-- Legislation schema XHTML output for legislation - mathematics module -->
