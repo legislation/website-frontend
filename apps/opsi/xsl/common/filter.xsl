@@ -53,9 +53,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 </xsl:template>
 
 <!-- These templates are used to add MatchText attributes on relevant contents items -->
+<!--Chunyu HA051073	Added the condition for the instances of replicated section ids. see aosp/1690/7-->
 <xsl:template match="*[@ContentRef]" mode="filter">
 	<xsl:copy>
 		<xsl:if test="key('matchText', @ContentRef)">
+			<xsl:attribute name="MatchText" select="'true'" />
+		</xsl:if>
+		<xsl:if test="key('matchText', concat(parent::*/@ContentRef,'-',@ContentRef))">
 			<xsl:attribute name="MatchText" select="'true'" />
 		</xsl:if>
 		<xsl:apply-templates select="@*|node()" mode="filter" />

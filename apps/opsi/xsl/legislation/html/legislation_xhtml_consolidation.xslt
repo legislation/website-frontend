@@ -201,7 +201,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:text>.</xsl:text>
 		</xsl:if>
 	</xsl:variable>
-	<span class="LegDS {concat('LegContentsNo', $strAmendmentSuffix)}{if (exists($matchIndex)) then ' LegSearchResult' else ()}">
+	<!-- <span class="LegDS {concat('LegContentsNo', $strAmendmentSuffix)}{if (exists($matchIndex)) then ' LegSearchResult' else ()}"> -->
+	<span class="LegDS {concat('LegContentsNo', $strAmendmentSuffix)}{if (../@MatchText) then ' LegSearchResult' else ()}">
 		<xsl:choose>
 			<xsl:when test="parent::*/@DocumentURI">
 				<xsl:variable name="contentsLinkParams"
@@ -332,8 +333,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:call-template name="FuncCalcAmendmentNo"/>
 	</xsl:variable>
 	<xsl:variable name="matchIndex" as="xs:integer?" select="if (exists(../@ContentRef)) then index-of($matchRefs, ../@ContentRef)[1] else ()" />		
-	<span class="LegDS {concat('LegContentsTitle', $strAmendmentSuffix)}{if (exists($matchIndex)) then ' LegSearchResult' else ()}">
-		<!-- pass that through as a tunnelling parameter called $matchRefs. Then on a given item get the index-of() this item's ContentRef wtihin -->	
+	<!-- Chunyu HA051073 changed the condition of LegSearchResult into @MatchText. It will be safer to get search result. There are instances that replicated section ids. See aosp/1690/7
+	<span class="LegDS {concat('LegContentsTitle', $strAmendmentSuffix)}{if (exists($matchIndex)) then ' LegSearchResult' else ()}"> -->
+	<!-- pass that through as a tunnelling parameter called $matchRefs. Then on a given item get the index-of() this item's ContentRef wtihin -->	
+		<span class="LegDS {concat('LegContentsTitle', $strAmendmentSuffix)}{if (../@MatchText) then ' LegSearchResult' else ()}">
 		<xsl:if test="exists($matchIndex)">
 			<xsl:attribute name="id" select="concat('match-', $matchIndex)"/>
 		</xsl:if>	
