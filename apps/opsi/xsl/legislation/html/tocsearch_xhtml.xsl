@@ -25,18 +25,20 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:variable name="paramsDoc" select="if (doc-available('input:request')) then doc('input:request') else ()"/>
 	<xsl:variable name="link" as="xs:string" select="leg:GetLink(//atom:link[@rel = 'first']/@href)"/>
 	
+	
 	<xsl:template match="atom:feed" mode="searchfacets">
 		<xsl:apply-templates select="leg:facets" mode="searchfacets"/>
 	</xsl:template>
 	
 	<xsl:template match="leg:facets" mode="searchfacets">
-	
+		<xsl:variable name="type" as="xs:string?" select="/atom:feed/openSearch:Query/@leg:type"/>
+		<xsl:variable name="legType" as="xs:string" select="if (matches($type,'(impacts|ukia|sia|wia|niia)')) then 'Impact Assessments' else 'Legislation'"/>
 		<div id="tools">
 			<h2 class="accessibleText">Narrow results by:</h2>
 			<xsl:if test="count(leg:facetTypes/leg:facetType)>0">
 				<div class="section">
 					<div class="title">
-						<h3>Legislation By Type</h3>
+						<h3><xsl:value-of select="$legType"/> By Type</h3>
 					</div>
 					<div class="content">
 						<ul>
@@ -68,7 +70,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<xsl:if test="count(leg:facetYears/leg:facetYear)>0">
 				<div id="year" class="section">
 					<div class="title">
-						<h3>Legislation By Year</h3>
+						<h3><xsl:value-of select="$legType"/> By Year|</h3>
 					</div>
 					<div class="content">
 						<xsl:choose>

@@ -728,6 +728,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<th>
 							<!-- don't bother allowing sorting by type if you only have one type! -->
 							<xsl:variable name="allowlegislationTypeSorting" as="xs:boolean" select="empty($type) or $type = ('*', 'all', 'primary', 'secondary', 'draft') or contains($type, '+')" />
+							
+							<xsl:variable name="type" as="xs:string?" select="/atom:feed/openSearch:Query/@leg:type"/>
+							<xsl:variable name="legType" as="xs:string" select="if (matches($type,'(impacts|ukia|sia|wia|niia)')) then 'Impact Assessment Stage' else 'Legislation type'"/>
+							
 							<xsl:element name="{if ($allowlegislationTypeSorting and not($sort = 'type')) then 'a' else 'span'}">
 								<xsl:choose>
 									<xsl:when test="$allowlegislationTypeSorting">
@@ -746,10 +750,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 									</xsl:when>
 								</xsl:choose>
 								<xsl:if test="$allowlegislationTypeSorting">
-									<xsl:attribute name="title">Sort ascending by Legislation type</xsl:attribute>
+									<xsl:attribute name="title">Sort ascending by <xsl:value-of select="$legType"/></xsl:attribute>
 									<span class="accessibleText">Sort ascending by </span>
 								</xsl:if>
-								<xsl:text>Legislation type</xsl:text>
+								<xsl:value-of select="'Legislation type'"/>
 							</xsl:element>
 						</th>
 					</tr>
@@ -830,7 +834,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:template match="atom:entry" mode="searchresults">
 		<xsl:param name="position" as="xs:integer" select="position()"/>
 		<xsl:variable name="tocLink" as="xs:string"
-			select="substring-after(atom:link[@rel='http://purl.org/dc/terms/tableOfContents' and not(@hreflang)]/@href, 'http://www.legislation.gov.uk/')"/>
+			select="if (atom:link[@rel='http://purl.org/dc/terms/tableOfContents' and not(@hreflang)]) then substring-after(atom:link[@rel='http://purl.org/dc/terms/tableOfContents' and not(@hreflang)]/@href, 'http://www.legislation.gov.uk/') else (:allow for impact assessments  :)
+			substring-after(atom:link[@rel='self']/@href, 'http://www.legislation.gov.uk/')"/>
 		<xsl:variable name="hasWelshTitle" as="xs:boolean" select="atom:title/@type = 'xhtml'" />
 		<xsl:variable name="rowspan" as="attribute(rowspan)?">
 			<xsl:if test="$hasWelshTitle">

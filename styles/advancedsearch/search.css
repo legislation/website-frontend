@@ -29,6 +29,8 @@ select {vertical-align: middle;}
 
 #searchTitle {width: 375px}
 #searchText {width: 375px; margin-top: 0.75em;}
+#stageText {width: 200px; margin-top: 0.75em;}
+#departmentText {width: 200px; margin-top: 0.75em;}
 #specificText {margin: 0 80px 0 30px;}
 #yearStart {margin: 0 10px 0 10px}
 
@@ -76,6 +78,11 @@ label.error {color: #870600;font-weight:bold}
 .searchYear .PIT input#specificYear{margin-left: 10px;}
 .searchYear div.rangeOfYears div {margin-left: 12px;}
 .searchYear div.rangeOfYears div input {margin-right: 40px;}
+
+.searchYear div.rangeOfDates div input {margin-right: 5px;width: 75px;}
+.searchYear div.rangeOfDates div button {margin-right: 20px;margin-left: 10px;}
+
+
 .searchYear .error {margin-left: 10px;}
 
 select {border: 1px solid #7B85AD; padding:5px 3px; background: url(/images/chrome/home_form_shadow.gif) no-repeat top left;}

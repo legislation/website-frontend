@@ -97,8 +97,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								</div>
 							</div>
 						</div>
-						<xsl:variable name="nonDraftTypes" select="$tso:legTypeMap[not(@class = 'draft')]" />
+						<xsl:variable name="nonDraftTypes" select="$tso:legTypeMap[not(@class = ('draft','IA'))]" />
 						<xsl:variable name="draftTypes" select="$tso:legTypeMap[@class = 'draft']" />
+						<xsl:variable name="iaTypes" select="$tso:legTypeMap[@class = 'IA']" />
 						<div class="s_8 p_one infoArea">
 							<dl class="key">
 								<dt class="first"><img src="/images/chrome/mapExclusiveKeyIcon.gif" alt="A blue background" /></dt>
@@ -144,7 +145,24 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								</ul>							
 							</div>
 						</div>						
-												
+						<div class="s_8 p_one infoArea">
+							<h2 class="s_7 p_one">Impact Assessments</h2>
+							<a href="#browseIaHelp" class="helpItemToMidLeft helpIcon p_two draftHelpIcon"><img src="/images/chrome/helpIcon.gif" alt="Draft Legislation Help" /></a>							
+							<div class="s_4 p_one legCol">
+								<ul class="legTypes">
+									<xsl:for-each select="$iaTypes[position() &lt;= ceiling(count($iaTypes) div 2)]">
+										<li><a id="{@abbrev}" href="/{@abbrev}"><xsl:value-of select="@plural" /></a></li>
+									</xsl:for-each>
+								</ul>							
+							</div>
+							<div class="s_4 p_two legCol">
+								<ul class="legTypes">
+									<xsl:for-each select="$iaTypes[position() > ceiling(count($iaTypes) div 2)]">
+										<li><a id="{@abbrev}" href="/{@abbrev}"><xsl:value-of select="@plural" /></a></li>
+									</xsl:for-each>
+								</ul>							
+							</div>
+						</div>							
 					</div>
 					<div class="help" id="browseMapHelp">
 						<span class="icon"></span>
@@ -162,7 +180,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						  <h3>Draft Legislation help</h3>
 						  <p>Draft legislation is legislation that is awaiting approval. It generally either becomes law or in some cases is withdrawn. Also, sometimes draft legislation is replaced by another draft. For these reasons, these draft legislation types are not reflected by the interactive map above.</p>
 						</div>
-					 </div>					 
+					 </div>	
+					
+					<div class="help" id="browseIaHelp">
+						<span class="icon"></span>
+						<div class="content">
+							<a href="#" class="close"> <img alt="Close" src="/images/chrome/closeIcon.gif" /></a>
+						  <h3>Impact Assessment help</h3>
+						  <p>Impact Assessment are assessments of the likely cost, benefits and impacts of any legislation.</p>
+						</div>
+					 </div>	 
 				</div>
 			</body>
 		</html>

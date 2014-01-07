@@ -50,11 +50,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:variable name="isRevisedLegislation" as="xs:boolean"
 		select="exists($paramsDoc/parameters/type[. = ('', 'all', 'primary', 'ukpga', 'ukla', 'apgb', 'aep', 'aosp', 'asp', 'aip', 'apni', 'mnia', 'nia', 'ukcm', 'mwa', 'nisi')])"/>
 
-	<xsl:variable name="generalSearch" as="xs:boolean" select="not($paramsDoc/parameters/search-type = ('extent', 'point-in-time','draft-legislation') ) and not($isVersionSpecified)" />
+	<xsl:variable name="generalSearch" as="xs:boolean" select="not($paramsDoc/parameters/search-type = ('extent', 'point-in-time','draft-legislation','impacts') ) and not($isVersionSpecified)" />
 	<xsl:variable name="extentSearch" as="xs:boolean" select="$paramsDoc/parameters/search-type = 'extent' " />	
 	<xsl:variable name="pointInTimeSearch" as="xs:boolean" select="$paramsDoc/parameters/search-type = 'point-in-time' or $isVersionSpecified" />	
 	<xsl:variable name="draftLegislationSearch" as="xs:boolean" select="$paramsDoc/parameters/search-type = 'draft-legislation' " />		
-	
+	<xsl:variable name="impactAssessmentSearch" as="xs:boolean" select="$paramsDoc/parameters/search-type = 'impacts' " />
 	
 	<xsl:template match="/">
 		<html>
@@ -64,7 +64,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
                 <script type="text/javascript" src="/scripts/advancedsearch/search.js"></script>
 				<link type="text/css" href="/styles/legBrowse.css" rel="stylesheet"/>
 				
-				<xsl:if test="$pointInTimeSearch">
+				<xsl:if test="$pointInTimeSearch or $impactAssessmentSearch">
 					<link rel="stylesheet" href="/styles/advancedsearch/jquery.ui.datepicker.css" type="text/css" />
 					<link rel="stylesheet" href="/styles/advancedsearch/jquery-ui.css" type="text/css" />
 					<script type="text/javascript" src="/scripts/jquery-ui-1.8.1.custom.min.js"></script>
@@ -112,7 +112,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								</xsl:if>
 								<xsl:text>Draft Legislation</xsl:text>
 							</a>							
-							
+							<a href="/search/impacts">
+								<xsl:if test="$impactAssessmentSearch">
+									<xsl:attribute name="class">current</xsl:attribute>
+								</xsl:if>
+								<xsl:text>Impact Assessments</xsl:text>
+							</a>
 						</div>
 					</div>					
 					
@@ -145,7 +150,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
                     </xsl:when>
                     <xsl:when test="$draftLegislationSearch">
                         <xsl:text>Draft Legislation search</xsl:text>
-                    </xsl:when>                    
+                    </xsl:when>    
+					<xsl:when test="$impactAssessmentSearch">
+                        <xsl:text>Impact Assessment search</xsl:text>
+                    </xsl:when> 
 					<xsl:otherwise>
 						<xsl:text>General search</xsl:text>
 					</xsl:otherwise>
@@ -239,7 +247,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			</div>			
 		
 			<!-- search keywords -->
-			<xsl:if test="$generalSearch or $extentSearch or $draftLegislationSearch">
+			<xsl:if test="$generalSearch or $extentSearch or $draftLegislationSearch or $impactAssessmentSearch">
 				<div class="searchKeywords searchFieldCategory">
 					<div class="searchCol1">
 						<label for="text">Keywords in content: </label>
@@ -260,6 +268,139 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				</div>	
 			</xsl:if>
 		
+			
+			<!-- search keywords -->
+			<xsl:if test="$impactAssessmentSearch">
+				<div class="searchKeywords searchFieldCategory">
+					<div class="searchCol1">
+						<label for="text">Stage: </label>
+					</div>
+					<div class="searchCol2">
+						<div class="searchFieldGroup">
+							<input type="text" id="stageText" name="stage" value="{$paramsDoc/parameters/stage}" />
+							<span>(whole name of the stage required)</span>
+						</div>
+					</div>
+					<div class="searchCol3">
+						<!--
+						<a class="helpIcon advancedSearchHelp" href="#keywordHelp">
+							<img alt=" Help about Keywords searching" src="/images/chrome/helpIcon.gif"/>
+						</a>
+						-->
+					</div>					
+				</div>
+
+				<div class="searchKeywords searchFieldCategory">
+					<div class="searchCol1">
+						<label for="text">Department: </label>
+					</div>
+					<div class="searchCol2">
+						<div class="searchFieldGroup">
+							<input type="text" id="departmentText" name="department" value="{$paramsDoc/parameters/department}" />
+							<span>(whole name of the department required)</span>
+						</div>
+					</div>
+					<div class="searchCol3">
+						<!--
+						<a class="helpIcon advancedSearchHelp" href="#keywordHelp">
+							<img alt=" Help about Keywords searching" src="/images/chrome/helpIcon.gif"/>
+						</a>
+						-->
+					</div>					
+				</div>
+				
+				
+				<xsl:variable name="invalidStartDate" as="xs:boolean" 
+					select="$paramsDoc/parameters/start[matches(., '[0-9]{2}/[0-9]{2}/[0-9]{4}') 
+							and xs:date(concat(substring(., 7), '-' , substring(., 4,2), '-' , substring(., 1,2))) &lt; xs:date ('1990-01-01')
+							]
+							 or 
+						$paramsDoc/parameters/start[. castable as xs:date and 
+							xs:date(.) &lt; xs:date('1990-01-01')
+							]"/>
+							
+				<xsl:variable name="invalidEndDate" as="xs:boolean" 
+					select="$paramsDoc/parameters/start[matches(., '[0-9]{2}/[0-9]{2}/[0-9]{4}') 
+							and xs:date(concat(substring(., 7), '-' , substring(., 4,2), '-' , substring(., 1,2))) &lt; xs:date ('1990-01-01')
+							]
+							 or 
+						$paramsDoc/parameters/start[. castable as xs:date and 
+							xs:date(.) &lt; xs:date('1990-01-01')
+							]"/>
+				
+				
+				<xsl:variable name="invalidYear" as="xs:boolean" 
+						select="exists($paramsDoc/parameters/year[. !='' and not(matches(., '(\*|[0-9]{4})(-(\*|[0-9]{4}))?'))])"/>
+							
+							    
+					<div class="searchYear searchFieldCategory">
+						<div class="searchCol1">
+							<label for="specificYear">
+								<xsl:if test="$invalidYear">
+									<xsl:attribute name="class">error</xsl:attribute>
+								</xsl:if>
+								<xsl:text>Year:</xsl:text>
+							</label>
+						</div>
+						
+						<div class="searchCol2">
+							<div class="specificYear formGroup">
+								<input type="radio" id="specificRadio" name="yearRadio" value="specific"
+									checked="true"/>
+								<label for="specificRadio">Specific Year</label>
+								<div>
+									<input type="text" id="specificYear" name="year" maxlength="4"
+										value="{$paramsDoc/parameters/year}">
+										<xsl:if test="$invalidYear">
+											<xsl:attribute name="class">error</xsl:attribute>
+										</xsl:if>
+									</input>
+								</div>
+							</div>
+							<div class="rangeOfDates formGroup">
+								<input type="radio" id="rangeRadio" name="yearRadio" value="range"/>
+								<label for="rangeRadio">Range</label>
+								<div class="yearRange">
+									<div>
+										<label for="yearStart">From</label>
+										<input id="start" type="text" name="start" 
+							value="{if ($paramsDoc/parameters/start[matches(., '[0-9]{2}/[0-9]{2}/[0-9]{4}')]) then $paramsDoc/parameters/start	
+										else if ($paramsDoc/parameters/start[. castable as xs:date]) then format-date($paramsDoc/parameters/start, '[D01]/[M01]/[Y0001]')
+										else ''}">
+											<xsl:if test="$invalidStartDate">
+												<xsl:attribute name="class">error</xsl:attribute>
+											</xsl:if>										
+										</input>
+									</div>
+									<div>
+										<label for="yearEnd">To</label>
+										<input id="end" type="text" name="end" 
+							value="{if ($paramsDoc/parameters/start[matches(., '[0-9]{2}/[0-9]{2}/[0-9]{4}')]) then $paramsDoc/parameters/start	
+										else if ($paramsDoc/parameters/start[. castable as xs:date]) then format-date($paramsDoc/parameters/start, '[D01]/[M01]/[Y0001]')
+										else ''}">
+								<xsl:if test="$invalidEndDate">
+									<xsl:attribute name="class">error</xsl:attribute>
+								</xsl:if>										
+							</input>
+						
+							
+									</div>
+								</div>
+							</div>
+							<xsl:if test="$invalidYear">
+								<span class="error errorMessage">Not a valid year (YYYY)</span>
+							</xsl:if>
+						</div>
+						
+						<div class="searchCol3">
+							<a class="helpIcon helpItem helpItemToMidRight" href="#yearHelp">
+								<img alt=" Help about Year Range searching" src="/images/chrome/helpIcon.gif"/>
+							</a>
+						</div>
+					</div>
+				
+				</xsl:if>
+			
 			<!-- language -->
 			<xsl:if test="$generalSearch">
 				<div class="searchLang searchFieldCategory">
@@ -331,6 +472,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					
 					<xsl:call-template name="TSOOutputNumber"/>
 				</xsl:when>
+				<xsl:when test="$impactAssessmentSearch"></xsl:when>
 				<xsl:otherwise>
 					<xsl:variable name="invalidYear" as="xs:boolean" 
 						select="exists($paramsDoc/parameters/year[. !='' and not(matches(., '(\*|[0-9]{4})(-(\*|[0-9]{4}))?'))])"/>
@@ -454,6 +596,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								<xsl:with-param name="showPrimary" select="false()" /> 
 								<xsl:with-param name="showSecondary" select="false()" /> 
 								<xsl:with-param name="showDraft" select="$draftLegislationSearch" /> 								
+								<xsl:with-param name="selected" select="$paramsDoc/parameters/type" />
+							</xsl:call-template>
+						</xsl:when>
+						<xsl:when test="$impactAssessmentSearch">						
+							<xsl:call-template name="tso:TypeChoice">
+								<xsl:with-param name="showPrimary" select="false()" /> 
+								<xsl:with-param name="showSecondary" select="false()" /> 
+								<xsl:with-param name="showImpacts" select="$impactAssessmentSearch" /> 								
 								<xsl:with-param name="selected" select="$paramsDoc/parameters/type" />
 							</xsl:call-template>
 						</xsl:when>

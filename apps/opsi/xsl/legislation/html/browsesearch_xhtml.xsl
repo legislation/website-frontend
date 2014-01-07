@@ -267,12 +267,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	</xsl:template>
 	
 	
-	<xsl:template match="leg:facetTypes | leg:facetYears | leg:facetHundreds">
+	<xsl:template match="leg:facetTypes | leg:facetYears | leg:facetHundreds | leg:facetStages | leg:facetDepartments">
+		<xsl:variable name="type" as="xs:string?" select="/atom:feed/openSearch:Query/@leg:type"/>
+		<xsl:variable name="legType" as="xs:string" select="if (matches($type,'(impacts|ukia|sia|wia|niia)')) then 'Impact Assessments by ' else 'Legislation by '"/>
 		<xsl:variable name="facetType" as="xs:string">
 			<xsl:choose>
 				<xsl:when test="self::leg:facetTypes">Type</xsl:when>
 				<xsl:when test="self::leg:facetYears">Year</xsl:when>
 				<xsl:when test="self::leg:facetHundreds">Number</xsl:when>
+				<xsl:when test="self::leg:facetStages">Stage</xsl:when>
+				<xsl:when test="self::leg:facetDepartments">Department</xsl:when>
 				<xsl:otherwise>XXX</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
@@ -281,7 +285,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<xsl:variable name="selected" as="xs:boolean" select="exists(@remove) and count(*[@value]) = 1" />
 			<div class="section" id="{lower-case($facetType)}">
 				<div class="title">
-					<h3>Legislation By <xsl:value-of select="$facetType" /></h3>
+					<h3><xsl:value-of select="$legType" /> <xsl:value-of select="$facetType" /></h3>
 				</div>
 				<div class="content">
 				
@@ -364,6 +368,52 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		</xsl:choose>
 	</xsl:template>
 	
+	<xsl:template match="leg:facetStage">
+		<xsl:param name="selected" as="xs:boolean" required="yes" />
+		<xsl:param name="maxYear" as="xs:string" required="yes" tunnel="yes" />
+		<xsl:choose>
+			<xsl:when test="$selected">
+				<li class="legType">
+					<span class="userFunctionalElement disabled">
+						<xsl:value-of select="tso:GetTitleFromType(@type, $maxYear)" />
+						<xsl:if test="exists(@value)"> (<xsl:value-of select="@value"/>)</xsl:if>
+					</span>
+				</li>
+			</xsl:when>
+			<xsl:otherwise>
+				<li class="legType">
+					<a href="{leg:GetLink(@href)}">
+						<xsl:value-of select="tso:GetTitleFromType(@type, $maxYear)"/>
+						<xsl:if test="exists(@value)"> (<xsl:value-of select="@value"/>)</xsl:if>
+					</a>
+				</li>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>	
+	
+	<xsl:template match="leg:facetDepartment">
+		<xsl:param name="selected" as="xs:boolean" required="yes" />
+		<xsl:param name="maxYear" as="xs:string" required="yes" tunnel="yes" />
+		<xsl:choose>
+			<xsl:when test="$selected">
+				<li class="legType">
+					<span class="userFunctionalElement disabled">
+						<xsl:value-of select="tso:GetTitleFromType(@type, $maxYear)" />
+						<xsl:if test="exists(@value)"> (<xsl:value-of select="@value"/>)</xsl:if>
+					</span>
+				</li>
+			</xsl:when>
+			<xsl:otherwise>
+				<li class="legType">
+					<a href="{leg:GetLink(@href)}">
+						<xsl:value-of select="tso:GetTitleFromType(@type, $maxYear)"/>
+						<xsl:if test="exists(@value)"> (<xsl:value-of select="@value"/>)</xsl:if>
+					</a>
+				</li>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>	
+
 	<xsl:template match="leg:facetYear">
 		<xsl:param name="selected" as="xs:boolean" required="yes" />
 		<xsl:choose>

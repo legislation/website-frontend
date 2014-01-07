@@ -39,6 +39,8 @@ $(document).ready(function () {
     $("#yearEnd").validate("year").addDefaultText("YYYY");
     $("#searchNumber").validate("number");
     $(".searchPIT input").validate("date").addDefaultText("DD/MM/YYYY");
+	$("#start").validate("date").addDefaultText("DD/MM/YYYY");
+	$("#end").validate("date").addDefaultText("DD/MM/YYYY");
     if ($("#PIT").length) {
         $("#specificYear").addDefaultText("Any");
     }
@@ -58,8 +60,24 @@ $(document).ready(function () {
 
 function addDatePicker() {
     var PIT = $("#PIT");
+	var start = $("#start");
+	var end = $("#end");
     if (PIT != null && PIT.size() > 0) {
         PIT.datepicker({
+            showOn: "button",
+            buttonText: "",
+            dateFormat: 'dd/mm/yy'
+        });
+    }
+	if (start != null && start.size() > 0) {
+        start.datepicker({
+            showOn: "button",
+            buttonText: "",
+            dateFormat: 'dd/mm/yy'
+        });
+    }
+	if (end != null && end.size() > 0) {
+        end.datepicker({
             showOn: "button",
             buttonText: "",
             dateFormat: 'dd/mm/yy'

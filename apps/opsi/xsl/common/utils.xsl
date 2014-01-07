@@ -104,6 +104,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
   <tso:legType schemaType="NorthernIrelandDraftStatutoryRule" class="draft" category="Rule" abbrev="nidsr" 
   	em="Draft Explanatory Memorandum" singular="Northern Ireland Draft Statutory Rule" plural="Northern Ireland Draft Statutory Rules"
   	start="2000" complete="2000" legType="NorthernIrelandStatutoryRule" revised="false" />
+	
+	<tso:legType schemaType="UnitedKingdomImpactAssessment" class="IA" category="Impact Assemssment" abbrev="ukia" 
+  	em="" singular="UK Impact Assessment" plural="UK Impact Assessments"
+  	start="2008" complete="2008" legType="UnitedKingdomImpactAssessment" revised="false" />
+	
 </xsl:variable>
 
 <xsl:function name="tso:getType" as="element(tso:legType)?">
@@ -210,7 +215,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:param name="selected" as="xs:string" select="''" />
 	<xsl:param name="showPrimary" as="xs:boolean" select="true()" />
 	<xsl:param name="showSecondary" as="xs:boolean" select="true()" />	
-	<xsl:param name="showDraft" as="xs:boolean" select="true()" />		
+	<xsl:param name="showDraft" as="xs:boolean" select="true()" />
+	<xsl:param name="showImpacts" as="xs:boolean" select="true()" />
 	<xsl:param name="showUnrevised" as="xs:boolean" select="true()" />
 	<xsl:param name="error" as="xs:boolean" select="false()" />	
 	<xsl:param name="allowMultipleLines" as="xs:boolean" select="false()" />		
@@ -275,6 +281,20 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			</option>
 			
 			<xsl:apply-templates select="$tso:legTypeMap[@class='draft']" mode="DisplaySelectOptions">
+				<xsl:with-param name="selected" select="$selected"/>
+				<xsl:with-param name="allowMultipleLines" select="$allowMultipleLines"/>				
+				<xsl:with-param name="maxLineLength" select="$maxLineLength"/>
+			</xsl:apply-templates>
+		</xsl:if>
+		<xsl:if test="$showImpacts">
+			<option value="draft">
+				<xsl:if test="$selected = 'draft'">
+					<xsl:attribute name="selected" select="'selected'" />
+				</xsl:if>			
+				<xsl:text>All Impact Assessments</xsl:text>
+			</option>
+			
+			<xsl:apply-templates select="$tso:legTypeMap[@class='IA']" mode="DisplaySelectOptions">
 				<xsl:with-param name="selected" select="$selected"/>
 				<xsl:with-param name="allowMultipleLines" select="$allowMultipleLines"/>				
 				<xsl:with-param name="maxLineLength" select="$maxLineLength"/>
@@ -393,7 +413,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 <xsl:template name="tso:TypeChoice" as="element()*">
 	<xsl:param name="showPrimary" as="xs:boolean" select="true()" />
 	<xsl:param name="showSecondary" as="xs:boolean" select="true()" />	
-	<xsl:param name="showDraft" as="xs:boolean" select="false()" />		
+	<xsl:param name="showDraft" as="xs:boolean" select="false()" />	
+	<xsl:param name="showImpacts" as="xs:boolean" select="false()" />	
 	<xsl:param name="selected" as="xs:string" select="''" />	
 	<div id="checkboxes">
 		<div class="searchCol2">
@@ -406,6 +427,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								</xsl:if>					
 							</input>
 							<label>All Draft</label>	
+					</div>				
+				</xsl:when>
+				<xsl:when test="$showImpacts">
+					<div class="typeCheckBoxDoubleCol">
+							<input type="checkbox" name="type" value="ukia" checked="checked">
+								<xsl:if test="contains($selected, 'impacts')">
+									<xsl:attribute name="checked"/>
+								</xsl:if>					
+							</input>
+							<label>UK Impact Assessments</label>	
 					</div>				
 				</xsl:when>
 				<xsl:otherwise>
