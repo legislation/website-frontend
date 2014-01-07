@@ -236,7 +236,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 								<xsl:text> This version shows proposed changes to this legislation item. It has no official standing.</xsl:text>
 							</xsl:when>
 							<xsl:when test="leg:IsDraft(.)">
-								<xsl:text>This is a draft item of legislation item</xsl:text>
+								<xsl:text>This is a draft item of legislation</xsl:text>
 								<!-- 
 								For a draft legislation item with a 'superseded' version: 
 									Draft Legislation: This is a draft legislation item. This draft has since been made as {legislation type}: {legislation title + number}.
