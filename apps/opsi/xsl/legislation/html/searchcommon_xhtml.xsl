@@ -275,7 +275,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<!-- ========== Standard code for summary========= -->
 	
 	<xsl:template match="atom:feed" mode="summary">
-		<xsl:variable name="params" select="$paramsDoc/parameters/(type | title | year | start-year | end-year | number | start-number | end-number | series | subject | theme | text | extent | version)[not(. = ('', '*'))]" />
+		<xsl:variable name="params" select="$paramsDoc/parameters/(type | title | year | start-year | end-year | number | start-number | end-number | series | subject | theme | text | extent | version | view)[not(. = ('', '*'))]" />
 		<xsl:variable name="legislationParams" select="$params[not(self::text or self::title)]" />
 		<xsl:if test="exists($params)">
 			<xsl:variable name="searchParams">
@@ -285,6 +285,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:apply-templates select="$params[self::title]" mode="summary">
 					<xsl:with-param name="feed" select="." />
 				</xsl:apply-templates>
+				<xsl:apply-templates select="$params[self::view]" mode="summary" />
 				<xsl:choose>
 					<xsl:when test="$params[self::type]">
 						<xsl:apply-templates select="$params[self::type]" mode="summary">
@@ -355,7 +356,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:apply-templates select="$params[self::subject]" mode="summary" />
 				<xsl:apply-templates select="$params[self::extent]" mode="summary" />
 				<xsl:apply-templates select="$params[self::version]" mode="summary" />
- 			</xsl:variable>
+			</xsl:variable>
 			<xsl:variable name="pageSize" as="xs:integer" select="openSearch:itemsPerPage"/>
 			<h2>
 				<xsl:choose>
@@ -549,6 +550,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			</span>
 		</xsl:if>
 	</xsl:template>
+	
+	<xsl:template match="view" mode="summary">
+		<xsl:if test=". = 'impacts'">
+			<span>
+				<strong>Impact Assessments </strong>
+				<text>for </text>
+			</span>
+		</xsl:if>
+	</xsl:template>	
 	
 	<xsl:template match="subject" mode="summary">
 		<xsl:if test=". != ''">
@@ -834,7 +844,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:template match="atom:entry" mode="searchresults">
 		<xsl:param name="position" as="xs:integer" select="position()"/>
 		<xsl:variable name="tocLink" as="xs:string"
-			select="if (atom:link[@rel='http://purl.org/dc/terms/tableOfContents' and not(@hreflang)]) then substring-after(atom:link[@rel='http://purl.org/dc/terms/tableOfContents' and not(@hreflang)]/@href, 'http://www.legislation.gov.uk/') else (:allow for impact assessments  :)
+			select="if (atom:link[@rel='http://purl.org/dc/terms/tableOfContents' and not(@hreflang)]) then substring-after(atom:link[@rel='http://purl.org/dc/terms/tableOfContents' and not(@hreflang)]/@href, 'http://www.legislation.gov.uk/') else if (ukm:DocumentMainType/@Value='UnitedKingdomImpactAssessment' and atom:link[@rel='alternate']) then
+			substring-after(atom:link[@rel='alternate'][last()]/@href, 'http://www.legislation.gov.uk/')
+			else
 			substring-after(atom:link[@rel='self']/@href, 'http://www.legislation.gov.uk/')"/>
 		<xsl:variable name="hasWelshTitle" as="xs:boolean" select="atom:title/@type = 'xhtml'" />
 		<xsl:variable name="rowspan" as="attribute(rowspan)?">

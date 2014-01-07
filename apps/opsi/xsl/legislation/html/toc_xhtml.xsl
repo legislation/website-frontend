@@ -169,7 +169,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<!-- getting the document type -->
 	<xsl:function name="leg:GetDocumentMainType" as="xs:string">
 		<xsl:param name="legislation" as="document-node()" />
-		<xsl:sequence select="$legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value" />
+		<xsl:sequence select="$legislation/*/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value" />
 	</xsl:function>	
 	
 	<!-- uri Prefix-->

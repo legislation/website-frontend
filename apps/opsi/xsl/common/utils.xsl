@@ -286,9 +286,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:with-param name="maxLineLength" select="$maxLineLength"/>
 			</xsl:apply-templates>
 		</xsl:if>
+		<!-- note that we are currently using ukia as this is the only IA type - if we have additional this will need to be changed to 'impact' -->
 		<xsl:if test="$showImpacts">
-			<option value="draft">
-				<xsl:if test="$selected = 'draft'">
+			<option value="ukia">
+				<xsl:if test="$selected = 'ukia'">
 					<xsl:attribute name="selected" select="'selected'" />
 				</xsl:if>			
 				<xsl:text>All Impact Assessments</xsl:text>
@@ -431,12 +432,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				</xsl:when>
 				<xsl:when test="$showImpacts">
 					<div class="typeCheckBoxDoubleCol">
-							<input type="checkbox" name="type" value="ukia" checked="checked">
+							<!--<input type="checkbox" name="type" value="ukia" checked="checked">
 								<xsl:if test="contains($selected, 'impacts')">
 									<xsl:attribute name="checked"/>
 								</xsl:if>					
 							</input>
-							<label>UK Impact Assessments</label>	
+							<label>UK Impact Assessments</label>
+							-->
+							<input type="hidden" name="type" value="ukia"/>
+								
 					</div>				
 				</xsl:when>
 				<xsl:otherwise>

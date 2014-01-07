@@ -79,7 +79,8 @@ label.error {color: #870600;font-weight:bold}
 .searchYear div.rangeOfYears div {margin-left: 12px;}
 .searchYear div.rangeOfYears div input {margin-right: 40px;}
 
-.searchYear div.rangeOfDates div input {margin-right: 5px;width: 75px;}
+.searchYear div.rangeOfDates {width: 400px;clear: both; float: left; margin-top: 10px;}
+.searchYear div.rangeOfDates div input {margin-right: 5px;width: 100px;}
 .searchYear div.rangeOfDates div button {margin-right: 20px;margin-left: 10px;}
 
 

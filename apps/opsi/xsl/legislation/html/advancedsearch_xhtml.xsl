@@ -153,6 +153,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
                     </xsl:when>    
 					<xsl:when test="$impactAssessmentSearch">
                         <xsl:text>Impact Assessment search</xsl:text>
+						<small> (UK only)</small>
                     </xsl:when> 
 					<xsl:otherwise>
 						<xsl:text>General search</xsl:text>
@@ -357,9 +358,37 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 									</input>
 								</div>
 							</div>
-							<div class="rangeOfDates formGroup">
+							<div class="rangeOfYears formGroup">
+								<xsl:variable name="invalidYearRange" as="xs:boolean" 
+						select="exists($paramsDoc/parameters/start-year[. != '*' and . != '' and not(. castable as xs:integer)]) or
+							    exists($paramsDoc/parameters/end-year[. != '*' and . != '' and not(. castable as xs:integer)])"/>
 								<input type="radio" id="rangeRadio" name="yearRadio" value="range"/>
-								<label for="rangeRadio">Range</label>
+								<label for="rangeRadio">Year Range</label>
+								<div class="yearRange">
+									<div>
+										<label for="yearStart">From</label>
+										<input type="text" id="yearStart" name="start-year" maxlength="4"
+											value="{$paramsDoc/parameters/start-year}">
+											<xsl:if test="$invalidYearRange">
+												<xsl:attribute name="class">error</xsl:attribute>
+											</xsl:if>
+										</input>
+									</div>
+									<div>
+										<label for="yearEnd">To</label>
+										<input type="text" id="yearEnd" name="end-year" maxlength="4"
+											value="{$paramsDoc/parameters/end-year}">
+											<xsl:if test="$invalidYearRange">
+												<xsl:attribute name="class">error</xsl:attribute>
+											</xsl:if>
+										</input>
+									</div>
+								</div>
+							</div>
+							
+							<div class="rangeOfDates formGroup searchDateRange">
+								<input type="radio" id="rangeRadio" name="yearRadio" value="range"/>
+								<label for="rangeRadio">Date Range</label>
 								<div class="yearRange">
 									<div>
 										<label for="yearStart">From</label>
@@ -375,18 +404,19 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 									<div>
 										<label for="yearEnd">To</label>
 										<input id="end" type="text" name="end" 
-							value="{if ($paramsDoc/parameters/start[matches(., '[0-9]{2}/[0-9]{2}/[0-9]{4}')]) then $paramsDoc/parameters/start	
-										else if ($paramsDoc/parameters/start[. castable as xs:date]) then format-date($paramsDoc/parameters/start, '[D01]/[M01]/[Y0001]')
-										else ''}">
-								<xsl:if test="$invalidEndDate">
-									<xsl:attribute name="class">error</xsl:attribute>
-								</xsl:if>										
-							</input>
+										value="{if ($paramsDoc/parameters/start[matches(., '[0-9]{2}/[0-9]{2}/[0-9]{4}')]) then $paramsDoc/parameters/start	
+													else if ($paramsDoc/parameters/start[. castable as xs:date]) then format-date($paramsDoc/parameters/start, '[D01]/[M01]/[Y0001]')
+													else ''}">
+											<xsl:if test="$invalidEndDate">
+												<xsl:attribute name="class">error</xsl:attribute>
+											</xsl:if>										
+										</input>
 						
 							
 									</div>
 								</div>
 							</div>
+							
 							<xsl:if test="$invalidYear">
 								<span class="error errorMessage">Not a valid year (YYYY)</span>
 							</xsl:if>
@@ -479,7 +509,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:variable name="invalidYearRange" as="xs:boolean" 
 						select="exists($paramsDoc/parameters/start-year[. != '*' and . != '' and not(. castable as xs:integer)]) or
 							    exists($paramsDoc/parameters/end-year[. != '*' and . != '' and not(. castable as xs:integer)])"/>			
-							    
+					
+				
 					<div class="searchYear searchFieldCategory">
 						<div class="searchCol1">
 							<label for="specificYear">
@@ -558,71 +589,78 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			</xsl:choose>
 	
 			<!-- search type -->
-			<div class="searchType searchFieldCategory">
-				<div class="searchCol1">
-					<label for="type">
-						<xsl:if test="($pointInTimeSearch or $extentSearch or $draftLegislationSearch) and not($isRevisedLegislation)"><xsl:attribute name="class">error</xsl:attribute></xsl:if>
-						<xsl:text>Type:</xsl:text>
-					</label>
-				</div>
+			<xsl:choose>
+				<xsl:when test="$impactAssessmentSearch">
+					<input type="hidden" name="type" value="ukia"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<div class="searchType searchFieldCategory">
+						<div class="searchCol1">
+							<label for="type">
+								<xsl:if test="($pointInTimeSearch or $extentSearch or $draftLegislationSearch) and not($isRevisedLegislation)"><xsl:attribute name="class">error</xsl:attribute></xsl:if>
+								<xsl:text>Type:</xsl:text>
+							</label>
+						</div>
+						
+						
+						<div class="searchCol2 searchType">
+							<xsl:choose>
+								<xsl:when test="$pointInTimeSearch or $extentSearch">
+										<xsl:call-template name="tso:TypeSelect">
+											<xsl:with-param name="showPrimary" select="true()" /> 
+											<xsl:with-param name="showSecondary" select="true()" />
+											<xsl:with-param name="showDraft" select="false()" />
+											<xsl:with-param name="showUnrevised" select="false()" />
+											<xsl:with-param name="selected" select="$paramsDoc/parameters/type" />
+											<xsl:with-param name="error" select="not($isRevisedLegislation)" />
+										</xsl:call-template>
+										<xsl:if test="not($isRevisedLegislation)">
+											<span class="error">Please select revised legislations only</span>
+										</xsl:if>
+								</xsl:when>
+								<!--
+								<xsl:when test="$extentSearch">
+									<xsl:call-template name="tso:TypeChoice">
+										<xsl:with-param name="showPrimary" select="true()" /> 
+										<xsl:with-param name="showSecondary" select="false()" /> 
+										<xsl:with-param name="selected" select="$paramsDoc/parameters/type" />
+									</xsl:call-template>
+								</xsl:when>
+								-->
+								<xsl:when test="$draftLegislationSearch">						
+									<xsl:call-template name="tso:TypeChoice">
+										<xsl:with-param name="showPrimary" select="false()" /> 
+										<xsl:with-param name="showSecondary" select="false()" /> 
+										<xsl:with-param name="showDraft" select="$draftLegislationSearch" /> 								
+										<xsl:with-param name="selected" select="$paramsDoc/parameters/type" />
+									</xsl:call-template>
+								</xsl:when>
+								<xsl:when test="$impactAssessmentSearch">						
+									<xsl:call-template name="tso:TypeChoice">
+										<xsl:with-param name="showPrimary" select="false()" /> 
+										<xsl:with-param name="showSecondary" select="false()" /> 
+										<xsl:with-param name="showImpacts" select="$impactAssessmentSearch" /> 								
+										<xsl:with-param name="selected" select="$paramsDoc/parameters/type" />
+									</xsl:call-template>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:call-template name="tso:TypeChoice">
+										<xsl:with-param name="showPrimary" select="true()" /> 
+										<xsl:with-param name="showSecondary" select="true()" /> 
+										<xsl:with-param name="selected" select="$paramsDoc/parameters/type" />
+									</xsl:call-template>
+								</xsl:otherwise>
+							</xsl:choose>
+						</div>
 				
-				
-				<div class="searchCol2 searchType">
-					<xsl:choose>
-						<xsl:when test="$pointInTimeSearch or $extentSearch">
-								<xsl:call-template name="tso:TypeSelect">
-									<xsl:with-param name="showPrimary" select="true()" /> 
-									<xsl:with-param name="showSecondary" select="true()" />
-                  					<xsl:with-param name="showDraft" select="false()" />
-					                <xsl:with-param name="showUnrevised" select="false()" />
-									<xsl:with-param name="selected" select="$paramsDoc/parameters/type" />
-									<xsl:with-param name="error" select="not($isRevisedLegislation)" />
-								</xsl:call-template>
-								<xsl:if test="not($isRevisedLegislation)">
-									<span class="error">Please select revised legislations only</span>
-								</xsl:if>
-						</xsl:when>
-						<!--
-						<xsl:when test="$extentSearch">
-							<xsl:call-template name="tso:TypeChoice">
-								<xsl:with-param name="showPrimary" select="true()" /> 
-								<xsl:with-param name="showSecondary" select="false()" /> 
-								<xsl:with-param name="selected" select="$paramsDoc/parameters/type" />
-							</xsl:call-template>
-						</xsl:when>
-						-->
-						<xsl:when test="$draftLegislationSearch">						
-							<xsl:call-template name="tso:TypeChoice">
-								<xsl:with-param name="showPrimary" select="false()" /> 
-								<xsl:with-param name="showSecondary" select="false()" /> 
-								<xsl:with-param name="showDraft" select="$draftLegislationSearch" /> 								
-								<xsl:with-param name="selected" select="$paramsDoc/parameters/type" />
-							</xsl:call-template>
-						</xsl:when>
-						<xsl:when test="$impactAssessmentSearch">						
-							<xsl:call-template name="tso:TypeChoice">
-								<xsl:with-param name="showPrimary" select="false()" /> 
-								<xsl:with-param name="showSecondary" select="false()" /> 
-								<xsl:with-param name="showImpacts" select="$impactAssessmentSearch" /> 								
-								<xsl:with-param name="selected" select="$paramsDoc/parameters/type" />
-							</xsl:call-template>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:call-template name="tso:TypeChoice">
-								<xsl:with-param name="showPrimary" select="true()" /> 
-								<xsl:with-param name="showSecondary" select="true()" /> 
-								<xsl:with-param name="selected" select="$paramsDoc/parameters/type" />
-							</xsl:call-template>
-						</xsl:otherwise>
-					</xsl:choose>
-				</div>
-		
-				<div class="searchCol3">
-					<a class="helpIcon helpItem helpItemToMidRight" href="#typeHelp">
-						<img alt=" Help about Legislation Type searching" src="/images/chrome/helpIcon.gif"/>
-					</a>
-				</div>
-			</div>
+						<div class="searchCol3">
+							<a class="helpIcon helpItem helpItemToMidRight" href="#typeHelp">
+								<img alt=" Help about Legislation Type searching" src="/images/chrome/helpIcon.gif"/>
+							</a>
+						</div>
+					</div>
+				</xsl:otherwise>
+			</xsl:choose>
 			
 			<!-- point in time -->	
 			<xsl:if test="$pointInTimeSearch">

@@ -34,6 +34,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	
 	<xsl:variable name="requestDoc" select="if (doc-available('input:request')) then doc('input:request') else ()"/>	
 	<xsl:variable name="g_impactAssessmentType" as="xs:string" select="$requestDoc/parameters/impact-assessment" />
+	<xsl:variable name="g_impactAssessmentYear" as="xs:string?" select="$requestDoc/parameters/impactyear" />
+	<xsl:variable name="g_impactAssessmentNumber" as="xs:string?" select="$requestDoc/parameters/impactnumber" />
 	
 	<xsl:output indent="yes" method="xhtml" />
 
@@ -42,11 +44,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		<xsl:variable name="ias" select="if ($g_impactAssessmentType != '') then $ias[starts-with(lower-case(translate(@Title, ' ', '-')), $g_impactAssessmentType)] else $ias" />
 		<xsl:variable name="ias" as="element(ukm:ImpactAssessment)*">
 			<xsl:perform-sort select="$ias">
-				<xsl:sort select="index-of($assessmentTypes, substring-before(@Title, ' Impact Assessment'))" order="descending" />
+				<xsl:sort select="xs:date(@Date)" order="descending" />
+				<xsl:sort select="index-of($assessmentTypes, @Stage)" order="descending" />
 			</xsl:perform-sort>
 		</xsl:variable>
 		<xsl:variable name="ia" as="element(ukm:ImpactAssessment)?">
 			<xsl:choose>
+				<!-- if a specific IA is requested, get this  -->
+				<xsl:when test="$g_impactAssessmentYear != '' and $g_impactAssessmentNumber != ''">
+					<xsl:sequence select="$ias[@Year = $g_impactAssessmentYear][@Number =  $g_impactAssessmentNumber]" />
+				</xsl:when>
 				<xsl:when test="$ias[@Language = 'Mixed']">
 					<xsl:sequence select="$ias[@Language = 'Mixed'][1]" />
 				</xsl:when>
@@ -138,10 +145,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			</xsl:choose>	 
 		</xsl:variable>
 		<xsl:variable name="version" as="xs:string?">
-			<xsl:if test="contains($ia/@Title, ' Impact Assessment')">
+			<xsl:if test="$ia/@Stage">
 				<xsl:value-of>
 					<xsl:text>the </xsl:text>
-					<xsl:value-of select="substring-before($ia/@Title, ' Impact Assessment')" />
+					<xsl:value-of select="$ia/@Stage" />
 					<xsl:text> version of the </xsl:text>
 				</xsl:value-of>
 			</xsl:if>
@@ -204,12 +211,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						</xsl:variable>
 						<li>
 							<xsl:choose>
-								<xsl:when test="starts-with($ia/@Title, $assessmentType)">
+								<xsl:when test="starts-with($ia/@Stage, $assessmentType)">
 									<span class="userFunctionalElement active">
 										<xsl:sequence select="$button" />
 									</span>
 								</xsl:when>
-								<xsl:when test="exists($ias[starts-with(@Title, $assessmentType)])">
+								<xsl:when test="exists($ias[starts-with(@Stage, $assessmentType)])">
 									<a class="userFunctionalElement" href="{leg:FormatURL(concat($impactURI, '/', lower-case(replace($assessmentType, ' ', '-'))))}">
 										<xsl:sequence select="$button" />
 									</a>
