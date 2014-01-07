@@ -90,7 +90,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
             <!-- accessible skip links -->
             <ul id="top" class="accessibleLinks">
             	<xsl:choose>         	
-                    <xsl:when test="$paramsDoc/request/parameters/parameter[contains(value, 'plain')]">                        
+                   <!-- issue highlighted by HA050430 where there can be multiple parameter/value elements  -->
+				   <xsl:when test="some $value in $paramsDoc/request/parameters/parameter/value satisfies contains($value,'plain')">                        
                         <li><a href="#content">Skip to main content</a></li>
                         <li><a href="#plainViewNav">Skip to navigation</a></li>                      
                     </xsl:when>                
