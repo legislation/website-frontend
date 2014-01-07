@@ -351,8 +351,14 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					<xsl:apply-templates/>
 				</a>
 			</xsl:when>
+			<!--	HA050978 - added condition to have links for titles in ContentsSchedule - http://www.legislation.gov.uk/apni/1970/10/contents-->
+			<xsl:when test="parent::*/parent::leg:ContentsSchedule/@DocumentURI and not(parent::*/@DocumentURI)">
+				<a href="{substring-after(parent::*/parent::leg:ContentsSchedule/@DocumentURI, 'http://www.legislation.gov.uk')}">
+					<xsl:apply-templates/>
+				</a>
+			</xsl:when>		
 			<xsl:otherwise>
-				<xsl:apply-templates/>
+				<xsl:apply-templates/>				
 			</xsl:otherwise>
 		</xsl:choose>
 	</span>
