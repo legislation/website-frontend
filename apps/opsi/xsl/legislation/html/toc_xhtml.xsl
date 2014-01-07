@@ -1129,8 +1129,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				if (exists(descendant-or-self::*[@MatchText='true' and @MatchExtent='true'])) then 'Expanded' else 'Collapse'
 			else if ($searchingByText or $searchingByExtent) then 
 				if (exists(descendant-or-self::*[@MatchText='true' or @MatchExtent='true'])) then 'Expanded' else 'Collapse'
-			else 
-				if (ancestor::leg:ContentsSchedule) then 'Collapse' else 'Expanded'}">
+			else 			
+			if (ancestor::leg:ContentsSchedule) then 'Expanded' else 'Collapse'}"><!-- updaed by Yashashri call HA050984 Expand and Collapse labels are coming out the wrong way round for some documents -->
 			<xsl:sequence select="$html/*" />
 		</li>
 	</xsl:template>
