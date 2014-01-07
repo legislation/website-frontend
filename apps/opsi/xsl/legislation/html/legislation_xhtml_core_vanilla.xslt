@@ -1911,8 +1911,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:apply-templates/> 
 		</span>-->
 	<!-- Chunyu HA049771 asp/2005/6 Added the condition for P1 is not the first in P1group -->
+	<!-- Julian    HA056190 - ssi/2005/190/article/2/made. Refined condition as it caused problems with the SSI specified. I think the fix which removed styling from P1s other than the first in
+	the P1Group is only required when the 1st P1 becomes a header (<hn>) not a para (<p>) - this is done in the code following from line 1756, which is only applied for primary legislation. --> 
 	<xsl:choose>
-		<xsl:when test="parent::leg:P1[not(preceding-sibling::leg:P1) and (parent::leg:P1group)]">
+		<xsl:when test="(parent::leg:P1[not(preceding-sibling::leg:P1) and (parent::leg:P1group)]) or $g_strDocumentType != $g_strPrimary">
 			<span>
 				<xsl:attribute name="class">
 					<xsl:text>LegP1No</xsl:text>
