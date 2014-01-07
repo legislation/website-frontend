@@ -39,7 +39,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <xsl:import href="../../common/utils.xsl"/>
 
-<xsl:output method="xml" version="1.0" omit-xml-declaration="yes"  indent="yes" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<xsl:output method="xml" version="1.0" omit-xml-declaration="yes"  indent="no" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <xsl:key name="citations" match="leg:Citation" use="@id" />
 <xsl:key name="commentary" match="leg:Commentary" use="@id"/>
@@ -82,7 +82,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <xsl:param name="selectedSection" as="element()?" select="()" />
 
-<xsl:variable name="selectedSectionSubstituted" as="xs:boolean" select="false()" />
+<xsl:variable name="selectedSectionSubstituted" as="xs:boolean" select="tso:isSubstituted($selectedSection)" />
 
 <!-- ========= Code for consolidation ========== -->
 
@@ -308,9 +308,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:apply-templates/>
 </xsl:template>
 
-<!--<xsl:template match="leg:ContentsPart/leg:ContentsTitle | leg:ContentsChapter[leg:ContentsNumber]/leg:ContentsTitle">
-<!-\-FM U437: Chapter Headings should appear even if there is no chapter number   -\->
-</xsl:template>-->
+<!-- Chunyu  HA050364 deleted leg:ContentsPart/leg:ContentsTitle in this template. It has casused the titles were missing see nisi/2007/1351,NISI 2007/287 (NI 1) and etc.-->
+<xsl:template match="leg:ContentsChapter[leg:ContentsNumber]/leg:ContentsTitle">
+<!--  FM U437: Chapter Headings should appear even if there is no chapter number-->   
+</xsl:template>
 
 <xsl:template match="leg:Contents/leg:ContentsTitle">
 	<h2 class="LegContentsHeading">
