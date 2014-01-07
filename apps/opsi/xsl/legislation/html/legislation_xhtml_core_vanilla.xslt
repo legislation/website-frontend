@@ -2928,7 +2928,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <xsl:template name="FuncProcessCellContent">
 	<xsl:param name="strCellType"/>
 	<!-- By default assume plain text in cell unless there is structural markup -->
-	<xsl:if test="child::*[not(self::leg:Emphasis or self::leg:Strong or self::leg:Superior or self::leg:Inferior or self::leg:Addition or self::leg:Repeal or self::leg:Substitution or self::leg:CommentaryRef or self::leg:Citation or self::leg:Addition or self::leg:Repeal or self::leg:Substitution or self::leg:CommentaryRef or self::leg:CitationSubRef or self::math:math or self::leg:Character or self::leg:FootnoteRef or self::leg:Span or self::leg:Term or self::leg:Definition or self::leg:Proviso or self::leg:MarginNoteRef or self::leg:Underline or self::leg:SmallCaps)]">
+	<xsl:if test="child::*[(self::leg:Emphasis or self::leg:Strong or self::leg:Superior or self::leg:Inferior or self::leg:Addition or self::leg:Repeal or self::leg:Substitution or self::leg:CommentaryRef or self::leg:Citation or self::leg:Addition or self::leg:Repeal or self::leg:Substitution or self::leg:CommentaryRef or self::leg:CitationSubRef or self::math:math or self::leg:Character or self::leg:FootnoteRef or self::leg:Span or self::leg:Term or self::leg:Definition or self::leg:Proviso or self::leg:MarginNoteRef or self::leg:Underline or self::leg:SmallCaps)]">
 		<xsl:attribute name="class">
 			<xsl:value-of select="$strCellType"/>
 		</xsl:attribute>
@@ -3628,9 +3628,12 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 	
 	<!-- Yashashri : changed to make Headings Italic - Support call- 	HA047941-->
+	<!-- Chunyu HA050076 Added em back to the template -->
 <xsl:template match="leg:Emphasis">	
+	<em>
 		<xsl:call-template name="FuncCheckForID"/>
 		<xsl:apply-templates/>	
+	</em>
 </xsl:template>
 
 <xsl:template match="leg:Underline">
