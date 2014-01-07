@@ -1,0 +1,961 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<allResources>
+	<resources lang="cy">
+		<resource id="Home_description">The official home of UK legislation, revised and as enacted 1267-present. This website is managed by The National Archives on behalf of HM Government. Publishing all UK legislation is a core part of the remit of Her Majesty’s Stationery Office (HMSO), part of The National Archives, and the Office of the Queen's Printer for Scotland.</resource>
+		<resource id="About Us">Amdanom ni</resource>
+		<resource id="Accessibility">Hygyrchedd</resource>
+		<resource id="Advanced Search">Chwiliad Uwch</resource>
+		<resource id="All">Pob</resource>
+		<resource id="All Draft Legislation">Pob Deddfwriaeth Ddrafft</resource>
+		<resource id="All Impact Assessments">Pob Asesiad Effaith</resource>
+		<resource id="All Primary Legislation">Pob deddfwriaeth sylfaenol</resource>
+		<resource id="All Secondary Legislation">Pob is-ddeddfwriaeth</resource>
+		<resource id="Browse Legislation">Pori trwy Ddeddfwriaeth</resource>
+		<resource id="Changes To Legislation">Newidiadau i Ddeddfwriaeth</resource>
+		<resource id="Contact Us">Cysylltu â Ni</resource>
+		<resource id="Crown copyright">Hawlfraint y Goron</resource>
+		<resource id="excluding draft">ac eithrio drafftiau</resource>
+		<resource id="Help">Help</resource>
+		<resource id="Home">Hafan</resource>
+		<resource id="Homepage Footer">Mae’r holl gynnwys ar gael dan </resource>
+		<resource id="Homepage Footer End"> ac eithrio pan nodir yn wahanol</resource>
+		<resource id="Legislation">Deddfwriaeth</resource>
+		<resource id="New Legislation">Deddfwriaeth Newydd</resource>
+		<resource id="Number">Rhif</resource>
+		<resource id="Open Government Licence">Drwydded Llywodraeth Agored v2.0</resource>
+		<resource id="Revised">ddiwygiedig</resource>
+		<resource id="Site Map">Map o’r safle</resource>
+		<resource id="Search">Chwilio</resource>
+		<resource id="Search Legislation">Chwilio Deddfwriaeth</resource>
+		<resource id="Search All Legislation">Chwilio Pob Deddfwriaeth</resource>
+		<resource id="Title">Teitl</resource>
+		<resource id="Type">Math</resource>
+		<resource id="Year">Blwyddyn</resource>
+		<resource id="year">blwyddyn</resource>
+
+		<!--Legislation Dropdownlist-->
+		<resource id="UK Public General Acts">Deddfau Cyhoeddus Cyffredinol y Deyrnas Unedig</resource>
+		<resource id="UK Local Acts">Deddfau Lleol y Deyrnas Unedig</resource>
+		<resource id="Acts of the Scottish Parliament">Deddfau Senedd yr Alban</resource>
+		<resource id="Acts of the National Assembly for Wales">Deddfau Cynulliad Cenedlaethol Cymru</resource>
+		<resource id="Measures of the National Assembly for Wales">Mesurau Cynulliad Cenedlaethol Cymru</resource>
+		<resource id="Church Measures">Mesurau Eglwysig</resource>
+		<resource id="Acts of the Northern Ireland Assembly">Deddfau Cynulliad Gogledd Iwerddon</resource>
+		<resource id="Acts of the Old Scottish Parliament">Deddfau Hen Senedd yr Alban</resource>
+
+		<resource id="Acts of the English Parliament">Deddfau Senedd Lloegr</resource>
+		<resource id="Acts of the Old Irish Parliament">Deddfau Hen Senedd Iwerddon</resource>
+		<resource id="Acts of the Parliament of Great Britain">Deddfau Senedd Prydain Fawr</resource>
+		<resource id="Northern Ireland Orders in Council">Gorchmynion yn y Cyngor Gogledd Iwerddon</resource>
+		<resource id="Measures of the Northern Ireland Assembly">Mesurau Cynulliad Gogledd Iwerddon</resource>
+		<resource id="Acts of the Northern Ireland Parliament">Deddfau Senedd Gogledd Iwerddon</resource>
+		<resource id="UK Statutory Instruments">Offerynnau Statudol y Deyrnas Unedig</resource>
+		<resource id="Wales Statutory Instruments">Offerynnau Statudol Cymru</resource>
+		<resource id="Scottish Statutory Instruments">Offerynnau Statudol yr Alban</resource>
+		<resource id="Northern Ireland Statutory Rules">Rheolau Statudol Gogledd Iwerddon</resource>
+		<resource id="Church Instruments">Offerynnau Eglwysig</resource>
+		<resource id="UK Ministerial Orders">Gorchmynion Gweinidogol y Deyrnas Unedig</resource>
+		<resource id="UK Statutory Rules and Orders">Rheolau a Gorchmynion Statudol y Deyrnas Unedig</resource>
+		<resource id="UK Draft Statutory Instruments">Offerynnau Statudol Drafft y Deyrnas Unedig</resource>
+		<resource id="Scottish Draft Statutory Instruments">Offerynnau Statudol Drafft yr Alban</resource>
+		<resource id="Northern Ireland Draft Statutory Rules">Rheolau Statudol Drafft Gogledd Iwerddon</resource>
+		<resource id="All UK Impact Assements">Pob Asesiad Effaith y Deyrnas Unedig</resource>
+		<resource id="UK Impact Assessments">Asesiadau Effaith y Deyrnas Unedig</resource>
+
+		<resource id="Table of Contents">Tabl o’r Cynnwys</resource>
+		<resource id="Table of contents">Tabl o’r Cynnwys</resource>
+		<resource id="table of contents">tabl o’r cynnwys</resource>
+		<resource id="Content">Cynnwys</resource>
+		<resource id="Impact Assessments">Asesiadau Effaith</resource>
+		<resource id="Draft Impact Assessments">Asesiadau Effaith Ddrafft</resource>
+		<resource id="Draft legislation">Deddfwriaeth Ddrafft</resource>
+		<resource id="More Resources">Rhagor o Adnoddau</resource>
+		<resource id="Explanatory Notes">Nodiadau Esboniadol</resource>
+		<resource id="Explanatory Memorandum">Memorandwm Esboniadol</resource>
+		<resource id="Draft Explanatory Memorandum">Memorandwm Esboniadol Drafft</resource>
+		<resource id="Plain View">Edrychiad Plaen</resource>
+		<resource id="Back to top">Yn ôl i’r brig</resource>
+		<resource id="Print Options">Dewisiadau Argraffu</resource>
+		<resource id="Next">Nesaf</resource>
+		<resource id="Previous">Blaenorol</resource>
+		<resource id="Previous: Provision">Blaenorol: Darpariaeth</resource>
+		<resource id="Next: Provision">Nesaf: Darpariaeth</resource>
+		<resource id="Changes over time for: Section 33">Newidiadau dros amser i: Section 33</resource>
+		<resource id="What Version">Pa Fersiwn</resource>
+		<resource id="Latest available (Revised)">Y Diweddaraf sydd Ar Gael (Diwygiedig)</resource>
+		<resource id="Original (As made)">Gwreiddiol (a wnaed Fel)</resource>
+		<resource id="Original (As enacted)">Gwreiddiol (Fel y'i Deddfwyd)</resource>
+		<resource id="Original (As enacted) - English">Gwreiddiol (Fel y'i Deddfwyd) - Saesneg</resource>
+		<resource id="Original (As enacted) - Welsh">Gwreiddiol (Fel y'i Deddfwyd) - Cymraeg</resource>
+		<resource id="Original (As made) - English">Gwreiddiol (Fel y'i Gwnaed) - Saesneg</resource>
+		<resource id="Original (As made) - Welsh">Gwreiddiol (Fel y'i Gwnaed) - Cymraeg</resource>
+		<resource id="View PDF">Gweld PDF</resource>
+		<!--<resource id="Point in Time">Pwynt in Time</resource>-->
+		<resource id="Latest with prospective">Diweddaraf gyda Darpar Ddeddfwriaeth</resource>
+		<resource id="Open whole Act">Agor y Ddeddf Gyfan</resource>
+		<resource id="Open Act without schedules">Agor Deddf heb Atodlenni</resource>
+		<resource id="Open Schedules only">Agor Atodlenni yn unig</resource>
+		<resource id="Schedules only">Atodlenni yn unig</resource>
+		<resource id="Open whole Instrument">Agor Offeryn Cyfan</resource>
+		<resource id="Open Instrument without schedules">Agor yr Offeryn heb Atodlen</resource>
+		<resource id="Open whole Measure">Agor y Mesur Cyfan</resource>
+		<resource id="Open Measure without schedules">Agor Mesur heb Atodlenni</resource>
+		<resource id="without Schedules">heb Atodlenni</resource>
+		<resource id="Schedule">Atodlen</resource>
+		<resource id="Provision">Darpariaeth</resource>
+		<resource id="Explanatory Note">Nodyn Esboniadol</resource>
+		<resource id="View more">Gweld Mwy</resource>
+		<resource id="Original Print PDF">PDF Print Gwreiddiol</resource>
+		<resource id="Original Print PDF  - English">PDF Print Gwreiddiol - Saesneg</resource>
+		<resource id="Original Print PDF  - Welsh">PDF Print Gwreiddiol - Cymraeg</resource>
+		<resource id="Original Print PDF  - Mixed Language">PDF Print Gwreiddiol - Iaith Gymysg</resource>
+		<resource id="Revised Version">Fersiwn Ddiwygiedig</resource>
+		<resource id="Print Version">Print Fersiwn Iaith Gymysg</resource>
+		<resource id="Print Version Mixed Language">Fersiwn Print Ieithoedd Cymysg</resource>
+		<resource id="Opening Options">Dewisiadau Agor</resource>
+		<resource id="Advanced Features">Nodweddion Uwch</resource>
+		<resource id="Show Geographical Extent">Dangos Graddfa Ddaearyddol</resource>
+		<resource id="Show Timeline of Changes">Dangos Llinell Amser Newidiadau</resource>
+		<resource id="Show">Dangos</resource>
+		<resource id="Timeline of Changes">Llinell Amser Newidiadau</resource>
+		<resource id="Changes over time for">Newidiadau dros amser i</resource>
+		<!-- Notes-->
+		<resource id="Open full notes">Agor nodiadau yn llaw</resource>
+		<resource id="Open full note">Agor nodyn llawn</resource>
+		<resource id="Open full memorandum">Agor memorandwm yn llawn</resource>
+		<resource id="EN_draft_message" translated="false" stage2="true">This is a draft <param ref-id="type"/> to accompany this <param ref-id="legtype"/>.</resource>
+		<resource id="EN_Intro" translated="false" stage2="true">This Statutory Instrument was laid before the UK Parliament and the Scottish Parliament and is, therefore, accompanied by an Explanatory Memorandum and an Executive Note for each parliament respectively. Navigate between the two documents using the tabs above. The Memorandum and the Note are only available to view and download in PDF.</resource>
+		<resource id="EN_Intro2" translated="false" stage2="true">This is the mixed language version of these Notes. See the More Resources tab for links to the Welsh language and English language versions. These Notes are only available to download and view in PDF.</resource>
+		<resource id="EN_Intro3" translated="false" stage2="true">This is a revised <param ref-id="type"/> to <param ref-id="legtype"/>. The unrevised version of the <param ref-id="type"/> can be accessed via the More Resources tab. This <param ref-id="type"/> is only available to download and view in PDF.</resource>
+		<resource id="EN_Intro4" translated="false" stage2="true">This <param ref-id="type"/> is only available to download and view as PDF.</resource>
+		<resource id="Memorandum">Memorandwm</resource>
+		<resource id="Note">Nodyn</resource>
+		<!-- this next 2 resources are output one after the other, 'click here' is in a link element-->
+		<resource id="EN_Intro5" translated="false" stage2="true">All reference to 'Parts' and 'sections' are from the <param ref-id="title"/>. For more information about understanding <param ref-id="type"/></resource>
+		<resource id="click here" translated="false" stage2="true">click here</resource>
+		<resource id="You have chosen to open" translated="false" stage2="true">You have chosen to open</resource>
+		<resource id="EN_selected_count" translated="false" stage2="true">you have selected contains over <param ref-id="count"/> provisions and might take some time to download.</resource>
+		<resource id="Browser_warning" translated="false" stage2="true"> You may also experience some issues with your browser, such as an alert box that a script is taking a long time to run.</resource>
+
+		<resource id="EN_Help_1" translated="false" stage2="true">Text created by the government department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes were introduced in 1999 and accompany all Public Acts except Appropriation, Consolidated Fund, Finance and Consolidation Acts.</resource>
+		<resource id="EN_Help_2" translated="false" stage2="true">Text created by the Northern Ireland Assembly department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes accompany all Acts of the Northern Ireland Assembly.</resource>
+		<resource id="EN_Help_3" translated="false" stage2="true">Text created by the Scottish Executive department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes were introduced in 1999 and accompany all Acts of the Scottish Parliament except those which result from Budget Bills</resource>
+		<resource id="EN_Help_4" translated="false" stage2="true">Text created by the Welsh Government department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes accompany all Acts of the National Assembly for Wales.</resource>
+		<resource id="EN_Help_5" translated="false" stage2="true">Policy Note sets out a brief statement of the purpose of a Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2012 onwards. Prior to this date these type of notes existed as ‘Executive Notes’ and accompanied Scottish Statutory Instruments from July 2005 until July 2012.</resource>
+		<resource id="EN_Help_6" translated="false" stage2="true">Draft Policy Note sets out a brief statement of the purpose of a Draft Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Draft Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2012 onwards. Prior to this date these type of notes existed as 'Executive Notes' and accompanied Draft Scottish Statutory Instruments from July 2005 until July 2012.</resource>
+		<resource id="EN_Help_7" translated="false" stage2="true">Executive Note sets out a brief statement of the purpose of a Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2005 onwards.</resource>
+		<resource id="EN_Help_8" translated="false" stage2="true">Draft Executive Note sets out a brief statement of the purpose of a Draft Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Draft Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2005 onwards.</resource>
+		<resource id="EN_Help_9" translated="false" stage2="true">Explanatory Memorandum sets out a brief statement of the purpose of a Northern Ireland Order in Council and provides information about its policy objective and policy implications. They aim to make the Order accessible to readers who are not legally qualified and accompany any Northern Ireland Order in Council made since 2002.</resource>
+		<resource id="EN_Help_10" translated="false" stage2="true">Explanatory Memorandum sets out a brief statement of the purpose of a Statutory Rule and provides information about its policy objective and policy implications. They aim to make the Statutory Rule accessible to readers who are not legally qualified and accompany any Northern Ireland Statutory Rule or Draft Northern Ireland Statutory Rule laid before the UK Parliament during the suspension of the Northern Ireland Assembly.</resource>
+		<resource id="EN_Help_11" translated="false" stage2="true">Draft Explanatory Memorandum sets out a brief statement of the purpose of a Draft Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Draft Statutory Instrument accessible to readers who are not legally qualified accompany any Statutory Instrument or Draft Statutory Instrument laid before Parliament from June 2004 onwards.</resource>
+		<resource id="EN_Help_12" translated="false" stage2="true">Draft Explanatory Memorandum sets out a brief statement of the purpose of a Draft Statutory Rule and provides information about its policy objective and policy implications. They aim to make the Draft Statutory Rule accessible to readers who are not legally qualified and accompany any Statutory Rule laid before the UK Parliament during the suspension of the Northern Ireland Assembly.</resource>
+		<resource id="Schedules_only" translated="false" stage2="true">You have chosen to open Schedules only</resource>
+
+		<resource id="PIT_toc_1" translated="false" stage2="true">This becomes available after navigating to view revised legislation as it stood at a certain point in time via Advanced Features &gt; Show Timeline of Changes or via a point in time advanced search.</resource>
+		<resource id="PIT_toc_2" translated="false" stage2="true">A point in time version is only available in English.</resource>
+		<resource id="Latest_toc_1" translated="false" stage2="true">Latest with prospective is the latest available (revised) version of the legislation but includes the prospective versions of individual provisions where they exist. This point in time view of the legislation becomes available after clicking a prospective version of a provision via Advanced Features &gt; Show Timeline of Changes.</resource>
+		<resource id="Interweave_toc_1" translated="false" stage2="true">See additional information alongside the content</resource>
+		<resource id="Interweave_toc_2" translated="false" stage2="true">Displays relevant parts of the explanatory notes interweaved within the legislation content.</resource>
+		<resource id="Displays the repeals" translated="false" stage2="true">Displays the repeals</resource>
+		<resource id="Interweave_toc_3" translated="false" stage2="true">Indicates the geographical area that this provision applies to. For further information see ‘Frequently Asked Questions’.</resource>
+		<resource id="Interweave_toc_4" translated="false" stage2="true">See how this legislation has or could change over time. Turning this feature on will show extra navigation options to go to these specific points in time. Return to the latest available version by using the controls above in the What Version box.</resource>
+
+		<!--<resource id="Explanatory Memorandum">Memorandwm Esboniadol</resource>		-->
+		<!-- More Resources-->
+		<resource id="Associated Documents">Dogfennau Cysylltiedig</resource>
+		<resource id="There are no associated impact assessment for this legislation.">Nid oes asesiadau effaith cysylltiedig â’r ddeddfwriaeth hon</resource>
+		<resource id="Sections that">Adrannau sy'n</resource>
+		<resource id="Confers power">Rhoddi Pŵer</resource>
+		<resource id="Apply Blanket Amendments">Gweithredu Cywiriad Cynhwysfawr</resource>
+		<resource id="Apply blanket amendments">Gweithredu cywiriad cynhwysfawr</resource>
+		<resource id="Further Information">Rhagor o Wybodaeth</resource>
+		<resource id="Next Steps">Camau Nesaf</resource>
+		<resource id="National Assembly for Wales">Cynulliad Cenedlaethol Cymru</resource>
+		<resource id="List of all changes">Rhestr o’r holl newidiadau</resource>
+		<resource id="made to the revised version after 2002">a wnaed i’r fersiwn ddiwygiedig ar ôl 2002</resource>
+		<resource id="This PDF does not include any changes made by correction slips.">Nid yw’r PDF hwn felly yn cynnwys unrhyw newidiadau a wnaed gan slipiau cywiro.</resource>
+		<resource id="Requires Adobe Acrobat Reader">Bydd angen Darllenydd Adobe Acrobat</resource>
+		<resource id="Download">Lawr lwytho</resource>
+		<resource id="Download - English">Lawr lwytho - Saesneg</resource>
+		<resource id="Download - Welsh">Lawr lwytho - Cymraeg</resource>
+		<resource id="Download - Mixed Language">Lawr lwytho - Iaith Gymysg</resource>
+		<resource id="Explanatory Note - English">Nodyn Esboniadol - Saesneg</resource>
+		<resource id="Explanatory Note - Welsh">Nodyn Esboniadol - Cymraeg</resource>
+		<resource id="Explanatory Note - Mixed Language">Nodyn Esboniadol - Iaith Gymysg</resource>
+		<resource id="Order in Council - English">Gorchymyn yn y Cyngor - Saesneg</resource>
+		<resource id="Original PDF of as enacted version">PDF gwreiddiol o fersiwn fel y’i deddfwyd</resource>
+		<resource id="Notes - English">nodiadau - Saesneg</resource>
+		<resource id="Notes - Welsh">nodiadau - Cymraeg</resource>
+		<resource id="Notes - Mixed Language">nodiadau - laith Cymysg</resource>
+		<resource id="Affecting">Yn effeithio ar</resource>
+		<resource id="Made by">A wnaed gan</resource>
+		<resource id="affecting other Legislation">yn effeithio ar ddeddfwriaeth arall</resource>
+		<resource id="More">Rhagor o</resource>
+		<resource id="from">o</resource>
+		<resource id="Original Print PDF of as enacted version">Print PDF gwreiddiol o fersiwn fel y’i deddfwyd</resource>
+		<resource id="Original PDF of as made version">PDF gwreiddiol o fersiwn fel y’i gwnaed</resource>
+		<resource id="Original Print PDF of as made version">Print PDF gwreiddiol o fersiwn fel y’i gwnaed</resource>
+		<resource id="Original Print PDF of as draft version">Print PDF gwreiddiol o fersiwn fel y’i ddrafft</resource>
+		<resource id="This is the print PDF version of this draft legislation item." translated="false" stage2="true">This is the print PDF version of this draft legislation item.</resource>
+		<!--Imapct Assessment-->
+		<resource id="What Stage">Pa Gam</resource>
+		<!-- following text is deleberately left as English for welsh version-->
+		<resource id="Consultation">Ymgynghori</resource>
+		<resource id="Final">Terfynol</resource>
+		<resource id="Enactment">Deddfu</resource>
+		<resource id="Post Implementaion Review">Adolygiad ar ôl Gweithredu</resource>
+		<resource id="Post Implementation">Gweithredu Ôl</resource>
+		<resource id="Back to full view">Yn ôl i’r edrychiad llawn</resource>
+		<resource id="IA_tooltip_1" translated="false" stage2="true">Impact Assessments generally accompany all UK Government interventions of a regulatory nature that affect the private sector, civil society organisations and public services. They apply regardless of whether the regulation originates from a domestic or international source and can accompany primary (Acts etc) and secondary legislation (SIs). An Impact Assessment allows those with an interest in the policy area to understand:</resource>
+		<resource id="IA_tooltip_2" translated="false" stage2="true">Why the government is proposing to intervene;</resource>
+		<resource id="IA_tooltip_3" translated="false" stage2="true">The main options the government is considering, and which one is preferred;</resource>
+		<resource id="IA_tooltip_4" translated="false" stage2="true">How and to what extent new policies may impact on them; and,</resource>
+		<resource id="IA_tooltip_5" translated="false" stage2="true">The estimated costs and benefits of proposed measures.</resource>
+		<resource id="part" translated="false" stage2="true">part</resource>
+
+		<!--<resource id="More Measures of the National Assembly for Wale">Mesurau'r Cynulliad</resource>
+		<resource id="More Measures of the National Assembly for Wales from">Mesurau'r Cynulliad</resource>
+		<resource id="More Acts of the National Assembly for Wales">Deddfau'r Cynulliad</resource>
+		<resource id="More Acts of the National Assembly for Wales from">Deddfau'r Cynulliad</resource>
+		<resource id="More Welsh Statutory Instruments">Cymru Offerynnau Statudol</resource>
+		<resource id="More Welsh Statutory Instruments from">Cymru Offerynnau Statudol</resource>-->
+
+		<!-- Text on page - http://www.legislation.gov.uk/cy/secondary?text=dogs&lang=cy -->
+		<resource id="Search Results">Canlyniadau Chwilio</resource>
+		<resource id="Search results are ordered according to relevance.">Trefnir canlyniadau’r chwilio yn ôl perthnasedd.</resource>
+		<resource id="Refine your search:">Mireiniwch eich chwiliad:</resource>
+		<resource id="Keywords in content:">Geiriau allweddol yn y cynnwys:</resource>
+		<resource id="Language:">Iaith:</resource>
+		<resource id="English">Saesneg</resource>
+		<resource id="Welsh">Cymraeg</resource>
+		<resource id="Specific year">Blwyddyn Benodol</resource>
+		<resource id="Range of years">Ystod o flynyddoedd</resource>
+		<resource id="From">O</resource>
+		<resource id="To">Hyd</resource>
+
+		<!-- Text on page - http://www.legislation.gov.uk/search-->
+		<resource id="Find legislation">Canfod deddfwriaeth</resource>
+		<resource id="General">Cyffredinol</resource>
+		<resource id="Geographical Extent">Rhychwant ddaearyddol</resource>
+		<resource id="Point in Time">Pwynt Penodol mewn Amser</resource>
+		<resource id="Draft Legislation">Deddfwriaeth Ddrafft</resource>
+		<resource id="General search">Chwiliad cyffredinol</resource>
+		<resource id="Keywords in content">Keywords in content</resource>
+		<resource id="Key_title_text">(neu eiriau allweddol yn y teitl)</resource>
+		<resource id="Use_double_quote_text">(bydd defnyddio dyfynodau dwbl o gwmpas ymadrodd yn rhoi canlyniadau cyflymach)</resource>
+		<resource id="Range">Ystod</resource>
+		<resource id="Main">Prif</resource>
+		<resource id="Scottish">Yr Alban</resource>
+		<resource id="N.I.">G.I.</resource>
+		<resource id="Commencement">Dechreuad</resource>
+		<resource id="Legal">Cyfreithiol</resource>
+		<resource id="Specific Year">Blwyddyn Benodol</resource>
+		<resource id="Language">Iaith</resource>
+		<resource id="Series Number">Rhif Cyfres</resource>
+		<resource id="All Legislation">Pob Deddfwriaeth</resource>
+		<resource id="All Primary">Pob deddfwriaeth sylfaenol</resource>
+		<resource id="All Secondary">Pob is-ddeddfwriaeth</resource>
+		<resource id="Select types">Dewis mathau</resource>
+		<resource id="Search_tooltip_title">Rhowch deitl llawn neu ran o deitl i chwilio am ganlyniadau yn seiliedig ar y teitl. Bydd y chwiliad yn dangos canlyniadau sy’n cyd-fynd ag unrhyw ran o’r teitl. Er enghraifft, bydd ‘Data’ yn cyd-fynd â ‘Deddf Diogelu Data’ a ‘Y Rheoliadau Dargadw Data’. I eithrio term, defnyddiwch y gweithredwr minws cyn y term yr hoffech ei eithrio. Er enghraifft, byddai chwilio am ‘Data -diogelu’ yn dychwelyd ‘Y Rheoliadau Dargadw Data’ ond nid y ‘Ddeddf Diogelu Data’. Defnyddiwch ddyfynodau dwbl i gael cyfatebiad union ar frawddeg e.e. byddai “Diogelu Data” yn dychwelyd ‘Y Ddeddf Diogelu Data’ ond nid ‘Y Rheoliadau Diogelu Grwpiau Bregus (Trin Data)’. Neu, gallech ei adael yn wag os nad ydych eisiau chwilio gan ddefnyddio teitl.</resource>
+		<resource id="Search_tooltip_year">Dewiswch a hoffech chwilio ar draws deddfwriaeth ar gyfer blwyddyn benodol neu ddetholiad o flynyddoedd. Nid yw hyn yn faes gofynnol a gellir ei adael yn wag os nad ydych eisiau cyfyngu eich chwiliad yn ôl blwyddyn.</resource>
+		<resource id="Search_tooltip_year_pit">Rhowch flwyddyn y ddeddfwriaeth yr hoffech ei gweld. Dyma’r flwyddyn y cafodd ei deddfu/creu.</resource>
+		<resource id="Search_tooltip_number">Os ydych yn gwybod beth yw rhif yr eitem deddfwriaeth yr ydych yn chwilio amdano, rhowch hynny yma. Mae sawl ffordd o chwilio yn ôl rhif gan y neilltuir nifer o rifau i rai eitemau o ddeddfwriaeth, pob un o systemau rhifo gwahanol. Ble defnyddiwyd systemau rhifo lluosog, gallwch ddewis yn ôl pa un yr hoffech chwilio o’r blwch cwymp. Os nad ydych yn siŵr, rydym yn argymell eich bod yn cadw'r detholiad ‘prif gyfres’.</resource>
+		<resource id="Search_tooltip_number_pit_extent">Defnyddiwch y maes hwn i ddynodi rhif y ddeddfwriaeth os yw’n hysbys i chi. Nid yw’r maes hwn yn ofynnol. Sylwer fod chwiliad pwynt amser neu ehangder daearyddol ddim ond yn bosibl ar y ddeddfwriaeth yr ydym yn adolygu (deddfwriaeth sylfaenol). Er enghraifft, ni fydd rhif SI yn chwiliad dilys.</resource>
+		<resource id="Search_tooltip_type">Mae’n bosibl cyfyngu ar eich chwiliad ar draws math penodol o ddeddfwriaeth neu gyfres o fathau o ddeddfwriaeth trwy ddefnyddio blychau ticio. Mae’r golofn gyntaf yn dangos yr holl fathau posibl o ddeddfwriaeth sylfaenol, a’r ail golofn y mathau o ddeddfwriaeth eilaidd. Dewiswch ‘Holl Ddeddfwriaeth’ os nad ydych eisiau cyfyngu eich chwiliad i fathau penodol o ddeddfwriaeth. Gweler yr adran Cymorth am gyngor ar ddeall y gwahanol fathau o ddeddfwriaeth.</resource>
+		<resource id="Search_tooltip_type_pit_extent">Defnyddiwch y gwymplen i ddynodi’r math o ddeddfwriaeth ar gyfer y chwiliad. Sylwer fod chwiliad pwynt amser ac ehangder daearyddol ddim ond yn bosibl ar ddeddfwriaeth yr ydym yn adolygu, felly dim ond mathau o ddeddfwriaeth sylfaenol a restrir.</resource>
+		<resource id="Search_tooltip_type_draft">Mae’n bosibl cyfyngu ar eich chwiliad ar draws math penodol o ddeddfwriaeth neu gyfres o fathau o ddeddfwriaeth trwy ddefnyddio blychau ticio. Dewiswch ‘Holl Ddrafft’ os nad ydych eisiau cyfyngu eich chwiliad i fathau penodol o ddeddfwriaeth drafft. Gweler yr adran Cymorth am gyngor ar ddeall y gwahanol fathau o ddeddfwriaeth.</resource>
+		<resource id="Search_tooltip_pit">Defnyddiwch y maes hwn i ddewis dyddiad ac i weld sut oedd eich deddfwriaeth ddynodedig yn sefyll ar bwynt penodol mewn amser. Dim ond dyddiadau wedi’r dyddiad sylfaen (01/02/1991) sy’n ddilys, nid oes gennym fersiynau sy’n rhagflaenu’r dyddiad hwn yn y data. Ar gyfer deddfwriaeth Gogledd Iwerddon, y dyddiad sylfaen yw 01/01/2006.</resource>
+		<resource id="Please check the form fields which are highlighted in red" translated="false" stage2="true">Please check the form fields which are highlighted in red</resource>
+		<resource id="Not a valid year" translated="false" stage2="true">Not a valid year</resource>
+		<resource id="The year must be valid and before the point in time search" translated="false" stage2="true">The year must be valid and before the point in time search</resource>
+		<resource id="Please select revised legislations only" translated="false" stage2="true">Please select revised legislations only</resource>
+		<resource id="Point_in_time_error" translated="false" stage2="true">Point in Time must be after 01/01/2006 if you have selected Northern Ireland legislation, and after 01/02/1991 for other primary legislation types</resource>
+		<resource id="Extends">Ehangu</resource>
+		<resource id="Not a valid series" translated="false" stage2="true">Not a valid series</resource>
+		<resource id="Not a valid number" translated="false" stage2="true">Not a valid number</resource>
+
+		<!-- facet filters -->
+		<resource id="By Type" translated="false" stage2="true">By Type</resource>
+		<resource id="by Type" translated="false" stage2="true">by Type</resource>
+		<resource id="Browse by" translated="false" stage2="true">Browse by</resource>
+		<resource id="Any type" translated="false" stage2="true">Any type</resource>
+		<resource id="By Year" translated="false" stage2="true">By Year</resource>
+		<resource id="by Year" translated="false" stage2="true">by Year</resource>
+		<resource id="Any year" translated="false" stage2="true">Any year</resource>
+		<resource id="Impact Assessments by Type" translated="false" stage2="true">Impact Assessments by Type</resource>
+		<resource id="Impact Assessments by Year" translated="false" stage2="true">Impact Assessments by Year</resource>
+		<resource id="Impact Assessments by Number" translated="false" stage2="true">Impact Assessments by Number</resource>
+		<resource id="Impact Assessments by Stage" translated="false" stage2="true">Impact Assessments by Stage</resource>
+		<resource id="Impact Assessments by Department" translated="false" stage2="true">Impact Assessments by Department</resource>
+		<resource id="Legislation by Year" translated="false" stage2="true">Legislation by Year</resource>
+		<resource id="Legislation by Number" translated="false" stage2="true">Legislation by Number</resource>
+		<resource id="Legislation by Stage" translated="false" stage2="true">Legislation by Stage</resource>
+		<resource id="Legislation by Department" translated="false" stage2="true">Legislation by Department</resource>
+
+		<resource id="No longer has effect" translated="false" stage2="true">No longer has effect</resource>
+		<resource id="No versions valid at" translated="false" stage2="true">No versions valid at</resource>
+		<resource id="Version Superseded" translated="false" stage2="true">Version Superseded</resource>
+		<resource id="Stop date" translated="false" stage2="true">Stop date</resource>
+
+		<!-- Text on Page - http://www.legislation.gov.uk/cy/search/extent-->
+		<resource id="Geographical extent search (for revised legislation only)">Chwiliad graddfa ddaearyddol (ar gyfer deddfwriaeth ddiwygiedig yn unig)</resource>
+		<resource id="Extent_search_desc">Mae’r nodweddion uwch hyn ar gael mewn chwiliadau ar gyfer deddfwriaeth ddiwygiedig yn unig, e.e. Deddfau. Ni fydd is-ddeddfwriaeth yn cael ei gynnwys mewn canlyniadau chwilio.</resource>
+		<resource id="Extends to">Extends to</resource>
+		<resource id="Geographical extent">Rhychwant ddaearyddol</resource>
+		<resource id="Applicable to">Yn berthnasol i</resource>
+		<resource id="Exclusively extends to">Yn ymestyn yn unig hyd</resource>
+		<resource id="United Kingdom">Y Deyrnas Unedig</resource>
+		<resource id="UK">Y Deyrnas Unedig</resource>
+		<resource id="Great Britain">Prydain Fawr</resource>
+		<resource id="England &amp; Wales">England &amp; Wales</resource>
+		<resource id="England">Lloegr</resource>
+		<resource id="Wales">Cymru</resource>
+		<resource id="Scotland">Yr Alban</resource>
+		<resource id="Northern Ireland">Gogledd Iwerddon</resource>
+
+		<!-- Home page-->
+		<resource id="Welcome">Croeso</resource>
+		<resource id="Browse UK Legislation">Pori trwy Ddeddfwriaeth y Deyrnas Unedig</resource>
+		<resource id="UK Parliament website">Gwefan Senedd y Deyrnas Unedig</resource>
+		<resource id="Browse Scotland Legislation">Pori trwy Ddeddfwriaeth yr Alban</resource>
+		<resource id="Scottish Parliament website">Gwefan Senedd yr Alban</resource>
+		<resource id="Browse Wales Legislation">Pori trwy Ddeddfwriaeth Cymru</resource>
+		<resource id="Browse Northern Ireland Legislation">Pori trwy Ddeddfwriaeth Gogledd Iwerddon</resource>
+		<resource id="Northern Ireland Assembly">Cynulliad Gogledd Iwerddon</resource>
+		<resource id="Frequently Asked Questions">Cwestiynau Cyffredin</resource>
+		<resource id="whatlegislation">Pa ddeddfwriaeth sy’n cael ei chynnwys ar legislation.gov.uk?</resource>
+		<resource id="willIfind">A fyddaf yn dod o hyd i ddeddfwriaeth newydd ar legislation.gov.uk?</resource>
+		<resource id="availableRevised">Pa ddeddfwriaeth sydd ar gael fel un ddiwygiedig?</resource>
+		<resource id="revisedContent_website">Pa mor gyfredol yw’r cynnwys diwygiedig ar y wefan?</resource>
+		<resource id="Most requested Acts">Deddfau y Gofynnir Amdanynt Amlaf</resource>
+		<resource id="Language_Switch_EN">Newid i Fersiwn Saesneg</resource>
+		<resource id="Language_Switch_CY">Newid i Fersiwn Gymraeg</resource>
+		<resource id="Skip to main content" translated="false" stage2="true">Skip to main content</resource>
+		<resource id="Skip to navigation" translated="false" stage2="true">Skip to navigation</resource>
+		<resource id="The National Archives">Yr Archifau Gwladol</resource>
+
+		<!-- errors returned from theme-opsi-demo.xsl -->
+		<resource id="Temporarily Unavailable" translated="false" stage2="true">Temporarily Unavailable</resource>
+		<resource id="Page Not Found" translated="false" stage2="true">Page Not Found</resource>
+		<resource id="Multiple Choices" translated="false" stage2="true">Multiple Choices</resource>
+		<resource id="Found References" translated="false" stage2="true">Found References</resource>
+		<resource id="Foundref_p_1" translated="false" stage2="true">This item of legislation isn’t available on this site as it isn’t currently available in a web-publishable format. This could be because the new legislation item hasn’t published yet. However, if you are looking for an older item of legislation that we do not hold but you’d like to see on this site, please let us know via</resource>
+		<resource id="Foundref_p_2" translated="false" stage2="true">You may be interested to know that <param ref-id="citation" /> is also referenced by other legislation items such as:</resource>
+		<resource id="Created" translated="false" stage2="true">Created</resource>
+		<resource id="Accepted" translated="false" stage2="true">Accepted</resource>
+		<resource id="Internal Error" translated="false" stage2="true">Internal Error</resource>
+		<resource id="Error404_1" translated="false" stage2="true">The page you requested could not be found</resource>
+		<resource id="Error404_2" translated="false" stage2="true">Please check for any of the following if you see this page after a search</resource>
+		<resource id="Error404_3" translated="false" stage2="true">Spelling mistakes in the search phrase</resource>
+		<resource id="Error404_4" translated="false" stage2="true">Invalid parameter entered e.g 19988 instead of 1998 for a year</resource>
+		<resource id="Error404_5" translated="false" stage2="true">Alternatively, the referrer may have passed an invalid URI to this site. Check that the URI has 'www' and does not start with 'https:'</resource>
+		<resource id="Error200" translated="false" stage2="true">Try the following items of legislation</resource>
+		<resource id="Error_Alt" translated="false" stage2="true">The following are possible links that you could try as alternatives</resource>
+		<resource id="Error300_1" translated="false" stage2="true">The link that you've followed could mean any of the following</resource>
+		<resource id="Error300_2" translated="false" stage2="true">The link that you've followed could mean either of the following</resource>
+
+		<!-- Text on page - http://www.legislation.gov.uk/cy/search/point-in-time-->
+		<resource id="Legislation as it stood at a specific point in time (for revised legislation only)">Deddfwriaeth fel roedd yn sefyll ar bwynt penodol mewn amser (ar gyfer deddfwriaeth ddiwygiedig yn unig)</resource>
+		<resource id="Point in time">Pwynt Penodol mewn Amser</resource>
+		<resource id="Draft Legislation search">Chwilio Deddfwriaeth Ddrafft</resource>
+		<resource id="All Draft">Pob Drafft</resource>
+		<resource id="Impact Assessment search">Chwiliad Asesiad Effaith</resource>
+		<resource id="UK only">y Deyrnas Unedig yn unig</resource>
+		<resource id="Stage">Cam</resource>
+		<resource id="whole name of the stage required">enw llawn y cam gofynnol</resource>
+		<resource id="Department">Adran</resource>
+		<resource id="whole name of the department required">enw llawn yr adran ofynnol</resource>
+		<resource id="Year Range">Ystod o Flynyddoedd</resource>
+		<resource id="Date Range">Ystod dyddiadau</resource>
+
+
+		<!-- Text on page - http://www.legislation.gov.uk/cy/changes-->
+		<resource id="Changes to Legislation">Newidiadau i Ddeddfwriaeth</resource>
+		<resource id="Changes to Legislation Results">Canlyniadau Newidiadau i Ddeddfwriaeth</resource>
+		<resource id="Changes that affect">Newidiadau sy’n effeithio ar</resource>
+		<resource id="Legislation type">Math o ddeddfwriaeth</resource>
+		<resource id="Any">Unrhyw un</resource>
+		<resource id="YYYY">BBBB</resource>
+		<resource id="Specific year and number">Blwyddyn a rhif penodol</resource>
+		<resource id="made by">gwnaed gan</resource>
+		<resource id="Results showing">Canlyniadau yn dangos</resource>
+		<resource id="All changes">Pob newid</resource>
+		<resource id="Applied changes">Newidiadau a weithredwyd</resource>
+		<resource id="Unapplied changes">Newidiadau heb eu gweithredu</resource>
+		<resource id="Get Results">Cael y canlyniadau</resource>
+		<resource id="Changes to Local and Private and Personal Acts">Newidiadau i Ddeddfau Lleol a Phreifat a Phersonol</resource>
+		<resource id="Chronological Table of Local Acts">Tabl Cronolegol o Ddeddfau Lleol </resource>
+		<resource id="Chronological Table of Private and Personal Acts">Tabl Cronolegol o Ddeddfau Preifat a Phersonol</resource>
+		<resource id="Changes_chnoTable_desc">Mae’r Tablau Cronolegol yn rhestru newidiadau i Ddeddfau Lleol a Phreifat a Phersonol yn dyddio o 1797 hyd 2008. Maent yn cael eu diweddaru yn flynyddol ac fel mae’r teitl yn awgrymu, mae’r tablau yn rhestru Deddfau Lleol, Preifat a Phersonol yn eu trefn gronolegol ynghyd â manylion am ddiddymiadau a newidiadau (gan gynnwys cywiriadau ac amnewidiadau) a wnaed i’r Deddfau hynny. Maent wedi cael eu cyhoeddi mewn rhannau er mwyn eu gwneud yn haws i’w defnyddio.</resource>
+		<resource id="Subscribe to this list">Tanysgrifiwch i’r rhestr hon</resource>
+		<resource id="to">i</resource>
+		<resource id="of">o</resource>
+		<resource id="results">o ganlyniadau</resource>
+		<resource id="New_subtitle">Newidiadau a wnaed gan ddeddfwriaeth a ddeddfwyd o 2002 hyd heddiw</resource>
+		<resource id="New_p1">Mae’r ffurflen chwilio isod yn rhoi mynediad at restri yn rhoi manylion newidiadau a wnaed gan yr holl ddeddfwriaeth sydd wedi ei deddfu o 2002 hyd heddiw i’r ddeddfwriaeth ddiwygiedig sydd ar legislation.gov.uk. Mae newidiadau a wnaed gan ddeddfwriaeth a ddeddfwyd cyn 2002 eisoes wedi eu hymgorffori yn y cynnwys ac nid ydynt ar gael fel rhestri chwiliadwy. Mae’r rhestri yma yn rhoi manylion am newidiadau gan gynnwys diddymu, diwygio ac effeithiau eraill (e.e. addasiadau a gwybodaeth am ddechrau).</resource>
+		<resource id="New_p2">Diweddarir y rhestri gyda’r newidiadau a wneir gan ddeddfwriaeth newydd cyn gynted ag y mae modd ar ôl i’r ddeddfwriaeth gael ei derbyn gan dîm golygyddol legislation.gov.uk. Ond, fel arfer bydd rhywfaint o oedi rhwng cyhoeddi deddfwriaeth newydd ar y wefan ac i’r effeithiau ymddangos yn y tablau hyn. Yn y rhan fwyaf o achosion ni fydd yr oedi yn fwy na dwy wythnos.</resource>
+		<resource id="New_p3">Sylwer: Pan na fydd newidiadau ac effeithiau wedi cael eu gweithredu i’r ddeddfwriaeth yr ydych yn edrych arni ar y safle hwn gan dîm golygyddol legislation.gov.uk yna mae’r ‘Newidiadau i Ddeddfwriaeth’ hefyd yn cael eu dangos ochr yn ochr â chynnwys y ddeddfwriaeth ar lefel darparu.</resource>
+		<resource id="Modify existing search">Addasu chwiliad presennol</resource>
+		<resource id="Changes_affect_tooltip_p">Defnyddiwch y cyfleuster hwn i chwilio am newidiadau sy’n effeithio ar un eitem o ddeddfwriaeth neu fwy yn seiliedig ar y meini prawf isod. Neu, gallech adael yr ochr hon o’r ffurflen yn wag i chwilio am y newidiadau ac effeithiau ar unrhyw ddeddfwriaeth ddiwygiedig.</resource>
+		<resource id="Changes_affect_tooltip_li_1">Math o ddeddfwriaeth: Mae’r maes dewisol hwn yn caniatáu i chi gyfyngu eich chwiliad i newidiadau yn effeithio ar y math o ddeddfwriaeth y mae gennych ddiddordeb ynddo. Mae’r rhestr gwymp yn cynnwys y mathau hynny o ddeddfwriaeth ble mae gennym fersiynau diwygiedig ohonynt ar legislation.gov.uk.</resource>
+		<resource id="Changes_affect_tooltip_li_2">Blwyddyn benodol/Ystod o flynyddoedd: Mae’r meysydd dewisol hyn yn caniatáu i chi gyfyngu eich chwiliad i newidiadau sy’n effeithio ar ddeddfwriaeth blwyddyn benodol neu dros ystod o flynyddoedd.</resource>
+		<resource id="Changes_affect_tooltip_li_3">Rhif: Os ydych chi’n chwilio am newidiadau sy’n effeithio ar eitem benodol o ddeddfwriaeth, a’ch bod yn gwybod ei rif cyfresol, gallwch ei roi yn y maes rhif.</resource>
+		<resource id="Changes_madeby_tooltip_p">Cyfyngwch eich chwiliad ar gyfer deddfwriaeth a newidiwyd trwy roi manylion ynglŷn â’r ddeddfwriaeth a wnaeth yr effeithiau hyn yn defnyddio’r ochr hon o’r ffurflen. Neu, gadewch yr ochr hon o’r ffurflen yn wag ar gyfer effeithiau a newidiadau a wnaed gan unrhyw ddeddfwriaeth.</resource>
+		<resource id="Changes_madeby_tooltip_li_1">Math o ddeddfwriaeth: Mae’r maes dewisol hwn yn caniatáu i chi gyfyngu eich chwiliad i’r math o ddeddfwriaeth y mae gennych ddiddordeb ynddo yn defnyddio’r blwch cwymplen.</resource>
+		<resource id="Changes_madeby_tooltip_li_2">Blwyddyn benodol/Ystod o flynyddoedd: Mae’r meysydd dewisol hyn yn caniatáu i chi gyfyngu eich chwiliad i newidiadau a wnaed gan ddeddfwriaeth mewn blwyddyn benodol neu dros ystod o flynyddoedd. Gair o gyngor: i chwilio ar gyfer yr holl newidiadau a wnaed gan yr holl ddeddfwriaeth mewn blwyddyn benodol, rhowch y flwyddyn ar yr ochr hon o’r ffurflen, gan adael yr ochr ‘Newidiadau sy’n effeithio’ yn wag.</resource>
+		<resource id="Changes_madeby_tooltip_li_3">Rhif: Os ydych chi’n chwilio am newidiadau a wnaed gan eitem benodol o ddeddfwriaeth, a’ch bod yn gwybod ei rif cyfresol, gallwch ei roi yn y maes rhif.</resource>
+		<resource id="Changes_resultsShowing_tooltip_h3">Defnyddiwch y blychau ticio i weld naill ai:</resource>
+		<resource id="Changes_resultsShowing_tooltip_li_1">Holl newidiadau: Yr holl newidiadau ac effeithiau sy’n cyd-fynd â’ch chwiliad</resource>
+		<resource id="Changes_resultsShowing_tooltip_li_2">Newidiadau a weithredwyd: Y newidiadau ac effeithiau sy’n cyd-fynd â’ch meini prawf chwilio ac sydd wedi eu gweithredu i destun deddfwriaeth a gedwir ar y wefan hon gan dîm golygyddol legislation.gov.uk.</resource>
+		<resource id="Changes_resultsShowing_tooltip_li_3">Newidiadau heb eu gweithredu: Y newidiadau ac effeithiau sy’n cyd-fynd â’ch meini prawf chwilio ond sydd heb eu gweithredu eto i destun deddfwriaeth a gedwir ar y wefan hon gan dîm golygyddol legislation.gov.uk.</resource>
+		<resource id="Applied">Gweithredwyd</resource>
+		<resource id="Changes_applied_tooltip_p_1">Mae tic gwyrdd yn dynodi fod y newid wedi ei weithredu i destun y ddeddfwriaeth ar y safle hwn gan y tîm golygyddol legislation.gov.uk.</resource>
+		<resource id="Changes_applied_tooltip_p_2">Ble nad oes tic gwyrdd, nid yw’r newidiadau ac effeithiau wedi eu gweithredu eto ac maent hefyd yn cael eu harddangos ar y cyd â chynnwys deddfwriaeth ar lefel darpariaeth yn y blwch coch ‘Newidiadau i Ddeddfwriaeth’.</resource>
+		<resource id="Type of effect">Math o effaith</resource>
+		<resource id="Changes_typeofEffect_tooltip_p">Mae yna sawl math gwahanol o effaith. Gall “effaith” ddynodi unrhyw fodd ble mae deddfwriaeth yn effeithio ar neu’n newid deddfwriaeth arall. Mae yna dri phrif fath o effaith sy’n arwain at destun y ddeddfwriaeth yn newid: mewnosodiadau (ychwanegir testun), amnewidiad (mae’r testun yn cael amnewid) a diddymiad (ble nad oes gan y testun presennol effaith ac y gellir ei dynnu o’r ddeddfwriaeth). Yn ogystal, mae yna rai effeithiau a gofnodir gennym nad ydynt yn arwain at newid i destun y ddeddfwriaeth e.e. “Gweithredwyd” a ddefnyddir ble mae darpariaethau'r ddeddfwriaeth bresennol yn cael ei weithredu i ddeddfwriaeth newydd neu i gyfres o amgylchiadau a ddynodir yn y ddeddfwriaeth sy’n ei weithredu.</resource>
+		<resource id="Changes_noResultFound_message" translated="false" stage2="true">Your search returned 0 results</resource>
+
+		<!-- Text on Page -http://www.legislation.gov.uk/cy/all-->
+		<resource id="Your search for legislation has returned   more than 200  results.">Mae eich chwiliad am ddeddfwriaeth wedi dychwelyd mwy na 200 o ganlyniadau.</resource>
+		<resource id="Legislation by Type">Deddfwriaeth yn ôl Math</resource>
+		<resource id="Years and Numbers">Blynyddoedd a Rhifau</resource>
+		<resource id="Common_word_text_message">Anwybyddwyd geiriau cyffredin yn y chwiliad hwn. Defnyddiwch ddyfynodau dwbl am eiriau cyffredin i’w cynnwyshwy.</resource>
+
+		<!-- Text on Page -http://www.legislation.gov.uk/cy/new-->
+		<resource id="Official_place_of_publication">Man cyhoeddi swyddogol deddfwriaeth newydd ei deddfu</resource>
+		<resource id="New_intro_1_1">Mynnwch y wybodaeth ddiweddaraf am ddeddfwriaeth newydd ei deddfu ar gyfer y Deyrnas Unedig, yr Alban (hefyd, a ddylai’r drefn gael ei newid?), Cymru a Gogledd Iwerddon fel maent yn cael eu cyhoeddi ar y safle hwn, trwy ddewis dyddiad isod neu ddefnyddio’r porthiant tanysgrifio rhad ac am ddim.</resource>
+		<resource id="New_intro_1_2">Y nod yw cyhoeddi deddfwriaeth ar y safle hwn ar yr un pryd neu o leiaf cyn pen 24 awr, o’i chyhoeddi ar ffurf brintiedig.</resource>
+		<resource id="New_intro_2_1">Gall unrhyw ddogfen sy’n arbennig o gymhleth o ran ei maint neu ei hargraffwaith gymryd mwy o amser i’w pharatoi.</resource>
+		<resource id="New_intro_2_2_1">Rhestrir deddfwriaeth newydd </resource>
+		<resource id="New_intro_2_2_2">felly yn ôl dyddiad cyhoeddi yn hytrach</resource>
+		<resource id="New_intro_2_2_3"> na’r dyddiad y cafodd ei deddfu.</resource>
+		<resource id="New_tracking_1_1">Rhestrir pob Mesur sydd ger bron Senedd y Deyrnas Unedig ar hyn o bryd ar </resource>
+		<resource id="New_tracking_1_2">wefan Senedd y Deyrnas Unedig</resource>
+		<resource id="New_tracking_2_1">Dengys y wefan </resource>
+		<resource id="New_tracking_2_2">Busnes, Mesurau a Deddfwriaeth Seneddol</resource>
+		<resource id="New_tracking_2_3"> pa gam y mae Mesur wedi ei gyrraedd ar ei daith trwy’r Senedd.</resource>
+		<resource id="New_tracking_3_1">Gweler</resource>
+		<resource id="New_tracking_3_2"> y gronfa ddata mynegai Mesurau</resource>
+		<resource id="New_tracking_3_3"> am ddolenni i destun llawn Mesur, y drafodaeth Hansard ac unrhyw newidiadau arfaethedig.</resource>
+		<resource id="New_tracking_4">Daw Mesurau yn Ddeddfau ar ôl iddynt fynd trwy bob cam yn y ddau Dŷ Seneddol a chael y Cydsyniad Brenhinol. Ar ôl iddynt gael y Cydsyniad Brenhinol, mae Deddfau yn cael eu cyhoeddi dan awdurdod Argraffydd y Frenhines ar y wefan hon.</resource>
+		<resource id="Not a valid revised legislation type">Ddim yn fath dilys o ddeddfwriaeth ddiwygiedig</resource>
+
+		<resource id="Today">Heddiw</resource>
+		<resource id="Free_of_charge">Porthiant deddfwriaeth am ddim</resource>
+		<resource id="All Legislation (excluding drafts)">Pob Deddfwriaeth (ac eithrio drafftiau)</resource>
+		<resource id="Free of charge draft legislation feeds">Porthiant deddfwriaeth ddrafft am ddim</resource>
+		<resource id="Tracking UK Legislation">Olrhain Deddfwriaeth y Deyrnas Unedig</resource>
+		<resource id="All New Legislation">Pob Deddfwriaeth Newydd</resource>
+		<resource id="Nothing published">Dim wedi ei gyhoeddi</resource>
+		<resource id="Nothing published on this date">Ni chyhoeddwyd dim ar y dyddiad hwn</resource>
+		<resource id="Publication Amount" translated="false" stage2="true">Publication Amount</resource>
+		<resource id="Publication Type" translated="false" stage2="true">Publication Type</resource>
+		<resource id="Publication Feed" translated="false" stage2="true">Publication Feed</resource>
+		<resource id="Nothing has been published to this website on your requested date">Nid oes unrhyw beth wedi ei gyhoeddi i’r wefan hon ar y dyddiad a geisiwyd gennych</resource>
+		<resource id="View the newest legislation published">Gweld y ddeddfwriaeth fwyaf newydd a gyhoeddwyd</resource>
+		<resource id="Date older than 10 publication days ago">Dyddiad hŷn na chyhoeddiad 10 niwrnod yn ôl</resource>
+		<resource id="Options" translated="false" stage2="true">Options</resource>
+		<resource id="Feed1" translated="false" stage2="true">Feeds enable you to see when websites have added new content. By using the legislation feeds you can get details of the latest legislation as soon as it is published without having to check the new legislation page each day.</resource>
+		<resource id="Feed2" translated="false" stage2="true">There are many types of feed (such as RSS and Atom). This site provides Atom feeds which can be used in most news readers. To use the feeds you will need a newsreader or a browser enabled device.</resource>
+		<resource id="Feed3" translated="false" stage2="true">To receive the feed to your newsreader either drag the orange feed button or cut and paste the link of the feed into your news reader.</resource>
+
+		<!-- Text on Page -http://www.legislation.gov.uk/cy/browse-->
+		<resource id="Acts of the Old Scottish Parliament 1424-1707">Deddfau Hen Senedd yr Alban 1424 – 1707</resource>
+		<resource id="Acts of the English Parliament 1267-1706">Deddfau Senedd Lloegr 1267 – 1706</resource>
+		<resource id="Acts of the Old Irish Parliament 1495-1800">Deddfau Hen Senedd Iwerddon 1495-1800</resource>
+		<resource id="Browse">Pori</resource>
+		<resource id="UK Church Measures">Mesurau Eglwysig Deyrnas Unedig</resource>
+
+		<resource id="Browse_Back">Yn ôl i holl ddeddfwriaeth</resource>
+		<resource id="Browse_MapHelp_Title">Pori cymorth map</resource>
+		<resource id="Browse_MapHelp_Text">Mae gan senedd y Deyrnas Unedig y grym i greu deddfwriaeth ar gyfer y Deyrnas Unedig i gyd. Fodd bynnag, mae gan seneddau a chynulliadau'r Alban, Cymru a Gogledd Iwerddon oll rymoedd i wneud mathau penodol o ddeddfwriaeth yn benodol i’w hardaloedd daearyddol. Mae’r map rhyngweithiol a rhestr deddfwriaeth hwn yn ceisio dangos y gwahanol fathau o ddeddfwriaeth allai fod yn berthnasol i wahanol ardaloedd.</resource>
+		<resource id="Browse_DraftLegislationHelp_Title">Cymorth Deddfwriaeth Drafft</resource>
+		<resource id="Browse_DraftLegislationHelp_Text">Mae deddfwriaeth drafft yn ddeddfwriaeth sy’n aros am gymeradwyaeth. Yn gyffredinol, mae naill yn dod yn gyfraith neu mewn rhai achosion yn cael ei dynnu yn ôl. Hefyd, weithiau bydd deddfwriaeth drafft yn cael ei amnewid gan ddrafft arall. Am y rhesymau hyn, nid yw’r mathau hyn o ddeddfwriaeth drafft wedi eu hadlewyrchu gan y map rhyngweithiol uchod.</resource>
+		<resource id="Browse_IAHelp_Title">Cymorth Asesiad Effaith</resource>
+		<resource id="Browse_IAHelp_Text">Mae Asesiadau Effaith yn asesiadau o gost, manteision ac effeithiau tebygol unrhyw ddeddfwriaeth.</resource>
+		<resource id="Browse_UKIntro">Mae legislation.gov.uk yn cynnwys y rhan fwyaf o fathau o Ddeddfwriaeth y Deyrnas Unedig. Mae’r rhestr isod yn ddadansoddiad o’r mathau o ddeddfwriaeth a gedwir ar y safle hwn sy’n berthnasol i’r cyfan neu ran o’r Deyrnas Unedig. O’r dudalen hon gallwch ddethol unrhyw fath o ddeddfwriaeth i barhau i bori.</resource>
+		<resource id="Browse_UKApplies1">Yn berthnasol yn gyfan gwbl neu’n bennaf i’r ardal ar y map</resource>
+		<resource id="Browse_UKApplies2">Yn berthnasol yn gyfan gwbl neu’n bennaf i’r Deyrnas Unedig</resource>
+		<resource id="Browse_UKApplies3">Gallai gynnwys deddfwriaeth sy’n berthnasol i’r Deyrnas Unedig</resource>
+		<resource id="Browse_WalesApplies1">Yn berthnasol yn gyfan gwbl neu’n bennaf i Gymru</resource>
+		<resource id="Browse_WalesApplies2">Gallai gynnwys deddfwriaeth sy’n berthnasol i Gymru</resource>
+		<resource id="Browse_NIApplies1">Yn berthnasol yn gyfan gwbl neu’n bennaf i Ogledd Iwerddon</resource>
+		<resource id="Browse_NIApplies2">Gallai gynnwys deddfwriaeth sy’n berthnasol i Ogledd Iwerddon</resource>
+		<resource id="Browse_ScotlandApplies1">Yn berthnasol yn gyfan gwbl neu’n bennaf i’r Alban</resource>
+		<resource id="Browse_ScotlandApplies2">Gallai gynnwys deddfwriaeth sy’n berthnasol i’r Alban</resource>
+		<resource id="Browse_WalesIntro">Mae legislation.gov.uk yn cynnwys y rhan fwyaf o fathau o Ddeddfwriaeth y Deyrnas Unedig, yn cynnwys deddfwriaeth Gymreig. Mae’r rhestr isod yn ddadansoddiad o’r mathau o ddeddfwriaeth a gedwir ar y safle hwn sydd naill ai’n berthnasol i Gymru yn unig neu’n cynnwys deddfwriaeth allai fod yn berthnasol i Gymru. O’r dudalen hon gallwch ddethol unrhyw fath o ddeddfwriaeth i barhau i bori.</resource>
+		<resource id="Browse_ScotlandIntro">Mae legislation.gov.uk yn cynnwys y rhan fwyaf o fathau o Ddeddfwriaeth y Deyrnas Unedig, yn cynnwys deddfwriaeth Albanaidd. Mae’r rhestr isod yn ddadansoddiad o’r mathau o ddeddfwriaeth a gedwir ar y safle hwn sydd naill ai’n berthnasol i’r Alban yn unig neu’n cynnwys deddfwriaeth allai fod yn berthnasol i’r Alban. O’r dudalen hon gallwch ddethol unrhyw fath o ddeddfwriaeth i barhau i bori.</resource>
+		<resource id="Browse_NIIntro">Mae legislation.gov.uk yn cynnwys y rhan fwyaf o fathau o Ddeddfwriaeth y Deyrnas Unedig, yn cynnwys deddfwriaeth Gogledd Iwerddon. Mae’r rhestr isod yn ddadansoddiad o’r mathau o ddeddfwriaeth a gedwir ar y safle hwn sydd naill ai’n berthnasol i Ogledd Iwerddon yn unig neu’n cynnwys deddfwriaeth allai fod yn berthnasol i Ogledd Iwerddon. O’r dudalen hon gallwch ddethol unrhyw fath o ddeddfwriaeth i barhau i bori.</resource>
+		<resource id="Browse_QuickLinks">Cysylltiadau cyflym</resource>
+		<resource id="Browse_ScotlandLegislation">Deddfwriaeth yr Alban</resource>
+		<resource id="Browse_WalesLegislation">Deddfwriaeth Cymru</resource>
+		<resource id="Browse_NILegislation">Deddfwriaeth Gogledd Iwerddon</resource>
+		<resource id="Browse_UKLegislation">Deddfwriaeth y Deyrnas Unedig</resource>
+		<resource id="Browse_Intro_p">Mae legislation.gov.uk yn cynnwys y rhan fwyaf o fathau o Ddeddfwriaeth y Deyrnas Unedig. Mae’r rhestr isod yn rhoi manylion llawn y mathau o ddeddfwriaeth sydd ar y safle hwn. O’r dudalen hon gallwch ddewis unrhyw fath o ddeddfwriaeth a pharhau i bori neu gallwch hofran dros y map i weld pa fathau o ddeddfwriaeth sy’n berthnasol i’r ardal ddaearyddol y mae gennych chi ddiddordeb ynddi.</resource>
+		<resource id="Browse_Hover">Ceisiwch hofran dros y map </resource>
+		<resource id="Browse_Hover2"> i amlygu mathau o ddeddfwriaeth neu cliciwch i weld deddfwriaeth ar gyfer yr ardal y gwnaethoch ei dewis.</resource>
+		<resource id="Browse_map_contains">Yn cynnwys deddfwriaeth sy’n berthnasol/all fod yn berthnasol i’r cyfan neu ran o’r ardal ar y map</resource>
+		<resource id="Not applicable">Ddim yn berthnasol</resource>
+
+		<!-- Tooltip-->
+		<resource id="whatStageIaHelp_para1">Cyhoeddir Asesiadau Effaith ar gyfnodau gwahanol o’r broses o lunio deddfwriaeth. Gellir gweld y fersiynau gwahanol yma ar legislation.gov.uk pan fyddant ar gael</resource>
+		<resource id="whatStageIaHelp_para2">Mae’r fersiwn/cyfnod hwn yn cyfeirio at yr adeg pan fydd ymgynghoriad cyhoeddus yn cael ei gyhoeddi ac yn canolbwyntio ar gostau a manteision pob dewis sy’n cael ei ystyried.</resource>
+		<resource id="whatStageIaHelp_para3">Pan fydd penderfyniad ar y dewis gorau yn dilyn y cam ymgynghori, cyhoeddir fersiwn ‘Derfynol’. Dyma’r fersiwn oedd yn cyd-fynd â’r ddeddfwriaeth arfaethedig pan gyflwynwyd hi i’r Senedd. Y fersiwn sy’n cyd-fynd ag unrhyw Offeryn Statudol Drafft sy’n gofyn am Asesiad Effaith.</resource>
+		<resource id="whatStageIaHelp_para4">Cyhoeddir pan fydd y ddeddfwriaeth yn cael ei deddfu, (weithiau gall fod yr un fath â’r fersiwn Derfynol gan ddibynnu a wnaed newidiadau i’r cynnig terfynol yn ystod y broses Seneddol);</resource>
+		<resource id="whatStageIaHelp_para5">Mae’r cam hwn yn casglu effaith y polisi a weithredwyd, ac yn asesu unrhyw addasiadau i amcanion y polisi neu ei weithrediad a argymhellwyd o ganlyniad i’r adolygiad.</resource>
+		<resource id="printHelp">Dyma’r PDF print gwreiddiol o’r fersiwn fel y’i cyhoeddwyd a ddefnyddiwyd ar gyfer cyhoeddi’r copi print swyddogol. Nid yw felly yn cynnwys unrhyw newidiadau a wnaed gan slipiau cywiro a wnaed ar ôl ei chyhoeddi. Bydd slipiau cywiro, os gwnaed rhai, yn cael eu rhestru ar wahân dan ‘Dogfennau Cysylltiedig’ a byddant wedi eu gweithredu ar y fersiwn HTML fydd i’w gweld trwy’r tab cynnwys.</resource>
+		<resource id="printHelpOriginal">Dyma’r PDF gwreiddiol o’r <param ref-id="status"/> fersiwn a ddefnyddiwyd i gyhoeddi'r copi swyddogol a argraffwyd. Nid yw felly yn cynnwys unrhyw newidiadau a wnaed gan slipiau cywiro a wnaed ar ôl ei chyhoeddi. Bydd slipiau cywiro, os gwnaed rhai, yn cael eu rhestru ar wahân dan ‘Dogfennau Cysylltiedig’ a byddant wedi eu gweithredu ar y fersiwn HTML fydd i’w gweld trwy’r tab cynnwys.</resource>
+
+		<resource id="helpText_en_mwa">Testun a grëwyd gan yr adran o Lywodraeth Cynulliad Cymru oedd yn gyfrifol am destun y Mesur i esbonio beth mae’r Mesur yn ceisio ei wneud ac i wneud y Mesur yn hygyrch i ddarllenwyr nad oes ganddynt gymhwyster cyfreithiol. Mae Nodiadau Esboniadol yn cyd-fynd â holl Fesurau Cynulliad Cenedlaethol Cymru.</resource>
+		<resource id="helpText_em_mwa">Mae Memoranda Esboniadol yn nodi datganiad byr o ddiben Offeryn Statudol ac yn rhoi gwybodaeth am ei amcan polisi a goblygiadau polisi. Maent yn ceisio gwneud yr Offeryn Statudol yn hygyrch i ddarllenwyr nad oes ganddynt gymhwyster cyfreithiol, ac maent yn cyd-fynd ag unrhyw Offeryn Statudol neu Offeryn Statudol Drafft a gyflwynwyd ger bron y Senedd o Fehefin 2004 ymlaen.</resource>
+		<!-- what version-->
+		<resource id="whatversionHelp_head">Mae deddfwriaeth ar gael mewn fersiynau gwahanol:</resource>
+		<resource id="whatversionHelp_para1_bold">Y Diweddaraf sydd Ar Gael (diwygiedig):</resource>
+		<resource id="whatversionHelp_para1_text">Y fersiwn ddiweddaraf sydd ar gael o’r ddeddfwriaeth yn cynnwys newidiadau a wnaed gan ddeddfwriaeth ddilynol ac wedi eu gweithredu gan ein tîm golygyddol. Gellir gweld y newidiadau nad ydym wedi eu gweithredu i’r testun eto yn yr ardal ‘Newidiadau i Ddeddfwriaeth’.</resource>
+		<resource id="whatversionHelp_para1_text_welsh">Dim ond yn Saesneg y mae’r fersiwn ddiwygiedig ar gael ar hyn o bryd.</resource>
+		<resource id="whatversionHelp_para2_bold">Gwreiddiol (Fel y’i Deddfwyd neu y’i Gwnaed)</resource>
+		<resource id="whatversionHelp_para2_bold_1">Saesneg</resource>
+		<resource id="whatversionHelp_para2_text">fersiwn y ddeddfwriaeth fel ag yr oedd pan gafodd ei deddfu neu eu gwneud. Ni wnaed unrhyw newidiadau i’r testun.</resource>
+		<resource id="The original">Mae'r wreiddiol</resource>
+		<resource id="English language">Saesneg</resource>
+
+		<resource id="whatversionHelp_para3_bold">Gwreiddiol (Fel y’i Deddfwyd neu y’i Gwnaed)-Cymraeg:</resource>
+		<resource id="whatversionHelp_para3_text">Y fersiwn Gymraeg wreiddiol o’r ddeddfwriaeth fel yr oedd yn sefyll pan gafodd ei deddfu neu ei gwneud. Ni wnaed unrhyw newidiadau i’r testun.</resource>
+		<!-- opening Options-->
+		<resource id="openingOptionsHelp_head">Dewisiadau Agor</resource>
+		<resource id="openingOptionsHelp_para">Dewisiadau gwahanol i agor deddfwriaeth er mwyn gweld rhagor o gynnwys ar y sgrin ar yr un pryd</resource>
+		<!-- More Resources-->
+		<resource id="There are no associated documents for this legislation.">Nid oes unrhyw ddogfennau cysylltiedig ar gyfer y ddeddfwriaeth hon.</resource>
+		<resource id="Draft Version">Fersiwn Drafft</resource>
+		<resource id="There are currently no matches for this criteria.">Nid oes unrhyw beth yn cyfateb i’r maen prawf hwn ar hyn o bryd.</resource>
+		<resource id="moreResourcesHelp_head">Rhagor o Adnoddau</resource>
+		<resource id="moreResourcesHelp_para1">Defnyddiwch y ddewislen hon i agor dogfennau hanfodol sy’n cyd-fynd â’r ddeddfwriaeth a gwybodaeth am yr eitem hon o ddeddfwriaeth. Gan ddibynnu ar yr eitem o ddeddfwriaeth sy’n cael ei gweld gall hyn gynnwys:</resource>
+		<resource id="moreResourcesHelp_alt_para1" translated="false" stage2="true">Access essential accompanying documents and information for this legislation item from this tab. Dependent on the legislation item being viewed this may include:</resource>
+
+		<resource id="moreResourcesHelp_ul_li_1_part1">y PDF print gwreiddiol y fel</resource>
+		<resource id="enacted">deddfwyd</resource>
+		<resource id="made">gwnaed</resource>
+		<resource id="moreResourcesHelp_ul_li_1_part3">fersiwn a ddefnyddiwyd am y copi print</resource>
+
+		<resource id="moreResourcesHelp_ul_li_2">slipiau cywiro</resource>
+		<resource id="moreResourcesHelp_para2">liciwch ‘Gweld Mwy’ neu ddewis ‘Rhagor o Adnoddau’ am wybodaeth ychwanegol gan gynnwys</resource>
+		<resource id="moreResourcesHelp_ul2_li_1">rhestr o newidiadau a wnaed gan a/neu yn effeithio ar yr eitem hon o ddeddfwriaeth</resource>
+		<resource id="moreResourcesHelp_ul2_li_2">manylion rhoi grym a newid cyffredinol</resource>
+		<resource id="moreResourcesHelp_ul2_li_3">pob fformat o’r holl ddogfennau cysylltiedig</resource>
+		<resource id="moreResourcesHelp_ul2_li_4">dolenni i ddeddfwriaeth gysylltiedig ac adnoddau gwybodaeth eraill</resource>
+		<resource id="moreResources_reviseListExplanation">These lists are based on information contained in latest available (revised) version as recorded by the legislation.gov.uk editorial team. For legislation enacted before the basedate (1/1/2006 for Northern Ireland legislation and 1/2/1991 for all other revised legislation) this information may not be available.</resource>
+		<resource id="moreResources_changeListExplanation">Dolen i’r cyfleuster Newidiadau i Ddeddfwriaeth sy’n darparu mynediad at restrau yn rhoi manylion newidiadau a wnaed gan yr holl ddeddfwriaeth a ddeddfwyd o 2002 – presennol i’r ddeddfwriaeth ddiwygiedig a gedwir ar legislation.gov.uk, ynghyd â manylion ynglŷn â’r newidiadau hynny sydd wedi ac nad ydynt wedi eu gweithredu gan dîm golygyddol legislation.gov.uk i’r eitem deddfwriaeth hwn. Dim ond yn ôl at 2002 mae manylion newidiadau ar gael. Mae newidiadau a wnaed cyn 2002 eisoes wedi eu corffori yn nhestun y ddeddfwriaeth ddiwygiedig ar legislation.gov.uk</resource>
+		<!-- months -->
+		<resource id="January">Ionawr</resource>
+		<resource id="February">Chwefror</resource>
+		<resource id="March">Mawrth</resource>
+		<resource id="April">Ebrill</resource>
+		<resource id="May">Mai</resource>
+		<resource id="June">Mehefin</resource>
+		<resource id="July">Gorffennaf</resource>
+		<resource id="August">Awst</resource>
+		<resource id="September">Medi</resource>
+		<resource id="October">Hydref</resource>
+		<resource id="November">Tachwedd</resource>
+		<resource id="December">Rhagfyr</resource>
+		<resource id="January_short">Ion</resource>
+		<resource id="February_short">Chwe</resource>
+		<resource id="March_short">Maw</resource>
+		<resource id="April_short">Ebr</resource>
+		<resource id="May_short">Mai</resource>
+		<resource id="June_short">Meh</resource>
+		<resource id="July_short">Gor</resource>
+		<resource id="August_short">Awst</resource>
+		<resource id="September_short">Medi</resource>
+		<resource id="October_short">Hyd</resource>
+		<resource id="November_short">Tach</resource>
+		<resource id="December_short">Rhag</resource>
+
+		<!-- The print options -->
+		<resource id="The Whole Act">Y Ddeddf Gyfan</resource>
+		<resource id="The Whole Instrument">Yr Offeryn Cyfan</resource>
+		<resource id="The Whole Measure">Y Mesur Cyfan</resource>
+		<resource id="The Whole Rule">Y Rheol Gyfan</resource>
+		<resource id="The Whole Order">Y Gorchymyn Cyfan</resource>
+		<resource id="the Whole Act">y Ddeddf Gyfan</resource>
+		<resource id="the Whole Instrument">yr Offeryn Cyfan</resource>
+		<resource id="the Whole Measure">y Mesur Cyfan</resource>
+		<resource id="the Whole Rule">y Rheol Gyfan</resource>
+		<resource id="the Whole Order">y Gorchymyn Cyfan</resource>
+		<resource id="The Full Notes">Y Nodiadau Llawn</resource>
+		<resource id="The Schedules">Y Rhestrau</resource>
+		<resource id="The Introductory Text">Y Testun Rhagarweiniol</resource>
+		<resource id="This Part only">Y Rhan Hwn yn unig</resource>
+		<resource id="This Schedule only">Y Rhestr Hon yn unig</resource>
+		<resource id="This Chapter only">Y Bennod Hon yn unig</resource>
+		<resource id="This Cross Heading only">Y Croes Bennawd hon yn unig</resource>
+		<resource id="This Section only">Yr Adran Hon yn unig</resource>
+		<resource id="This Division only">Yr Is-adran hon yn unig</resource>
+		<resource id="Web page">Tudalen we</resource>
+
+		<resource id="Proposed legislation" translated="false" stage2="true">Proposed legislation</resource>
+		<resource id="Show Explanatory Notes for Sections" translated="false" stage2="true">Show Explanatory Notes for Sections</resource>
+		<resource id="Show Repeals" translated="false" stage2="true">Show Repeals</resource>
+		<resource id="over" translated="false" stage2="true">over</resource>
+		<resource id="Legislation by Subject Heading" translated="false" stage2="true">Legislation by Subject Heading</resource>
+		<resource id="Select First Letter of Heading" translated="false" stage2="true">Select First Letter of Heading</resource>
+		<resource id="all headings" translated="false" stage2="true">all headings</resource>
+		<resource id="Refine Results" translated="false" stage2="true">Refine Results</resource>
+		<resource id="Partial dataset" translated="false" stage2="true">Partial dataset</resource>
+		<resource id="Complete dataset" translated="false" stage2="true">Complete dataset</resource>
+		<resource id="Present" translated="false" stage2="true">Present</resource>
+		<resource id="periods" translated="false" stage2="true">periods</resource>
+
+		<!-- Impact Assessment-->
+		<resource id="Please note" translated="false" stage2="true">Please note</resource>
+		<resource id="Please_note_message" translated="false" stage2="true">This impact assessment is only available to download and view as PDF.</resource>
+		<resource id="Ia_status_message" translated="false" stage2="true">This is <param ref-id="version"/> Impact Assessment.</resource>
+		<resource id="the">the</resource>
+		<resource id="version of the" translated="false" stage2="true">version of the</resource>
+		<resource id="Status">Status</resource>
+		<resource id="Impact Assessment">Asesiad Effaith</resource>
+		<resource id="Draft Impact Assessment">Asesiad Effaith Ddrafft</resource>
+		<resource id="No." translated="false" stage2="true">No.</resource>
+		<resource id="Open_full_Impact_Assessment" translated="false" stage2="true">Open full Impact Assessment</resource>
+		<resource id="Applicable Legislation" translated="false" stage2="true">Applicable Legislation</resource>
+		<resource id="ISBN" translated="false" stage2="true">ISBN</resource>
+		<resource id="Would you like to continue?" translated="false" stage2="true">Would you like to continue?</resource>
+		<resource id="Continue to open" translated="false" stage2="true">Continue to open</resource>
+
+
+		<!--unapplied changes-->
+		<resource id="Changes and effects" translated="false" stage2="true">Changes and effects</resource>
+		<resource id="unapp_effects_sectionList_message" translated="false" stage2="true">This section lists the changes and effects yet to be applied to the specific provision you are viewing.</resource>
+		<resource id="unapp_effects_applied_section" translated="false" stage2="true">Changes and effects yet to be applied to <param ref-id="test"/>:</resource>
+		<resource id="unapp_effects_changes_app_section" translated="false" stage2="true">Changes and effects yet to be applied to the whole <param ref-id="docType"/> associated Parts and Chapters:</resource>
+		<resource id="unapp_effect_tooltip_wholehelp" translated="false" stage2="true">This section lists the changes and effects yet to be applied to the whole <param ref-id="docType"/>, associated Parts and Chapters where applicable. This includes any insertions of whole new Parts, Chapters or provisions yet to be inserted into this <param ref-id="docType"/>. These effects are included in this view as they may be (but won’t necessarily be) relevant to the specific provision that you are viewing.</resource>
+		<resource id="unapp_effect_wholeprovision" translated="false" stage2="true">Whole provisions yet to be inserted into this <param ref-id="docType"/> (including any effects on those provisions):</resource>
+		<resource id="unapp_effect_commencement_orders" translated="false" stage2="true">Commencement Orders yet to be applied to the <param ref-id="title"/>
+		</resource>
+		<resource id="Commencement Orders" translated="false" stage2="true">Commencement Orders</resource>
+		<resource id="unapp_effect_tooltip_commencement_orders" translated="false" stage2="true">This section lists the commencement orders yet to be applied to the whole <param ref-id="docType"/>. These effects are included in this view as they may be (but won’t necessarily be) relevant to the specific provision that you are viewing. Where applicable the commencement orders are listed under two headings, firstly those that bring some part of the <param ref-id="docType"/> you are viewing into force and secondly, those that bring into force legislation that affects some part of the legislation you are viewing. If you are viewing a prospective version or there is a prospective version available there may be commencement orders listed here that are relevant to the provision you are viewing.</resource>
+		<resource id="unapp_effect_commencement_orders_provisions" translated="false" stage2="true">Commencement Orders bringing provisions within this <param ref-id="docType"/> into force:</resource>
+		<resource id="unapp_effect_commencement_orders_legislation" translated="false" stage2="true">Commencement Orders bringing legislation that affects this <param ref-id="docType"/> into force:</resource>
+		<resource id="commences" translated="false" stage2="true">commences</resource>
+		<resource id="by" translated="false" stage2="true">by</resource>
+
+		<resource id="First match" translated="false" stage2="true">First match</resource>
+		<resource id="Next match">Canlyniad nesaf</resource>
+		<resource id="Previous match">Canlyniad blaenorol</resource>
+		<resource id="Back to search results">Yn ôl i’r canlyniadau chwilio</resource>
+
+		<resource id="Annotation_text" translated="false" stage2="true">Annotations are used to give authority for changes and other effects on the legislation you are viewing and to convey editorial information. They appear at the foot of the relevant provision or under the associated heading. Annotations are categorised by annotation type, such as F-notes for textual amendments and I-notes for commencement information (a full list can be found in the Editorial Practice Guide). Each annotation is identified by a sequential reference number. For F-notes, M-notes and X-notes, the number also appears in bold superscript at the relevant location in the text. All annotations contain links to the affecting legislation.</resource>
+		<resource id="Associated" translated="false" stage2="true">Associated</resource>
+		<resource id="Commencement Information" translated="false" stage2="true">Commencement Information</resource>
+		<resource id="Amendments (Textual)" translated="false" stage2="true">Amendments (Textual)</resource>
+		<resource id="Marginal Citations" translated="false" stage2="true">Marginal Citations</resource>
+		<resource id="Modifications etc. (not altering text)" translated="false" stage2="true">Modifications etc. (not altering text)</resource>
+		<resource id="Subordinate Legislation Made" translated="false" stage2="true">Subordinate Legislation Made</resource>
+		<resource id="Extent Information" translated="false" stage2="true">Extent Information</resource>
+		<resource id="Editorial Information" translated="false" stage2="true">Editorial Information</resource>
+
+		<resource id="Applies to" translated="false" stage2="true">Applies to</resource>
+		<resource id="Valid from" translated="false" stage2="true">Valid from</resource>
+		<resource id="Prospective" translated="false" stage2="true">Prospective</resource>
+		<resource id="Executive Note" translated="false" stage2="true">Executive Note</resource>
+		<resource id="Policy Notes" translated="false" stage2="true">Policy Notes</resource>
+		<resource id="No_associated_note" translated="false" stage2="true">This <param ref-id="type"/> has no associated <param ref-id="noteType"/></resource>
+
+		<resource id="Year_before_current" translated="false" stage2="true">Year must be before or equal to <param ref-id="year"/></resource>
+		<resource id="Year_before_range" translated="false" stage2="true">Year range must be before or equal to <param ref-id="year"/> and the From year must be an earlier date than the To year</resource>
+		<resource id="Not a valid legislation type" translated="false" stage2="true">Not a valid legislation type</resource>
+		<resource id="Year_after_2002" translated="false" stage2="true">Year must be between 2002 and <param ref-id="year"/></resource>
+		<resource id="Changed Legislation" translated="false" stage2="true">Changed Legislation</resource>
+		<resource id="Changed Provision" translated="false" stage2="true">Changed Provision</resource>
+		<resource id="Year and Number" translated="false" stage2="true">Year and Number</resource>
+		<resource id="Affecting Legislation Title" translated="false" stage2="true">Affecting Legislation Title</resource>
+		<resource id="Affecting Provision" translated="false" stage2="true">Affecting Provision</resource>
+		<resource id="This may be because either" translated="false" stage2="true">This may be because either</resource>
+		<resource id="No_changes" translated="false" stage2="true">There are no changes listed in relation to the legislation you specified.</resource>
+		<resource id="No_changes_recorded" translated="false" stage2="true">Changes have not yet been recorded by the legislation.gov.uk editorial team for the legislation you specified</resource>
+		<resource id="Back to legislation" translated="false" stage2="true">Back to legislation</resource>
+		<resource id="New Search" translated="false" stage2="true">New Search</resource>
+		<resource id="Subscribe_feed" translated="false" stage2="true">Subscribe to feed in order to be alerted if/when changes are recorded in related to this legislation item</resource>
+		<resource id="Learn_more" translated="false" stage2="true">Learn more about changes to legislation</resource>
+		<resource id="not available" translated="false" stage2="true">not available</resource>
+
+	</resources>
+
+	<resources lang="en">
+		<resource id="Home_description" translated="false" stage2="true">The official home of UK legislation, revised and as enacted 1267-present. This website is managed by The National Archives on behalf of HM Government. Publishing all UK legislation is a core part of the remit of Her Majesty’s Stationery Office (HMSO), part of The National Archives, and the Office of the Queen's Printer for Scotland.</resource>
+		<resource id="Homepage Footer">All content is available under the </resource>
+		<resource id="Open Government Licence">Open Government Licence v2.0</resource>
+		<resource id="Homepage Footer End"> except where otherwise stated</resource>
+		<resource id="Key_title_text">(or keywords in the title)</resource>
+		<resource id="Use_double_quote_text">(using double quotes around a phrase will give faster results)</resource>
+		<resource id="Extent_search_desc">These advanced features are only available on searches for revised legislation e.g. Acts. Secondary legislation will not be included in search results.</resource>
+		<resource id="Changes_chnoTable_desc">The Chronological Tables list changes to Local, Private and Personal Acts dating from 1797 – 2008. They are updated each year and as the title suggests, the tables list Local, Private and Personal Acts in their chronological sequence along with details about repeals of, and changes (including amendments and substitutions) made to those Acts. They have been published in parts to make navigation easier.</resource>
+		<resource id="Common_word_text_message">Common words were ignored for this search. Use double quotes around common words to include them.</resource>
+		<resource id="Free_of_charge">Free of charge legislation feeds</resource>
+		<resource id="Language_Switch_EN">Switch to English Version</resource>
+		<resource id="Language_Switch_CY">Switch to Welsh Version</resource>
+
+		<!-- errors returned from theme-opsi-demo.xsl -->
+		<resource id="Temporarily Unavailable">Temporarily Unavailable</resource>
+		<resource id="Page Not Found">Page Not Found</resource>
+		<resource id="Multiple Choices">Multiple Choices</resource>
+		<resource id="Found References">Found References</resource>
+		<resource id="Foundref_p_1">This item of legislation isn’t available on this site as it isn’t currently available in a web-publishable format. This could be because the new legislation item hasn’t published yet. However, if you are looking for an older item of legislation that we do not hold but you’d like to see on this site, please let us know via</resource>
+		<resource id="Foundref_p_2">You may be interested to know that <param ref-id="citation" /> is also referenced by other legislation items such as:</resource>
+		<resource id="Created">Created</resource>
+		<resource id="Accepted">Accepted</resource>
+		<resource id="Internal Error">Internal Error</resource>
+		<resource id="Error404_1">The page you requested could not be found</resource>
+		<resource id="Error404_2">Please check for any of the following if you see this page after a search</resource>
+		<resource id="Error404_3">Spelling mistakes in the search phrase</resource>
+		<resource id="Error404_4">Invalid parameter entered e.g 19988 instead of 1998 for a year</resource>
+		<resource id="Error404_5">Alternatively, the referrer may have passed an invalid URI to this site. Check that the URI has 'www' and does not start with 'https:'</resource>
+		<resource id="Error200">Try the following items of legislation</resource>
+		<resource id="Error_Alt">The following are possible links that you could try as alternatives</resource>
+		<resource id="Error300_1">The link that you've followed could mean any of the following</resource>
+		<resource id="Error300_2">The link that you've followed could mean either of the following</resource>
+
+		<!--Home page -->
+		<resource id="whatlegislation">What legislation is held on legislation.gov.uk?</resource>
+		<resource id="willIfind">Will I find new legislation on legislation.gov.uk?</resource>
+		<resource id="availableRevised">What legislation is available as revised?</resource>
+		<resource id="revisedContent_website">How up to date is the revised content on this website?</resource>
+
+		<!-- New -->
+		<resource id="Feed1">Feeds enable you to see when websites have added new content. By using the legislation feeds you can get details of the latest legislation as soon as it is published without having to check the new legislation page each day.</resource>
+		<resource id="Feed2">There are many types of feed (such as RSS and Atom). This site provides Atom feeds which can be used in most news readers. To use the feeds you will need a newsreader or a browser enabled device.</resource>
+		<resource id="Feed3">To receive the feed to your newsreader either drag the orange feed button or cut and paste the link of the feed into your news reader.</resource>
+
+		<!-- Browse -->
+		<resource id="Browse_Back">Back to all legislation</resource>
+		<resource id="Browse_MapHelp_Title">Browse map help</resource>
+		<resource id="Browse_MapHelp_Text">The UK parliament has power to make legislation for the whole of the UK. However, the parliaments and assemblies of Scotland, Wales and Northern Ireland all have powers to make certain types of legislation specific to their geographical areas. This interactive map and legislation list aims to show the different legislation types that may be applicable to different areas.</resource>
+		<resource id="Browse_DraftLegislationHelp_Title">Draft Legislation help</resource>
+		<resource id="Browse_DraftLegislationHelp_Text">Draft legislation is legislation that is awaiting approval. It generally either becomes law or in some cases is withdrawn. Also, sometimes draft legislation is replaced by another draft. For these reasons, these draft legislation types are not reflected by the interactive map above.</resource>
+		<resource id="Browse_IAHelp_Title">Impact Assessment help</resource>
+		<resource id="Browse_IAHelp_Text">Impact Assessment are assessments of the likely cost, benefits and impacts of any legislation.</resource>
+		<resource id="Browse_UKIntro">Legislation.gov.uk carries most types of UK Legislation. The list below is a breakdown of the types of legislation held on this site that are applicable to the whole or some part of the UK. From this page you can select any legislation type to continue browsing.</resource>
+		<resource id="Browse_UKApplies1">Exclusively or primarily applies to the area on the map</resource>
+		<resource id="Browse_UKApplies2">Exclusively or primarily applies to the UK</resource>
+		<resource id="Browse_UKApplies3">May contain legislation that applies to the UK</resource>
+		<resource id="Browse_WalesApplies1">Exclusively or primarily applies to Wales</resource>
+		<resource id="Browse_WalesApplies2">May contain legislation that applies to Wales</resource>
+		<resource id="Browse_NIApplies1">Exclusively or primarily applies to Northern Ireland</resource>
+		<resource id="Browse_NIApplies2">May contain legislation that applies to Northern Ireland</resource>
+		<resource id="Browse_ScotlandApplies1">Exclusively or primarily applies to Scotland</resource>
+		<resource id="Browse_ScotlandApplies2">May contain legislation that applies to Scotland</resource>
+		<resource id="Browse_WalesIntro">Legislation.gov.uk carries most types of UK Legislation including Welsh Legislation. The list below is a breakdown of the types of legislation held on this site that are either exclusively applicable to Wales or contain legislation that may pertain to Wales. From this page you can select any legislation type to continue browsing.</resource>
+		<resource id="Browse_ScotlandIntro">Legislation.gov.uk carries most types of UK Legislation including Scottish Legislation. The list below is a breakdown of the types of legislation held on this site that are either exclusively applicable to Scotland or contain legislation that may pertain to Scotland. From this page you can select any legislation type to continue browsing.</resource>
+		<resource id="Browse_NIIntro">Legislation.gov.uk carries most types of UK Legislation including Northern Irish Legislation. The list below is a breakdown of the types of legislation held on this site that are either exclusively applicable to Northern Ireland or contain legislation that may pertain to Northern Ireland. From this page you can select any legislation type to continue browsing.</resource>
+		<resource id="Browse_QuickLinks">Quick links</resource>
+		<resource id="Browse_ScotlandLegislation">Scotland Legislation</resource>
+		<resource id="Browse_WalesLegislation">Wales Legislation</resource>
+		<resource id="Browse_NILegislation">Northern Ireland Legislation</resource>
+		<resource id="Browse_UKLegislation">UK Legislation</resource>
+		<resource id="Browse_Intro_p">Legislation.gov.uk carries most types of UK Legislation. The list below is a complete breakdown of the types of legislation held on this site. From this page you can select any legislation type and continue browsing or you can hover over the map to see which legislation types are applicable to the geographical area you are interested in.</resource>
+		<resource id="Browse_Hover">Hover over the map</resource>
+		<resource id="Browse_Hover2"> to highlight legislation types or click to view legislation for the area selected.</resource>
+		<resource id="Browse_map_contains">Contains legislation that applies/may apply to the whole or part of the area on the map</resource>
+
+		<!-- new -->
+		<resource id="Official_place_of_publication">Official place of publication for newly enacted legislation</resource>
+		<resource id="New_intro_1_1">Stay up to date with newly enacted legislation for the UK, Scotland, Wales and Northern Ireland as it is published to this site, by selecting a date below or using the free of charge subscription feeds.</resource>
+		<resource id="New_intro_1_2">The aim is to publish legislation on this site simultaneously, or at least within 24 hours, of its publication in printed form.</resource>
+		<resource id="New_intro_2_1">Any document which is especially complex in terms of its size or its typography may take longer to prepare.</resource>
+		<resource id="New_intro_2_2_1">New legislation is therefore </resource>
+		<resource id="New_intro_2_2_2">listed by publication date</resource>
+		<resource id="New_intro_2_2_3"> rather than the date on which it was enacted.</resource>
+		<resource id="New_tracking_1_1">All Bills currently before the UK Parliament are listed on the </resource>
+		<resource id="New_tracking_1_2">UK Parliament website</resource>
+		<resource id="New_tracking_2_1">The </resource>
+		<resource id="New_tracking_2_2">Parliamentary Business, Bills &amp; Legislation website</resource>
+		<resource id="New_tracking_2_3"> shows which stage a Bill has reached on its passage through Parliament.</resource>
+		<resource id="New_tracking_3_1">See </resource>
+		<resource id="New_tracking_3_2">The Bill index database</resource>
+		<resource id="New_tracking_3_3"> for links to the full text of a Bill, the Hansard debate and any proposed amendments.</resource>
+		<resource id="New_tracking_4">Bills become Acts once they have passed all stages within both Houses of Parliament and receive Royal Assent. Once they have received Royal Assent, Acts are published under the authority of the Queen's Printer to this website.</resource>
+
+		<!-- Tooltip-->
+		<resource id="whatStageIaHelp_para1">Impact Assessments are published at different stages of the legislation making process. These different versions can be viewed on legislation.gov.uk where available</resource>
+		<resource id="whatStageIaHelp_para2">This version/stage refers to when a formal public consultation is published and focuses on the cost and benefits of each option under consideration.</resource>
+		<resource id="whatStageIaHelp_para3">When a preferred option has been decided upon following the consultation stage, a ‘Final’ version is published. This is the version that accompanied the proposed legislation when it was introduced to Parliament. It is the version that accompanies any Draft Statutory Instrument which requires and Impact Assessment.</resource>
+		<resource id="whatStageIaHelp_para4">Published when the legislation is enacted, (sometimes this may be the same as the Final version depending whether changes have been introduced to the final proposal during the Parliamentary process);</resource>
+		<resource id="whatStageIaHelp_para5">This stage captures the impact of the implemented policy, and assesses any modifications to the policy objectives or its implementation recommended as a result of the review.</resource>
+		<resource id="printHelp">This is the original PDF that was used to publish the printed copy. The printed copy of this draft would have been laid before parliament. Please note, that draft legislation items may be replaced with another draft version and/or be superseded by a numbered SI if it has been subsequently made by the Government department. You can find out if this has happened by entering the title of the instrument using the search bar at the top of this page. In the search results, any relevant replacement/superseding information will be displayed underneath the title.</resource>
+		<resource id="printHelpOriginal">This is the original PDF of the as <param ref-id="status"/> version that was used to publish the official printed copy. It therefore does not include any changes made by correction slips issued after it was published. Correction slips if issued will be listed separately under 'Associated Documents' and will have been applied to the HTML version viewable via the content tab.</resource>
+		<resource id="helpText_en_mwa">Text created by the Welsh Assembly Government department responsible for the subject matter of the Measure to explain what the Measure sets out to achieve and to make the Measure accessible to readers who are not legally qualified. Explanatory Notes accompany all Measures of the National Assembly for Wales.</resource>
+		<resource id="helpText_em_mwa">Explanatory Memorandum sets out a brief statement of the purpose of a Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Statutory Instrument accessible to readers who are not legally qualified accompany any Statutory Instrument or Draft Statutory Instrument laid before Parliament from June 2004 onwards.</resource>
+		<resource id="whatversionHelp_head">Legislation is available in different versions:</resource>
+		<resource id="whatversionHelp_para1_bold">Latest Available (revised):</resource>
+		<resource id="whatversionHelp_para1_text">The latest available updated version of the legislation incorporating changes made by subsequent legislation and applied by our editorial team. Changes we have not yet applied to the text, can be found in the ‘Changes to Legislation’ area.</resource>
+		<resource id="whatversionHelp_para1_text_welsh">The revised version is currently only available in English.</resource>
+		<resource id="whatversionHelp_para2_bold">Original (As Enacted or Made)</resource>
+		<resource id="whatversionHelp_para2_bold_1">English</resource>
+		<resource id="whatversionHelp_para2_text">version of the legislation as it stood when it was enacted or made. No changes have been applied to the text.</resource>
+		<resource id="whatversionHelp_para3_bold">Original (As Enacted or Made) - Welsh:</resource>
+		<resource id="whatversionHelp_para3_text">The original Welsh language version of the legislation as it stood when it was enacted or made. No changes have been applied to the text.</resource>
+
+		<resource id="openingOptionsHelp_head">Opening Options</resource>
+		<resource id="openingOptionsHelp_para">Different options to open legislation in order to view more content on screen at once</resource>
+		<!-- More Resources-->
+		<resource id="moreResourcesHelp_head">More Resources</resource>
+		<resource id="moreResourcesHelp_para1">Use this menu to access essential accompanying documents and information for this legislation item. Dependent on the legislation item being viewed this may include:</resource>
+		<resource id="moreResourcesHelp_alt_para1">Access essential accompanying documents and information for this legislation item from this tab. Dependent on the legislation item being viewed this may include:</resource>
+
+		<resource id="moreResourcesHelp_ul_li_1_part1">the original print PDF of the as</resource>
+		<resource id="moreResourcesHelp_ul_li_1_part3">version that was used for the print copy</resource>
+
+		<resource id="moreResourcesHelp_ul_li_2">correction slips</resource>
+		<resource id="moreResourcesHelp_para2">Click 'View More' or select 'More Resources' tab for additional information including:</resource>
+		<resource id="moreResourcesHelp_ul2_li_1">lists of changes made by and/or affecting this legislation item</resource>
+		<resource id="moreResourcesHelp_ul2_li_2">confers power and blanket amendment details</resource>
+		<resource id="moreResourcesHelp_ul2_li_3">all formats of all associated documents</resource>
+		<resource id="moreResourcesHelp_ul2_li_4">links to related legislation and further information resources</resource>
+		<resource id="moreResources_changeListExplanation">Link(s) to the Changes to Legislation facility which provides access to lists detailing changes made by all legislation enacted from 2002 - present to the revised legislation held on legislation.gov.uk, along with details about those changes which have and have not been applied by the legislation.gov.uk editorial team to this legislation item. Details of changes are only available back to 2002. Changes made before 2002 are already incorporated into the text of the revised legislation on legislation.gov.uk</resource>
+		<resource id="moreResources_reviseListExplanation">These lists are based on information contained in latest available (revised) version as recorded by the legislation.gov.uk editorial team. For legislation enacted before the basedate (1/1/2006 for Northern Ireland legislation and 1/2/1991 for all other revised legislation) this information may not be available.</resource>
+		<!-- months -->
+		<resource id="January">January</resource>
+		<resource id="February">February</resource>
+		<resource id="March">March</resource>
+		<resource id="April">April</resource>
+		<resource id="May">May</resource>
+		<resource id="June">June</resource>
+		<resource id="July">July</resource>
+		<resource id="August">August</resource>
+		<resource id="September">September</resource>
+		<resource id="October">October</resource>
+		<resource id="November">November</resource>
+		<resource id="December">December</resource>
+		<resource id="January_short">Jan</resource>
+		<resource id="February_short">Feb</resource>
+		<resource id="March_short">Mar</resource>
+		<resource id="April_short">Apr</resource>
+		<resource id="May_short">May</resource>
+		<resource id="June_short">June</resource>
+		<resource id="July_short">July</resource>
+		<resource id="August_short">Aug</resource>
+		<resource id="September_short">Sept</resource>
+		<resource id="October_short">Oct</resource>
+		<resource id="November_short">Nov</resource>
+		<resource id="December_short">Dec</resource>
+
+		<!-- search -->
+		<resource id="Search_tooltip_title">Enter a full title or part of a title to find results based on title. The search will show results that match on any part of the title. For example ‘Data’ will match ‘Data Protection Act’ and ‘The Data Retention Regulations’. To exclude a term, use the minus operator before the term you wish to exclude. For example searching ‘Data -protection’ would return ‘The Data Retention Regulations’ but not the ‘Data Protection Act’. Use double quotes for an exact match on a phrase e.g “Data Protection” would return ‘The Data Protection Act’ but not ‘The Protection of Vulnerable Groups (Data Handling) Regulations’. Alternatively, leave blank if you do not wish to specify a title match.</resource>
+		<resource id="Search_tooltip_year">Select whether you would like to search across legislation for a particular year or range of years. This is not a required field and can be left empty if you do not wish to narrow your search by year.</resource>
+		<resource id="Search_tooltip_year_pit">Enter the year of the legislation you would like to view. This is the year it was enacted/made.</resource>
+		<resource id="Search_tooltip_number">If you know the number of the legislation item you are looking for enter it here. There are several ways to search by number as some items of legislation are assigned multiple numbers each from different numbering systems. Where multiple numbering systems have been used, you can select which one you wish to search by from the drop down box. If you are unsure, we recommend you keep ‘main series’ selected.</resource>
+		<resource id="Search_tooltip_number_pit_extent">Use this field to specify the number of the legislation if you know it. This field is not mandatory. Please note that a point in time or geographic extent search is only possible on the legislation that we revise (primary legislation). For example, an SI number will not be a valid search.</resource>
+		<resource id="Search_tooltip_type">It is possible to narrow your search across a particular legislation type or set of legislation types by using the checkboxes. The first column shows all the possible primary legislation types, and the second column all the secondary legislation types. Select ‘All Legislation’ if you do not wish to restrict your search to particular types of legislation. See the Help section for advice about understanding different legislation types.</resource>
+		<resource id="Search_tooltip_type_pit_extent">Use the drop down to specify the type of legislation for the search. Please note that point in time and geographic extent search is only possible on legislation that we revise so only primary legislation types are listed.</resource>
+		<resource id="Search_tooltip_type_draft">It is possible to narrow your search across a particular legislation type or set of legislation types by using the checkboxes. Select ‘All Draft' if you do not wish to restrict your search to particular types of draft legislation. See the Help section for advice about understanding different legislation types.</resource>
+		<resource id="Search_tooltip_pit">Use this field to select a date and see how your specified legislation stood at a particular point in time. Only dates after the basedate (01/02/1991) are valid we do not have versions that precede this date in the data. For Northern Ireland legislation the basedate is 01/01/ 2006.</resource>
+		<resource id="Point_in_time_error">Point in Time must be after 01/01/2006 if you have selected Northern Ireland legislation, and after 01/02/1991 for other primary legislation types</resource>
+
+		<!-- new -->
+		<resource id="New_subtitle">Changes made by legislation enacted from 2002 – present</resource>
+		<resource id="New_p1">The search form below provides access to lists detailing changes made by all legislation enacted from 2002 – present to the revised legislation held on legislation.gov.uk. Changes made by legislation enacted prior to 2002 have already been incorporated into the content and are not available as searchable lists. These lists provide details of changes including repeals, amendments and other effects (e.g. modifications and commencement information).</resource>
+		<resource id="New_p2">The lists are updated with changes made by new legislation as soon as possible after the legislation is received by the legislation.gov.uk editorial team. There will usually, however, be some delay between the publication of new legislation to the website and the effects of it appearing in these tables. In most cases the delay will be less than two weeks.</resource>
+		<resource id="New_p3">Note: Where changes and effects have yet to be applied to the legislation you are viewing on this site by the legislation.gov.uk editorial team then any ‘Changes to Legislation’ are also displayed alongside the content of the legislation at provision level.</resource>
+
+		<!-- changes -->
+		<resource id="Changes_affect_tooltip_p">Use this facility to search for changes that affect one or more items of legislation based on the criteria below. Alternatively you can leave this side of the form blank to find the changes and effects on any revised legislation.</resource>
+		<resource id="Changes_affect_tooltip_li_1">Legislation type: This optional field allows you to narrow down your search to changes affecting the legislation type you are interested in. The drop down list only includes those legislation types for which we hold revised versions for on legislation.gov.uk.</resource>
+		<resource id="Changes_affect_tooltip_li_2">Specific year/Range of years: These optional fields allow you to restrict your search to changes that affect legislation of a particular year or over a range of years.</resource>
+		<resource id="Changes_affect_tooltip_li_3">Number: If you are looking for changes that affect a specific item of legislation and you know its series number you can enter it in the number field.</resource>
+		<resource id="Changes_madeby_tooltip_p">Narrow down your search for changed legislation by entering details about the legislation that made the effects using this side of the form. Alternatively, leave his side of the form blank for effects and changes made by any legislation.</resource>
+		<resource id="Changes_madeby_tooltip_li_1">Legislation type: This optional field allows you to narrow down your search to the legislation type you are interested in using the drop down box.</resource>
+		<resource id="Changes_madeby_tooltip_li_2">Specific year/Range of years: These optional fields allow you to restrict your search to changes made by legislation in a particular year or over a range of years. Tip: to search for all changes made by all legislation in a particular year, enter the year in this side of the form, leaving the ‘Changes that affect’ side blank.</resource>
+		<resource id="Changes_madeby_tooltip_li_3">Number: If you are looking for changes that are made by a specific item of legislation and you know its series number you can enter it in the number field.</resource>
+		<resource id="Changes_resultsShowing_tooltip_h3">Use the tick boxes to see either:</resource>
+		<resource id="Changes_resultsShowing_tooltip_li_1">All changes: All the changes and effects that match your search</resource>
+		<resource id="Changes_resultsShowing_tooltip_li_2">Applied changes: Those changes and effects that match your search criteria and have been applied to the text of legislation held on this website by the legislation.gov.uk editorial team.</resource>
+		<resource id="Changes_resultsShowing_tooltip_li_3">Unapplied changes: Those changes and effects that match your search criteria but have not yet been applied to the legislation held on this website by the legislation.gov.uk editorial team.</resource>
+		<resource id="Changes_applied_tooltip_p_1">A green tick indicates that the change has been applied to the text of the legislation on this site by the legislation.gov.uk editorial team.</resource>
+		<resource id="Changes_applied_tooltip_p_2">Where there is no green tick, the changes and effects have not yet been applied and they are also displayed alongside the content of the legislation at provision level in the ‘Changes to Legislation’ red box.</resource>
+		<resource id="Changes_typeofEffect_tooltip_p">There are many different types of effects. An “effect” can denote any way in which legislation impacts on or changes other legislation. There are three main types of effect which result in the text of the legislation changing: insertions (text is added), substitutions (text is replaced) and repeals (where existing text ceases to have effect and may also be removed from the legislation). In addition there are some effects that we record that do not result in a change to the text of the legislation e.g. “Applied” which is used where provisions of existing legislation are applied to new legislation or to some set of circumstances specified in the applying legislation.</resource>
+		<resource id="Changes_noResultFound_message">Your search returned 0 results</resource>
+
+		<!-- Impact Assessment-->
+		<resource id="IA_tooltip_1">Impact Assessments generally accompany all UK Government interventions of a regulatory nature that affect the private sector, civil society organisations and public services. They apply regardless of whether the regulation originates from a domestic or international source and can accompany primary (Acts etc) and secondary legislation (SIs). An Impact Assessment allows those with an interest in the policy area to understand:</resource>
+		<resource id="IA_tooltip_2">Why the government is proposing to intervene;</resource>
+		<resource id="IA_tooltip_3">The main options the government is considering, and which one is preferred;</resource>
+		<resource id="IA_tooltip_4">How and to what extent new policies may impact on them; and,</resource>
+		<resource id="IA_tooltip_5">The estimated costs and benefits of proposed measures.</resource>
+		
+		<resource id="Please note">Please note</resource>
+		<resource id="Please_note_message">This impact assessment is only available to download and view as PDF.</resource>
+		<resource id="Ia_status_message">This is <param ref-id="version"/> Impact Assessment.</resource>
+		<resource id="the">the</resource>
+		<resource id="version of the">version of the</resource>
+		<resource id="Status">Status</resource>
+		<resource id="Impact Assessment">Impact Assessment</resource>
+		<resource id="No.">No.</resource>
+		<resource id="Open_full_Impact_Assessment">Open full Impact Assessment</resource>
+		<resource id="Applicable Legislation">Applicable Legislation</resource>
+		<resource id="ISBN">ISBN</resource>
+
+		<!--unapplied changes-->
+		<resource id="Changes and effects">Changes and effects</resource>
+		<resource id="unapp_effects_sectionList_message">This section lists the changes and effects yet to be applied to the specific provision you are viewing.</resource>
+		<resource id="unapp_effects_applied_section">Changes and effects yet to be applied to <param ref-id="test"/>:</resource>
+		<resource id="unapp_effects_changes_app_section">Changes and effects yet to be applied to the whole <param ref-id="docType"/> associated Parts and Chapters:</resource>
+		<resource id="unapp_effect_tooltip_wholehelp">This section lists the changes and effects yet to be applied to the whole <param ref-id="docType"/>, associated Parts and Chapters where applicable. This includes any insertions of whole new Parts, Chapters or provisions yet to be inserted into this <param ref-id="docType"/>. These effects are included in this view as they may be (but won’t necessarily be) relevant to the specific provision that you are viewing.</resource>
+		<resource id="unapp_effect_wholeprovision">Whole provisions yet to be inserted into this <param ref-id="docType"/> (including any effects on those provisions):</resource>
+		<resource id="unapp_effect_commencement_orders">Commencement Orders yet to be applied to the <param ref-id="title"/></resource>
+		<resource id="Commencement Orders">Commencement Orders</resource>
+		<resource id="unapp_effect_tooltip_commencement_orders">This section lists the commencement orders yet to be applied to the whole <param ref-id="docType"/>. These effects are included in this view as they may be (but won’t necessarily be) relevant to the specific provision that you are viewing. Where applicable the commencement orders are listed under two headings, firstly those that bring some part of the <param ref-id="docType"/> you are viewing into force and secondly, those that bring into force legislation that affects some part of the legislation you are viewing. If you are viewing a prospective version or there is a prospective version available there may be commencement orders listed here that are relevant to the provision you are viewing.</resource>
+		<resource id="unapp_effect_commencement_orders_provisions">Commencement Orders bringing provisions within this <param ref-id="docType"/> into force:</resource>
+		<resource id="unapp_effect_commencement_orders_legislation">Commencement Orders bringing legislation that affects this <param ref-id="docType"/> into force:</resource>
+		<resource id="commences">commences</resource>
+		<resource id="by">by</resource>
+		<resource id="EN_Help_1">Text created by the government department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes were introduced in 1999 and accompany all Public Acts except Appropriation, Consolidated Fund, Finance and Consolidation Acts.</resource>
+		<resource id="EN_Help_2">Text created by the Northern Ireland Assembly department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes accompany all Acts of the Northern Ireland Assembly.</resource>
+		<resource id="EN_Help_3">Text created by the Scottish Executive department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes were introduced in 1999 and accompany all Acts of the Scottish Parliament except those which result from Budget Bills</resource>
+		<resource id="EN_Help_4">Text created by the Welsh Government department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes accompany all Acts of the National Assembly for Wales.</resource>
+		<resource id="EN_Help_5">Policy Note sets out a brief statement of the purpose of a Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2012 onwards. Prior to this date these type of notes existed as ‘Executive Notes’ and accompanied Scottish Statutory Instruments from July 2005 until July 2012.</resource>
+		<resource id="EN_Help_6">Draft Policy Note sets out a brief statement of the purpose of a Draft Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Draft Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2012 onwards. Prior to this date these type of notes existed as 'Executive Notes' and accompanied Draft Scottish Statutory Instruments from July 2005 until July 2012.</resource>
+		<resource id="EN_Help_7">Executive Note sets out a brief statement of the purpose of a Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2005 onwards.</resource>
+		<resource id="EN_Help_8">Draft Executive Note sets out a brief statement of the purpose of a Draft Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Draft Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2005 onwards.</resource>
+		<resource id="EN_Help_9">Explanatory Memorandum sets out a brief statement of the purpose of a Northern Ireland Order in Council and provides information about its policy objective and policy implications. They aim to make the Order accessible to readers who are not legally qualified and accompany any Northern Ireland Order in Council made since 2002.</resource>
+		<resource id="EN_Help_10">Explanatory Memorandum sets out a brief statement of the purpose of a Statutory Rule and provides information about its policy objective and policy implications. They aim to make the Statutory Rule accessible to readers who are not legally qualified and accompany any Northern Ireland Statutory Rule or Draft Northern Ireland Statutory Rule laid before the UK Parliament during the suspension of the Northern Ireland Assembly.</resource>
+		<resource id="EN_Help_11">Draft Explanatory Memorandum sets out a brief statement of the purpose of a Draft Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Draft Statutory Instrument accessible to readers who are not legally qualified accompany any Statutory Instrument or Draft Statutory Instrument laid before Parliament from June 2004 onwards.</resource>
+		<resource id="EN_Help_12">Draft Explanatory Memorandum sets out a brief statement of the purpose of a Draft Statutory Rule and provides information about its policy objective and policy implications. They aim to make the Draft Statutory Rule accessible to readers who are not legally qualified and accompany any Statutory Rule laid before the UK Parliament during the suspension of the Northern Ireland Assembly.</resource>
+		<resource id="Schedules_only">You have chosen to open Schedules only</resource>
+
+		<resource id="PIT_toc_1">This becomes available after navigating to view revised legislation as it stood at a certain point in time via Advanced Features &gt; Show Timeline of Changes or via a point in time advanced search.</resource>
+		<resource id="PIT_toc_2">A point in time version is only available in English.</resource>
+		<resource id="Latest_toc_1">Latest with prospective is the latest available (revised) version of the legislation but includes the prospective versions of individual provisions where they exist. This point in time view of the legislation becomes available after clicking a prospective version of a provision via Advanced Features &gt; Show Timeline of Changes.</resource>
+		<resource id="Interweave_toc_1">See additional information alongside the content</resource>
+		<resource id="Interweave_toc_2">Displays relevant parts of the explanatory notes interweaved within the legislation content.</resource>
+		<resource id="Interweave_toc_3">Indicates the geographical area that this provision applies to. For further information see ‘Frequently Asked Questions’.</resource>
+		<resource id="Interweave_toc_4">See how this legislation has or could change over time. Turning this feature on will show extra navigation options to go to these specific points in time. Return to the latest available version by using the controls above in the What Version box.</resource>
+		<resource id="Revised_toc_1">This timeline shows the different points in time where a change occurred. The dates will coincide with the earliest date on which the change (e.g an insertion, a repeal or a substitution) that was applied came into force. The first date in the timeline will usually be the earliest date when the provision came into force. In some cases the first date is 01/02/1991 (or for Northern Ireland legislation 01/01/2006). This date is our basedate. No versions before this date are available. For further information see the Editorial Practice Guide and Glossary under Help.</resource>
+
+		<!-- Explanatory Notes -->
+		<resource id="EN_draft_message">This is a draft <param ref-id="type"/> to accompany this <param ref-id="legtype"/>.</resource>
+		<resource id="EN_Intro">This Statutory Instrument was laid before the UK Parliament and the Scottish Parliament and is, therefore, accompanied by an Explanatory Memorandum and an Executive Note for each parliament respectively. Navigate between the two documents using the tabs above. The Memorandum and the Note are only available to view and download in PDF.</resource>
+		<resource id="EN_Intro2">This is the mixed language version of these Notes. See the More Resources tab for links to the Welsh language and English language versions. These Notes are only available to download and view in PDF.</resource>
+		<resource id="EN_Intro3">This is a revised <param ref-id="type"/> to <param ref-id="legtype"/>. The unrevised version of the <param ref-id="type"/> can be accessed via the More Resources tab. This <param ref-id="type"/> is only available to download and view in PDF.</resource>
+		<resource id="EN_Intro4">This <param ref-id="type"/> is only available to download and view as PDF.</resource>
+		<!-- this next 2 resources are output one after the other, 'click here' is in a link element-->
+		<resource id="EN_Intro5">All reference to 'Parts' and 'sections' are from the <param ref-id="title"/>. For more information about understanding <param ref-id="type"/></resource>
+		<resource id="click here">click here</resource>
+		<resource id="EN_selected_count">you have selected contains over <param ref-id="count"/> provisions and might take some time to download.</resource>
+		<resource id="Browser_warning"> You may also experience some issues with your browser, such as an alert box that a script is taking a long time to run.</resource>
+		<!-- imapct Assessments -->
+
+		<!-- Annotations -->
+		<resource id="Annotation_text" translated="false" stage2="true">Annotations are used to give authority for changes and other effects on the legislation you are viewing and to convey editorial information. They appear at the foot of the relevant provision or under the associated heading. Annotations are categorised by annotation type, such as F-notes for textual amendments and I-notes for commencement information (a full list can be found in the Editorial Practice Guide). Each annotation is identified by a sequential reference number. For F-notes, M-notes and X-notes, the number also appears in bold superscript at the relevant location in the text. All annotations contain links to the affecting legislation.</resource>
+		<resource id="No_associated_note">This <param ref-id="type"/> has no associated <param ref-id="noteType"/></resource>
+
+		<resource id="Year_before_current" translated="false" stage2="true">Year must be before or equal to <param ref-id="year"/></resource>
+		<resource id="Year_before_range">Year range must be before or equal to <param ref-id="year"/> and the From year must be an earlier date than the To year</resource>
+		<resource id="Year_after_2002">Year must be between 2002 and <param ref-id="year"/></resource>
+
+		<resource id="No_changes">There are no changes listed in relation to the legislation you specified.</resource>
+		<resource id="No_changes_recorded">Changes have not yet been recorded by the legislation.gov.uk editorial team for the legislation you specified</resource>
+		<resource id="Subscribe_feed">Subscribe to feed in order to be alerted if/when changes are recorded in related to this legislation item</resource>
+		<resource id="Learn_more">Learn more about changes to legislation</resource>
+
+	</resources>
+</allResources>
