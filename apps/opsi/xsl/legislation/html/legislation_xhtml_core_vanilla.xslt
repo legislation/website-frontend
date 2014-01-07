@@ -1137,7 +1137,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			or self::leg:P3para[not($g_strDocumentType = $g_strSecondary and preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P3[not(preceding-sibling::*)]/parent::leg:P1para/preceding-sibling::*[1][self::leg:Pnumber])]
 			or self::leg:P4para[not($g_strDocumentType = $g_strSecondary and preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P4[not(preceding-sibling::*)]/parent::leg:P3para/preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P3[not(preceding-sibling::*)]/parent::leg:P1para/preceding-sibling::*[1][self::leg:Pnumber])]
 			 or self::leg:P5para or self::leg:P6para or self::leg:P7para]/preceding-sibling::*[1][self::leg:Pnumber]">
-			
+			 
 			<!-- Calculate if in a primary schedule -->
 			<xsl:variable name="strScheduleContext">
 				<xsl:call-template name="FuncGetScheduleContext"/>
@@ -1226,12 +1226,29 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 								) and
 								generate-id(ancestor::leg:P1[1]/descendant::text()[not(normalize-space(.) = '' or ancestor::leg:Pnumber or ancestor::leg:Title)][1]) = generate-id(descendant::text()[not(normalize-space(.) = '')][1]) and
 								generate-id(ancestor::leg:P2[1]/descendant::text()[not(normalize-space(.) = '' or ancestor::leg:Pnumber)][1]) = generate-id(descendant::text()[not(normalize-space(.) = '')][1])">
-								<span class="LegDS {concat('LegSN1No', $strAmendmentSuffix)}">
-									<xsl:for-each select="ancestor::leg:P1[1]">
-										<xsl:call-template name="FuncCheckForID"/>
-										<xsl:apply-templates select="leg:Pnumber"/>
-									</xsl:for-each>									
-								</span>
+									<!-- JDC - HA055227. Don't need the "LegDS LegSN1No..." span if -->
+									<!-- we are 2 levels down from a P2 which has a P2 sibling -->
+									<!--  		i. without a BlockAmendment  -->
+									<!-- 		ii. with a P2para/Text containing the word "schedule" -->
+									<!--e.g. ukpga/2013/26/section/7 subsection 4, first paragraph.-->
+									<!-- If we include it under these conditions, the para number will be displayed too far to the left.-->
+									<xsl:choose>
+										<xsl:when test="ancestor::leg:P2[2]/preceding-sibling::leg:P2[not(descendant::leg:BlockAmendment)][contains(lower-case(descendant::leg:P2para/leg:Text),'schedule')]"> 
+											<xsl:for-each select="ancestor::leg:P1[1]">
+												<xsl:call-template name="FuncCheckForID"/>
+												<xsl:apply-templates select="leg:Pnumber"/>
+											</xsl:for-each>									
+										</xsl:when>
+										<xsl:otherwise>
+											<span class="LegDS {concat('LegSN1No', $strAmendmentSuffix)}">
+												<xsl:for-each select="ancestor::leg:P1[1]">
+													<xsl:call-template name="FuncCheckForID"/>
+													<xsl:apply-templates select="leg:Pnumber"/>
+												</xsl:for-each>									
+											</span>
+										</xsl:otherwise>
+									</xsl:choose>
+
 								<span class="LegDS {concat('LegSN2No', $strAmendmentSuffix)}">
 									<xsl:for-each select="parent::*/preceding-sibling::leg:Pnumber">
 										<xsl:for-each select="..">
@@ -1299,6 +1316,29 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				</xsl:if>
 			</p>
 		</xsl:when>
+
+		<!-- JDC - HA055227- Compensate for errors in the SLD XML translation, which set BlockAmendment's Context to unknown when it should be schedule. --> 
+		<!-- Needed to e.g. show the 2nd paragraph number ("(10)") in ukpga/2013/26/section/7 subsection (4). --> 
+		<!-- Unlike the "when" above, we don't want to include the "LegDS LegSN1No..." span, or  the para number will be displayed too far to the left.-->
+		<xsl:when test="not(preceding-sibling::*)
+			 and parent::*[(self::leg:P1para and ancestor::*[self::leg:BlockAmendment][1][self::leg:BlockAmendment[@Context = 'unknown' and descendant::leg:P1group]] and $g_strDocumentType = $g_strPrimary)]/preceding-sibling::*[1][self::leg:Pnumber] and ancestor::leg:P2[1]/preceding-sibling::leg:P2[not(descendant::leg:BlockAmendment)][contains(lower-case(descendant::leg:P2para/leg:Text),'schedule')]">
+			<p class="LegClearFix LegP2Container">
+				<xsl:call-template name="FuncCheckForID"/>				
+				<xsl:for-each select="parent::*/preceding-sibling::leg:Pnumber">
+					<xsl:for-each select="..">
+						<xsl:call-template name="FuncCheckForID"/>
+					</xsl:for-each>
+					<xsl:apply-templates select="."/>
+				</xsl:for-each>
+				<span class="Text">
+						<xsl:call-template name="FuncGetLocalTextStyle"/>
+						<xsl:call-template name="FuncGetTextClass"/>
+						<xsl:apply-templates select="node()[not(position() = 1 and self::text() and normalize-space() = '')] | processing-instruction()"/>
+					</span>
+					<xsl:text>&#13;</xsl:text>
+			</p>
+		</xsl:when>
+
 		<xsl:otherwise>
 			<xsl:if test="not(ancestor::leg:MarginNote)">
 				<!-- Chunyu Added if condition for empty text -->
