@@ -884,8 +884,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 <!-- by default it is attempting to access an orbeon input document   -->
 <xsl:variable name="paramsDoc" as="document-node()?" select="if (doc-available('input:request')) then doc('input:request') else ()"/>
 <!-- Resource file to have welsh text - for welsh version of site-->
-<xsl:variable name="allLangResources" as="element()+" select="doc('../../../../config/resources.xml')/allResources/resources"/>
-<xsl:variable name="currentLangResources" as="element()+" select="doc('../../../../config/resources.xml')/allResources/resources[@lang=$TranslateLang]"/>
+<xsl:variable name="langResources" as="document-node()" select="doc('resources.xml')"/>
+<xsl:variable name="allLangResources" as="element()+" select="$langResources/allResources/resources"/>
+<xsl:variable name="currentLangResources" as="element()+" select="$langResources/allResources/resources[@lang=$TranslateLang]"/>
 	
 <!--WELSH version of site: the prefix attached to URLs of links from this page -->
 <xsl:variable name="TranslateLangPrefix" select="leg:LangPrefix()"/>
