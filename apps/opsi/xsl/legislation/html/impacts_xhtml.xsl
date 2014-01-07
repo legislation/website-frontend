@@ -282,13 +282,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		<xsl:variable name="pdf" as="element()*">
 			<xsl:choose>
 				<xsl:when test="$impactId = 'impacts' ">
-					<xsl:sequence select="ukm:Metadata/ukm:Alternatives/ukm:Alternative[not(exists(tokenize(@URI, '_')[4]))]"></xsl:sequence>
+					<xsl:sequence select="ukm:Metadata/ukm:Alternatives/ukm:Alternative[not(exists(tokenize(@URI, '_')[4])) and not(contains(lower-case(@Title),'equality'))]"></xsl:sequence>
 				</xsl:when>
 				<xsl:when test="contains(//dc:identifier,'ukia') or not(contains($impactId,'ia'))">
-					<xsl:sequence select="ukm:Metadata/ukm:Alternatives/ukm:Alternative"></xsl:sequence>
+					<xsl:sequence select="ukm:Metadata/ukm:Alternatives/ukm:Alternative[not(contains(lower-case(@Title),'equality'))]"></xsl:sequence>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:sequence select="ukm:Metadata/ukm:Alternatives/ukm:Alternative[translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','') = $impactId]" ></xsl:sequence>
+					<xsl:sequence select="ukm:Metadata/ukm:Alternatives/ukm:Alternative[translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','') = $impactId and not(contains(lower-case(@Title),'equality'))]" ></xsl:sequence>
 				</xsl:otherwise>
 			</xsl:choose>
 			</xsl:variable>
@@ -375,7 +375,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								</xsl:otherwise>
 							</xsl:choose>
 						</li>
-						<xsl:if test="count($part/*[contains(@Title,$assessmentType)]) > 1 and contains($iaTitle,$assessmentType)  ">
+						<xsl:if test="count($part/*[contains(@Title,$assessmentType)]) gt 1 and contains($iaTitle,$assessmentType)  ">
 							<xsl:choose>
 								<xsl:when test="$impactId = 'impacts' ">
 									<xsl:for-each select="$part/*[contains(./@Title,$assessmentType)]">
