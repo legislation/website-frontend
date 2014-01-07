@@ -296,24 +296,23 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	</div> -->
 	
 	<div id="header">		
-	<!--
-		<xsl:element name="{if (leg:IsHome()) then 'h1' else 'h2'}">
-			<a href="/">legislation.gov.uk<span/></a>
-		</xsl:element> -->
+	<xsl:choose>
+		<xsl:when test="$TranslateLang ='cy'">
+			<xsl:element name="{if (leg:IsHome()) then 'h1welsh' else 'h2welsh'}">
+				<a href="/cy">legislation.gov.uk<span/></a>
+			</xsl:element>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:element name="{if (leg:IsHome()) then 'h1' else 'h2'}">
+				<a href="/">legislation.gov.uk<span/></a>
+			</xsl:element> 	
+		</xsl:otherwise>
+	</xsl:choose>
 		
-		<xsl:element name="{if (leg:IsHome()) then 'h1welsh' else 'h2welsh'}">
-			<a href="/cy">legislation.gov.uk<span/></a>
-		</xsl:element>
-	 <!--	
-		<span class="natArch">
+		<span class="{if ($TranslateLang ='cy') then 'natArchWelsh' else 'natArch'}">
 			<a href="http://www.nationalarchives.gov.uk"><xsl:value-of select="leg:TranslateText('The National Archives')"/><span/></a>
-		</span>	-->
-     <span class="natArchWelsh">
-			<a href="http://www.nationalarchives.gov.uk"><xsl:value-of select="leg:TranslateText('The National Archives')"/><span/></a>
-		</span> 
-
+		</span>
 		
-	
 		<ul id="secondaryNav">
 			<li><a href="{$TranslateLangPrefix}/help"><xsl:value-of select="leg:TranslateText('Help')"/></a></li>
 			<li><a href="{$TranslateLangPrefix}/sitemap"><xsl:value-of select="leg:TranslateText('Site Map')"/></a></li>
