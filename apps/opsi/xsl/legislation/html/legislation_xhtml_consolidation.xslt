@@ -393,6 +393,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		</xsl:choose>		
 	</p>
 </xsl:template>
+	
+	<!-- added by Yashashri - call No : HA050979 - citation links should not appear in TOC -->	
+	<xsl:template match="leg:ContentsSchedule/leg:ContentsTitle/leg:Citation"/>
 
 <xsl:template name="matchLinks">
 	<xsl:param name="matchRefs" as="xs:string*" tunnel="yes" select="()" />
