@@ -880,6 +880,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	</xsl:value-of>
 </xsl:function>
 	
+<!-- include the default value for this variable which can be overridden from the importing xslt   -->
+<!-- by default it is attempting to access an orbeon input document   -->
+<xsl:variable name="paramsDoc" as="document-node()?" select="if (doc-available('input:request')) then doc('input:request') else ()"/>
 <!-- Resource file to have welsh text - for welsh version of site-->
 <xsl:variable name="allLangResources" as="element()+" select="doc('../../../../config/resources.xml')/allResources/resources"/>
 <xsl:variable name="currentLangResources" as="element()+" select="doc('../../../../config/resources.xml')/allResources/resources[@lang=$TranslateLang]"/>
