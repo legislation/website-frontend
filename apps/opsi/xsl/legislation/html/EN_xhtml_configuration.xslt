@@ -8,7 +8,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 
 -->
 <!-- Legislation configuration XSLT  -->
-<!-- Copyright TSO 2006 -->
+<!-- Crown Copyright 2006 -->
 
 
 
