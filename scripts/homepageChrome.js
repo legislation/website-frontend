@@ -71,9 +71,10 @@ function fadeTransition(newSectionId){
 	// default change animation animation
 	// works for both event handlers and normal animation
 	ss.CONTENT_JQ.fadeOut(ss.TRANSITION_LENGTH, function() {		
-		ss.CONTAINER_JQ.removeClass().addClass($newSection.attr("id"));
+		ss.CONTAINER_JQ.addClass($newSection.attr("id"));
 		ss.CONTENT_JQ.fadeIn();
 	});
+	ss.CONTAINER_JQ.removeClass()
 }
 
 function timedTransition($linkList)
