@@ -98,21 +98,13 @@ table th a {color: #494949;}
 
 #per.home #layout1 #header h1,
 #layout1 #header h2 {display: block; height: 97px; width: 340px; overflow: hidden; position: relative; margin: 0; float: left;}
-#header h1 span,
+/*#header h1 span,
 #header h2 span
- {background: url(/images/chrome/siteTitle.gif) no-repeat bottom left; display: block; position: absolute; left: 0; top: 0; height: 100%; width: 100%;} 
+ {background: url(/images/chrome/siteTitle.gif) no-repeat bottom left; display: block; position: absolute; left: 0; top: 0; height: 100%; width: 100%;} */
 
- 
-/*welsh header*/
-#per.home #layout1 #header h1welsh,
-#layout1 #header h2welsh {display: block; height: 97px; width: 340px; overflow: hidden; position: relative; margin: 0; float: left;}
-#header h1welsh span,
-#header h2welsh span
-{background: url(/images/chrome/site_logo-welsh.gif) no-repeat bottom left; display: block; position: absolute; left: 0; top: 0; height: 100%; width: 100%;}
+.welsh {background: url(/images/chrome/site_logo-welsh.gif) no-repeat bottom left; display: block; position: absolute; left: 0; top: 0; height: 100%; width: 100%;}
+.english{background: url(/images/chrome/siteTitle.gif) no-repeat bottom left; display: block; position: absolute; left: 0; top: 0; height: 100%; width: 100%;} 
 
-
-
- 
  
 /* Primary navigation */
 /* Sliding doors - taken from ALA article: http://www.alistapart.com/articles/slidingdoors2/
