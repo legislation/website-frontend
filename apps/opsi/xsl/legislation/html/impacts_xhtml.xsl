@@ -279,7 +279,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<h2>Please note:</h2>
 			<p class="intro">This impact assessment is only available to download and view as PDF.</p>
 		</div>
-		<xsl:variable name="pdf" as="element()*" select="ukm:Metadata/ukm:Alternatives/ukm:Alternative[translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','') = $impactId]"/>
+		<!-- there should only really be one alternative pdf so we will use that  -->
+		<xsl:variable name="pdf" as="element()*" select="if (count(ukm:Metadata/ukm:Alternatives/ukm:Alternative) = 1 and (ends-with(ukm:Metadata/ukm:Alternatives/ukm:Alternative/@URI,'.pdf'))) then ukm:Metadata/ukm:Alternatives/ukm:Alternative else ukm:Metadata/ukm:Alternatives/ukm:Alternative[translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','') = $impactId]"/>
 		<!--<xsl:variable name="pdf" as="element()*">
 			<xsl:choose>
 				<xsl:when test="$impactId = 'impacts' ">
