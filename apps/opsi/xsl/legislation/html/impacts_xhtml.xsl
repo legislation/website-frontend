@@ -53,6 +53,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	
 	<xsl:variable name="iaStage" as="xs:string?" select="/leg:ImpactAssessment/ukm:Metadata/ukm:ImpactAssessmentMetadata/ukm:DocumentClassification/ukm:DocumentStage/@Value" />
 	
+	
+	
 	<xsl:variable name="iaTitle">
 		<xsl:choose>
 			<xsl:when test="$language = 'cy' and count(/leg:Legislation/ukm:Metadata/dc:title) &gt; 1">
@@ -92,7 +94,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/policy-note/toc']/@href"/>
 	
 	<xsl:variable name="part" as="element()*" >
-		<xsl:sequence select="/leg:ImpactAssessment//ukm:Alternatives[ukm:Alternative/@Title = 'Impact Assessment']"/>
+		<xsl:sequence select="/leg:ImpactAssessment//ukm:Alternatives"/>
 	</xsl:variable>
 		
 		
@@ -298,7 +300,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		</div>
 	</xsl:template>	
 	
-	<xsl:variable name="assessmentTypes" as="xs:string+" select="('Development','Consultation', 'Final', 'Enactment', 'Post Implementation','Review','Implementation','Options')" />
+	<xsl:variable name="assessmentTypes" as="xs:string+" select="('Consultation', 'Final', 'Enactment', 'Post Implementation')" />
 	
 	<xsl:template match="leg:ImpactAssessment" mode="TSOOutputWhatVersion">
 		<div class="section" id="whatVersion">
@@ -402,22 +404,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 												
 											</xsl:otherwise>
 										</xsl:choose>
-											
-								
-												
-												
-										
-											
-								
+				
 										</li>
 									</xsl:for-each>
 									
 								</xsl:otherwise>
 							</xsl:choose>
-							
-							
-							
-							
+
 						</xsl:if>
 					</xsl:for-each>
 				</ul>
