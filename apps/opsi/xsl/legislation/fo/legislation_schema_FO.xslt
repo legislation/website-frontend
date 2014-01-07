@@ -3445,7 +3445,7 @@ exclude-result-prefixes="tso atom">
 					<xsl:sequence select="descendant::leg:CommentaryRef[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1)]"/>
 				</xsl:when>
 				<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body)">
-					<xsl:sequence select="descendant::leg:CommentaryRef"/>
+					<xsl:sequence select="descendant::leg:CommentaryRef[not(ancestor::leg:P1group)]"/>
 				</xsl:when>
 				<xsl:when test="self::leg:Tabular and (parent::*[@id] or parent::leg:Body)">
 					<xsl:sequence select="descendant::leg:CommentaryRef" />
@@ -3468,13 +3468,13 @@ exclude-result-prefixes="tso atom">
 					<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
 				</xsl:when>-->
 				<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body or parent::leg:Schedules)">
-					<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
+					<xsl:sequence select="descendant::leg:Addition[not(ancestor::leg:P1group)] | descendant::leg:Repeal[not(ancestor::leg:P1group)] | descendant::leg:Substitution[not(ancestor::leg:P1group)]"/>
 				</xsl:when>
 				<xsl:when test="self::leg:Tabular and (parent::*[@id] or parent::leg:Body or parent::leg:Schedules)">
 					<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution" />
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:sequence select="leg:Text/leg:Addition | leg:Text/leg:Repeal | leg:Text/leg:Substitution | leg:Addition | leg:Repeal | leg:Substitution | (leg:Number | leg:Title | leg:Reference | leg:TitleBlock)/(descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution)"/>
+					<xsl:sequence select="leg:Text/leg:Addition | leg:Text/leg:Repeal | leg:Text/leg:Substitution | (leg:Number | leg:Title | leg:Reference | leg:TitleBlock)/(descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution)"/>
 				</xsl:otherwise>	
 			</xsl:choose>			
 		</xsl:variable>
@@ -3519,7 +3519,6 @@ exclude-result-prefixes="tso atom">
 			</xsl:if>	
 		</xsl:variable>
 		
-
 		
 		<xsl:if test="$showComments or $higherLevelComments/*">
 			<fo:block  margin-left="0pt" margin-right="0pt" font-size="10pt" border="0.75pt #c7c7c7 solid" padding="6pt" color="black" space-before="8pt"   >
