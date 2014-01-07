@@ -1306,11 +1306,27 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					<!--Chunyu HA051074 Added a condition for the instance of ukci/2010/5/note/sld/created-->
 				<xsl:choose>
 					<xsl:when test="(leg:Strong or leg:Emphasis) and parent::leg:P/parent::leg:ExplanatoryNotes and node()[not(self::text())]">
-						<xsl:for-each select="leg:Strong | leg:Emphasis">
-							<p class="LegExpNoteTitle">
-								<xsl:apply-templates select="."/>
-								<xsl:text>&#13;</xsl:text>
-							</p>
+						<xsl:for-each select="* ">
+							<xsl:choose>
+								<xsl:when test="local-name(.) = 'Strong'">
+									<p class="LegExpNoteTitle">
+										<xsl:apply-templates select="."/>
+										<xsl:text>&#13;</xsl:text>
+									</p>
+								</xsl:when>
+								<xsl:when test="local-name(.) = 'Emphasis'">
+									<p class="LegPblockTitle">
+										<xsl:apply-templates select="."/>
+										<xsl:text>&#13;</xsl:text>
+									</p>
+								</xsl:when>
+								<xsl:otherwise>
+									<p class="LegExpNoteText">
+										<xsl:apply-templates select="."/>
+										<xsl:text>&#13;</xsl:text>
+									</p>
+								</xsl:otherwise>
+							</xsl:choose>
 						</xsl:for-each>
 					</xsl:when>
 					<xsl:otherwise>
@@ -3693,7 +3709,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	
 <xsl:template match="leg:Emphasis">	
 	<xsl:choose>
-		<xsl:when test="parent::leg:Title/parent::leg:Pblock">
+		<xsl:when test="parent::leg:Title/parent::leg:Pblock or parent::leg:Text/parent::leg:P/parent::leg:ExplanatoryNotes">
 			<xsl:call-template name="FuncCheckForID"/>
 		<xsl:apply-templates/>	
 		</xsl:when>
