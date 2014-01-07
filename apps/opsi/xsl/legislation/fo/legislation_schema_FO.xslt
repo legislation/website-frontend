@@ -2828,15 +2828,14 @@ exclude-result-prefixes="tso atom">
 			</xsl:when>
 	<!-- Chunyu 09/05/12: Added a condition for portrait dislay images see nisr/1996/447 -->
 		<xsl:when test="@Orientation = 'portrait'">
-				<fo:block-container>
-		
-				<xsl:for-each select="leg:Image">
-					<fo:block>
+					<xsl:for-each select="leg:Image">
+					<fo:block-container clear="both">
+						<fo:block linefeed-treatment="preserve">
 						<xsl:apply-templates select="."/>
 						<xsl:text>&#xA;</xsl:text>
-					</fo:block>
+					</fo:block></fo:block-container>
 				</xsl:for-each>
-			</fo:block-container>
+			
 			</xsl:when>
 			<!-- need to test for inline on mathml display attribute -->
 			<xsl:when test="parent::leg:Version and //leg:Formula[@AltVersionRefs = current()/parent::leg:Version/@id]">
