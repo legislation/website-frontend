@@ -788,6 +788,7 @@ exclude-result-prefixes="tso atom">
 				<fo:list-item>
 					<fo:list-item-label end-indent="label-end()">
 						<fo:block font-size="{$g_strBodySize}" text-align="left" font-weight="bold">
+							<xsl:if test="leg:Pnumber/@PuncBefore != ''"><xsl:value-of select="leg:Pnumber/@PuncBefore"/></xsl:if>
 							<xsl:apply-templates select="leg:Pnumber"/>
 							<xsl:if test="leg:Pnumber/@PuncAfter != ''"><xsl:value-of select="leg:Pnumber/@PuncAfter"/></xsl:if>
 						</fo:block>						
@@ -829,6 +830,7 @@ exclude-result-prefixes="tso atom">
 				<fo:list-item>
 					<fo:list-item-label end-indent="label-end()">
 						<fo:block font-size="{$g_strBodySize}" text-align="left" start-indent="3pt">
+							<xsl:if test="leg:Pnumber/@PuncBefore != ''"><xsl:value-of select="leg:Pnumber/@PuncBefore"/></xsl:if>
 							<xsl:apply-templates select="leg:Pnumber"/>
 							<xsl:if test="leg:Pnumber/@PuncAfter != ''"><xsl:value-of select="leg:Pnumber/@PuncAfter"/></xsl:if>
 						</fo:block>						
@@ -862,6 +864,7 @@ exclude-result-prefixes="tso atom">
 				<fo:list-item>
 					<fo:list-item-label end-indent="label-end()">
 						<fo:block font-size="{$g_strBodySize}" text-align="left" margin-left="6pt">
+							<xsl:if test="leg:Pnumber/@PuncBefore != ''"><xsl:value-of select="leg:Pnumber/@PuncBefore"/></xsl:if>
 							<xsl:apply-templates select="leg:Pnumber"/>
 							<xsl:if test="leg:Pnumber/@PuncAfter != ''"><xsl:value-of select="leg:Pnumber/@PuncAfter"/></xsl:if>							
 						</fo:block>
@@ -912,6 +915,7 @@ exclude-result-prefixes="tso atom">
 							<xsl:if test="not(parent::leg:ScheduleBody/ancestor::leg:BlockAmendment[1][@TargetClass = 'primary'])">
 								<xsl:attribute name="font-weight">bold</xsl:attribute>
 							</xsl:if>
+							<xsl:if test="leg:Pnumber/@PuncBefore != ''"><xsl:value-of select="leg:Pnumber/@PuncBefore"/></xsl:if>
 							<xsl:apply-templates select="leg:Pnumber"/>
 							<xsl:if test="leg:Pnumber/@PuncAfter != ''"><xsl:value-of select="leg:Pnumber/@PuncAfter"/></xsl:if>							
 						</fo:block>						
@@ -1344,6 +1348,8 @@ exclude-result-prefixes="tso atom">
 		</xsl:choose>
 		<xsl:apply-templates select="leg:TitleBlock"/>	
 		<xsl:apply-templates select="leg:ScheduleBody"/>
+		<!-- CRM Appendix not being output in schedules -->
+		<xsl:apply-templates select="leg:Appendix"/>
 	</fo:block>
 </xsl:template>
 
