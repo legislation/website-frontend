@@ -413,8 +413,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 <xsl:template name="footer">
 	<div id="footer">
 		<div>
-			<p>&#xa9; <span rel="dct:rights" resource="http://reference.data.gov.uk/def/copyright/crown-copyright"><xsl:value-of select="leg:TranslateText('Crown copyright')"/></span></p>
-			<p><xsl:value-of select="leg:TranslateText('Homepage Footer')"/><a href="http://reference.data.gov.uk/id/open-government-licence" rel="license"><xsl:value-of select="leg:TranslateText('Open Government Licence')"/></a></p>
+			<p></p>
+			<p class="copyrightstatement"><xsl:value-of select="leg:TranslateText('Homepage Footer')"/><a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2" rel="license"><xsl:value-of select="leg:TranslateText('Open Government Licence')"/></a><xsl:value-of select="leg:TranslateText('Homepage Footer End')"/><span class="copyright">&#xa9; <span rel="dct:rights" resource="http://reference.data.gov.uk/def/copyright/crown-copyright"><xsl:value-of select="leg:TranslateText('Crown copyright')"/></span></span></p>
 		</div>
 	</div>
 	
