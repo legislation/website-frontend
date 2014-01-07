@@ -2322,7 +2322,14 @@ exclude-result-prefixes="tso atom">
 								<xsl:when test="ancestor::xhtml:td[1][@align = 'right']">right</xsl:when>
 								<xsl:when test="ancestor::xhtml:td or ancestor::xhtml:th">left</xsl:when>
 								<xsl:when test="ancestor::leg:Comment or ancestor::leg:RoyalPresence">center</xsl:when>
-								<xsl:when test="parent::leg:P/parent::leg:ExplanatoryNotes">center</xsl:when>
+								<!--2013-04-30 Update to HA051074 GC -->
+								<!--This fix needs to be a very specific otherwise it has knock on effects to other legislation -->
+								<!--Only apply to ENs in ukci's where there is either an Emphasis or Strong element and no textual content-->
+								<xsl:when test="$g_strDocType = 'UnitedKingdomChurchInstrument' and 
+												parent::leg:P and 
+												ancestor::leg:ExplanatoryNotes and
+												(leg:Emphasis or leg:Strong) and
+												(every $node in node() satisfies ($node instance of element(leg:Emphasis) or $node instance of element(leg:Strong) or ($node instance of text() and normalize-space($node) = '')))  ">center</xsl:when>
 								<xsl:otherwise>justify</xsl:otherwise>
 							</xsl:choose>
 						</xsl:variable>
@@ -2595,8 +2602,16 @@ exclude-result-prefixes="tso atom">
 				</fo:inline>
 			</xsl:when>
 			<!--Chunyu	HA051074 if parent only has emphasis and strong children and not other nodes,each of them should be individual block. See ukci/2010/5/note/sld/created-->
-			<xsl:when test="parent::leg:Text/node()[not(self::text())] and preceding-sibling::*[1][self::leg:Strong]">
-				<fo:block>
+			<!--2013-04-30 Update to HA051074 GC -->
+			<!--This fix needs to be a very specific otherwise it has knock on effects to other legislation -->
+			<!--Only apply to ENs in ukci's where there is either an Emphasis or Strong element and no textual content-->
+			<xsl:when test="$g_strDocType = 'UnitedKingdomChurchInstrument' and
+							ancestor::leg:P and 
+							ancestor::leg:ExplanatoryNotes and
+							(parent::leg:Text/leg:Emphasis or parent::leg:Text/leg:Strong) and
+							(every $node in parent::leg:Text/node() satisfies ($node instance of element(leg:Emphasis) or $node instance of element(leg:Strong) or ($node instance of text() and normalize-space($node) = '')))  
+							">
+				<fo:block font-style="italic" space-after="6pt">
 					<xsl:apply-templates/>
 				</fo:block>
 			</xsl:when>
@@ -2616,7 +2631,15 @@ exclude-result-prefixes="tso atom">
 				</fo:inline>
 			</xsl:when>
 			<!--Chunyu	HA051074 if parent only has emphasis and strong children and not other nodes,each of them should be individual block. See ukci/2010/5/note/sld/created-->
-			<xsl:when test="parent::leg:Text/node()[not(self::text())] and following-sibling::*[1][self::leg:Emphasis]">
+			<!--2013-04-30 Update to HA051074 GC -->
+			<!--This fix needs to be a very specific otherwise it has knock on effects to other legislation -->
+			<!--Only apply to ENs in ukci's where there is either an Emphasis or Strong element and no textual content-->
+			<xsl:when test="$g_strDocType = 'UnitedKingdomChurchInstrument' and
+							ancestor::leg:P and 
+							ancestor::leg:ExplanatoryNotes and
+							(parent::leg:Text/leg:Emphasis or parent::leg:Text/leg:Strong) and
+							(every $node in parent::leg:Text/node() satisfies ($node instance of element(leg:Emphasis) or $node instance of element(leg:Strong) or ($node instance of text() and normalize-space($node) = '')))  
+							">
 				<fo:block font-weight="bold"  >
 					<xsl:apply-templates/>
 				</fo:block>

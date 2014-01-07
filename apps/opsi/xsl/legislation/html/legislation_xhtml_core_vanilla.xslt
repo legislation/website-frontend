@@ -3718,10 +3718,13 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	
 	<!-- Yashashri : changed to make Headings Italic - Support call- 	HA047941-->
 	<!-- Chunyu HA050076 Added em back to the template with the condition -->
-	
+	<!--2013-04-30 Update to HA051074 GC -->
+	<!--Only remove the emphasis if it is a UKCI -->
+	<!--Only apply to ENs in ukci's where there is either an Emphasis or Strong element and no textual content-->
 <xsl:template match="leg:Emphasis">	
 	<xsl:choose>
-		<xsl:when test="parent::leg:Title/parent::leg:Pblock or parent::leg:Text/parent::leg:P/parent::leg:ExplanatoryNotes">
+		<xsl:when test="parent::leg:Title/parent::leg:Pblock or 
+		($g_strDocumentMainType = 'UnitedKingdomChurchInstrument' and parent::leg:Text/parent::leg:P/parent::leg:ExplanatoryNotes)">
 			<xsl:call-template name="FuncCheckForID"/>
 		<xsl:apply-templates/>	
 		</xsl:when>
