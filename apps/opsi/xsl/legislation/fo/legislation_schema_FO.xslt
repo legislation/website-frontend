@@ -29,7 +29,7 @@ exclude-result-prefixes="tso atom">
 
 	<xsl:import href="../html/statuswarning.xsl"/>
 
-	<xsl:output method="xml" version="1.0" omit-xml-declaration="no"  indent="no" standalone="no" use-character-maps="FOcharacters"/>
+	<xsl:output method="xml" version="1.0" omit-xml-declaration="no"  indent="yes" standalone="no" use-character-maps="FOcharacters"/>
 
 	
 	<!-- params to take value from uri query -->
@@ -240,6 +240,10 @@ exclude-result-prefixes="tso atom">
 	<xsl:variable name="g_ndsFootnotes" select="/leg:Legislation/leg:Footnotes/leg:Footnote"/>
 
 	
+	<!-- Chunyu:Added two variables to deal with the xmlcontent within the resorce -->
+	<xsl:variable name="includDocRef" select="//leg:IncludedDocument//@ResourceRef"/>
+	<xsl:variable name="includDoc" select="//leg:Resource[@id = $includDocRef]"/>
+	
 	
 	
 	<!-- ========== Key used to check for duplicate id's========== -->
@@ -256,12 +260,13 @@ exclude-result-prefixes="tso atom">
 	<xsl:key name="substituted" match="leg:Repeal[@SubstitutionRef]" use="@SubstitutionRef" />
 	
 <!-- we need to reference the document order of the commentaries rather than the commenatry order in order to gain the correct numbering sequence. Therefore we will build a nodeset of all CommentartRef/Addition/Repeal elements and their types which can be queried when determining the sequence number -->
-
+<!-- Chunyu:Added a condition for versions. We should go from the root call Call HA048969 -->
 	<xsl:variable name="g_commentaryOrder">
 		<xsl:variable name="commentaryRoot" as="node()+"
 			select="if (empty($selectedSection)) then root()
 					(: include all commentaries if the section has been repealed :)
 					else if ($selectedSection/@Match = 'false' and (not($selectedSection/@Status) or $selectedSection/@Status != 'Prospective') and not($selectedSection/@RestrictStartDate and ((($version castable as xs:date) and xs:date($selectedSection/@RestrictStartDate) &gt; xs:date($version) ) or (not($version castable as xs:date) and xs:date($selectedSection/@RestrictStartDate) &gt; current-date())))) then root()
+					 else if (root()//leg:Versions) then root()
 					else $selectedSection" />
 		<xsl:for-each-group select="$commentaryRoot//(leg:CommentaryRef | leg:Addition | leg:Repeal | leg:Substitution)" group-by="(@Ref, @CommentaryRef)[1]">
 			<leg:commentary id="{current-grouping-key()}" Type="{key('commentary', current-grouping-key())/@Type}" />
@@ -810,6 +815,12 @@ exclude-result-prefixes="tso atom">
 							</xsl:otherwise>
 						</xsl:choose>
 						<xsl:apply-templates select="/leg:Legislation/*/leg:Schedules"/>
+						<!-- Chunyu:Added a condition for xmlcontent -->
+					<xsl:if test="$includDoc//leg:XMLcontent[not(descendant::leg:Figure)] | $includDoc//leg:XMLcontent[not(descendant::leg:Image)]">
+							<fo:block>
+								<xsl:apply-templates select="$includDoc//leg:XMLcontent"/>
+							</fo:block>
+						</xsl:if>-
 						<xsl:apply-templates select="/leg:Legislation/leg:Secondary/leg:ExplanatoryNotes"/>	
 						<xsl:apply-templates select="/leg:Legislation/leg:Secondary/leg:EarlierOrders"/>
 					
@@ -1113,13 +1124,13 @@ exclude-result-prefixes="tso atom">
 
 
 
-	<xsl:template match="leg:Body">
+	<xsl:template match="leg:Body  ">
 		<fo:block id="StartOfContent"/>
 		<xsl:choose>
 			<xsl:when test="ancestor::leg:BlockAmendment">
 				<xsl:next-match />
 			</xsl:when>
-			<xsl:when test="exists($nstSection)">
+			<xsl:when test="exists($nstSection[not(//leg:IncludedDocument)])">
 				<xsl:call-template name="TSOOutputBreadcrumbItems"	/>
 				<fo:block space-before="8pt">
 					<xsl:apply-templates select="$nstSection" mode="showSectionWithAnnotation">
@@ -1578,6 +1589,10 @@ exclude-result-prefixes="tso atom">
 						</fo:list-item-body>
 					</fo:list-item>						
 				</fo:list-block>
+				<!-- not needed for FOP 1.0 -->
+				<xsl:if test="g_FOprocessor = 'FOP0.95'">
+					<xsl:call-template name="FOPfootnoteHack"/>
+				</xsl:if>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -1676,6 +1691,10 @@ exclude-result-prefixes="tso atom">
 				<fo:list-block provisional-label-separation="3pt" space-before="{$g_strLargeStandardParaGap}" provisional-distance-between-starts="36pt" margin-left="-30pt">
 					<xsl:call-template name="TSO_p2"/>
 				</fo:list-block>
+				<!-- not needed for FOP 1.0 -->
+				<xsl:if test="g_FOprocessor = 'FOP0.95'">
+					<xsl:call-template name="FOPfootnoteHack"/>
+				</xsl:if>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -2954,21 +2973,50 @@ exclude-result-prefixes="tso atom">
 		</fo:block>
 	</xsl:template>
 
+	<!-- Chunyu:HA049511 Added a condtion for the xmlcontent in the resource see uksi/1999/1892 -->
 	<xsl:template match="leg:IncludedDocument">
-		<fo:block><!--GC 2011-03-23 remove keep-with-next=always - issue D501  -->
-			<fo:external-graphic src='url("{//leg:Resource[@id = current()/@ResourceRef]/leg:ExternalVersion/@URI}")' fox:alt-text="{.}"/>
-		</fo:block>
+		<xsl:choose>
+			<xsl:when test="$includDoc//leg:XMLcontent[not(descendant::leg:Figure)] | $includDoc//leg:XMLcontent[not(descendant::leg:Image)]">
+				<fo:block>
+					<xsl:apply-templates />
+				</fo:block>
+			</xsl:when>
+			<xsl:otherwise>
+				<fo:block><!--GC 2011-03-23 remove keep-with-next=always - issue D501  -->
+					<fo:external-graphic src='url("{//leg:Resource[@id = current()/@ResourceRef]/leg:ExternalVersion/@URI}")' fox:alt-text="{.}"/>
+				</fo:block>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
+	
+	
 
 	<xsl:template match="leg:InternalVersion">
 		<xsl:apply-templates/>
 	</xsl:template>
-
+	
+	
+	
 	<xsl:template match="leg:XMLcontent">
-		<fo:instream-foreign-object width="100%" content-width="scale-to-fit">
+	
+		<xsl:choose>
+			<xsl:when test="not(//leg:Figure | leg:Image)">
+					<fo:block>
+									
+					<xsl:apply-templates/>
+				
+					</fo:block>
+			</xsl:when>
+			<xsl:otherwise>
+				<fo:instream-foreign-object width="100%" content-width="scale-to-fit">
 			<xsl:copy-of select="node()"/>
 		</fo:instream-foreign-object>
+			</xsl:otherwise>
+		</xsl:choose>
+		
 	</xsl:template>
+	
+	
 
 	<xsl:template name="TSOgetID">
 		<xsl:if test="@id and not(key('ids', @id)[2])">
