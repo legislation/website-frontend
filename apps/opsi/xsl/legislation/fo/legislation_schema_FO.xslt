@@ -3481,12 +3481,12 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 	
 	<xsl:template match="leg:SignedSection">
-		<xsl:apply-templates/>
+		<xsl:next-match/>
 		<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 	</xsl:template>
 
 	<xsl:template match="leg:ExplanatoryNotes">
-		<xsl:apply-templates/>
+		<xsl:next-match/>
 		<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 	</xsl:template>
 

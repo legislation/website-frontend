@@ -602,12 +602,12 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <xsl:template match="leg:SignedSection">
-	<xsl:apply-templates/>
+	<xsl:next-match/>
 	<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 </xsl:template>
 
 <xsl:template match="leg:ExplanatoryNotes">
-	<xsl:apply-templates/>
+	<xsl:next-match/>
 	<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 </xsl:template>
 
