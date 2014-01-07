@@ -130,6 +130,13 @@ exclude-result-prefixes="leg ukm math msxsl dc ukm fo xsl svg xhtml lnk">
 						<xsl:otherwise>nawm</xsl:otherwise>
 					</xsl:choose>
 				</xsl:when>
+				<xsl:when test="$g_strDocumentMainType = 'WelshNationalAssemblyAct'">
+					<xsl:text> (</xsl:text>
+					<xsl:choose>
+						<xsl:when test="$g_ndsMetadata/dc:language = 'cy'">dccc</xsl:when>
+						<xsl:otherwise>anaw</xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>
 				<xsl:otherwise>(c. </xsl:otherwise>
 			</xsl:choose>
 			<xsl:value-of select="$g_ndsMetadata/ukm:ENmetadata/ukm:Number/@Value"/>
@@ -250,6 +257,9 @@ exclude-result-prefixes="leg ukm math msxsl dc ukm fo xsl svg xhtml lnk">
 		-->
 			<xsl:choose>
 				<xsl:when test="$g_strDocumentMainType = 'WelshAssemblyMeasure' ">
+					<xsl:value-of select="leg:Number"/>
+				</xsl:when>
+				<xsl:when test="$g_strDocumentMainType = 'WelshNationalAssemblyAct' ">
 					<xsl:value-of select="leg:Number"/>
 				</xsl:when>
 				<!-- Convoluted approach to outputting the correct act number, but probably required for legacy data -->

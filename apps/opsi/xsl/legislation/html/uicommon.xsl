@@ -267,6 +267,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:when test="$uriPrefix ='mwa'">
 						Text created by the Welsh Assembly Government department responsible for the subject matter of the Measure to explain what the Measure sets out to achieve and to make the Measure accessible to readers who are not legally qualified. Explanatory Notes accompany all Measures of the National Assembly for Wales.
 					</xsl:when>
+					<xsl:when test="$uriPrefix ='anaw'">
+						Text created by the Welsh Government department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes accompany all Acts of the National Assembly for Wales.
+					</xsl:when>
 					<xsl:when test="$uriPrefix =('ssi') and $enType = ('pn') ">
 						Policy Note sets out a brief statement of the purpose of a Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2012 onwards. Prior to this date these type of notes existed as ‘Executive Notes’ and accompanied Scottish Statutory Instruments from July 2005 until July 2012.
 					</xsl:when>

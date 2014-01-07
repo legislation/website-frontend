@@ -93,6 +93,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:when test="$g_strDocType = 'WelshAssemblyMeasure'">
 						<fo:external-graphic src="url({concat($g_strConstantImagesPath, 'mwa.tif')})" content-height="110pt" fox:alt-text="Royal arms"/>
 					</xsl:when>
+					<xsl:when test="$g_strDocType = 'WelshNationalAssemblyAct'">
+						<fo:external-graphic src="url({concat($g_strConstantImagesPath, 'mwa.tif')})" content-height="110pt" fox:alt-text="Royal arms"/>
+					</xsl:when>
 					<xsl:otherwise>
 						<fo:external-graphic src="url({concat($g_strConstantImagesPath, 'ukpga.tif')})" content-height="112pt" fox:alt-text="Royal arms"/>
 					</xsl:otherwise>

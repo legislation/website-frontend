@@ -463,7 +463,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					<xsl:text>@import "/styles/legislation.css";&#xA;</xsl:text>
 					<xsl:text>@import "/styles/primarylegislation.css";&#xA;</xsl:text>
 				</xsl:when>				
-				<xsl:when test="$uriPrefix ='apgb' or  $uriPrefix ='aosp'  or  $uriPrefix ='aip'  or  $uriPrefix ='mnia'  or  $uriPrefix ='apni'  or  $uriPrefix ='mwa'">
+				<xsl:when test="$uriPrefix ='apgb' or  $uriPrefix ='aosp'  or  $uriPrefix ='aip'  or  $uriPrefix ='mnia'  or  $uriPrefix ='apni'  or  $uriPrefix ='mwa'  or  $uriPrefix ='anaw'">
 					<xsl:text>@import "/styles/SPOprimarylegislation.css";&#xA;</xsl:text>
 					<xsl:text>@import "/styles/SPOlegislation.css";&#xA;</xsl:text>
 					<xsl:text>@import "/styles/legislation.css";&#xA;</xsl:text>
@@ -878,7 +878,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								<!-- adding the crest logo if introduction or whole act-->
 								<xsl:if test=" $introURI = $dcIdentifier or $wholeActURI = $dcIdentifier">
 									<xsl:variable name="uriPrefix" as="xs:string" select="tso:GetUriPrefixFromType(leg:GetDocumentMainType(.), /leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value)"/>
-									<xsl:if test="$uriPrefix = ('aep', 'aip', 'apgb' , 'apni' , 'asp' , 'mnia' , 'ukcm' , 'ukla' , 'ukpga' , 'mwa', 'aosp') ">
+									<xsl:if test="$uriPrefix = ('aep', 'aip', 'apgb' , 'apni' , 'asp' , 'mnia' , 'ukcm' , 'ukla' , 'ukpga' , 'mwa', 'aosp','anaw') ">
 										<p class="crest">
 											<a href="{leg:FormatURL($introURI)}">
 												<img alt="" src="/images/crests/{$uriPrefix}.gif" />
@@ -954,6 +954,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				</xsl:when>
 				<xsl:when test="$mainType = 'WelshAssemblyMeasure'">
 					<xsl:value-of select="concat(' (nawm ', $number, ')')" />
+				</xsl:when>
+				<xsl:when test="$mainType = 'WelshNationalAssemblyAct'">
+					<xsl:value-of select="concat(' (anaw ', $number, ')')" />
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:text> (</xsl:text>

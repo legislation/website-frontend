@@ -324,7 +324,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<xsl:when test="starts-with($title, 'Mixed Language')"><xsl:value-of select="concat(substring-after($title, 'Mixed Language'), $dateSuffix, ' - ', 'Mixed Language')"/></xsl:when>
 						<xsl:when test="@Language = 'Mixed'"><xsl:value-of select="concat($title, $dateSuffix, ' - Mixed Language')" /></xsl:when>
 						<xsl:when test="exists(@Language)"><xsl:value-of select="concat($title, $dateSuffix, ' - ', @Language)" /></xsl:when>
-						<xsl:when test="matches(@URI, '_en(_[0-9]{3})?.pdf$') and leg:GetDocumentMainType(./root()) = ('WelshAssemblyMeasure','WelshStatutoryInstrument')"><xsl:value-of select="concat($title, $dateSuffix, ' - English')"/></xsl:when>
+						<xsl:when test="matches(@URI, '_en(_[0-9]{3})?.pdf$') and leg:GetDocumentMainType(./root()) = ('WelshAssemblyMeasure','WelshStatutoryInstrument','WelshNationalAssemblyAct')"><xsl:value-of select="concat($title, $dateSuffix, ' - English')"/></xsl:when>
 						<!-- There are sometimes Welsh-language versions of UKSIs, so don't restrict this to MWAs & WSIs -->
 						<xsl:when test="matches(@URI, '_we(_[0-9]{3})?.pdf$')"><xsl:value-of select="concat($title, $dateSuffix, ' - Welsh')"/></xsl:when>
 						<xsl:when test="$isDraft">

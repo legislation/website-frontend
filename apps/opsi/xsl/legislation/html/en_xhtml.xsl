@@ -181,6 +181,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 													<xsl:when test="$uriPrefix = 'mwa' and exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Mixed Language')])">
 															<xsl:text>This is the mixed language version of these Notes. See the More Resources tab for links to the Welsh language and English language versions. These Notes are only available to download and view in PDF.</xsl:text>													
 													</xsl:when>
+													<xsl:when test="$uriPrefix = 'anaw' and exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Mixed Language')])">
+															<xsl:text>This is the mixed language version of these Notes. See the More Resources tab for links to the Welsh language and English language versions. These Notes are only available to download and view in PDF.</xsl:text>													
+													</xsl:when>
 													<xsl:when test="exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Revised')])">
 															<xsl:text>This is a revised </xsl:text><xsl:value-of select="$enShortLabel"/><xsl:text> to </xsl:text>
 															<xsl:value-of select="$legislationTitle"/>
@@ -253,7 +256,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						
 							<!-- filter out if we have mixed language available -->
 							<xsl:variable name="pdfLinks"
-								select="if ($documentMainType = ('WelshAssemblyMeasure','WelshStatutoryInstrument')) then 
+								select="if ($documentMainType = ('WelshAssemblyMeasure','WelshStatutoryInstrument','WelshNationalAssemblyAct')) then 
 												if (exists($pdfLinks[@Language = 'Mixed' or contains(@Title, 'Mixed Language')])) then 
 													$pdfLinks[@Language = 'Mixed' or contains(@Title, 'Mixed Language')]
 												else 
@@ -332,7 +335,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:when test="starts-with($title, 'Mixed Language')"><xsl:value-of select="concat(substring-after($title, 'Mixed Language'), $dateSuffix, ' - ', 'Mixed Language')"/></xsl:when>
 				<xsl:when test="@Language = 'Mixed'"><xsl:value-of select="concat($title, $dateSuffix, ' - Mixed Language')" /></xsl:when>
 				<xsl:when test="exists(@Language)"><xsl:value-of select="concat($title, $dateSuffix, ' - ', @Language)" /></xsl:when>
-				<xsl:when test="matches(@URI, '_en(_[0-9]{3})?.pdf$') and $documentMainType = ('WelshAssemblyMeasure','WelshStatutoryInstrument')"><xsl:value-of select="concat($title, $dateSuffix, ' - English')"/></xsl:when>
+				<xsl:when test="matches(@URI, '_en(_[0-9]{3})?.pdf$') and $documentMainType = ('WelshAssemblyMeasure','WelshStatutoryInstrument','WelshNationalAssemblyAct')"><xsl:value-of select="concat($title, $dateSuffix, ' - English')"/></xsl:when>
 				<!-- There are sometimes Welsh-language versions of UKSIs, so don't restrict this to MWAs & WSIs -->
 				<xsl:when test="matches(@URI, '_we(_[0-9]{3})?.pdf$')"><xsl:value-of select="concat($title, $dateSuffix, ' - Welsh')"/></xsl:when>
 
@@ -471,6 +474,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				</xsl:when>
 				<xsl:when test="$mainType = 'WelshAssemblyMeasure'">
 					<xsl:value-of select="concat(' (nawm ', $number, ')')" />
+				</xsl:when>
+				<xsl:when test="$mainType = 'WelshNationalAssemblyAct'">
+					<xsl:value-of select="concat(' (anaw ', $number, ')')" />
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:text> (</xsl:text>
@@ -940,7 +946,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						@import "/styles/primarylegislation.css";
 					</xsl:text>
 				</xsl:when>				
-				<xsl:when test="$uriPrefix ='apgb' or  $uriPrefix ='aosp'  or  $uriPrefix ='aip'  or  $uriPrefix ='mnia'  or  $uriPrefix ='apni'  or  $uriPrefix ='mwa'">
+				<xsl:when test="$uriPrefix ='apgb' or  $uriPrefix ='aosp'  or  $uriPrefix ='aip'  or  $uriPrefix ='mnia'  or  $uriPrefix ='apni'  or  $uriPrefix ='mwa'  or  $uriPrefix ='anaw'">
 					<xsl:text>
 						@import "/styles/SPOprimarylegislation.css";
 						@import "/styles/SPOlegislation.css";

@@ -38,8 +38,8 @@ $(document).ready(function(){
 
 	var mapToLinks = {
 		"scotlandarea": {"ukpga": linkApplies, "ukla": linkApplies, "asp": linkExclusive, "aosp": linkExclusive, "apgb": linkApplies, "uksi": linkApplies, "uksro": linkApplies, "ssi": linkExclusive, "dsi": linkApplies, "dssi": linkExclusive},
-		"walesarea": {"ukpga": linkApplies, "ukla": linkApplies, "aep": linkApplies, "apgb": linkApplies, "mwa": linkExclusive, "uksi": linkApplies, "uksro": linkApplies, "wsi": linkExclusive, "dsi": linkApplies},
-		"englandarea": {"ukpga": linkExclusive, "ukla": linkExclusive, "asp": linkApplies, "nia": linkApplies, "aosp": linkApplies, "aep": linkApplies, "aip": linkApplies, "apgb": linkApplies, "nisr": linkApplies, "mwa": linkApplies, "ukcm": linkApplies, "uksi": linkExclusive, "uksro": linkExclusive, "wsi": linkApplies, "ssi": linkApplies, "nisi": linkApplies, "ukci": linkApplies, "ukmo": linkExclusive, "mnia": linkApplies, "apni": linkApplies, "dsi": linkExclusive, "dnisr": linkApplies, "dssi": linkApplies},
+		"walesarea": {"ukpga": linkApplies, "ukla": linkApplies, "aep": linkApplies, "apgb": linkApplies, "mwa": linkExclusive, "anaw": linkExclusive,"uksi": linkApplies, "uksro": linkApplies, "wsi": linkExclusive, "dsi": linkApplies},
+		"englandarea": {"ukpga": linkExclusive, "ukla": linkExclusive, "asp": linkApplies, "nia": linkApplies, "aosp": linkApplies, "aep": linkApplies, "aip": linkApplies, "apgb": linkApplies, "nisr": linkApplies, "mwa": linkApplies, "anaw": linkApplies, "ukcm": linkApplies, "uksi": linkExclusive, "uksro": linkExclusive, "wsi": linkApplies, "ssi": linkApplies, "nisi": linkApplies, "ukci": linkApplies, "ukmo": linkExclusive, "mnia": linkApplies, "apni": linkApplies, "dsi": linkExclusive, "dnisr": linkApplies, "dssi": linkApplies},
 		"niarea": {"ukpga": linkApplies, "ukla": linkApplies, "nia": linkExclusive, "aip": linkExclusive, "nisr": linkExclusive, "uksi": linkApplies, "uksro": linkApplies, "nisi": linkExclusive, "mnia": linkExclusive, "apni": linkExclusive, "dsi": linkApplies, "dnisr": linkExclusive}
 	}
 	

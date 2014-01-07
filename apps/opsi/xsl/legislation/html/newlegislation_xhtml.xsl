@@ -220,7 +220,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 										<li><a href="/new/nisr/data.feed">Northern Ireland Statutory Rules</a></li>
 										<li><a href="/new/asp/data.feed">Acts of the Scottish Parliament</a></li>
 										<li><a href="/new/ssi/data.feed">Scottish Statutory Instruments</a></li>
-										<li><a href="/new/mwa/data.feed">Measures of the National Assembly for Wales</a></li>
+										<li><a href="/new/anaw/data.feed">Acts of the National Assembly for Wales</a></li>
+										<!--<li><a href="/new/mwa/data.feed">Measures of the National Assembly for Wales</a></li>-->
 										<li><a href="/new/wsi/data.feed">Wales Statutory Instruments</a></li>
 									</ul>
 									<h3 class="feedTitle p_one" id="subsFeeds">Free of charge draft legislation feeds</h3>

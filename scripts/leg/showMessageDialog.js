@@ -61,7 +61,7 @@ $.fn.showModalDialog = function(options) {
 		 var continueUrl =window.location.pathname.split('/');
 		 var welsh =  continueUrl[1]
 	if($("body").attr('id') != 'error'){
-		if((welsh == 'mwa') || (welsh == 'wsi') || (welsh == 'wdsi'))
+		if((welsh == 'mwa') || (welsh == 'anaw') || (welsh == 'wsi') || (welsh == 'wdsi'))
 		{
 			if(($("body").find('#layout2').attr('class') == "legToc") && ($("body").find('#layout2').attr('class') != undefined) && ($("body").find('#layout2').attr('class') != '')){
 				

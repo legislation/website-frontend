@@ -37,6 +37,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
   <tso:legType schemaType="ScottishAct" abbrev="asp" class="primary" category="Act" 
   	en="Explanatory Notes" singular="Act of the Scottish Parliament" plural="Acts of the Scottish Parliament"
   	start="1999" complete="1999" revised="true" />
+  <tso:legType schemaType="WelshNationalAssemblyAct" class="primary" category="Act" abbrev="anaw" 
+	en="Explanatory Notes" singular="Act of the National Assembly for Wales" plural="Acts of the National Assembly for Wales"
+  	start="2012" complete="2012" revised="true" />
   <tso:legType schemaType="WelshAssemblyMeasure" class="primary" category="Measure" abbrev="mwa" 
 	en="Explanatory Notes" singular="Measure of the National Assembly for Wales" plural="Measures of the National Assembly for Wales"
   	start="2008" complete="2008" revised="true" />
@@ -82,7 +85,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
   	start="1992" timeline="none" revised="false" />
 	<tso:legType schemaType="UnitedKingdomStatutoryRuleOrOrder" class="secondary" category="Order" abbrev="uksro" 
 		en="Executive Note" em="Explanatory Memorandum" singular="UK Statutory Rule Or Order" plural="UK Statutory Rules and Orders"
-		end="1948" revised="false" />
+		start="1900" end="1948" revised="false" />
 	<tso:legType schemaType="NorthernIrelandAssemblyMeasure" class="primary" category="Measure" abbrev="mnia" 
 		singular="Measure of the Northern Ireland Assembly" plural="Measures of the Northern Ireland Assembly"
 		start="1974" end="1974" timeline="none" revised="true" />
@@ -547,6 +550,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			</xsl:when>
 			<xsl:when test="$type = ('NorthernIrelandParliamentAct', 'NorthernIrelandAssemblyMeasure')">Chapter <xsl:value-of select="$number" /></xsl:when>
 			<xsl:when test="$type = 'WelshAssemblyMeasure'">nawm <xsl:value-of select="$number" /></xsl:when>
+			<xsl:when test="$type = 'WelshNationalAssemblyAct'">anaw <xsl:value-of select="$number" /></xsl:when>
 			<xsl:otherwise>No. <xsl:value-of select="$number" /></xsl:otherwise>
 		</xsl:choose>
 	</xsl:value-of>

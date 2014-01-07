@@ -114,14 +114,36 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							<div class="s_4 p_one legCol">
 								<ul class="legTypes">
 									<xsl:for-each select="$nonDraftTypes[position() &lt;= ceiling(count($nonDraftTypes) div 2)]">
-										<li><a id="{@abbrev}" href="/{@abbrev}"><xsl:value-of select="@plural" /></a></li>
+										<li><a id="{@abbrev}" href="/{@abbrev}"><xsl:value-of select="@plural" />
+										<xsl:choose>
+											<xsl:when test="exists(@start) and exists(@end) and @start != @end">
+												<xsl:text> </xsl:text>
+												<xsl:value-of select="@start" />-<xsl:value-of select="@end" />
+											</xsl:when>
+											<xsl:when test="exists(@start) and exists(@end) and @start = @end">
+												<xsl:text> </xsl:text>
+												<xsl:value-of select="@start" />
+											</xsl:when>
+										</xsl:choose>
+										</a></li>
 									</xsl:for-each>
 								</ul>
 							</div>
 							<div class="s_4 p_two legCol">
 								<ul class="legTypes">
 									<xsl:for-each select="$nonDraftTypes[not(@class ='draft')][position() > ceiling(count($nonDraftTypes) div 2)]">
-										<li><a id="{@abbrev}" href="/{@abbrev}"><xsl:value-of select="@plural" /></a></li>
+										<li><a id="{@abbrev}" href="/{@abbrev}"><xsl:value-of select="@plural" />
+										<xsl:choose>
+											<xsl:when test="exists(@start) and exists(@end) and @start != @end">
+												<xsl:text> </xsl:text>
+												<xsl:value-of select="@start" />-<xsl:value-of select="@end" />
+											</xsl:when>
+											<xsl:when test="exists(@start) and exists(@end) and @start = @end">
+												<xsl:text> </xsl:text>
+												<xsl:value-of select="@start" />
+											</xsl:when>
+										</xsl:choose>
+										</a></li>
 									</xsl:for-each>
 								</ul>
 							</div>
@@ -246,11 +268,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								<ul class="legTypes">
 									<li> <a id="asp" href="/asp">Acts of the Scottish Parliament<span></span></a> </li>
 									<li> <a id="nia" href="/nia">Acts of the Northern Ireland Assembly<span></span></a> </li>
-									<li> <a id="aosp" href="/aosp">Acts of the Old Scottish Parliament<span></span></a> </li>
+									<li> <a id="aosp" href="/aosp">Acts of the Old Scottish Parliament 1424-1707<span></span></a> </li>
 									<li> <a id="aep" href="/aep">Acts of English Parliament 1267-1706<span></span></a> </li>
 									<li> <a id="aip" href="/aip">Acts of the Old Irish Parliament 1495-1800<span></span></a> </li>
 									<li> <a id="apgb" href="/apgb">Acts of Parliament of Great Britain 1707-1800<span></span></a> </li>
 									<li> <a id="nisr" href="/nisr">Northern Ireland Statutory Rules<span></span></a> </li>
+									<li> <a id="anaw" href="/anaw">Acts of the National Assembly for Wales<span></span></a> </li>
 									<li> <a id="mwa" href="/mwa">Measures of the National Assembly for Wales<span></span></a> </li>
 									<li> <a id="ukcm" href="/ukcm">UK Church Measures<span></span></a> </li>
 									<li> <a id="wsi" href="/wsi">Wales Statutory Instruments<span></span></a> </li>
@@ -318,6 +341,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							<div class="s_4 p_one legCol">
 								<h2>Exclusively or primarily applies to Wales</h2>
 								<ul class="legTypes">
+									<li> <a id="anaw" href="/anaw">Acts of the National Assembly for Wales<span></span></a> </li>
 									<li> <a id="mwa" href="/mwa">Measures of the National Assembly for Wales<span></span></a> </li>
 									<li> <a id="wsi" href="/wsi">Wales Statutory Instruments<span></span></a> </li>						
 									<li> <a id="wdsi" href="/wdsi">Wales Draft Statutory Instruments<span></span></a> </li>
@@ -389,7 +413,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								<h2>Exclusively or primarily applies to Scotland</h2>
 								<ul class="legTypes">
 									<li> <a id="asp" href="/asp">Acts of the Scottish Parliament</a> </li>
-									<li> <a id="aosp" href="/aosp">Acts of the Old Scottish Parliament</a> </li>
+									<li> <a id="aosp" href="/aosp">Acts of the Old Scottish Parliament 1424-1707</a> </li>
 									<li> <a id="ssi" href="/ssi">Scottish Statutory Instruments</a> </li>
 									<li> <a id="sdsi" href="/sdsi">Scottish Draft Statutory Instruments<span></span></a> </li>
 								</ul>
