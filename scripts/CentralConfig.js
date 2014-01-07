@@ -37,6 +37,10 @@ var config = {
 				part2: {
 					en: " made by ",
 					cy: " a wnaed gan "
+				},
+				part3: {
+					en: "all legislation ",
+					cy: "bob deddfwriaeth "
 				}
 		}
 	 }, 

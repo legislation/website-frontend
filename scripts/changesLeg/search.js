@@ -225,7 +225,7 @@ function searchQueryPreviewTxt($applyTo){
 		if (type === obj.$typeObj.data("defaultText") || type == "") {
 			// default
 			//return "<strong>all Legislation</strong>";
-			return "all legislation";
+			return  config.search.affect.apply.part3[LANG];     
 		} else {				
 			// Grab the data from the amended fields
 			return "<strong>" + type.escapeHTML() + "</strong>";
