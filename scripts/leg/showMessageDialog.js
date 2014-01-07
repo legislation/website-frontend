@@ -48,7 +48,7 @@ $.fn.showModalDialog = function(options) {
 				.append( $('<div /> ').addClass(cfg.classes.message)
 						.append('<h3>' + cfg.textLine1+ '</h3>')
 							.append ('<p>' + cfg.textLine2 + '</p>')
-									.append('<p>' + cfg.textLine1 + '</p>')	)
+									.append('<p>' + cfg.textLine3 + '</p>')	)
 											.append('<div class="interface"><ul><li class="close">	<a class="userFunctionalElement" href="#"><span class="btl"></span>	<span class="btr"></span>Close<span class="bbl"></span>	<span class="bbr"></span></a></li><li class="continue">	<a class="userFunctionalElement" href="http://www.surveygizmo.co.uk/s3/987479/legislation-survey-0812" target="new"><span class="btl"></span>	<span class="btr"></span>Ok<span class="bbl"></span>	<span class="bbr"></span></a></li></ul></div>')
 												.appendTo($modalDialog);
 		 $("body").append($modalDialog);
