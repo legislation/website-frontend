@@ -179,7 +179,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 														<xsl:text>This is a draft </xsl:text>
 														<xsl:value-of select="$enShortLabel"/>
 														<xsl:text> to accompany this </xsl:text>
-														<xsl:value-of select="tso:GetTitleFromType($documentMainType,'')"/>
+														<xsl:value-of select="tso:GetSingularTitleFromType($documentMainType,'')"/>
 														<xsl:text>.</xsl:text>
 													</xsl:when>
 
