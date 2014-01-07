@@ -782,11 +782,13 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 		</xsl:if>
 	</xsl:template>
 	
+	<!-- call 	HA050988: http://www.legislation.gov.uk/apni/1969/24/resources - updated to have something other than section e.g. introductory section.  Earlier code was allowing only sections to display in confesers Power
+	If any @title was not having ':' then it was not displying in the the list on site. -->
 	<xsl:template match="ukm:ConfersPower | ukm:BlanketAmendment">
         <xsl:variable name="InputString" select="@title"/>
-        <xsl:variable name="Section" select="normalize-space(substring-before($InputString,':'))"/>
-        <xsl:variable name="Title" select="normalize-space(substring-after($InputString,':'))"/>
-		<a href="{@IdURI}" title="{$Title}">
+		<xsl:variable name="Section" select="if (contains($InputString,':')) then normalize-space(substring-before($InputString,':')) else $InputString"/>
+		<xsl:variable name="Title" select="if (contains($InputString,':')) then normalize-space(substring-before($InputString,':')) else $InputString"/>
+		<a href="{if (contains($InputString,':')) then @IdURI else substring-after(@IdURI,'http://www.legislation.gov.uk/id')}" title="{$Title}">
 			<xsl:value-of select="$Section"/>
 		</a>
 	</xsl:template>
