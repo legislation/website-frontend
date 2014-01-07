@@ -60,11 +60,11 @@ exclude-result-prefixes="tso">
 						
 			</xsl:when>
 			<!-- If node ends with a space and following element is InternalLink replace space with non-breaking space -->
-			<xsl:when test="following-sibling::node()[1][self::leg:InternalLink] and substring($strTextToProcess, string-length($strTextToProcess), 1) = ' ' or (ends-with(translate($strTextToProcess, '&#13;&#10;', ''),' ') and parent::*/following-sibling::*[1][self::leg:InternalLink])">
+			<xsl:when test="following-sibling::node()[1][self::leg:InternalLink] and substring($strTextToProcess, string-length($strTextToProcess), 1) = ' ' or (ends-with(translate($strTextToProcess, '&#13;&#10;', '  '),' ') and parent::*/following-sibling::*[1][self::leg:InternalLink])">
 				<xsl:call-template name="TSOprocessText">
 					<xsl:with-param name="strText">
 						<xsl:call-template name="FuncNormalizeSpace">
-							<xsl:with-param name="strString" select="concat(translate(substring($strTextToProcess, 1, string-length($strTextToProcess) - 1), '&#13;&#10;', ''), '&#160;')" />
+							<xsl:with-param name="strString" select="concat(translate(substring($strTextToProcess, 1, string-length($strTextToProcess) - 1), '&#13;&#10;', '  '), '&#160;')" />
 						</xsl:call-template>
 					</xsl:with-param>
 				</xsl:call-template>		
@@ -74,14 +74,14 @@ exclude-result-prefixes="tso">
 				<xsl:call-template name="TSOprocessText">
 					<xsl:with-param name="strText">
 						<xsl:call-template name="FuncNormalizeSpace">
-							<xsl:with-param name="strString" select="translate($strTextToProcess, '&#13;&#10;', '')" />
+							<xsl:with-param name="strString" select="translate($strTextToProcess, '&#13;&#10;', '  ')" />
 						</xsl:call-template>
 					</xsl:with-param>
 				</xsl:call-template>	
 			</xsl:otherwise>
 		</xsl:choose>	
 	</xsl:variable>
-	
+
 	<xsl:choose>
 		<xsl:when test="$flSmallCaps = true()">
 			<xsl:analyze-string select="$ndsText" regex="\p{{Ll}}+">
