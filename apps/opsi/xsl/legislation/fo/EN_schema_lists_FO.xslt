@@ -35,6 +35,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<fo:block font-size="{$g_strBodySize}" text-align="left" font-weight="bold">
 							<xsl:choose>
 								<xsl:when test="parent::*/@Decoration = 'dash'">&#8212;</xsl:when>
+								<!-- Chunyu: Changed '-' into 'endash' for fop1.0 which can not handle a single '-' -->
 								<xsl:when test="parent::*/@Decoration = 'bullet' and parent::*/ancestor::*/@Decoration = 'bullet'">&#8211;</xsl:when>
 								<xsl:when test="parent::*/@Decoration = 'bullet'">&#8226;</xsl:when>
 								<!-- Put other values here -->

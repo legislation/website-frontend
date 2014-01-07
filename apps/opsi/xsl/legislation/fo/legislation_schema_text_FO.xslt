@@ -214,7 +214,7 @@ exclude-result-prefixes="tso">
 		<entity unicode=" or (f)"> or&#x00a0;(f)</entity>
 		<entity unicode=" &#8212;">&#x00a0;&#8212;</entity>
 		<entity unicode="&#x2605;">*</entity>
-		<!-- Chunyu HA049446 21/05/12 Fop1.0 cant handle the text has only one single '-' -->
+		<!-- Chunyu HA049446 21/05/12 Fop1.0 cant handle the text has only one single '-'  -->
 		<entity unicode="­">&#x00A0;-</entity>
 	
 		
