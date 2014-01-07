@@ -132,6 +132,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							<xsl:attribute name="margin-top">18pt</xsl:attribute>
 						</xsl:otherwise>
 					</xsl:choose>
+					<!-- if the leg:Number has a commentry ref then we need to include this  (see apni1964/36/introduction #HA05037 -->
+					<xsl:if test="$g_ndsLegPrelims/leg:Number/leg:CommentaryRef">
+						<xsl:apply-templates select="$g_ndsLegPrelims/leg:Number/leg:CommentaryRef"/>
+					</xsl:if>
 					<xsl:value-of select="$g_ndsLegMetadata/ukm:Year/@Value"/>
 					<xsl:choose>
 						<xsl:when test="$g_strDocType = 'ScottishAct'">

@@ -240,14 +240,17 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<!-- PG 2008-07-18 Welsh Measures, and indeed most new legislation, has all the info we need in the Number element, so we can just output that -->
 		<xsl:choose>
 			<xsl:when test="$g_strDocumentMainType = 'WelshAssemblyMeasure' ">
-				<xsl:value-of select="leg:Number"/>
+				<xsl:apply-templates select="leg:Number"/>
 			</xsl:when>
 			<xsl:when test="$g_strDocumentMainType = 'WelshNationalAssemblyAct' ">
-				<xsl:value-of select="leg:Number"/>
+				<xsl:apply-templates select="leg:Number"/>
 			</xsl:when>
 			<!-- Convoluted approach to outputting the correct act number, but probably required for legacy data -->
 			<xsl:otherwise>
 				<xsl:variable name="year" select="$g_ndsMetadata//ukm:Year/@Value"/>
+				<xsl:if test="leg:Number/leg:CommentaryRef">
+					<xsl:apply-templates select="leg:Number/leg:CommentaryRef"/>
+				</xsl:if>
 				<xsl:value-of select="$year"/>
 				<xsl:choose>
 					<xsl:when test="$g_strDocumentMainType = 'UnitedKingdomChurchMeasure'">
