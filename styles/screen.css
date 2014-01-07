@@ -304,6 +304,8 @@ ul#legSubNav li.base {margin-left: 0;}
 .legEmToc li#legEmLink a,
 .legEnContent li#legEnLink a,
 .legEnToc li#legEnLink a,
+.legPnContent li#legPnLink a,
+.legPnToc li#legPnLink a,
 .legResources li#legResourcesLink a,
 .legCommencement li#legConmmencementLink a,
 .legIA li#legIALink a
@@ -313,6 +315,8 @@ ul#legSubNav li.base {margin-left: 0;}
 .legComplete li#legContentLink,
 .legEmContent li#legEmLink,
 .legEmToc li#legEmLink,
+.legPnContent li#legPnLink,
+.legPnToc li#legPnLink,
 .legToc li#legTocLink,
 .legEnContent li#legEnLink,
 .legEnToc li#legEnLink,
@@ -328,6 +332,8 @@ ul#legSubNav li.base {margin-left: 0;}
 .legEmToc li#legEmLink span.presentation,
 .legEnContent li#legEnLink span.presentation,
 .legEnToc li#legEnLink span.presentation,
+.legPnContent li#legPnLink span.presentation,
+.legPnToc li#legPnLink span.presentation,
 .legResources li#legResourcesLink span.presentation,
 .legCommencement li#legConmmencementLink span.presentation,
 .legIA li#legIALink span.presentation
