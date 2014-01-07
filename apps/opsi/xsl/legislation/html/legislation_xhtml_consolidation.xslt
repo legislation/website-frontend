@@ -87,6 +87,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <!-- ========= Code for consolidation ========== -->
 
 <xsl:template match="leg:Legislation">
+	
 	<!--<p>Parameters for this page: </p>
 	<xsl:for-each select="doc('input:request')/parameters/*">
 		<p><xsl:value-of select="name()"/>: <xsl:value-of select="."/></p>
@@ -411,13 +412,14 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	</xsl:if>		
 </xsl:template>
 
+<!--Chunyu:Call HA049511 Added includedDocument in $showSection to resovle the xml file to display properly on the page see /uksi/1999/1892/ -->
 <xsl:template match="leg:Body | leg:Schedules">
 	<xsl:param name="showSection" as="element()*" tunnel="yes" select="()" />
 	<xsl:choose>
 		<xsl:when test="ancestor::leg:BlockAmendment">
 			<xsl:next-match />
 		</xsl:when>
-		<xsl:when test="exists($showSection)">
+		<xsl:when test="exists($showSection[not(//leg:IncludedDocument)])">
 			<xsl:apply-templates select="$showSection" mode="showSectionWithAnnotation"/>
 		</xsl:when>
 		<xsl:otherwise>
@@ -569,7 +571,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <xsl:template match="leg:Commentaries | err:Warning | leg:CitationLists"/>
 
-<xsl:template match="leg:Primary | leg:Secondary | leg:Body | leg:Schedules | leg:P1group | leg:Group | leg:Part | leg:Chapter | leg:Pblock | leg:PsubBlock | leg:P1 | leg:P |leg:PrimaryPrelims | leg:SecondaryPrelims | leg:Schedule | leg:Form | leg:Schedule/leg:ScheduleBody//leg:Tabular" mode="ProcessAnnotations">
+	<xsl:template match="leg:Primary | leg:Secondary | leg:Body | leg:Schedules | leg:P1group | leg:Group | leg:Part | leg:Chapter | leg:Pblock | leg:PsubBlock | leg:P1 | leg:P |leg:PrimaryPrelims | leg:SecondaryPrelims | leg:Schedule | leg:Form | leg:Schedule/leg:ScheduleBody//leg:Tabular " mode="ProcessAnnotations">
 	<xsl:param name="showSection" as="element()*" tunnel="yes" select="()" />
 	<xsl:param name="showingHigherLevel" as="xs:boolean" tunnel="yes" select="false()"/>
 	<xsl:param name="includeTooltip" as="xs:boolean" tunnel="yes" select="false()"/>
