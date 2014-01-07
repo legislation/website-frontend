@@ -130,19 +130,26 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 			</div>
 			-->
 		
-			<xsl:if test="not($isDraft) and ukm:Metadata/ukm:Alternatives/ukm:Alternative[not(@Revised)]">
+			<xsl:if test="ukm:Metadata/ukm:Alternatives/ukm:Alternative[not(@Revised)]">
 				<xsl:variable name="status" select="leg:GetCodeSchemaStatus(/)" />
 				<div class="printPdf colSection s_4">
 					<h3>
-						<xsl:text>Original Print PDF of </xsl:text>
-						<xsl:choose>
-							<xsl:when test="$status = 'draft'">draft</xsl:when>
-							<xsl:otherwise>as <xsl:value-of select="$status"/> version</xsl:otherwise>
-						</xsl:choose>
+						<xsl:text>Original Print PDF</xsl:text>
+						
+							<!--<xsl:when test="$status = 'draft'">draft</xsl:when>-->
+						<xsl:if test="not($isDraft)"> of as <xsl:value-of select="$status"/> version</xsl:if>
+						
 					</h3>
 					<img id="printPDFIcon" src="/images/chrome/largePdfIcon.gif"/>
 					<p>
-						<xsl:text>This PDF does not include any changes made by correction slips.</xsl:text>
+						<xsl:choose>
+							<xsl:when test="$isDraft">
+								<xsl:text>This is the print PDF version of this draft legislation item.</xsl:text>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:text>This PDF does not include any changes made by correction slips.</xsl:text>
+							</xsl:otherwise>
+						</xsl:choose>
 						<a class="helpItem helpItemToTop" href="#printHelp">
 							<img alt=" Help about Print PDF" src="/images/chrome/helpIcon.gif"/>
 						</a>
@@ -154,7 +161,14 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 								<img alt="Close" src="/images/chrome/closeIcon.gif"/>
 							</a>
 							<h3>Original Print PDF</h3>
-							<p>This is the original PDF of the as <xsl:value-of select="leg:GetCodeSchemaStatus(/)"/> version that was used to publish the official printed copy. It therefore does not include any changes made by correction slips issued after it was published. Correction slips if issued will be listed separately under 'Associated Documents' and will have been applied to the HTML version viewable via the content tab.</p>
+							<xsl:choose>
+								<xsl:when test="$isDraft">
+									<p>This is the original PDF that was used to publish the printed copy. The printed copy of this draft would have been laid before parliament. Please note, that draft legislation items may be replaced with another draft version and/or be superseded by a numbered SI if it has been subsequently made by the Government department. You can find out if this has happened by entering the title of the instrument using the search bar at the top of this page. In the search results, any relevant replacement/superseding information will be displayed underneath the title.</p>
+								</xsl:when>
+								<xsl:otherwise>
+									<p>This is the original PDF of the as <xsl:value-of select="leg:GetCodeSchemaStatus(/)"/> version that was used to publish the official printed copy. It therefore does not include any changes made by correction slips issued after it was published. Correction slips if issued will be listed separately under 'Associated Documents' and will have been applied to the HTML version viewable via the content tab.</p>
+								</xsl:otherwise>
+							</xsl:choose>
 						</div>
 					</div>
 					<ul class="plainList">
@@ -231,21 +245,36 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 				</xsl:with-param>
 			</xsl:call-template>
 			
+			<!-- perform the sort first so that we can determine the part number correctly  -->
+			<xsl:variable name="sortedIAs">
+				<xsl:perform-sort select="ukm:Metadata//ukm:ImpactAssessments/ukm:ImpactAssessment[@URI]">
+					<xsl:sort select="@Stage" order="ascending"/>
+					<xsl:sort select="@Year" order="ascending"/>
+					<xsl:sort select="@Number" order="ascending"/>
+					<!-- English first -->
+					<xsl:sort select="exists(@Language)" />
+					<!-- Mixed language last -->
+					<xsl:sort select="@Language = 'Mixed'" />
+					<!-- Most recent first -->
+					<!-- <xsl:sort select="xs:date(@Date)" order="descending" /> -->
+				</xsl:perform-sort>
+			</xsl:variable>
+			
 			<xsl:call-template name="AssociatedImpact">
 				<xsl:with-param name="associatedDocuments">
-					<xsl:apply-templates select="ukm:Metadata//ukm:ImpactAssessments//*[@URI]" mode="AssociatedDocuments">
-						
-						<xsl:sort select="@URI" order="ascending"/>
-						<!-- English first -->
-						<xsl:sort select="exists(@Language)" />
-						<!-- Mixed language last -->
-						<xsl:sort select="@Language = 'Mixed'" />
-						<!-- Most recent first -->
-						<!-- <xsl:sort select="xs:date(@Date)" order="descending" /> -->
-					</xsl:apply-templates>
-					
+					<xsl:apply-templates select="$sortedIAs/ukm:ImpactAssessment[not(@Stage = ('Post-Implementation','Enactment','Final','Consultation'))]" mode="AssociatedDocuments"/>
+					<xsl:apply-templates select="$sortedIAs/ukm:ImpactAssessment[@Stage = 'Consultation']" mode="AssociatedDocuments"/>
+					<xsl:apply-templates select="$sortedIAs/ukm:ImpactAssessment[@Stage = 'Enactment']" mode="AssociatedDocuments"/>
+					<xsl:apply-templates select="$sortedIAs/ukm:ImpactAssessment[@Stage = 'Final']" mode="AssociatedDocuments"/>
+					<xsl:apply-templates select="$sortedIAs/ukm:ImpactAssessment[@Stage = 'Post-Implementation']" mode="AssociatedDocuments"/>
 				</xsl:with-param>
 			</xsl:call-template>
+			
+
+	
+	
+	
+			
 			
 			<xsl:call-template name="ListAllChanges">
 				<xsl:with-param name="theTitle" select="$theTitle"/>
@@ -345,7 +374,29 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 		</div>
 	</xsl:template>
 
-	 <xsl:template match="ukm:Metadata/ukm:Alternatives/ukm:Alternative 
+	
+	<xsl:template match="ukm:ImpactAssessment" mode="AssociatedDocuments">
+		<xsl:variable name="stage" select="@Stage"/>
+		<xsl:variable name="totalStage" as="xs:integer" select="count(../ukm:ImpactAssessment[@Stage = $stage])"/>
+		<xsl:variable name="draftText" as="xs:string?" select="if ($isDraft) then 'Draft ' else ()"/>
+		<li>
+			<a href="{@URI}" class="pdfLink">
+				<xsl:choose>
+					<xsl:when test="$totalStage &gt; 1">
+					<xsl:value-of select="concat($draftText, $stage, ' Impact Assessment part ',count(preceding-sibling::ukm:ImpactAssessment[@Stage = $stage]) + 1)"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="concat($draftText, $stage, ' Impact Assessment')"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</a>
+			<xsl:text>   </xsl:text>
+			<span class="filesize"><xsl:sequence select="tso:GetFileSize(@Size)"/></span>
+		</li>
+	</xsl:template>
+
+
+	<xsl:template match="ukm:Metadata/ukm:Alternatives/ukm:Alternative 
 	 	| ukm:Metadata/ukm:Notes/ukm:Alternatives/ukm:Alternative 
 	 	| ukm:TableOfDestinations|ukm:TableOfOrigins
 	 	|ukm:CorrectionSlip
@@ -360,9 +411,8 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 	 	|ukm:TableOfDestinations
 	 	|ukm:UKExplanatoryMemorandum
 	 	|ukm:NIExplanatoryMemorandum
-	 	|ukm:ImpactAssessment
 	 	|ukm:OtherDocument" mode="AssociatedDocuments">
-		 <xsl:if test="$isDraft or not(self::ukm:Alternative) or (self::ukm:Alternative and ancestor::ukm:Notes) or @Revised">
+		 <xsl:if test="not(self::ukm:Alternative) or (self::ukm:Alternative and ancestor::ukm:Notes) or @Revised">
 			 <!-- if draft legislation then all alternative versions(print) will also be included -->
 		 	<xsl:variable name="dateSuffix">
 		 		<!-- add a date suffix if there are other versions of this type with the same Title and Language -->
@@ -406,11 +456,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						<!-- There are sometimes Welsh-language versions of UKSIs, so don't restrict this to MWAs & WSIs -->
 						<xsl:when test="matches(@URI, '_we(_[0-9]{3})?.pdf$')"><xsl:value-of select="concat($title, $dateSuffix, ' - Welsh')"/></xsl:when>
 						<xsl:when test="$isDraft">
-							<xsl:choose>
-								<xsl:when test="not(@Title) or @Title=('', 'Print Version') ">
-									<xsl:text>Print PDF of Draft</xsl:text>
-								</xsl:when>
-								<xsl:otherwise>
+							
 									<xsl:if test="not(contains(@Title, 'Draft'))">
 										<xsl:text>Draft </xsl:text>
 									</xsl:if>
@@ -419,23 +465,23 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 											<xsl:text>Correction Slip - </xsl:text>
 											<xsl:value-of select="leg:FormatDate(@Date)"/>
 										</xsl:when>
-										<xsl:when test="self::ukm:ImpactAssessment[exists($ia[4])]">
+										<!--<xsl:when test="self::ukm:ImpactAssessment[exists($ia[4])]">
 										
 											<xsl:value-of select="$title"/>
 											<xsl:text> part </xsl:text>
 											<xsl:value-of select="number(replace($ia[4],'.pdf','','i')) + 1 "/>
-										</xsl:when>
+										</xsl:when>-->
 										<!-- <xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
 												<xsl:value-of select="$title"/>
 											<xsl:text> part 1</xsl:text>
 										
 										</xsl:when>	 -->
 										
-										<xsl:when test="self::ukm:ImpactAssessment[not(exists($ia[4]))]">
+										<!--<xsl:when test="self::ukm:ImpactAssessment[not(exists($ia[4]))]">
 												<xsl:value-of select="$title"/>
 											<xsl:text> part 1</xsl:text>
 										
-										</xsl:when>	
+										</xsl:when>	-->
 										
 										<xsl:when test="self::ukm:Alternative[exists($ia[4])]">
 											<xsl:value-of select="$title"/>
@@ -477,8 +523,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 										</xsl:otherwise>
 									</xsl:choose>
 													
-								</xsl:otherwise>
-							</xsl:choose>
+								
 						
 						</xsl:when>
 						
@@ -487,25 +532,24 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						<xsl:when test="self::ukm:CorrectionSlip">
 							<xsl:text>Correction Slip - </xsl:text>
 							<xsl:value-of select="leg:FormatDate(@Date)"/>
-							
 						</xsl:when>
-						<xsl:when test="self::ukm:ImpactAssessment[exists($ia[4])]">
+						<!--<xsl:when test="self::ukm:ImpactAssessment[exists($ia[4])]">
 							<xsl:value-of select="$title"/>
 							<xsl:text> part </xsl:text>
 							<xsl:value-of select="number(replace($ia[4],'.pdf','','i')) + 1 "/>
 							
-						</xsl:when>
+						</xsl:when>-->
 						<!-- <xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
 									<xsl:value-of select="$title"/>
 							<xsl:text> part 1</xsl:text>
 							
 						</xsl:when>	 -->
 						
-						<xsl:when test="self::ukm:ImpactAssessment[not(exists($ia[4]))] and (following-sibling::*/@Title = self::ukm:ImpactAssessment/@Title or preceding-sibling::*/@Title = self::ukm:ImpactAssessment/@Title)">
+						<!--<xsl:when test="self::ukm:ImpactAssessment[not(exists($ia[4]))] and (following-sibling::*/@Title = self::ukm:ImpactAssessment/@Title or preceding-sibling::*/@Title = self::ukm:ImpactAssessment/@Title)">
 									<xsl:value-of select="$title"/>
 							<xsl:text> part 1</xsl:text>
 							
-						</xsl:when>	
+						</xsl:when>	-->
 						
 						<xsl:when test="self::ukm:Alternative[exists($ia[4])]">
 							<xsl:value-of select="$title"/>
