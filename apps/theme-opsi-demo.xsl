@@ -65,14 +65,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<xsl:choose>
 				<xsl:when test="leg:IsHome()">
 						<script type="text/javascript" src="/scripts/homepageChrome.js"/>
-						<script type="text/javascript" src="/scripts/survey/messageBox.js" />
-						<script type="text/javascript" src="/scripts/jquery.cookie.js"></script>
 
 				</xsl:when>
 				<xsl:otherwise>
 						<script type="text/javascript" src="/scripts/chrome.js"></script>				
 						<script type="text/javascript" src="/scripts/jquery.cookie.js"></script>		
-						<script type="text/javascript" src="/scripts/survey/messageBox.js" />
 				</xsl:otherwise>
 			</xsl:choose>
 			<xsl:copy-of select="xhtml:head/node() except xhtml:head/xhtml:meta[@http-equiv]" copy-namespaces="no" />
