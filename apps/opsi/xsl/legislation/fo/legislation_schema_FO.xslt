@@ -2298,7 +2298,9 @@ exclude-result-prefixes="tso atom">
 										<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
 										<xsl:text>.</xsl:text>
 									</fo:inline>
-									<xsl:text>&#8212;</xsl:text>
+									<!-- Call No: HA051095 -->
+									<!--<xsl:text>&#8212;</xsl:text>-->
+									<xsl:text>&#160;&#160;</xsl:text>
 								</xsl:if>
 								<xsl:apply-templates select="leg:Pnumber"/>
 								<!-- FOP doesn't handle 2003 well - look for alternative -->
