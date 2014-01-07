@@ -32,13 +32,11 @@ $.fn.showModalDialog = function(options) {
 				message: 'content',
 				messageINterface: 'interface'
 			},
-			modalId: 'invitationToTest',
-			titleText: 'Invitation to test new functionality',
-			onePoint: 'improve how we present dual language versions of Welsh legislation',
-			secondPoint: 'provide a Welsh language version of the website',
-			textLine1: 'As part of our current development work to legislation.gov.uk we are looking to: ',
-			textLine2: 'We have turned our ideas into prototypes that we would like to obtain user feedback on and have face to face and online testing sessions being run the week commencing 21st May.',
-			textLine3: 'Would you like to take part?',
+			modalId: 'invitationToSurvey',
+			titleText: 'Invitiation to survey',
+			textLine1: 'Thank you for using legislation.gov.uk',
+			textLine2: 'Can you help us to better understand how users read and interact with legislation by taking our survey? ',
+			textLine3: 'Survey closes on 22 September 2012.',
 			debug: false,
 			continueURL: function() {return '/'}
 		},
@@ -46,29 +44,27 @@ $.fn.showModalDialog = function(options) {
 
 		$modalDialog = $('<div />').addClass(cfg.classes.modalWindow).attr('id', cfg.modalId)
 		
-		$('<div />').addClass(cfg.classes.messageTitle).append('<h3>' + cfg.titleText+ '</h3>')
+		$('<div />').addClass(cfg.classes.messageTitle)
 				.append( $('<div /> ').addClass(cfg.classes.message)
-					.append('<p>' + cfg.textLine1 + '</p>')
-							.append('<ul> <li>'+ cfg.onePoint+ '</li> <li>'+ cfg.secondPoint+ '</li> </ul>')
-								.append ('<p>' + cfg.textLine2 + '</p>')
-									.append('<p>' + cfg.textLine3+ '</p>')
-										.append ('<p> <a href="mailto: publishing.legislation@nationalarchives.gsi.gov.uk?subject=Testing Enquiry"> Please let us know</a> and we can help arrange a time for you to take part. </p>'))
-											.append('<div class="interface"><ul><li class="close">	<a class="userFunctionalElement" href="#"><span class="btl"></span>	<span class="btr"></span>Close<span class="bbl"></span>	<span class="bbr"></span></a></li></ul></div>')
+						.append('<h3>' + cfg.textLine1+ '</h3>')
+							.append ('<p>' + cfg.textLine2 + '</p>')
+									.append('<p>' + cfg.textLine1 + '</p>')	)
+											.append('<div class="interface"><ul><li class="close">	<a class="userFunctionalElement" href="#"><span class="btl"></span>	<span class="btr"></span>Close<span class="bbl"></span>	<span class="bbr"></span></a></li><li class="continue">	<a class="userFunctionalElement" href="http://www.surveygizmo.co.uk/s3/987479/legislation-survey-0812" target="new"><span class="btl"></span>	<span class="btr"></span>Ok<span class="bbl"></span>	<span class="bbr"></span></a></li></ul></div>')
 												.appendTo($modalDialog);
 		 $("body").append($modalDialog);
-		 var parentDiv= $("body").find('#invitationToTest');
+		 var parentDiv= $("body").find('#invitationToSurvey');
 		 
 		 var continueUrl =window.location.pathname.split('/');
-		 var welsh =  continueUrl[1]
-	if($("body").attr('id') != 'error'){
-		if((welsh == 'mwa') || (welsh == 'anaw') || (welsh == 'wsi') || (welsh == 'wdsi'))
-		{
-			if(($("body").find('#layout2').attr('class') == "legToc") && ($("body").find('#layout2').attr('class') != undefined) && ($("body").find('#layout2').attr('class') != '')){
-				
-				$(this).legModalWinOnce({type: 'testingModal', closeLinkTxt: 'Close', parentDiv: parentDiv});
+		 var welsh =  continueUrl[1];
+			if($("body").attr('id') != 'error'){
+			//	if((welsh == 'mwa') || (welsh == 'anaw') || (welsh == 'wsi') || (welsh == 'wdsi'))
+			//	{
+			//		if(($("body").find('#layout2').attr('class') == "legToc") && ($("body").find('#layout2').attr('class') != undefined) && ($("body").find('#layout2').attr('class') != '')){
+						
+						$(this).legModalWinOnce({type: 'testingModal', closeLinkTxt: 'Close', parentDiv: parentDiv});
+			//		}
+			//	}
 			}
-		}
-	}
 };
 
 /*
@@ -115,7 +111,13 @@ $.fn.legModalWinOnce = function(options){
 				event.preventDefault();		
 				closeModWin();
 			});
-			
+			var survey =modalWinJquery_str.find('.continue a');
+			survey.click(function(event){
+				event.preventDefault();	
+				closeModWin();				
+				window.open("http://www.surveygizmo.co.uk/s3/987479/legislation-survey-0812");
+				
+			});
 		}
 		// When the link that opens the modal win is clicked
 

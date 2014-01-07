@@ -65,7 +65,16 @@ $.fn.legModalWin = function(options){
 			// Once user clicks continue, the modalwin closes
 			$("li.continue a", modalWinJquery_str).click(closeModWin());
 		}
-
+		else if(option.type=='testingModal'){
+			modalWinJquery_str = option.parentDiv;
+			// Create a close this window link and attach to the modal window, along with the event handler
+			var close= modalWinJquery_str.find('.close')
+			.click(function(event){
+				event.preventDefault();		
+				closeModWin();
+			});
+			
+		}
 		// When the link that opens the modal win is clicked
 		$(this).click(function(event){	
 				event.preventDefault();	
