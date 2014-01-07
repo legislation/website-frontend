@@ -295,19 +295,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		</span>
 	</div> -->
 	
-	<div id="header">		
-	<xsl:choose>
-		<xsl:when test="$TranslateLang ='cy'">
-			<xsl:element name="{if (leg:IsHome()) then 'h1welsh' else 'h2welsh'}">
-				<a href="/cy">legislation.gov.uk<span/></a>
-			</xsl:element>
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:element name="{if (leg:IsHome()) then 'h1' else 'h2'}">
-				<a href="/">legislation.gov.uk<span/></a>
-			</xsl:element> 	
-		</xsl:otherwise>
-	</xsl:choose>
+	<div id="header">
+		<xsl:element name="{if (leg:IsHome()) then 'h1' else 'h2'}">
+			<xsl:choose>
+				<xsl:when test="$TranslateLang ='cy'">
+					<a href="/cy">legislation.gov.uk<span class="welsh"/></a>					
+				</xsl:when>
+				<xsl:otherwise>
+					<a href="/">legislation.gov.uk<span class="english"/></a>					
+				</xsl:otherwise>
+			</xsl:choose>			
+		</xsl:element>	
 		
 		<span class="{if ($TranslateLang ='cy') then 'natArchWelsh' else 'natArch'}">
 			<a href="http://www.nationalarchives.gov.uk"><xsl:value-of select="leg:TranslateText('The National Archives')"/><span/></a>
