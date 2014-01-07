@@ -319,7 +319,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		</div>
 	</xsl:template>	
 	
-	<xsl:variable name="assessmentTypes" as="xs:string+" select="('Consultation',  'Enactment', 'Final','Post Implementation')" />
+	<xsl:variable name="assessmentTypes" as="xs:string+" select="('Consultation', 'Final', 'Enactment', 'Post Implementation')" />
 	
 	<xsl:template match="leg:ImpactAssessment" mode="TSOOutputWhatVersion">
 	<xsl:variable name="iaTitle">
