@@ -206,7 +206,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:if test="$IsImpactAssessmentsAvailable">
 					<li id="legIALink">
 						<span class="presentation" />
-						<a href="{leg:FormatURL($impactURI, false())}">Impact Assessments</a>
+						<a href="{leg:FormatURL($impactURI, false())}">
+						<xsl:if test="contains(lower-case($documentMainType),'draft')">
+							<xsl:text>Draft </xsl:text>
+						</xsl:if>
+						<xsl:text>Impact Assessments</xsl:text></a>
 						<a href="#moreIATabHelp" class="helpItem helpItemToBot">
 							<img src="/images/chrome/helpIcon.gif" alt=" Help about ImpactAssessments" />
 						</a>
