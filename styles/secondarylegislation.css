@@ -216,7 +216,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 .LegSnippet p.LegText {clear: both; text-align: justify; font-size: 0.8em}
 .LegSnippet .LegRoyalPresence .LegText {clear: both; text-align: center; font-size: 0.8em}
 .LegSnippet .LegBlockText p.LegText {margin-left: 10%}
-.LegSnippet td p.LegText {clear: both; text-align: left; font-size: 0.8em}
+.LegSnippet td p.LegText {clear: both; text-align: left; font-size: 1em}
 .LegSnippet th p.LegText {clear: both; text-align: left; font-size: 0.8em}
 .LegSnippet .LegFootnote .LegText {clear: none; font-size: 0.8em; float: right; width: 92%; text-align: justify; margin-bottom: 0em; padding-bottom: 0.5em; margin-top: 0em; padding-top: 0em}
 .LegSnippet tfoot .LegFootnote .LegText {clear: none; font-size: 0.8em; float: right; width: 96%; text-align: justify; margin-bottom: 0em; padding-bottom: 0.5em; margin-top: 0em}
@@ -373,6 +373,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 .LegSnippet .LegKeyListItem {clear: both; padding: 0em}
 .LegSnippet .LegKeySeparator {float: left; width: 5%; padding: 0em; text-align: center}
 .LegSnippet .LegListItemNo {float: left; text-align: right; padding: 0em; margin: 0em; font-size: 0.8em}
+.LegSnippet td.LegTDplain .LegListItemNo {font-size:1em}
 
 .LegSnippet .LegKeyLegLevel3 {width: 7%}
 .LegSnippet .LegKeyLegLevel4 {width: 13%}
@@ -452,6 +453,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 
 /* Standard entry for list item text */
 .LegSnippet .LegListTextStandard {text-align: justify; margin-top: 0em; padding: 0em; font-size: 0.8em}
+.LegSnippet td.LegTDplain .LegListTextStandard {font-size: 1em}
 
 
 /* ========== Table ========== */
