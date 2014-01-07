@@ -39,7 +39,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <xsl:import href="../../common/utils.xsl"/>
 
-<xsl:output method="xml" version="1.0" omit-xml-declaration="yes"  indent="no" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<xsl:output method="xml" version="1.0" omit-xml-declaration="yes"  indent="yes" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <xsl:key name="citations" match="leg:Citation" use="@id" />
 <xsl:key name="commentary" match="leg:Commentary" use="@id"/>
@@ -82,7 +82,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <xsl:param name="selectedSection" as="element()?" select="()" />
 
-<xsl:variable name="selectedSectionSubstituted" as="xs:boolean" select="tso:isSubstituted($selectedSection)" />
+<xsl:variable name="selectedSectionSubstituted" as="xs:boolean" select="false()" />
 
 <!-- ========= Code for consolidation ========== -->
 
@@ -308,9 +308,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:apply-templates/>
 </xsl:template>
 
-<xsl:template match="leg:ContentsPart/leg:ContentsTitle | leg:ContentsChapter[leg:ContentsNumber]/leg:ContentsTitle">
-<!--FM U437: Chapter Headings should appear even if there is no chapter number   -->
-</xsl:template>
+<!--<xsl:template match="leg:ContentsPart/leg:ContentsTitle | leg:ContentsChapter[leg:ContentsNumber]/leg:ContentsTitle">
+<!-\-FM U437: Chapter Headings should appear even if there is no chapter number   -\->
+</xsl:template>-->
 
 <xsl:template match="leg:Contents/leg:ContentsTitle">
 	<h2 class="LegContentsHeading">
@@ -887,7 +887,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <!--Every child that's repealed has @Match = 'false' and @RestrictEndDate not @Status = 'Prospective': -->
-<xsl:template match="leg:Part | leg:Body | leg:Schedules | leg:Pblock | leg:PsubBlock" priority="50">
+<!--Chunyu HA049670 Changed priority from 50 to 51 since it conflicts with the template of line 955 see nisi/2007/1351 part -->
+<xsl:template match="leg:Part | leg:Body | leg:Schedules | leg:Pblock | leg:PsubBlock" priority="51">
 	<xsl:choose>
 		<xsl:when test="every $child in (leg:* except (leg:Number, leg:Title))
 				satisfies ($child/@Match = 'false' and $child/@RestrictEndDate and not($child/@Status = 'Prospective') and
@@ -1281,12 +1282,13 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <!-- This catches the first leg:Text within a P1 that hasn't got a P1group parent and that has some extent restriction applied -->
+<!--Chunyu HA049670 Added [last()] for P1 which has a scenario with two P1 see nisi/2007/1351 schedule 5 -->
 <xsl:template match="*[not(self::leg:P1group)]/leg:P1[ancestor-or-self::*/@RestrictExtent]//leg:*[preceding-sibling::leg:*[1][self::leg:Pnumber]]/leg:Text[not(preceding-sibling::*) and not(ancestor::leg:BlockAmendment)]">
 	<!-- Generate suffix to be added for CSS classes for amendments -->
 	<xsl:variable name="strAmendmentSuffix">
 		<xsl:call-template name="FuncCalcAmendmentNo"/>
 	</xsl:variable>
-	<xsl:variable name="nstExtentMarker" select="tso:generateExtentInfo(ancestor::leg:P1[not(ancestor-or-self::leg:BlockAmendment)])" />
+	<xsl:variable name="nstExtentMarker" select="tso:generateExtentInfo(ancestor::leg:P1[not(ancestor-or-self::leg:BlockAmendment)][last()])" />
 	<!-- For primary legislation the indent of content is dependent upon its parent for amendments therefore we need more information if the parent is lower level than the content being amended -->
 	<xsl:choose>
 		<!-- N1 without a P1group -->
