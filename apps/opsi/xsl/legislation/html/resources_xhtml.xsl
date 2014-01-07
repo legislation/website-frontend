@@ -271,7 +271,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 					<xsl:apply-templates select="$sortedIAs/ukm:ImpactAssessment[@Stage = 'Consultation']" mode="AssociatedDocuments"/>
 					<xsl:apply-templates select="$sortedIAs/ukm:ImpactAssessment[@Stage = 'Final']" mode="AssociatedDocuments"/>
 					<xsl:apply-templates select="$sortedIAs/ukm:ImpactAssessment[@Stage = 'Enactment']" mode="AssociatedDocuments"/>
-					<xsl:apply-templates select="$sortedIAs/ukm:ImpactAssessment[@Stage = 'Post-Implementation']" mode="AssociatedDocuments"/>
+					<xsl:apply-templates select="$sortedIAs/ukm:ImpactAssessment[@Stage = ('Post-Implementation','Post Implementation')]" mode="AssociatedDocuments"/>
 				</xsl:with-param>
 			</xsl:call-template>
 			
@@ -382,7 +382,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 	
 	<!-- ia generation of an associated document list item -->
 	<xsl:template match="ukm:ImpactAssessment" mode="AssociatedDocuments">
-		<xsl:variable name="stage" select="@Stage"/>
+		<xsl:variable name="stage" select="translate(@Stage,'-',' ')"/>
 		<xsl:variable name="totalStage" as="xs:integer" select="count(../ukm:ImpactAssessment[@Stage = $stage])"/>
 		<xsl:variable name="iaTitle"  as="xs:string?" select="if (@Stage = 'Impact Assessment') then () else 'Impact Assessment '"/>
 		<xsl:variable name="draftText" as="xs:string?" select="if ($isDraft) then 'Draft ' else ()"/>

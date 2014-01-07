@@ -267,7 +267,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		<xsl:variable name="version" as="xs:string?">
 			<xsl:value-of>
 				<xsl:text>the </xsl:text>
-				<xsl:value-of select="if ($iaStage != '') then $iaStage else 'Final'" />
+				<xsl:value-of select="if ($iaStage != '') then translate($iaStage,'-',' ') else 'Final'" />
 				<xsl:text> version of the </xsl:text>
 			</xsl:value-of>
 		</xsl:variable>
