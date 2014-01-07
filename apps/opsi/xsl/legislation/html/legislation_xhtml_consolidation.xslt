@@ -607,7 +607,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:when test="self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims">
 				<xsl:sequence select="descendant::leg:Addition[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1)] | descendant::leg:Repeal[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1)] | descendant::leg:Substitution[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1)]"/>
 			</xsl:when>
-			<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body or parent::leg:Schedules)">
+			<!-- Chunyu HA050371 added parent::leg:ScheduleBody to fix http://www.legislation.gov.uk/ukpga/1981/61/schedule/3 -->
+			<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body or parent::leg:Schedules or parent::leg:ScheduleBody)">
 				<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
 			</xsl:when>
 			<xsl:when test="self::leg:Tabular and (parent::*[@id] or parent::leg:Body or parent::leg:Schedules)">
