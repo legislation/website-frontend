@@ -355,12 +355,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 									</span>
 								</xsl:when>
 								
-								<xsl:when test="contains($iaTitle,$assessmentType)   and (count($part/*[contains(./@Title,$assessmentType)]) = 1 )">
+								<xsl:when test="contains($iaTitle,$assessmentType)   and (count($part/*[contains(@Title,$assessmentType)]) = 1 )">
 									<span class="userFunctionalElement active">
 										<xsl:sequence select="$button" />
 									</span>
 								</xsl:when>
-								<xsl:when test="contains($iaTitle,$assessmentType) and count($part/*[contains(./@Title,$assessmentType)]) gt 1"/>
+								<xsl:when test="contains($iaTitle,$assessmentType) and count($part/*[contains(@Title,$assessmentType)]) gt 1"/>
 									
 									
 								<xsl:when test="exists($iaStage[starts-with(., $assessmentType)])">
@@ -375,7 +375,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								</xsl:otherwise>
 							</xsl:choose>
 						</li>
-						<xsl:if test="count($part/*[contains(./@Title,$assessmentType)]) > 1 and contains($iaTitle,$assessmentType)  ">
+						<xsl:if test="count($part/*[contains(@Title,$assessmentType)]) > 1 and contains($iaTitle,$assessmentType)  ">
 							<xsl:choose>
 								<xsl:when test="$impactId = 'impacts' ">
 									<xsl:for-each select="$part/*[contains(./@Title,$assessmentType)]">
