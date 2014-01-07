@@ -477,6 +477,7 @@
 		<resource id="Browse_UKApplies1">Yn berthnasol yn gyfan gwbl neu’n bennaf i’r ardal ar y map</resource>
 		<resource id="Browse_UKApplies2">Yn berthnasol yn gyfan gwbl neu’n bennaf i’r Deyrnas Unedig</resource>
 		<resource id="Browse_UKApplies3">Gallai gynnwys deddfwriaeth sy’n berthnasol i’r Deyrnas Unedig</resource>
+		<resource id="Browse_UKApplies4">Gallai gynnwys deddfwriaeth sy’n berthnasol i’r ardal ar y map</resource>
 		<resource id="Browse_WalesApplies1">Yn berthnasol yn gyfan gwbl neu’n bennaf i Gymru</resource>
 		<resource id="Browse_WalesApplies2">Gallai gynnwys deddfwriaeth sy’n berthnasol i Gymru</resource>
 		<resource id="Browse_NIApplies1">Yn berthnasol yn gyfan gwbl neu’n bennaf i Ogledd Iwerddon</resource>
@@ -738,6 +739,7 @@
 		<resource id="Browse_UKApplies1">Exclusively or primarily applies to the area on the map</resource>
 		<resource id="Browse_UKApplies2">Exclusively or primarily applies to the UK</resource>
 		<resource id="Browse_UKApplies3">May contain legislation that applies to the UK</resource>
+		<resource id="Browse_UKApplies4">May contain legislation that applies to the area on the map</resource>
 		<resource id="Browse_WalesApplies1">Exclusively or primarily applies to Wales</resource>
 		<resource id="Browse_WalesApplies2">May contain legislation that applies to Wales</resource>
 		<resource id="Browse_NIApplies1">Exclusively or primarily applies to Northern Ireland</resource>
