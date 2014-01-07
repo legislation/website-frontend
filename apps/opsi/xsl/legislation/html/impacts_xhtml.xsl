@@ -284,7 +284,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:when test="$impactId = 'impacts' ">
 					<xsl:sequence select="ukm:Metadata/ukm:Alternatives/ukm:Alternative[not(exists(tokenize(@URI, '_')[4]))]"></xsl:sequence>
 				</xsl:when>
-				<xsl:when test="contains(//dc:identifier,'ukia') or matches($impactId,'[0-9]+')">
+				<xsl:when test="contains(//dc:identifier,'ukia') or not(contains($impactId,'ia'))">
 					<xsl:sequence select="ukm:Metadata/ukm:Alternatives/ukm:Alternative"></xsl:sequence>
 				</xsl:when>
 				<xsl:otherwise>
@@ -385,7 +385,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 										</xsl:variable>
 										<xsl:variable name="buttonPart" as="element()">
 											<span class="background">
-												<span class="btl" /><span class="btr" /><xsl:value-of select="concat($assessmentType,' [ part ',$iaNo,' ]')" /><span class="bbl" /><span class="bbr" />
+												<span class="btl" /><span class="btr" /><xsl:value-of select="concat($assessmentType,' part ',$iaNo)" /><span class="bbl" /><span class="bbr" />
 											</span>
 										</xsl:variable>
 										<li>
@@ -433,7 +433,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 										</xsl:variable>
 										<xsl:variable name="buttonPart" as="element()">
 											<span class="background">
-												<span class="btl" /><span class="btr" /><xsl:value-of select="concat($assessmentType,' [ part ',$iaNo,' ]')" /><span class="bbl" /><span class="bbr" />
+												<span class="btl" /><span class="btr" /><xsl:value-of select="concat($assessmentType,' part ',$iaNo)" /><span class="bbl" /><span class="bbr" />
 											</span>
 										</xsl:variable>
 										<li>

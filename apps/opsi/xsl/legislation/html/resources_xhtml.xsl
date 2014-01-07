@@ -422,26 +422,24 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 										<xsl:when test="self::ukm:ImpactAssessment[exists($ia[4])]">
 										
 											<xsl:value-of select="$title"/>
-											<xsl:text> [ part </xsl:text>
+											<xsl:text> part </xsl:text>
 											<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
-											<xsl:text> ]</xsl:text>
 										</xsl:when>
 										<xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
 												<xsl:value-of select="$title"/>
-											<xsl:text> [ part 1 ]</xsl:text>
+											<xsl:text> part 1</xsl:text>
 										
 										</xsl:when>	
 										
 										<xsl:when test="self::ukm:Alternative[exists($ia[4])]">
 											<xsl:value-of select="$title"/>
-											<xsl:text> [ part </xsl:text>
+											<xsl:text> part </xsl:text>
 											<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
-											<xsl:text> ]</xsl:text>
 										</xsl:when>
 										<xsl:when test="self::ukm:Alternative[preceding-sibling::*[self::ukm:Alternative] and not(following-sibling::*)]						
 											">
 											<xsl:value-of select="$title"/>
-											<xsl:text> [ part 1 ]</xsl:text>
+											<xsl:text> part 1</xsl:text>
 										</xsl:when>
 										<xsl:when test="self::ukm:ComingIntoForce[exists($ia[4])] 
 											| self::ukm:CodeOfPractice[exists($ia[4])] | 
@@ -452,9 +450,9 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 											self::ukm:NIExplanatoryMemorandum[exists($ia[4])] | 
 											self::ukm:TranspositionNote[exists($ia[4])] ">
 											<xsl:value-of select="$title"/>
-											<xsl:text> [ part </xsl:text>
+											<xsl:text> </xsl:text>
 											<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
-											<xsl:text> ]</xsl:text>
+											
 										</xsl:when>
 										<xsl:when test="self::ukm:ComingIntoForce[preceding-sibling::*[self::ukm:ComingIntoForce] and not(following-sibling::*)]
 											| self::ukm:CodeOfPractice[preceding-sibling::*[self::ukm:CodeOfPractice] and not(following-sibling::*)]
@@ -466,7 +464,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 											| self::NIExplanatoryMemorandum[preceding-sibling::*[self::NIExplanatoryMemorandum] and not(following-sibling::*)]
 											">
 											<xsl:value-of select="$title"/>
-											<xsl:text> [ part 1 ]</xsl:text>
+											<xsl:text> 1</xsl:text>
 										</xsl:when>	
 										<xsl:otherwise>
 											<xsl:value-of select="$title" />
@@ -487,26 +485,26 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						</xsl:when>
 						<xsl:when test="self::ukm:ImpactAssessment[exists($ia[4])]">
 							<xsl:value-of select="$title"/>
-							<xsl:text> [ part </xsl:text>
+							<xsl:text> part </xsl:text>
 							<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
-							<xsl:text> ]</xsl:text>
+							
 						</xsl:when>
 						<xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
 									<xsl:value-of select="$title"/>
-							<xsl:text> [ part 1 ]</xsl:text>
+							<xsl:text> part 1</xsl:text>
 							
 						</xsl:when>	
 						
 						<xsl:when test="self::ukm:Alternative[exists($ia[4])]">
 							<xsl:value-of select="$title"/>
-							<xsl:text> [ part </xsl:text>
+							<xsl:text> part </xsl:text>
 							<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
-								<xsl:text> ]</xsl:text>
+							
 						</xsl:when>
 						<xsl:when test="self::ukm:Alternative[preceding-sibling::*[self::ukm:Alternative] and not(following-sibling::*)]						
 							">
 							<xsl:value-of select="$title"/>
-							<xsl:text> [ part 1 ]</xsl:text>
+							<xsl:text> part 1</xsl:text>
 							
 						</xsl:when>
 						<xsl:when test="self::ukm:ComingIntoForce[exists($ia[4])] 
@@ -518,9 +516,9 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 							self::ukm:NIExplanatoryMemorandum[exists($ia[4])] | 
 							self::ukm:TranspositionNote[exists($ia[4])] ">
 								<xsl:value-of select="$title"/>
-							<xsl:text> [ part </xsl:text>
+							<xsl:text> </xsl:text>
 							<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
-							<xsl:text> ]</xsl:text>
+						
 						</xsl:when>
 						<xsl:when test="self::ukm:ComingIntoForce[preceding-sibling::*[self::ukm:ComingIntoForce] and not(following-sibling::*)]
 							| self::ukm:CodeOfPractice[preceding-sibling::*[self::ukm:CodeOfPractice] and not(following-sibling::*)]
@@ -532,7 +530,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 							| self::NIExplanatoryMemorandum[preceding-sibling::*[self::NIExplanatoryMemorandum] and not(following-sibling::*)]
 							">
 							<xsl:value-of select="$title"/>
-							<xsl:text> [ part 1 ]</xsl:text>
+							<xsl:text> 1</xsl:text>
 							
 						</xsl:when>	
 						<!--<xsl:value-of select="$dateSuffix" />-->

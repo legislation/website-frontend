@@ -27,11 +27,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:variable name="typeSub" as="xs:string" select="atom:feed/openSearch:Query/@leg:type"></xsl:variable>
 	
 	<xsl:variable name="sub" as="xs:string*" select="atom:feed/openSearch:Query/@leg:subject"></xsl:variable>
+	
 		
 	<xsl:template match="atom:feed" mode="searchfacets">
 		<xsl:apply-templates select="leg:facets" mode="searchfacets"/>
 	</xsl:template>
 	
+		
 	<xsl:template match="leg:facets[empty(leg:facetTypes/*) and empty(leg:facetYears/*) and empty(leg:facetHundreds/*)]" mode="searchfacets">
 		<div id="tools">
 			<h2 class="accessibleText">Narrow results by:</h2>
@@ -229,8 +231,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<xsl:variable name="selected" as="xs:boolean" select="exists(@remove)" />
 			<div id="heading" class="section">
 				<div class="title">
-					<h3>Legislation by Heading</h3>
+					<h3>Legislation by Subject Heading</h3>
+	
 				</div>
+				<xsl:if test="not(exists(//openSearch:Query/leg:subject))">
+					<div class="title">
+						<h4>1. Select First Letter of Heading</h4>
+						</div>
+				</xsl:if>
 				<div class="content">
 					<xsl:if test="$selected">
 						<ul>
@@ -273,7 +281,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			</div>
 			<div id="subheading" class="section">
 			<div class="title">
-				<h3>Navigate to a subheading:</h3>
+				<h4>2. Refine Results</h4>
 			</div>
 			<div class="content">
 				<ul>
