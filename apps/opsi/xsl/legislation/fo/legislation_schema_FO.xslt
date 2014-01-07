@@ -3451,7 +3451,7 @@ exclude-result-prefixes="tso atom">
 					<xsl:sequence select="descendant::leg:CommentaryRef" />
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:sequence select="child::leg:CommentaryRef | (leg:Number | leg:Title | leg:Reference | leg:TitleBlock)/descendant::leg:CommentaryRef"/>
+					<xsl:sequence select="leg:Text/leg:CommentaryRef | child::leg:CommentaryRef | (leg:Number | leg:Title | leg:Reference | leg:TitleBlock)/descendant::leg:CommentaryRef"/>
 				</xsl:otherwise>	
 			</xsl:choose>			
 		</xsl:variable>
@@ -3474,7 +3474,7 @@ exclude-result-prefixes="tso atom">
 					<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution" />
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:sequence select="leg:Addition | leg:Repeal | leg:Substitution | (leg:Number | leg:Title | leg:Reference | leg:TitleBlock)/(descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution)"/>
+					<xsl:sequence select="leg:Text/leg:Addition | leg:Text/leg:Repeal | leg:Text/leg:Substitution | leg:Addition | leg:Repeal | leg:Substitution | (leg:Number | leg:Title | leg:Reference | leg:TitleBlock)/(descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution)"/>
 				</xsl:otherwise>	
 			</xsl:choose>			
 		</xsl:variable>
@@ -3518,6 +3518,8 @@ exclude-result-prefixes="tso atom">
 				</xsl:apply-templates>
 			</xsl:if>	
 		</xsl:variable>
+		
+
 		
 		<xsl:if test="$showComments or $higherLevelComments/*">
 			<fo:block  margin-left="0pt" margin-right="0pt" font-size="10pt" border="0.75pt #c7c7c7 solid" padding="6pt" color="black" space-before="8pt"   >
