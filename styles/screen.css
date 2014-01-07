@@ -182,7 +182,7 @@ ul#secondaryNav li a.langaugeSwitch {font-weight: bold; color: red;}
 /* Footer begin */
 #footer	div	{padding-right:1.5em;}
 #footer	.copyright	{float:right;}
-#footer	.copyrightstatement	{padding-left:55px;background: url("/images/chrome/ogl-symbol.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);}
+#footer	.copyrightstatement	{padding-left:55px;background: url("/images/chrome/ogl-symbol.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);}
 #footer	div	p {margin: 0 ; padding: 0 1% 0 1%; color: #66677C; font-size: 0.95em}
 #footer div p a {color: #66677C;}
 /* end of footer */
