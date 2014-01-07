@@ -190,11 +190,19 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<!-- loading the Explanatory Memorandum-->
 				<xsl:if test="$IsEnAvailable">
 					<xsl:call-template name="TSOOutputSubNavTabsENs">
-						<xsl:with-param name="typeOfEn" select="if (contains($enURI,'policy-note')) then 'pn' else 'en'"/>
+						<xsl:with-param name="typeOfEn" select="'en'"/>
 						<xsl:with-param name="hrefOfEn" select="$enURI" />
 					</xsl:call-template>
 				</xsl:if>				
 			
+				<!-- loading the Policy Note -->
+				<xsl:if test="$IsPnAvailable">
+					<xsl:call-template name="TSOOutputSubNavTabsENs">
+						<xsl:with-param name="typeOfEn" select="'pn'"/>
+						<xsl:with-param name="hrefOfEn" select="$pnURI" />
+					</xsl:call-template>
+				</xsl:if>
+				
 				<xsl:if test="$IsImpactAssessmentsAvailable">
 					<li id="legIALink">
 						<span class="presentation" />
@@ -311,7 +319,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<xsl:call-template name="TSOOutputENHelpTip">
 				<xsl:with-param name="uriPrefix" select="$uriPrefix"/>
 				<xsl:with-param name="documentMainType" select="$documentMainType"/>
-				<xsl:with-param name="enType" select="if (contains($enURI,'policy-note')) then 'pn' else 'en'"/>				
+				<xsl:with-param name="enType" select="'en'"/>				
+			</xsl:call-template>
+		</xsl:if>
+		
+		 <!-- loading the Policy Notes help-->
+		<xsl:if test="$IsPnAvailable">
+			<xsl:call-template name="TSOOutputENHelpTip">
+				<xsl:with-param name="uriPrefix" select="$uriPrefix"/>
+				<xsl:with-param name="documentMainType" select="$documentMainType"/>
+				<xsl:with-param name="enType" select="'pn'"/>				
 			</xsl:call-template>
 		</xsl:if>
 		

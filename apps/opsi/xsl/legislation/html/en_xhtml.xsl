@@ -60,8 +60,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:variable name="enURI" as="xs:string?" 
 		select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/notes/toc']/@href | 
 			/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/executive-note/toc']/@href |
-			/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/policy-note/toc']/@href |
 			/leg:EN/ukm:Metadata/atom:link[@rel='http://purl.org/dc/terms/tableOfContents']/@href" />
+	<xsl:variable name="pnURI" as="xs:string?" 
+		select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/policy-note/toc']/@href" />		
 
 	<xsl:variable name="uriPrefix" as="xs:string" 
 		select="tso:GetUriPrefixFromType(/leg:EN/ukm:Metadata/ukm:ENmetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value, /leg:EN/ukm:Metadata/ukm:ENmetadata/ukm:Year/@Value)"/>
@@ -69,6 +70,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	
 	<xsl:variable name="IsEnAvailable" as="xs:boolean" select="exists($enURI)"/>
 	<xsl:variable name="IsEmAvailable" as="xs:boolean" select="exists($emURI)"/>
+	<xsl:variable name="IsPnAvailable" as="xs:boolean" select="exists($pnURI)"/>
 		
 	<xsl:variable name="IsMoreResourcesAvailable" as="xs:boolean" 
 		select="tso:ShowMoreResources(/)"/>			
@@ -91,7 +93,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:call-template name="TSOOutputAddLegislationStyles" />
 			</head>		
 			<body xml:lang="en" lang="en" dir="ltr" id="leg" about="{$dcIdentifier}"  class="toc">
-				<div id="layout2" class="leg{if ($enType='en' or $enType='' ) then 'En' else 'Em'}{if (leg:IsEnTOC()) then 'Toc' else 'Content'}">
+				<div id="layout2" class="leg{if ($enType='en' or $enType='' ) then 'En' else if ($enType='pn') then 'Pn' else 'Em'}{if (leg:IsEnTOC()) then 'Toc' else 'Content'}">
 			
 					<!-- adding quick search  -->
 					<xsl:call-template name="TSOOutputQuickSearch"/>
