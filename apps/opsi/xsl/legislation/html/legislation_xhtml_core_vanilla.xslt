@@ -3672,12 +3672,21 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 	
 	<!-- Yashashri : changed to make Headings Italic - Support call- 	HA047941-->
-	<!-- Chunyu HA050076 Added em back to the template -->
+	<!-- Chunyu HA050076 Added em back to the template with the condition -->
 <xsl:template match="leg:Emphasis">	
-	<em>
-		<xsl:call-template name="FuncCheckForID"/>
+	<xsl:choose>
+		<xsl:when test="parent::leg:Title/parent::leg:Pblock">
+			<xsl:call-template name="FuncCheckForID"/>
 		<xsl:apply-templates/>	
-	</em>
+		</xsl:when>
+		<xsl:otherwise>
+			<em>
+				<xsl:call-template name="FuncCheckForID"/>
+				<xsl:apply-templates/>	
+			</em>
+		</xsl:otherwise>
+	</xsl:choose>
+	
 </xsl:template>
 
 <xsl:template match="leg:Underline">

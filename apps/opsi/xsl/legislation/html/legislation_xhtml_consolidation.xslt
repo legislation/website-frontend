@@ -783,7 +783,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		</xsl:if>	
 	</xsl:element>
 </xsl:template>
-<xsl:template name="FuncGenerateMajorHeadingTitle">
+
+	<xsl:template name="FuncGenerateMajorHeadingTitle">
 	<xsl:param name="strHeading"/>
 	<!-- Generate suffix to be added for CSS classes for amendments -->
 	<xsl:variable name="strAmendmentSuffix">
@@ -796,8 +797,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:element name="span">		
 		<xsl:attribute name="class">
 			<!-- Yashashri: Changed To make Headings Left alligned - Support call - HA047941-->
+			<!-- Chunyu: Added the condition for Yash's change to limit for pblock see HA050365 http://www.legislation.gov.uk/nia/2012/3/part/3 -->
 				<xsl:choose>
-					<xsl:when test="leg:Emphasis">LegClearFix LegSP1GroupTitle</xsl:when>
+					<xsl:when test="leg:Emphasis and not(parent::leg:Pblock)">LegClearFix LegSP1GroupTitle</xsl:when>
 					<xsl:otherwise>	
 						<xsl:text>Leg</xsl:text>
 						<xsl:value-of select="$strHeading"/>

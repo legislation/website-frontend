@@ -234,14 +234,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 </xsl:template>
 
+	<!--Chunyu:HA050365 see http://www.legislation.gov.uk/nia/2012/3/part/3   I checked some docs online and found pblock/title should be italic centre-->
 <xsl:template match="leg:Pblock/leg:Title">
 	<fo:block font-size="{$g_strBodySize}" space-before="18pt" keep-with-next="always" font-style="italic">
-		<xsl:attribute name="text-align">
-			<xsl:choose>
+		<xsl:attribute name="text-align">center</xsl:attribute>
+			<!--<xsl:choose>
 				<xsl:when test="not(ancestor::leg:BlockAmendment) and leg:Emphasis">left</xsl:when>
 				<xsl:otherwise>center</xsl:otherwise>
-			</xsl:choose>
-		</xsl:attribute>
+			</xsl:choose>-->
+		
 		<xsl:call-template name="TSOgetID"/>
 		<xsl:apply-templates/>
 	</fo:block>
