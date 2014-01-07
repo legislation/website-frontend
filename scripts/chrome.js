@@ -1,9 +1,9 @@
 /*
-ï¿½  Crown copyright
+(c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence
+You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 
 */
 /*
@@ -113,7 +113,7 @@ $(document).ready(function(){
 		.attr('href', '#statusWarningSubSections')
 		.appendTo("#statusWarning .title:first .linkContainer")
 		.addClass("expandCollapseLink")
-		.legExpandCollapse(['View outstanding changes<span class="accessibleText"> status warnings</span>', 'Close<span class="accessibleText"> status warnings</span>']);
+		.legExpandCollapse([config.statusWarning.expandCollapseLink.message1[LANG] + '<span class="accessibleText">' + config.statusWarning.expandCollapseLink.message2[LANG] + '</span>', config.statusWarning.expandCollapseLink.message3[LANG] + '<span class="accessibleText">' + config.statusWarning.expandCollapseLink.message2[LANG] +'</span>']);
 	}
 	
 	// Effects to be applied
@@ -123,7 +123,7 @@ $(document).ready(function(){
 	.attr('href', '#statusEffectsAppliedContent')
 	.appendTo("#statusEffectsAppliedSection .title .linkContainer")
 	.addClass("expandCollapseLink")
-	.legExpandCollapse(['More<span class="accessibleText"> effects to be announced</span>', 'Close<span class="accessibleText"> effects to be announced</span>']);
+	.legExpandCollapse([config.statusEffectsAppliedSection.expandCollapseLink.message1[LANG] + '<span class="accessibleText">' + config.statusEffectsAppliedSection.expandCollapseLink.message2[LANG] + '</span>', config.statusEffectsAppliedSection.expandCollapseLink.message3[LANG] + '<span class="accessibleText">' +  config.statusEffectsAppliedSection.expandCollapseLink.message2[LANG] + '</span>']);
 	
 	// Changes to be applied
 	$("<div/>").addClass("linkContainer").appendTo("#changesAppliedSection .title");
@@ -132,7 +132,7 @@ $(document).ready(function(){
 	.attr('href', '#changesAppliedContent')
 	.appendTo("#changesAppliedSection .title .linkContainer")
 	.addClass("expandCollapseLink")
-	.legExpandCollapse(['More<span class="accessibleText"> effects to be announced</span>', 'Close<span class="accessibleText"> effects to be announced</span>']);
+	.legExpandCollapse([config.changesAppliedContent.expandCollapseLink.message1[LANG] + '<span class="accessibleText">' + config.changesAppliedContent.expandCollapseLink.message2[LANG] + '</span>', config.changesAppliedContent.expandCollapseLink.message3[LANG]+  '<span class="accessibleText">' + config.changesAppliedContent.expandCollapseLink.message2[LANG] + '</span>']);
 	
 	// Commencement orders to be applied
 	$("<div/>").addClass("linkContainer").appendTo("#commencementAppliedSection .title");
@@ -141,20 +141,20 @@ $(document).ready(function(){
 	.attr('href', '#commencementAppliedContent')
 	.appendTo("#commencementAppliedSection .title .linkContainer")
 	.addClass("expandCollapseLink")
-	.legExpandCollapse(['More<span class="accessibleText"> changes to be applied</span>', 'Close<span class="accessibleText"> changes to be applied</span>']);				   
+	.legExpandCollapse([config.commencementAppliedContent.expandCollapseLink.message1[LANG] + '<span class="accessibleText">'+ config.commencementAppliedContent.expandCollapseLink.message2[LANG]+'</span>',  config.commencementAppliedContent.expandCollapseLink.message3[LANG] + '<span class="accessibleText">' + config.commencementAppliedContent.expandCollapseLink.message2[LANG]+ '</span>']);				   
 });
 						   
 $(document).ready(function(){	
 	// Quicksearch	
 	$("#quickSearch").children().filter("a")
 	.addClass("expandCollapseLink")
-	.legExpandCollapse(['<span>Search Legislation<span class="accessibleText"> Show</span></span>','<span>Search Legislation<span class="accessibleText"> Hide</span></span>'], {
+	.legExpandCollapse(['<span>' + config.quickSearch.expandCollapseLink.message1[LANG] + '<span class="accessibleText">' + config.quickSearch.expandCollapseLink.message2[LANG] + '</span></span>','<span>' + config.quickSearch.expandCollapseLink.message1[LANG] + '<span class="accessibleText">' +config.quickSearch.expandCollapseLink.message3[LANG] + '</span></span>','<span>'], {
 		state: legGlobals.expandCollapseState,
 		expires: legGlobals.legCookieExpire,
 		open: "open"
 	});	
 });
-
+                                       
 $(document).ready(function(){
 	// ToC Scripts -----------------------------------------
 	// Create the links that expand/collapse the small trees 
@@ -200,14 +200,14 @@ $(document).ready(function(){
 			.attr('href', '#')
 			.addClass("userFunctionalElement tocExpandAll")
 			.appendTo(".tocGlobalControls li:last")
-			.html("Collapse all -")
+			.html(config.links.message1[LANG])
 			.toggle(function (event) {
-					$(this).html("Expand all +");					
+					$(this).html(config.links.message2[LANG]);					
 					event.preventDefault();
 					$("a.expandCollapseTocLink").removeClass("expand").nextAll("ol").hide();								
 			},
 				function (event) {
-					$(this).html("Collapse all -");				
+					$(this).html(config.links.message1[LANG]);				
 					event.preventDefault();
 					$("a.expandCollapseTocLink").removeClass("expand").addClass("expand").nextAll("ol").show();						
 			});
@@ -227,9 +227,10 @@ $(document).ready(function(){
 	$(".warning", "#openingOptions").legModalWin();				   
 });
 
-$(document).ready(function(){
-	$(this).showModalDialog();
-});
+
+//  $(document).ready(function(){
+//	$(this).showModalDialog();
+//});
 
 $(document).ready(function(){
 	// Slightly different way of adding the links, wrap the <a> element around the <h2> inner HTML
@@ -302,11 +303,11 @@ $(document).ready(function(){
 	}
 });
 /*
-©  Crown copyright
+(c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence
+You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 
 */
 /*
@@ -445,11 +446,11 @@ $.fn.legExpandCollapse = function(htmlValues_arr, options){
 	}	
 };
 /*
-©  Crown copyright
+(c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence
+You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 
 */
 /*
@@ -606,11 +607,11 @@ $.fn.legHelpBox = function(helpBoxOptions) {
 	});
 };
 /*
-©  Crown copyright
+(c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence
+You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 
 */
 /*
@@ -658,11 +659,11 @@ $.fn.imgReplace = function(){
 	return this;
 };
 /*
-©  Crown copyright
+(c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence
+You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 
 */
 /*
@@ -759,11 +760,11 @@ $.fn.legInterfaceOptions = function() {
 	return this;
 };
 /*
-ï¿½  Crown copyright
+(c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence
+You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 
 */
 /*
@@ -854,12 +855,7 @@ $.fn.legModalWin = function(options){
 					topPos  = winH/2-$(modalWinJquery_str).height()/2;
 					leftPos = winW/2-$(modalWinJquery_str).width()/2;
 					height  = 'auto'
-				} else if (option.type == 'testingModal'){
-					topPos  = winH/2-$(modalWinJquery_str).height()/2;
-					leftPos = winW/2-$(modalWinJquery_str).width()/2;
-					height  = 'auto'	
-				}
-				
+				} 
 				else {	
 					// The previewImg type of modal window is a link from a thumbnail or preview image
 					
@@ -948,166 +944,12 @@ $.fn.legModalWin = function(options){
 	// return this to keep chaining alive
 	return this;				   
 };
-
-
 /*
- *
- */
-$.fn.legModalWinOnce = function(options){
-	// required for chaining, refer to jQuery API for more details
-
-						   
-		// Create variables and constants for storage, these can be overwritten in the normal jQuery way
-		var modalWinJquery_str;
-		var settings = {  
-		 type: 'defaultWin',
-		 fadeLength: 400,  
-		 bgJqueryStr: '#modalBg',
-		 closeLinkId_str: '#',
-		 closeLinkIdJQuery_str: '#',  
-		 closeLinkTxt: 'Cancel'
-		};  
-		var option = $.extend(settings, options);
-		
-		if (option.type == 'defaultWin'){			
-			// The default modal window is a link to a pre-existing disalogue box
-			modalWinJquery_str = $($(this).attr('href'));
-			// Create a close this window link and attach to the modal window, along with the event handler
-			$("<li/>")
-			.addClass('cancel')
-			.html('<a href="#" class="userFunctionalElement"><span class="btl"></span><span class="btr"></span>'+option.closeLinkTxt+'<span class="bbl"></span><span class="bbr"></span></a>')
-			.prependTo($(modalWinJquery_str).children("div:last").children("ul"))
-			.click(function(event){
-				event.preventDefault();		
-				closeModWin();	
-			});
-			
-			// Once user clicks continue, the modalwin closes
-			$("li.continue a", modalWinJquery_str).click(closeModWin());
-		}
-		else if(option.type=='testingModal'){
-			modalWinJquery_str = option.parentDiv;
-			// Create a close this window link and attach to the modal window, along with the event handler
-			var close= modalWinJquery_str.find('.close')
-			close.click(function(event){
-				event.preventDefault();		
-				closeModWin();
-			});
-			
-		}
-		// When the link that opens the modal win is clicked
-
-				
-				//Get the window height and width  
-				var winH = window.innerHeight; // get W3C val for browsers that can handle it
-				if (!winH)
-					winH = $(window).height(); // use jQuery if they can't 
-				var winW = window.innerWidth;
-				if (!winW)	
-					winW = $(window).width();
-				
-				// Work out centering of the window and special functions
-				var topPos, leftPos, height, width;
-				if (option.type == 'defaultWin'){
-					// The default option requires minor positioning
-					topPos  = winH/2-$(modalWinJquery_str).height()/2;
-					leftPos = winW/2-$(modalWinJquery_str).width()/2;
-					height  = 'auto'
-				} else if (option.type == 'testingModal'){
-					topPos  = winH/2-$(modalWinJquery_str).height()/2;
-					leftPos = winW/2-$(modalWinJquery_str).width()/2;
-					height  = 'auto'	
-				}
-				
-				else {	
-					// The previewImg type of modal window is a link from a thumbnail or preview image
-					
-					// Find the Image URI and create the SRC attribute for iFrame
-					var modalWinIframeSrc = 'http://www.legislation.gov.uk/tools/displayimage?URL=' + $(this).attr('href');
-			
-					// As this <div> isn;t embedded into the XHTML the modal win needs to be created here
-					$('<div>')
-					.attr('id', 'previewImgWin')
-					.addClass('modWin')
-					.appendTo('#leg')					
-					
-					modalWinJquery_str = '#previewImgWin'; // Set this to apply css and event handlers
-								
-					// Add the iframe and pass the URi as an argument for the destination HTML to parse
-					$(modalWinJquery_str)
-					.html('<iframe src="' + modalWinIframeSrc + '"></iframe>')
-					.prepend('<a href="#" class="closeLink"><img src="/images/chrome/closeIcon.gif" alt="Close"/></a>')
-					.prepend('<h2 class="title">Large image view</h2>')
-					
-					// If the closelink is pressed, close the window
-					$('a', modalWinJquery_str)
-					.click(function(e) {
-					  e.preventDefault();
-					  closeModWin()
-					});
-					
-					// Set the width and height as large as the viewable window
-					height  = 0.9 * winH
-					width   = 0.9 * winW
-					
-					// Set the positioning
-					topPos  = $(window).scrollTop() + (0.0125 * winH);
-					leftPos = winW/2-width/2;
-					
-					// Remove scrollbars from the bg					
-					$('body').css('overflow', 'hidden');
-				}
-				
-				// IE6 doesn't support fixed position
-				if ($.browser.msie && parseInt($.browser.version) < 7) {
-					var position = "absolute";
-				} else if (option.type == 'previewImg') {
-					var position = "absolute";
-				} else {
-					var position = "fixed";
-				}			
-				
-				// Apply the popup window to center and style elements within
-				$(modalWinJquery_str).css({'top': topPos, 'position': position, 'height': height, 'width': width, 'left': leftPos}); 
-				$('iframe', modalWinJquery_str).css({height: '90%', width: '98%'}).hide // used for image option
-				
-				// Set the background width to the window width so that there's no
-				// horizontal nav bars
-				$(option.bgJqueryStr).css({'width':$(document).width(),'height':$(document).height()});
-				
-				// Show animation
-				$(modalWinJquery_str).show(option.fadeLength);
-				$(option.bgJqueryStr).fadeTo(option.fadeLength, 0.8).css({'width':$(document).width(),'height':$(document).height()});	
-				
-				$('iframe', modalWinJquery_str).fadeIn("slow");
-
-		
-			// Escape key also closes the modalwin
-			$(document).keypress(function(e) {
-				if (e.keyCode == 27) {
-					closeModWin()
-				}
-			});
-			
-			// Close function
-			function closeModWin() {
-				if (option.type == 'previewImg') {
-					$(modalWinJquery_str).remove();
-					$('body').css('overflow', 'visible');
-				} else {
-					$(modalWinJquery_str).hide(option.fadeLength);
-				}
-				$(option.bgJqueryStr).fadeOut(option.fadeLength);		
-			}
-			   
-};
-
-/*
-©  Crown copyright
+(c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence
+You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 
 */
 /*
@@ -1128,8 +970,11 @@ $.fn.legTocExpandCollapse = function(pageID, cookieExpire){
 	
 	// using this method for inserting text and relying on CSS to show correct atrribute as less intensive on DOM.
 	// The divider is made availalable in case CSS is disabled.
-	$(this).html('<span class="tocExpandText">Expand +</span><span class="tocTextDivider"> / </span><span class="tocCollapseText">Collapse -</span>');
 	
+	$(this).html('<span class="tocExpandText">' + config.links.message3[LANG] + '</span><span class="tocTextDivider">/</span><span class="tocCollapseText">' + config.links.message4[LANG] + '</span>');
+
+ 
+
 	// Find the default state from the XHTML and apply
 	var tocDefaultState;
 	
@@ -1267,21 +1112,21 @@ $.fn.legTocExpandCollapse = function(pageID, cookieExpire){
 	}
 };
 /*
-©  Crown copyright
+(c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence
+You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 
 */
 function previousNextTextMatchLinks(){
 		
 	// Add the skip links
-	$("#viewLegContents").prepend('<ul id="skipLinks"><li><a href="" id="previous">Previous match</a></li><li><a href="" id="next">Next match</a></li></ul>');
+	$("#viewLegContents").prepend('<ul id="skipLinks"><li><a href="" id="previous">' + config.viewLegContents.previous[LANG] + '</a></li><li><a href="" id="next">' + config.viewLegContents.next[LANG] + '</a></li></ul>');
 	
 	// If the referrer is a text search, add a button back to search
 	if (document.referrer.match(/^http:\/\/www\.legislation\.gov\.uk\/.*(\?|&)text=.*/)){
-		$('#skipLinks li:first').after('<li><a href="javascript:history.back()" id="backToSearch">Back to search results</a></li>');
+		$('#skipLinks li:first').after('<li><a href="javascript:history.back()" id="backToSearch">' + config.viewLegContents.backToSearch[LANG] + '</a></li>');
 	}
 
 	
@@ -1354,3 +1199,238 @@ function previousNextTextMatchLinks(){
 		}
 	}
 };
+
+/*
+(c)  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
+
+*/
+/*
+
+Legislation Modal Window
+
+One-liner: Overlays a div on top of the main content containing useful information to be displayed
+
+Usage: $(.linkClass).showModalDialog()
+
+Requirements: 
+jQuery framework- http://jquery.com/
+<div id="modalBg"> to be attached to the XHTML document
+CSS to control z-index for overlays
+Div acting as modal window to already have been loaded
+
+
+*/
+/*$.fn.showModalDialog = function(options) {
+	
+		var defaults = {
+			classes: {
+				modalWindow: 'modWin',
+				messageTitle: 'title webWarningTitle',
+				message: 'content',
+				messageINterface: 'interface'
+			},
+			modalId: 'invitationToSurvey',
+			titleText: 'Invitiation to survey',
+			textLine1: 'Thank you for using legislation.gov.uk',
+			textLine2: 'Can you help us to better understand how users read and interact with legislation by taking our survey? ',
+			textLine3: 'Survey closes on 22 September 2012.',
+			debug: false,
+			continueURL: function() {return '/'}
+		},
+		cfg = $.extend(defaults, options),
+
+		$modalDialog = $('<div />').addClass(cfg.classes.modalWindow).attr('id', cfg.modalId)
+		
+		$('<div />').addClass(cfg.classes.messageTitle)
+				.append( $('<div /> ').addClass(cfg.classes.message)
+						.append('<h3>' + cfg.textLine1+ '</h3>')
+							.append ('<p>' + cfg.textLine2 + '</p>')
+									.append('<p>' + cfg.textLine3 + '</p>')	)
+											.append('<div class="interface"><ul><li class="close">	<a class="userFunctionalElement" href="#"><span class="btl"></span>	<span class="btr"></span>Close<span class="bbl"></span>	<span class="bbr"></span></a></li><li class="continue">	<a class="userFunctionalElement" href="http://www.surveygizmo.co.uk/s3/987479/legislation-survey-0812" target="new"><span class="btl"></span>	<span class="btr"></span>Ok<span class="bbl"></span>	<span class="bbr"></span></a></li></ul></div>')
+												.appendTo($modalDialog);
+			var homePage= $("body").find("#siteLinks");
+			if(homePage.length)console.log("home");
+		 $("#siteLinks").append($modalDialog);
+
+
+		 var parentDiv= $("body").find('#invitationToSurvey');
+		 
+		 var continueUrl =window.location.pathname.split('/');
+		 var welsh =  continueUrl[1];
+			if($("body").attr('id') != 'error'){
+			//	if((welsh == 'mwa') || (welsh == 'anaw') || (welsh == 'wsi') || (welsh == 'wdsi'))
+			//	{
+			//		if(($("body").find('#layout2').attr('class') == "legToc") && ($("body").find('#layout2').attr('class') != undefined) && ($("body").find('#layout2').attr('class') != '')){
+						
+			//			$(this).legModalWinOnce({type: 'testingModal', closeLinkTxt: 'Close', parentDiv: parentDiv});
+			//		}
+			//	}
+			}
+};
+*/
+
+/*
+ * Opens the modal window to display a message on page load, this function does not require any click event to trigger itself.
+ * 
+ */
+$.fn.legModalWinOnce = function(options){
+	// required for chaining, refer to jQuery API for more details
+
+						   
+		// Create variables and constants for storage, these can be overwritten in the normal jQuery way
+		var modalWinJquery_str;
+		var settings = {  
+		 type: 'defaultWin',
+		 fadeLength: 400,  
+		 bgJqueryStr: '#modalBg',
+		 closeLinkId_str: '#',
+		 closeLinkIdJQuery_str: '#',  
+		 closeLinkTxt: 'Cancel'
+		};  
+		var option = $.extend(settings, options);
+		
+		if (option.type == 'defaultWin'){			
+			// The default modal window is a link to a pre-existing disalogue box
+			modalWinJquery_str = $($(this).attr('href'));
+			// Create a close this window link and attach to the modal window, along with the event handler
+			$("<li/>")
+			.addClass('cancel')
+			.html('<a href="#" class="userFunctionalElement"><span class="btl"></span><span class="btr"></span>'+option.closeLinkTxt+'<span class="bbl"></span><span class="bbr"></span></a>')
+			.prependTo($(modalWinJquery_str).children("div:last").children("ul"))
+			.click(function(event){
+				event.preventDefault();		
+				closeModWin();	
+			});
+			
+			// Once user clicks continue, the modalwin closes
+			$("li.continue a", modalWinJquery_str).click(closeModWin());
+		}
+	/*	else if(option.type=='testingModal'){
+			modalWinJquery_str = option.parentDiv;
+			// Create a close this window link and attach to the modal window, along with the event handler
+			var close= modalWinJquery_str.find('.close')
+			close.click(function(event){
+				event.preventDefault();		
+				closeModWin();
+			});
+			var survey =modalWinJquery_str.find('.continue a');
+			survey.click(function(event){
+				event.preventDefault();	
+				closeModWin();				
+				window.open("http://www.surveygizmo.co.uk/s3/987479/legislation-survey-0812");
+				
+			});
+		}
+		*/
+		// When the link that opens the modal win is clicked
+
+				
+				//Get the window height and width  
+				var winH = window.innerHeight; // get W3C val for browsers that can handle it
+				if (!winH)
+					winH = $(window).height(); // use jQuery if they can't 
+				var winW = window.innerWidth;
+				if (!winW)	
+					winW = $(window).width();
+				
+				// Work out centering of the window and special functions
+				var topPos, leftPos, height, width;
+				if (option.type == 'defaultWin'){
+					// The default option requires minor positioning
+					topPos  = winH/2-$(modalWinJquery_str).height()/2;
+					leftPos = winW/2-$(modalWinJquery_str).width()/2;
+					height  = 'auto'
+				} else if (option.type == 'testingModal'){
+					topPos  = winH/2-$(modalWinJquery_str).height()/2;
+					leftPos = winW/2-$(modalWinJquery_str).width()/2;
+					height  = 'auto'	
+				}
+				
+				else {	
+					// The previewImg type of modal window is a link from a thumbnail or preview image
+					
+					// Find the Image URI and create the SRC attribute for iFrame
+					var modalWinIframeSrc = 'http://www.legislation.gov.uk/tools/displayimage?URL=' + $(this).attr('href');
+			
+					// As this <div> isn;t embedded into the XHTML the modal win needs to be created here
+					$('<div>')
+					.attr('id', 'previewImgWin')
+					.addClass('modWin')
+					.appendTo('#leg')					
+					
+					modalWinJquery_str = '#previewImgWin'; // Set this to apply css and event handlers
+								
+					// Add the iframe and pass the URi as an argument for the destination HTML to parse
+					$(modalWinJquery_str)
+					.html('<iframe src="' + modalWinIframeSrc + '"></iframe>')
+					.prepend('<a href="#" class="closeLink"><img src="/images/chrome/closeIcon.gif" alt="Close"/></a>')
+					.prepend('<h2 class="title">'+ config.modalwin.title[LANG] + '</h2>')
+					
+					// If the closelink is pressed, close the window
+					$('a', modalWinJquery_str)
+					.click(function(e) {
+					  e.preventDefault();
+					  closeModWin()
+					});
+					
+					// Set the width and height as large as the viewable window
+					height  = 0.9 * winH
+					width   = 0.9 * winW
+					
+					// Set the positioning
+					topPos  = $(window).scrollTop() + (0.0125 * winH);
+					leftPos = winW/2-width/2;
+					
+					// Remove scrollbars from the bg					
+					$('body').css('overflow', 'hidden');
+				}
+				
+				// IE6 doesn't support fixed position
+				if ($.browser.msie && parseInt($.browser.version) < 7) {
+					var position = "absolute";
+				} else if (option.type == 'previewImg') {
+					var position = "absolute";
+				} else {
+					var position = "fixed";
+				}			
+				
+				// Apply the popup window to center and style elements within
+				$(modalWinJquery_str).css({'top': topPos, 'position': position, 'height': height, 'width': width, 'left': leftPos}); 
+				$('iframe', modalWinJquery_str).css({height: '90%', width: '98%'}).hide // used for image option
+				
+				// Set the background width to the window width so that there's no
+				// horizontal nav bars
+				$(option.bgJqueryStr).css({'width':$(document).width(),'height':$(document).height()});
+				
+				// Show animation
+				$(modalWinJquery_str).show(option.fadeLength);
+				$(option.bgJqueryStr).fadeTo(option.fadeLength, 0.8).css({'width':$(document).width(),'height':$(document).height()});	
+				
+				$('iframe', modalWinJquery_str).fadeIn("slow");
+
+		
+			// Escape key also closes the modalwin
+			$(document).keypress(function(e) {
+				if (e.keyCode == 27) {
+					closeModWin()
+				}
+			});
+			
+			// Close function
+			function closeModWin() {
+				if (option.type == 'previewImg') {
+					$(modalWinJquery_str).remove();
+					$('body').css('overflow', 'visible');
+				} else {
+					$(modalWinJquery_str).hide(option.fadeLength);
+				}
+				$(option.bgJqueryStr).fadeOut(option.fadeLength);		
+			}
+			   
+};
+
+
