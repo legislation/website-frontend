@@ -607,17 +607,20 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:variable name="versionRef" select="ancestor-or-self::*[@VersionReference][1]/@VersionReference"/>
 	<xsl:variable name="commentaryRefs" as="element(leg:CommentaryRef)*">
 		<xsl:choose>
-			<xsl:when test="ancestor::leg:BlockAmendment  and (self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:Tabular)">
+			<!--HA053652: annotations in tables are repeated if table is child of P1 (annotations also processed for all descendants of P1) so condition added to exclude these tables-->
+			<xsl:when test="ancestor::leg:BlockAmendment  and (self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:Tabular[not(parent::leg:P1)])">
 				<xsl:sequence select="descendant::leg:CommentaryRef"/>
 			</xsl:when>
-			<xsl:when test="self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:Tabular">
+			<!--HA053652: annotations in tables are repeated if table is child of P1 (annotations also processed for all descendants of P1) so condition added to exclude these tables-->
+			<xsl:when test="self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:Tabular[not(parent::leg:P1)]">
 				<xsl:sequence select="descendant::leg:CommentaryRef[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1)]"/>
 			</xsl:when>
 			<!-- updated by yashashri 	HA051079 - added parent::leg:Schedules or parent::leg:ScheduleBody to fix missing footnotes on http://www.legislation.gov.uk/ukpga/Geo5/23-24/12/schedule/FIRST -->
 			<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body or parent::leg:Schedules or parent::leg:ScheduleBody)">			
 				<xsl:sequence select="descendant::leg:CommentaryRef"/>
 			</xsl:when>
-			<xsl:when test="self::leg:Tabular and (parent::*[@id] or parent::leg:Body )">
+			<!--HA053652: annotations in tables are repeated if table is child of P1 (annotations also processed for all descendants of P1) so condition added to exclude these tables-->
+			<xsl:when test="self::leg:Tabular[not(parent::leg:P1)] and (parent::*[@id] or parent::leg:Body )">
 				<xsl:sequence select="descendant::leg:CommentaryRef" />
 			</xsl:when>
 			<xsl:otherwise>
@@ -627,7 +630,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	</xsl:variable>
 	<xsl:variable name="additionRepealRefs" as="element()*">
 		<xsl:choose>
-			<xsl:when test="ancestor::leg:BlockAmendment  and (self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:Tabular)">
+			<!--HA053652: annotations in tables are repeated if table is child of P1 (annotations also processed for all descendants of P1) so condition added to exclude these tables-->
+			<xsl:when test="ancestor::leg:BlockAmendment  and (self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:Tabular[not(parent::leg:P1)])">
 				<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
 			</xsl:when>
 			<xsl:when test="self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims">
@@ -637,7 +641,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body or parent::leg:Schedules or parent::leg:ScheduleBody)">
 				<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
 			</xsl:when>
-			<xsl:when test="self::leg:Tabular and (parent::*[@id] or parent::leg:Body or parent::leg:Schedules or parent::leg:ScheduleBody)">
+			<!--HA053652: annotations in tables are repeated if table is child of P1 (annotations also processed for all descendants of P1) so condition added to exclude these tables-->
+			<xsl:when test="self::leg:Tabular[not(parent::leg:P1)] and (parent::*[@id] or parent::leg:Body or parent::leg:Schedules or parent::leg:ScheduleBody)">
 				<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution" />
 			</xsl:when>
 			<xsl:otherwise>
