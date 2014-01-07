@@ -91,7 +91,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/executive-note/toc']/@href" />
 	
 	<xsl:variable name="pnURI" as="xs:string?"
-		select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/policy-note/toc']/@href"/>
+		select="//ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/policy-note/toc']/@href"/>
 	
 	<xsl:variable name="part" as="element()*" >
 		<xsl:sequence select="/leg:ImpactAssessment//ukm:Alternatives">
@@ -378,7 +378,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<xsl:if test="count($part/*[contains(@Title,$assessmentType)]) gt 1 and contains($iaTitle,$assessmentType)  ">
 							<xsl:choose>
 								<xsl:when test="$impactId = 'impacts' ">
-									<xsl:for-each select="$part/*[contains(./@Title,$assessmentType)]">
+									<xsl:for-each select="$part/*[contains(@Title,$assessmentType)]">
 										<xsl:sort select="@URI" order="ascending"></xsl:sort>
 										<xsl:variable name="uri">
 											<xsl:value-of select="translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','')"/>
@@ -423,7 +423,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 									</xsl:for-each>
 								</xsl:when>
 								<xsl:otherwise>
-									<xsl:for-each select="$part/*[contains(./@Title,$assessmentType)]">
+									<xsl:for-each select="$part/*[contains(@Title,$assessmentType)]">
 										<xsl:sort select="@URI" order="ascending"></xsl:sort>
 										<xsl:variable name="uri">
 											<xsl:value-of select="translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','')"/>
