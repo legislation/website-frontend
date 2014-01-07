@@ -1208,10 +1208,13 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <xsl:template match="leg:Citation">
+	<xsl:variable name="uri">
+		<xsl:value-of select="replace(./@URI,'&amp;','and')"/>
+	</xsl:variable>
 	<a class="LegCitation" title="{if (@Title) then @Title else 'Go to item of legislation'}" rel="cite">
 		<xsl:choose>
 			<xsl:when test="@URI">
-				<xsl:attribute name="href" select="@URI" />
+				<xsl:attribute name="href" select="$uri" />
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:attribute name="href" select="concat('/', tso:GetUriPrefixFromType(@Class, @Year), '/', @Year, '/', @Number, if (@SectionRef) then concat('/', translate(@SectionRef, '-', '/')) else())" />
@@ -1226,7 +1229,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		select="key('citations', @CitationRef)[1]" />
 	<xsl:variable name="title" as="xs:string"
 		select="string-join(('Go to', if ($legislation/@Title) then $legislation/@Title else if ($legislation) then $legislation else (), .), ' ')" />
-	<a class="LegCitation" href="{@URI}" title="{$title}" rel="cite">
+	<xsl:variable name="uri">
+		<xsl:value-of select="replace(./@URI,'&amp;','and')"/>
+		</xsl:variable>
+	<a class="LegCitation" href="{$uri}" title="{$title}" rel="cite">
 		<xsl:choose>
 			<xsl:when test="@Operative = 'true'">
 				<strong><xsl:apply-templates /></strong>
