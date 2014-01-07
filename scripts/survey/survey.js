@@ -19,7 +19,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
  */
  $(document).ready(function(){
 	 
-	 var link = "http://surveyanalytics.com/t/AFNKsZM9bf";
+	 var link = "http://www.surveygizmo.co.uk/s3/987479/legislation-survey-0812";
 	 
 	 $("body").append('<div id="feedback"><a href="#" /></div><div id="survey"></div>');	 
 	 
