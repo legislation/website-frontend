@@ -205,7 +205,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 			<!-- displaying the associated documents -->
 			<xsl:call-template name="AssociatedDocuments">
 				<xsl:with-param name="associatedDocuments">
-					<xsl:apply-templates select="ukm:Metadata//*[not(name() = 'ukm:ImpactAssessment')][@URI]" mode="AssociatedDocuments">
+					<xsl:apply-templates select="ukm:Metadata//*[not(name() = 'ukm:ImpactAssessment' or name() = 'ukm:Supersedes')][@URI]" mode="AssociatedDocuments">
 						<!-- alternative versions first -->
 						<xsl:sort select="@Title = 'Print Version'" order="descending" />
 						<xsl:sort select=". instance of element(ukm:Alternative)" order="descending" />
@@ -421,13 +421,13 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 										<xsl:when test="self::ukm:ImpactAssessment[exists($ia[4])]">
 										
 											<xsl:value-of select="$title"/>
-											<xsl:text> [ part </xsl:text>
+											<xsl:text> [ </xsl:text>
 											<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
 											<xsl:text> ]</xsl:text>
 										</xsl:when>
 										<xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
 												<xsl:value-of select="$title"/>
-											<xsl:text> [ part 1 ]</xsl:text>
+											<xsl:text> [ 1 ]</xsl:text>
 										
 										</xsl:when>	
 										
@@ -486,13 +486,13 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						</xsl:when>
 						<xsl:when test="self::ukm:ImpactAssessment[exists($ia[4])]">
 							<xsl:value-of select="$title"/>
-							<xsl:text> [ part </xsl:text>
+							<xsl:text> [ </xsl:text>
 							<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
 							<xsl:text> ]</xsl:text>
 						</xsl:when>
 						<xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
 									<xsl:value-of select="$title"/>
-							<xsl:text> [ part 1 ]</xsl:text>
+							<xsl:text> [ 1 ]</xsl:text>
 							
 						</xsl:when>	
 						
