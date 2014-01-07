@@ -227,9 +227,10 @@ $(document).ready(function(){
 	$(".warning", "#openingOptions").legModalWin();				   
 });
 
-$(document).ready(function(){
-	$(this).showModalDialog();
-});
+
+//  $(document).ready(function(){
+//	$(this).showModalDialog();
+//});
 
 $(document).ready(function(){
 	// Slightly different way of adding the links, wrap the <a> element around the <h2> inner HTML

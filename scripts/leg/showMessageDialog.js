@@ -1,3 +1,4 @@
+
 /*
 �  Crown copyright
  
@@ -10,9 +11,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 
 Legislation Modal Window
 
-One-liner: Overlays a div on top of the main content
+One-liner: Overlays a div on top of the main content containing useful information to be displayed
 
-Usage: $(.linkClass).legModalWin()
+Usage: $(.linkClass).showModalDialog()
 
 Requirements: 
 jQuery framework- http://jquery.com/
@@ -20,22 +21,63 @@ jQuery framework- http://jquery.com/
 CSS to control z-index for overlays
 Div acting as modal window to already have been loaded
 
-Notes:
-Parts of this function are taken from 
-http://www.queness.com/post/77/simple-jquery-modal-window-tutorial
-The initial link @href needs to contain the id of the modal window that it will initialise for this script to work.
-
-History:
-v0.01	GM	Created
-v0.02	2010-03-25	GM	Changed to work with adjustments made to layout, now picks up the link href target as the modal window
-v0.03	Bug fixed: added jQuery chaining ability
-v0.04	Fixed Google Chrome positioning bug by making W3C window size method the first, jQuery method second
 
 */
+$.fn.showModalDialog = function(options) {
+	
+		var defaults = {
+			classes: {
+				modalWindow: 'modWin',
+				messageTitle: 'title webWarningTitle',
+				message: 'content',
+				messageINterface: 'interface'
+			},
+			modalId: 'invitationToTest',
+			titleText: 'Invitation to test new functionality',
+			onePoint: 'improve how we present dual language versions of Welsh legislation',
+			secondPoint: 'provide a Welsh language version of the website',
+			textLine1: 'As part of our current development work to legislation.gov.uk we are looking to: ',
+			textLine2: 'We have turned our ideas into prototypes that we would like to obtain user feedback on and have face to face and online testing sessions being run the week commencing 21st May.',
+			textLine3: 'Would you like to take part?',
+			debug: false,
+			continueURL: function() {return '/'}
+		},
+		cfg = $.extend(defaults, options),
 
-$.fn.legModalWin = function(options){
+		$modalDialog = $('<div />').addClass(cfg.classes.modalWindow).attr('id', cfg.modalId)
+		
+		$('<div />').addClass(cfg.classes.messageTitle).append('<h3>' + cfg.titleText+ '</h3>')
+				.append( $('<div /> ').addClass(cfg.classes.message)
+					.append('<p>' + cfg.textLine1 + '</p>')
+							.append('<ul> <li>'+ cfg.onePoint+ '</li> <li>'+ cfg.secondPoint+ '</li> </ul>')
+								.append ('<p>' + cfg.textLine2 + '</p>')
+									.append('<p>' + cfg.textLine3+ '</p>')
+										.append ('<p> <a href="mailto: publishing.legislation@nationalarchives.gsi.gov.uk?subject=Testing Enquiry"> Please let us know</a> and we can help arrange a time for you to take part. </p>'))
+											.append('<div class="interface"><ul><li class="close">	<a class="userFunctionalElement" href="#"><span class="btl"></span>	<span class="btr"></span>Close<span class="bbl"></span>	<span class="bbr"></span></a></li></ul></div>')
+												.appendTo($modalDialog);
+		 $("body").append($modalDialog);
+		 var parentDiv= $("body").find('#invitationToTest');
+		 
+		 var continueUrl =window.location.pathname.split('/');
+		 var welsh =  continueUrl[1]
+	if($("body").attr('id') != 'error'){
+		if((welsh == 'mwa') || (welsh == 'wsi') || (welsh == 'wdsi'))
+		{
+			if(($("body").find('#layout2').attr('class') == "legToc") && ($("body").find('#layout2').attr('class') != undefined) && ($("body").find('#layout2').attr('class') != '')){
+				
+				$(this).legModalWinOnce({type: 'testingModal', closeLinkTxt: 'Close', parentDiv: parentDiv});
+			}
+		}
+	}
+};
+
+/*
+ * Opens the modal window to display a message on page load, this function does not require any click event to trigger itself.
+ * 
+ */
+$.fn.legModalWinOnce = function(options){
 	// required for chaining, refer to jQuery API for more details
-	$(this).each(function () {
+
 						   
 		// Create variables and constants for storage, these can be overwritten in the normal jQuery way
 		var modalWinJquery_str;
@@ -65,10 +107,18 @@ $.fn.legModalWin = function(options){
 			// Once user clicks continue, the modalwin closes
 			$("li.continue a", modalWinJquery_str).click(closeModWin());
 		}
-
+		else if(option.type=='testingModal'){
+			modalWinJquery_str = option.parentDiv;
+			// Create a close this window link and attach to the modal window, along with the event handler
+			var close= modalWinJquery_str.find('.close')
+			close.click(function(event){
+				event.preventDefault();		
+				closeModWin();
+			});
+			
+		}
 		// When the link that opens the modal win is clicked
-		$(this).click(function(event){	
-				event.preventDefault();	
+
 				
 				//Get the window height and width  
 				var winH = window.innerHeight; // get W3C val for browsers that can handle it
@@ -85,7 +135,12 @@ $.fn.legModalWin = function(options){
 					topPos  = winH/2-$(modalWinJquery_str).height()/2;
 					leftPos = winW/2-$(modalWinJquery_str).width()/2;
 					height  = 'auto'
-				} 
+				} else if (option.type == 'testingModal'){
+					topPos  = winH/2-$(modalWinJquery_str).height()/2;
+					leftPos = winW/2-$(modalWinJquery_str).width()/2;
+					height  = 'auto'	
+				}
+				
 				else {	
 					// The previewImg type of modal window is a link from a thumbnail or preview image
 					
@@ -148,8 +203,6 @@ $.fn.legModalWin = function(options){
 				
 				$('iframe', modalWinJquery_str).fadeIn("slow");
 
-				
-			});
 		
 			// Escape key also closes the modalwin
 			$(document).keypress(function(e) {
@@ -168,9 +221,7 @@ $.fn.legModalWin = function(options){
 				}
 				$(option.bgJqueryStr).fadeOut(option.fadeLength);		
 			}
-	});
-		
-	
-	// return this to keep chaining alive
-	return this;				   
+			   
 };
+
+
