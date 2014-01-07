@@ -78,8 +78,10 @@ exclude-result-prefixes="leg ukm math xhtml dc ukm fo xsl">
 			<xsl:otherwise>
 				<xsl:choose>
 					<xsl:when test="@AltVersionRefs != ''">
-						<!-- We'll assume here that there is only one version -->
-						<xsl:apply-templates select="//leg:Version[@id = current()/@AltVersionRefs]/*"/>
+						<!-- old comment said "We'll assume here that there is only one version"
+						This SHOULD be the case but bugs in augment.xsl caused duplciation if the version with 
+						same ID if the same image was referrenced twice as is the case with HA052048 -->
+						<xsl:apply-templates select="(//leg:Version[@id = current()/@AltVersionRefs])[1]/*"/>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:call-template name="FuncOutputError"/>
