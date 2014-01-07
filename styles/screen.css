@@ -244,7 +244,9 @@ body.legContent #content
 #layout2.legEmContent #content,
 #layout2.legEmToc #content,
 #layout2.legEnContent #content,
-#layout2.legEnToc #content
+#layout2.legEnToc #content,
+#layout2.legPnContent #content,
+#layout2.legPnToc #content
 {min-height: 0; width: 966px}
 /* End of main column definitions */
 
@@ -365,26 +367,33 @@ div.interface .active {color: #016398; background: #fff}
 /* EN & EM interface */
 .legEmToc div.interface,
 .legEnContent div.interface,
-.legEmToc div.interface,
+.legPnContent div.interface,
+.legPnToc div.interface,
 .legEnContent div.interface 
 {float: none;}
 
 .legEmToc div.interface .prevNextNav ul,
 .legEmContent div.interface .prevNextNav ul,
 .legEnToc div.interface .prevNextNav ul,
-.legEnContent div.interface .prevNextNav ul
+.legEnContent div.interface .prevNextNav ul,
+.legPnToc div.interface .prevNextNav ul,
+.legPnContent div.interface .prevNextNav ul
 {text-align: center; margin-left: 7%; width: 55%}
 
 .legEmToc div.interface #viewPrintControl,
 .legEmContent div.interface #viewPrintControl,
 .legEnToc div.interface #viewPrintControl,
-.legEnContent div.interface #viewPrintControl
+.legEnContent div.interface #viewPrintControl,
+.legPnToc div.interface #viewPrintControl,
+.legPnContent div.interface #viewPrintControl
 {text-align: right; width: 23%;  float: right;}
 
 .legEmContent div.interface #wholeNav,
 .legEmToc div.interface #wholeNav,
 .legEnContent div.interface #wholeNav,
-.legEnToc div.interface #wholeNav
+.legEnToc div.interface #wholeNav,
+.legPnContent div.interface #wholeNav,
+.legPnToc div.interface #wholeNav
 {width: 13%; padding-left: 6px;}
 
 .legEnContent div.interface #wholeNav span.disabled {background: #fff; color: #016398;}
@@ -392,13 +401,17 @@ div.interface .active {color: #016398; background: #fff}
 .legEmContent #content div.interface .prevNextNav ul,
 .legEmToc #content div.interface .prevNextNav ul,
 .legEnContent #content div.interface .prevNextNav ul,
-.legEnToc #content div.interface .prevNextNav ul
+.legEnToc #content div.interface .prevNextNav ul,
+.legPnContent #content div.interface .prevNextNav ul,
+.legPnToc #content div.interface .prevNextNav ul
 {margin-left: 0; text-align: center; width: 100%;}
 
 .legEmContent .prevNextNav ul li.toc .userFunctionalElement,
 .legEmToc .prevNextNav ul li.toc .userFunctionalElement,
 .legEnContent .prevNextNav ul li.toc .userFunctionalElement,
-.legEnToc .prevNextNav ul li.toc .userFunctionalElement
+.legEnToc .prevNextNav ul li.toc .userFunctionalElement,
+.legPnContent .prevNextNav ul li.toc .userFunctionalElement,
+.legPnToc .prevNextNav ul li.toc .userFunctionalElement
 {padding-left: 15px; padding-right: 15px;}
 /* end of EN & EM interface */
 
