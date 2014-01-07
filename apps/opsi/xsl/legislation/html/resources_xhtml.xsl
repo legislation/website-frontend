@@ -423,7 +423,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 										
 											<xsl:value-of select="$title"/>
 											<xsl:text> part </xsl:text>
-											<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
+											<xsl:value-of select="number(replace($ia[4],'.pdf','','i')) + 1 "/>
 										</xsl:when>
 										<!-- <xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
 												<xsl:value-of select="$title"/>
@@ -440,7 +440,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 										<xsl:when test="self::ukm:Alternative[exists($ia[4])]">
 											<xsl:value-of select="$title"/>
 											<xsl:text> </xsl:text>
-											<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
+											<xsl:value-of select="number(replace($ia[4],'.pdf','','i')) + 1 "/>
 										</xsl:when>
 										<xsl:when test="self::ukm:Alternative[preceding-sibling::*[self::ukm:Alternative] and not(following-sibling::*)]						
 											">
@@ -457,7 +457,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 											self::ukm:TranspositionNote[exists($ia[4])] ">
 											<xsl:value-of select="$title"/>
 											<xsl:text> </xsl:text>
-											<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
+											<xsl:value-of select="number(replace($ia[4],'.pdf','','i')) + 1 "/>
 											
 										</xsl:when>
 										<xsl:when test="self::ukm:ComingIntoForce[preceding-sibling::*[self::ukm:ComingIntoForce] and not(following-sibling::*)]
@@ -492,7 +492,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						<xsl:when test="self::ukm:ImpactAssessment[exists($ia[4])]">
 							<xsl:value-of select="$title"/>
 							<xsl:text> part </xsl:text>
-							<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
+							<xsl:value-of select="number(replace($ia[4],'.pdf','','i')) + 1 "/>
 							
 						</xsl:when>
 						<!-- <xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
@@ -510,7 +510,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						<xsl:when test="self::ukm:Alternative[exists($ia[4])]">
 							<xsl:value-of select="$title"/>
 							<xsl:text> </xsl:text>
-							<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
+							<xsl:value-of select="number(replace($ia[4],'.pdf','','i')) + 1 "/>
 							
 						</xsl:when>
 						<xsl:when test="self::ukm:Alternative[preceding-sibling::*[self::ukm:Alternative] and not(following-sibling::*)]						
@@ -529,7 +529,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 							self::ukm:TranspositionNote[exists($ia[4])] ">
 								<xsl:value-of select="$title"/>
 							<xsl:text> </xsl:text>
-							<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
+							<xsl:value-of select="number(replace($ia[4],'.pdf','','i')) + 1 "/>
 						
 						</xsl:when>
 						<xsl:when test="self::ukm:ComingIntoForce[preceding-sibling::*[self::ukm:ComingIntoForce] and not(following-sibling::*)]
