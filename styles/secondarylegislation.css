@@ -24,7 +24,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 * html .LegSnippet .DocContainer {float: left; width: 99%}
 
 
-.LegSnippet p {font-size: 0.8em; margin-bottom: 0.5em; margin-top: 0em; padding: 0em; font-style: normal; font-weight: normal}
+.LegSnippet p {font-size: 0.8em; margin-bottom: 0.5em; margin-top: 0em; padding: 0em; font-style: normal; font-weight: normal;color:#494949}
 .LegSnippet div {margin: 0em; padding: 0em}
 .LegSnippet .LegDS {display: block}
 
