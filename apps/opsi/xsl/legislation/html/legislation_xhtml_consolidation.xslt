@@ -714,24 +714,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				
 				<xsl:variable name="documentType" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value"/>
 				<xsl:variable name="documentYear" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value"/>
-				<xsl:variable name="documentRevised" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:DocumentClassification/ukm:DocumentStatus/@Value"/>
-				
-				<!-- FM:  Issue 364: In NI legislation before 1.1.2006 - f-notes are used across the board i.e. not just for textual amendments. Removing the annotation heading for textual texts --> 
-				<xsl:variable name="oldNI" select="$documentType = 
-					('NorthernIrelandAct' , 'NorthernIrelandOrderInCouncil' , 'NorthernIrelandStatutoryRule', 
-					'NorthernIrelandAssemblyMeasure', 'NorthernIrelandParliamentAct') and ($documentYear &lt; 2006)"/>
-				
-				<!-- TNA requirement based on above :
-						The issue is that the SLD ‘as enacted’ S.I.s deployed to legislation.gov.uk from SLD (ActiveText editorial system) which we will be using for update contain existing annotations.
-						All the existing annotations in these S.I.s are classed as f-notes regardless of the fact that virtually all of the them should be m-notes.
-						For example, where the annotation is just an Act reference (e.g. 1985 c. 6) this would be an m-note in a revised Act but it is listed as an f-note in the S.I.s.
-						This means that on legislation.gov.uk such annotations will be listed under ‘textual amendments’ which is misleading.
-						We have a similar issue with older Orders in Council and what we have done there is to show all the annotations in one list (without the textual/ non-textual etc categorisation (e.g. http://www.legislation.gov.uk/nisi/1973/1896)).
-						What we would like to do is apply this same code to all the revised S.I.s  on legislation.gov.uk.” 
-						-->
-				<xsl:variable name="revisedSI" select="$documentType = 
-					('UnitedKingdomStatutoryInstrument' , 'ScottishStatutoryInstrument' , 'WelshStatutoryInstrument', 'NorthernIrelandStatutoryRule') and ($documentRevised = 'revised')"/>
-				
+			
 				<xsl:for-each-group select="$showComments" group-by="@Type">
 					<xsl:sort select="@Type = 'M'"/>			
 					<xsl:sort select="@Type = 'I'"/>
@@ -739,7 +722,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					<xsl:sort select="@Type = 'F'"/>
 					<xsl:variable name="groupType" select="current-grouping-key()"/>
 					
-					<xsl:if test="not(($oldNI or $revisedSI) and $groupType = 'F' )">
+					<!-- FM:  Issue 364: In NI legislation before 1.1.2006 - f-notes are used across the board i.e. not just for textual amendments. Removing the annotation heading for textual texts --> 
+					<xsl:if test="not($documentType = ('NorthernIrelandAct' , 'NorthernIrelandOrderInCouncil' , 'NorthernIrelandStatutoryRule', 'NorthernIrelandAssemblyMeasure', 'NorthernIrelandParliamentAct') and $documentYear &lt; 2006 and $groupType = 'F' )">
 						<p class="LegAnnotationsGroupHeading">
 							<xsl:if test="$showingHigherLevel">Associated </xsl:if>
 							<xsl:choose>

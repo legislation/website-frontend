@@ -13,47 +13,43 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		<!-- schema = /Legislation/ukm:Metadata/*/ukm:DocumentClassification/ukm:DocumentMainType/@Value -->
 		<!-- uri = in identifier -->
 		<!-- status = in identifier -->
-		<Code spo="20100" schema="UnitedKingdomPublicGeneralAct" uri="ukpga" status="revised" authority="kqpap"/>
-		<Code spo="20101" schema="UnitedKingdomLocalAct" uri="ukla" status="enacted" authority="kqpap"/>
-		<Code spo="20102" schema="UnitedKingdomLocalAct" uri="ukla" status="revised" authority="kqpap"/>
-		<Code spo="21000" schema="UnitedKingdomPrivateAct" uri="ukpa" status="enacted" authority="kqpap"/>
-		<Code spo="20200" schema="GreatBritainAct" uri="apgb" status="revised"/>
-		<Code spo="20300" schema="EnglandAct" uri="aep" status="revised"/>
-		<Code spo="20400" schema="ScottishOldAct" uri="aosp" status="revised" authority="kqps"/>
-		<Code spo="20401" schema="ScottishAct" uri="asp" status="revised" authority="kqps"/>
-		<Code spo="20500" schema="IrelandAct" uri="aip" status="revised"/>
-		<Code spo="20600" schema="NorthernIrelandParliamentAct" uri="apni" status="revised"/>
-		<Code spo="20700" schema="NorthernIrelandAssemblyMeasure" uri="mnia" status="revised"/>
-		<Code spo="20701" schema="NorthernIrelandAct" uri="nia" status="enacted" authority="gpni"/>
-		<Code spo="20702" schema="NorthernIrelandAct" uri="nia" status="revised"/>
-		<Code spo="20800" schema="UnitedKingdomChurchMeasure" uri="ukcm" status="revised" authority="kqpap"/>
-		<Code spo="20900" schema="WelshAssemblyMeasure" uri="mwa" status="revised" authority="kqpap"/>
-		<Code spo="20901" schema="WelshNationalAssemblyAct" uri="anaw" status="revised" authority="kqpap"/>
-		<Code spo="30100" schema="UnitedKingdomStatutoryInstrument" uri="uksi" status="made" authority="kqpap"/>
-		<Code spo="30111" schema="UnitedKingdomStatutoryInstrument" uri="uksi" status="revised" authority="kqpap"/>
-		<Code spo="30101" schema="ScottishStatutoryInstrument" uri="ssi" status="made" authority="kqps"/>
-		<Code spo="30112" schema="ScottishStatutoryInstrument" uri="ssi" status="revised" authority="kqps"/>
-		<Code spo="30102" schema="WelshStatutoryInstrument" uri="wsi" status="made" authority="kqpap"/>
-		<Code spo="30113" schema="WelshStatutoryInstrument" uri="wsi" status="revised" authority="kqpap"/>
-		<Code spo="30400" schema="NorthernIrelandStatutoryRule" uri="nisr" status="made" authority="gpni"/>
-		<Code spo="30411" schema="NorthernIrelandStatutoryRule" uri="nisr" status="revised" authority="gpni"/>
-		<Code spo="30500" schema="UnitedKingdomChurchInstrument" uri="ukci" status="created" authority="kqpap"/>
-		<Code spo="30800" schema="NorthernIrelandOrderInCouncil" uri="nisi" status="made" authority="gpni"/>
-		<Code spo="30801" schema="NorthernIrelandOrderInCouncil" uri="nisi" status="revised"/>
-		<Code spo="30902" schema="UnitedKingdomMinisterialOrder" uri="ukmo" status="created" authority="kqpap"/>
-		<Code spo="31000" schema="UnitedKingdomStatutoryInstrument" uri="uksi" status="made" authority="kqpap"/>
-		<Code spo="31001" schema="ScottishStatutoryInstrument" uri="ssi" status="made" authority="kqps"/>
-		<Code spo="31002" schema="WelshStatutoryInstrument" uri="wsi" status="made" authority="kqpap"/>
-		<Code schema="UnitedKingdomStatutoryRuleOrOrder" uri="uksro" status="made" authority="kqpap"/>
-		<Code schema="UnitedKingdomStatutoryInstrumentLocal" uri="uksi" status="made" authority="kqpap"/>
-		<Code schema="ScottishStatutoryInstrumentLocal" uri="ssi" status="made" authority="kqps"/>
-		<Code schema="WelshStatutoryInstrumentLocal" uri="wsi" status="made" authority="kqpap"/>
-		<Code schema="NorthernIrelandStatutoryRuleLocal" uri="nisr" status="made" authority="gpni"/>
-		<Code schema="UnitedKingdomDraftStatutoryInstrument" uri="ukdsi" status="draft" authority="kqpap"/>
-		<Code schema="WelshDraftStatutoryInstrument" uri="wdsi" status="draft" authority="kqpap"/>
-		<Code schema="ScottishDraftStatutoryInstrument" uri="sdsi" status="draft" authority="kqps"/>
-		<Code schema="NorthernIrelandDraftStatutoryRule" uri="nidsr" status="draft" authority="gpni"/>
-		<Code schema="NorthernIrelandDraftOrderInCouncil" uri="nidsi" status="draft" authority="gpni"/>
+		<Code spo="20100" schema="UnitedKingdomPublicGeneralAct" uri="ukpga" status="revised" authority="kqpap" />
+		<Code spo="20101" schema="UnitedKingdomLocalAct" uri="ukla" status="enacted" authority="kqpap" />
+		<Code spo="20102" schema="UnitedKingdomLocalAct" uri="ukla" status="revised" authority="kqpap" />
+		<Code spo="21000" schema="UnitedKingdomPrivateAct" uri="ukpa" status="enacted" authority="kqpap" />
+		<Code spo="20200" schema="GreatBritainAct" uri="apgb" status="revised" />
+		<Code spo="20300" schema="EnglandAct" uri="aep" status="revised" />
+		<Code spo="20400" schema="ScottishOldAct" uri="aosp" status="revised" authority="kqps" />
+		<Code spo="20401" schema="ScottishAct" uri="asp" status="revised" authority="kqps" />
+		<Code spo="20500" schema="IrelandAct" uri="aip" status="revised" />
+		<Code spo="20600" schema="NorthernIrelandParliamentAct" uri="apni" status="revised" />
+		<Code spo="20700" schema="NorthernIrelandAssemblyMeasure" uri="mnia" status="revised" />
+		<Code spo="20701" schema="NorthernIrelandAct" uri="nia" status="enacted" authority="gpni" />
+		<Code spo="20702" schema="NorthernIrelandAct" uri="nia" status="revised" />
+		<Code spo="20800" schema="UnitedKingdomChurchMeasure" uri="ukcm" status="revised" authority="kqpap" />
+		<Code spo="20900" schema="WelshAssemblyMeasure" uri="mwa" status="revised" authority="kqpap" />
+		<Code spo="20901" schema="WelshNationalAssemblyAct" uri="anaw" status="revised" authority="kqpap" />
+		<Code spo="30100" schema="UnitedKingdomStatutoryInstrument" uri="uksi" status="made" authority="kqpap" />
+		<Code spo="30101" schema="ScottishStatutoryInstrument" uri="ssi" status="made" authority="kqps" />
+		<Code spo="30102" schema="WelshStatutoryInstrument" uri="wsi" status="made" authority="kqpap" />
+		<Code spo="30400" schema="NorthernIrelandStatutoryRule" uri="nisr" status="made" authority="gpni" />
+		<Code spo="30500" schema="UnitedKingdomChurchInstrument" uri="ukci" status="created" authority="kqpap" />
+		<Code spo="30800" schema="NorthernIrelandOrderInCouncil" uri="nisi" status="made" authority="gpni" />
+		<Code spo="30801" schema="NorthernIrelandOrderInCouncil" uri="nisi" status="revised" />
+		<Code spo="30902" schema="UnitedKingdomMinisterialOrder" uri="ukmo" status="created" authority="kqpap" /> 
+		<Code spo="31000" schema="UnitedKingdomStatutoryInstrument" uri="uksi" status="made" authority="kqpap" />
+		<Code spo="31001" schema="ScottishStatutoryInstrument" uri="ssi" status="made" authority="kqps" />
+		<Code spo="31002" schema="WelshStatutoryInstrument" uri="wsi" status="made" authority="kqpap" />
+		<Code schema="UnitedKingdomStatutoryRuleOrOrder" uri="uksro" status="made" authority="kqpap" />
+		<Code schema="UnitedKingdomStatutoryInstrumentLocal" uri="uksi" status="made" authority="kqpap" />
+		<Code schema="ScottishStatutoryInstrumentLocal" uri="ssi" status="made" authority="kqps" />
+		<Code schema="WelshStatutoryInstrumentLocal" uri="wsi" status="made" authority="kqpap" />
+		<Code schema="NorthernIrelandStatutoryRuleLocal" uri="nisr" status="made" authority="gpni" />
+		<Code schema="UnitedKingdomDraftStatutoryInstrument" uri="ukdsi" status="draft" authority="kqpap" />
+		<Code schema="WelshDraftStatutoryInstrument" uri="wdsi" status="draft" authority="kqpap" />
+		<Code schema="ScottishDraftStatutoryInstrument" uri="sdsi" status="draft" authority="kqps" />
+		<Code schema="NorthernIrelandDraftStatutoryRule" uri="nidsr" status="draft" authority="gpni" />
+		<Code schema="NorthernIrelandDraftOrderInCouncil" uri="nidsi" status="draft" authority="gpni" />
 		<!--
 			|_. SPO code |_. Schema value |_. URI abbreviation |_. Status |_. Authority (for opsi data. Data from sld = sld)|
 			| 20100 | UnitedKingdomPublicGeneralAct | ukpga | revised/enacted | kqpap |
