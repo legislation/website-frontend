@@ -1,10 +1,10 @@
 
-/*  $(document).ready(function(){
+  $(document).ready(function(){
  
 	$(this).showModalDialog();
 });
 
-*/
+
 /*
 ?  Crown copyright
  
@@ -29,7 +29,7 @@ Div acting as modal window to already have been loaded
 
 
 */
-/*$.fn.showModalDialog = function(options) {
+$.fn.showModalDialog = function(options) {
 	
 		var defaults = {
 			classes: {
@@ -41,9 +41,9 @@ Div acting as modal window to already have been loaded
 			modalId: 'invitationToSurvey',
 			titleText: 'Invitiation to survey',
 			textLine1: 'Thank you for using legislation.gov.uk',
-			textLine2: 'Can you help us to better understand how users read and interact with legislation by taking our survey? ',
+			textLine2: 'Your feedback is important to us. To help us develop and improve the site we are running a survey.',
 			textLine3: 'We use cookies for this survey pop-up. If you do not wish a cookie to be installed, please change the settings in your browser.',
-			textLine4: 'Survey closes on 26 September 2012.',
+			textLine4: 'Survey closes on 29 March 2013.',
 			debug: false,
 			continueURL: function() {return '/'}
 		},
@@ -80,12 +80,12 @@ Div acting as modal window to already have been loaded
 			//	}
 			}
 };
-*/
+
 /*
  * Opens the modal window to display a message on page load, this function does not require any click event to trigger itself.
  * 
  */
-/*$.fn.legModalWinOnce = function(options){
+$.fn.legModalWinOnce = function(options){
 	// required for chaining, refer to jQuery API for more details
 
 		// Create variables and constants for storage, these can be overwritten in the normal jQuery way
@@ -130,7 +130,7 @@ Div acting as modal window to already have been loaded
 				event.preventDefault();	
 				closeModWin();	
                 $.cookie('surveyMessage', '2');			
-				window.open("http://www.surveygizmo.co.uk/s3/987479/legislation-survey-0812");
+				window.open("http://surveyanalytics.com/t/AFNKsZNtip");
 				
 			});
 		}
@@ -241,4 +241,4 @@ Div acting as modal window to already have been loaded
 			   
 };
 
-*/
+
