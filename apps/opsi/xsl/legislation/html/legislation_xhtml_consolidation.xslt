@@ -580,6 +580,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:param name="showingHigherLevel" as="xs:boolean" tunnel="yes" select="false()"/>
 	<xsl:param name="includeTooltip" as="xs:boolean" tunnel="yes" select="false()"/>
 	
+	
 	<xsl:variable name="showSection" as="node()"
 		select="if (ancestor::*[@VersionReplacement]) then ancestor::*[@VersionReplacement] else if (exists($showSection) and ancestor-or-self::*[. is $showSection]) then $showSection else root()" />
 	<xsl:variable name="versionRef" select="ancestor-or-self::*[@VersionReference][1]/@VersionReference"/>
@@ -591,7 +592,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:when test="self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:Tabular">
 				<xsl:sequence select="descendant::leg:CommentaryRef[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1)]"/>
 			</xsl:when>
-			<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body)">
+			<!-- updated by yashashri 	HA051079 - added parent::leg:Schedules or parent::leg:ScheduleBody to fix missing footnotes on http://www.legislation.gov.uk/ukpga/Geo5/23-24/12/schedule/FIRST -->
+			<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body or parent::leg:Schedules or parent::leg:ScheduleBody)">			
 				<xsl:sequence select="descendant::leg:CommentaryRef"/>
 			</xsl:when>
 			<xsl:when test="self::leg:Tabular and (parent::*[@id] or parent::leg:Body)">
@@ -622,6 +624,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			</xsl:otherwise>	
 		</xsl:choose>			
 	</xsl:variable>
+		
 	<xsl:variable name="commentaryItem" select="key('commentary', ($commentaryRefs/@Ref, $additionRepealRefs/@CommentaryRef))" as="element(leg:Commentary)*"/>
 	<xsl:variable name="currentURI">
 		<xsl:choose>
@@ -643,7 +646,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				</xsl:if>
 			</xsl:if>
 		</xsl:for-each>
-	</xsl:variable>
+	</xsl:variable>	
 	<!-- FM:  Issue 195: Only the f-notes should be pulled into the child fragments from the parent-->
 	<xsl:variable name="showComments" as="element(leg:Commentary)*"
 		select="$showComments[not($showingHigherLevel) or ($showingHigherLevel and @Type ='F')]" />
