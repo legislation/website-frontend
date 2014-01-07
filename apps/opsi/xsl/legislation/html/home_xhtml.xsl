@@ -178,10 +178,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						</div>
 						<div class="content">
 							<ul class="linkList">
-
-								<li>
-									<a href="/help#aboutOpsiSld">What has happened to the OPSI and Statute Law Database (SLD) websites?<span class="pageLinkIcon"></span></a>
-								</li>
 								<li>
 									<a href="/help#aboutLeg">What legislation is held on legislation.gov.uk?<span class="pageLinkIcon"></span></a>
 								</li>
