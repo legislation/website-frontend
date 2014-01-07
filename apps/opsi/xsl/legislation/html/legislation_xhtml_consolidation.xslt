@@ -1210,9 +1210,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <xsl:template match="leg:Citation">
 	<xsl:variable name="uri">
 		<xsl:value-of select="replace(./@URI,'&amp;','and')"/>
-	</xsl:variable>
-	<!-- updated by Yash - Call HA051280 to have tooltip with full title - see http://www.legislation.gov.uk/nisi/1978/1039 -->
-	<a class="LegCitation" title="{if (.) then . else 'Go to item of legislation'}" rel="cite">
+	</xsl:variable>	
+	<a class="LegCitation" title="{if (@Title) then @Title else 'Go to item of legislation'}" rel="cite">
 		<xsl:choose>
 			<xsl:when test="@URI">
 				<xsl:attribute name="href" select="$uri" />
