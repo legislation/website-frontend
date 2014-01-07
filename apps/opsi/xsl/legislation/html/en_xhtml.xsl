@@ -54,7 +54,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:variable name="legislationIdURI"  select="replace(/leg:EN/@IdURI, '/notes', '')"/>		
 	<xsl:variable name="resourceURI" as="xs:string" 
 		select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/resources']/@href" />				
-	<xsl:variable name="impactURI" as="xs:string" 
+	
+	<xsl:variable name="impactURI" as="xs:string?" 
 		select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts']/@href" />				
 	<xsl:variable name="emURI" as="xs:string?" select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/memorandum/toc']/@href" />
 	<xsl:variable name="enURI" as="xs:string?" 
@@ -62,7 +63,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/executive-note/toc']/@href |
 			/leg:EN/ukm:Metadata/atom:link[@rel='http://purl.org/dc/terms/tableOfContents']/@href" />
 	<xsl:variable name="pnURI" as="xs:string?" 
-		select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/policy-note/toc']/@href" />		
+		select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/policy-note/toc']/@href" />
+
+			
+	<xsl:variable name="iaURI" as="xs:string?" 
+		select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts']/@href" />		
 
 	<xsl:variable name="uriPrefix" as="xs:string" 
 		select="tso:GetUriPrefixFromType(/leg:EN/ukm:Metadata/ukm:ENmetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value, /leg:EN/ukm:Metadata/ukm:ENmetadata/ukm:Year/@Value)"/>
@@ -74,8 +79,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		
 	<xsl:variable name="IsMoreResourcesAvailable" as="xs:boolean" 
 		select="tso:ShowMoreResources(/)"/>			
+		
+		
 	<xsl:variable name="IsImpactAssessmentsAvailable" as="xs:boolean" 
 		select="tso:ShowImpactAssessments(/)"/>			
+					
 	
 	<xsl:variable name="enType" as="xs:string?" select="if (contains(/leg:EN/ukm:Metadata/dc:identifier, '/memorandum')) then 'em' 
 						else if (contains(/leg:EN/ukm:Metadata/dc:identifier, '/policy-note')) then 'pn' else 'en'" />

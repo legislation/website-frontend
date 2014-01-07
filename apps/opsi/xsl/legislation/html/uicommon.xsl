@@ -306,6 +306,67 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		</xsl:choose>
 	</xsl:function>
 
+	<xsl:template name="TSOOutputIAsHelpTips">
+
+		 <!-- loading the Explanatory Memorandum help-->
+		<xsl:if test="$IsEmAvailable">
+			<xsl:call-template name="TSOOutputENHelpTip">
+				<xsl:with-param name="uriPrefix" select="$uriPrefix"/>
+				<xsl:with-param name="documentMainType" select="$documentMainType"/>
+				<xsl:with-param name="enType" select="'em'"/>				
+			</xsl:call-template>
+		</xsl:if>
+		
+		 <!-- loading the Explanatory Notes/Executive Notes help-->
+		<xsl:if test="$IsEnAvailable">
+			<xsl:call-template name="TSOOutputENHelpTip">
+				<xsl:with-param name="uriPrefix" select="$uriPrefix"/>
+				<xsl:with-param name="documentMainType" select="$documentMainType"/>
+				<xsl:with-param name="enType" select="'en'"/>				
+			</xsl:call-template>
+		</xsl:if>
+		
+		<xsl:if test="$IsMoreResourcesAvailable">
+			<div class="help" id="moreResourcesTabHelp">
+				<span class="icon"/>
+				<div class="content">
+					<a href="#" class="close">
+						<img alt="Close" src="/images/chrome/closeIcon.gif"/>
+					</a>
+					<h3>More Resources</h3>
+					<p>Access essential accompanying documents and information for this legislation item from this tab. Dependent on the legislation item being viewed this may include:</p>
+					<ul>
+						<li>the original print PDF of the as enacted version that was used for the print copy</li>
+						<li>lists of changes made by and/or affecting this legislation item</li>
+						<li>confers power and blanket amendment details</li>
+						<li>all formats of all associated documents</li>
+						<li>correction slips</li>
+						<li>links to related legislation and further information resources</li>																														
+					</ul>
+				</div>
+			</div>		
+		</xsl:if>		
+		
+		<xsl:if test="$IsImpactAssessmentsAvailable">
+			<div class="help" id="moreIATabHelp">
+				<span class="icon"/>
+				<div class="content">
+					<a href="#" class="close">
+						<img alt="Close" src="/images/chrome/closeIcon.gif"/>
+					</a>
+					<h3>Impact Assessments</h3>
+					<p>Impact Assessments generally accompany all UK Government interventions of a regulatory nature that affect the private sector, civil society organisations and public services. They apply regardless of whether the regulation originates from a domestic or international source and can accompany primary (Acts etc) and secondary legislation (SIs). An Impact Assessment allows those with an interest in the policy area to understand:</p>
+					<ul>
+						<li>Why the government is proposing to intervene;</li>
+						<li>The main options the government is considering, and which one is preferred;</li>
+						<li>How and to what extent new policies may impact on them; and,</li>
+						<li>The estimated costs and benefits of proposed measures.</li>
+					</ul>
+				</div>
+			</div>		
+		</xsl:if>
+	</xsl:template>
+	
 	<xsl:template name="TSOOutputENsHelpTips">
 
 		 <!-- loading the Explanatory Memorandum help-->

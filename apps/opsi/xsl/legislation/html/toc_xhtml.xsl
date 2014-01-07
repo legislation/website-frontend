@@ -67,7 +67,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	"/>
 	<xsl:variable name="resourceURI" as="xs:string" 
 		select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/resources']/@href" />				
-	<xsl:variable name="impactURI" as="xs:string" 
+	<xsl:variable name="impactURI" as="xs:string?" 
 		select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts']/@href" />				
 	
 	<xsl:variable name="legislationIdURI"  select="/leg:Legislation/@IdURI"/>		
@@ -77,6 +77,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		        /leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/executive-note/toc']/@href"/>
 	<xsl:variable name="emURI" as="xs:string?"
 		select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/memorandum/toc' and not(@hreflang = 'cy')]/@href"/>
+		
+		
 
 	<xsl:variable name="pnURI" as="xs:string?"
 		select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/policy-note/toc']/@href"/>
@@ -86,7 +88,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:variable name="IsPnAvailable" as="xs:boolean" select="exists($pnURI)"/>
 	
 	<xsl:variable name="IsMoreResourcesAvailable" as="xs:boolean" select="tso:ShowMoreResources(/)" />			
-	<xsl:variable name="IsImpactAssessmentsAvailable" as="xs:boolean" select="tso:ShowImpactAssessments(/)" />			
+	<xsl:variable name="IsImpactAssessmentsAvailable" as="xs:boolean" select="exists($impactURI)" />			
 	
 	<xsl:variable name="IsPDFOnly" as="xs:boolean">
 		<xsl:sequence select="leg:IsPDFOnly(.)" />
