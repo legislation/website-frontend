@@ -42,7 +42,7 @@ $.fn.showModalDialog = function(options) {
 			titleText: 'Invitiation to survey',
 			textLine1: 'Thank you for using legislation.gov.uk',
 			textLine2: 'Your feedback is important to us. To help us develop and improve the site we are running a survey.',
-			textLine3: 'We use cookies for this survey pop-up. If you do not wish a cookie to be installed, please change the settings in your browser.',
+			textLine3: 'This pop-up uses cookies to store the option you select. This ensures you only see the pop up once. No personal data is collected or stored',
 			textLine4: 'Survey closes on 29 March 2013.',
 			debug: false,
 			continueURL: function() {return '/'}
@@ -55,7 +55,7 @@ $.fn.showModalDialog = function(options) {
 				.append( $('<div /> ').addClass(cfg.classes.message)
 						.append('<h3>' + cfg.textLine1+ '</h3>')
 							.append ('<p>' + cfg.textLine2 + '</p>')
-								.append('<p>' + cfg.textLine3 + '</p>')	
+								.append('<p style="font-size: 9pt">' + cfg.textLine3 + '</p>')	
 									.append('<p>' + cfg.textLine4 + '</p>')	)
 											.append('<div class="interface"><ul><li class="close">	<a class="userFunctionalElement" href="#"><span class="btl"></span>	<span class="btr"></span>Close<span class="bbl"></span>	<span class="bbr"></span></a></li><li class="continue">	<a class="userFunctionalElement" href="http://www.surveygizmo.co.uk/s3/987479/legislation-survey-0812" target="new"><span class="btl"></span>	<span class="btr"></span>Ok<span class="bbl"></span>	<span class="bbr"></span></a></li></ul></div>')
 												.appendTo($modalDialog);
