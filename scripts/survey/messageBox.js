@@ -1,6 +1,12 @@
 
+  $(document).ready(function(){
+ 
+	$(this).showModalDialog();
+});
+
+
 /*
-�  Crown copyright
+?  Crown copyright
  
 You may use and re-use this code free of charge under the terms of the Open Government Licence
  
@@ -23,7 +29,7 @@ Div acting as modal window to already have been loaded
 
 
 */
-/*$.fn.showModalDialog = function(options) {
+$.fn.showModalDialog = function(options) {
 	
 		var defaults = {
 			classes: {
@@ -36,7 +42,8 @@ Div acting as modal window to already have been loaded
 			titleText: 'Invitiation to survey',
 			textLine1: 'Thank you for using legislation.gov.uk',
 			textLine2: 'Can you help us to better understand how users read and interact with legislation by taking our survey? ',
-			textLine3: 'Survey closes on 22 September 2012.',
+			textLine3: 'By accepting to take part in this survey, you are also accepting the use of cookies',
+			textLine4: 'Survey closes on 26 September 2012.',
 			debug: false,
 			continueURL: function() {return '/'}
 		},
@@ -48,12 +55,13 @@ Div acting as modal window to already have been loaded
 				.append( $('<div /> ').addClass(cfg.classes.message)
 						.append('<h3>' + cfg.textLine1+ '</h3>')
 							.append ('<p>' + cfg.textLine2 + '</p>')
-									.append('<p>' + cfg.textLine3 + '</p>')	)
+								.append('<p>' + cfg.textLine3 + '</p>')	
+									.append('<p>' + cfg.textLine4 + '</p>')	)
 											.append('<div class="interface"><ul><li class="close">	<a class="userFunctionalElement" href="#"><span class="btl"></span>	<span class="btr"></span>Close<span class="bbl"></span>	<span class="bbr"></span></a></li><li class="continue">	<a class="userFunctionalElement" href="http://www.surveygizmo.co.uk/s3/987479/legislation-survey-0812" target="new"><span class="btl"></span>	<span class="btr"></span>Ok<span class="bbl"></span>	<span class="bbr"></span></a></li></ul></div>')
 												.appendTo($modalDialog);
 			var homePage= $("body").find("#siteLinks");
-			if(homePage.length)console.log("home");
-		 $("#siteLinks").append($modalDialog);
+
+		 $("body").append($modalDialog);
 
 
 		 var parentDiv= $("body").find('#invitationToSurvey');
@@ -64,13 +72,14 @@ Div acting as modal window to already have been loaded
 			//	if((welsh == 'mwa') || (welsh == 'anaw') || (welsh == 'wsi') || (welsh == 'wdsi'))
 			//	{
 			//		if(($("body").find('#layout2').attr('class') == "legToc") && ($("body").find('#layout2').attr('class') != undefined) && ($("body").find('#layout2').attr('class') != '')){
-						
-			//			$(this).legModalWinOnce({type: 'testingModal', closeLinkTxt: 'Close', parentDiv: parentDiv});
+					
+						if($.cookie('surveyMessage5') == null){
+						$(this).legModalWinOnce({type: 'testingModal', closeLinkTxt: 'Close', parentDiv: parentDiv});
+						}
 			//		}
 			//	}
 			}
 };
-*/
 
 /*
  * Opens the modal window to display a message on page load, this function does not require any click event to trigger itself.
@@ -79,7 +88,6 @@ Div acting as modal window to already have been loaded
 $.fn.legModalWinOnce = function(options){
 	// required for chaining, refer to jQuery API for more details
 
-						   
 		// Create variables and constants for storage, these can be overwritten in the normal jQuery way
 		var modalWinJquery_str;
 		var settings = {  
@@ -108,7 +116,7 @@ $.fn.legModalWinOnce = function(options){
 			// Once user clicks continue, the modalwin closes
 			$("li.continue a", modalWinJquery_str).click(closeModWin());
 		}
-	/*	else if(option.type=='testingModal'){
+		else if(option.type=='testingModal'){
 			modalWinJquery_str = option.parentDiv;
 			// Create a close this window link and attach to the modal window, along with the event handler
 			var close= modalWinJquery_str.find('.close')
@@ -119,12 +127,12 @@ $.fn.legModalWinOnce = function(options){
 			var survey =modalWinJquery_str.find('.continue a');
 			survey.click(function(event){
 				event.preventDefault();	
-				closeModWin();				
+				closeModWin();	
+                $.cookie('surveyMessage5', '2');			
 				window.open("http://www.surveygizmo.co.uk/s3/987479/legislation-survey-0812");
 				
 			});
 		}
-		*/
 		// When the link that opens the modal win is clicked
 
 				
