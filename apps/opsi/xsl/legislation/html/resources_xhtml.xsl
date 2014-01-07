@@ -224,7 +224,8 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						<!-- Mixed language last -->
 						<xsl:sort select="@Language = 'Mixed'" />
 						<!-- Most recent first -->
-						<xsl:sort select="xs:date(@Date)" order="descending" />
+						<xsl:sort select="@URI" order="ascending"/>
+						<!--<xsl:sort select="xs:date(@Date)" order="descending" />-->
 					</xsl:apply-templates>
 					<xsl:apply-templates select="ukm:Supersedes" mode="AssociatedDocuments"/>
 				</xsl:with-param>
@@ -234,13 +235,13 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 				<xsl:with-param name="associatedDocuments">
 					<xsl:apply-templates select="ukm:Metadata//ukm:ImpactAssessments//*[@URI]" mode="AssociatedDocuments">
 						
-						<xsl:sort select="@Title"/>
+						<xsl:sort select="@URI" order="ascending"/>
 						<!-- English first -->
 						<xsl:sort select="exists(@Language)" />
 						<!-- Mixed language last -->
 						<xsl:sort select="@Language = 'Mixed'" />
 						<!-- Most recent first -->
-						<xsl:sort select="xs:date(@Date)" order="descending" />
+						<!-- <xsl:sort select="xs:date(@Date)" order="descending" /> -->
 					</xsl:apply-templates>
 					
 				</xsl:with-param>
@@ -421,13 +422,13 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 										<xsl:when test="self::ukm:ImpactAssessment[exists($ia[4])]">
 										
 											<xsl:value-of select="$title"/>
-											<xsl:text> [ </xsl:text>
+											<xsl:text> [ part </xsl:text>
 											<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
 											<xsl:text> ]</xsl:text>
 										</xsl:when>
 										<xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
 												<xsl:value-of select="$title"/>
-											<xsl:text> [ 1 ]</xsl:text>
+											<xsl:text> [ part 1 ]</xsl:text>
 										
 										</xsl:when>	
 										
@@ -486,13 +487,13 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						</xsl:when>
 						<xsl:when test="self::ukm:ImpactAssessment[exists($ia[4])]">
 							<xsl:value-of select="$title"/>
-							<xsl:text> [ </xsl:text>
+							<xsl:text> [ part </xsl:text>
 							<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
 							<xsl:text> ]</xsl:text>
 						</xsl:when>
 						<xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
 									<xsl:value-of select="$title"/>
-							<xsl:text> [ 1 ]</xsl:text>
+							<xsl:text> [ part 1 ]</xsl:text>
 							
 						</xsl:when>	
 						

@@ -94,7 +94,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/policy-note/toc']/@href"/>
 	
 	<xsl:variable name="part" as="element()*" >
-		<xsl:sequence select="/leg:ImpactAssessment//ukm:Alternatives"/>
+		<xsl:sequence select="/leg:ImpactAssessment//ukm:Alternatives">
+			
+		</xsl:sequence>
 	</xsl:variable>
 		
 		
@@ -276,7 +278,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<h2>Please note:</h2>
 			<p class="intro">This impact assessment is only available to download and view as PDF.</p>
 		</div>
-		<xsl:variable name="pdf" as="element()*" select="ukm:Metadata/ukm:Alternatives/ukm:Alternative[translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','') = $impactId]"/>
+		<!--<xsl:variable name="pdf" as="element()*" select="ukm:Metadata/ukm:Alternatives/ukm:Alternative[translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','') = $impactId]"/>-->
+		<xsl:variable name="pdf" as="element()*">
+			<xsl:choose>
+				<xsl:when test="$impactId = 'impacts' ">
+					<xsl:sequence select="ukm:Metadata/ukm:Alternatives/ukm:Alternative[not(exists(tokenize(@URI, '_')[4]))]"></xsl:sequence>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:sequence select="ukm:Metadata/ukm:Alternatives/ukm:Alternative[translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','') = $impactId]" ></xsl:sequence>
+				</xsl:otherwise>
+			</xsl:choose>
+			</xsl:variable>
 		
 		<div id="viewLegContents">                            
 			<div class="LegSnippet" id="viewLegSnippet">
@@ -315,18 +327,26 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<ul class="toolList">
 					<xsl:for-each select="$assessmentTypes">
 						<xsl:variable name="assessmentType" as="xs:string" select="." />
-						<xsl:variable name="button" as="element()">
-							<span class="background">
-								<span class="btl" /><span class="btr" /><xsl:value-of select="$assessmentType" /><span class="bbl" /><span class="bbr" />
-							</span>
+						<xsl:variable name="button" as="element()?">
+							<xsl:choose>
+								<xsl:when test="count($part/*) > 1 and starts-with($iaStage, $assessmentType)"></xsl:when>
+								<xsl:otherwise>
+									<span class="background">
+									<span class="btl" /><span class="btr" /><xsl:value-of select="$assessmentType" /><span class="bbl" /><span class="bbr" />
+								</span></xsl:otherwise>
+							</xsl:choose>
+							
+							
 						</xsl:variable>
 						<li>
 							<xsl:choose>
-								<xsl:when test="starts-with($iaStage, $assessmentType)">
+								<xsl:when test="starts-with($iaStage, $assessmentType) and count($part/*) = 1">
 									<span class="userFunctionalElement active">
 										<xsl:sequence select="$button" />
 									</span>
 								</xsl:when>
+								<xsl:when test="starts-with($iaStage, $assessmentType) and count($part/*) > 1"/>
+									
 								<xsl:when test="exists($iaStage[starts-with(., $assessmentType)])">
 									<a class="userFunctionalElement" href="{leg:FormatURL(concat($impactURI, '/', lower-case(replace($assessmentType, ' ', '-'))))}">
 										<xsl:sequence select="$button" />
@@ -343,15 +363,26 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							<xsl:choose>
 								<xsl:when test="$impactId = 'impacts' ">
 									<xsl:for-each select="$part/*">
+										<xsl:sort select="@URI" order="ascending"></xsl:sort>
 										<xsl:variable name="uri">
 											<xsl:value-of select="translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','')"/>
 										</xsl:variable>
 										<xsl:variable name="iauri">
 											<xsl:value-of select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@title = 'Impact Assessment']/@href[tokenize(.,'/')[last()] = $impactId]"/>
 										</xsl:variable>
+										<xsl:variable name="ia" select="tokenize(@URI, '_')" />
+										<xsl:variable name="iaNo">
+											<xsl:choose>
+												<xsl:when test="exists($ia[4])">
+													<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
+												</xsl:when>
+												<xsl:otherwise>1</xsl:otherwise>
+											</xsl:choose>
+										
+										</xsl:variable>
 										<xsl:variable name="buttonPart" as="element()">
 											<span class="background">
-												<span class="btl" /><span class="btr" /><xsl:value-of select="concat('part ',position())" /><span class="bbl" /><span class="bbr" />
+												<span class="btl" /><span class="btr" /><xsl:value-of select="concat($assessmentType,' [ part ',$iaNo,' ]')" /><span class="bbl" /><span class="bbr" />
 											</span>
 										</xsl:variable>
 										<li>
@@ -377,15 +408,29 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								</xsl:when>
 								<xsl:otherwise>
 									<xsl:for-each select="$part/*">
+										<xsl:sort select="@URI" order="ascending"></xsl:sort>
 										<xsl:variable name="uri">
 											<xsl:value-of select="translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','')"/>
 										</xsl:variable>
 										<xsl:variable name="iauri">
 											<xsl:value-of select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@title = 'Impact Assessment']/@href[tokenize(.,'/')[last()] = $impactId]"/>
 										</xsl:variable>
+										
+										<xsl:variable name="ia" select="tokenize(@URI, '_')" />
+										<xsl:variable name="iaNo">
+											<xsl:choose>
+												<xsl:when test="exists($ia[4])">
+													
+													<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
+													
+												</xsl:when>
+												<xsl:otherwise>1</xsl:otherwise>
+											</xsl:choose>
+											
+										</xsl:variable>
 										<xsl:variable name="buttonPart" as="element()">
 											<span class="background">
-												<span class="btl" /><span class="btr" /><xsl:value-of select="concat('part ',position())" /><span class="bbl" /><span class="bbr" />
+												<span class="btl" /><span class="btr" /><xsl:value-of select="concat($assessmentType,' [ part ',$iaNo,' ]')" /><span class="bbl" /><span class="bbr" />
 											</span>
 										</xsl:variable>
 										<li>
