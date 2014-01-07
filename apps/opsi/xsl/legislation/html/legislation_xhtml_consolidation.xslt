@@ -601,9 +601,19 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 </xsl:template>
 
+<xsl:template match="leg:SignedSection">
+	<xsl:apply-templates/>
+	<xsl:apply-templates select="." mode="ProcessAnnotations"/>
+</xsl:template>
+
+<xsl:template match="leg:ExplanatoryNotes">
+	<xsl:apply-templates/>
+	<xsl:apply-templates select="." mode="ProcessAnnotations"/>
+</xsl:template>
+
 <xsl:template match="leg:Commentaries | err:Warning | leg:CitationLists"/>
 
-	<xsl:template match="leg:Primary | leg:Secondary | leg:Body | leg:Schedules | leg:P1group | leg:Group | leg:Part | leg:Chapter | leg:Pblock | leg:PsubBlock | leg:P1 | leg:P |leg:PrimaryPrelims | leg:SecondaryPrelims | leg:Schedule | leg:Form | leg:Schedule/leg:ScheduleBody//leg:Tabular " mode="ProcessAnnotations">
+	<xsl:template match="leg:Primary | leg:Secondary | leg:Body | leg:Schedules | leg:SignedSection | leg:ExplanatoryNotes | leg:P1group | leg:Group | leg:Part | leg:Chapter | leg:Pblock | leg:PsubBlock | leg:P1 | leg:P |leg:PrimaryPrelims | leg:SecondaryPrelims | leg:Schedule | leg:Form | leg:Schedule/leg:ScheduleBody//leg:Tabular " mode="ProcessAnnotations">
 	<xsl:param name="showSection" as="element()*" tunnel="yes" select="()" />
 	<xsl:param name="showingHigherLevel" as="xs:boolean" tunnel="yes" select="false()"/>
 	<xsl:param name="includeTooltip" as="xs:boolean" tunnel="yes" select="false()"/>
@@ -664,6 +674,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:when test="@DocumentURI"><xsl:value-of select="@DocumentURI"/></xsl:when>
 			<xsl:when test="self::leg:Body"><xsl:value-of select="/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/navigation/body']/@href" /></xsl:when>
 			<xsl:when test="self::leg:Schedules"><xsl:value-of select="/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/navigation/schedules']/@href" /></xsl:when>
+			<xsl:when test="parent::leg:SignedSection"><xsl:value-of select="/(leg:Legislation|leg:Fragment)/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/navigation/signature']/@href" /></xsl:when>
 			<xsl:otherwise><xsl:value-of select="descendant::*[@DocumentURI][1]/@DocumentURI"/></xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
