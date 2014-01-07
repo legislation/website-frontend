@@ -954,8 +954,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <xsl:template match="leg:Part | leg:Body | leg:Schedules | leg:Pblock | leg:PsubBlock" priority="51">
 	<xsl:choose>
 		<xsl:when test="every $child in (leg:* except (leg:Number, leg:Title))
-				satisfies ($child/@Match = 'false' and $child/@RestrictEndDate and not($child/@Status = 'Prospective') and
-				   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() )))">
+				satisfies ((($child/@Match = 'false' and $child/@RestrictEndDate) and not($child/@Status = 'Prospective') and
+				   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() ))) or ($child/@Match = 'false' and $child/@Status = 'Repealed'))">
 			<xsl:apply-templates select="leg:Number | leg:Title" />
 			<p>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</p>
 			<xsl:apply-templates select="." mode="ProcessAnnotations"/>
@@ -971,8 +971,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:choose>
 		<xsl:when test="(@Match = 'false' and @RestrictEndDate and not(@Status = 'Prospective') and
 				   ((($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= current-date() ))) or (every $child in (leg:ScheduleBody/*)
-		  satisfies ($child/@Match = 'false' and $child/@RestrictEndDate and not($child/@Status = 'Prospective')) and
-				   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() )))">
+		  satisfies (($child/@Match = 'false' and $child/@RestrictEndDate and not($child/@Status = 'Prospective')) and
+				   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() ))) or ($child/@Match = 'false' and $child/@Status = 'Repealed'))">
 			<p class="LegArticleRef">
 				<xsl:for-each select="leg:Reference">
 					<xsl:call-template name="FuncCheckForID"/>
