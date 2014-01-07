@@ -285,7 +285,23 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		</div>
 	</xsl:template>
 
-	 <xsl:template match="ukm:Metadata/ukm:Alternatives/ukm:Alternative | ukm:Metadata/ukm:Notes/ukm:Alternatives/ukm:Alternative | ukm:TableOfDestinations|ukm:TableOfOrigins|ukm:CorrectionSlip|ukm:TableOfEffects|ukm:CodeOfPractice|ukm:OrderInCouncil|ukm:OrdersInCouncil|ukm:OtherDocument|ukm:ImpactAssessment" mode="AssociatedDocuments">
+	 <xsl:template match="ukm:Metadata/ukm:Alternatives/ukm:Alternative 
+	 	| ukm:Metadata/ukm:Notes/ukm:Alternatives/ukm:Alternative 
+	 	| ukm:TableOfDestinations|ukm:TableOfOrigins
+	 	|ukm:CorrectionSlip
+	 	|ukm:TableOfEffects
+	 	|ukm:CodeOfPractice
+	 	|ukm:OrderInCouncil
+	 	|ukm:OrdersInCouncil
+	 	|ukm:TableOfOrigins
+	 	|ukm:UKRPCOpinion
+	 	|ukm:TranspositionNote
+	 	|ukm:CodeofConduct
+	 	|ukm:TableOfDestinations
+	 	|ukm:UKExplanatoryMemorandum
+	 	|ukm:NIExplanatoryMemorandum
+	 	|ukm:ImpactAssessment
+	 	|ukm:OtherDocument" mode="AssociatedDocuments">
 		 <xsl:if test="$isDraft or not(self::ukm:Alternative) or (self::ukm:Alternative and ancestor::ukm:Notes) or @Revised">
 			 <!-- if draft legislation then all alternative versions(print) will also be included -->
 		 	<xsl:variable name="dateSuffix">
@@ -318,7 +334,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		 			</xsl:otherwise>
 		 		</xsl:choose>
 		 	</xsl:variable>
-			<li>
+			<!--chunyu:Multiple versions of associated documents-->
+		 	<xsl:variable name="ia" select="tokenize(@URI, '_')" />
+		  	<li>
 				<a href="{@URI}" class="pdfLink">
 					<xsl:choose>
 						<xsl:when test="starts-with($title, 'Mixed Language')"><xsl:value-of select="concat(substring-after($title, 'Mixed Language'), $dateSuffix, ' - ', 'Mixed Language')"/></xsl:when>
@@ -336,18 +354,136 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 									<xsl:if test="not(contains(@Title, 'Draft'))">
 										<xsl:text>Draft </xsl:text>
 									</xsl:if>
-									<xsl:value-of select="@Title"/>
+									<xsl:choose>
+										<xsl:when test="self::ukm:CorrectionSlip">
+											<xsl:text>Correction Slip - </xsl:text>
+											<xsl:value-of select="leg:FormatDate(@Date)"/>
+										</xsl:when>
+										<xsl:when test="self::ukm:ImpactAssessment[exists($ia[4])]">
+											<xsl:text>Impact Assessment: </xsl:text>
+											<!-- <xsl:value-of select="tokenize($title,' ')[1]"/> -->
+											<xsl:text> version part </xsl:text>
+											<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
+										</xsl:when>
+										<xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
+											<xsl:text>Impact Assessment: </xsl:text>
+											<!-- <xsl:value-of select="tokenize($title,' ')[1]"/> -->
+											<xsl:text> version part </xsl:text>
+											<xsl:text>1</xsl:text>
+										</xsl:when>	
+										
+										<xsl:when test="self::ukm:Alternative[exists($ia[4])]">
+											<xsl:value-of select="$title"/>
+											<xsl:text>: version part </xsl:text>
+											<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
+										</xsl:when>
+										<xsl:when test="self::ukm:Alternative[preceding-sibling::*[self::ukm:Alternative] and not(following-sibling::*)]						
+											">
+											<xsl:value-of select="$title"/>
+											<xsl:text>: version part </xsl:text>
+											<xsl:text>1</xsl:text>
+										</xsl:when>
+										<xsl:when test="self::ukm:ComingIntoForce[exists($ia[4])] 
+											| self::ukm:CodeOfPractice[exists($ia[4])] | 
+											self::ukm:UKRPCOpinion[exists($ia[4])] |
+											self::ukm:CodeofConduct[exists($ia[4])] | 
+											self::ukm:OtherDocument[exists($ia[4])] | 
+											self::ukm:UKExplanatoryMemorandum[exists($ia[4])] | 
+											self::ukm:NIExplanatoryMemorandum[exists($ia[4])] | 
+											self::ukm:TranspositionNote[exists($ia[4])] ">
+											<xsl:value-of select="$title"/>
+											<xsl:text>: version part </xsl:text>
+											<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
+										</xsl:when>
+										<xsl:when test="self::ukm:ComingIntoForce[preceding-sibling::*[self::ukm:ComingIntoForce] and not(following-sibling::*)]
+											| self::ukm:CodeOfPractice[preceding-sibling::*[self::ukm:CodeOfPractice] and not(following-sibling::*)]
+											| self::ukm:UKRPCOpinion[preceding-sibling::*[self::ukm:UKRPCOpinion] and not(following-sibling::*)]
+											| self::ukm:CodeofConduct[preceding-sibling::*[self::ukm:CodeofConduct] and not(following-sibling::*)]
+											| self::ukm:OtherDocument[preceding-sibling::*[self::ukm:OtherDocument] and not(following-sibling::*)]
+											| self::ukm:TranspositionNote[preceding-sibling::*[self::ukm:TranspositionNote] and not(following-sibling::*)]
+											| self::ukm:UKExplanatoryMemorandum[preceding-sibling::*[self::ukm:UKExplanatoryMemorandum] and not(following-sibling::*)]
+											| self::NIExplanatoryMemorandum[preceding-sibling::*[self::NIExplanatoryMemorandum] and not(following-sibling::*)]
+											">
+											<xsl:value-of select="$title"/>
+											<xsl:text>: version part </xsl:text>
+											<xsl:text>1</xsl:text>
+										</xsl:when>	
+										<xsl:otherwise>
+											<xsl:value-of select="$title" />
+										</xsl:otherwise>
+									</xsl:choose>
+													
 								</xsl:otherwise>
 							</xsl:choose>
-							<xsl:value-of select="$dateSuffix" />
+						
 						</xsl:when>
+						
+					
+						
 						<xsl:when test="self::ukm:CorrectionSlip">
 							<xsl:text>Correction Slip - </xsl:text>
 							<xsl:value-of select="leg:FormatDate(@Date)"/>
+							
 						</xsl:when>
+						<xsl:when test="self::ukm:ImpactAssessment[exists($ia[4])]">
+							<xsl:text>Impact Assessment: </xsl:text>
+							<xsl:value-of select="tokenize($title,' ')[1]"/>
+							<xsl:text> version part </xsl:text>
+							<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
+							
+						</xsl:when>
+						<xsl:when test="self::ukm:ImpactAssessment[preceding-sibling::*[self::ukm:ImpactAssessment] and not(following-sibling::*)]">
+							<xsl:text>Impact Assessment: </xsl:text>
+							<xsl:value-of select="tokenize($title,' ')[1]"/>
+							<xsl:text> version part </xsl:text>
+							<xsl:text>1</xsl:text>
+							
+						</xsl:when>	
+						
+						<xsl:when test="self::ukm:Alternative[exists($ia[4])]">
+							<xsl:value-of select="$title"/>
+							<xsl:text>: version part </xsl:text>
+							<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
+							
+						</xsl:when>
+						<xsl:when test="self::ukm:Alternative[preceding-sibling::*[self::ukm:Alternative] and not(following-sibling::*)]						
+							">
+							<xsl:value-of select="$title"/>
+							<xsl:text>: version part </xsl:text>
+							<xsl:text>1</xsl:text>
+							
+						</xsl:when>
+						<xsl:when test="self::ukm:ComingIntoForce[exists($ia[4])] 
+							| self::ukm:CodeOfPractice[exists($ia[4])] | 
+							self::ukm:UKRPCOpinion[exists($ia[4])] |
+							self::ukm:CodeofConduct[exists($ia[4])] | 
+							self::ukm:OtherDocument[exists($ia[4])] | 
+							self::ukm:UKExplanatoryMemorandum[exists($ia[4])] | 
+							self::ukm:NIExplanatoryMemorandum[exists($ia[4])] | 
+							self::ukm:TranspositionNote[exists($ia[4])] ">
+								<xsl:value-of select="$title"/>
+							<xsl:text>: version part </xsl:text>
+							<xsl:value-of select="number(substring($ia[4],3,1)) + 1 "/>
+							
+						</xsl:when>
+						<xsl:when test="self::ukm:ComingIntoForce[preceding-sibling::*[self::ukm:ComingIntoForce] and not(following-sibling::*)]
+							| self::ukm:CodeOfPractice[preceding-sibling::*[self::ukm:CodeOfPractice] and not(following-sibling::*)]
+							| self::ukm:UKRPCOpinion[preceding-sibling::*[self::ukm:UKRPCOpinion] and not(following-sibling::*)]
+							| self::ukm:CodeofConduct[preceding-sibling::*[self::ukm:CodeofConduct] and not(following-sibling::*)]
+							| self::ukm:OtherDocument[preceding-sibling::*[self::ukm:OtherDocument] and not(following-sibling::*)]
+							| self::ukm:TranspositionNote[preceding-sibling::*[self::ukm:TranspositionNote] and not(following-sibling::*)]
+							| self::ukm:UKExplanatoryMemorandum[preceding-sibling::*[self::ukm:UKExplanatoryMemorandum] and not(following-sibling::*)]
+							| self::NIExplanatoryMemorandum[preceding-sibling::*[self::NIExplanatoryMemorandum] and not(following-sibling::*)]
+							">
+							<xsl:value-of select="$title"/>
+							<xsl:text>: version part </xsl:text>
+							<xsl:text>1</xsl:text>
+							
+						</xsl:when>	
+						<!--<xsl:value-of select="$dateSuffix" />-->
 						<xsl:otherwise>
 							<xsl:value-of select="$title" />
-							<xsl:value-of select="$dateSuffix" />
+							
 						</xsl:otherwise>
 					</xsl:choose>
 				</a>

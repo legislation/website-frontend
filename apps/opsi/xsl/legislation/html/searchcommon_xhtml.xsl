@@ -69,7 +69,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		<html>
 			<head>
 				<xsl:call-template name="AddBrowseStylesScripts"/>
-				<xsl:variable name="lastModified" as="xs:dateTime?" select="max((/atom:feed/atom:updated, /atom:feed/atom:entry/atom:updated)/xs:dateTime(.))" />
+				<xsl:variable name="lastModified" as="xs:dateTime?">
+					<xsl:choose>
+						<xsl:when test="/atom:feed/atom:updated !='' or /atom:feed/atom:entry/atom:updated !=''">
+							<xsl:value-of select="max((/atom:feed/atom:updated, /atom:feed/atom:entry/atom:updated)/xs:dateTime(.))"/>
+						</xsl:when>
+						<xsl:otherwise/>
+					</xsl:choose>
+						
+				</xsl:variable> 
 				<xsl:variable name="lastModified" as="xs:dateTime" select="if (exists($lastModified)) then $lastModified else current-dateTime()" />
  				<meta name="DC.Date.Modified" content="{adjust-date-to-timezone(xs:date($lastModified), ())}" />
 				<meta http-equiv="Last-Modified" content="{tso:httpDateTime($lastModified)}" />
@@ -108,14 +116,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<xsl:if test="exists(atom:feed/atom:entry)">
 
 							<div class="interface">
-							<!-- header paging details-->
-							<xsl:apply-templates select="atom:feed" mode="links" />
+                                <!-- header paging details-->
+                                <xsl:apply-templates select="atom:feed" mode="links" />
 							</div>
 							
 							<!-- facet details-->
 							<xsl:apply-templates select="atom:feed" mode="searchfacets" />
-							
-							<!-- search result details-->	
+                            
+		<!-- search result details-->	
 							<xsl:apply-templates select="atom:feed" mode="searchresults" />
 							
 							<!-- footer paging details-->
@@ -214,6 +222,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						<!-- displaying next if exists -->
 						<xsl:apply-templates select="$nextLink" />
 					</xsl:if>
+					
 				</ul>
 			</div>
 	</xsl:template>
@@ -308,6 +317,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:apply-templates select="$params[self::theme]" mode="summary">
 					<xsl:with-param name="feed" select="." />
 				</xsl:apply-templates>
+							
 				<xsl:choose>
 					<xsl:when test="$params[self::year]">
 						<xsl:apply-templates select="$params[self::year]" mode="summary"/>
@@ -353,7 +363,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						</xsl:apply-templates>
 					</xsl:otherwise>
 				</xsl:choose>
-				<xsl:apply-templates select="$params[self::subject]" mode="summary" />
+			<!--	<xsl:apply-templates select="$params[self::subject]" mode="summary" />-->
+				
+				<xsl:apply-templates select="$params[self::subject]" mode="summary"/>
+					
+				
 				<xsl:apply-templates select="$params[self::extent]" mode="summary" />
 				<xsl:apply-templates select="$params[self::version]" mode="summary" />
 			</xsl:variable>
@@ -386,7 +400,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				</xsl:choose>
 				<xsl:text> has returned </xsl:text>
 				<xsl:choose>
-					<xsl:when test="openSearch:totalResults = 0">no results.</xsl:when>
+					<xsl:when test="openSearch:totalResults = '0'">no results.</xsl:when>
 					<xsl:otherwise>
 						<xsl:choose>
 							<xsl:when test="openSearch:totalResults > 200">more than 200</xsl:when>
@@ -770,12 +784,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 					</thead>
 					<tbody>
 					<xsl:choose>
-						<xsl:when test="exists(leg:facets/leg:facetSubjectsInitials/leg:facetSubjectInitial) and ($sort = ('', 'subject'))">
+						<xsl:when test="exists(leg:facets/leg:facetSubjectsInitials/leg:facetSubjectInitial) and string-length($subject) = 1">
 							<!-- if the search by heading is performed then we only need to display the results whose @category starts-with the required heading letter. -->
-							<xsl:variable name="subject" as="attribute(leg:subject)?" select="openSearch:Query/@leg:subject" />
+							<xsl:variable name="subject"  select="openSearch:Query/@leg:subject" />
 							<xsl:for-each-group select="atom:entry" group-by="ukm:Subject/lower-case(@Value)">
 								<xsl:sort select="current-grouping-key()" />
-								<xsl:if test="$subject = '' or starts-with(lower-case(current-grouping-key()), $subject) ">
+								<xsl:if test="$subject = '' or starts-with(lower-case(current-grouping-key()), $subject)   ">
 									<tr class="heading">
 										<td colspan="3">
 											<h2>
@@ -808,13 +822,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:apply-templates select="atom:entry" mode="searchresults" />
+								
 						</xsl:otherwise>
 					</xsl:choose>
 				</tbody>
 			</table>
 		</div>
-	</xsl:template>
+	</xsl:template>	
 	
+	
+
 	<xsl:function name="leg:GetSortedLink">
 		<xsl:param name="link" />
 		<xsl:param name="sort" />
@@ -969,11 +986,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<xsl:value-of select="xs:integer(((($maxGroup - $minGroup) idiv $scale) * 35) + 35)" />
 			<xsl:text>em}</xsl:text>
 		</style>
-		<script type="text/javascript" src="/scripts/jquery-ui-1.8.1.custom.min.js"/>
+        
+        <!-- Required for the headingFacet autocomplete -->
+        <link rel="stylesheet" href="/styles/advancedsearch/jquery-ui.css" type="text/css"/>
+        
+		<script type="text/javascript" src="/scripts/jquery-ui-1.8.24.custom.min.js"/>
 		<script type="text/javascript" src="/scripts/view/jquery.ui.slider.min.js"/>
 		<script type="text/javascript" src="/scripts/view/scrollbar.js"/>
         <script type="text/javascript" src="/scripts/formFunctions/common.js"></script>
 		<script type="text/javascript" src="/scripts/advancedsearch/search.js"></script>
+        <script type="text/javascript" src="/scripts/search/jquery.ui.autocomplete.min.js"></script>
+        <script type="text/javascript" src="/scripts/search/jquery.ui.comboboxFromLinks.js"></script>
+        <script type="text/javascript" src="/scripts/search/headingFacet.js"></script>
 	</xsl:template>
 	
 	<xsl:template name="heading">

@@ -23,6 +23,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	
 	<xsl:variable name="link" as="xs:string" select="leg:GetLink(//atom:link[@rel = 'first']/@href)"/>
 	
+	
+	<xsl:variable name="typeSub" as="xs:string" select="atom:feed/openSearch:Query/@leg:type"></xsl:variable>
+	
+	<xsl:variable name="sub" as="xs:string*" select="atom:feed/openSearch:Query/@leg:subject"></xsl:variable>
+		
 	<xsl:template match="atom:feed" mode="searchfacets">
 		<xsl:apply-templates select="leg:facets" mode="searchfacets"/>
 	</xsl:template>
@@ -252,18 +257,54 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 									<xsl:when test="exists($facet)">
 										<xsl:attribute name="class">legHeading</xsl:attribute>
 										<a href="{leg:GetSortedLink($facet/@href, 'subject', 'subject')}"><xsl:value-of select="."/></a>
+												
 									</xsl:when>
 									<xsl:otherwise>
 										<xsl:attribute name="class">legHeading empty</xsl:attribute>
 										<xsl:value-of select="."/>
 									</xsl:otherwise>
 								</xsl:choose>
+							
 							</li>
+						
 						</xsl:for-each>
 					</ul>
 				</div>
 			</div>
+			<div id="subheading" class="section">
+			<div class="title">
+				<h3>Navigate to a subheading:</h3>
+			</div>
+			<div class="content">
+				<ul>
+						<xsl:apply-templates select="leg:headings"/>
+				</ul>
+			</div>
+			</div>
+		
 		</xsl:if>
+	</xsl:template>
+	
+
+	<xsl:template match="leg:headings">
+		<xsl:variable name="apo">’</xsl:variable>
+	    <xsl:variable name="stright">'</xsl:variable>
+		<xsl:if test="string-length($sub) != 0">
+	    <xsl:variable name="list" as="element()*">
+	    	<xsl:sequence select="leg:heading[starts-with(@Value,upper-case($sub))]"/>
+	    		
+	    </xsl:variable>
+		
+	<xsl:for-each-group select="$list" group-by="translate(./@Value,$apo,$stright)">
+		<xsl:sort select="current-grouping-key()"/>
+		<li>
+			<a href="{concat('http://www.legislation.gov.uk/',$typeSub,'/', encode-for-uri(lower-case(
+				current-grouping-key())))}">
+		<xsl:value-of select="current-grouping-key()"/>
+			</a>
+		</li>
+		</xsl:for-each-group>
+	                </xsl:if>
 	</xsl:template>
 	
 	

@@ -1300,6 +1300,17 @@ li.empty {color: #9a9a9a;}
 #refineSearch .searchExtendsTo .LegExtentRestriction .btr {background: url(/images/chrome/extentBg.gif) no-repeat -290px 0;  top:    0px;  right: 0;}
 #refineSearch .searchExtendsTo .LegExtentRestriction .bbl {background: url(/images/chrome/extentBg.gif) no-repeat 0 -90px;  bottom: 0px;  left:  0px;}
 #refineSearch .searchExtendsTo .LegExtentRestriction .bbr {background: url(/images/chrome/extentBg.gif) no-repeat -290px -90px;  bottom: 0px;  right: 0em;}
+
+#tools .ui-combobox .ui-widget {float: left; display: block;}
+#tools .ui-combobox input {margin-left: 6px; width: 148px; background: url(/images/chrome/home_form_shadow.gif) no-repeat left top #fff; border-radius: 0; border: 1px solid #7B85AD; border-right: none; line-height: 1.5em;}
+#tools .ui-combobox .ui-button {border-radius: 0; padding: 5px 5px 6px;}
+#tools #submitHeading {margin: 0.75em 6px;}
+#tools #subheading .userFunctionalElement { border-radius: 0 0 0 0; position: relative;}
+#tools #subheading .ui-button-text-only .ui-button-text {padding: 0.4em 1em;}
+#tools #subheading .ui-button .ui-button-text {display: block; line-height: 1.4;}
+#tools #subheading a.userFunctionalElement {background: url("/images/chrome/interfacebuttonSprites.gif") no-repeat scroll -1px -424px transparent; font-weight: bold; font-size: 1em; font-family: "Gill Sans / Gill Sans MT",sans-serif; padding: 3px 12px; width: 158px; text-align: center; }
+#tools #subheading a.disabled {background: url("/images/chrome/interfacebuttonSprites.gif") no-repeat scroll -1px -211px transparent}
+#tools #subheading a.userFunctionalElement .ui-button-text {padding: 0; }
 /* end of tools section */
 
 /* a-z styling */

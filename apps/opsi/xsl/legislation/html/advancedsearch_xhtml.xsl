@@ -67,7 +67,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 				<xsl:if test="$pointInTimeSearch or $impactAssessmentSearch">
 					<link rel="stylesheet" href="/styles/advancedsearch/jquery.ui.datepicker.css" type="text/css" />
 					<link rel="stylesheet" href="/styles/advancedsearch/jquery-ui.css" type="text/css" />
-					<script type="text/javascript" src="/scripts/jquery-ui-1.8.1.custom.min.js"></script>
+					<script type="text/javascript" src="/scripts/jquery-ui-1.8.24.custom.min.js"></script>
 					<script type="text/javascript" src="/scripts/advancedsearch/jquery.ui.datepicker.min.js"></script>
 				</xsl:if>
 				

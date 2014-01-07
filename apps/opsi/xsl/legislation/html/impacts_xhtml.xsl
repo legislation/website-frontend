@@ -42,8 +42,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	<xsl:variable name="language" select="if (/leg:ImpactAssessment/@xml:lang) then /leg:Legislation/@xml:lang else 'en'"/>
 	
 	<xsl:variable name="impactYear" as="xs:string?" select="leg:ImpactAssessment/ukm:Metadata/ukm:ImpactAssessmentMetadata/ukm:Year/@Value" />
-	
+	<xsl:variable name="impactLegYear" as="xs:string?" select="leg:ImpactAssessment/ukm:Metadata/ukm:Legislation//ukm:Year/@Value" />
 	<xsl:variable name="impactNumber" as="xs:string?" select="leg:ImpactAssessment/ukm:Metadata/ukm:ImpactAssessmentMetadata/ukm:Number/@Value" />
+	
+	<xsl:variable name="impactLegNumber" as="xs:string?" select="leg:ImpactAssessment/ukm:Metadata/ukm:Legislation//ukm:Number/@Value" />
+	
+	<xsl:variable name="impactId" as="xs:string?" select="tokenize(leg:ImpactAssessment/ukm:Metadata/dc:identifier,'/')[last()]" />
 	
 	<xsl:variable name="legislationTitle"><xsl:call-template name="TSOOutputLegislationTitle"/></xsl:variable>
 	
@@ -73,9 +77,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 
 			
 	<xsl:variable name="resourceURI" as="xs:string" 
-		select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/resources']/@href" />				
-	<xsl:variable name="impactURI" as="xs:string?" 
-		select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts']/@href" />	
+		select="leg:ImpactAssessment/ukm:Metadata/atom:link[@title='More Resources']/@href" />				
+	
+	<xsl:variable name="impactURI" as="xs:string*" 
+		select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts'][1]/@href" />	
 		
 	<xsl:variable name="emURI" as="xs:string?" select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/memorandum/toc']/@href" />
 	
@@ -85,7 +90,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 	
 	<xsl:variable name="pnURI" as="xs:string?"
 		select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/policy-note/toc']/@href"/>
-			
+	
+	<xsl:variable name="part" as="element()*" >
+		<xsl:sequence select="/leg:ImpactAssessment//ukm:Alternatives[ukm:Alternative/@Title = 'Impact Assessment']"/>
+	</xsl:variable>
+		
+		
+
+
 	<!-- used by uicommon.xsl - this is the legislation main type -->
 	<xsl:variable name="documentMainType" as="xs:string?" select="/leg:ImpactAssessment/ukm:Metadata/ukm:Legislation/ukm:DocumentClassification/ukm:DocumentMainType/@Value"/>
 	
@@ -262,18 +274,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<h2>Please note:</h2>
 			<p class="intro">This impact assessment is only available to download and view as PDF.</p>
 		</div>
-		<xsl:variable name="pdf" as="element()?" select="ukm:Metadata/ukm:Alternatives/ukm:Alternative"/>
+		<xsl:variable name="pdf" as="element()*" select="ukm:Metadata/ukm:Alternatives/ukm:Alternative[translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','') = $impactId]"/>
+		
 		<div id="viewLegContents">                            
 			<div class="LegSnippet" id="viewLegSnippet">
 				<p class="downloadPdfVersion">
+		
 			<a class="pdfLink" href="{leg:FormatURL($pdf/@URI)}">
 				<img class="imgIcon" alt="" src="/images/chrome/pdfIconMed.gif" />
 				<xsl:text>View PDF</xsl:text>
 				<img class="pdfThumb" 
 					src="{leg:FormatURL(replace(replace($pdf/@URI, '/pdfs/', '/images/'), '.pdf', '.jpeg'))}"
-					title="{$pdf/@Title} for {$iaTitle}"
-					alt="{$pdf/@Title} for {$iaTitle}" />
+					title="{$iaTitle}"
+					alt="{$iaTitle}" />
 			</a>
+				
 		</p>
 				<span class="LegClearFix" />
 			</div>
@@ -283,7 +298,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 		</div>
 	</xsl:template>	
 	
-	<xsl:variable name="assessmentTypes" as="xs:string+" select="('Consultation', 'Final', 'Enactment', 'Post Implementation')" />
+	<xsl:variable name="assessmentTypes" as="xs:string+" select="('Development','Consultation', 'Final', 'Enactment', 'Post Implementation','Review','Implementation','Options')" />
 	
 	<xsl:template match="leg:ImpactAssessment" mode="TSOOutputWhatVersion">
 		<div class="section" id="whatVersion">
@@ -322,6 +337,88 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 								</xsl:otherwise>
 							</xsl:choose>
 						</li>
+						<xsl:if test="count($part/*) > 1 and starts-with($iaStage, $assessmentType) ">
+							<xsl:choose>
+								<xsl:when test="$impactId = 'impacts' ">
+									<xsl:for-each select="$part/*">
+										<xsl:variable name="uri">
+											<xsl:value-of select="translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','')"/>
+										</xsl:variable>
+										<xsl:variable name="iauri">
+											<xsl:value-of select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@title = 'Impact Assessment']/@href[tokenize(.,'/')[last()] = $impactId]"/>
+										</xsl:variable>
+										<xsl:variable name="buttonPart" as="element()">
+											<span class="background">
+												<span class="btl" /><span class="btr" /><xsl:value-of select="concat('part ',position())" /><span class="bbl" /><span class="bbr" />
+											</span>
+										</xsl:variable>
+										<li>
+										<xsl:choose>
+											<xsl:when test="position() = 1">
+												<span class="userFunctionalElement active">
+													<xsl:sequence select="$buttonPart" />
+												</span>
+												<!--<a class="userFunctionalElement" href="{/leg:ImpactAssessment/ukm:Metadata/dc:identifier}">
+													<xsl:sequence select="$buttonPart" />
+												</a>-->
+											</xsl:when>
+											<xsl:otherwise>
+												<a class="userFunctionalElement" href="{concat(/leg:ImpactAssessment/ukm:Metadata/dc:identifier,'/',$impactLegYear,'/',$uri)}">
+													<xsl:sequence select="$buttonPart" />
+												</a>
+											</xsl:otherwise>
+										</xsl:choose>
+										
+								
+									</li>
+									</xsl:for-each>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:for-each select="$part/*">
+										<xsl:variable name="uri">
+											<xsl:value-of select="translate(substring-before(tokenize(@URI,'/')[last()],'.'),'_','')"/>
+										</xsl:variable>
+										<xsl:variable name="iauri">
+											<xsl:value-of select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@title = 'Impact Assessment']/@href[tokenize(.,'/')[last()] = $impactId]"/>
+										</xsl:variable>
+										<xsl:variable name="buttonPart" as="element()">
+											<span class="background">
+												<span class="btl" /><span class="btr" /><xsl:value-of select="concat('part ',position())" /><span class="bbl" /><span class="bbr" />
+											</span>
+										</xsl:variable>
+										<li>
+											
+										<xsl:choose>
+											<xsl:when test="$uri = $impactId">
+												<span class="userFunctionalElement active">
+													<xsl:sequence select="$buttonPart" />
+												</span>
+											
+											</xsl:when>
+											<xsl:otherwise>
+												<a class="userFunctionalElement" href="{replace(/leg:ImpactAssessment/ukm:Metadata/dc:identifier,$impactId,$uri)}">
+														<xsl:sequence select="$buttonPart" />
+													</a>
+												
+											</xsl:otherwise>
+										</xsl:choose>
+											
+								
+												
+												
+										
+											
+								
+										</li>
+									</xsl:for-each>
+									
+								</xsl:otherwise>
+							</xsl:choose>
+							
+							
+							
+							
+						</xsl:if>
 					</xsl:for-each>
 				</ul>
 			</div>

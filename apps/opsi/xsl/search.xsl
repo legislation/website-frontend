@@ -16,6 +16,7 @@ xmlns:ukm="http://www.legislation.gov.uk/namespaces/metadata"
 xmlns:tso="http://www.tso.co.uk/assets/namespaces/functions"
 xmlns:dc="http://purl.org/dc/elements/1.1/" 
 xmlns:atom="http://www.w3.org/2005/Atom"
+xmlns:openSearch="http://a9.com/-/spec/opensearch/1.1/"
 exclude-result-prefixes="xs leg ukm tso dc atom xhtml"
 version="2.0">
 
@@ -59,6 +60,7 @@ version="2.0">
 				<xsl:otherwise>
 					<xsl:text>about </xsl:text>
 					<xsl:value-of select="round-half-to-even((leg:page + leg:morePages) * leg:resultsCount, -1)" />
+					<xsl:value-of select="openSearch:totalResults"></xsl:value-of>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:if>
