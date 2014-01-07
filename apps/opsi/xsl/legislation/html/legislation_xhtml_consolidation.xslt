@@ -39,7 +39,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <xsl:import href="../../common/utils.xsl"/>
 
-<xsl:output method="xml" version="1.0" omit-xml-declaration="yes"  indent="yes" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<xsl:output method="xml" version="1.0" omit-xml-declaration="yes"  indent="no" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <xsl:key name="citations" match="leg:Citation" use="@id" />
 <xsl:key name="commentary" match="leg:Commentary" use="@id"/>

@@ -29,7 +29,7 @@ exclude-result-prefixes="tso atom">
 
 	<xsl:import href="../html/statuswarning.xsl"/>
 
-	<xsl:output method="xml" version="1.0" omit-xml-declaration="no"  indent="yes" standalone="no" use-character-maps="FOcharacters"/>
+	<xsl:output method="xml" version="1.0" omit-xml-declaration="no"  indent="no" standalone="no" use-character-maps="FOcharacters"/>
 
 	
 	<!-- params to take value from uri query -->
