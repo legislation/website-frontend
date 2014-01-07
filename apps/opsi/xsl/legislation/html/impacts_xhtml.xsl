@@ -336,7 +336,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 							number="{$uriTokens[2]}"/>
 		</xsl:for-each>
 		<!--  TNA request - treat as a final stage if there is no stage declared  -->
-		<associatedIA stage="{if ($iaStage != '') then lower-case($iaStage) else 'final'}" 
+		<!--  The hyphen removal is to align the post-implementation stage with the string sequence  -->
+		<associatedIA stage="{if ($iaStage != '') then lower-case(translate($iaStage,'-',' ')) else 'final'}" 
 							uri="" 
 							title=""
 							year="{$impactYear}"
