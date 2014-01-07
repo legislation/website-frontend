@@ -276,7 +276,6 @@ exclude-result-prefixes="tso atom">
 	<!-- ========== Main code ========== -->
 	
 	<xsl:template match="/">
-
 		<!-- Create FO output -->
 		<fo:root id="{replace(/(leg:Legislation | leg:EN)/ukm:Metadata/atom:link[@rel = 'self']/@href,'.xml','.pdf')}">
 
@@ -1853,6 +1852,22 @@ exclude-result-prefixes="tso atom">
 		</xsl:call-template>
 		<xsl:call-template name="FuncApplyVersions"/>
 	</xsl:template>
+	
+	<!--HA055410: added to capture N1-N2-N3 paragraphs ie. P3 is the first thing in a P2para block-->
+	<xsl:template match="leg:P3[parent::leg:P2para and not(preceding-sibling::*)]">
+		<xsl:choose>
+			<xsl:when test="$g_strDocClass = $g_strConstantSecondary">
+				<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<fo:block>
+					<xsl:apply-templates/>
+				</fo:block>
+			</xsl:otherwise>
+		</xsl:choose>
+		<xsl:call-template name="FuncApplyVersions"/>
+	</xsl:template>
+	
 
 	<xsl:template match="leg:BlockAmendment/leg:P3">
 		<xsl:call-template name="TSO_p3">
@@ -2280,11 +2295,20 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 
 	<xsl:template match="leg:P2para/leg:Text | leg:P3para/leg:Text | leg:P4para/leg:Text | leg:P5para/leg:Text | leg:Para/leg:Text | leg:P/leg:Text">
+
 		<xsl:choose>
 			<xsl:when test="$g_strDocClass = $g_strConstantSecondary">
 				<xsl:choose>
 					<!-- Capture first para in P2 and output number -->
-					<xsl:when test="not(preceding-sibling::*) and (parent::leg:P2para[preceding-sibling::*[1][self::leg:Pnumber] or (not(parent::*/preceding-sibling::*) and parent::leg:BlockAmendment)])">	
+					<!-- HA055410: Amended to also pick out rare N1-N2-N3 paragraphs-->
+					<xsl:when test="not(preceding-sibling::*) and 
+						(
+							(parent::leg:P2para[preceding-sibling::*[1][self::leg:Pnumber] or 
+								(not(parent::*/preceding-sibling::*) and 
+							parent::leg:BlockAmendment)])
+							 or 
+							 (parent::leg:P3para[preceding-sibling::*[1][self::leg:Pnumber]] and not(parent::leg:P3para/parent::leg:P3/preceding-sibling::*)))">	
+
 						<fo:block text-align="justify" text-indent="12pt" space-before="{$g_strLargeStandardParaGap}">
 							<xsl:for-each select="parent::leg:P2para/parent::leg:P2">
 								<xsl:if test="(not(preceding-sibling::*) and parent::leg:P1para) or (preceding-sibling::*[1][self::leg:Title] and parent::leg:P2group[not(preceding-sibling::*)])">
@@ -2307,6 +2331,33 @@ exclude-result-prefixes="tso atom">
 								<xsl:text>&#160;&#160;</xsl:text>
 								<!--<xsl:text>&#2003;</xsl:text>-->						
 							</xsl:for-each>
+							<!--HA055410: added for N1-N2-N3 paragraphs-->
+							<xsl:if test="parent::leg:P3para and not(parent::leg:P3para/parent::leg:P3/preceding-sibling::leg:P3)">
+							<xsl:for-each select="parent::leg:P3para/parent::leg:P3/parent::leg:P2para/parent::leg:P2">
+								<xsl:if test="(not(preceding-sibling::*) and parent::leg:P1para) or (preceding-sibling::*[1][self::leg:Title] and parent::leg:P2group[not(preceding-sibling::*)])">
+									<xsl:if test="parent::*/parent::leg:P1[not(parent::leg:P1group) or preceding-sibling::leg:P1]">
+										<xsl:attribute name="space-before">12pt</xsl:attribute>
+									</xsl:if>
+									<fo:inline>
+										<xsl:if test="not(ancestor::leg:Schedule and $g_strDocType = 'NorthernIrelandStatutoryRule')">
+											<xsl:attribute name="font-weight">bold</xsl:attribute>
+										</xsl:if>
+										<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
+										<xsl:text>.</xsl:text>
+									</fo:inline>
+									<!-- Call No: HA051095 -->
+									<!--<xsl:text>&#8212;</xsl:text>-->
+									<xsl:text>&#160;&#160;</xsl:text>
+								</xsl:if>
+								<xsl:apply-templates select="leg:Pnumber"/>
+								<!-- FOP doesn't handle 2003 well - look for alternative -->
+								<xsl:text>&#160;&#160;</xsl:text>
+								<!--<xsl:text>&#2003;</xsl:text>-->						
+							</xsl:for-each>
+								<xsl:apply-templates select="parent::leg:P3para/preceding-sibling::leg:Pnumber"/>
+								<!-- FOP doesn't handle 2003 well - look for alternative -->
+								<xsl:text>&#160;&#160;</xsl:text>
+							</xsl:if>
 							<xsl:apply-templates/>
 						</fo:block>
 					</xsl:when>
