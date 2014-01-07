@@ -613,6 +613,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 											<xsl:with-param name="showSecondary" select="true()" />
 											<xsl:with-param name="showDraft" select="false()" />
 											<xsl:with-param name="showUnrevised" select="false()" />
+											<xsl:with-param name="showImpacts" select="false()" />
 											<xsl:with-param name="selected" select="$paramsDoc/parameters/type" />
 											<xsl:with-param name="error" select="not($isRevisedLegislation)" />
 										</xsl:call-template>
@@ -633,7 +634,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 									<xsl:call-template name="tso:TypeChoice">
 										<xsl:with-param name="showPrimary" select="false()" /> 
 										<xsl:with-param name="showSecondary" select="false()" /> 
-										<xsl:with-param name="showDraft" select="$draftLegislationSearch" /> 								
+										<xsl:with-param name="showImpacts" select="false()" /> 	
+										<xsl:with-param name="showDraft" select="$draftLegislationSearch" />
 										<xsl:with-param name="selected" select="$paramsDoc/parameters/type" />
 									</xsl:call-template>
 								</xsl:when>
@@ -641,7 +643,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 									<xsl:call-template name="tso:TypeChoice">
 										<xsl:with-param name="showPrimary" select="false()" /> 
 										<xsl:with-param name="showSecondary" select="false()" /> 
-										<xsl:with-param name="showImpacts" select="$impactAssessmentSearch" /> 								
+										<xsl:with-param name="showImpacts" select="$impactAssessmentSearch" />
 										<xsl:with-param name="selected" select="$paramsDoc/parameters/type" />
 									</xsl:call-template>
 								</xsl:when>
@@ -649,6 +651,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 									<xsl:call-template name="tso:TypeChoice">
 										<xsl:with-param name="showPrimary" select="true()" /> 
 										<xsl:with-param name="showSecondary" select="true()" /> 
+										<xsl:with-param name="showImpacts" select="false()" />
 										<xsl:with-param name="selected" select="$paramsDoc/parameters/type" />
 									</xsl:call-template>
 								</xsl:otherwise>
