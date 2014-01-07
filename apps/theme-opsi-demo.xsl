@@ -316,7 +316,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 			<li><a href="{$TranslateLangPrefix}/sitemap"><xsl:value-of select="leg:TranslateText('Site Map')"/></a></li>
 			<li><a href="{$TranslateLangPrefix}/accessibility"><xsl:value-of select="leg:TranslateText('Accessibility')"/></a></li>
 			<li><a href="{$TranslateLangPrefix}/contactus"><xsl:value-of select="leg:TranslateText('Contact Us')"/></a></li>
-		<!--	<li>
+			<li>
 				<xsl:choose>
 					<xsl:when test="starts-with($paramsDoc/request/request-path, '/en')">
 						<a href="{leg:replace-first($paramsDoc/request/request-path,'en','cy')}" class="langaugeSwitch"><xsl:value-of select="leg:TranslateTextToLang('Welsh','cy')"/></a>
@@ -342,7 +342,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/
 						</xsl:choose>						
 					</xsl:otherwise>
 				</xsl:choose>
-			</li>-->
+			</li>
 		</ul>
 	</div>
 	
