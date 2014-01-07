@@ -339,7 +339,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 				</xsl:when>
 				<xsl:otherwise>
 					<!-- default message -->
-					<p>There are no associated impact assessment for this legislation.</p>
+					<p>There are no associated impact assessments for this legislation.</p>
 				</xsl:otherwise>
 			</xsl:choose>
 		</div>
