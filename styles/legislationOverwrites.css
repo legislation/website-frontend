@@ -152,6 +152,11 @@ Use of !important is strictly temporary, if these styles can stay then integrate
 {font-size: 100% !important;}
 /* End of table font-size fixes */
 
+/*HA052641: tables containing any xml structure (underlines, bold text etc) are given a class of LegTD instead 
+of LegTDPlain which has a default font size of 1em. Reset here to 0.8em to bring into line with LegTDPlain*/
+.LegSnippet .LegTD {
+    font-size: 0.8em;	
+}
 li.ENContentsCommentaryChapter>p.ENContentsTitle>a {font-weight:bold !important; }
 
 ol li p.ENContentsTitle a {font-weight:bold; padding-top: 0.25em; display: block;}
