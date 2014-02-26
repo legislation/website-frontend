@@ -1883,7 +1883,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:call-template name="FuncCheckForIDnoElement" />
 		<xsl:apply-templates/>
 	</xsl:element>
-	
+	<!--HA053653: process annotations appearing in a P1group/Title element so that the annotation doesn't end up outside the P1group after other annotations which appear further down in the P1group structure-->
+		<xsl:apply-templates select="." mode="ProcessAnnotations"/>
+
 </xsl:template>
 
 <xsl:template match="leg:P1">
