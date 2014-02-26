@@ -86,7 +86,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
   	start="1972" complete="1987" revised="true" />
   <tso:legType schemaType="NorthernIrelandStatutoryRule" class="secondary" category="Rule" abbrev="nisr" 
   	em="Explanatory Memorandum" singular="Northern Ireland Statutory Rule" plural="{leg:TranslateText('Northern Ireland Statutory Rules')}"
-  	start="1991" complete="1991" revised="false" />
+  	start="1991" complete="1996" revised="false" />
   <tso:legType schemaType="UnitedKingdomChurchInstrument" class="secondary" category="Instrument" abbrev="ukci" 
   	singular="Church Instrument" plural="{leg:TranslateText('Church Instruments')}"
   	start="1991" complete="1991" revised="false" />
