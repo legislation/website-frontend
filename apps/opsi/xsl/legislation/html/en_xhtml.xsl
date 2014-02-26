@@ -1055,7 +1055,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 			<![endif]]]></xsl:comment>
 		<xsl:comment><![CDATA[[if IE 7]>
 				<style type="text/css">
-					@import "/styles/ie7LegAdditions.css";
+					@import "/styles/IE/ie7LegAdditions.css";
 				</style>
 			<![endif]]]></xsl:comment>				
 							

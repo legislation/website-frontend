@@ -31,9 +31,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 	<xsl:template match="/">
 		<html>
 			<head>
+				<!--this css does not exist deleted 2010-07-19 
 				<xsl:comment><![CDATA[[if lte IE 7]>
 					<link rel="stylesheet" href="/styles/IEadditions.css" type="text/css" />
-					<![endif]]]></xsl:comment>
+					<![endif]]]></xsl:comment>-->
 				<title>
 					<xsl:value-of select="/leg:Legislation/ukm:Metadata/dc:title" />
 				</title>
