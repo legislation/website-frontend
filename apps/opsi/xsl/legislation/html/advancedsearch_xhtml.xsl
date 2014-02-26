@@ -834,7 +834,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 			note the catch for the number matches(., '[0-9]+') and string-length(.) &gt; 10 is because 
 			these values need to be cast as xs:int for the marklogic indexes 
 			xs:intwhich is a restriction of xs:long and not available to saxon HE
-			therefore we cannot test whether it is castable.
+			therefore we cannot test whether it is castable. 
 			xs:integer is a restriction of xs:decimal and is not a sufficient test
 		-->
 		<xsl:variable name="invalidNumber" as="xs:boolean" select="exists($paramsDoc/parameters/number[. != '' and (not(matches(., '^\d*$' )) or (matches(., '[0-9]+') and string-length(.) &gt; 10))])"/>
