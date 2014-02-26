@@ -139,7 +139,7 @@ Added in welsh language support for UI.
 											<xsl:if test="$paramsDoc/parameters/type = 'wales' or $paramsDoc/parameters/type = 'all' ">
 												<xsl:attribute name="class" select="'active'"/>
 											</xsl:if>
-											<a href="{$TranslateLangPrefix}/new/wales{$publishedParam}"><xsl:value-of select="leg:TranslateText('Cymru')"/></a>
+											<a href="{$TranslateLangPrefix}/new/wales{$publishedParam}"><xsl:value-of select="leg:TranslateText('Wales')"/></a>
 										</li>
 										<li class="last">
 											<xsl:if test="$paramsDoc/parameters/type = 'ni' or $paramsDoc/parameters/type = 'all' ">
