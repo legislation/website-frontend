@@ -1562,6 +1562,8 @@ exclude-result-prefixes="tso atom">
 						<fo:list-item-body start-indent="body-start()">
 							<fo:block font-size="{$g_strBodySize}" text-align="justify">
 								<xsl:apply-templates select="leg:P1para"/>
+								<!-- HA056627 JDC - next line required for revised PDFs, e.g. http://www.legislation.gov.uk/ukpga/2013/22/schedule/24/paragraph/9/data.pdf, which can have the Tabular element at the same level as the P1Para. --> 
+								<xsl:apply-templates select="leg:Tabular"/>
 							</fo:block>						
 						</fo:list-item-body>
 					</fo:list-item>						
