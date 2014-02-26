@@ -2288,9 +2288,17 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	</xsl:variable>
 	<xsl:choose>
 		<xsl:when test="@NumberOverride">
-			<xsl:value-of select="$strPreText"/>
+			<!-- NumberOverride might start with the pre-text and/or end with post-text characters, so may not want to output them -->
+			<xsl:if test="not(contains(@NumberOverride, $strPreText))">
+				<xsl:value-of select="$strPreText"/>
+			</xsl:if>
 			<xsl:value-of select="@NumberOverride"/>
-			<xsl:value-of select="$strPostText"/>
+			<xsl:if test="not(contains(@NumberOverride, $strPostText) and substring-after(@NumberOverride, $strPostText)='')">
+				<xsl:value-of select="$strPostText"/>
+			</xsl:if>
+		<!--			<xsl:value-of select="$strPreText"/>
+			<xsl:value-of select="@NumberOverride"/>
+			<xsl:value-of select="$strPostText"/>-->
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:variable name="strFormat">
