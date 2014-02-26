@@ -948,7 +948,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 		<resource id="EN_Intro3">This is a revised <param ref-id="type"/> to <param ref-id="legtype"/>. The unrevised version of the <param ref-id="type"/> can be accessed via the More Resources tab. This <param ref-id="type"/> is only available to download and view in PDF.</resource>
 		<resource id="EN_Intro4">This <param ref-id="type"/> is only available to download and view as PDF.</resource>
 		<!-- this next 2 resources are output one after the other, 'click here' is in a link element-->
-		<resource id="EN_Intro5">All reference to 'Parts' and 'sections' are from the <param ref-id="title"/>. For more information about understanding <param ref-id="type"/></resource>
+		<resource id="EN_Intro5">All reference to 'Parts' and 'sections' are from the <param ref-id="title"/>. For other versions of these <param ref-id="type"/>, see </resource>
 		<resource id="click here">click here</resource>
 		<resource id="EN_selected_count">you have selected contains over <param ref-id="count"/> provisions and might take some time to download.</resource>
 		<resource id="Browser_warning"> You may also experience some issues with your browser, such as an alert box that a script is taking a long time to run.</resource>
