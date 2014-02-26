@@ -237,8 +237,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 												</xsl:choose>
 											</xsl:when>
 											<xsl:otherwise>
-												<xsl:value-of select="leg:TranslateText('EN_Intro5',(concat('title=',$legislationTitle), concat('type=',$enShortLabel)))"/>
-												<a href="/help#faqs"><xsl:value-of select="leg:TranslateText('click here')"/></a>.
+												<xsl:value-of select="leg:TranslateText('EN_Intro5',(concat('title=',$legislationTitle), concat('type=',$enLabel)))"/><a href="{leg:FormatURL($resourceURI, false())}"><xsl:value-of select="leg:TranslateText('More Resources')"/></a>.
 											</xsl:otherwise>
 										</xsl:choose>
 									</p>
