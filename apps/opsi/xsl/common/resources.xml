@@ -776,13 +776,23 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 		<resource id="New_intro_2_2_2">listed by publication date</resource>
 		<resource id="New_intro_2_2_3"> rather than the date on which it was enacted.</resource>
 		<resource id="New_tracking_1_1">All Bills currently before the UK Parliament are listed on the </resource>
-		<resource id="New_tracking_1_2">UK Parliament website</resource>
-		<resource id="New_tracking_2_1">The </resource>
-		<resource id="New_tracking_2_2">Parliamentary Business, Bills &amp; Legislation website</resource>
-		<resource id="New_tracking_2_3"> shows which stage a Bill has reached on its passage through Parliament.</resource>
-		<resource id="New_tracking_3_1">See </resource>
-		<resource id="New_tracking_3_2">The Bill index database</resource>
-		<resource id="New_tracking_3_3"> for links to the full text of a Bill, the Hansard debate and any proposed amendments.</resource>
+		<resource id="New_tracking_1_2">UK Parliament</resource>
+		<resource id="New_tracking_1_3"> website in the</resource>
+		<resource id="New_tracking_1_4"> Parliamentary Business, Bills &#x0026; Legislation </resource>
+		<resource id="New_tracking_1_5" > section which also shows what stage a Bill has reached on its passage through Parliament. </resource>
+		<resource id="New_tracking_2_1">The history of the parliamentary debates relating to Bills in the UK Parliament can be found in </resource>		
+		<resource id="New_tracking_2_2">Hansard </resource>
+		<resource id="New_tracking_2_3">the edited verbatim report of proceedings of both the House of Commons and the House of Lords. </resource>
+		
+		<resource id="New_tracking_3_1">All Bills currently before the </resource>		
+		<resource id="New_tracking_3_2">Scottish Parliament</resource>
+		<resource id="New_tracking_3_3">Northern Ireland Assembly  </resource>
+		<resource id="New_tracking_3_4">and the   </resource>
+		<resource id="New_tracking_3_5">National Assembly for Wales  </resource>			
+		<resource id="New_tracking_3_6">can be found on the individual national Parliamentary and Assembly websites. </resource>
+	
+		<resource id="New_tracking_4_1">	Bills only become Acts once they have passed all stages of their applicable Parliamentary procedure and receive Royal Assent. Once an Act has received Royal Assent, it is published under the authority of the Queen's Printer to this website. </resource>
+		
 		<resource id="New_tracking_4">Bills become Acts once they have passed all stages within both Houses of Parliament and receive Royal Assent. Once they have received Royal Assent, Acts are published under the authority of the Queen's Printer to this website.</resource>
 
 		<!-- Tooltip-->

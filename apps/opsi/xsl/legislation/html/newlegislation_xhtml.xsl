@@ -37,7 +37,7 @@ Added in welsh language support for UI.
 	<xsl:variable name="publishedParam" select="if ($paramsDoc/parameters/published != '') then concat('/', $paramsDoc/parameters/published) else ''"/>							
 
 	<xsl:template match="atom:feed">
-		<html>
+			<html>
 			<head>
 				<xsl:variable name="lastModified" as="xs:dateTime" select="current-dateTime()" />
  				<meta name="DC.Date.Modified" content="{adjust-date-to-timezone(xs:date($lastModified), ())}" />
@@ -239,10 +239,11 @@ Added in welsh language support for UI.
 								<div class="content">
 									<h3 class="feedTitle" id="trackingLeg"><xsl:value-of select="leg:TranslateText('Tracking UK Legislation')"/></h3>
 									<ul>
-										<li><xsl:value-of select="leg:TranslateText('New_tracking_1_1')"/><a href="http://www.publications.parliament.uk/pa/pabills.htm"><xsl:value-of select="leg:TranslateText('New_tracking_1_2')"/></a></li>										
-										<li><xsl:value-of select="leg:TranslateText('New_tracking_2_1')"/><a href="http://services.parliament.uk/bills/"><xsl:value-of select="leg:TranslateText('New_tracking_2_2')"/></a><xsl:value-of select="leg:TranslateText('New_tracking_2_3')"/></li>										
-										<li><xsl:value-of select="leg:TranslateText('New_tracking_3_1')"/><a href="http://bills.ais.co.uk/AC.asp"><xsl:value-of select="leg:TranslateText('New_tracking_3_2')"/></a><xsl:value-of select="leg:TranslateText('New_tracking_3_3')"/></li>
-										<li><xsl:value-of select="leg:TranslateText('New_tracking_4')"/></li>
+										<li><xsl:value-of select="leg:TranslateText('New_tracking_1_1')"/><a href="http://www.parliament.uk/"><xsl:value-of select="leg:TranslateText('New_tracking_1_2')"/></a><xsl:value-of select="leg:TranslateText('New_tracking_1_3')"/><a href="http://services.parliament.uk/bills/"><xsl:value-of select="leg:TranslateText('New_tracking_1_4')"/></a><xsl:value-of select="leg:TranslateText('New_tracking_1_5')"/></li>		
+										<li><xsl:value-of select="leg:TranslateText('New_tracking_2_1')"/><a href="http://www.parliament.uk/business/publications/"><xsl:value-of select="leg:TranslateText('New_tracking_2_2')"/></a><xsl:value-of select="leg:TranslateText('New_tracking_2_3')"/></li>
+										<li><xsl:value-of select="leg:TranslateText('New_tracking_3_1')"/><a href="http://www.scottish.parliament.uk/parliamentarybusiness/Bills.aspx"><xsl:value-of select="leg:TranslateText('New_tracking_3_2')"/>,</a>
+<a href="http://www.niassembly.gov.uk/Assembly-Business/Legislation/Primary-Legislation-Current-Bills"><xsl:value-of select="leg:TranslateText('New_tracking_3_3')"/>,</a><xsl:value-of select="leg:TranslateText('New_tracking_3_4')"/><a href="National Assembly for Wales"><xsl:value-of select="leg:TranslateText('New_tracking_3_5')"/></a><xsl:value-of select="leg:TranslateText('New_tracking_3_6')"/></li>																		
+										<li><xsl:value-of select="leg:TranslateText('New_tracking_4_1')"/></li>
 									</ul>
 								</div>
 							</div>									
