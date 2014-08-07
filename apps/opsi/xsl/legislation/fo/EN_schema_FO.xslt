@@ -1788,6 +1788,23 @@ exclude-result-prefixes="tso atom">
 	</xsl:choose>
 </xsl:template>
 
+<xsl:template match="leg:Division/leg:Number/leg:Strong">
+	<fo:block space-before="12pt">
+		<xsl:choose>
+			<xsl:when test="parent::leg:Title/parent::leg:Tabular or parent::xhtml:th/parent::xhtml:tr/parent::xhtml:tbody or (parent::leg:Title/parent::leg:P1group and $g_strDocClass = $g_strConstantSecondary)">
+				<fo:inline font-weight="normal">
+					<xsl:apply-templates/>
+				</fo:inline>
+			</xsl:when>
+			<xsl:otherwise>
+				<fo:inline font-weight="bold">
+					<xsl:apply-templates/>
+				</fo:inline>
+			</xsl:otherwise>
+		</xsl:choose>
+	</fo:block>
+</xsl:template>
+
 <xsl:template match="leg:Strong">
 	<xsl:choose>
 		<xsl:when test="parent::leg:Title/parent::leg:Tabular or parent::xhtml:th/parent::xhtml:tr/parent::xhtml:tbody or (parent::leg:Title/parent::leg:P1group and $g_strDocClass = $g_strConstantSecondary)">

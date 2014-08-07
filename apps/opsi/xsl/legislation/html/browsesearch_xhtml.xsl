@@ -685,7 +685,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 														</xsl:if>
 													</xsl:variable>
 													<li class="{string-join($classes, ' ')}">
-														<a href="{leg:GetLink(if ($scale idiv 10 = 1) then $facetYears[1]/@href else replace($facetYears[1]/@href, concat('/', $facetYears[1]/@year), concat('/', $startYear, if ($startYear != $endYear) then concat('-', $endYear) else () )))}" 
+														<a href="{leg:GetLink(concat((if ($scale idiv 10 = 1) then $facetYears[1]/@href else replace($facetYears[1]/@href, concat('/', $facetYears[1]/@year), concat('/', $startYear, if ($startYear != $endYear) then concat('-', $endYear) else () ))),if (contains($facetYears[1]/@href,'ukia') and $paramsDoc/parameters/start != '' and $paramsDoc/parameters/end != '') then concat('?start=', $paramsDoc/parameters/start, '&amp;end=', $paramsDoc/parameters/end) else '' ))}" 
 															title="{$count} result{if ($count > 1) then 's' else ()} {$startYear}{if ($scale idiv 10 > 1 and $startYear != $endYear) then concat('-', $endYear) else ()}">
 															<em>
 																<span>

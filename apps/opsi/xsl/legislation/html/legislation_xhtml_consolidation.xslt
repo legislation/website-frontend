@@ -623,21 +623,28 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:variable name="versionRef" select="ancestor-or-self::*[@VersionReference][1]/@VersionReference"/>
 	<xsl:variable name="commentaryRefs" as="element(leg:CommentaryRef)*">
 		<xsl:choose>
-			<!--HA053652: annotations in tables are repeated if table is child of P1 (annotations also processed for all descendants of P1) so condition added to exclude these tables-->
-			<xsl:when test="ancestor::leg:BlockAmendment  and (self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:Tabular[not(parent::leg:P1)])">
+			<!--HA053652 HA053652 HA051079-->
+			<!--  retained some conditions for fringe cases  -->
+			<xsl:when test="ancestor::leg:BlockAmendment">
+				<!--Block amendment annotations handled at end of provision-->
+			</xsl:when>
+			<xsl:when test="self::leg:Part[not(ancestor::leg:BlockAmendment)] | self::leg:Chapter[not(ancestor::leg:BlockAmendment)] | self::leg:Pblock[not(ancestor::leg:BlockAmendment)]">
+				<xsl:sequence select="(leg:Number | leg:Title)/descendant::leg:CommentaryRef" />
+			</xsl:when>
+			<xsl:when test="self::leg:P1group[not(ancestor::leg:BlockAmendment)] | self::leg:P1[not(parent::leg:P1group)][not(ancestor::leg:BlockAmendment)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:Tabular[not(parent::leg:P1)]">
 				<xsl:sequence select="descendant::leg:CommentaryRef"/>
 			</xsl:when>
-			<!--HA053652: annotations in tables are repeated if table is child of P1 (annotations also processed for all descendants of P1) so condition added to exclude these tables-->
-			<xsl:when test="self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:Tabular[not(parent::leg:P1)]">
-				<xsl:sequence select="descendant::leg:CommentaryRef[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1)]"/>
-			</xsl:when>
-			<!-- updated by yashashri 	HA051079 - added parent::leg:Schedules or parent::leg:ScheduleBody to fix missing footnotes on http://www.legislation.gov.uk/ukpga/Geo5/23-24/12/schedule/FIRST -->
 			<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body or parent::leg:Schedules or parent::leg:ScheduleBody)">			
 				<xsl:sequence select="descendant::leg:CommentaryRef"/>
 			</xsl:when>
-			<!--HA053652: annotations in tables are repeated if table is child of P1 (annotations also processed for all descendants of P1) so condition added to exclude these tables-->
 			<xsl:when test="self::leg:Tabular[not(parent::leg:P1)] and (parent::*[@id] or parent::leg:Body )">
 				<xsl:sequence select="descendant::leg:CommentaryRef" />
+			</xsl:when>
+			<xsl:when test="self::leg:Title[parent::leg:Part or parent::leg:Chapter]">
+				<xsl:sequence select="descendant::leg:CommentaryRef" />
+			</xsl:when>
+			<xsl:when test="self::leg:Title[parent::leg:P1group or parent::leg:P1]">
+				<!-- all other title commentaries handled at end of the provision  -->
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:sequence select="child::leg:CommentaryRef | (leg:Number | leg:Title | leg:Reference | leg:TitleBlock)/descendant::leg:CommentaryRef"/>
@@ -647,34 +654,35 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 	<xsl:variable name="additionRepealRefs" as="element()*">
 		<xsl:choose>
-			<!--HA053652: annotations in tables are repeated if table is child of P1 (annotations also processed for all descendants of P1) so condition added to exclude these tables-->
-			<!--HA057074: added to apply annotations after a Title element (instead of at the end of the containing P1group)-->
-
-			<xsl:when test="ancestor::leg:BlockAmendment and (self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:Tabular[not(parent::leg:P1)]) and (not(preceding-sibling::leg:P1group[descendant::leg:Addition or descendant::leg:Repeal or descendant::leg:Substitution]) and not(preceding-sibling::leg:P1[not(parent::leg:P1group)][descendant::leg:Addition or descendant::leg:Repeal or descendant::leg:Substitution]) and not(preceding-sibling::leg:PrimaryPrelims[descendant::leg:Addition or descendant::leg:Repeal or descendant::leg:Substitution]) and not(preceding-sibling::leg:SecondaryPrelims[descendant::leg:Addition or descendant::leg:Repeal or descendant::leg:Substitution]) and not(preceding-sibling::leg:Tabular[not(parent::leg:P1)][descendant::leg:Addition or descendant::leg:Repeal or descendant::leg:Substitution]))">
-				<xsl:sequence select="ancestor::leg:BlockAmendment/descendant::leg:Addition | ancestor::leg:BlockAmendment/descendant::leg:Repeal | ancestor::leg:BlockAmendment/descendant::leg:Substitution"/>
+			<!--HA053652 HA057074 HA050371 HA058757-->
+			<!--  retained some conditions for fringe cases  -->
+			<xsl:when test="ancestor::leg:BlockAmendment">
+				<!--Block amendment annotations handled at end of provision-->
 			</xsl:when>
-			<!--<xsl:when test="ancestor::leg:BlockAmendment and (self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:Tabular[not(parent::leg:P1)]) ">
+			<xsl:when test="self::leg:Part[not(ancestor::leg:BlockAmendment)] | self::leg:Chapter[not(ancestor::leg:BlockAmendment)] | self::leg:Pblock[not(ancestor::leg:BlockAmendment)]">
+				<xsl:sequence select="(leg:Number | leg:Title)/(descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution)" />
+			</xsl:when>
+			<!-- for prelims we need to take all descendent amendments -->
+			<xsl:when test="self::leg:PrimaryPrelims | self::leg:SecondaryPrelims">
 				<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
-			</xsl:when>-->
-				<!--HA057074: amended to ignore P1group where annotation is in the Title element as this will be dealt with further down-->
-			<xsl:when test="self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims">
-				<!--<xsl:sequence select="descendant::leg:Addition[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1)] | descendant::leg:Repeal[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1)] | descendant::leg:Substitution[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1)]"/>-->
-				<xsl:sequence select="descendant::leg:Addition[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1 or ancestor::leg:Title)] | descendant::leg:Repeal[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1 or ancestor::leg:Title)] | descendant::leg:Substitution[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1 or ancestor::leg:Title)]"/>
-			</xsl:when>
-				<!--HA057074: added to apply annotations after a Title element (instead of at the end of the containing P1group)-->
-			<xsl:when test="self::leg:Title">
+			</xsl:when>	
+			<xsl:when test="self::leg:P1group[not(ancestor::leg:BlockAmendment)] | self::leg:P1[not(parent::leg:P1group)][not(ancestor::leg:BlockAmendment)]">
 				<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
 			</xsl:when>
-			<!-- Chunyu HA050371 added parent::leg:ScheduleBody to fix http://www.legislation.gov.uk/ukpga/1981/61/schedule/3 -->
+			<xsl:when test="self::leg:Title[parent::leg:Part or parent::leg:Chapter][not(ancestor::leg:BlockAmendment)]">
+				<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
+			</xsl:when>
+			<xsl:when test="self::leg:Title[parent::leg:P1group or parent::leg:P1]">
+				<!-- all other title commentaries handled at end of the provision  -->
+			</xsl:when>
 			<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body or parent::leg:Schedules or parent::leg:ScheduleBody)">
 				<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
 			</xsl:when>
-			<!--HA053652: annotations in tables are repeated if table is child of P1 (annotations also processed for all descendants of P1) so condition added to exclude these tables-->
 			<xsl:when test="self::leg:Tabular[not(parent::leg:P1)] and (parent::*[@id] or parent::leg:Body or parent::leg:Schedules or parent::leg:ScheduleBody)">
 				<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution" />
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:sequence select="leg:Addition | leg:Repeal | leg:Substitution | (leg:Number | leg:Reference | leg:TitleBlock)/(descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution)"/>
+				<xsl:sequence select="leg:Addition | leg:Repeal | leg:Substitution | (leg:Number | leg:Title[ancestor:: leg:Secondary/leg:Schedules/leg:Schedule/leg:ScheduleBody/leg:Pblock] | leg:Reference | leg:TitleBlock)/(descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution)"/>
 			</xsl:otherwise>	
 		</xsl:choose>			
 	</xsl:variable>
@@ -692,16 +700,48 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:variable name="isDead" as="xs:boolean" select="@Status = 'Dead'" />
 	<xsl:variable name="isValidFrom" as="xs:boolean" select="@Match = 'false' and @RestrictStartDate and ((($version castable as xs:date) and xs:date(@RestrictStartDate) &gt; xs:date($version) ) or (not($version castable as xs:date) and xs:date(@RestrictStartDate) &gt; current-date() ))" />
 	<xsl:variable name="isRepealed" as="xs:boolean" select="@Match = 'false' and (not(@Status) or @Status != 'Prospective') and not($isValidFrom)"/>
-	<!-- We need to check if the first reference to the comment falls within this structure. Do this for each comment in the list -->
+	
+	<!-- when we have change annotations for insertion/addition/sub that spans multiple provisions but is not part of a whole part/schedule/chapter change then each provision will need to be annotated when viewed from a higher level
+	- see ukpga/2003/42/schedule/3 for example-->
+	<xsl:variable name="multiple-provision-annotations" as="xs:boolean" 
+		select="if (
+			((local-name() = 'P1' and not(parent::leg:P1group) and not(ancestor::leg:BlockAmendment) and
+				preceding-sibling::*[1][self::leg:P1]//(descendant::leg:Repeal/@CommentaryRef | descendant::leg:Substitution/@CommentaryRef | descendant::leg:Addition/@CommentaryRef) = $additionRepealRefs/@CommentaryRef
+			) or 
+			(local-name() = 'P1group' and not(ancestor::leg:BlockAmendment) and 
+				preceding-sibling::*[1][self::leg:P1group]//(descendant::leg:Repeal/@CommentaryRef | descendant::leg:Substitution/@CommentaryRef | descendant::leg:Addition/@CommentaryRef) = $additionRepealRefs/@CommentaryRef
+			)) and 
+			not(ancestor::*[self::leg:Schedule or self::leg:Part or self::leg:Chapter or self::leg:Pblock or self::leg:Group]/(leg:TitleBlock | leg:Title | leg:Number)/(descendant::leg:Repeal/@CommentaryRef | descendant::leg:Substitution/@CommentaryRef | descendant::leg:Addition/@CommentaryRef) = $additionRepealRefs/@CommentaryRef)
+		) then true() else false()"/>
+	
+	
+		
+	
+	
 	<xsl:variable name="showComments" as="element(leg:Commentary)*">
+		<xsl:variable name="localname" select="local-name()"/>
 		<xsl:for-each select="$commentaryItem">
 			<xsl:if test="$showingHigherLevel or not($isRepealed) or ($isRepealed and contains(., 'temp.')) or $isDead">
-				<xsl:if test="key('commentaryRef', @id, $showSection)[1] intersect ($commentaryRefs | $additionRepealRefs)">
-					<xsl:sequence select="."/>
-				</xsl:if>
+				<xsl:choose>
+					<!-- For higher level views we need to annotate all provisions that have a common change -->
+					<xsl:when test="$multiple-provision-annotations">
+						<xsl:if test="key('commentaryRef', @id, $showSection) intersect ($commentaryRefs | $additionRepealRefs)">
+							<xsl:sequence select="."/>
+						</xsl:if>
+					</xsl:when>
+					<xsl:otherwise>
+						<!-- We need to check if the first reference to the comment falls within this structure. Do this for each comment in the list -->
+						<xsl:if test="key('commentaryRef', @id, $showSection)[1] intersect ($commentaryRefs | $additionRepealRefs)">
+							<xsl:sequence select="."/>
+						</xsl:if>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:if>
 		</xsl:for-each>
 	</xsl:variable>	
+	
+	
+	
 	<!-- FM:  Issue 195: Only the f-notes should be pulled into the child fragments from the parent-->
 	<xsl:variable name="showComments" as="element(leg:Commentary)*"
 		select="$showComments[not($showingHigherLevel) or ($showingHigherLevel and @Type ='F')]" />
@@ -714,7 +754,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			</xsl:apply-templates>
 		</xsl:if>	
 	</xsl:variable>
-
+	<!-- debugging
+	<xsl:message>||<xsl:value-of select="local-name()"/>||<xsl:value-of select="count($higherLevelComments)"/>|||<xsl:value-of select="@id"/>||<xsl:sequence select="$multiple-provision-annotations"/></xsl:message>-->
 	<xsl:if test="$showComments or $higherLevelComments/*">
 		<div>
 			<xsl:choose>
@@ -1027,7 +1068,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<div class="LegBlockNotYetInForce">
 				<p class="LegClearFix LegBlockNotYetInForceHeading">
 					<span>
-						<xsl:value-of select="leg:TranslateText('over')"/>
+						<xsl:value-of select="leg:TranslateText('Valid from')"/>
 						<xsl:text> </xsl:text>
 						<xsl:value-of select="format-date(xs:date(@RestrictStartDate), '[D01]/[M01]/[Y0001]')"/>
 					</span>
@@ -1124,7 +1165,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:next-match/>
 	<!-- If there are alternate versions outputting ot annotations will happen there -->
 	
-<xsl:if test="not(@AltVersionRefs) and not(parent::leg:BlockAmendment)">
+	<xsl:if test="not(@AltVersionRefs)">
 		
 		<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 	</xsl:if>
@@ -1667,6 +1708,23 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:next-match>
 		<xsl:with-param name="strLanguage" tunnel="yes" select="@xml:lang" />
 	</xsl:next-match>
+</xsl:template>
+
+<!-- JDC - HA058520 - need to display Pnumber and AppendText in the following scenario - P3/P3Para within a BlockAmendment, with empty Text element, but with a populated Pnumber within the P3 and AppendText following the BlockAmendment, e.g. http://www.legislation.gov.uk/asp/2010/6/section/10/enacted, section 10(1)(a). -->
+<xsl:template match="leg:P3para/leg:BlockAmendment[preceding-sibling::*[1][self::leg:Text and .!=''] and not(preceding-sibling::*[not(self::leg:Text)]) and following-sibling::*[1][self::leg:AppendText and .!=''] and not(following-sibling::*[not(self::leg:AppendText)])]/leg:P3/leg:P3para[preceding-sibling::*[1][self::leg:Pnumber and .!=''] and not(preceding-sibling::*[not(self::leg:Pnumber)]) and not (following-sibling::*)]/leg:Text[.='' and not(preceding-sibling::*) and not (following-sibling::*)]">	
+	<p class="LegClearFix LegP3Container">	
+		<span class="LegDS LegLHS LegP3NoC3Amend">
+			<xsl:text>(</xsl:text>
+			<xsl:value-of select="../../leg:Pnumber"/>
+			<xsl:text>)</xsl:text>
+			<xsl:text>&#8221;</xsl:text>
+		</span>
+		<span class="LegDS LegRHS LegP3TextC3Amend">
+			<span class="LegAmendingText">
+				<xsl:value-of select="../../../../leg:AppendText"/>
+			</span>
+		</span>
+	</p>
 </xsl:template>
 
 <xsl:template match="text()">

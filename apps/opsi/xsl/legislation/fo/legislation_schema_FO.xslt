@@ -3538,7 +3538,7 @@ exclude-result-prefixes="tso atom">
 			</xsl:when>
 
 				<xsl:when test="self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims">
-					<xsl:sequence select="descendant::leg:Addition[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1 or ancestor::leg:Title)] | descendant::leg:Repeal[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1 or ancestor::leg:Title)] | descendant::leg:Substitution[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1 or ancestor::leg:Title)]"/>
+					<xsl:sequence select="descendant::leg:Addition[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1 or ancestor::leg:P1group//leg:Title)] | descendant::leg:Repeal[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1 or ancestor::leg:Title)] | descendant::leg:Substitution[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1 or ancestor::leg:Title)]"/>
 				</xsl:when>
 				<!--HA053652: added to apply annotations after a Title element (instead of at the end of the containing P1group)-->
 			<xsl:when test="self::leg:Title">
