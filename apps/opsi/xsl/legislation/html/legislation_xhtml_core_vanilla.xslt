@@ -1290,16 +1290,18 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 							</xsl:when>
 							<xsl:otherwise>
 								<!-- Chunyu added condition for p1para/p3group/title see uksi19922792 schedule  HA048533-->
-								<xsl:if test="not(parent::leg:P3para/ancestor::leg:P3group[1]/parent::leg:P1para) and not (normalize-space(.) = '')">
-								<span class="LegDS LegLHS {concat('Leg', name(parent::*/parent::*), 'No', $strAmendmentSuffix)}">
-									<xsl:for-each select="parent::*/preceding-sibling::leg:Pnumber">
-										<xsl:for-each select="..">
-											<xsl:call-template name="FuncCheckForID"/>
+<!--								<xsl:if test="not(parent::leg:P3para/ancestor::leg:P3group[1]/parent::leg:P1para) and not (normalize-space(.) = '')">-->
+								<!-- Mark R removed (normalize-space(.) = '') as it prevented item number displaying if there was an empty part before a <Repeal> element. See NISI 2007/916 section 39 2(b) annotated version half way down  -->
+								<xsl:if test="not(parent::leg:P3para/ancestor::leg:P3group[1]/parent::leg:P1para)">
+									<span class="LegDS LegLHS {concat('Leg', name(parent::*/parent::*), 'No', $strAmendmentSuffix)}">
+										<xsl:for-each select="parent::*/preceding-sibling::leg:Pnumber">
+											<xsl:for-each select="..">
+												<xsl:call-template name="FuncCheckForID"/>
+											</xsl:for-each>
+											<xsl:apply-templates select="."/>
 										</xsl:for-each>
-										<xsl:apply-templates select="."/>
-									</xsl:for-each>
-								</span>
-							</xsl:if>
+									</span>
+								</xsl:if>
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:otherwise>
@@ -2232,7 +2234,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:variable name="strListClass">
 				<xsl:call-template name="FuncCalcListClass"/>
 			</xsl:variable>
-			<xsl:if test="not(preceding-sibling::leg:ListItem) and parent::leg:OrderedList/parent::leg:ListItem/parent::leg:OrderedList">
+			<xsl:if test="not(preceding-sibling::leg:ListItem) and parent::leg:OrderedList/parent::leg:ListItem/parent::leg:OrderedList and not(@NumberOverride)">
 				<div class="{concat('LegLeftNo', $strListClass, 'No', $strAmendmentSuffix, ' LegListItemNo')}">
 					<xsl:for-each select="ancestor::leg:ListItem[1]">
 						<xsl:call-template name="FuncOutputListItemNumber"/>
@@ -2241,7 +2243,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			</xsl:if>
 			<div>
 				<xsl:attribute name="class">
-					<xsl:if test="not(preceding-sibling::leg:ListItem) and parent::leg:OrderedList/parent::leg:ListItem/parent::leg:OrderedList">
+					<xsl:if test="not(preceding-sibling::leg:ListItem) and parent::leg:OrderedList/parent::leg:ListItem/parent::leg:OrderedList and not(@NumberOverride)">
 						<xsl:text>LegRightNo</xsl:text>
 					</xsl:if>
 					<xsl:value-of select="$strListClass"/>
