@@ -437,16 +437,23 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 		<resource id="New_intro_2_2_1">Rhestrir deddfwriaeth newydd </resource>
 		<resource id="New_intro_2_2_2">felly yn ôl dyddiad cyhoeddi yn hytrach</resource>
 		<resource id="New_intro_2_2_3"> na’r dyddiad y cafodd ei deddfu.</resource>
-		<resource id="New_tracking_1_1">Rhestrir pob Mesur sydd ger bron Senedd y Deyrnas Unedig ar hyn o bryd ar </resource>
-		<resource id="New_tracking_1_2">wefan Senedd y Deyrnas Unedig</resource>
-		<resource id="New_tracking_2_1">Dengys y wefan </resource>
-		<resource id="New_tracking_2_2">Busnes, Mesurau a Deddfwriaeth Seneddol</resource>
-		<resource id="New_tracking_2_3"> pa gam y mae Mesur wedi ei gyrraedd ar ei daith trwy’r Senedd.</resource>
-		<resource id="New_tracking_3_1">Gweler</resource>
-		<resource id="New_tracking_3_2"> y gronfa ddata mynegai Mesurau</resource>
-		<resource id="New_tracking_3_3"> am ddolenni i destun llawn Mesur, y drafodaeth Hansard ac unrhyw newidiadau arfaethedig.</resource>
-		<resource id="New_tracking_4">Daw Mesurau yn Ddeddfau ar ôl iddynt fynd trwy bob cam yn y ddau Dŷ Seneddol a chael y Cydsyniad Brenhinol. Ar ôl iddynt gael y Cydsyniad Brenhinol, mae Deddfau yn cael eu cyhoeddi dan awdurdod Argraffydd y Frenhines ar y wefan hon.</resource>
-		<resource id="Not a valid revised legislation type">Ddim yn fath dilys o ddeddfwriaeth ddiwygiedig</resource>
+		<resource id="New_tracking_1_1">Rhestrir yr holl Fesurau sydd ger bron Senedd y Deyrnas Unedig ar hyn o bryd ar wefan </resource>
+		<resource id="New_tracking_1_2">Senedd y Deyrnas Unedig</resource>
+		<resource id="New_tracking_1_3"> yn yr adran </resource>
+		<resource id="New_tracking_1_4"> Busnes, Mesurau a Deddfwriaeth Seneddol</resource>
+		<resource id="New_tracking_1_5" > sydd hefyd yn dangos pa gam y mae’r Mesur wedi ei gyrraedd ar ei daith trwy’r Senedd. </resource>
+		<resource id="New_tracking_2_1">Gellir gweld hanes y trafodaethau seneddol sy’n ymwneud â Mesurau yn Senedd y Deyrnas Unedig yn </resource>
+		<resource id="New_tracking_2_2">Hansard </resource>
+		<resource id="New_tracking_2_3">, yr adroddiad air am air sydd wedi ei olygu o weithrediadau Tŷ’r Cyffredin a Thŷ’r Arglwyddi. </resource>
+		
+		<resource id="New_tracking_3_1">Gellir dod o hyd i’r holl Fesurau sydd ar hyn o bryd ger bron </resource>		
+		<resource id="New_tracking_3_2">Senedd yr Alban</resource>
+		<resource id="New_tracking_3_3">Cynulliad Gogledd Iwerddon   </resource>
+		<resource id="New_tracking_3_4">a   </resource>
+		<resource id="New_tracking_3_5">Chynulliad Cenedlaethol Cymru  </resource>			
+		<resource id="New_tracking_3_6">ar y gwefannau Seneddol a Chynulliad Cenedlaethol unigol. </resource>		
+		<resource id="New_tracking_4">Dim ond ar ôl iddyn nhw fynd trwy bob cam ar eu taith Seneddol berthnasol a derbyn y Cydsyniad Brenhinol y bydd Mesurau yn dod yn Ddeddfau. Ar ôl i Ddeddf gael y Cydsyniad Brenhinol, caiff ei chyhoeddi dan awdurdod Argraffydd y Frenhines ar y wefan hon.</resource>
+			<resource id="Not a valid revised legislation type">Ddim yn fath dilys o ddeddfwriaeth ddiwygiedig</resource>
 
 		<resource id="Today">Heddiw</resource>
 		<resource id="Free_of_charge">Porthiant deddfwriaeth am ddim</resource>
