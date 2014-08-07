@@ -2234,6 +2234,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:variable name="strListClass">
 				<xsl:call-template name="FuncCalcListClass"/>
 			</xsl:variable>
+<!-- Mark R 11/04/2014: Call HA054841 - Action HH518119: Additional check that the current ListItem does not have a NumberOverride attribute.
+		If it does then the parent number is not output. -->
 			<xsl:if test="not(preceding-sibling::leg:ListItem) and parent::leg:OrderedList/parent::leg:ListItem/parent::leg:OrderedList and not(@NumberOverride)">
 				<div class="{concat('LegLeftNo', $strListClass, 'No', $strAmendmentSuffix, ' LegListItemNo')}">
 					<xsl:for-each select="ancestor::leg:ListItem[1]">
