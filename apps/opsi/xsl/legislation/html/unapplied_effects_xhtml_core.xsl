@@ -21,6 +21,8 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
      the whole..." heading. -->
 <xsl:variable name="largerProvisions" select="'act','blanket amendment','measure', 'order'" as="xs:string+" />
 
+  <xsl:variable name="filterSection" select="concat(substring-after(//dc:identifer,'http://www.legislation.gov.uk/'),'/')"/>
+
 <xsl:template match="ukm:UnappliedEffects" mode="filterUnappliedEffects">
 	<xsl:param name="includeTooltip" as="xs:boolean" tunnel="yes" select="false()"/>
 	
@@ -29,14 +31,32 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 	<xsl:variable name="strTitle" select="ancestor::ukm:Metadata/dc:title" as="xs:string"/>
 	<xsl:variable name="commencementOrders" as="element(ukm:UnappliedEffect)*" select="*[ukm:Commenced or @Type = 'Commencement Order']" />
 	<xsl:variable name="effects" as="element(ukm:UnappliedEffect)*" select="*[not(ukm:Commenced)]" />
-	
+
 	<!--Chunyu HA050183 changed the condition for section as there are more than one section. See http://www.legislation.gov.uk/ukpga/2005/5/section/2	-->
-	<xsl:variable name="largerEffects"
+  <!-- Call HA050366 from Cahterine:
+					The general rule for effects is that if possible they should appear under the appropriate heading,
+					e.g. effects for section 1 under the section 1 heading etc. However, sometimes there are effects 
+					that don't relate to a single section they relate to the whole act or a whole part, 
+					in this case they appear under the "Changes and effects yet to be applied to the whole Act, associated Parts and Chapters:" heading. 
+					There are also sometimes effects about sections that don't exist yet, for example if Section 4A is to be inserted after section 4
+					this  should also be under the "Changes and effects yet to be applied to the whole Act…" heading as there is no section 4A, 
+					yet for it to go under (it will only exist once the effect is carried through).
+					Section 4A is not a subsection of Section 4 it's a new section at the same level as Sections 4 and 5. para. 62ZZA, para. 62C and para. 
+					62ZZZA are not subsections of 62 they are sections (P1s) in their own right.
+					If they were subsections they would have brackets e.g. 62(c) is a subsection 62C is a section. 
+					You can see this from the URI it's http://www.legislation.gov.uk/id/asp/2002/13/schedule/1/paragraph/62ZZA 
+					if this was a child of section 62 it would be http://www.legislation.gov.uk/id/asp/2002/13/schedule/1/paragraph/62/ZZA
+					Chunyu:we should add the logic to see whether sections URI is same as the filter sections URI  -->
+ 	<xsl:variable name="largerEffects"
 								as="element(ukm:UnappliedEffect)*"
 								select="($effects except $commencementOrders)
 													[ukm:AffectedProvisions//*[name() = 'ukm:Section'][@Missing = 'true'] or
 													     ukm:AffectedProvisions//ukm:SectionRange[@MissingStart = 'true' or @MissingEnd = 'true'] or
-													 @AffectedProvisions[normalize-space(lower-case(.)) = $largerProvisions]]" />
+													 @AffectedProvisions[normalize-space(lower-case(.)) = $largerProvisions] or
+													 (@Type = 'inserted' and not(contains(concat(substring-after(ukm:AffectedProvisions//ukm:Section/@URI,'http://www.legislation.gov.uk/id/' ),'/'), $filterSection)))
+													
+													]"/>
+                       
 	<xsl:variable name="sectionEffects"
 								as="element(ukm:UnappliedEffect)*"
 								select="$effects except ($commencementOrders, $largerEffects)" />
