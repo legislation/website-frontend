@@ -1297,7 +1297,9 @@ exclude-result-prefixes="tso atom">
 
 	<!-- this needs the highest priority so that the annotations get processed  -->
 	<xsl:template match="leg:Schedule//leg:P1 | leg:PrimaryPrelims | leg:SecondaryPrelims | leg:P1group | leg:Schedule/leg:ScheduleBody//leg:Tabular" priority="400">
-		<xsl:next-match/>
+		<xsl:next-match>
+			<xsl:with-param name="showRepeals" select="$showRepeals" tunnel="yes"/>
+		</xsl:next-match>
 		<!-- If there are alternate versions outputting ot annotations will happen there -->
 		<xsl:if test="not(@AltVersionRefs) and not(parent::leg:BlockAmendment)">
 			<xsl:apply-templates select="." mode="ProcessAnnotations"/>
@@ -3314,15 +3316,15 @@ exclude-result-prefixes="tso atom">
 		<fo:inline>
 			<xsl:choose>
 				<xsl:when test="@Status = 'Proposed' and $changeType = 'Substitution'">
-					<!--<xsl:attribute name="color">#FF4500</xsl:attribute>-->
+					<xsl:attribute name="color">#FF4500</xsl:attribute>
 					<xsl:attribute name="text-decoration">underline</xsl:attribute>										
 				</xsl:when>
 				<xsl:when test="@Status = 'Proposed' and $changeType = 'Repeal'">
-					<!--<xsl:attribute name="color">#FF0000</xsl:attribute>-->
+					<xsl:attribute name="color">#FF0000</xsl:attribute>
 					<xsl:attribute name="text-decoration">line-through</xsl:attribute>
 				</xsl:when>
 				<xsl:when test="@Status = 'Proposed' and $changeType = 'Addition'">
-					<!--<xsl:attribute name="color">#008000</xsl:attribute>-->
+					<xsl:attribute name="color">#008000</xsl:attribute>
 					<xsl:attribute name="text-decoration">underline</xsl:attribute>					
 				</xsl:when>
 			</xsl:choose>
