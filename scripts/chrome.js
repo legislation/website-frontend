@@ -1,9 +1,9 @@
 /*
 (c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
 /*
@@ -305,9 +305,9 @@ $(document).ready(function(){
 /*
 (c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
 /*
@@ -448,9 +448,9 @@ $.fn.legExpandCollapse = function(htmlValues_arr, options){
 /*
 (c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
 /*
@@ -609,9 +609,9 @@ $.fn.legHelpBox = function(helpBoxOptions) {
 /*
 (c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
 /*
@@ -661,9 +661,9 @@ $.fn.imgReplace = function(){
 /*
 (c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
 /*
@@ -762,9 +762,9 @@ $.fn.legInterfaceOptions = function() {
 /*
 (c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
 /*
@@ -947,9 +947,9 @@ $.fn.legModalWin = function(options){
 /*
 (c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
 /*
@@ -1114,9 +1114,9 @@ $.fn.legTocExpandCollapse = function(pageID, cookieExpire){
 /*
 (c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
 function previousNextTextMatchLinks(){
@@ -1203,9 +1203,9 @@ function previousNextTextMatchLinks(){
 /*
 (c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
 /*
