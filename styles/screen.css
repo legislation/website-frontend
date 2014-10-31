@@ -1436,12 +1436,36 @@ div.alphaLinkList {display: block; background: #ccc; float: left;}
 
 #contentSearch div.title.titlecy {width: 18em; *width: 19em;}
 
-
-
-
-
-
-
-
-
-
+/**
+ * Drop-down message
+ */
+#cookie-law-info-bar {
+    border: 0;
+    margin: 0 auto;
+    padding: 12px 0 10px 0;
+    text-align: center;
+    width: 100%;
+    z-index: 1000;
+    position: relative;  
+    background-color: #424240;
+    color: #ffffff;
+    font-size: 1.5em;
+    border-bottom: 4px solid #000000;
+}
+#cookie-law-info-bar span {
+    vertical-align: middle;
+}
+.cli-plugin-main-link {
+    color: #ffffff;
+    text-decoration: underline;    
+}
+.cli-plugin-button, .cli-plugin-button:visited {
+    padding: 4px 8px;
+    background: #ffffff;
+    margin: auto 10px;
+    color: #4B4C4E;
+    font-size: 0.9em;
+}
+.cli-plugin-button:active {
+    top: 1px;
+}
