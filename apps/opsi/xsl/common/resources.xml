@@ -344,7 +344,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 
 		<!-- errors returned from theme-opsi-demo.xsl -->
 		<resource id="Temporarily Unavailable" translated="false" stage2="true">Temporarily Unavailable</resource>
-		<resource id="Page Not Found" translated="false" stage2="true">Page Not Found</resource>
+		<resource id="Page Not Found" translated="false" stage2="true">Ni chanfuwyd y dudalen</resource>
 		<resource id="Multiple Choices" translated="false" stage2="true">Multiple Choices</resource>
 		<resource id="Found References" translated="false" stage2="true">Found References</resource>
 		<resource id="Foundref_p_1" translated="false" stage2="true">This item of legislation isn’t available on this site as it isn’t currently available in a web-publishable format. This could be because the new legislation item hasn’t published yet. However, if you are looking for an older item of legislation that we do not hold but you’d like to see on this site, please let us know via</resource>
@@ -352,11 +352,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 		<resource id="Created" translated="false" stage2="true">Created</resource>
 		<resource id="Accepted" translated="false" stage2="true">Accepted</resource>
 		<resource id="Internal Error" translated="false" stage2="true">Internal Error</resource>
-		<resource id="Error404_1" translated="false" stage2="true">The page you requested could not be found</resource>
-		<resource id="Error404_2" translated="false" stage2="true">Please check for any of the following if you see this page after a search</resource>
-		<resource id="Error404_3" translated="false" stage2="true">Spelling mistakes in the search phrase</resource>
-		<resource id="Error404_4" translated="false" stage2="true">Invalid parameter entered e.g 19988 instead of 1998 for a year</resource>
-		<resource id="Error404_5" translated="false" stage2="true">Alternatively, the referrer may have passed an invalid URI to this site. Check that the URI has 'www' and does not start with 'https:'</resource>
+		<resource id="Error404_1" translated="false" stage2="true">Ni lwyddwyd i ddod o hyd i’r dudalen y buoch yn chwilio amdani</resource>
+		<resource id="Error404_2" translated="false" stage2="true">Gwiriwch am unrhyw un o’r canlynol os gwelwch y dudalen hon ar ôl chwiliad</resource>
+		<resource id="Error404_3" translated="false" stage2="true">Camgymeriadau sillafu yn y frawddeg chwilio</resource>
+		<resource id="Error404_4" translated="false" stage2="true">Nodwedd annilys wedi ei chynnig e.e. 19988 yn hytrach na 1998 ar gyfer blwyddyn</resource>
+		<resource id="Error404_5" translated="false" stage2="true">Neu, efallai bod y cyfeiriwr wedi trosglwyddo URI annilys i’r safle hwn. Gwiriwch fod gan yr URI ‘www’ ac nid yw’n cychwyn gyda 'https:'</resource>
 		<resource id="Error200" translated="false" stage2="true">Try the following items of legislation</resource>
 		<resource id="Error_Alt" translated="false" stage2="true">The following are possible links that you could try as alternatives</resource>
 		<resource id="Error300_1" translated="false" stage2="true">The link that you've followed could mean any of the following</resource>
