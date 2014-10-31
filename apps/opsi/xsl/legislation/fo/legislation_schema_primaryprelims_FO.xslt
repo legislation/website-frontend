@@ -2,9 +2,9 @@
 <!--
 (c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 -->
 <xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0" xmlns:ukm="http://www.legislation.gov.uk/namespaces/metadata" xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:dct="http://purl.org/dc/terms/" xmlns:rx="http://www.renderx.com/XSL/Extensions" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fox="http://xmlgraphics.apache.org/fop/extensions">

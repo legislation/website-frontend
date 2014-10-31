@@ -2,9 +2,9 @@
 <!--
 (c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 -->
 <xsl:stylesheet version="2.0" 
@@ -414,7 +414,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 	<div id="footer">
 		<div>
 			<p></p>
-			<p class="copyrightstatement"><xsl:value-of select="leg:TranslateText('Homepage Footer')"/><a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2" rel="license"><xsl:value-of select="leg:TranslateText('Open Government Licence')"/></a><xsl:value-of select="leg:TranslateText('Homepage Footer End')"/><span class="copyright">&#xa9; <span rel="dct:rights" resource="http://reference.data.gov.uk/def/copyright/crown-copyright"><xsl:value-of select="leg:TranslateText('Crown copyright')"/></span></span></p>
+			<p class="copyrightstatement"><xsl:value-of select="leg:TranslateText('Homepage Footer')"/><a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" rel="license"><xsl:value-of select="leg:TranslateText('Open Government Licence')"/></a><xsl:value-of select="leg:TranslateText('Homepage Footer End')"/><span class="copyright">&#xa9; <span rel="dct:rights" resource="http://reference.data.gov.uk/def/copyright/crown-copyright"><xsl:value-of select="leg:TranslateText('Crown copyright')"/></span></span></p>
 		</div>
 	</div>
 	

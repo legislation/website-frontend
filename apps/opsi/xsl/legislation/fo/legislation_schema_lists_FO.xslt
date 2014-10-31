@@ -2,9 +2,9 @@
 <!--
 (c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 -->
 <xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0" xmlns:ukm="http://www.legislation.gov.uk/namespaces/metadata" xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:rx="http://www.renderx.com/XSL/Extensions" xmlns:xs="http://www.w3.org/2001/XMLSchema">
@@ -98,10 +98,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 
 		<xsl:variable name="strFormat" as="xs:string">
 			<xsl:choose>	
-				<xsl:when test="$strListType = 'alpha'">a</xsl:when>
-				<xsl:when test="$strListType = 'alphaupper'">A</xsl:when>
-				<xsl:when test="$strListType = 'roman'">i</xsl:when>
-				<xsl:when test="$strListType = 'romanupper'">I</xsl:when>
+				<xsl:when test="lower-case($strListType) = 'alpha'">a</xsl:when>
+				<xsl:when test="lower-case($strListType) = 'alphaupper'">A</xsl:when>
+				<xsl:when test="lower-case($strListType) = 'roman'">i</xsl:when>
+				<xsl:when test="lower-case($strListType) = 'romanupper'">I</xsl:when>
 				<xsl:otherwise>1</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>		

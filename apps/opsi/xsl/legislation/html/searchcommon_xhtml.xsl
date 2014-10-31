@@ -2,9 +2,9 @@
 <!--
 (c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml"  version="2.0" 
@@ -204,7 +204,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 								</xsl:when>
 								<xsl:otherwise>
 									<li class="{if ($isLastPage) then 'lastPageLink' else 'pageLink'}">
-										<a href="{if (contains($link, 'page=')) then replace($link, 'page=[0-9]+', concat('page=', .)) else concat($link, if (contains($link, '?')) then '&amp;page=' else '?page=', .) }">
+										<a href="{concat(if (contains($link, 'page=')) then replace($link, 'page=[0-9]+', concat('page=', .)) else concat($link, if (contains($link, '?')) then '&amp;page=' else '?page=', .),if  ($paramsDoc/parameters/type = 'ukia') then concat(if ($paramsDoc/parameters/start != '') then concat('&amp;start=', $paramsDoc/parameters/start) else '',if ($paramsDoc/parameters/end != '') then concat('&amp;end=', $paramsDoc/parameters/end) else '') else '')}">
 											<xsl:choose>
 												<xsl:when test=". = $thisPage - 1">
 													<xsl:attribute name="rel">prev</xsl:attribute>
@@ -266,7 +266,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 	
 	<xsl:template match="atom:link[@rel = ('prev', 'next')]">
 		<li class="pageLink {@rel}">
-			<a href="{leg:GetLink(@href)}" title="{if (@rel ='prev') then 'previous' else @rel} page">
+			<a href="{leg:GetLink(concat(@href, if ($paramsDoc/parameters/type = 'ukia') then concat(if ($paramsDoc/parameters/start != '') then concat('&amp;start=', $paramsDoc/parameters/start) else '',if ($paramsDoc/parameters/end != '') then concat('&amp;end=', $paramsDoc/parameters/end) else '') else ''))}" title="{if (@rel ='prev') then 'previous' else @rel} page">
 				<span class="btl"/>
 				<span class="btr"/>
 				<xsl:choose>

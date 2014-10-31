@@ -2,9 +2,9 @@
 <!--
 (c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 -->
 <!-- Legislation schema XHTML output for legislation -->
@@ -4304,6 +4304,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:when test="ancestor::leg:BlockAmendment[1]/@Format = 'single'">
 			<xsl:text>&#8216;</xsl:text>
 		</xsl:when>
+	  <xsl:when test="ancestor::leg:BlockAmendment[1]/@Format = 'double'">
+	    <xsl:text>&#8220;</xsl:text>
+	  </xsl:when>
 		<xsl:when test="ancestor::leg:BlockAmendment[1]/@Format = 'none'"/>
 		<xsl:otherwise>
 			<xsl:text>&#8220;</xsl:text>
@@ -4317,6 +4320,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:when test="ancestor::leg:BlockAmendment[1]/@Format = 'single'">
 			<xsl:text>&#8217;</xsl:text>
 		</xsl:when>
+	  <xsl:when test="ancestor::leg:BlockAmendment[1]/@Format = 'double'">
+	    <xsl:text>&#8221;</xsl:text>
+	  </xsl:when>
 		<xsl:when test="ancestor::leg:BlockAmendment[1]/@Format = 'none'"/>
 		<xsl:otherwise>
 			<xsl:text>&#8221;</xsl:text>

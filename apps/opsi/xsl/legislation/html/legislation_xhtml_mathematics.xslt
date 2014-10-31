@@ -2,9 +2,9 @@
 <!--
 (c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 -->
 <!-- Legislation schema XHTML output for legislation - mathematics module -->
@@ -56,6 +56,9 @@ exclude-result-prefixes="leg ukm math xhtml dc ukm fo xsl">
 	<xsl:variable name="strAmendmentSuffix">
 		<xsl:call-template name="FuncCalcAmendmentNo"/>
 	</xsl:variable>
+  <xsl:if test="ancestor::leg:BlockAmendment and generate-id(ancestor::leg:BlockAmendment[1]/descendant::text()[not(normalize-space() = '')][1]) = generate-id(descendant::text()[not(normalize-space() = '')][1])">
+    <xsl:call-template name="FuncOutputAmendmentOpenQuote"/>
+  </xsl:if>
 	<div>
 		<xsl:attribute name="class">
 			<xsl:text>LegFormula</xsl:text>
@@ -90,6 +93,9 @@ exclude-result-prefixes="leg ukm math xhtml dc ukm fo xsl">
 			</xsl:otherwise>
 		</xsl:choose>
 	</div>
+  <xsl:if test="ancestor::leg:BlockAmendment and generate-id(ancestor::leg:BlockAmendment[1]/descendant::text()[not(normalize-space() = '')][last()]) = generate-id(descendant::text()[not(normalize-space() = '')][last()])">
+    <xsl:call-template name="FuncOutputAmendmentEndQuote"/>
+  </xsl:if>
 	<xsl:apply-templates select="leg:Where"/>
 </xsl:template>
 

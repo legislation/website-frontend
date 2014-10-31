@@ -2,9 +2,9 @@
 <!--
 (c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 -->
 <allResources>
@@ -30,7 +30,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 		<resource id="Legislation">Deddfwriaeth</resource>
 		<resource id="New Legislation">Deddfwriaeth Newydd</resource>
 		<resource id="Number">Rhif</resource>
-		<resource id="Open Government Licence">Drwydded Llywodraeth Agored v2.0</resource>
+		<resource id="Open Government Licence">Drwydded Llywodraeth Agored v3.0</resource>
 		<resource id="Revised">ddiwygiedig</resource>
 		<resource id="Site Map">Map o’r safle</resource>
 		<resource id="Search">Chwilio</resource>
@@ -357,10 +357,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 		<resource id="Error404_3" translated="false" stage2="true">Camgymeriadau sillafu yn y frawddeg chwilio</resource>
 		<resource id="Error404_4" translated="false" stage2="true">Nodwedd annilys wedi ei chynnig e.e. 19988 yn hytrach na 1998 ar gyfer blwyddyn</resource>
 		<resource id="Error404_5" translated="false" stage2="true">Neu, efallai bod y cyfeiriwr wedi trosglwyddo URI annilys i’r safle hwn. Gwiriwch fod gan yr URI ‘www’ ac nid yw’n cychwyn gyda 'https:'</resource>
-		<resource id="Error200" translated="false" stage2="true">Try the following items of legislation</resource>
-		<resource id="Error_Alt" translated="false" stage2="true">The following are possible links that you could try as alternatives</resource>
-		<resource id="Error300_1" translated="false" stage2="true">The link that you've followed could mean any of the following</resource>
-		<resource id="Error300_2" translated="false" stage2="true">The link that you've followed could mean either of the following</resource>
+		<resource id="Error200" translated="false" stage2="true">Rhowch gynnig ar yr eitemau canlynol o ddeddfwriaeth</resource>
+		<resource id="Error_Alt" translated="false" stage2="true">Mae'r canlynol yn gysylltiadau posibl y gallech roi cynnig arnynt fel dewisiadau amgen</resource>
+		<resource id="Error300_1" translated="false" stage2="true">Gallai'r cyswllt eich bod wedi eu dilyn yn golygu unrhyw un o'r canlynol</resource>
+		<resource id="Error300_2" translated="false" stage2="true">Gallai'r cyswllt eich bod wedi eu dilyn yn golygu un o'r canlynol</resource>
 
 		<!-- Text on page - http://www.legislation.gov.uk/cy/search/point-in-time-->
 		<resource id="Legislation as it stood at a specific point in time (for revised legislation only)">Deddfwriaeth fel roedd yn sefyll ar bwynt penodol mewn amser (ar gyfer deddfwriaeth ddiwygiedig yn unig)</resource>
@@ -700,7 +700,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
 	<resources lang="en">
 		<resource id="Home_description" translated="false" stage2="true">The official home of UK legislation, revised and as enacted 1267-present. This website is managed by The National Archives on behalf of HM Government. Publishing all UK legislation is a core part of the remit of Her Majesty’s Stationery Office (HMSO), part of The National Archives, and the Office of the Queen's Printer for Scotland.</resource>
 		<resource id="Homepage Footer">All content is available under the </resource>
-		<resource id="Open Government Licence">Open Government Licence v2.0</resource>
+		<resource id="Open Government Licence">Open Government Licence v3.0</resource>
 		<resource id="Homepage Footer End"> except where otherwise stated</resource>
 		<resource id="Key_title_text">(or keywords in the title)</resource>
 		<resource id="Use_double_quote_text">(using double quotes around a phrase will give faster results)</resource>

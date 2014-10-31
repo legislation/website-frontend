@@ -2,9 +2,9 @@
 <!--
 (c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 -->
 <!-- Legislation schema XHTML output for consolidated legislation -->
@@ -92,6 +92,9 @@ exclude-result-prefixes="leg ukm math msxsl dc fo xsl svg xhtml xs tso">
 			<xsl:when test="$nstPnumber/@PuncAfter">
 				<xsl:value-of select="$nstPnumber/@PuncAfter" />
 			</xsl:when>
+		  <xsl:when test="$nstPnumber[parent::leg:P2 or parent::leg:P3 or parent::leg:P4 or parent::leg:P5]">
+		    <xsl:text>)</xsl:text>
+		  </xsl:when>
 			<xsl:when test="$nstPnumber/parent::leg:P1 and $g_strDocumentType = $g_strPrimary"/>
 			<xsl:when test="$nstPnumber/parent::leg:P1">.</xsl:when>
 			<xsl:otherwise>.</xsl:otherwise>

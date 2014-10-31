@@ -2,9 +2,9 @@
 <!--
 (c)  Crown copyright
  
-You may use and re-use this code free of charge under the terms of the Open Government Licence v2.0
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 -->
 <xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format"
@@ -2979,9 +2979,9 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 
 	<xsl:template match="leg:Figure">
-		<xsl:choose>
+	  <xsl:choose>
 			<xsl:when test="@Orientation = 'landscape'">
-				<fo:block-container>
+			  <fo:block-container>
 					<xsl:choose>
 						<xsl:when test="contains(leg:Image/@Width,'pt')">
 							<xsl:attribute name="inline-progression-dimension" select="leg:Image/@Width"/>
@@ -2992,13 +2992,15 @@ exclude-result-prefixes="tso atom">
 							<xsl:attribute name="break-after">page</xsl:attribute>						
 						</xsl:otherwise>
 					</xsl:choose>
+			    <xsl:apply-templates select="leg:Title"/>
 					<fo:block>
-						<xsl:apply-templates/>
+						<xsl:apply-templates select="leg:Image"/>
 					</fo:block>
 				</fo:block-container>
 			</xsl:when>
 	<!-- Chunyu 09/05/12: Added a condition for portrait dislay images see nisr/1996/447 -->
 		<xsl:when test="@Orientation = 'portrait'">
+		  <xsl:apply-templates select="leg:Title"/>
 					<xsl:for-each select="leg:Image">
 					<fo:block-container clear="both">
 						<fo:block linefeed-treatment="preserve">
@@ -3010,6 +3012,7 @@ exclude-result-prefixes="tso atom">
 			</xsl:when>
 			<!-- need to test for inline on mathml display attribute -->
 			<xsl:when test="parent::leg:Version and //leg:Formula[@AltVersionRefs = current()/parent::leg:Version/@id]">
+			  <xsl:apply-templates select="leg:Title"/>
 				<fo:inline>
 					<xsl:apply-templates/>
 				</fo:inline>
@@ -3022,7 +3025,7 @@ exclude-result-prefixes="tso atom">
 				</fo:block-container>
 			</xsl:otherwise>
 		</xsl:choose>
-	</xsl:template>
+	  </xsl:template>
 
 	<xsl:template match="leg:Image">
 		<xsl:variable name="maxHeight" select="640" as="xs:double"/>
