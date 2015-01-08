@@ -596,7 +596,7 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 		<!-- next order double characters- ie 'aa' -  50aabb00  -->
 		<xsl:when test="string-length($tokenizedRef[$item]) = 2">
 			<xsl:number value="530000000 + (tso:characterPosition(substring($tokenizedRef[$item],string-length($tokenizedRef[$item])-1,1)))*1000 + 
-			(tso:characterPosition(substring($tokenizedRef[$item],string-length($tokenizedRef[$item])))*100)"/><xsl:message><xsl:value-of select="$ref"/></xsl:message>
+			(tso:characterPosition(substring($tokenizedRef[$item],string-length($tokenizedRef[$item])))*100)"/><!--<xsl:message><xsl:value-of select="$ref"/></xsl:message>-->
 		</xsl:when>
 		<!-- next order triple characters- ie 'aa' -  50aabbcc  -->
 		<xsl:when test="string-length($tokenizedRef[$item]) = 3">

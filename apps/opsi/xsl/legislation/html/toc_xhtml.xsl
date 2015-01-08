@@ -511,9 +511,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<!-- ========== Standard code for what version ========= -->
 	<!-- outputting the what version box based on the scenarios-->			
 	<xsl:template name="TSOOutputWhatVersionScenario">
-		<xsl:message>
+		<!--<xsl:message>
 			$whatVersionScenario: <xsl:value-of select="$whatVersionScenario" />
-		</xsl:message>
+		</xsl:message>-->
 		<xsl:choose>
 			<xsl:when test="$whatVersionScenario='A' ">
 				<xsl:call-template name="TSOOutputWhatVersion">
