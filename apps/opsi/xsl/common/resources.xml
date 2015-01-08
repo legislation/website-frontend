@@ -70,6 +70,33 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="All UK Impact Assements">Pob Asesiad Effaith y Deyrnas Unedig</resource>
 		<resource id="UK Impact Assessments">Asesiadau Effaith y Deyrnas Unedig</resource>
 
+		<!--Singular versions of legislation types --> 
+		<resource id="Act of the English Parliament">Deddf Senedd Lloegr</resource>
+	    <resource id="Act of the National Assembly for Wales">Deddf Cynulliad Cenedlaethol Cymru</resource>
+	    <resource id="Act of the Northern Ireland Assembly">Deddf Cynulliad Gogledd Iwerddon</resource>
+		<resource id="Act of the Northern Ireland Parliament">Deddf Senedd Gogledd Iwerddon</resource>
+		<resource id="Act of the Old Irish Parliament">Deddf Hen Senedd Iwerddon</resource>
+		<resource id="Act of the Old Scottish Parliament">Deddf Hen Senedd yr Alban</resource>
+		<resource id="Act of the Parliament of Great Britain">Deddf Senedd Prydain Fawr</resource>
+		<resource id="Act of the Scottish Parliament">Deddf Senedd yr Alban</resource>
+		<resource id="Church Instrument">Offeryn Eglwysig</resource>
+		<resource id="Church Measure">Mesur Eglwysig</resource>
+		<resource id="Measure of the National Assembly for Wales">Mesur Cynulliad Cenedlaethol Cymru</resource>
+		<resource id="Measure of the Northern Ireland Assembly">Mesur Cynulliad Gogledd Iwerddon</resource>
+		<resource id="Northern Ireland Draft Statutory Rule">Rheol Statudol Ddrafft Gogledd Iwerddon</resource>
+		<resource id="Northern Ireland Order in Council">Gorchymyn yn y Cyngor Gogledd Iwerddon</resource>
+		<resource id="Northern Ireland Statutory Rule">Rheol Statudol Gogledd Iwerddon</resource>
+		<resource id="Scottish Draft Statutory Instrument">Offeryn Statudol Drafft yr Alban</resource>
+		<resource id="Scottish Statutory Instrument">Offeryn Statudol yr Alban</resource>
+		<resource id="UK Draft Statutory Instrument">Offeryn Statudol Drafft y Deyrnas Unedig</resource>
+		<resource id="UK Impact Assessment">Asesiad Effaith y Deyrnas Unedig</resource>
+		<resource id="UK Local Act">Deddf Leol y Deyrnas Unedig</resource>
+		<resource id="UK Ministerial Order">Gorchymyn Gweinidogol y Deyrnas Unedig</resource>
+		<resource id="UK Public General Act">Deddf Gyhoeddus Gyffredinol y Deyrnas Unedig</resource>
+		<resource id="UK Statutory Instrument">Offeryn Statudol y Deyrnas Unedig</resource>
+		<resource id="UK Statutory Rules and Order">Rheol a Gorchymyn Statudol y Deyrnas Unedig</resource>
+		<resource id="Wales Statutory Instrument">Offeryn Statudol Cymru</resource>
+
 		<resource id="Table of Contents">Tabl o’r Cynnwys</resource>
 		<resource id="Table of contents">Tabl o’r Cynnwys</resource>
 		<resource id="table of contents">tabl o’r cynnwys</resource>

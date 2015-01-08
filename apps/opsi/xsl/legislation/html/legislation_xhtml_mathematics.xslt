@@ -56,11 +56,9 @@ exclude-result-prefixes="leg ukm math xhtml dc ukm fo xsl">
 	<xsl:variable name="strAmendmentSuffix">
 		<xsl:call-template name="FuncCalcAmendmentNo"/>
 	</xsl:variable>
-  <xsl:if test="ancestor::leg:BlockAmendment and generate-id(ancestor::leg:BlockAmendment[1]/descendant::text()[not(normalize-space() = '')][1]) = generate-id(descendant::text()[not(normalize-space() = '')][1])">
-    <xsl:call-template name="FuncOutputAmendmentOpenQuote"/>
-  </xsl:if>
+  
 	<div>
-		<xsl:attribute name="class">
+	 	<xsl:attribute name="class">
 			<xsl:text>LegFormula</xsl:text>
 			<xsl:value-of select="$strAmendmentSuffix"/>
 		</xsl:attribute>
@@ -68,7 +66,10 @@ exclude-result-prefixes="leg ukm math xhtml dc ukm fo xsl">
 			<xsl:call-template name="FuncCheckDisplayImageOrRenderMaths">
 				<xsl:with-param name="currentnode" select="descendant::math:math"/>
 			</xsl:call-template>
-		</xsl:variable>		
+		</xsl:variable>
+	  <xsl:if test="ancestor::leg:BlockAmendment and generate-id(ancestor::leg:BlockAmendment[1]/descendant::text()[not(normalize-space() = '')][1]) = generate-id(descendant::text()[not(normalize-space() = '')][1])">
+	    <xsl:call-template name="FuncOutputAmendmentOpenQuote"/>
+	  </xsl:if>
 		<xsl:choose>
 			<!-- For very simple one line maths with no odd characters output as text -->
 			<xsl:when test="$strCheckMathsForRendering = $g_strRenderMaths">
@@ -91,11 +92,12 @@ exclude-result-prefixes="leg ukm math xhtml dc ukm fo xsl">
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:otherwise>
-		</xsl:choose>
-	</div>
-  <xsl:if test="ancestor::leg:BlockAmendment and generate-id(ancestor::leg:BlockAmendment[1]/descendant::text()[not(normalize-space() = '')][last()]) = generate-id(descendant::text()[not(normalize-space() = '')][last()])">
+		</xsl:choose>  
+	  <xsl:if test="ancestor::leg:BlockAmendment and generate-id(ancestor::leg:BlockAmendment[1]/descendant::text()[not(normalize-space() = '')][last()]) = generate-id(descendant::text()[not(normalize-space() = '')][last()])">
     <xsl:call-template name="FuncOutputAmendmentEndQuote"/>
   </xsl:if>
+	</div>
+
 	<xsl:apply-templates select="leg:Where"/>
 </xsl:template>
 
