@@ -1515,11 +1515,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:call-template name="FuncCheckForIDnoElement"/>
 			</xsl:for-each>
 			<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
-			<!-- Call No: HA051095 -->
-			<!--<xsl:text>&#8212;</xsl:text>-->
-			<xsl:text>&#160;&#160;</xsl:text>
+			<xsl:text>&#8212;</xsl:text>
 			<xsl:apply-templates select="ancestor::leg:P2[1]/leg:Pnumber"/>
-			<xsl:text>&#160;&#160;</xsl:text>
+			<xsl:text>&#160;</xsl:text>
 			<!-- Very rare instance of combined N1-N2-N3 -->
 			<xsl:if test="ancestor::*[self::leg:P3 or self::leg:BlockAmendment][1][self::leg:P3]">
 				<xsl:apply-templates select="ancestor::leg:P3[1]/leg:Pnumber"/>

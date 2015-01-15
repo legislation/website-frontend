@@ -144,14 +144,14 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	</xsl:if>
 </xsl:template>
 
-<!-- DXXX: For repeals we would like to show only the text again enclosed in brackets if showRepeals is turned on   -->
-<xsl:template match="leg:Group[.//leg:Repeal] | leg:Part[.//leg:Repeal] | leg:Chapter[.//leg:Repeal] | 
-		leg:Schedule[.//leg:Repeal] | leg:ScheduleBody[.//leg:Repeal] |
-		leg:Pblock[.//leg:Repeal] | leg:PsubBlock[.//leg:Repeal] | leg:P1group[.//leg:Repeal] | 
-		leg:P1[.//leg:Repeal] | leg:P2[.//leg:Repeal] | leg:P3[.//leg:Repeal] | 
-		leg:P4[.//leg:Repeal] | leg:P5[.//leg:Repeal] | leg:P6[.//leg:Repeal] | leg:P7[.//leg:Repeal] |
-		leg:P1para[.//leg:Repeal] | leg:P2para[.//leg:Repeal] | leg:P3para[.//leg:Repeal] | 
-		leg:P4para[.//leg:Repeal] | leg:P5para[.//leg:Repeal] | leg:P6para[.//leg:Repeal] | leg:P7para[.//leg:Repeal]"
+<!-- DXXX: For repeals we would like to show only the text again enclosed in brackets if showRepeals is turned on, unless @RetainText='true' is present in the content -->
+<xsl:template match="leg:Group[.//leg:Repeal[not(@RetainText='true')]] | leg:Part[.//leg:Repeal[not(@RetainText='true')]] | leg:Chapter[.//leg:Repeal[not(@RetainText='true')]] | 
+		leg:Schedule[.//leg:Repeal[not(@RetainText='true')]] | leg:ScheduleBody[.//leg:Repeal[not(@RetainText='true')]] |
+		leg:Pblock[.//leg:Repeal[not(@RetainText='true')]] | leg:PsubBlock[.//leg:Repeal[not(@RetainText='true')]] | leg:P1group[.//leg:Repeal[not(@RetainText='true')]] | 
+		leg:P1[.//leg:Repeal[not(@RetainText='true')]] | leg:P2[.//leg:Repeal[not(@RetainText='true')]] | leg:P3[.//leg:Repeal[not(@RetainText='true')]] | 
+		leg:P4[.//leg:Repeal[not(@RetainText='true')]] | leg:P5[.//leg:Repeal[not(@RetainText='true')]] | leg:P6[.//leg:Repeal[not(@RetainText='true')]] | leg:P7[.//leg:Repeal[not(@RetainText='true')]] |
+		leg:P1para[.//leg:Repeal[not(@RetainText='true')]] | leg:P2para[.//leg:Repeal[not(@RetainText='true')]] | leg:P3para[.//leg:Repeal[not(@RetainText='true')]] | 
+		leg:P4para[.//leg:Repeal[not(@RetainText='true')]] | leg:P5para[.//leg:Repeal[not(@RetainText='true')]] | leg:P6para[.//leg:Repeal[not(@RetainText='true')]] | leg:P7para[.//leg:Repeal[not(@RetainText='true')]]"
 		priority="100">
 	<xsl:param name="showRepeals" select="false()" tunnel="yes" />	
 			
