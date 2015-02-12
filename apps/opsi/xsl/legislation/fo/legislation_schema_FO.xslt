@@ -2317,7 +2317,7 @@ exclude-result-prefixes="tso atom">
 
 						<fo:block text-align="justify" text-indent="12pt" space-before="{$g_strLargeStandardParaGap}">
 							<xsl:for-each select="parent::leg:P2para/parent::leg:P2">
-								<xsl:if test="(not(preceding-sibling::*) and parent::leg:P1para) or (preceding-sibling::*[1][self::leg:Title] and parent::leg:P2group[not(preceding-sibling::*)])">
+							  <xsl:if test="(not(preceding-sibling::*) and parent::leg:P1para) or (preceding-sibling::*[1][self::leg:Title] and parent::leg:P2group[not(preceding-sibling::*)] and parent::leg:P2group[not(parent::leg:BlockAmendment)])">
 									<xsl:if test="parent::*/parent::leg:P1[not(parent::leg:P1group) or preceding-sibling::leg:P1]">
 										<xsl:attribute name="space-before">12pt</xsl:attribute>
 									</xsl:if>
@@ -2326,7 +2326,7 @@ exclude-result-prefixes="tso atom">
 											<xsl:attribute name="font-weight">bold</xsl:attribute>
 										</xsl:if>
 										<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
-										<xsl:text>.</xsl:text>
+									 	<xsl:text>.</xsl:text>
 									</fo:inline>
 									<xsl:text>&#8212;</xsl:text>
 								</xsl:if>
@@ -2347,7 +2347,7 @@ exclude-result-prefixes="tso atom">
 											<xsl:attribute name="font-weight">bold</xsl:attribute>
 										</xsl:if>
 										<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
-										<xsl:text>.</xsl:text>
+                   	<xsl:text>.</xsl:text>
 									</fo:inline>
 									<!-- Call No: HA051095 -->
 									<!--<xsl:text>&#8212;</xsl:text>-->
@@ -2654,7 +2654,10 @@ exclude-result-prefixes="tso atom">
 	<xsl:template match="leg:Emphasis">
 		<xsl:choose>
 			<!--  HA048129 Pblock titles should be left aligned and italic  -->
-			<xsl:when test="self::*[not(ancestor::leg:Para)]/ancestor::xhtml:th[1][ancestor::xhtml:thead] (: or parent::leg:Title/parent::leg:Pblock :) or parent::leg:PersonName/parent::leg:Signee">
+		  <xsl:when test="self::*[not(ancestor::leg:Para)]/ancestor::xhtml:th[1][ancestor::xhtml:thead] 
+		    or ancestor::leg:Title[parent::*[contains(local-name(),'group')][parent::leg:BlockAmendment]]
+		    (: or parent::leg:Title/parent::leg:Pblock :) 
+		    or parent::leg:PersonName/parent::leg:Signee">
 				<fo:inline font-style="normal">
 					<xsl:apply-templates/>
 				</fo:inline>
@@ -2671,12 +2674,12 @@ exclude-result-prefixes="tso atom">
 							">
 				<fo:block font-style="italic" space-after="6pt">
 					<xsl:apply-templates/>
-				</fo:block>
+					</fo:block>
 			</xsl:when>
 			<xsl:otherwise>
 				<fo:inline font-style="italic">
 					<xsl:apply-templates/>
-				</fo:inline>
+					</fo:inline>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -2687,20 +2690,6 @@ exclude-result-prefixes="tso atom">
 				<fo:inline font-weight="normal">
 					<xsl:apply-templates/>
 				</fo:inline>
-			</xsl:when>
-			<!--Chunyu	HA051074 if parent only has emphasis and strong children and not other nodes,each of them should be individual block. See ukci/2010/5/note/sld/created-->
-			<!--2013-04-30 Update to HA051074 GC -->
-			<!--This fix needs to be a very specific otherwise it has knock on effects to other legislation -->
-			<!--Only apply to ENs in ukci's where there is either an Emphasis or Strong element and no textual content-->
-			<xsl:when test="$g_strDocType = 'UnitedKingdomChurchInstrument' and
-							ancestor::leg:P and 
-							ancestor::leg:ExplanatoryNotes and
-							(parent::leg:Text/leg:Emphasis or parent::leg:Text/leg:Strong) and
-							(every $node in parent::leg:Text/node() satisfies ($node instance of element(leg:Emphasis) or $node instance of element(leg:Strong) or ($node instance of text() and normalize-space($node) = '')))  
-							">
-				<fo:block font-weight="bold"  >
-					<xsl:apply-templates/>
-				</fo:block>
 			</xsl:when>
 			<xsl:otherwise>
 				<fo:inline font-weight="bold" >
