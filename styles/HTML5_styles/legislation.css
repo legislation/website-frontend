@@ -1,0 +1,215 @@
+/*
+(c)  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
+
+*/
+
+body { padding: 2em; font-family: arial, helvetica, verdana, sans-serif; font-size: 12pt }
+
+a { color: #2790C4 }
+a[href=''], a[href^='#'] { text-decoration: none; color: inherit }
+a[href='']:hover, a[href^='#']:hover { text-decoration: underline }
+
+p { margin: 0.5em 0 }
+p.indented { text-indent: 1em }
+
+div.mod { display: inline } /* mod can't be span if contains blockquote */
+
+blockquote { margin-top: 0.5em; margin-left: 3em }
+blockquote[style='display:inline'] { margin-left: 0 }
+
+*[data-startQuote]:before { content: attr(data-startQuote) }
+
+h1 { font-size: 150%; font-weight: normal }
+
+h2, h3, h4, h5, h6 { margin: 0; font-size: medium; font-weight: normal }
+
+div.authorialNote[data-placement='right'] { position: absolute; right: 0 }
+div.authorialNote[data-placement='right'] { top: -1em; font-size: smaller }
+
+ins { text-decoration: inherit }
+
+.foreign { text-align: center }	/* for math */
+
+
+h1 { text-align: center }
+span.heading { display: block }
+
+/* preface */
+
+.preface { margin: 2em 0 }
+.preface p { margin: 1em 0 }
+.preface > p.title { text-align: center }
+.preface > p.number { text-align: center }
+
+*[data-name='EnactingText'] .BlockText { margin-left: 2em }
+
+
+
+/* hierarchy */
+
+section { position: relative }
+.hcontainer { display: block }
+.tblock { margin-top: 1em }
+
+span.num[data-startQuote]:before { content: attr(data-startQuote) }
+
+.part { margin-top: 2em }
+.part > h2 > span.num { display: block; text-align: center }
+.part > h2 > span.heading { text-align: center }
+
+.chapter { margin-top: 2em }
+.chapter > h2 > span.num { display: block; text-align: center }
+.chapter > h2 > span.heading { text-align: center }
+
+*[data-name='crossheading'] { margin-top: 2em }
+*[data-name='crossheading'] > h2 > span.heading { text-align: center }
+/* *[data-name='schedule'] *[data-name='crossheading'] > h2 > span.heading { text-align: left } */
+/* ukpga/2010/1 schedule: crossheading is centered */
+
+/* schedules */
+
+*[data-name='schedules'] { margin-top: 2em }
+*[data-name='schedules'] > h2 > .heading { text-align: center }
+
+*[data-name='schedule'] { margin-top: 1em }
+
+*[data-name='schedule'] > h2 > .num { display: block; text-align: center }
+*[data-name='schedule'] > h2 > .heading { text-align: center }
+
+/* P1 'paragraphs' within schedules */
+*[data-name='schedule'] .paragraph { position: relative; padding-left: 3em }
+/* margin-left is to undo what's done in secondary.css -- but this is sloppy */
+*[data-name='schedule'] .paragraph > * > .num { display: inline-block; position: absolute; left: 0; margin-left: 0 }
+
+/* see e.g., ukpga/2010/1/schedule */
+*[data-name='schedule'] .paragraph > * > span.num:before { content: '' }
+*[data-name='schedule'] .paragraph > * > span.num[data-startQuote]:before { content: attr(data-startQuote) }
+*[data-name='schedule'] .paragraph > * > span.num:after { content: '' }
+
+/* P2 */
+*[data-name='schedule'] .subparagraph { position: relative; padding-left: 3em }
+*[data-name='schedule'] .subparagraph > * > span.num { display: inline-block; position: absolute; left: 0 }
+*[data-name='schedule'] .subparagraph > * > span.num:before { content: '(' }
+*[data-name='schedule'] .subparagraph > * > span.num[data-startQuote]:before { content: attr(data-startQuote) '(' }
+*[data-name='schedule'] .subparagraph > * > span.num:after { content: ')' }
+
+/* P3 'paragraphs' within schedules */
+*[data-name='schedule'] .paragraph .paragraph > * > span.num:before { content: '(' }
+*[data-name='schedule'] .paragraph .paragraph > * > span.num[data-startQuote]:before { content: attr(data-startQuote) '(' }
+*[data-name='schedule'] .paragraph .paragraph > * > span.num:after { content: ')' }
+
+
+
+
+/* table of contents */
+
+.tocItem { margin-left: 15% }
+
+.tocItem.title { margin-top: 0.5em }
+.tocItem.part { margin-top: 0.5em }
+.tocItem.heading { margin-top: 0.5em; margin-left: calc(15% + 0.5em); font-style: italic }
+.tocItem.schedule { margin-top: 0.5em }
+
+.tocItem.part[data-level='2'] { margin-left: calc(15% + 1em) }
+.tocItem[data-level='3'] { margin-left: calc(15% + 2em) }
+.tocItem[data-level='4'] { margin-left: calc(15% + 3em) }
+
+.inline[data-name='tocNum'] { display: inline-block }
+.inline[data-name='tocNum']::after { content: '.' }
+.inline[data-name='tocHeading'] { display: inline-block; padding-left: 0.5em }
+
+
+
+/* lists */
+
+
+ol, ul { position: relative; margin: 0 0 0 1em; padding-left: 0; list-style-type: none }
+li { margin-left: 2em }
+li > span.num { display: inline-block; position: absolute; left: 0 }
+/* dt { display: inline-block } */
+dl.equals > dt:after { content: ' = '}
+
+
+
+/* tables */
+
+.tabular > .num { font-weight: bold }
+.tabular > .heading { font-weight: bold }
+
+table { margin: 0 auto; border-top: thin solid black; border-bottom: thin solid black; border-collapse: collapse }
+
+th { text-align: left; font-weight: normal }
+th, td { padding: 0.5em; vertical-align: top }
+
+
+/* inline quotes */
+
+q:before { content: none }
+q:after { content: none }
+
+
+/* math */
+
+.foreign[data-ukl-Formula] { display: block; text-align: center }
+math { margin: 0 auto; font-size: xx-large }
+
+
+/* figures */
+
+.figure > p { text-align: center }
+figcaption { text-align: center }
+
+
+/* notes */
+
+.noteRef { vertical-align: super }
+.noteRef.commentary { font-weight: bold; display: none }
+.noteRef.footnote { font-size: smaller }
+
+.annotations { margin: 1em; border: thin solid grey; display: none }
+
+.annotations > div:first-child { padding: 0.5em; font-weight: bold }
+.annotations > div > div:first-child { margin: 0 0.5em; border-top: thin dotted gray; padding: 0.5em; font-weight: bold }
+
+.note { position: relative; font-size: smaller }
+.note > .marker { display: inline-block; position: absolute }
+.note > p:first-of-type { margin-top: 0 }
+.note > p:last-of-type { margin-bottom: 0 }
+
+.note.commentary { padding: 0.5em 1em 0.5em 4em }
+.note.commentary > .marker { left: 1em }
+
+.footnotes { margin-top: 2em; border-top: thin solid black; padding-top: 1em }
+.note.footnote { position: relative; padding: 0.5em 1em 0.5em 2em }
+.note.footnote > .marker { left: 0em }
+
+.tblock.footnote > span.num { display: inline-block; position: absolute }
+.tblock.footnote > p { margin-left: 2em }
+
+
+
+/* conclusions */
+
+.conclusions { margin-top: 2em }
+
+.ExplanatoryNotes > .heading { text-align: center }
+.ExplanatoryNotes > .intro > p { text-align: center; font-style: italic }
+
+
+/* blockquotes with run-on paragraphs */
+
+p.run-on, .x-inline { display: inline }
+
+
+
+
+
+
+
+
+
+blockquote.schedule *[data-name='schedule'] *[data-name='crossheading'] > h2 > span.heading { text-align: center; font-style: italic }

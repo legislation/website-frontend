@@ -1,0 +1,202 @@
+/*
+(c)  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
+
+*/
+
+@import 'legislation.css';
+
+/* preface */
+
+.preface::before {
+	display: block; text-align: center; font-size: 100%; text-transform: uppercase; letter-spacing: 0.3em;
+}
+article[data-name='UnitedKingdomStatutoryInstrument'] > .preface::before {
+	content: 'Statutory Instruments'
+}
+article[data-name='ScottishStatutoryInstrument'] > .preface::before {
+	content: 'Scottish Statutory Instruments'
+}
+article[data-name='WelshStatutoryInstrument'] > .preface::before {
+	content: 'Welsh Statutory Instruments'
+}
+
+p.number { margin-top: 2em; margin-bottom: 1.5em }
+.docNumber { font-size: 125%; font-weight: bold }
+
+.concept { display: block; margin-top: 1em; text-align: center; text-transform: uppercase }
+.concept.title { font-size: 125% }
+
+.LaidDraft, .MadeDate, .LaidDate, .ComingIntoForce { position: relative; width: 70%; left:15%; font-style: italic }
+.ComingIntoForce > p { position: relative; margin: 0 }
+.ComingIntoForce > p.ComingIntoForceClauses { margin-left: 2em }
+.MadeDate > time, .LaidDate > time, .ComingIntoForce > time, .ComingIntoForceClauses > .time { position: absolute; right: 0 }
+
+*[data-name='RoyalPresence'] { text-align: center }
+
+
+/* body */
+
+.body { margin-top: 2em }
+
+
+/* hierarchy */
+
+section .intro { display: inline }
+section .intro > p:first-child { display: inline }
+
+section .content { display: inline }
+section .content > p:first-child { display: inline }
+section .intro + .content { display: block }
+section .intro + .content > p:first-child { display: block }
+
+
+/* P1 */
+
+*[data-name='P1group'] { margin-top: 1em }
+*[data-name='P1group'] > h2 > span.heading { font-weight: bold; margin-bottom: 0.5em }
+
+*[data-name='regulation'] { margin-top: 1em }
+*[data-name='regulation'] > h2 { display: inline }
+*[data-name='regulation'] > h2 > .heading { font-weight: bold; margin-bottom: 0.5em }
+*[data-name='regulation'] > h2 > .num { display: inline; margin-left: 1em; font-weight: bold }
+*[data-name='regulation'] > h2 > .num:after { content: '.' }
+*[data-name='regulation'] > h2 + .paragraph:before { content: '\2014' }
+
+.article { margin-top: 1em }
+.article > h2 { display: inline }
+.article > h2 > .heading { font-weight: bold; margin-bottom: 0.5em }
+.article > h2 > .num { display: inline; margin-left: 1em; font-weight: bold }
+.article > h2 > .num:after { content: '.' }
+.article > h2 + .paragraph:before { content: '\2014' }
+
+.rule { margin-top: 1em }
+.rule > h2 { display: inline }
+.rule > h2 > .heading { font-weight: bold; margin-bottom: 0.5em }
+.rule > h2 > .num { display: inline; margin-left: 1em; font-weight: bold }
+.rule > h2 > .num:after { content: '.' }
+.rule > h2 + .paragraph:before { content: '\2014' }
+
+.section { margin-top: 1em }
+.section > h2 { display: inline }
+.section > h2 > .heading { font-weight: bold; margin-bottom: 0.5em }
+.section > h2 > .num { display: inline; margin-left: 1em; font-weight: bold }
+.section > h2 > .num:after { content: '.' }
+.section > h2 + .subsection:before { content: '\2014' }
+
+
+/* P2 */
+
+/* .section[] > .paragraph { margin-left: 1em } */
+
+.paragraph { position: relative; margin-top: 0.5em }
+.paragraph > h3 { display: inline }
+.paragraph > h3 > .num:before { content: '(' }
+.paragraph > h3 > .num[data-startQuote]:before { content: attr(data-startQuote) '(' }
+.paragraph > h3 > .num { display: inline; margin-left: 1em }
+.paragraph > h3 > .num:after { content: ')' }
+
+/* *[data-name='regulation'].paragraph:first-of-type > h3::before { content: '\2014' } */
+
+.paragraph:first-of-type { display: inline }
+.paragraph:first-of-type > h3 > .num { display: inline; margin-left: 0 }
+
+.subsection { position: relative; margin-top: 0.5em }
+.subsection > h2 { display: inline }
+.subsection > h2 > .num:before { content: '(' }
+.subsection > h2 > .num[data-startQuote]:before { content: attr(data-startQuote) '(' }
+.subsection > h2 > .num { display: inline; margin-left: 2em }
+.subsection > h2 > .num:after { content: ')' }
+
+.subsection:first-of-type { display: inline }
+.subsection:first-of-type > h2 > .num { margin-left: 0 }
+
+
+/* P3 */
+
+.subparagraph { position: relative; margin-top: 0.5em }
+.subparagraph { margin-left: 5em }
+.subparagraph > h4 > .num { display: inline-block; position: absolute; left: -2em }
+.subparagraph > h4 > .num:before { content: '(' }
+.subparagraph > h4 > .num[data-startQuote]:before { content: attr(data-startQuote) '(' }
+.subparagraph > h4 > .num:after { content: ')' }
+
+/* P4 */
+
+.clause { position: relative; margin-top: 0.5em }
+.clause { margin-left: 2em }
+.clause > h5 > .num:before { content: '(' }
+.clause > h5 > .num[data-startQuote]:before { content: attr(data-startQuote) '(' }
+.clause > h5 > .num { display: inline-block; position: absolute; left: -2em; width: 1.5em; text-align: right }
+.clause > h5 > .num:after { content: ')' }
+
+
+
+*[data-name='schedule'] .paragraph:first-of-type { display: block }
+*[data-name='schedule'] .paragraph:first-of-type > * > .num { display: inline-block; position: absolute; left: -3em }
+
+blockquote.schedule .paragraph:first-of-type { display: block }
+blockquote.schedule .paragraph:first-of-type > * > .num { display: inline-block; position: absolute; left: -3em }
+
+
+
+/* signatures */
+
+*[data-name='signatures'] { margin-top: 2em }
+
+.signature > .person { display: block; margin-top: 0.5em; text-align: right; font-style: italic }
+.signature > .role { display: block; text-align: right }
+.signature > .organization { display: block; text-align: right }
+.signature > .location { display: block }
+.signature > time { display: block }
+
+
+/* footnotes */
+
+.noteRef.footnote::before { content: '(' }
+.noteRef.footnote::after { content: ')' }
+
+.note.footnote > .marker::before { content: '(' }
+.note.footnote > .marker::after { content: ')' }
+
+
+
+/* primary blockquotes */
+/* these are a combination of the styles from primary.css and an override of the above */
+
+
+blockquote.primary section .intro { display: block }
+blockquote.primary section .intro > p:first-child { display: block }
+blockquote.primary section .content { display: block }
+blockquote.primary section .content > p:first-child { display: block }
+
+blockquote.primary .section { padding-left: 3em }
+blockquote.primary .section > h2 { display: block }
+blockquote.primary .section > h2 > .num[data-startQuote]:before { content: attr(data-startQuote) }
+blockquote.primary .section > h2 > .num { display: inline-block; position: absolute; left: 0; margin-left: 0; font-weight: bold }
+blockquote.primary .section > h2 > .num:after { content: '' }
+blockquote.primary .section > h2 > .heading { margin-left: 0 }
+blockquote.primary .section > .content { padding-left: 3em }
+
+blockquote.primary .subsection { margin-left: 4em }
+blockquote.primary .subsection > h2 { display: block }
+blockquote.primary .subsection > h2 > .num { display: inline-block; position: absolute; left: -3em; margin-left: 0 }
+blockquote > .subsection:first-of-type { display: block }
+blockquote > .subsection:first-of-type > h2 > .num { margin-left: 2em }
+blockquote.primary .subsection:first-of-type { display: block }
+blockquote.primary .subsection:first-of-type > h2 > .num { display: inline-block; margin-left: 0 }
+
+blockquote.primary .paragraph { margin-left: 4em }
+blockquote.primary .paragraph > h3 { display: block }
+blockquote.primary .paragraph > * > span.num { display: inline-block; position: absolute; left: -3em; margin-left: 0 }
+blockquote > .paragraph:first-of-type { display: block }
+blockquote > .paragraph:first-of-type > * > .num { margin-left: 1em }
+blockquote.primary .paragraph:first-of-type { display: block }
+blockquote.primary .paragraph:first-of-type > * > .num { display: block }
+
+blockquote.primary .subparagraph { margin-left: 4em }
+blockquote.primary .subparagraph > * > .num { display: inline-block; position: absolute; left: -3em }
+

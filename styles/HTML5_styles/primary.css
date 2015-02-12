@@ -1,0 +1,118 @@
+/*
+(c)  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
+
+*/
+
+@import 'legislation.css';
+
+
+/* preface */
+
+.preface::before {
+	display: block; text-align: center;
+}
+article[data-name='UnitedKingdomPublicGeneralAct'] > .preface::before {
+	content: url('http://www.legislation.gov.uk/images/crests/ukpga.gif')
+}
+article[data-name='UnitedKingdomLocalAct'] > .preface::before {
+	content: url('http://www.legislation.gov.uk/images/crests/ukla.gif')
+}
+article[data-name='ScottishAct'] > .preface::before {
+	content: url('http://www.legislation.gov.uk/images/crests/asp.gif')
+}
+article[data-name='WelshNationalAssemblyAct'] > .preface::before {
+	content: url('http://www.legislation.gov.uk/images/crests/anaw.gif')
+}
+article[data-name='WelshAssemblyMeasure'] > .preface::before {
+	content: url('http://www.legislation.gov.uk/images/crests/mwa.gif')
+}
+article[data-name='UnitedKingdomChurchMeasure'] > .preface::before {
+	content: url('http://www.legislation.gov.uk/images/crests/ukcm.gif')
+}
+article[data-name='NorthernIrelandAct'] > .preface::before {
+	
+}
+article[data-name='ScottishOldAct'] > .preface::before {
+	content: url('http://www.legislation.gov.uk/images/crests/aosp.gif')
+}
+article[data-name='EnglandAct'] > .preface::before {
+	content: url('http://www.legislation.gov.uk/images/crests/aep.gif')
+}
+article[data-name='IrelandAct'] > .preface::before {
+	content: url('http://www.legislation.gov.uk/images/crests/aip.gif')
+}
+article[data-name='GreatBritainAct'] > .preface::before {
+	content: url('http://www.legislation.gov.uk/images/crests/apgb.gif')
+}
+
+/* preface  */
+
+.preface { margin: 2em 0 }
+.preface p { margin: 1em 0 }
+.preface > p.title { text-align: center }
+.preface > p.number { text-align: center }
+
+
+.docNumber { font-size: larger; font-weight: bold }
+
+.DateOfEnactment { text-align: right }
+article[data-name='ScottishAct'] .DateOfEnactment { text-align: left; font-weight: bold }
+
+
+
+.preamble { margin: 2em 0 }
+.preamble p { margin: 1em 0 }
+
+.preamble { margin: 2em 0 }
+.preamble p { margin: 1em 0 }
+
+
+/* hierarchy */
+
+section { margin-top: 1em }
+
+.heading { display: block }
+
+.part > h2 > .num { font-variant: small-caps }
+.part > h2 > .heading { font-variant: small-caps }
+
+.chapter > h2 > .num { font-variant: small-caps }
+.chapter > h2 > .heading { font-variant: small-caps }
+
+*[data-name='crossheading'] > h2 > .heading {  }
+
+.section { position: relative; padding-left: 3em }
+.section > h2 > .num { display: inline-block; position: absolute; left: 0; font-weight: bold }
+.section > h2 > .num[data-startQuote]:before { content: attr(data-startQuote) }
+.section > h2 > .heading { font-weight: bold }
+
+.subsection { position: relative; padding-left: 3em }
+.subsection > h2 > span.num { display: inline-block; position: absolute; left: 0 }
+.subsection > h2 > span.num:before { content: '(' }
+.subsection > h2 > span.num[data-startQuote]:before { content: attr(data-startQuote) '(' }
+.subsection > h2 > span.num:after { content: ')' }
+
+.paragraph { position: relative; padding-left: 3em }
+.paragraph > * > span.num { display: inline-block; position: absolute; left: 0 }
+.paragraph > * > span.num:before { content: '(' }
+.paragraph > * > span.num[data-startQuote]:before { content: attr(data-startQuote) '(' }
+.paragraph > * > span.num:after { content: ')' }
+
+.subparagraph { position: relative; padding-left: 3em }
+.subparagraph > * > span.num { display: inline-block; position: absolute; left: 0 }
+.subparagraph > * > span.num:before { content: '(' }
+.subparagraph > * > span.num[data-startQuote]:before { content: attr(data-startQuote) '(' }
+.subparagraph > * > span.num:after { content: ')' }
+
+.clause { position: relative; padding-left: 3em }
+.clause > h2 > span.num { display: inline-block; position: absolute; left: 0 }
+
+
+*[data-name='schedules'] > h2 > span.heading { font-variant: small-caps }
+
+*[data-name='schedule'] > h2 > span.num { font-variant: small-caps }
+*[data-name='schedule'] > h2 > span.heading { font-variant: small-caps }

@@ -1,0 +1,30 @@
+/*
+(c)  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
+
+*/
+
+:not(.prospective) > .prospective:not(.toc):not(.tocItem) {
+	border: 1px solid #7A8093;
+	background-color: #EFF5F5
+}
+
+:not(.prospective) > .prospective:not(.toc):not(.tocItem)::before {
+	display: block;
+	margin-bottom: 1em;
+	background-color: #7A8093;
+	text-align: right;
+	padding: 6pt;
+	color: white;
+	content: 'Prospective'
+}
+
+article.primary :not(.prospective) > .section.prospective::before { margin-left: -4em; margin-right: -1em }
+article.primary .section.prospective { padding: 0 1em 1em 4em }
+article.primary .section.prospective > h2 > .num { left: 1em }
+
+*[data-name='schedules'].prospective::before { margin-left: -1em; margin-right: -1em }
+*[data-name='schedules'].prospective { padding: 0 1em 1em 1em }
