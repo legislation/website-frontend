@@ -939,14 +939,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<a href="#" class="close">
 							<img alt="Close" src="/images/chrome/closeIcon.gif"/>
 						</a>
-						<xsl:choose>
-							<xsl:when test="exists(ukm:Commenced)">
-								<xsl:apply-templates select="ukm:Commenced" />
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:value-of select="@Notes"/>
-							</xsl:otherwise>
-						</xsl:choose>
+						<xsl:value-of select="@Notes"/>
 					</div>
 				</div>
 			</xsl:if>
