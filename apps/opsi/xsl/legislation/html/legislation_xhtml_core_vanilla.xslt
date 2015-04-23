@@ -1386,6 +1386,11 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 							<xsl:call-template name="FuncGetTextClass">
 								<xsl:with-param name="flMode" select="'Block'"/>
 							</xsl:call-template>
+						  <xsl:choose>
+						    <xsl:when test="parent::*/parent::leg:ListItem/parent::leg:UnorderedList/@Decoration = 'dash'">
+						      <xsl:text>&#8212; </xsl:text>
+						    </xsl:when>
+						  </xsl:choose>
 							<xsl:apply-templates select="node()[not(position() = 1 and self::text() and normalize-space() = '')] | processing-instruction()"/>
 							<xsl:text>&#13;</xsl:text>
 						</p>

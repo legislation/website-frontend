@@ -357,7 +357,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 .LegSnippet ul.LegBulletedAmend2 ul.LegBulletedAmend2 li {margin-left: 5%}
 
 .LegSnippet .LegTabbed {clear: both; list-style-type: none}
-.LegSnippet .LegDashed {clear: both; list-style-type: square}
+.LegSnippet .LegDashed {clear: both; list-style-type: none}
 .LegSnippet .LegBulleted {clear: both; list-style-type: disc}
 
 .LegSnippet .LegTabbedAmend {clear: both; list-style-type: none}
