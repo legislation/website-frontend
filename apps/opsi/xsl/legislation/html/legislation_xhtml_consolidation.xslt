@@ -129,7 +129,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <!-- Suppress repealed content -->
-<!-- D315: For substitutions we would like to show only the 'new' text again enclosed in brackets, at the moment on the system both the new and old text are appearing -->
+<!-- D315: For substitutions we would like to show only the 'new' text again enclosed in brackets, at the moment on the system both the new and old text are appearing (unless the substitution has restricted extent, in which case both should be shown) -->
 <xsl:template match="leg:Group[.//leg:Repeal[@SubstitutionRef]] | leg:Part[.//leg:Repeal[@SubstitutionRef]] | leg:Chapter[.//leg:Repeal[@SubstitutionRef]] | 
 		leg:Schedule[.//leg:Repeal[@SubstitutionRef]] | leg:ScheduleBody[.//leg:Repeal[@SubstitutionRef]] |
 		leg:Pblock[.//leg:Repeal[@SubstitutionRef]] | leg:PsubBlock[.//leg:Repeal[@SubstitutionRef]] | leg:P1group[.//leg:Repeal[@SubstitutionRef]] | 
@@ -139,7 +139,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		leg:P4para[.//leg:Repeal[@SubstitutionRef]] | leg:P5para[.//leg:Repeal[@SubstitutionRef]] | leg:P6para[.//leg:Repeal[@SubstitutionRef]] | leg:P7para[.//leg:Repeal[@SubstitutionRef]]"
 		priority="100">
 	<xsl:param name="showRepeals" select="false()" tunnel="yes" />			
-	<xsl:if test="$selectedSectionSubstituted or not(tso:isSubstituted(.)) or $showRepeals">
+	<xsl:if test="$selectedSectionSubstituted or not(tso:isSubstituted(.)) or $showRepeals or .//leg:Repeal/@Extent">
 		<xsl:next-match />
 	</xsl:if>
 </xsl:template>
@@ -169,7 +169,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <xsl:template match="leg:Repeal[@SubstitutionRef]">
 	<xsl:param name="showRepeals" select="false()" tunnel="yes" />	
 	
-	<xsl:if test="$selectedSectionSubstituted or $showRepeals">
+	<xsl:if test="$selectedSectionSubstituted or $showRepeals or @Extent">
 		<xsl:next-match />
 	</xsl:if>
 </xsl:template>
