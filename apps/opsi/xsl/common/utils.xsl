@@ -104,7 +104,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
   	start="1921" end="1972" revised="true" />
 	<!-- draft types -->
 	<tso:legType schemaType="UnitedKingdomDraftStatutoryInstrument" class="draft" category="Instrument" abbrev="ukdsi" 
-		en="Draft Executive Notes" em="Draft Explanatory Memorandum" singular="UK Draft Statutory Instrument" plural="{leg:TranslateText('UK Draft Statutory Instruments')}"
+		pn="Draft Policy Note" en="Draft Executive Notes" em="Draft Explanatory Memorandum" singular="UK Draft Statutory Instrument" plural="{leg:TranslateText('UK Draft Statutory Instruments')}"
 		start="1998" complete="1998" legType="UnitedKingdomStatutoryInstrument" revised="false" />
 	<!--
   <tso:legType schemaType="WelshDraftStatutoryInstrument" class="draft" category="Instrument" abbrev="wdsi" 
