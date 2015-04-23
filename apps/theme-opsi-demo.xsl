@@ -230,7 +230,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:if test="link">
 				<xsl:choose>
 					<xsl:when test="status-code = 300">
-						<p><xsl:value-of select="leg:TranslateText(if (count(link) > 2) then 'Error300_1' else 'Error_300_2')"/>:</p>
+						<p><xsl:value-of select="leg:TranslateText(if (count(link) > 2) then 'Error300_1' else 'Error300_2')"/>:</p>
 					</xsl:when>
 					<xsl:when test="status-code = 200">
 						<p><xsl:value-of select="leg:TranslateText('Error200')"/>:</p>
