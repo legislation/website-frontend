@@ -339,7 +339,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<li>
 							<xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul_li_1_part1')"/>
 							<xsl:text> </xsl:text>
-							<xsl:value-of select="leg:TranslateText('enacted')"/> 
+							<xsl:value-of select="leg:TranslateText('enacted')"/>
+							<xsl:text> </xsl:text>							
 							<xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul_li_1_part3')"/>
 						</li>
 						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_1')"/></li>
@@ -416,6 +417,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul_li_1_part1')"/>
 							<xsl:text> </xsl:text>
 							<xsl:value-of select="leg:TranslateText('enacted')"/> 
+							<xsl:text> </xsl:text>
 							<xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul_li_1_part3')"/>
 						</li>
 						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_1')"/></li>
