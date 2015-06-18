@@ -425,7 +425,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<div id="footer">
 		<div>
 			<p></p>
-			<p class="copyrightstatement"><xsl:value-of select="leg:TranslateText('Homepage Footer')"/><a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" rel="license"><xsl:value-of select="leg:TranslateText('Open Government Licence')"/></a><xsl:value-of select="leg:TranslateText('Homepage Footer End')"/><span class="copyright">&#xa9; <span rel="dct:rights" resource="http://reference.data.gov.uk/def/copyright/crown-copyright"><xsl:value-of select="leg:TranslateText('Crown copyright')"/></span></span></p>
+			<p class="copyrightstatement"><xsl:value-of select="leg:TranslateText('Homepage Footer')"/><a href="{leg:TranslateText('OGL Link')}" rel="license"><xsl:value-of select="leg:TranslateText('Open Government Licence')"/></a><xsl:value-of select="leg:TranslateText('Homepage Footer End')"/><span class="copyright">&#xa9; <span rel="dct:rights" resource="http://reference.data.gov.uk/def/copyright/crown-copyright"><xsl:value-of select="leg:TranslateText('Crown copyright')"/></span></span></p>
 		</div>
 	</div>
 	

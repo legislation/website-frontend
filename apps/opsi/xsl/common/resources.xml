@@ -31,6 +31,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="New Legislation">Deddfwriaeth Newydd</resource>
 		<resource id="Number">Rhif</resource>
 		<resource id="Open Government Licence">Drwydded Llywodraeth Agored v3.0</resource>
+		<resource id="OGL Link">http://www.nationalarchives.gov.uk/doc/open-government-licence-cymraeg/version/3</resource>
 		<resource id="Revised">ddiwygiedig</resource>
 		<resource id="Site Map">Map o’r safle</resource>
 		<resource id="Search">Chwilio</resource>
@@ -728,6 +729,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Home_description" translated="false" stage2="true">The official home of UK legislation, revised and as enacted 1267-present. This website is managed by The National Archives on behalf of HM Government. Publishing all UK legislation is a core part of the remit of Her Majesty’s Stationery Office (HMSO), part of The National Archives, and the Office of the Queen's Printer for Scotland.</resource>
 		<resource id="Homepage Footer">All content is available under the </resource>
 		<resource id="Open Government Licence">Open Government Licence v3.0</resource>
+		<resource id="OGL Link">http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3</resource>
 		<resource id="Homepage Footer End"> except where otherwise stated</resource>
 		<resource id="Key_title_text">(or keywords in the title)</resource>
 		<resource id="Use_double_quote_text">(using double quotes around a phrase will give faster results)</resource>
