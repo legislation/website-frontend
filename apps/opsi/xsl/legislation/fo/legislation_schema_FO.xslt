@@ -28,6 +28,7 @@ exclude-result-prefixes="tso atom">
 	<xsl:import href="legislation_schema_headings_FO.xslt"/>
 
 	<xsl:import href="../html/statuswarning.xsl"/>
+	<xsl:import href="../html/process-annotations.xslt"/>
 
 	<xsl:output method="xml" version="1.0" omit-xml-declaration="no"  indent="no" standalone="no" use-character-maps="FOcharacters"/>
 
@@ -1359,7 +1360,7 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 	
 	<!-- displaying P1group/title as dotted line if the section is repealed.  -->
-	<xsl:template match="leg:P1group[not(ancestor::leg:BlockAmendment) and @Match = 'false' and @RestrictEndDate and not(@Status = 'Prospective') and not(ancestor::leg:Contents)]/leg:Title" priority="60">
+	<xsl:template match="leg:P1group[not(ancestor::leg:BlockAmendment) and @Match = 'false' and @RestrictEndDate and not(@Status = 'Prospective') and not(ancestor::leg:Contents) and ((($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= current-date() ))]/leg:Title" priority="60">
 		<fo:block>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</fo:block>
 	</xsl:template>
 	<!-- display Part, ScheduleBody/Tabular as dotted line if the section is repealed.  -->
@@ -1370,7 +1371,36 @@ exclude-result-prefixes="tso atom">
 		<fo:block>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</fo:block>
 	</xsl:template>
 
-		
+	<!-- hiding P1, P if any of the ancestors are repealed -->
+<xsl:template match="leg:P[exists(ancestor::*[@Match = 'false' and @RestrictEndDate and not(@Status = 'Prospective') and ((($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= current-date() ))])]" priority="60"/>
+<xsl:template match="leg:P1[parent::leg:P1group and exists(ancestor::*[@Match = 'false' and @RestrictEndDate and not(@Status = 'Prospective') and ((($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= current-date() ))])]" priority="50"/>
+
+<!-- process only the first descendant line of elements from P1s that are repealed -->
+<xsl:template match="leg:P1[not(ancestor::leg:BlockAmendment) and @Match = 'false' and @RestrictEndDate and not(@Status = 'Prospective') and not(ancestor::leg:Contents) and ((($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= current-date() ))]//*" priority="70">
+	<xsl:if test="not(preceding-sibling::leg:*) or preceding-sibling::*[1][self::leg:Pnumber]">
+		<xsl:next-match />
+	</xsl:if>
+</xsl:template>
+
+<!-- process text within P1s that are repealed -->
+<xsl:template match="leg:P1[not(ancestor::leg:BlockAmendment) and @Match = 'false' and @RestrictEndDate and not(@Status = 'Prospective') and not(ancestor::leg:Contents) and ((($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= current-date() ))]//text()" priority="70">
+	<xsl:choose>
+		<xsl:when test="ancestor::leg:Pnumber/parent::leg:P1[not(ancestor::leg:BlockAmendment)]">
+			<xsl:next-match />
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:variable name="provision" as="element(leg:P1)" select="ancestor::leg:P1[not(ancestor::leg:BlockAmendment)][1]" />
+			<xsl:variable name="firstText" as="text()?" select="(($provision//leg:Text)[1]//text())[1]" />
+			<xsl:if test=". is $firstText">
+				<xsl:text>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</xsl:text>
+			</xsl:if>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
+
+
+	
 
 	<!--#154 do not process wholly repealed legislation/parts or schedules -->
 	<!--we also need to allow for any act that is to come into force sometime in the future - query the RestrictStartDate  -->
@@ -1520,7 +1550,8 @@ exclude-result-prefixes="tso atom">
 							<xsl:if test="parent::leg:P1group and not(preceding-sibling::leg:P1)">
 								<xsl:apply-templates select="parent::*/leg:Title"/>
 							</xsl:if>
-							<xsl:if test="not(parent::leg:P1group/@Match = 'false' and parent::leg:P1group/@RestrictEndDate and not(parent::leg:P1group/@Status = 'Prospective') and not(ancestor::leg:Contents))">
+							<!-- HA050986  -->
+							<xsl:if test="not(parent::leg:P1group/@Match = 'false' and parent::leg:P1group/@RestrictEndDate and not(parent::leg:P1group/@Status = 'Prospective') and not(ancestor::leg:Contents) and ((($version castable as xs:date) and xs:date(parent::leg:P1group/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date(parent::leg:P1group/@RestrictEndDate) &lt;= current-date() )))">
 								<fo:block font-size="{$g_strBodySize}" text-align="justify">
 									<xsl:apply-templates select="*[not(self::leg:Pnumber)] | processing-instruction()"/>
 								</fo:block>
@@ -3488,167 +3519,49 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 
 
-	<!--<xsl:template match="leg:P1group | leg:Group | leg:Part | leg:Chapter | leg:Pblock | leg:PsubBlock | leg:P1 | leg:P| leg:PrimaryPrelims | leg:SecondaryPrelims | leg:Schedule | leg:Form | leg:Schedule/leg:ScheduleBody//leg:Tabular | leg:Body" mode="ProcessAnnotations"> -->
-	<xsl:template match="leg:Primary | leg:Secondary | leg:Body | leg:Schedules | leg:SignedSection | leg:ExplanatoryNotes | leg:P1group | leg:Title | leg:Group | leg:Part | leg:Chapter | leg:Pblock | leg:PsubBlock | leg:P1 | leg:P |leg:PrimaryPrelims | leg:SecondaryPrelims | leg:Schedule | leg:Form | leg:Schedule/leg:ScheduleBody//leg:Tabular" mode="ProcessAnnotations">
-		<xsl:param name="showSection" as="element()*" tunnel="yes" select="()" />
-		<xsl:param name="showingHigherLevel" as="xs:boolean" tunnel="yes" select="false()"/>
-
-		<xsl:variable name="showSection" as="node()"
-		select="if (ancestor::*[@VersionReplacement]) then ancestor::*[@VersionReplacement] else if (exists($showSection) and ancestor-or-self::*[. is $showSection]) then $showSection else root()" />
-		<xsl:variable name="versionRef" select="ancestor-or-self::*[@VersionReference][1]/@VersionReference"/>
-		<xsl:variable name="commentaryRefs" as="element(leg:CommentaryRef)*">
-			<xsl:choose>
-			<!--HA053652: annotations in tables are repeated if table is child of P1 (annotations also processed for all descendants of P1) so condition added to exclude these tables-->
-				<xsl:when test="ancestor::leg:BlockAmendment  and (self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:Tabular[not(parent::leg:P1)])">
-					<xsl:sequence select="descendant::leg:CommentaryRef"/>
-				</xsl:when>
-			<!--HA053652: annotations in tables are repeated if table is child of P1 (annotations also processed for all descendants of P1) so condition added to exclude these tables-->
-				<xsl:when test="self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:Tabular[not(parent::leg:P1)]">
-					<xsl:sequence select="descendant::leg:CommentaryRef[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1)]"/>
-				</xsl:when>
-				<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body)">
-					<xsl:sequence select="descendant::leg:CommentaryRef[not(ancestor::leg:P1group)]"/>
-				</xsl:when>
-			<!--HA053652: annotations in tables are repeated if table is child of P1 (annotations also processed for all descendants of P1) so condition added to exclude these tables-->
-				<xsl:when test="self::leg:Tabular[not(parent::leg:P1)] and (parent::*[@id] or parent::leg:Body)">
-					<xsl:sequence select="descendant::leg:CommentaryRef" />
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:sequence select="leg:Text/leg:CommentaryRef | child::leg:CommentaryRef | (leg:Number | leg:Title | leg:Reference | leg:TitleBlock)/descendant::leg:CommentaryRef"/>
-				</xsl:otherwise>	
-			</xsl:choose>			
+	<!-- ANNOTATION PROCESSING -->
+	<!-- call the annotation processing from a common module that serves both html and fo generation  --> 
+	<xsl:template match="*" mode="ProcessAnnotations" priority="100">
+		<xsl:variable name="annotations-html">
+			<xsl:next-match/>
 		</xsl:variable>
-
-		<xsl:variable name="additionRepealRefs" as="element()*">
-			<xsl:choose>
-			<!--HA053652: annotations in tables are repeated if table is child of P1 (annotations also processed for all descendants of P1) so condition added to exclude these tables-->
-				<!--<xsl:when test="ancestor::leg:BlockAmendment  and (self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:Tabular[not(parent::leg:P1)])">
-					<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
-				</xsl:when>-->
-				<xsl:when test="ancestor::leg:BlockAmendment and (self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:Tabular[not(parent::leg:P1)]) and (not(preceding-sibling::leg:P1group[descendant::leg:Addition or descendant::leg:Repeal or descendant::leg:Substitution]) and not(preceding-sibling::leg:P1[not(parent::leg:P1group)][descendant::leg:Addition or descendant::leg:Repeal or descendant::leg:Substitution]) and not(preceding-sibling::leg:PrimaryPrelims[descendant::leg:Addition or descendant::leg:Repeal or descendant::leg:Substitution]) and not(preceding-sibling::leg:SecondaryPrelims[descendant::leg:Addition or descendant::leg:Repeal or descendant::leg:Substitution]) and not(preceding-sibling::leg:Tabular[not(parent::leg:P1)][descendant::leg:Addition or descendant::leg:Repeal or descendant::leg:Substitution]))">
-				<xsl:sequence select="ancestor::leg:BlockAmendment/descendant::leg:Addition | ancestor::leg:BlockAmendment/descendant::leg:Repeal | ancestor::leg:BlockAmendment/descendant::leg:Substitution"/>
-			</xsl:when>
-
-				<xsl:when test="self::leg:P1group | self::leg:P1[not(parent::leg:P1group)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims">
-					<xsl:sequence select="descendant::leg:Addition[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1 or ancestor::leg:P1group//leg:Title)] | descendant::leg:Repeal[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1 or ancestor::leg:Title)] | descendant::leg:Substitution[not(ancestor::leg:BlockAmendment//leg:P1group or ancestor::leg:BlockAmendment//leg:P1 or ancestor::leg:Title)]"/>
-				</xsl:when>
-				<!--HA053652: added to apply annotations after a Title element (instead of at the end of the containing P1group)-->
-			<xsl:when test="self::leg:Title">
-				<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
-			</xsl:when>
-				<!--<xsl:when test="self::leg:P and (parent::leg:Part | parent::leg:Body)">
-					<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
-				</xsl:when>-->
-				<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body or parent::leg:Schedules)">
-					<xsl:sequence select="descendant::leg:Addition[not(ancestor::leg:P1group)] | descendant::leg:Repeal[not(ancestor::leg:P1group)] | descendant::leg:Substitution[not(ancestor::leg:P1group)]"/>
-				</xsl:when>
-			<!--HA053652: annotations in tables are repeated if table is child of P1 (annotations also processed for all descendants of P1) so condition added to exclude these tables-->
-				<xsl:when test="self::leg:Tabular[not(parent::leg:P1)] and (parent::*[@id] or parent::leg:Body or parent::leg:Schedules)">
-					<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution" />
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:sequence select="leg:Text/leg:Addition | leg:Text/leg:Repeal | leg:Text/leg:Substitution | (leg:Number | leg:Title | leg:Reference | leg:TitleBlock)/(descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution)"/>
-				</xsl:otherwise>	
-			</xsl:choose>			
-		</xsl:variable>
-		<xsl:variable name="commentaryItem" select="key('commentary', ($commentaryRefs/@Ref, $additionRepealRefs/@CommentaryRef))" as="element(leg:Commentary)*"/>
-		<xsl:variable name="currentURI">
-			<xsl:choose>
-				<xsl:when test="@DocumentURI"><xsl:value-of select="@DocumentURI"/></xsl:when>
-				<xsl:when test="self::leg:Body"><xsl:value-of select="/(leg:Legislation|leg:Fragment)/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/navigation/body']/@href" /></xsl:when>
-				<xsl:when test="self::leg:Schedules"><xsl:value-of select="/(leg:Legislation|leg:Fragment)/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/navigation/schedules']/@href" /></xsl:when>
-				<xsl:when test="parent::leg:SignedSection"><xsl:value-of select="/(leg:Legislation|leg:Fragment)/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/navigation/signature']/@href" /></xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="descendant::*[@DocumentURI][1]/@DocumentURI"/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-		
-		
-		
-		
-		<xsl:variable name="isDead" as="xs:boolean" select="@Status = 'Dead'" />
-		<xsl:variable name="isValidFrom" as="xs:boolean" select="@Match = 'false' and @RestrictStartDate and ((($version castable as xs:date) and xs:date(@RestrictStartDate) &gt; xs:date($version) ) or (not($version castable as xs:date) and xs:date(@RestrictStartDate) &gt; current-date() ))" />
-		<xsl:variable name="isRepealed" as="xs:boolean" select="@Match = 'false' and (not(@Status) or @Status != 'Prospective') and not($isValidFrom)"/>
-		<!-- We need to check if the first reference to the comment falls within this structure. Do this for each comment in the list -->
-		<xsl:variable name="showComments" as="element(leg:Commentary)*">
-			<xsl:for-each select="$commentaryItem">
-				<xsl:if test="$showingHigherLevel or not($isRepealed) or ($isRepealed and contains(., 'temp.')) or $isDead">
-					<xsl:if test="key('commentaryRef', @id, $showSection)[1] intersect ($commentaryRefs | $additionRepealRefs)">
-						<xsl:sequence select="."/>
-					</xsl:if>
-				</xsl:if>
-			</xsl:for-each>
-		</xsl:variable>
-		<!-- FM:  Issue 195: Only the f-notes should be pulled into the child fragments from the parent-->
-		<xsl:variable name="showComments" as="element(leg:Commentary)*"
-			select="$showComments[not($showingHigherLevel) or ($showingHigherLevel and @Type ='F')]" />
-
-		<xsl:variable name="higherLevelComments">
-			<xsl:if test="$dcIdentifier = $currentURI and $isRepealed">
-				<!-- if the current section is dead then get the commenteries of all the higher levels-->
-				<xsl:apply-templates select="ancestor::*" mode="ProcessAnnotations">
-					<xsl:with-param name="showingHigherLevel" select="true()" tunnel="yes" />
-				</xsl:apply-templates>
-			</xsl:if>	
-		</xsl:variable>
-		
-		
-		<xsl:if test="$showComments or $higherLevelComments/*">
-			<fo:block  margin-left="0pt" margin-right="0pt" font-size="10pt" border="0.75pt #c7c7c7 solid" padding="6pt" color="black" space-before="8pt"   >
-				<xsl:choose>
-					<xsl:when test="$showingHigherLevel">
-
-					</xsl:when>
-					<xsl:otherwise>
-						<fo:block font-weight="bold" font-size="10pt" keep-with-next="always">Annotations:</fo:block>
-						<xsl:copy-of select="$higherLevelComments"/>
-					</xsl:otherwise>
-				</xsl:choose>
-
-				<xsl:if test="not($higherLevelComments/*)">
-				
-					<xsl:variable name="documentType" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value"/>
-					<xsl:variable name="documentYear" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value"/>
-
-					<xsl:for-each-group select="$showComments" group-by="@Type">
-						<xsl:sort select="@Type = 'M'"/>			
-						<xsl:sort select="@Type = 'I'"/>
-						<xsl:sort select="@Type = 'C'"/>
-						<xsl:sort select="@Type = 'F'"/>
-						<xsl:variable name="groupType" select="current-grouping-key()"/>
-
-						<!-- FM:  Issue 364: In NI legislation before 1.1.2006 - f-notes are used across the board i.e. not just for textual amendments. Removing the annotation heading for textual texts --> 
-						<xsl:if test="not($documentType = ('NorthernIrelandAct' , 'NorthernIrelandOrderInCouncil' , 'NorthernIrelandStatutoryRule', 'NorthernIrelandAssemblyMeasure', 'NorthernIrelandParliamentAct') and $documentYear &lt; 2006 and $groupType = 'F' )">
-							<fo:block font-weight="bold"  padding-top="6pt" border-top="0.75pt #c7c7c7 dotted"  space-before="6pt" keep-with-next="always">
-								<xsl:if test="$showingHigherLevel">Associated </xsl:if>
-								<xsl:choose>
-									<xsl:when test="$groupType = 'I'">Commencement Information</xsl:when>
-									<xsl:when test="$groupType = 'F'">Amendments (Textual)</xsl:when>
-									<xsl:when test="$groupType = 'M'">Marginal Citations</xsl:when>		
-									<xsl:when test="$groupType = 'C'">Modifications etc. (not altering text)</xsl:when>
-									<xsl:when test="$groupType = 'P'">Subordinate Legislation Made</xsl:when>
-									<xsl:when test="$groupType = 'E'">Extent Information</xsl:when>
-									<xsl:when test="$groupType = 'X'">Editorial Information</xsl:when>
-								</xsl:choose>				
-							</fo:block>
-						</xsl:if>
-						<xsl:apply-templates select="current-group()" mode="DisplayAnnotations">
-							<xsl:sort select="tso:commentaryNumber(@id)" />
-							<xsl:with-param name="versionRef" select="$versionRef"/>
-						</xsl:apply-templates>
-					</xsl:for-each-group>
-				</xsl:if>
-			</fo:block>
-		</xsl:if>
+		<xsl:apply-templates select="$annotations-html" mode="annotation-html"/>
 	</xsl:template>
+	
+	<xsl:template match="fo:*|@*|text()" mode="annotation-html">
+		<xsl:copy>
+			<xsl:apply-templates select="node()|@*" mode="annotation-html"/>
+		</xsl:copy>
+	</xsl:template>	
 
-	<xsl:function name="tso:commentaryNumber" as="xs:integer">
-		<xsl:param name="commentary" as="xs:string" />
-		<xsl:sequence select="count($g_commentaryOrder/leg:commentary[@id = $commentary][1]/preceding-sibling::*)" />
-	</xsl:function>
+	<xsl:template match="xhtml:div[@class='LegAnnotationsHeading']" mode="annotation-html">
+		<fo:block font-weight="bold" font-size="10pt" keep-with-next="always">
+			<xsl:apply-templates mode="annotation-html"/>
+		</fo:block>
+	</xsl:template>	
+	
+	<xsl:template match="xhtml:div[@class='LegAnnotations']" mode="annotation-html">
+		<fo:block  margin-left="0pt" margin-right="0pt" font-size="10pt" border="0.75pt #c7c7c7 solid" padding="6pt" color="black" space-before="8pt" >
+			<xsl:apply-templates mode="annotation-html"/>
+		</fo:block>
+	</xsl:template>	
+	
+	<xsl:template match="xhtml:p[@class='LegAnnotationsGroupHeading']" mode="annotation-html">
+		<fo:block font-weight="bold"  padding-top="6pt" border-top="0.75pt #c7c7c7 dotted"  space-before="6pt" keep-with-next="always">
+			<xsl:apply-templates mode="annotation-html"/>
+		</fo:block>
+	</xsl:template>		
+
+	<xsl:template match="xhtml:*" mode="annotation-html">
+		<fo:block>
+			<xsl:apply-templates mode="annotation-html"/>
+		</fo:block>
+	</xsl:template>	
+
+	<!-- END OF ANNOTATION PROCESSING -->
+
 		
-	<xsl:template match="*" mode="ProcessAnnotations"/>
+
 	<!-- Override Vanilla handling -->
 	<xsl:template match="leg:Group | leg:Part | leg:Chapter | leg:Pblock | leg:PsubBlock | leg:Schedule | leg:Form" mode="Structure">
 		<xsl:apply-templates select="." mode="ProcessAnnotations"/>

@@ -339,7 +339,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 .LegSnippet ul {font-size: 1em; margin-bottom: 0em; margin-left: 0em; padding-left: 0em; font-size: 1em; margin-top: 0em; padding-top: 0em}
 .LegSnippet li {clear: both; margin-left: 0em; padding-left: 0em}
 
-.LegSnippet ul.LegDashed li {clear: both; margin-left: 8%}
+.LegSnippet ul.LegDashed li {clear: both; margin-left: 7%; padding-left: 20px; background-image: url(/images/LegDisplay/emdash.gif); background-repeat: no-repeat;  /* background-position: 20px 0; */}
 .LegSnippet ul.LegBulleted li {clear: both; margin-left: 8%}
 
 .LegSnippet ul.LegDashedAmend li {clear: both; margin-left: 18%}
