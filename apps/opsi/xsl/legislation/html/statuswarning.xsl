@@ -148,7 +148,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 						<p class="intro">
 							<xsl:choose>
 								<xsl:when test="leg:IsRevisedPDFOnly(.)">
-										<xsl:variable name="reviseddate" as="xs:date" select="max(xs:date($ndsLegislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@Revised castable as xs:date]/@Revised))"/>
+										<xsl:variable name="reviseddate" as="xs:date" select="max(for $d in ($ndsLegislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@Revised castable as xs:date]/@Revised) return xs:date($d))"/>
 										<xsl:text>This item of legislation is only available to download and view as PDF. The electronic revised (latest available) version of the </xsl:text>
 										<xsl:value-of select="leg:Legislation/ukm:Metadata/dc:title"/>	
 										<xsl:text> has been created and contributed by the Department for Work and Pensions.</xsl:text>
