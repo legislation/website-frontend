@@ -3418,7 +3418,7 @@ exclude-result-prefixes="tso atom">
 		<xsl:if test="tso:showCommentary(.) and $commentaryItem/@Type = ('F', 'M', 'X') and key('commentaryRef', @Ref)[1] is .">
 			<!-- in the rare event that the commentary item is not within the text we need to block it as in nisi/1993/1576/2006-01-01 -->
 			<xsl:choose>
-				<xsl:when test="not(ancestor::leg:Text or ancestor::leg:Pnumber or ancestor::leg:Title or ancestor::leg:Citation or ancestor::leg:CitationSubRef or ancestor::leg:CitationListRef or ancestor::leg:Addition or ancestor::leg:Repeal or ancestor::leg:Substitution)">
+				<xsl:when test="not(ancestor::leg:Text or ancestor::leg:Pnumber or ancestor::leg:Title or ancestor::leg:Number or ancestor::leg:Citation or ancestor::leg:CitationSubRef or ancestor::leg:CitationListRef or ancestor::leg:Addition or ancestor::leg:Repeal or ancestor::leg:Substitution)">
 					<fo:block>
 						<xsl:sequence select="tso:OutputCommentaryRef(key('commentaryRef', @Ref)[1] is ., $commentaryItem, translate($versionRef,' ',''))"/>
 					</fo:block>

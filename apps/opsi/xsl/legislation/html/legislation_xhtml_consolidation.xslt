@@ -796,7 +796,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:when test="every $child in (leg:* except (leg:Number, leg:Title))
 				satisfies ((($child/@Match = 'false' and $child/@RestrictEndDate) and not($child/@Status = 'Prospective') and
 				   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() ))) or ($child/@Match = 'false' and $child/@Status = 'Repealed'))">
-			<xsl:apply-templates select="leg:Number | leg:Title" />
+			<xsl:call-template name="FuncProcessRepealedMajorHeading" />
 			<p>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</p>
 			<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 		</xsl:when>
@@ -804,6 +804,66 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:next-match />
 		</xsl:otherwise>
 	</xsl:choose>
+</xsl:template>
+
+<xsl:template name="FuncProcessRepealedMajorHeading">
+	<xsl:if test="self::leg:Group | self::leg:Part | self::leg:Chapter | self::leg:Schedule">
+		<xsl:call-template name="FuncCheckForIDelement"/>
+	</xsl:if>
+	<xsl:if test="not(preceding-sibling::*[1][self::leg:Title or self::leg:Number]) and not(self::leg:Form)">
+		<xsl:choose>
+			<xsl:when test="not(preceding-sibling::*) and (parent::leg:ScheduleBody or parent::leg:AppendixBody)">
+				<div class="LegClear{name()}First"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<div class="LegClear{name()}"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:if>
+	<xsl:if test="leg:Reference and not(contains($g_strDocumentMainType, 'ScottishAct'))">
+		<p class="LegArticleRef">
+			<xsl:for-each select="leg:Reference">
+				<xsl:call-template name="FuncCheckForID"/>
+				<xsl:apply-templates/>
+			</xsl:for-each>
+		</p>
+	</xsl:if>
+	<xsl:variable name="intHeadingLevel">
+		<xsl:call-template name="FuncCalcHeadingLevel"/>
+	</xsl:variable>
+	<xsl:element name="h{$intHeadingLevel}">
+		<xsl:attribute name="class">
+			<xsl:text>Leg</xsl:text>
+			<!-- For Scottish PGAs all schedule headings are the same in schedules as in the body but are not necessariliy the same for other types -->
+			<xsl:if test="ancestor::*[self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:Schedule or self::leg:BlockAmendment[@Context = 'schedule']] and $g_strDocumentType = $g_strPrimary and not(name() = 'Schedule') and not(contains($g_strDocumentMainType, 'ScottishAct'))">
+				<xsl:text>Schedule</xsl:text>
+			</xsl:if>
+			<xsl:value-of select="name()"/>
+			<xsl:if test="preceding-sibling::*[1][self::leg:Title or self::leg:Number] or not(preceding-sibling::*)">
+				<xsl:text>First</xsl:text>
+			</xsl:if>
+		</xsl:attribute>
+		<xsl:apply-templates select="leg:Number | leg:Title | leg:TitleBlock | processing-instruction()[following-sibling::leg:Number or following-sibling::leg:Title or following-sibling::leg:TitleBlock or following-sibling::leg:Reference]"/>
+	</xsl:element>
+	<xsl:if test="leg:Reference and contains($g_strDocumentMainType, 'ScottishAct')">
+		<!-- Generate suffix to be added for CSS classes for amendments -->
+		<xsl:variable name="strAmendmentSuffix">
+			<xsl:call-template name="FuncCalcAmendmentNo"/>
+		</xsl:variable>
+		<p>
+			<xsl:attribute name="class">
+				<xsl:text>LegArticleRefScottish</xsl:text>
+				<xsl:if test="$strAmendmentSuffix != ''">
+					<xsl:text> Leg</xsl:text>
+					<xsl:value-of select="$strAmendmentSuffix"/>
+				</xsl:if>
+			</xsl:attribute>
+			<xsl:for-each select="leg:Reference">
+				<xsl:call-template name="FuncCheckForID"/>
+				<xsl:apply-templates/>
+			</xsl:for-each>
+		</p>
+	</xsl:if>
 </xsl:template>
 
 <!--For schedules you have to look inside the ScheduleBody: -->
