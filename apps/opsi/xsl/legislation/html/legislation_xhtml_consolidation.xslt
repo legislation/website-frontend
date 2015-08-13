@@ -952,7 +952,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:variable name="enXML" as="xs:string*"	select="/leg:Legislation/ukm:Metadata/ukm:Notes/ukm:Note/@DocumentURI"/>				
 	
 	<!--  the en XML exists if we have a document uri for it  -->	
-	<xsl:if test="$enType != '' and exists($enXML)">
+	<xsl:if test="$enType != ''">
 		<div class="eniw">
 			<span class="enNote">
 				<xsl:value-of select="leg:TranslateText(if ($enType = 'executive-notes') then 'Executive Note' 
