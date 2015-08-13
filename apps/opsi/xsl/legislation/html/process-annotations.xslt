@@ -140,20 +140,21 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:variable name="multiple-provision-annotations" as="xs:boolean" 
 		select="if (
 			((local-name() = 'P1' and not(parent::leg:P1group) and not(ancestor::leg:BlockAmendment) and
-				preceding-sibling::*[1][self::leg:P1]//(descendant::leg:Repeal/@CommentaryRef | descendant::leg:Substitution/@CommentaryRef | descendant::leg:Addition/@CommentaryRef) = $additionRepealRefs/@CommentaryRef
+				(some $c in preceding-sibling::*[1][self::leg:P1]//(descendant::leg:CommentaryRef/@Ref | descendant::leg:Repeal/@CommentaryRef | descendant::leg:Substitution/@CommentaryRef | descendant::leg:Addition/@CommentaryRef) satisfies $c = ($additionRepealRefs/@CommentaryRef,$commentaryRefs/@Ref))
 			) or 
-			(:  allowance for EPP blanket amendments  :)
+			(:  allowance for EPP blanket amendments - use peceding for allowance across high level boundaries :)
 			(local-name() = 'P1group' and not(ancestor::leg:BlockAmendment) and 
-				preceding-sibling::*[self::leg:P1group]//(descendant::leg:Repeal[starts-with(@ChangeId, 'key-')]/@CommentaryRef | descendant::leg:Substitution[starts-with(@ChangeId, 'key-')]/@CommentaryRef | descendant::leg:Addition[starts-with(@ChangeId, 'key-')]/@CommentaryRef) = $additionRepealRefs/@CommentaryRef
+				(some $c in preceding::*[self::leg:P1group]//(descendant::leg:CommentaryRef[starts-with(@Ref, 'key-')]/@Ref | descendant::leg:Repeal[starts-with(@ChangeId, 'key-')]/@CommentaryRef | descendant::leg:Substitution[starts-with(@ChangeId, 'key-')]/@CommentaryRef | descendant::leg:Addition[starts-with(@ChangeId, 'key-')]/@CommentaryRef) satisfies $c = ($additionRepealRefs/@CommentaryRef,$commentaryRefs/@Ref))
 			) or 
 			(local-name() = 'P1group' and not(ancestor::leg:BlockAmendment) and 
-				preceding-sibling::*[1][self::leg:P1group]//(descendant::leg:Repeal/@CommentaryRef | descendant::leg:Substitution/@CommentaryRef | descendant::leg:Addition/@CommentaryRef) = $additionRepealRefs/@CommentaryRef
+				(some $c in preceding-sibling::*[1][self::leg:P1group]//(descendant::leg:CommentaryRef/@Ref | descendant::leg:Repeal/@CommentaryRef | descendant::leg:Substitution/@CommentaryRef | descendant::leg:Addition/@CommentaryRef) satisfies $c  = ($additionRepealRefs/@CommentaryRef,$commentaryRefs/@Ref))
 			)) and 
-			not(ancestor::*[self::leg:Schedule or self::leg:Part or self::leg:Chapter or self::leg:Pblock or self::leg:Group]/(leg:TitleBlock | leg:Title | leg:Number)/(descendant::leg:Repeal/@CommentaryRef | descendant::leg:Substitution/@CommentaryRef | descendant::leg:Addition/@CommentaryRef) = $additionRepealRefs/@CommentaryRef)
+			not(ancestor::*[self::leg:Schedule or self::leg:Part or self::leg:Chapter or self::leg:Pblock or self::leg:Group]/(leg:TitleBlock | leg:Title | leg:Number)/(descendant::leg:CommentaryRef | descendant::leg:Repeal/@CommentaryRef | descendant::leg:Substitution/@CommentaryRef | descendant::leg:Addition/@CommentaryRef) = $additionRepealRefs/@CommentaryRef)
 		) then true() else false()"/>
 
 
-
+<xsl:message><xsl:value-of select="(self::*/@id, descendant::*[@id]/@id)[1]"/>:<xsl:value-of select="$multiple-provision-annotations"/>:<xsl:value-of select="local-name() = 'P1group' and not(ancestor::leg:BlockAmendment) and 
+				(some $c in preceding-sibling::*[self::leg:P1group]//descendant::leg:CommentaryRef/@Ref satisfies $c= ($commentaryRefs/@Ref))"/></xsl:message>
 
 
 		<xsl:variable name="showComments" as="element(leg:Commentary)*">
