@@ -320,7 +320,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	
 	<xsl:template match="ukm:SupersededBy" mode="statuswarning">
 		<a href="{leg:FormatURL(concat(replace(@URI,'/id/','/'),'/contents', if (ukm:Number) then '/made' else ()))}"> <!-- {legislation type}: {legislation title + number}. -->
-			<xsl:value-of select="dc:title" />
+			<xsl:value-of select="dc:title[1]" />
 			<xsl:choose>
 				<xsl:when test="ukm:Number">
 					<xsl:text> No. </xsl:text>
