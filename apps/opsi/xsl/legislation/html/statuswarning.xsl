@@ -148,12 +148,14 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 						<p class="intro">
 							<xsl:choose>
 								<xsl:when test="leg:IsRevisedPDFOnly(.)">
+										<xsl:variable name="reviseddate" as="xs:date" select="max(xs:date($ndsLegislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@Revised castable as xs:date]/@Revised))"/>
 										<xsl:text>This item of legislation is only available to download and view as PDF. The electronic revised (latest available) version of the </xsl:text>
 										<xsl:value-of select="leg:Legislation/ukm:Metadata/dc:title"/>	
 										<xsl:text> has been created and contributed by the Department for Work and Pensions.</xsl:text>
-										<a href="http://www.legislation.gov.uk/contributors#dwp"><strong> Read more.</strong></a>
-										<xsl:text> There may be outstanding changes yet to be applied. This version incorporates changes up to DD/MM/YYYY.</xsl:text>
-										
+										<!--<a href="http://www.legislation.gov.uk/contributors#dwp"><strong> Read more.</strong></a>-->
+										<xsl:text> There may be outstanding changes yet to be applied. This version incorporates changes up to </xsl:text>
+										<xsl:value-of select="if (exists($reviseddate)) then format-date($reviseddate,'[D]/[M]/[Y]') else 'DD/MM/YYYY'"/>
+										<xsl:text>.</xsl:text>
 									</xsl:when>
 								<xsl:when test="$Scenario = '1' ">
 									<xsl:variable name="sectionTitle">
@@ -895,7 +897,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	
 	<xsl:function name="leg:IsRevisedPDFOnly" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
-			<xsl:sequence select="exists($legislation/leg:Legislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@Revised])"/>
+			<xsl:sequence select="exists($legislation/leg:Legislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@Revised]) and empty($legislation/leg:Legislation/(leg:Primary|leg:Secondary))"/>
 	</xsl:function>
 	
 	

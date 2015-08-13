@@ -47,6 +47,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="wholeActWithoutSchedulesURI" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/body' and @title='body']/@href" />
 	<xsl:variable name="schedulesOnlyURI" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/schedules' and @title='schedules']/@href" />
 	<xsl:variable name="introURI" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/introduction' and @title='introduction']/@href" />
+	<xsl:variable name="self" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='self']/@href" />
 		
 
 	<xsl:variable name="language" select="if (/leg:Legislation/@xml:lang) then 
@@ -805,11 +806,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<a class="pdfLink" href="{@URI}">
 									<xsl:choose>
 										<!--added revised version-->
-										<xsl:when test="exists(@Revised)"><xsl:value-of select="leg:TranslateText('Revised Version')"/></xsl:when>
+										<xsl:when test="exists(@Revised)">
+											<xsl:value-of select="leg:TranslateText('Revised Version')"/>
+											<xsl:text> </xsl:text>
+											<xsl:value-of select="if (@Revised castable as xs:date) then format-date(@Revised,'[D]/[M]/[Y]') else @Revised"/>
+										</xsl:when>
 										<xsl:otherwise><xsl:value-of select="leg:TranslateText('Original Print PDF')"/></xsl:otherwise>
 									</xsl:choose>
 									
-									<xsl:if test="string-length($title) ne 0">
+									<xsl:if test="string-length($title) ne 0 and not(@Revised)">
 										<xsl:value-of select="concat(' ', $title)"/>
 									</xsl:if>
 								</a>	
@@ -853,7 +858,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</xsl:if>
 						
 						<xsl:choose>
-							<xsl:when test="$IsPDFOnly ">
+							<xsl:when test="$IsPDFOnly "><xsl:message>PARAMS: <xsl:sequence select="$paramsDoc/parameters"/></xsl:message>
 								<!-- If legislation is only available in PDFOnly then display PDF link -->
 								<xsl:variable name="alternatives" as="element(ukm:Alternative)+"
 									select="/leg:Legislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative" />
@@ -863,7 +868,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									        else if ($language = 'cy') then
 									        	($alternatives[@Language = 'Welsh'])[1]
 									        else
-									        	$alternatives[not(@Language = 'Welsh')][1]" />
+									        	$alternatives[not(@Language = 'Welsh')][not(@Revised)][1]" />
 								<!-- make sure we get one -->
 								<xsl:variable name="alternative" as="element(ukm:Alternative)"
 									select="if ($alternative) then $alternative else $alternatives[1]" />

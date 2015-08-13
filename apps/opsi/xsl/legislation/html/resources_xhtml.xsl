@@ -459,7 +459,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 		 			<xsl:when test="exists(@Title)">
 		 				<xsl:value-of select="@Title" />
 		 			</xsl:when>
-		 			<xsl:when test="exists(@Revised)">Revised Version</xsl:when>
+		 			<xsl:when test="exists(@Revised)"><xsl:value-of select="leg:TranslateText('Revised Version')"/></xsl:when>
 		 			<xsl:otherwise>
 						<xsl:analyze-string select="local-name(.)" regex="[A-Z][a-z]+">
 							<xsl:matching-substring>
@@ -541,7 +541,11 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 							<xsl:text>Correction Slip - </xsl:text>
 							<xsl:value-of select="leg:FormatDate(@Date)"/>
 						</xsl:when>
-						
+						<xsl:when test="self::ukm:Alternative[@Revised]">
+							<xsl:value-of select="$title"/>
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="if (@Revised castable as xs:date) then format-date(@Revised,'[D]/[M]/[Y]') else @Revised"/>
+						</xsl:when>
 						<xsl:when test="self::ukm:Alternative[exists($ia[4])]">
 							<xsl:value-of select="$title"/>
 							<xsl:text> </xsl:text>
