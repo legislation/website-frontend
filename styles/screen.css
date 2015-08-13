@@ -1469,3 +1469,17 @@ div.alphaLinkList {display: block; background: #ccc; float: left;}
 .cli-plugin-button:active {
     top: 1px;
 }
+
+
+/*  DRAFTING TOOL VIDEOS  */
+
+ul.video li {
+  float:left;
+  margin-bottom: 2em;
+  padding-right: 15px;
+  width: 283px;
+}
+.maincontent {clear:both}
+
+ul.video {list-style-type: none;}
+ul.video  li p.caption {padding-right:1.5em}
