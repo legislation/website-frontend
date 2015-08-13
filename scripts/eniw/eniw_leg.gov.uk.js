@@ -158,14 +158,14 @@ $.fn.ENInterweave = function () {
 								.append(
 									// Repurpose the EN Snippet
 									$(ENContent)
-									.first('.legSnippet').end()
+									.first('.LegSnippet').end()
 									.find('h1, h2, h3, h4, h5').remove().end()
 									.html()
 								)
 								.attr("id", AttrEnId)
 							)					
 							.text("Hide EN");
-						});  
+						},'html');  
 					} else {
 						// Repopulate AttrEnId
 						AttrEnId = "__eniw_" + sectionID;					

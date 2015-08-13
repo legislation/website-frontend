@@ -949,8 +949,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					else if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/policy-note/toc' and not(@hreflang = 'cy')]/@href) then 'policy-notes'
 					else if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/memorandum/toc' and not(@hreflang = 'cy')]/@href) then 'memorandum'
 					else '' "/>
-		
-	<xsl:if test="$enType != ''">
+	<xsl:variable name="enXML" as="xs:string*"	select="/leg:Legislation/ukm:Metadata/ukm:Notes/ukm:Note/@DocumentURI"/>				
+	
+	<!--  the en XML exists if we have a document uri for it  -->	
+	<xsl:if test="$enType != '' and exists($enXML)">
 		<div class="eniw">
 			<span class="enNote">
 				<xsl:value-of select="leg:TranslateText(if ($enType = 'executive-notes') then 'Executive Note' 
@@ -982,16 +984,11 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:if test="$enType != ''">
 			<div class="eniw">
 				<span class="enNote">
-					<xsl:value-of select="leg:TranslateText('No_associated_note',
-											concat('type=',
-												leg:TranslateText(if (self::leg:P1) then 'section' else 'schedule'),
-												'noteType=',
-												leg:TranslateText(if ($enType = 'executive-notes') then 'Executive Note' 
+					<xsl:value-of select="leg:TranslateText('No_associated_note',(concat('type=',
+												leg:TranslateText(if (self::leg:P1) then 'section' else 'schedule')), concat('noteType=',leg:TranslateText(if ($enType = 'executive-notes') then 'Executive Note' 
 												else if ($enType = 'policy-notes') then 'Policy Notes'
 												else if ($enType = 'memorandum') then 'Explanatory Memorandum' 
-												else 'Explanatory Notes')
-											)
-										)"/>
+												else 'Explanatory Notes'))) )"/>
 				</span>
 			</div>		
 		</xsl:if>
