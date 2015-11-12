@@ -39,6 +39,7 @@ Heading/darkgrey: #333
 /*---------------
 1. Body & basic typography
 ---------------*/
+html {overflow-y: scroll;} /* Stop any flickering caused by JS items being larger than screen area */
 body {font: normal normal normal 75%/1.5em 'Arial', 'Garuda', sans-serif; color: #4B4C4E; margin: 0; background: #fff}
 
 #preloadBg {display: none;}

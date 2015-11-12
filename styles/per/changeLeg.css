@@ -88,7 +88,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #searchChanges .radio {margin-top: 0.5em;}
 #searchChanges .yearChoice, #legChanges .yearChoiceFields {padding: 0 4px;}
 
-#searchChanges input.radio {width: 25px;}
+#searchChanges input.radio {width: 25px; background-image:none; border-bottom-style:none; border-right-style:none; border-top-style: none; border-left-style: none;}
 #searchChanges .yearChoice label, #searchChanges #effectsOptions label, #searchChanges .title label {width: auto;}
 #searchChanges .submit {display: inline; margin-top: 5px !important; text-align:right; padding: 0; background: #FFF; margin: 0 auto; text-align: center; padding: 0 0 10px 0;}
 #searchChanges #legChangesSearchSubmit {margin-left: 20px; margin-bottom: 10px; position: static}

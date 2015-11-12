@@ -2389,7 +2389,8 @@ exclude-result-prefixes="tso atom">
 								<xsl:text>&#160;&#160;</xsl:text>
 								<!--<xsl:text>&#2003;</xsl:text>-->						
 							</xsl:for-each>
-								<xsl:apply-templates select="parent::leg:P3para/preceding-sibling::leg:Pnumber"/>
+								<!-- HA064898 - don't include para number if within a BlockAmendment, as it will have already been output from "leg:BlockAmendment/leg:P3" template match -->
+								<xsl:apply-templates select="parent::leg:P3para[not(ancestor::leg:BlockAmendment)]/preceding-sibling::leg:Pnumber"/>
 								<!-- FOP doesn't handle 2003 well - look for alternative -->
 								<xsl:text>&#160;&#160;</xsl:text>
 							</xsl:if>
