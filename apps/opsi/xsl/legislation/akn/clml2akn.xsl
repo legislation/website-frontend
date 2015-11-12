@@ -7,10 +7,10 @@ You may use and re-use this code free of charge under the terms of the Open Gove
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 -->
-<!-- v0.12, written by Jim Mangiafico, updated 20 January 2015 -->
+<!-- v1.2, written by Jim Mangiafico, updated 18 September 2015 -->
 
 <xsl:stylesheet version="2.0"
-	xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/CSD13"
+	xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/WD16"
 	xpath-default-namespace="http://www.legislation.gov.uk/namespaces/legislation"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -45,13 +45,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <xsl:variable name="is-fragment" select="count(/Legislation/ukm:Metadata/atom:link[@rel='up']) > 0" as="xs:boolean" />
 
 <xsl:variable name="expr-this" as="xs:string">
-	<xsl:value-of select="concat('http://www.legislation.gov.uk/id/', substring-after(/Legislation/ukm:Metadata/dc:identifier, 'http://www.legislation.gov.uk/'))" />
+	<xsl:value-of select="/Legislation/ukm:Metadata/dc:identifier" />
 </xsl:variable>
 
 <xsl:variable name="expr-uri" as="xs:string">
 	<xsl:choose>
 		<xsl:when test="$is-fragment">
-			<xsl:value-of select="concat('http://www.legislation.gov.uk/id/', substring-after(/Legislation/ukm:Metadata/atom:link[@rel='up']/@href, 'http://www.legislation.gov.uk/'))" />
+			<xsl:value-of select="/Legislation/ukm:Metadata/atom:link[@rel='up']/@href" />
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:value-of select="$expr-this" />
@@ -60,7 +60,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 </xsl:variable>
 
 <xsl:variable name="doc-uri" as="xs:string">
-	<xsl:analyze-string select="$expr-uri" regex="(/enacted)? ( /\d{{4}}-\d{{2}}-\d{{2}} | /made | /welsh )$" flags="x">
+	<xsl:variable name="base" as="xs:string">
+		<xsl:value-of select="concat('http://www.legislation.gov.uk/id/', substring-after($expr-uri, 'http://www.legislation.gov.uk/'))" />
+	</xsl:variable>
+	<xsl:analyze-string select="$base" regex="(/enacted)? ( /\d{{4}}-\d{{2}}-\d{{2}} | /made | /welsh )$" flags="x">
 		<xsl:non-matching-substring><xsl:value-of select="." /></xsl:non-matching-substring>
 	</xsl:analyze-string>		
 </xsl:variable>
@@ -72,7 +75,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 </xsl:variable>
 
 <xsl:variable name="this-uri" as="xs:string">
-	<xsl:analyze-string select="$expr-this" regex="(/enacted)? ( /\d{{4}}-\d{{2}}-\d{{2}} | /made | /welsh )$" flags="x">
+	<xsl:variable name="base" as="xs:string">
+		<xsl:value-of select="concat('http://www.legislation.gov.uk/id/', substring-after($expr-this, 'http://www.legislation.gov.uk/'))" />
+	</xsl:variable>
+	<xsl:analyze-string select="$base" regex="(/enacted)? ( /\d{{4}}-\d{{2}}-\d{{2}} | /made | /welsh )$" flags="x">
 		<xsl:non-matching-substring><xsl:value-of select="." /></xsl:non-matching-substring>
 	</xsl:analyze-string>
 </xsl:variable>
@@ -770,9 +776,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:namespace name="dc" select="'http://purl.org/dc/elements/1.1/'"/>
 			<xsl:namespace name="dct" select="'http://purl.org/dc/terms/'"/>
 			<xsl:namespace name="atom" select="'http://www.w3.org/2005/Atom'"/>
-<!-- 			<xsl:if test="../@RestrictExtent">
-				<ukl:RestrictExtent value="{../@RestrictExtent}" />
-			</xsl:if> -->
 			<xsl:if test="../@RestrictStartDate">
 				<ukl:RestrictStartDate value="{../@RestrictStartDate}" />
 			</xsl:if>
@@ -799,28 +802,35 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <!-- main top-level templates (primary & secondary) -->
 
 <xsl:template match="Primary | Secondary">
-	<xsl:if test="not($is-fragment)">
-		<xsl:apply-templates select="PrimaryPrelims | SecondaryPrelims" />
-	</xsl:if>
-	<xsl:variable name="body-name" as="xs:string">
-		<xsl:choose>
-			<xsl:when test="$is-fragment">portionBody</xsl:when>
-			<xsl:otherwise>body</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-	<xsl:element name="{$body-name}">
-		<xsl:if test="Body/@RestrictExtent">
-			<xsl:attribute name="eId">body</xsl:attribute>
-		</xsl:if>
-		<xsl:call-template name="period"><xsl:with-param name="e" select="Body" /></xsl:call-template>
-		<xsl:apply-templates select="Body/*[not(self::CommentaryRef)]" />
-		<xsl:apply-templates select="Schedules" />
-	</xsl:element>
-	<xsl:if test="ExplanatoryNotes | EarlierOrders">
-		<conclusions><xsl:apply-templates select="ExplanatoryNotes | EarlierOrders" /></conclusions>
-	</xsl:if>
+	<xsl:choose>
+		<xsl:when test="$is-fragment">
+			<portionBody>
+				<xsl:if test="Body/@RestrictExtent">
+					<xsl:attribute name="eId">body</xsl:attribute>
+				</xsl:if>
+				<xsl:call-template name="period"><xsl:with-param name="e" select="Body" /></xsl:call-template>
+				<xsl:apply-templates select="PrimaryPrelims | SecondaryPrelims" />
+				<xsl:apply-templates select="Body/*[not(self::CommentaryRef)]" />
+				<xsl:apply-templates select="Schedules" />
+				<xsl:apply-templates select="ExplanatoryNotes | EarlierOrders" />
+			</portionBody>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:apply-templates select="PrimaryPrelims | SecondaryPrelims" />
+			<body>
+				<xsl:if test="Body/@RestrictExtent">
+					<xsl:attribute name="eId">body</xsl:attribute>
+				</xsl:if>
+				<xsl:call-template name="period"><xsl:with-param name="e" select="Body" /></xsl:call-template>
+				<xsl:apply-templates select="Body/*[not(self::CommentaryRef)]" />
+				<xsl:apply-templates select="Schedules" />
+			</body>
+			<xsl:if test="ExplanatoryNotes | EarlierOrders">
+				<conclusions><xsl:apply-templates select="ExplanatoryNotes | EarlierOrders" /></conclusions>
+			</xsl:if>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
-
 
 <!-- cover page -->
 
@@ -872,7 +882,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:when test="self::ContentsAppendix">appendix</xsl:when>
 		</xsl:choose>
 	</xsl:variable>
-	<tocItem href="{@IdURI}" level="{$level}" class="{$class}">
+	<tocItem href="{@DocumentURI}" level="{$level}" class="{$class}">
 		<xsl:call-template name="period">
 			<xsl:with-param name="class" select="$class" />
 		</xsl:call-template>
@@ -894,17 +904,32 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <!-- preface -->
 
 <xsl:template match="PrimaryPrelims | SecondaryPrelims">
-	<preface>
-		<xsl:if test="@RestrictExtent">
-			<xsl:attribute name="eId">preface</xsl:attribute>
-		</xsl:if>
-		<xsl:call-template name="period" />
-		<xsl:apply-templates select="*[not(self::PrimaryPreamble)][not(self::SecondaryPreamble)]" />
-		<xsl:if test="empty(PrimaryPreamble | SecondaryPreamble)">
-			<xsl:apply-templates select="../Body/CommentaryRef" />
-		</xsl:if>
-	</preface>
-	<xsl:apply-templates select="PrimaryPreamble | SecondaryPreamble" />	
+	<xsl:choose>
+		<xsl:when test="$is-fragment">
+			<preface>
+				<xsl:if test="@RestrictExtent">
+					<xsl:attribute name="eId">preface</xsl:attribute>
+				</xsl:if>
+				<xsl:call-template name="period" />
+				<xsl:apply-templates select="*[not(self::PrimaryPreamble)][not(self::SecondaryPreamble)]" />
+				<xsl:apply-templates select="../Body/CommentaryRef" />
+				<xsl:apply-templates select="PrimaryPreamble | SecondaryPreamble" />	
+			</preface>
+		</xsl:when>
+		<xsl:otherwise>
+			<preface>
+				<xsl:if test="@RestrictExtent">
+					<xsl:attribute name="eId">preface</xsl:attribute>
+				</xsl:if>
+				<xsl:call-template name="period" />
+				<xsl:apply-templates select="*[not(self::PrimaryPreamble)][not(self::SecondaryPreamble)]" />
+				<xsl:if test="empty(PrimaryPreamble | SecondaryPreamble)">
+					<xsl:apply-templates select="../Body/CommentaryRef" />
+				</xsl:if>
+			</preface>
+			<xsl:apply-templates select="PrimaryPreamble | SecondaryPreamble" />	
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 <xsl:template match="Draft">
@@ -987,11 +1012,19 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <!-- preamble -->
 
 <xsl:template match="PrimaryPreamble | SecondaryPreamble">
-	<preamble>
-		<xsl:call-template name="period" />
-		<xsl:apply-templates />
-		<xsl:apply-templates select="../../Body/CommentaryRef" />
-	</preamble>
+	<xsl:choose>
+		<xsl:when test="$is-fragment">
+			<xsl:apply-templates />
+			<xsl:apply-templates select="../../Body/CommentaryRef" />
+		</xsl:when>
+		<xsl:otherwise>
+			<preamble>
+				<xsl:call-template name="period" />
+				<xsl:apply-templates />
+				<xsl:apply-templates select="../../Body/CommentaryRef" />
+			</preamble>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 <xsl:template match="RoyalPresence">
@@ -1542,21 +1575,14 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 		<mod>
 			<quotedStructure>
 				<xsl:variable name="classes" as="xs:string*">
-					<xsl:if test="@TargetClass != 'unknown'">
-						<xsl:sequence select="@TargetClass" />
-					</xsl:if>
-					<xsl:if test="@TargetSubClass != 'unknown'">
-						<xsl:sequence select="@TargetSubClass" />
-					</xsl:if>
-					<xsl:if test="@Context != 'unknown'">
-						<xsl:sequence select="@Context" />
-					</xsl:if>
+					<xsl:sequence select="@TargetClass" />
+					<xsl:sequence select="@TargetSubClass" />
+					<xsl:sequence select="@Context" />
+					<xsl:sequence select="@Format" />
 				</xsl:variable>
-				<xsl:if test="exists($classes)">
-					<xsl:attribute name="class">
-						<xsl:value-of select="string-join($classes, ' ')" />
-					</xsl:attribute>
-				</xsl:if>
+				<xsl:attribute name="class">
+					<xsl:value-of select="string-join($classes, ' ')" />
+				</xsl:attribute>
 				<!-- it appears there are double quotes in 'default' @Format only sometimes !? -->
 				<!-- perhaps if @Context = 'main' ?? -->
 				<xsl:if test="@Format = 'default' or @Format = 'double'">
@@ -1792,7 +1818,7 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 			</xsl:when>
 			<xsl:when test="Part | Chapter | Pblock | PsubBlock | P1 | P1group | P2 | P2group | P3 | P4 | P5 | P6">
 				<p>
-					<subFlow>
+					<subFlow name="wrapper">
 						<xsl:apply-templates />
 					</subFlow>
 				</p>
@@ -1845,7 +1871,7 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 <!-- math -->
 
 <xsl:template match="Span[math:math]">
-	<subFlow><xsl:call-template name="foreign" /></subFlow>
+	<subFlow name="wrapper"><xsl:call-template name="foreign" /></subFlow>
 </xsl:template>
 
 <xsl:template match="Formula" name="foreign">
@@ -1992,7 +2018,7 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 <xsl:template match="EarlierOrders">
     <blockContainer class="EarlierOrders">
         <xsl:apply-templates select="Title | Comment" />
-        <p><subFlow>
+        <p><subFlow name="earlierOrders">
             <xsl:apply-templates select="*[not(self::Title)][not(self::Comment)]" />
         </subFlow></p>
     </blockContainer>
@@ -2124,11 +2150,12 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 	</term>
 </xsl:template>
 
-<xsl:template match="Abbreviation | Acronym">
-	<abbr title="{@Expansion}">
-		<xsl:copy-of select="@xml:lang" />
-		<xsl:apply-templates />
-	</abbr>
+<xsl:template match="Abbreviation">
+	<abbr title="{@Expansion}" xml:lang="{@xml:lang}"><xsl:apply-templates /></abbr>
+</xsl:template>
+
+<xsl:template match="Acronym">
+	<abbr class="Acronym" title="{@Expansion}"><xsl:apply-templates /></abbr>
 </xsl:template>
 
 <xsl:template match="Definition">

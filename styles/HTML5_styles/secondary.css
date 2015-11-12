@@ -37,6 +37,14 @@ p.number { margin-top: 2em; margin-bottom: 1.5em }
 
 *[data-name='RoyalPresence'] { text-align: center }
 
+.tblock.P2 > .num::before { content: '(' }
+.tblock.P2 > .num { margin-left: 1em }
+.tblock.P2 > .num::after { content: ') ' }
+.tblock.P2 > .num + p { display: inline }
+
+.preamble > .tblock { margin-top: 0.5em }
+.formula { margin-top: 1em }
+
 
 /* body */
 
@@ -70,21 +78,21 @@ section .intro + .content > p:first-child { display: block }
 .article > h2 { display: inline }
 .article > h2 > .heading { font-weight: bold; margin-bottom: 0.5em }
 .article > h2 > .num { display: inline; margin-left: 1em; font-weight: bold }
-.article > h2 > .num:after { content: '.' }
+.article > h2 > .num:after { content: '. ' }
 .article > h2 + .paragraph:before { content: '\2014' }
 
 .rule { margin-top: 1em }
 .rule > h2 { display: inline }
 .rule > h2 > .heading { font-weight: bold; margin-bottom: 0.5em }
 .rule > h2 > .num { display: inline; margin-left: 1em; font-weight: bold }
-.rule > h2 > .num:after { content: '.' }
+.rule > h2 > .num:after { content: '. ' }
 .rule > h2 + .paragraph:before { content: '\2014' }
 
 .section { margin-top: 1em }
 .section > h2 { display: inline }
 .section > h2 > .heading { font-weight: bold; margin-bottom: 0.5em }
 .section > h2 > .num { display: inline; margin-left: 1em; font-weight: bold }
-.section > h2 > .num:after { content: '.' }
+.section > h2 > .num:after { content: '. ' }
 .section > h2 + .subsection:before { content: '\2014' }
 
 
@@ -199,4 +207,3 @@ blockquote.primary .paragraph:first-of-type > * > .num { display: block }
 
 blockquote.primary .subparagraph { margin-left: 4em }
 blockquote.primary .subparagraph > * > .num { display: inline-block; position: absolute; left: -3em }
-

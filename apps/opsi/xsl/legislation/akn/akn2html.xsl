@@ -7,17 +7,16 @@ You may use and re-use this code free of charge under the terms of the Open Gove
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 -->
-<!-- v0.7, written by Jim Mangiafico, updated 20 January 2015 -->
+<!-- v1.3, written by Jim Mangiafico, updated 4 November 2015 -->
 
 <xsl:stylesheet version="2.0"
-	xpath-default-namespace="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/CSD13"
+	xpath-default-namespace="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/WD16"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:math="http://www.w3.org/1998/Math/MathML"
 	xmlns:akn="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/CSD13"
 	xmlns:ukl="http://www.legislation.gov.uk/namespaces/legislation"
 	xmlns:ukm="http://www.legislation.gov.uk/namespaces/metadata"
-	xmlns="http://www.w3.org/1999/xhtml"
 	exclude-result-prefixes="xs math akn ukl ukm">
 
 <xsl:param name="css-path" select="'/styles/HTML5_styles/'" />
@@ -25,7 +24,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <xsl:param name="show-extent" select="false()" />
 <xsl:param name="show-prospective" select="true()" />
 
-  <xsl:output method="html" version="5" include-content-type="yes" encoding="utf-8" indent="yes"/>
+<xsl:output method="html" version="5" include-content-type="no" encoding="utf-8" indent="yes" />
 <xsl:strip-space elements="*" />
 
 <xsl:key name="id" match="*" use="@eId" />
@@ -121,7 +120,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</article>
 </xsl:template>
 
-<xsl:template match="fragment">
+<xsl:template match="portion">
 	<article class="{/akomaNtoso/*/meta/proprietary/ukm:*/ukm:DocumentClassification/ukm:DocumentCategory/@Value}">
 		<xsl:apply-templates select="@includedIn" />
 		<xsl:apply-templates />
@@ -842,6 +841,25 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:otherwise>
 				<a>
 					<xsl:apply-templates select="@href" />
+					<xsl:apply-templates />
+				</a>
+			</xsl:otherwise>
+		</xsl:choose>
+	</cite>
+</xsl:template>
+
+<xsl:template match="rref">
+	<cite>
+		<xsl:apply-templates select="@*" />
+		<xsl:choose>
+			<xsl:when test=".//ref">
+				<xsl:apply-templates />
+			</xsl:when>
+			<xsl:otherwise>
+				<a>
+					<xsl:attribute name="href">
+						<xsl:value-of select="@from" />
+					</xsl:attribute>
 					<xsl:apply-templates />
 				</a>
 			</xsl:otherwise>
