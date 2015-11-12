@@ -17,6 +17,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	xmlns:akn="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/CSD13"
 	xmlns:ukl="http://www.legislation.gov.uk/namespaces/legislation"
 	xmlns:ukm="http://www.legislation.gov.uk/namespaces/metadata"
+	xmlns="http://www.w3.org/1999/xhtml"
 	exclude-result-prefixes="xs math akn ukl ukm">
 
 <xsl:param name="css-path" select="'/styles/HTML5_styles/'" />
