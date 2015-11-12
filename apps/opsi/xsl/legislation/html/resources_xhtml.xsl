@@ -430,6 +430,17 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 			<span class="filesize"><xsl:sequence select="tso:GetFileSize($size)"/></span>
 		</li>
 	</xsl:function>
+	
+	<!-- cop generation of an associated document list item -->
+	<xsl:template match="ukm:OtherDocument[@Type='signlang']" mode="AssociatedDocuments">
+		<li>
+			<a href="{@URI}" class="signlangLink">
+				<xsl:value-of select="@Title"/>
+			</a>
+			<xsl:text>   </xsl:text>
+			<!--<span class="filesize"><xsl:sequence select="tso:GetFileSize($size)"/></span>-->
+		</li>
+	</xsl:template>
 
 	<!-- generation of an associated document list item - this really needs separating out as above -->
 	<xsl:template match="ukm:Metadata/ukm:Alternatives/ukm:Alternative 
@@ -443,7 +454,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 	 	|ukm:CodeofConduct
 	 	|ukm:UKExplanatoryMemorandum
 	 	|ukm:NIExplanatoryMemorandum
-	 	|ukm:OtherDocument" mode="AssociatedDocuments">
+	 	|ukm:OtherDocument[not(@Type='signlang')]" mode="AssociatedDocuments">
 		 <xsl:if test="not(self::ukm:Alternative) or (self::ukm:Alternative and ancestor::ukm:Notes) or @Revised">
 			 <!-- if draft legislation then all alternative versions(print) will also be included -->
 		 	<xsl:variable name="dateSuffix">
