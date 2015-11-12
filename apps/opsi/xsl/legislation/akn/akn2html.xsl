@@ -4,7 +4,7 @@
  
 You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3 -->
 
 <!-- v1.2, written by Jim Mangiafico, updated 17 September 2015 -->
 
