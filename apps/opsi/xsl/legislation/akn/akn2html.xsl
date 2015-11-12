@@ -4,12 +4,13 @@
  
 You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
  
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3 -->
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
-<!-- v1.2, written by Jim Mangiafico, updated 17 September 2015 -->
+-->
+<!-- v0.7, written by Jim Mangiafico, updated 20 January 2015 -->
 
 <xsl:stylesheet version="2.0"
-	xpath-default-namespace="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/WD16"
+	xpath-default-namespace="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/CSD13"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:math="http://www.w3.org/1998/Math/MathML"
@@ -120,7 +121,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3 -->
 	</article>
 </xsl:template>
 
-<xsl:template match="portion">
+<xsl:template match="fragment">
 	<article class="{/akomaNtoso/*/meta/proprietary/ukm:*/ukm:DocumentClassification/ukm:DocumentCategory/@Value}">
 		<xsl:apply-templates select="@includedIn" />
 		<xsl:apply-templates />
@@ -848,26 +849,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3 -->
 	</cite>
 </xsl:template>
 
-<xsl:template match="rref">
-	<cite>
-		<xsl:apply-templates select="@*" />
-		<xsl:choose>
-			<xsl:when test=".//ref">
-				<xsl:apply-templates />
-			</xsl:when>
-			<xsl:otherwise>
-				<a>
-					<xsl:attribute name="href">
-						<xsl:value-of select="replace(@from, 'legislation.gov.uk/id/', 'legislation.gov.uk/')" />
-						<xsl:text>/data.htm</xsl:text>
-					</xsl:attribute>
-					<xsl:apply-templates />
-				</a>
-			</xsl:otherwise>
-		</xsl:choose>
-	</cite>
-</xsl:template>
-
 <xsl:template match="date | docDate">
 	<time>
 		<xsl:call-template name="attrs" />
@@ -899,20 +880,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3 -->
 
 <xsl:template match="@date">
 	<xsl:attribute name="datetime"><xsl:value-of select="." /></xsl:attribute>
-</xsl:template>
-
-<xsl:template match="a/@href | ref/@href | tocItem/@href">
-	<xsl:attribute name="href">
-		<xsl:choose>
-			<xsl:when test="starts-with(., 'http://www.legislation.gov.uk/')">
-				<xsl:value-of select="replace(., 'legislation.gov.uk/id/', 'legislation.gov.uk/')" />
-				<xsl:text>/data.htm</xsl:text>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:value-of select="." />
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:attribute>
 </xsl:template>
 
 <xsl:template match="@class | @title | @style | @href | @src | @alt | @width | @height | @colspan | @rowspan">
