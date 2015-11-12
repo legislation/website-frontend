@@ -78,6 +78,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:apply-templates select="/leg:EN/leg:Contents"/>
 
 		<xsl:apply-templates select="$g_ndsLegPrelims/leg:RoyalPresence,
+            $g_ndsLegPrelims/leg:SecondaryPreamble/leg:RoyalPresence,
 			$g_ndsLegPrelims/leg:Resolution,
 			$g_ndsLegPrelims/leg:SecondaryPreamble/leg:IntroductoryText,
 			$g_ndsLegPrelims/leg:SecondaryPreamble/leg:EnactingText,
