@@ -34,6 +34,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	<xsl:import href="../../common/utils.xsl"/>
 
 	<xsl:include href="unapplied_effects_xhtml_core.xsl"/>
+	<xsl:include href="legislation_xhtml_utilities_dates.xslt"/>
 
 	<xsl:variable name="g_nstCodeLists" select="document('../../codelists.xml')/CodeLists/CodeList"/>
 
