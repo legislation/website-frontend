@@ -138,11 +138,21 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				<xsl:with-param name="type" select="'updatestatus'"/>
 			</xsl:call-template>
 		</xsl:variable>
+		<xsl:variable name="IsEditedByEPP" select="leg:IsEditedByEPP(.)" />
+		<xsl:variable name="sectionTitle">
+			<xsl:choose>
+				<xsl:when test="$nstSelectedSection"><xsl:apply-templates select="$nstSelectedSection" mode="CurrentSectionName" /></xsl:when>
+				<xsl:when test="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/introduction' and @title='introduction']/@href = leg:Legislation/ukm:Metadata/dc:identifier">
+					<xsl:text>Introductory Text</xsl:text>
+				</xsl:when>
+			</xsl:choose>
+		</xsl:variable>
+		
 		<div>
 			<xsl:choose>
 				<xsl:when test="not(leg:IsPDFOnlyNotRevised(.)) and ($Scenario = '1' or  $Scenario = '5' or leg:IsCurrentRevised(.)) ">
 					<xsl:attribute name="id">statusWarning</xsl:attribute>
-					<xsl:attribute name="class"><xsl:if test="$Scenario = '1'">uptoDate</xsl:if></xsl:attribute>
+					<xsl:attribute name="class"><xsl:if test="$Scenario = '1' or ($Scenario = '5' and $IsEditedByEPP and leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate(.))">uptoDate</xsl:if></xsl:attribute>
 					<div class="title">
 						<h2>Changes to legislation:</h2>
 						<p class="intro">
@@ -158,14 +168,6 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 										<xsl:text>.</xsl:text>
 									</xsl:when>
 								<xsl:when test="$Scenario = '1' ">
-									<xsl:variable name="sectionTitle">
-										<xsl:choose>
-										<xsl:when test="$nstSelectedSection"><xsl:apply-templates select="$nstSelectedSection" mode="CurrentSectionName" /></xsl:when>
-										<xsl:when test="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/introduction' and @title='introduction']/@href = leg:Legislation/ukm:Metadata/dc:identifier">
-											<xsl:text>Introductory Text</xsl:text>
-										</xsl:when>
-									</xsl:choose>
-									</xsl:variable>
 									<xsl:text>There are currently no known outstanding effects for the </xsl:text><xsl:value-of select="leg:Legislation/ukm:Metadata/dc:title"/>
 									<xsl:if test="string-length($sectionTitle) ne 0">
 										<xsl:value-of select="concat(', ', $sectionTitle)"/>
@@ -173,14 +175,41 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 									<xsl:text>.</xsl:text>
 								</xsl:when>
 								<xsl:when test="$Scenario = '5' ">
-									<xsl:text>There are outstanding changes not yet made by the legislation.gov.uk editorial team to </xsl:text>
-									<xsl:value-of select="leg:Legislation/ukm:Metadata/dc:title"/>
-									<xsl:text>.</xsl:text> 
-									<!-- The reason for this is that people are seeing this message and wanting to immediately go to the Tables of Effects (now the Changes to Legislation) when really they would be much better off looking at the effects within the Act. -->
-									<xsl:if test="leg:IsTOC()">
-										<xsl:text> Those changes will be listed when you open the content using the Table of Contents below.</xsl:text>
-									</xsl:if>
-									<xsl:text> Any changes that have already been made by the team appear in the content and are referenced with annotations.</xsl:text>
+									<xsl:choose>							
+										<xsl:when test="$IsEditedByEPP and leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate(.)">
+											<xsl:choose>
+												<xsl:when test="leg:IsTOC()">
+													<xsl:value-of select="leg:Legislation/ukm:Metadata/dc:title"/>
+													<xsl:text> is up to date with all changes known to be in force on or before </xsl:text>
+													<xsl:call-template name="FormatLongDate">
+														<xsl:with-param name="strInputDate" select="xs:string(current-date())" as="xs:string"/>
+													</xsl:call-template>
+													<xsl:text>. There are changes that may be brought into force at a future date.</xsl:text>
+												</xsl:when>
+												<xsl:otherwise>
+													<xsl:value-of select="leg:Legislation/ukm:Metadata/dc:title"/>
+													<xsl:if test="string-length($sectionTitle) ne 0">
+														<xsl:value-of select="concat(', ', $sectionTitle)"/>
+													</xsl:if>
+													<xsl:text> is up to date with all changes known to be in force on or before </xsl:text>
+													<xsl:call-template name="FormatLongDate">
+														<xsl:with-param name="strInputDate" select="xs:string(current-date())" as="xs:string"/>
+													</xsl:call-template>
+													<xsl:text>. There are changes that may be brought into force at a future date. Changes that have been made appear in the content and are referenced with annotations.</xsl:text>
+												</xsl:otherwise>
+											</xsl:choose>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:text>There are outstanding changes not yet made by the legislation.gov.uk editorial team to </xsl:text>
+											<xsl:value-of select="leg:Legislation/ukm:Metadata/dc:title"/>
+											<xsl:text>.</xsl:text> 
+											<!-- The reason for this is that people are seeing this message and wanting to immediately go to the Tables of Effects (now the Changes to Legislation) when really they would be much better off looking at the effects within the Act. -->
+											<xsl:if test="leg:IsTOC()">
+												<xsl:text> Those changes will be listed when you open the content using the Table of Contents below.</xsl:text>
+											</xsl:if>
+											<xsl:text> Any changes that have already been made by the team appear in the content and are referenced with annotations.</xsl:text>
+										</xsl:otherwise>
+									</xsl:choose>
 								</xsl:when>
 								
 							</xsl:choose>
@@ -883,6 +912,22 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	<xsl:function name="leg:IsOustandingEffectExists" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
 		<xsl:sequence select="count($legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata)/ukm:UnappliedEffects) > 0"/>
+	</xsl:function>
+	
+	<xsl:function name="leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate" as="xs:boolean">
+		<xsl:param name="legislation" as="document-node()"/>
+		<xsl:sequence select="
+			every $t in $legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata)/ukm:UnappliedEffects/ukm:UnappliedEffect/ukm:InForceDates/ukm:InForce 
+			satisfies $t[@Prospective='true' or xs:date(@Date) &gt; current-date()]
+			"/>
+	</xsl:function>
+	
+	<xsl:function name="leg:IsEditedByEPP" as="xs:boolean">
+		<xsl:param name="legislation" as="document-node()"/>
+		<xsl:sequence select="
+			exists($legislation/leg:Legislation/ukm:Metadata/dc:contributor[. = 'Expert Participation']) or
+			not(contains($legislation/leg:Legislation/@ValidDates, ' '))
+			"/>
 	</xsl:function>
 	
 	<xsl:function name="leg:IsPDFOnly" as="xs:boolean">
