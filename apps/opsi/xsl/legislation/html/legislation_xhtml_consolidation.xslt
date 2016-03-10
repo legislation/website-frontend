@@ -931,9 +931,18 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 						<xsl:value-of select="leg:TranslateText('Prospective')"/>
 					</span>
 				</p>
-				<xsl:next-match>
-					<xsl:with-param name="showingProspective" tunnel="yes" select="true()" />
-				</xsl:next-match>
+				<xsl:choose>
+					<xsl:when test="self::leg:Part and (every $text in .//leg:Text satisfies normalize-space(replace($text, '.' , '')) = '')">
+						<xsl:call-template name="FuncProcessRepealedMajorHeading" />
+						<p>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</p>
+						<xsl:apply-templates select="." mode="ProcessAnnotations"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:next-match>
+							<xsl:with-param name="showingProspective" tunnel="yes" select="true()" />
+						</xsl:next-match>
+					</xsl:otherwise>
+				</xsl:choose>
 			</div>
 		</xsl:when>
 		<xsl:otherwise>
