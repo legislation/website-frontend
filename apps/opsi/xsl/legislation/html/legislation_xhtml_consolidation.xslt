@@ -792,14 +792,37 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <!--Every child that's repealed has @Match = 'false' and @RestrictEndDate not @Status = 'Prospective': -->
 <!--Chunyu HA049670 Changed priority from 50 to 51 since it conflicts with the template of line 955 see nisi/2007/1351 part -->
 <xsl:template match="leg:Part | leg:Body | leg:Schedules | leg:Pblock | leg:PsubBlock" priority="51">
+	<xsl:variable name="isBody" select="./root()/leg:Legislation/@DocumentURI = $dcIdentifier"/>
+	<xsl:variable name="documentURI" select="@DocumentURI"/>
+	<xsl:variable name="repealedText" select="if ($isBody) then 'act repeal' else 'repeal'"/>
+	<xsl:variable name="commentary" as="xs:string*" 
+			select="if ($isBody) then 
+						./root()//(leg:PrimaryPrelims|leg:SecondaryPrelims)//leg:CommentaryRef/@Ref
+					else leg:CommentaryRef/@Ref|(leg:Number|leg:Title)/leg:CommentaryRef/@Ref"/>
 	<xsl:choose>
-		<xsl:when test="every $child in (leg:* except (leg:Number, leg:Title))
-				satisfies ((($child/@Match = 'false' and $child/@RestrictEndDate) and not($child/@Status = 'Prospective') and
-				   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() ))) or ($child/@Match = 'false' and $child/@Status = 'Repealed')
+		<xsl:when test="($documentURI = ($dcIdentifier) or $isBody) and 
+				(every $child in (leg:* except (leg:Number, leg:Title)) satisfies 
+					(
+						(
+							($child/@Match = 'false' and $child/@RestrictEndDate) and 
+							not($child/@Status = 'Prospective') and
+							(
+								(
+									($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) 
+								) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() )
+							)
+						) 
+					 or ($child/@Match = 'false' and $child/@Status = 'Repealed')
 				   or (
 				  (:  allowance for prosp repeals made by EPP  :)
-				  $child/@Match = 'false' and $child/@Status = 'Prospective' and (every $text in .//leg:Text satisfies normalize-space(replace($text, '\.' , '')) = '')
-				   ))">
+						$child/@Match = 'false' and $child/@Status = 'Prospective' and 
+						(some $text in $commentary satisfies matches(string(/leg:Legislation/leg:Commentaries/leg:Commentary[@id = $text]), $repealedText, 'i')
+						)  and 
+						(exists($child//leg:Text) or exists($child//xhtml:td)) and 
+						(every $text in ($child//leg:Text | $child//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = '')
+						)
+					)
+				)">
 			<xsl:call-template name="FuncProcessRepealedMajorHeading" />
 			<p>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</p>
 			<xsl:apply-templates select="." mode="ProcessAnnotations"/>
@@ -872,11 +895,16 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <!--For schedules you have to look inside the ScheduleBody: -->
 <xsl:template match="leg:Schedule" priority="50">
+	<xsl:variable name="documentURI" select="@DocumentURI"/>
+	<xsl:variable name="commentary" as="xs:string*" select="leg:CommentaryRef/@Ref|(leg:Number|leg:Title)/leg:CommentaryRef/@Ref"/>
 	<xsl:choose>
-		<xsl:when test="(@Match = 'false' and @RestrictEndDate and not(@Status = 'Prospective') and
+		<xsl:when test="$documentURI = ($dcIdentifier) and (@Match = 'false' and @RestrictEndDate and not(@Status = 'Prospective') and
 				   ((($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= current-date() ))) or (every $child in (leg:ScheduleBody/*)
 		  satisfies (($child/@Match = 'false' and $child/@RestrictEndDate and not($child/@Status = 'Prospective')) and
-				   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() ))) or ($child/@Match = 'false' and $child/@Status = 'Repealed'))">
+				   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() ))) or ($child/@Match = 'false' and $child/@Status = 'Repealed')
+				   or (
+				   (some $text in $commentary satisfies matches(string(/leg:Legislation/leg:Commentaries/leg:Commentary[@id = $text]), 'repeal', 'i')) and (exists(.//leg:Text) or exists(.//xhtml:td)) and (every $text in (.//leg:Text | .//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = '')
+				   ))">
 			<p class="LegArticleRef">
 				<xsl:for-each select="leg:Reference">
 					<xsl:call-template name="FuncCheckForID"/>
@@ -927,6 +955,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <xsl:template match="*[not(ancestor::leg:Contents) and ((@Match = 'false' and @Status = 'Prospective') or (@Status = 'Dead' and $version castable as xs:date and xs:date(@RestrictEndDate) &gt; xs:date($version)))]" priority="60">
 	<xsl:param name="showingProspective" tunnel="yes" as="xs:boolean" select="false()" />
+	<xsl:variable name="documentURI" select="@DocumentURI"/>
+	<xsl:variable name="commentary" as="xs:string*" select="leg:CommentaryRef/@Ref|(leg:Number|leg:Title)/leg:CommentaryRef/@Ref"/>
 	<xsl:choose>
 		<xsl:when test="not($showingProspective)">
 			<div class="LegBlockNotYetInForce">
@@ -936,7 +966,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					</span>
 				</p>
 				<xsl:choose>
-					<xsl:when test="self::leg:Part and (every $text in .//leg:Text satisfies normalize-space(replace($text, '\.' , '')) = '')">
+					<xsl:when test="$documentURI = ($dcIdentifier) and (self::leg:Part or self::leg:Pblock or self::leg:Schedule) and (some $text in $commentary satisfies matches(string(/leg:Legislation/leg:Commentaries/leg:Commentary[@id = $text]), 'repeal', 'i')) and (exists(.//leg:Text) or exists(.//xhtml:td)) and (every $text in (.//leg:Text | .//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = '')">
 						<xsl:call-template name="FuncProcessRepealedMajorHeading" />
 						<p>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</p>
 						<xsl:apply-templates select="." mode="ProcessAnnotations"/>
