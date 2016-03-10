@@ -1,8 +1,8 @@
 /*
 (c)  Crown copyright
- 
+
 You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
+
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
@@ -25,6 +25,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #resultsTimeline .dataDescription li.year {float: left; margin: 173px 0 0 0;}
 #resultsTimeline .dataDescription li.number {float: left; margin: 70px 0 0 -54px;}
 
+#resultsTimeline .explanation {clear:left;}
 /* CSS for the timeline histogram */
 #timeline * {margin: 0; float: none; clear: none; padding: 0;}
 
@@ -36,7 +37,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 /* decade/century seperator */
 #timeline .decade,
-#timeline .century 
+#timeline .century
 {float: left; width: 35em;}
 
 #timeline .even {background-color: #E5EFF5}
@@ -50,7 +51,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 /* histogram bar styles */
 #timeline h3 {margin: 0; color: #069; border-bottom: 1px dotted #67A2C0; padding: 0.25em 0 0.4em 0.567em; font-size: 1.2em; width: 28.6em;}
 #timeline h3 a { color: #069;}
-#timeline ul {clear: none; float: left; padding-left:0.475em; list-style: none;} 
+#timeline ul {clear: none; float: left; padding-left:0.475em; list-style: none;}
 #timeline .last ul {padding-right:0.475em;}
 #timeline .last h3 {width: }
 #timeline li {float: left; margin-right:0.5em; position: relative;}
@@ -75,34 +76,34 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 /* Positioning for histogram blocks when data is missing */
 #timeline .noDataforPrev1yrs,
-#timeline .noDataforPrev10yrs 
+#timeline .noDataforPrev10yrs
 {margin-left: 3.5em}
 #timeline .noDataforPrev2yrs,
-#timeline .noDataforPrev20yrs 
+#timeline .noDataforPrev20yrs
 {margin-left: 7em}
 #timeline .noDataforPrev3yrs,
-#timeline .noDataforPrev30yrs  
+#timeline .noDataforPrev30yrs
 {margin-left: 10.5em}
 #timeline .noDataforPrev4yrs,
-#timeline .noDataforPrev40yrs 
+#timeline .noDataforPrev40yrs
 {margin-left: 14em}
 #timeline .noDataforPrev5yrs,
-#timeline .noDataforPrev50yrs 
+#timeline .noDataforPrev50yrs
 {margin-left: 17.5em}
 #timeline .noDataforPrev6yrs,
-#timeline .noDataforPrev60yrs 
+#timeline .noDataforPrev60yrs
 {margin-left: 21em}
 #timeline .noDataforPrev7yrs,
-#timeline .noDataforPrev70yrs 
+#timeline .noDataforPrev70yrs
 {margin-left: 24.5em}
 #timeline .noDataforPrev8yrs,
-#timeline .noDataforPrev80yrs 
+#timeline .noDataforPrev80yrs
 {margin-left: 28em}
 #timeline .noDataforPrev9yrs,
-#timeline .noDataforPrev90yrs 
+#timeline .noDataforPrev90yrs
 {margin-left: 31.5em}
 
-/* Re position information on hover 
+/* Re position information on hover
 .js #timelineData li a:focus em,
 .js #timelineData li a:hover em {top: 5px; left: -60px; width: 150px; z-index: 50; background: #fff; border: 1px solid #000; padding: 5px;}
 .js #timelineData li a:hover em {z-index: 51;}
@@ -111,31 +112,31 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 /* IE6 amends */
 /* Positioning for histogram blocks when data is missing - IE 6 has real problems with this */
 * html #timeline .noDataforPrev1yrs,
-* html #timeline .noDataforPrev10yrs 
+* html #timeline .noDataforPrev10yrs
 {margin-left: 15px}
 * html #timeline .noDataforPrev2yrs,
-* html #timeline .noDataforPrev20yrs 
+* html #timeline .noDataforPrev20yrs
 {margin-left: 30px}
 * html #timeline .noDataforPrev3yrs,
-* html #timeline .noDataforPrev30yrs  
+* html #timeline .noDataforPrev30yrs
 {margin-left: 45px}
 * html #timeline .noDataforPrev4yrs,
-* html #timeline .noDataforPrev40yrs 
+* html #timeline .noDataforPrev40yrs
 {margin-left: 60px}
 * html #timeline .noDataforPrev5yrs,
-* html #timeline .noDataforPrev50yrs 
+* html #timeline .noDataforPrev50yrs
 {margin-left: 75px}
 * html #timeline .noDataforPrev6yrs,
-* html #timeline .noDataforPrev60yrs 
+* html #timeline .noDataforPrev60yrs
 {margin-left: 90px}
 * html #timeline .noDataforPrev7yrs,
-* html #timeline .noDataforPrev70yrs 
+* html #timeline .noDataforPrev70yrs
 {margin-left: 105px}
 * html #timeline .noDataforPrev8yrs,
-* html #timeline .noDataforPrev80yrs 
+* html #timeline .noDataforPrev80yrs
 {margin-left: 120px}
 * html #timeline .noDataforPrev9yrs,
-* html #timeline .noDataforPrev90yrs 
+* html #timeline .noDataforPrev90yrs
 {margin-left: 135px}
 /* end of IE amends */
 
@@ -254,10 +255,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #resultsTimeline .arrowLeftDisabled {background:url(/images/scrollbar/scrollbar.gif) 0px 0px;}
 #resultsTimeline .arrowRightDisabled {background:url(/images/scrollbar/scrollbar.gif) -22px 0px;}
 
-#resultsTimeline .arrow {display:block; width:22px; height: 22px;} 
+#resultsTimeline .arrow {display:block; width:22px; height: 22px;}
 #resultsTimeline #slider {position:relative; float:left; width: 727px; margin: 5px 0px 0px 67px;}
 #resultsTimeline #scrollbar {height: 30px; margin-top: 3px; background:url(/images/scrollbar/scrollbar.gif) no-repeat 37px -33px;}
-#resultsTimeline .ui-slider .ui-slider-handle {background:url(/images/scrollbar/scrollbar.gif) -88px 0px; 
+#resultsTimeline .ui-slider .ui-slider-handle {background:url(/images/scrollbar/scrollbar.gif) -88px 0px;
  width: 133px; height:22px; margin-top: -5px; margin-left: -66px; position:absolute; z-index: 2;}
 #resultsTimeline .ui-slider-horizontal {height: 0.8em;}
 
