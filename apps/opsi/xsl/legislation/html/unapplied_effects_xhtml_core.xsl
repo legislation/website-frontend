@@ -34,8 +34,8 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 	<xsl:variable name="largerEffects"
 								as="element(ukm:UnappliedEffect)*"
 								select="($effects except $commencementOrders)
-													[ukm:AffectedProvisions//*[name() = 'ukm:Section'][@Missing = 'true'] or
-													     ukm:AffectedProvisions//ukm:SectionRange[@MissingStart = 'true' or @MissingEnd = 'true'] or
+													[ukm:AffectedProvisions//*[name() = 'ukm:Section'][@FoundRef or @Missing = 'true'] or
+													     ukm:AffectedProvisions//ukm:SectionRange[@FoundStart or @FoundEnd or @MissingStart = 'true' or @MissingEnd = 'true'] or
 													 @AffectedProvisions[normalize-space(lower-case(.)) = $largerProvisions]]" />
 	<xsl:variable name="sectionEffects"
 								as="element(ukm:UnappliedEffect)*"
