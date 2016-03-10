@@ -2234,18 +2234,19 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			</xsl:variable>
 <!-- Mark R 11/04/2014: Call HA054841 - Action HH518119: Additional check that the current ListItem does not have a NumberOverride attribute.
 		If it does then the parent number is not output. -->
-			<xsl:if test="not(preceding-sibling::leg:ListItem) and parent::leg:OrderedList/parent::leg:ListItem/parent::leg:OrderedList and not(@NumberOverride)">
+			<!-- Mark J 12/11/2015: Call HA066563: Removed as output of parent ListItem enumerator duplicates this content so seems to serve little purpose -->
+			<!--<xsl:if test="not(preceding-sibling::leg:ListItem) and parent::leg:OrderedList/parent::leg:ListItem/parent::leg:OrderedList and not(@NumberOverride)">
 				<div class="{concat('LegLeftNo', $strListClass, 'No', $strAmendmentSuffix, ' LegListItemNo')}">
 					<xsl:for-each select="ancestor::leg:ListItem[1]">
 						<xsl:call-template name="FuncOutputListItemNumber"/>
 					</xsl:for-each>
 				</div>
-			</xsl:if>
+			</xsl:if>-->
 			<div>
 				<xsl:attribute name="class">
-					<xsl:if test="not(preceding-sibling::leg:ListItem) and parent::leg:OrderedList/parent::leg:ListItem/parent::leg:OrderedList and not(@NumberOverride)">
+					<!--<xsl:if test="not(preceding-sibling::leg:ListItem) and parent::leg:OrderedList/parent::leg:ListItem/parent::leg:OrderedList and not(@NumberOverride)">
 						<xsl:text>LegRightNo</xsl:text>
-					</xsl:if>
+					</xsl:if>-->
 					<xsl:value-of select="$strListClass"/>
 					<xsl:text>No</xsl:text>
 					<xsl:if test="preceding-sibling::leg:ListItem or not(parent::leg:OrderedList/parent::leg:ListItem/parent::leg:OrderedList)">
