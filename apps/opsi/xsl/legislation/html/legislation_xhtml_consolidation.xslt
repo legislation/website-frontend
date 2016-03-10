@@ -932,7 +932,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					</span>
 				</p>
 				<xsl:choose>
-					<xsl:when test="self::leg:Part and (every $text in .//leg:Text satisfies normalize-space(replace($text, '.' , '')) = '')">
+					<xsl:when test="self::leg:Part and (every $text in .//leg:Text satisfies normalize-space(replace($text, '\.' , '')) = '')">
 						<xsl:call-template name="FuncProcessRepealedMajorHeading" />
 						<p>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</p>
 						<xsl:apply-templates select="." mode="ProcessAnnotations"/>
