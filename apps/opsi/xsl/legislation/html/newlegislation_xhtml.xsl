@@ -258,6 +258,19 @@ Added in welsh language support for UI.
 								<p><xsl:value-of select="leg:TranslateText('Feed2')"/></p>
 								
 								<p><xsl:value-of select="leg:TranslateText('Feed3')"/></p>					
+
+								<p><strong><xsl:value-of select="leg:TranslateText('Feed4')"/></strong>					
+								<xsl:value-of select="leg:TranslateText('Feed5')"/>					
+								<a>
+										<xsl:attribute name="href">
+											<xsl:value-of select="leg:TranslateText('FeedLink')"/>
+										</xsl:attribute>
+										<xsl:attribute name="target">
+											<xsl:text>_blank</xsl:text>
+										</xsl:attribute>
+										<xsl:value-of select="leg:TranslateText('Feed6')"/>
+									</a>
+								</p>					
 							</div>
 						</div>			
 					</div>					

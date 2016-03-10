@@ -501,6 +501,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Feed1" translated="false" stage2="true">Feeds enable you to see when websites have added new content. By using the legislation feeds you can get details of the latest legislation as soon as it is published without having to check the new legislation page each day.</resource>
 		<resource id="Feed2" translated="false" stage2="true">There are many types of feed (such as RSS and Atom). This site provides Atom feeds which can be used in most news readers. To use the feeds you will need a newsreader or a browser enabled device.</resource>
 		<resource id="Feed3" translated="false" stage2="true">To receive the feed to your newsreader either drag the orange feed button or cut and paste the link of the feed into your news reader.</resource>
+		<resource id="Feed4">Chrome users: </resource>
+		<resource id="Feed5">Google Chrome doesn’t have any in-built support for RSS feeds. To view an RSS feed using this browser you will need to download a free extension to Google Chrome from the</resource>
+		<resource id="Feed6">Google Chrome Store.</resource>
+		<resource id="FeedLink">https://chrome.google.com/webstore/search/rss%20feed%20reader?hl=en</resource>
 
 		<!-- Text on Page -http://www.legislation.gov.uk/cy/browse-->
 		<resource id="Acts of the Old Scottish Parliament 1424-1707">Deddfau Hen Senedd yr Alban 1424 – 1707</resource>
@@ -770,6 +774,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Feed1">Feeds enable you to see when websites have added new content. By using the legislation feeds you can get details of the latest legislation as soon as it is published without having to check the new legislation page each day.</resource>
 		<resource id="Feed2">There are many types of feed (such as RSS and Atom). This site provides Atom feeds which can be used in most news readers. To use the feeds you will need a newsreader or a browser enabled device.</resource>
 		<resource id="Feed3">To receive the feed to your newsreader either drag the orange feed button or cut and paste the link of the feed into your news reader.</resource>
+		<resource id="Feed4">Chrome users: </resource>
+		<resource id="Feed5">Google Chrome doesn’t have any in-built support for RSS feeds. To view an RSS feed using this browser you will need to download a free extension to Google Chrome from the</resource>
+		<resource id="Feed6">Google Chrome Store.</resource>
+		<resource id="FeedLink">https://chrome.google.com/webstore/search/rss%20feed%20reader?hl=en</resource>
 
 		<!-- Browse -->
 		<resource id="Browse_Back">Back to all legislation</resource>

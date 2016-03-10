@@ -1286,6 +1286,8 @@ exclude-result-prefixes="tso atom">
 		<xsl:call-template name="FuncApplyVersions"/>
 	</xsl:template>
 
+
+
 	<xsl:template match="leg:EnactingText">
 		<fo:block font-size="{$g_strBodySize}" text-align="justify" space-after="30pt">
 			<xsl:if test="/leg:Legislation/leg:Contents">
@@ -2769,7 +2771,7 @@ exclude-result-prefixes="tso atom">
 		</xsl:choose>
 	</xsl:template>
 
-	<xsl:template match="leg:CitationSubRef">
+	<xsl:template match="leg:CitationSubRef[@URI]">
 		<fo:basic-link color="{$g_strLinkColor}">
 			<xsl:attribute name="external-destination">
 				<!-- The relationship may be one-to-may so if is just link to first no -->
@@ -2796,8 +2798,10 @@ exclude-result-prefixes="tso atom">
 			<xsl:apply-templates/>
 		</fo:basic-link>
 	</xsl:template>
-
-	<xsl:template match="leg:Citation">
+<xsl:template match="leg:CitationSubRef[not(@URI)]">
+    <xsl:apply-templates/>
+</xsl:template>
+	<xsl:template match="leg:Citation[@URI]">
 		<fo:basic-link color="{$g_strLinkColor}">
 			<!--<xsl:call-template name="TSOgetID"/>-->
 			<xsl:attribute name="external-destination">
@@ -2808,6 +2812,9 @@ exclude-result-prefixes="tso atom">
 			<xsl:apply-templates/>
 		</fo:basic-link>
 	</xsl:template>
+<xsl:template match="leg:Citation[not(@URI)]">
+    <xsl:apply-templates/>
+</xsl:template>
 
 	<xsl:template match="leg:SignedSection">
 		<fo:block font-size="{$g_strBodySize}" space-before="24pt">
