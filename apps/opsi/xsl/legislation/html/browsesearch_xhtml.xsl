@@ -610,6 +610,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<li class="number"><xsl:value-of select="leg:TranslateText('Count')"/><span class="accessibleText"><xsl:text> </xsl:text><xsl:value-of select="leg:TranslateText('of results')"/></span></li>
 				</ul>
 
+				<p class="explanation">The counts below reflect the number of documents on legislation.gov.uk that match the search for items of this legislation type and are not intended to reflect the total legislation made or enacted in a particular year.</p>
 				
 				<div id="timeline">
 					<div id="timelineData">
