@@ -795,7 +795,11 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:choose>
 		<xsl:when test="every $child in (leg:* except (leg:Number, leg:Title))
 				satisfies ((($child/@Match = 'false' and $child/@RestrictEndDate) and not($child/@Status = 'Prospective') and
-				   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() ))) or ($child/@Match = 'false' and $child/@Status = 'Repealed'))">
+				   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() ))) or ($child/@Match = 'false' and $child/@Status = 'Repealed')
+				   or (
+				  (:  allowance for prosp repeals made by EPP  :)
+				  $child/@Match = 'false' and $child/@Status = 'Prospective' and (every $text in .//leg:Text satisfies normalize-space(replace($text, '\.' , '')) = '')
+				   ))">
 			<xsl:call-template name="FuncProcessRepealedMajorHeading" />
 			<p>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</p>
 			<xsl:apply-templates select="." mode="ProcessAnnotations"/>

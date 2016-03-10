@@ -1407,8 +1407,12 @@ exclude-result-prefixes="tso atom">
 	<xsl:template match="leg:Part | leg:Body | leg:Schedules | leg:Pblock | leg:PsubBlock" priority="60">
 		<xsl:choose>
 			<xsl:when test="every $child in (leg:* except (leg:Number, leg:Title))
-				satisfies (($child/@Match = 'false' and $child/@RestrictEndDate and not($child/@Status = 'Prospective')
-				) or  ($child/@Match = 'false' and $child/@Status = 'Repealed'))">
+				satisfies ((($child/@Match = 'false' and $child/@RestrictEndDate) and not($child/@Status = 'Prospective') and
+				   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() ))) or ($child/@Match = 'false' and $child/@Status = 'Repealed')
+				   or (
+				  (:  allowance for prosp repeals made by EPP  :)
+				  $child/@Match = 'false' and $child/@Status = 'Prospective' and (every $text in .//leg:Text satisfies normalize-space(replace($text, '\.' , '')) = '')
+				   ))">
 				<xsl:apply-templates select="leg:Number | leg:Title" />
 				<fo:block>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</fo:block>
 				<xsl:apply-templates select="." mode="ProcessAnnotations"/>

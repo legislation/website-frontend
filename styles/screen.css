@@ -1053,10 +1053,10 @@ button.userFunctionalElement {background:#676767 url(/images/chrome/grey_button.
 /* end of Modal windows */
 
 /* link bgs - use the #layout1 to overide cascadence where needed */
-#layout1 a.pdfLink {background: url(/images/chrome/iconSprites.gif) no-repeat 0px -1320px; padding-left: 23px; padding-top: 5px; padding-bottom: 5px}
-#layout1 a.htmLink {background: url(/images/chrome/iconSprites.gif) no-repeat 0 -1443px;  padding-left: 23px}
+#layout1 a.pdfLink {background: url(/images/chrome/iconSprites.gif) no-repeat 0px -1320px; padding-left: 30px; padding-top: 5px; padding-bottom: 5px}
+#layout1 a.htmLink {background: url(/images/chrome/iconSprites.gif) no-repeat 0 -1443px;  padding-left: 30px}
 /* end of link bgs */
-#layout1 a.signlangLink {background: url(/images/chrome/signlanguage.png) no-repeat; padding-left: 23px}
+#layout1 a.signlangLink {background: url(/images/chrome/signlanguage24px.png) no-repeat; padding-left: 30px}
 /* end of link bgs */
 
 /* View PDF versions of Leg */

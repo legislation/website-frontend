@@ -434,8 +434,8 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 	<!-- cop generation of an associated document list item -->
 	<xsl:template match="ukm:OtherDocument[@Type='signlang']" mode="AssociatedDocuments">
 		<li>
-			<a href="{@URI}" class="signlangLink">
-				<xsl:value-of select="@Title"/>
+			<a href="{@URI}" class="signlangLink" target="_default">
+				<xsl:value-of select="@Title"/>  <img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)" />
 			</a>
 			<xsl:text>   </xsl:text>
 			<!--<span class="filesize"><xsl:sequence select="tso:GetFileSize($size)"/></span>-->
