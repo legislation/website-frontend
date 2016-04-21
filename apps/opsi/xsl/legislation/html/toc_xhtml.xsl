@@ -766,7 +766,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:variable name="status" select="leg:GetCodeSchemaStatus(/)" />
 					
 						<xsl:for-each select="/leg:Legislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative">
-							<xsl:sort select="@Title = 'Print Version'" order="descending" />
+							<xsl:sort select="@Title = 'Print Version' and not(@Revised)" order="descending" />
+							<xsl:sort select="xs:date(@Revised)" order="descending" />
 							<xsl:sort select="@Title"/>
 							<!-- put English first -->
 							<xsl:sort select="exists(@Language)" />
