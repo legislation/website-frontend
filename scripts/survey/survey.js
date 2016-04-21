@@ -19,7 +19,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
  */
  $(document).ready(function(){
 	 
-	 var link = "http://surveyanalytics.com/t/AFNKsZNyBb";
+	 var link = "http://www.smartsurvey.co.uk/s/204Y1";
 	 
 	 $("body").append('<div id="feedback"><a href="#" /></div><div id="survey"></div>');	 
 	 
