@@ -234,8 +234,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 					<xsl:apply-templates select="ukm:Metadata//*[not(name() = 'ukm:ImpactAssessment' or name() = 'ukm:Supersedes')][@URI]" mode="AssociatedDocuments">
 						<!-- alternative versions first -->
 						<xsl:sort select="@Title = 'Print Version'" order="descending" />
-						<xsl:sort select=". instance of element(ukm:Alternative) and not(./@Revised)" order="descending" />
-						<xsl:sort select="xs:date(self::ukm:Alternative/@Revised)" order="descending" />
+						<xsl:sort select=". instance of element(ukm:Alternative)" order="descending" />
 						<!-- ENs & EMs after print PDFs -->
 						<xsl:sort select="exists(ancestor::ukm:Notes)" order="descending" />
 						<!-- group by type - this comes first as we cannot trust the title -->
