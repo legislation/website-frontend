@@ -1353,7 +1353,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:otherwise>
 			<xsl:if test="not(ancestor::leg:MarginNote)">
 				<!-- Chunyu Added if condition for empty text -->
-				<xsl:if test=". !=''">
+				<!-- Mark Jones HA064261: Allowed output of images when they appear as children of leg:Text element -->
+				<xsl:if test=". !='' or leg:Image">
 					<!--Chunyu HA051074 Added a condition for the instance of ukci/2010/5/note/sld/created-->
 					<!--2013-04-30 Update to HA051074 GC -->
 					<!--This fix needs to be a very specific otherwise it has knock on effects to other legislation -->
@@ -1983,6 +1984,22 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:variable name="intHeadingLevel">
 		<xsl:call-template name="FuncCalcHeadingLevel"/>
 	</xsl:variable>
+	<!--HA065320: hack to fix issue with dodgy sld structure. List should have been set up as a table but for some reason is 
+	a unordered list in a P2 paragraph with the Pnumber replaced by the table heading "PART II". TNA refused to amend the source 
+	data as it had passed validation so had to be resolved by this workaround-->
+	<xsl:if test="(following-sibling::leg:P2/leg:Pnumber) and (starts-with(following-sibling::leg:P2[1]/leg:Pnumber[1],'PART'))">
+		<xsl:element name="h{$intHeadingLevel}">
+			<xsl:call-template name="FuncCheckForID"/>
+			<xsl:attribute name="class">
+				<xsl:text>LegP2GroupTitle</xsl:text>
+				<xsl:if test="$strAmendmentSuffix != ''">
+					<xsl:text> LegP2GroupTitle</xsl:text>
+					<xsl:value-of select="$strAmendmentSuffix"/>
+				</xsl:if>
+			</xsl:attribute>
+			<strong><xsl:value-of select="following-sibling::leg:P2/leg:Pnumber"/></strong>
+		</xsl:element>
+	</xsl:if>
 	<xsl:element name="h{$intHeadingLevel}">
 		<xsl:call-template name="FuncCheckForID"/>
 		<xsl:attribute name="class">

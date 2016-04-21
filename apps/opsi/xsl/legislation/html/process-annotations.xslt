@@ -133,7 +133,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		</xsl:variable>
 		<xsl:variable name="isDead" as="xs:boolean" select="@Status = 'Dead'" />
 		<xsl:variable name="isValidFrom" as="xs:boolean" select="@Match = 'false' and @RestrictStartDate and ((($version castable as xs:date) and xs:date(@RestrictStartDate) &gt; xs:date($version) ) or (not($version castable as xs:date) and xs:date(@RestrictStartDate) &gt; current-date() ))" />
-		<xsl:variable name="isRepealed" as="xs:boolean" select="@Match = 'false' and (not(@Status) or @Status != 'Prospective') and not($isValidFrom)"/>
+		<xsl:variable name="isRepealed" as="xs:boolean" select="(@Match = 'false' and (not(@Status) or @Status != 'Prospective') and not($isValidFrom)) or ($isRepealedAct and matches($currentURI, '/body|/schedules|/note'))"/>
 
 		<!-- when we have change annotations for insertion/addition/sub that spans multiple provisions but is not part of a whole part/schedule/chapter change then each provision will need to be annotated when viewed from a higher level
 	- see ukpga/2003/42/schedule/3 for example-->

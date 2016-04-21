@@ -75,6 +75,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <xsl:variable name="uriPrefix" select="tso:GetUriPrefixFromType(/leg:Legislation/ukm:Metadata//ukm:DocumentMainType/@Value, $legislationYear)"/>
 <xsl:variable name="dcIdentifier" select="/leg:Legislation/ukm:Metadata/dc:identifier"/>
 <xsl:variable name="isWrap" as="xs:boolean" select="$paramsDoc/parameters/wrap='true'"/>
+<xsl:variable name="isRepealedAct" select="matches((/leg:Legislation/ukm:Metadata/dc:title)[1], '\((repealed|revoked)(\s*[\d]{1,2}\.[\d]{1,2}\.[\d]{4}\s*)?\)\s*$', 'i')"/>
 
 <xsl:param name="version" as="xs:string" select="($paramsDoc/parameters/version, '')[1]"/>
 <xsl:variable name="contentsLinkParams" as="xs:string" select="if ($paramsDoc/parameters/extent[. != '']) then '?view=extent' else ''" />
@@ -140,7 +141,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		leg:P4para[.//leg:Repeal[@SubstitutionRef]] | leg:P5para[.//leg:Repeal[@SubstitutionRef]] | leg:P6para[.//leg:Repeal[@SubstitutionRef]] | leg:P7para[.//leg:Repeal[@SubstitutionRef]]"
 		priority="100">
 	<xsl:param name="showRepeals" select="false()" tunnel="yes" />			
-	<xsl:if test="$selectedSectionSubstituted or not(tso:isSubstituted(.)) or $showRepeals or .//leg:Repeal/@Extent">
+	<xsl:if test="$selectedSectionSubstituted or not(tso:isSubstituted(.)) or $showRepeals or .//leg:Repeal/@Extent or .//leg:Repeal[@RetainText='true']">
 		<xsl:next-match />
 	</xsl:if>
 </xsl:template>
@@ -170,7 +171,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <xsl:template match="leg:Repeal[@SubstitutionRef]">
 	<xsl:param name="showRepeals" select="false()" tunnel="yes" />	
 	
-	<xsl:if test="$selectedSectionSubstituted or $showRepeals or @Extent">
+	<xsl:if test="$selectedSectionSubstituted or $showRepeals or @Extent or @RetainText='true'">
 		<xsl:next-match />
 	</xsl:if>
 </xsl:template>
@@ -791,17 +792,21 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <!--Every child that's repealed has @Match = 'false' and @RestrictEndDate not @Status = 'Prospective': -->
 <!--Chunyu HA049670 Changed priority from 50 to 51 since it conflicts with the template of line 955 see nisi/2007/1351 part -->
-<xsl:template match="leg:Part | leg:Body | leg:Schedules | leg:Pblock | leg:PsubBlock" priority="51">
-	<xsl:variable name="isBody" select="./root()/leg:Legislation/@DocumentURI = $dcIdentifier"/>
+<xsl:template match="leg:Part | leg:Body | leg:Schedules | leg:Pblock | leg:PsubBlock | leg:ExplanatoryNotes | leg:SignedSection " priority="51">
+	<xsl:variable name="isWholeActView" select="./root()/leg:Legislation/@DocumentURI = $dcIdentifier"/>
+	<xsl:variable name="isBodyView" select="matches($dcIdentifier, '/body')"/>
+	<xsl:variable name="isSchedulesView" select="matches($dcIdentifier, '/schedules')"/>
+	<xsl:variable name="isSignatureView" select="matches($dcIdentifier, '/signature')"/>
 	<xsl:variable name="documentURI" select="@DocumentURI"/>
-	<xsl:variable name="repealedText" select="if ($isBody) then 'act repeal' else 'repeal'"/>
+	<xsl:variable name="repealedText" select="if ($isWholeActView) then 'act\s+(repeal|revoked|omitted)' else 'repeal'"/>
+	<!--<xsl:variable name="isRepealedAct" select="matches((ancestor::leg:Legislation/ukm:Metadata/dc:title)[1], '\(repealed\)\s*$')"/>-->
 	<xsl:variable name="commentary" as="xs:string*" 
-			select="if ($isBody) then 
+			select="if ($isWholeActView) then 
 						./root()//(leg:PrimaryPrelims|leg:SecondaryPrelims)//leg:CommentaryRef/@Ref
+					else if ($isBodyView or $isSchedulesView) then 
+						./root()//(leg:Primary|leg:Secondary)/leg:CommentaryRef/@Ref
 					else leg:CommentaryRef/@Ref|(leg:Number|leg:Title)/leg:CommentaryRef/@Ref"/>
-	<xsl:choose>
-		<xsl:when test="($documentURI = ($dcIdentifier) or $isBody) and 
-				(every $child in (leg:* except (leg:Number, leg:Title)) satisfies 
+	<xsl:variable name="isRepealed" select="(every $child in (leg:* except (leg:Number, leg:Title)) satisfies 
 					(
 						(
 							($child/@Match = 'false' and $child/@RestrictEndDate) and 
@@ -815,18 +820,35 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					 or ($child/@Match = 'false' and $child/@Status = 'Repealed')
 				   or (
 				  (:  allowance for prosp repeals made by EPP  :)
-						$child/@Match = 'false' and $child/@Status = 'Prospective' and 
-						(some $text in $commentary satisfies matches(string(/leg:Legislation/leg:Commentaries/leg:Commentary[@id = $text]), $repealedText, 'i')
+						$child/@Match = 'false' and matches($child/@Status, 'prospective|repealed', 'i') and 
+						(some $text in $commentary satisfies matches(string(/leg:Legislation/leg:Commentaries/leg:Commentary[@id = $text][1]), $repealedText, 'i')
 						)  and 
 						(exists($child//leg:Text) or exists($child//xhtml:td)) and 
 						(every $text in ($child//leg:Text | $child//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = '')
 						)
 					)
-				)">
+				) or 
+				(	(:  the explanatory notes do not appear to always have an enddate or status attribute so we must infer the repeal  :)
+					self::leg:ExplanatoryNotes and (
+					every $child in (leg:* except (leg:Number, leg:Title)) satisfies
+					(exists($child//leg:Text) or exists($child//xhtml:td)) and 
+					(every $text in ($child//leg:Text | $child//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = ''))
+				)"/>
+	
+					
+	<xsl:choose>
+		<xsl:when test="$isWholeActView and $isRepealedAct and $isRepealed">
+			
+		</xsl:when>
+		<xsl:when test="$isSignatureView and self::leg:Body">
+			<xsl:apply-templates/>
+		</xsl:when>
+		<xsl:when test="($documentURI = ($dcIdentifier) or $isSchedulesView or $isBodyView) and $isRepealed">
 			<xsl:call-template name="FuncProcessRepealedMajorHeading" />
 			<p>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</p>
 			<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 		</xsl:when>
+		
 		<xsl:otherwise>
 			<xsl:next-match />
 		</xsl:otherwise>
@@ -903,7 +925,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		  satisfies (($child/@Match = 'false' and $child/@RestrictEndDate and not($child/@Status = 'Prospective')) and
 				   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() ))) or ($child/@Match = 'false' and $child/@Status = 'Repealed')
 				   or (
-				   (some $text in $commentary satisfies matches(string(/leg:Legislation/leg:Commentaries/leg:Commentary[@id = $text]), 'repeal', 'i')) and (exists(.//leg:Text) or exists(.//xhtml:td)) and (every $text in (.//leg:Text | .//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = '')
+				   (some $text in $commentary satisfies matches(string(/leg:Legislation/leg:Commentaries/leg:Commentary[@id = $text]), 'repeal|revoked|omitted', 'i')) and (exists(.//leg:Text) or exists(.//xhtml:td)) and (every $text in (.//leg:Text | .//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = '')
 				   ))">
 			<p class="LegArticleRef">
 				<xsl:for-each select="leg:Reference">
@@ -957,7 +979,12 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:param name="showingProspective" tunnel="yes" as="xs:boolean" select="false()" />
 	<xsl:variable name="documentURI" select="@DocumentURI"/>
 	<xsl:variable name="commentary" as="xs:string*" select="leg:CommentaryRef/@Ref|(leg:Number|leg:Title)/leg:CommentaryRef/@Ref"/>
+	
 	<xsl:choose>
+		<!-- do not display anything for repealed schedules when viewed from the whole legislation  -->
+		<xsl:when test="self::leg:Schedules and preceding-sibling::leg:Body and not(matches($dcIdentifier, 'schedules$')) and $isRepealedAct and (exists(.//leg:Text) or exists(.//xhtml:td)) and (every $text in (.//leg:Text | .//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = '')">
+		
+		</xsl:when>
 		<xsl:when test="not($showingProspective)">
 			<div class="LegBlockNotYetInForce">
 				<p class="LegClearFix LegBlockNotYetInForceHeading">
@@ -966,7 +993,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					</span>
 				</p>
 				<xsl:choose>
-					<xsl:when test="$documentURI = ($dcIdentifier) and (self::leg:Part or self::leg:Pblock or self::leg:Schedule) and (some $text in $commentary satisfies matches(string(/leg:Legislation/leg:Commentaries/leg:Commentary[@id = $text]), 'repeal', 'i')) and (exists(.//leg:Text) or exists(.//xhtml:td)) and (every $text in (.//leg:Text | .//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = '')">
+					<xsl:when test="$documentURI = ($dcIdentifier) and (self::leg:Part or self::leg:Pblock or self::leg:Schedule) and (some $text in $commentary satisfies matches(string(/leg:Legislation/leg:Commentaries/leg:Commentary[@id = $text]), 'repeal|revoked|omitted', 'i')) and (exists(.//leg:Text) or exists(.//xhtml:td)) and (every $text in (.//leg:Text | .//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = '')">
 						<xsl:call-template name="FuncProcessRepealedMajorHeading" />
 						<p>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</p>
 						<xsl:apply-templates select="." mode="ProcessAnnotations"/>
@@ -1684,6 +1711,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:variable name="isDead" as="xs:boolean" select="$fragment/@Status = 'Dead'" />
 	<xsl:variable name="isValidFrom" as="xs:boolean" select="$fragment/@Match = 'false' and $fragment/@RestrictStartDate and ((($version castable as xs:date) and xs:date($fragment/@RestrictStartDate) &gt; xs:date($version) ) or (not($version castable as xs:date) and xs:date($fragment/@RestrictStartDate) &gt; current-date() ))" />
 	<xsl:variable name="isRepealed" as="xs:boolean" select="$fragment/@Match = 'false' and (not($fragment/@Status) or $fragment/@Status != 'Prospective') and not($isValidFrom)"/>
+	
 	<xsl:variable name="commentary" as="element(leg:Commentary)?" select="key('commentary', $commentaryRef/(@Ref | @CommentaryRef), $commentaryRef/root())" />
 	<xsl:sequence select="tso:showCommentary($commentary, $isRepealed, $isDead)" />
 </xsl:function>
