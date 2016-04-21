@@ -153,8 +153,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		) then true() else false()"/>
 
 
-<xsl:message><xsl:value-of select="(self::*/@id, descendant::*[@id]/@id)[1]"/>:<xsl:value-of select="$multiple-provision-annotations"/>:<xsl:value-of select="local-name() = 'P1group' and not(ancestor::leg:BlockAmendment) and 
-				(some $c in preceding-sibling::*[self::leg:P1group]//descendant::leg:CommentaryRef/@Ref satisfies $c= ($commentaryRefs/@Ref))"/></xsl:message>
+<!--<xsl:message><xsl:value-of select="(self::*/@id, descendant::*[@id]/@id)[1]"/>:<xsl:value-of select="$multiple-provision-annotations"/>:<xsl:value-of select="local-name() = 'P1group' and not(ancestor::leg:BlockAmendment) and 
+				(some $c in preceding-sibling::*[self::leg:P1group]//descendant::leg:CommentaryRef/@Ref satisfies $c= ($commentaryRefs/@Ref))"/></xsl:message>-->
 
 
 		<xsl:variable name="showComments" as="element(leg:Commentary)*">
