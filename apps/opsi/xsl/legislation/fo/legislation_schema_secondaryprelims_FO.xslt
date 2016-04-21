@@ -126,6 +126,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:if>
 		
 		<xsl:apply-templates select="/leg:Legislation/leg:Secondary/leg:Body"/>
+		
+		<!-- #HA057536 - MJ: output resources if file contains no main content -->
+		<xsl:apply-templates select="/leg:Legislation/leg:Resources[not(preceding-sibling::leg:Secondary)]"/>
+		
 		<!--<xsl:if test="not(/leg:Legislation/*/leg:Schedules)">
 			<xsl:apply-templates select="$statusWarningHTML" mode="statuswarning"/>
 		</xsl:if>-->

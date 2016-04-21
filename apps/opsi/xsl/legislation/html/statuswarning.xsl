@@ -63,7 +63,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				<xsl:choose>
 					<xsl:when test="leg:IsRevisedVersionExists(.)">
 						<xsl:choose>
-							<xsl:when test="leg:IsOustandingEffectExists(.)">
+							<xsl:when test="leg:IsOutstandingEffectExists(.)">
 								<xsl:choose>
 									<xsl:when test="leg:IsEnactedExists(.)">
 										<xsl:choose>
@@ -910,9 +910,9 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 			'UnitedKingdomStatutoryInstrument','ScottishStatutoryInstrument', 'WelshStatutoryInstrument', 'NorthernIrelandStatutoryRule' )"/>
 	</xsl:function>
 
-	<xsl:function name="leg:IsOustandingEffectExists" as="xs:boolean">
+	<xsl:function name="leg:IsOutstandingEffectExists" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
-		<xsl:sequence select="count($legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata)/ukm:UnappliedEffects) > 0"/>
+		<xsl:sequence select="count($legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata)/ukm:UnappliedEffects/ukm:UnappliedEffect[not(@RequiresApplied='false')]) > 0"/>
 	</xsl:function>
 	
 	<xsl:function name="leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate" as="xs:boolean">

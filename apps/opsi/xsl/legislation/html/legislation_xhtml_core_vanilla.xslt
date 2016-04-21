@@ -1292,6 +1292,15 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 								<!-- Chunyu added condition for p1para/p3group/title see uksi19922792 schedule  HA048533-->
 <!--								<xsl:if test="not(parent::leg:P3para/ancestor::leg:P3group[1]/parent::leg:P1para) and not (normalize-space(.) = '')">-->
 								<!-- Mark R removed (normalize-space(.) = '') as it prevented item number displaying if there was an empty part before a <Repeal> element. See NISI 2007/916 section 39 2(b) annotated version half way down  -->
+								<!--<xsl:if test="parent::leg:P3para/preceding-sibling::*[1][self::leg:Pnumber] and
+												ancestor::leg:P3[preceding-sibling::*[1][self::leg:Text][normalize-space(.) = '']]/parent::leg:P1para[preceding-sibling::*[1][self::leg:Pnumber]]">
+									
+										<xsl:for-each select="ancestor::leg:P1/leg:Pnumber">
+											<xsl:call-template name="FuncCheckForID"/>
+											<xsl:apply-templates select="."/>
+										</xsl:for-each>
+									
+								</xsl:if>-->
 								<xsl:if test="not(parent::leg:P3para/ancestor::leg:P3group[1]/parent::leg:P1para)">
 									<span class="LegDS LegLHS {concat('Leg', name(parent::*/parent::*), 'No', $strAmendmentSuffix)}">
 										<xsl:for-each select="parent::*/preceding-sibling::leg:Pnumber">
@@ -1399,12 +1408,21 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	</xsl:choose>
 </xsl:template>
 	
-<!-- Chunyu Added the following two specific templates to mach P1para/Text[empty]/P3/P3para/text. It is very rare.  see call HA048670 SI 20111824 schedule 1-->
+<!-- Chunyu Added the following two specific templates to mach P1para/Text[empty]/P3/P3para/text. It is very rare.  see call HA048607 SI 20111824 schedule 1-->
 	<!-- CRM changed the match from 
 		match="leg:P1para/leg:Text[$g_strDocumentType = $g_strSecondary and self::leg:Text[normalize-space() = '']
 	and parent::leg:P1para[preceding-sibling::*[1][self::leg:Pnumber]]]"
-		to as it is now so that it does not causes duplicate number error see Sunrise HA052087 -->
-	<xsl:template match="leg:P1para/leg:Text[$g_strDocumentType = $g_strSecondary and self::leg:Text[normalize-space() = '' and leg:P3para/leg:Text] and parent::leg:P1para[preceding-sibling::*[1][self::leg:Pnumber]]]" priority="1000">
+		to as it is now so that it does not causes duplicate number error see Sunrise HA052087 
+		
+		GC 2016-03-11
+		This needs to work for the following cases so that numbers output to the provisions in agreement with the enacted pdf 
+		This addresses issues raised by HA48607, HA052087 and HA069944
+		/uksi/2011/1824/schedule/1/made
+		/wsi/2016/58/schedule/1/made
+		/nisi/2002/3150/article/21
+		/nisi/1990/1504/article/62
+		-->
+	<xsl:template match="leg:P1para[leg:P3/leg:P3para/leg:Text]/leg:Text[$g_strDocumentType = $g_strSecondary and self::leg:Text[normalize-space() = ''] and parent::leg:P1para[preceding-sibling::*[1][self::leg:Pnumber]]]" priority="1000">
 	<p class="LegP1ParaText">
 		<xsl:apply-templates select="parent::leg:P1para/preceding-sibling::leg:Pnumber"/>
 	</p>
@@ -1415,7 +1433,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:call-template name="FuncCalcAmendmentNo"/>
 	</xsl:variable>
 	<p class="LegClearFix LegP3Container">
-		<span class="LegDS LegLHS {concat('Leg', name(parent::*/parent::*), 'No', $strAmendmentSuffix)}">
+		 <span class="LegDS LegLHS {concat('Leg', name(parent::*/parent::*), 'No', $strAmendmentSuffix)}">
 			<xsl:for-each select="parent::*/preceding-sibling::leg:Pnumber">
 				<xsl:for-each select="..">
 					<xsl:call-template name="FuncCheckForID"/>
@@ -3150,8 +3168,12 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 
 <!-- ========== Resources ========== -->
-
-<xsl:template match="leg:Resources"/>
+<!-- #HA057536 - MJ: output resources if file contains no main content -->
+<xsl:template match="leg:Resources">
+	<xsl:if test="not(preceding-sibling::leg:Primary or preceding-sibling::leg:Secondary)">
+		<xsl:apply-templates/>
+	</xsl:if>
+</xsl:template>
 
 <xsl:template match="leg:ResourceGroup">
 	<xsl:param name="strContext"/>
@@ -3249,6 +3271,11 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:for-each select="$rtfNormalisedDoc">
 		<xsl:apply-templates select="//*[@ResourceReplacement = 'True']"/>
 	</xsl:for-each>
+	
+	<!-- #HA057536 - MJ: output XML content within resource if file contains no main content -->
+	<xsl:if test="not(ancestor::leg:Resources/(preceding-sibling::leg:Primary, preceding-sibling::leg:Secondary))">
+		<xsl:apply-templates select="leg:InternalVersion/leg:XMLcontent/node()"/>
+	</xsl:if>
 	
 </xsl:template>
 

@@ -334,8 +334,8 @@ exclude-result-prefixes="tso atom">
 			
 
 			
-			
-			<xsl:if test="(/leg:Legislation/*/leg:Body | /leg:Legislation/*/leg:PrimaryPrelims  | /leg:Legislation/*/leg:SecondaryPrelims) and $g_view != 'contents' and not(/leg:Legislation/leg:Contents)">
+			<!-- #HA057536 - MJ: output resources if file contains no main content -->
+			<xsl:if test="(/leg:Legislation/*/leg:Body | /leg:Legislation/*/leg:PrimaryPrelims  | /leg:Legislation/*/leg:SecondaryPrelims | /leg:Legislation/leg:Resources[not(preceding-sibling::leg:Primary or preceding-sibling::leg:Secondary)]) and $g_view != 'contents' and not(/leg:Legislation/leg:Contents)">
 				
 				<fo:page-sequence master-reference="main-sequence" initial-page-number="1" letter-value="auto" xml:lang="{$g_documentLanguage}">
 
@@ -1206,6 +1206,12 @@ exclude-result-prefixes="tso atom">
 				</xsl:next-match>
 			</xsl:otherwise>
 		</xsl:choose>
+	</xsl:template>
+	
+	<!-- #HA057536 - MJ: output XML content within resource if file contains no main content -->
+	<xsl:template match="leg:Resources[not(preceding-sibling::leg:Primary or preceding-sibling::leg:Secondary)]">
+		<fo:block id="StartOfContent"/>
+		<xsl:apply-templates select="leg:Resource/leg:InternalVersion/leg:XMLcontent/node()"/>
 	</xsl:template>
 
 	<!-- Adding Annotations for parent levels if the current section is dead/repeal -->

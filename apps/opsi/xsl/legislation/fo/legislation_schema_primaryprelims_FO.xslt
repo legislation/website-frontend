@@ -243,6 +243,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:apply-templates select="/leg:Legislation/leg:Primary/leg:PrimaryPrelims" mode="ProcessAnnotations"/>-->
 			<xsl:apply-templates select="/leg:Legislation/leg:Primary/leg:Body"/>
 			
+			<!-- #HA057536 - MJ: output resources if file contains no main content -->
+			<xsl:apply-templates select="/leg:Legislation/leg:Resources[not(preceding-sibling::leg:Primary)]"/>
+			
 			<!-- this is a bodge fix to get around a FOP issue when there is not enough space on the end page for all the footnotes but if it takes a footnote over to the next page then there is enough space for the content to fit in on the first page where it tries to render the footnote back on the first page thus resulting in a loop --> 
 			<xsl:if test="/leg:Legislation/leg:Footnotes">
 				<fo:block font-size="{$g_strBodySize}" space-before="36pt" text-align="left" keep-with-next="always">
