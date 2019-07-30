@@ -851,7 +851,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					select="tso:GetNumberForLegislation(@AffectedClass, @AffectedYear, @AffectedNumber)"
 				/>
 			</xsl:variable>
-			<xsl:variable name="link" select="concat($langPrefix,'/', tso:GetUriPrefixFromType(@AffectedClass, @AffectedYear), '/', @AffectedYear, '/', @AffectedNumber)"/>
+			<xsl:variable name="link" select="concat('/id/', tso:GetUriPrefixFromType(@AffectedClass, @AffectedYear), '/', @AffectedYear, '/', @AffectedNumber)"/>
 			<xsl:sequence select="leg:makeLink(@AffectedClass, $link, $effectedYearNumber)"/>
 		</td>
 	</xsl:template>
@@ -973,7 +973,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:apply-templates />
 			</xsl:when>
 			<xsl:otherwise>
-				<a href="{concat($langPrefix,'/',substring-after(@URI, 'www.legislation.gov.uk/id/'))}">
+				<a href="/{substring-after(@URI, 'www.legislation.gov.uk/')}">
 					<xsl:apply-templates />
 				</a>
 			</xsl:otherwise>

@@ -85,7 +85,7 @@ table th a {color: #494949;}
 ---------------*/
 
 /* Setting page furniture */
-#header {background: #FFF; /* this needs to be set for IE*/ min-height:7.5em; display: block; width:972px; margin: 0 auto;}
+#header {background: #FFF; /* this needs to be set for IE*/ min-height:7.5em; display: block; width:958px; margin: 0 auto;}
 #background {background: #424240; height: 22em; display: block; clear: left;}
 #footer {clear: both; padding: 10px 0; width: 970px; margin: 0 auto; background: #F6FAFD; border-top: 1px solid #CCC}
 #layout1 { background: #fff; display: block;}

@@ -1222,7 +1222,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<!-- ========== Standard code for outputing legislation content ========= -->
 
 	<xsl:template name="TSOOutputLegislationContent">
-		<div id="viewLegContents">
+		<div id="viewLegContents" xml:lang="{if(contains((/leg:Legislation/ukm:Metadata/dc:identifier)[1],'/cy/')) then 'cy' else 'en'}">
 			<div class="LegSnippet" id="viewLegSnippet">
 
 				<!-- adding the tocControlsAddress to the table of contents when it is not PDFOnly-->

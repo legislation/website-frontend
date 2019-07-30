@@ -329,7 +329,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	
 	<xsl:template name="TSOOutputLegislationContent">
 		<div id="viewLegContents">
-			<div class="LegSnippet">
+			<div class="LegSnippet" xml:lang="{$language}">
 				<xsl:choose>
 					<xsl:when test="leg:IsEnPDFOnly(.)">
 						<!-- If EN/EM is only available in PDFOnly then display PDF link -->

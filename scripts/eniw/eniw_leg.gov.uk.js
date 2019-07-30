@@ -37,6 +37,8 @@ $.fn.ENInterweave = function () {
 		var $LEX_BLOCK = $(this);
 		var pageHasENLinks = false; // Controls display of the global show/hide button
 		
+		var $welsh = $('.LegSnippet:first').parent().attr('xml:lang') == 'cy';
+		
 		/*
 		 * Replace default 'show EN' HTML function with AJAX actions
 		 */
@@ -46,21 +48,23 @@ $.fn.ENInterweave = function () {
 		* Add Global show hide button
 		*/
 		if (pageHasENLinks) {
-			addGlobalShowHideBtn($LEX_BLOCK);
+			addGlobalShowHideBtn($LEX_BLOCK, $welsh);
 		}
 		
 		/*
 		 * Button functions
 		 */
-		function addGlobalShowHideBtn($prependTo) {
+		function addGlobalShowHideBtn($prependTo, $welsh) {
+
+			var $globalShowHideBtn = $('<a id="__ENExpandExplanatory" style="position: absolute;right: 8px;z-index: 2;"/>');
 			
-			var $globalShowHideBtn = $('<a id="__ENExpandExplanatory"/>');
-		
+			$collaspsText = $welsh ? "Cau\'r holl Nodiadau Esboniadol" : 'Collapse All Explanatory Notes (ENs)';
+			$expandedText = $welsh ? 'Ehangu\'r holl Nodiadau Esboniadol' :  'Expand All Explanatory Notes (ENs)';
 			// Use .data() to add btn text to the object for self contained data
 			$globalShowHideBtn
 			.data('text', {
-				uiCollapseText: 'Collapse All Explanatory Notes (ENs)',
-				uiExpandText: 'Expand All Explanatory Notes (ENs)'
+				uiCollapseText: $collaspsText,
+				uiExpandText: $expandedText
 			})
 			.html(function() {
 				// Show appropriate text label on init
@@ -127,7 +131,7 @@ $.fn.ENInterweave = function () {
 		function addShowHideENBtn() {
 			
 			__debuglog('Amending HTML request to AJAX request');
-			
+			var $welsh = $('.LegSnippet:first').parent().attr('xml:lang') == 'cy';
 			// Find relevant links and attach 
 			$('.noteLink').each(function() {
 				pageHasENLinks = true;
@@ -143,7 +147,7 @@ $.fn.ENInterweave = function () {
 					// bind a show event to the link
 					
 					// Only perform AJAX request if the fragment hasn't been download before.
-					var $text = ($UIElement.text() =='Dangos EN')? $UIElement.text("Cuddio EN"): $UIElement.text("Hide EN");
+					var $text = $welsh ? $UIElement.text("Cuddio EN"): $UIElement.text("Hide EN");
 					if(!$UIElement.data('ENFragGot')) {
 						$.get($UIElement.attr('href') + '/data.xht', function(ENContent) {
 							
@@ -176,7 +180,7 @@ $.fn.ENInterweave = function () {
 				})
 			   	.bind( "hideENFragment", function() { 
 			   		// bind a hide event to the link
-					var $text = ($UIElement.text() =='Cuddio EN')? $UIElement.text("Dangos EN"): $UIElement.text("Show EN");
+					var $text = $welsh? $UIElement.text("Dangos EN"): $UIElement.text("Show EN");
 					if(AttrEnId != false) {
 						// Hide EN fragment
 						$("#"+AttrEnId).hide();

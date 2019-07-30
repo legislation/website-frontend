@@ -573,21 +573,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="New_intro_2_2_3"> na’r dyddiad y cafodd ei deddfu. </resource>
 		<resource id="New_tracking_1">
 			Rhestrir yr holl Fesurau sydd ger bron Senedd y Deyrnas Unedig ar hyn o bryd ar wefan 
-			<a href="http://www.parliament.uk/">Senedd y Deyrnas Unedig</a> 
+			<a href="http://www.parliament.uk/" target="_blank">Senedd y Deyrnas Unedig</a> 
 			yn yr adran 
-			<a href="http://services.parliament.uk/bills/">Busnes, Mesurau a Deddfwriaeth Seneddol</a> 
+			<a href="http://services.parliament.uk/bills/" target="_blank">Busnes, Mesurau a Deddfwriaeth Seneddol</a> 
 			sydd hefyd yn dangos pa gam y mae’r Mesur wedi ei gyrraedd ar ei daith trwy’r Senedd.
 		</resource>
 		<resource id="New_tracking_2">
 			Gellir gweld hanes y trafodaethau seneddol sy’n ymwneud â Mesurau yn Senedd y Deyrnas Unedig yn 
-			<a href="http://www.parliament.uk/business/publications/">Hansard</a>, 
+			<a href="http://www.parliament.uk/business/publications/" target="_blank">Hansard</a>, 
 			yr adroddiad air am air sydd wedi ei olygu o weithrediadau Tŷ’r Cyffredin a Thŷ’r Arglwyddi.
 		</resource>
 		<resource id="New_tracking_3">
 			Gellir dod o hyd i’r holl Fesurau sydd ar hyn o bryd ger bron 
-			<a href="http://www.scottish.parliament.uk/parliamentarybusiness/Bills.aspx">Senedd yr Alban</a>, 
-			<a href="http://www.niassembly.gov.uk/assembly-business/legislation/2016-2021-mandate/primary-legislation---current-bills/">Cynulliad Gogledd Iwerddon</a> 
-			a <a href="https://www.assemblywales.org">Chynulliad Cenedlaethol Cymru</a> ar y gwefannau Seneddol a Chynulliad Cenedlaethol unigol.
+			<a href="http://www.scottish.parliament.uk/parliamentarybusiness/Bills.aspx" target="_blank">Senedd yr Alban</a>, 
+			<a href="http://www.niassembly.gov.uk/assembly-business/legislation/2016-2021-mandate/primary-legislation---current-bills/" target="_blank">Cynulliad Gogledd Iwerddon</a> 
+			a <a href="https://www.assemblywales.org" target="_blank">Chynulliad Cenedlaethol Cymru</a> ar y gwefannau Seneddol a Chynulliad Cenedlaethol unigol.
 		</resource>
 		<resource id="site_logo_legislation">legislation_logo_welsh</resource>
 		<resource id="New_tracking_1_1">Rhestrir yr holl Fesurau sydd ger bron Senedd y Deyrnas Unedig ar hyn o bryd ar wefan Senedd y Deyrnas Unedig</resource>
@@ -950,8 +950,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<resource id="Legislation and UK Law">Deddfwriaeth a Chyfraith y Deyrnas Unedig</resource>
 			<resource id="New_and_amended_title">Deddfwriaeth Newydd</resource>
 			<resource id="New_and_amended_para_1">Mynnwch y wybodaeth ddiweddaraf am ddeddfwriaeth newydd ei deddfu ar gyfer y Deyrnas Unedig, Yr Alban, Cymru a Gogledd Iwerddon fel maent yn cael eu cyhoeddi ar y safle hwn gan ddefnyddio’r porthiant tanysgrifio rhad ac am ddim, neu trwy bori trwy ddeddfwriaeth newydd yn ôl dyddiad cyhoeddi. Rhestrir pob Mesur sydd ger bron Senedd y Deyrnas Unedig ar hyn o bryd ar wefan
-				<a href="http://www.parliament.uk/">Senedd y Deyrnas Unedig</a> yn yr adran 
-				<a href="http://services.parliament.uk/bills/">Mesurau, Deddfwriaeth a Busnes Seneddol</a>. Maent yn cael eu cyhoeddi ar y safle hwn ar ôl derbyn y Cydsyniad Brenhinol.
+				<a href="http://www.parliament.uk/" target="_blank">Senedd y Deyrnas Unedig</a> yn yr adran 
+				<a href="http://services.parliament.uk/bills/" target="_blank">Mesurau, Deddfwriaeth a Busnes Seneddol</a>. Maent yn cael eu cyhoeddi ar y safle hwn ar ôl derbyn y Cydsyniad Brenhinol.
 			</resource>
 			<resource id="New_and_amended_link">Pori deddfwriaeth newydd</resource>
 			<resource id="Legislation_published_today">Deddfwriaeth a gyhoeddwyd heddiw</resource>
@@ -1043,7 +1043,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Original_Print_PDF_EU">PDF Print Gwreiddiol o Fersiwn Cyfnodolyn Swyddogol yr UE</resource>
 		<resource id="Original_Print_PDF_UK_created" translated="false" stage2="true">Original Print PDF of as created Version</resource>
 		<!-- End PDF Version -->
-		<resource id="Copyright_Statement">Mae’r holl gynnwys ar gael dan <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" rel="license">Drwydded Llywodraeth Agored v3.0</a> ac eithrio ble nodir yn wahanol. Yn ychwanegol mae’r safle hwn â chynnwys sy’n deillio o EUR-Lex, a ailddefnyddiwyd dan delerau <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32011D0833">Penderfyniad y Comisiwn 2011/833/EU</a> ar ailddefnyddio dogfennau o sefydliadau’r UE. Am ragor o wybodaeth gweler ddatganiad cyhoeddus <a href="https://eur-lex.europa.eu/content/legal-notice/legal-notice.html">Swyddfa Gyhoeddiadau’r UE ar ailddefnyddio</a>.</resource>
+		<resource id="Copyright_Statement">Mae’r holl gynnwys ar gael dan <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" target="_blank" rel="license">Drwydded Llywodraeth Agored v3.0</a> ac eithrio ble nodir yn wahanol. Yn ychwanegol mae’r safle hwn â chynnwys sy’n deillio o EUR-Lex, a ailddefnyddiwyd dan delerau <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32011D0833" target="_blank">Penderfyniad y Comisiwn 2011/833/EU</a> ar ailddefnyddio dogfennau o sefydliadau’r UE. Am ragor o wybodaeth gweler ddatganiad cyhoeddus <a href="https://eur-lex.europa.eu/content/legal-notice/legal-notice.html" target="_blank">Swyddfa Gyhoeddiadau’r UE ar ailddefnyddio</a>.</resource>
 		<resource id="No In Force">Nid oes data Mewn Grym ar gael ar gyfer y ddogfen hon</resource>
 		<resource id="date">dyddiad</resource>
 		<resource id="Date of document">Dyddiad y ddogfen</resource>
@@ -1188,8 +1188,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="New_intro_2_2_2">listed by publication date</resource>
 		<resource id="New_intro_2_2_3"> rather than the date on which it was enacted.</resource>
 		<resource id="New_tracking_1">All Bills currently before the UK Parliament are listed on the 
-			<a href="http://www.parliament.uk/">UK Parliament</a> website in the 
-			<a href="http://services.parliament.uk/bills/">Parliamentary Business, Bills &amp; Legislation</a>  
+			<a href="http://www.parliament.uk/" target="_blank">UK Parliament</a> website in the 
+			<a href="http://services.parliament.uk/bills/" target="_blank">Parliamentary Business, Bills &amp; Legislation</a>  
 			section which also shows what stage a Bill has reached on its passage through Parliament.
 		</resource>
 		<resource id="New_tracking_1_1">All Bills currently before the UK Parliament are listed on the </resource>
@@ -1199,7 +1199,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="New_tracking_1_5" > section which also shows what stage a Bill has reached on its passage through Parliament. </resource>
 		<resource id="New_tracking_2">
 			The history of the parliamentary debates relating to Bills in the UK Parliament can be found in 
-			<a href="http://www.parliament.uk/business/publications/">Hansard</a> 
+			<a href="http://www.parliament.uk/business/publications/" target="_blank">Hansard</a> 
 			the edited verbatim report of proceedings of both the House of Commons and the House of Lords.
 		</resource>
 		<resource id="New_tracking_2_1">The history of the parliamentary debates relating to Bills in the UK Parliament can be found in </resource>
@@ -1207,10 +1207,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="New_tracking_2_3">the edited verbatim report of proceedings of both the House of Commons and the House of Lords. </resource>
 		<resource id="New_tracking_3">
 			All Bills currently before the 
-			<a href="http://www.scottish.parliament.uk/parliamentarybusiness/Bills.aspx">Scottish Parliament</a>, 
-			<a href="http://www.niassembly.gov.uk/assembly-business/legislation/2016-2021-mandate/primary-legislation---current-bills/">Northern Ireland Assembly</a>
+			<a href="http://www.scottish.parliament.uk/parliamentarybusiness/Bills.aspx" target="_blank">Scottish Parliament</a>, 
+			<a href="http://www.niassembly.gov.uk/assembly-business/legislation/2016-2021-mandate/primary-legislation---current-bills/" target="_blank">Northern Ireland Assembly</a>
 			and the 
-			<a href="https://www.assemblywales.org">National Assembly for Wales</a> 
+			<a href="https://www.assemblywales.org" target="_blank">National Assembly for Wales</a> 
 			can be found on the individual national Parliamentary and Assembly websites. 
 		</resource>
 		<resource id="New_tracking_3_1">All Bills currently before the </resource>
@@ -1493,8 +1493,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			Stay up to date with newly enacted legislation for the UK, Scotland, Wales and Northern Ireland as it is published 
 			to this site using our free subscription feeds, or by browsing new legislation by publication date. 
 			All Bills currently before the UK Parliament are listed on the 
-			<a href="http://www.parliament.uk/">UK Parliament</a> website in the 
-			<a href="http://services.parliament.uk/bills/">Parliamentary Business, Bills &amp; Legislation</a> section. 
+			<a href="http://www.parliament.uk/" target="_blank">UK Parliament</a> website in the 
+			<a href="http://services.parliament.uk/bills/" target="_blank">Parliamentary Business, Bills &amp; Legislation</a> section. 
 			They are published on this site once they receive Royal Assent.
 		</resource>
 		<resource id="New_and_amended_link">Browse new legislation</resource>
@@ -1597,7 +1597,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Original_Print_PDF_EU">Original Print PDF of EU Official Journal Version</resource>
 		<resource id="Original_Print_PDF_UK_created">Original Print PDF of as created Version</resource>
 		<!-- End PDF Version -->
-		<resource id="Copyright_Statement">All content is available under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" rel="license">Open Government Licence v3.0</a> except where <a href="/contributors">otherwise stated</a>. This site additionally contains content derived from EUR-Lex, reused under the terms of the <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32011D0833">Commission Decision 2011/833/EU</a> on the reuse of documents from the EU institutions. For more information see the <a href="https://eur-lex.europa.eu/content/legal-notice/legal-notice.html">EUR-Lex public statement on re-use</a>.</resource>
+		<resource id="Copyright_Statement">All content is available under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3" target="_blank" rel="license">Open Government Licence v3.0</a> except where <a href="/contributors">otherwise stated</a>. This site additionally contains content derived from EUR-Lex, reused under the terms of the <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32011D0833" target="_blank">Commission Decision 2011/833/EU</a> on the reuse of documents from the EU institutions. For more information see the <a href="https://eur-lex.europa.eu/content/legal-notice/legal-notice.html" target="_blank">EUR-Lex public statement on re-use</a>.</resource>
 		<resource id="No In Force">There is no In Force data available for this document</resource>
 		<resource id="Original (As adopted)">Original (As adopted by EU)</resource>
 		<resource id="Date of document"/>
