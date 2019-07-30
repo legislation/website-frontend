@@ -1334,7 +1334,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<!-- Needed to e.g. show the 2nd paragraph number ("(10)") in ukpga/2013/26/section/7 subsection (4). --> 
 		<!-- Unlike the "when" above, we don't want to include the "LegDS LegSN1No..." span, or  the para number will be displayed too far to the left.-->
 		<xsl:when test="not(preceding-sibling::*)
-			 and parent::*[(self::leg:P1para and ancestor::*[self::leg:BlockAmendment][1][self::leg:BlockAmendment[@Context = 'unknown' and descendant::leg:P1group]] and $g_strDocumentType = $g_strPrimary)]/preceding-sibling::*[1][self::leg:Pnumber] and ancestor::leg:P2[1]/preceding-sibling::leg:P2[not(descendant::leg:BlockAmendment)][contains(lower-case(descendant::leg:P2para/leg:Text),'schedule')]">
+			 and parent::*[(self::leg:P1para and ancestor::*[self::leg:BlockAmendment][1][self::leg:BlockAmendment[@Context = 'unknown' and descendant::leg:P1group]] and $g_strDocumentType = $g_strPrimary)]/preceding-sibling::*[1][self::leg:Pnumber] and ancestor::leg:P2[1]/preceding-sibling::leg:P2[not(descendant::leg:BlockAmendment)][contains(lower-case(descendant::leg:P2para/leg:Text[1]),'schedule')]">
 			<p class="LegClearFix LegP2Container">
 				<xsl:call-template name="FuncCheckForID"/>				
 				<xsl:for-each select="parent::*/preceding-sibling::leg:Pnumber">
