@@ -809,10 +809,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<xsl:when test="@Language = 'Mixed'"> - Mixed Language</xsl:when>
 										<xsl:when test="exists(@Language)">
 											<xsl:text> - </xsl:text>
-											<xsl:value-of select="@Language" />
+											<xsl:value-of select="concat(@Language, ' Language') " />
 										</xsl:when>
-										<xsl:when test="matches(@URI, '_en(_[0-9]{3})?.pdf$')"> - English</xsl:when>
-										<xsl:when test="matches(@URI, '_we(_[0-9]{3})?.pdf$')"> - Welsh</xsl:when>
+										<xsl:when test="matches(@URI, '_en(_[0-9]{3})?.pdf$')"> - English Language</xsl:when>
+										<xsl:when test="matches(@URI, '_we(_[0-9]{3})?.pdf$')"> - Welsh Language</xsl:when>
 										<xsl:when test="matches(@URI, '_mi(_[0-9]{3})?.pdf$')"> - Mixed Language</xsl:when>
 									</xsl:choose>
 								</xsl:if>
@@ -820,7 +820,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<xsl:variable name="title" as="xs:string">
 								<xsl:choose>
 									<!-- if there is no title then display the download label-->
-									<xsl:when test="@Title = '' or not(@Title)"><xsl:value-of select="leg:TranslateText($strLanguageSuffix)" /></xsl:when>
+									<xsl:when test="@Title = '' or not(@Title)">
+										<xsl:value-of select="leg:TranslateText(if (@Language = 'Mixed' and string-length($strLanguageSuffix) eq 0) 
+																				then 'Mixed Language' 
+																				else $strLanguageSuffix)" />
+									</xsl:when>
 									<!-- if the title is print then display the Download label-->
 									<xsl:when test="@Title = 'Print Version' or @Title = 'Mixed Language Measure'"><xsl:value-of select="leg:TranslateText($strLanguageSuffix)" /></xsl:when>
 									<!-- for anything else display the title -->
@@ -841,7 +845,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</xsl:choose>
 									
 									<xsl:if test="string-length($title) ne 0 and not(@Revised)">
-										<xsl:value-of select="concat(' ', $title)"/>
+										<xsl:choose>
+											<xsl:when test="string-length($strLanguageSuffix) ne 0">
+												<xsl:value-of select="$title"/>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:value-of select="concat(' - ', $title)"/>
+											</xsl:otherwise>
+										</xsl:choose>
 									</xsl:if>
 								</a>	
 							</li>
