@@ -417,6 +417,18 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 		<xsl:sequence select="tso:makeAssociatedDocListItem(@URI,concat($draftText, 'Code of Practice'),@Size)"/>
 	</xsl:template>	
 
+	<!-- ed generation of an associated document list item -->
+	<xsl:template match="ukm:ExplanatoryDocument" mode="AssociatedDocuments">
+		<xsl:variable name="draftText" as="xs:string?" select="if ($isDraft) then 'Draft ' else ()"/>
+		<xsl:sequence select="tso:makeAssociatedDocListItem(@URI,concat($draftText, 'Explanatory Document'),@Size)"/>
+	</xsl:template>	
+
+	<!-- pes generation of an associated document list item -->
+	<xsl:template match="ukm:PolicyEqualityStatement" mode="AssociatedDocuments">
+		<xsl:variable name="draftText" as="xs:string?" select="if ($isDraft) then 'Draft ' else ()"/>
+		<xsl:sequence select="tso:makeAssociatedDocListItem(@URI,concat($draftText, 'Policy Equality Statement'),@Size)"/>
+	</xsl:template>	
+
 	
 	<!-- this will generate the list item for associated documents from the supplied parameters -->
 	<xsl:function name="tso:makeAssociatedDocListItem" as="element(xhtml:li)">

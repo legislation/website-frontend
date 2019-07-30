@@ -153,7 +153,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="documentMainType" as="xs:string" select="$item/*/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:ENmetadata | ukm:Legislation)/ukm:DocumentClassification/ukm:DocumentMainType/@Value" />
 	<xsl:sequence select="
 		(: PDF documents :)
-		exists($item/*/ukm:Metadata/(ukm:Notes|ukm:Alternatives|ukm:TableOfDestinations|ukm:TableOfOrigins|ukm:CorrectionSlip|ukm:TableOfEffects|ukm:CodeOfPractice|ukm:OrderInCouncil|ukm:OrdersInCouncil|ukm:OtherDocument)//*[contains(@URI, '.pdf')]) or
+		exists($item/*/ukm:Metadata/(ukm:Notes|ukm:Alternatives|ukm:TableOfDestinations|ukm:TableOfOrigins|ukm:CorrectionSlip|ukm:TableOfEffects|ukm:CodeOfPractice|ukm:OrderInCouncil|ukm:OrdersInCouncil|ukm:OtherDocument|ukm:ExplanatoryDocuments|ukm:ExplanatoryDocument|ukm:PolicyEqualityStatements|ukm:PolicyEqualityStatement)//*[contains(@URI, '.pdf')]) or
 		(: reference to draft legislation :)
 		$item/*/ukm:Metadata/ukm:Supersedes or
 		(: revised legislation reference to affects on this :)
