@@ -283,7 +283,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<li> <a id="nidsr" href="{$TranslateLangPrefix}/nidsr"><xsl:value-of select="leg:TranslateText('Northern Ireland Draft Statutory Rules')"/><span></span></a> </li>
 									<li> <a id="wdsi" href="{$TranslateLangPrefix}/wdsi"><xsl:value-of select="leg:TranslateText('Wales Draft Statutory Instruments')"/><span></span></a> </li>
 									<li> <a id="sdsi" href="{$TranslateLangPrefix}/sdsi"><xsl:value-of select="leg:TranslateText('Scottish Draft Statutory Instruments')"/><span></span></a> </li>
-									<li> <a id="nidsi" href="{$TranslateLangPrefix}/nidsi"><xsl:value-of select="leg:TranslateText('Northern Ireland Draft Orders in Council')"/><span></span></a> </li>
 								</ul>
 							</div>
 							<div class="s_8 p_one quickLinks">					
@@ -485,7 +484,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<li> <a id="mnia" href="{$TranslateLangPrefix}/mnia"><xsl:value-of select="leg:TranslateText('Northern Ireland Assembly Measures')"/> 1974<span></span></a> </li>
 									<li> <a id="apni" href="{$TranslateLangPrefix}/apni"><xsl:value-of select="leg:TranslateText('Acts of the Northern Ireland Parliament')"/> 1921-1972<span></span></a> </li>
 									<li> <a id="nidsr" href="{$TranslateLangPrefix}/nidsr"><xsl:value-of select="leg:TranslateText('Northern Ireland Draft Statutory Rules')"/><span></span></a> </li>
-									<li> <a id="nidsi" href="{$TranslateLangPrefix}/nidsi"><xsl:value-of select="leg:TranslateText('Northern Ireland Draft Orders in Council')"/><span></span></a> </li>
 								</ul>
 							</div>
 							<div class="s_4 p_two legCol">

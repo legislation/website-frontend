@@ -1012,38 +1012,48 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	</xsl:choose>
 </xsl:template>
 
-<xsl:template match="leg:P1[@NotesURI] | leg:Schedule[@NotesURI]" mode="showEN">
-	<xsl:variable name="enType" 
-		select="if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/notes/toc' and not(@hreflang = 'cy')]/@href) then 'notes'
-					else if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/executive-note/toc']/@href) then 'executive-notes'
-					else if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/policy-note/toc' and not(@hreflang = 'cy')]/@href) then 'policy-notes'
-					else if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/memorandum/toc' and not(@hreflang = 'cy')]/@href) then 'memorandum'
-					else '' "/>
-	<xsl:variable name="enXML" as="xs:string*"	select="/leg:Legislation/ukm:Metadata/ukm:Notes/ukm:Note/@DocumentURI"/>				
-	
-	<!--  the en XML exists if we have a document uri for it  -->	
-	<xsl:if test="$enType != ''">
-		<div class="eniw">
-			<span class="enNote">
-				<xsl:value-of select="leg:TranslateText(if ($enType = 'executive-notes') then 'Executive Note' 
-											   else if ($enType = 'policy-notes') then 'Policy Notes'
-											   else if ($enType = 'memorandum') then 'Explanatory Memorandum' 
-											   else 'Explanatory Notes')"/>
-			</span>
-			<a class="LegDS noteLink" href="{substring-after(@NotesURI, 'http://www.legislation.gov.uk')}">
-				<xsl:value-of select="leg:TranslateText('Show')"/>
-				<xsl:text> </xsl:text>
-				<xsl:value-of select="if ($enType = 'executive-notes') then 'EN' 
-											   else if ($enType = 'policy-notes') then 'PN'
-											   else if ($enType = 'memorandum') then 'EM' 
-											   else 'EN'"/>
-			</a>
-		</div>		
-	</xsl:if>
+<xsl:template match="leg:P1[@NotesURI] | leg:Schedule[@NotesURI] | leg:Part[@NotesURI]" mode="showEN">
+
+   <!-- Condition stops duplicate EN links when viewing a Schedule which has Parts with ENs, e.g. http://www.legislation.gov.uk/ukpga/2015/21/schedule/1/enacted?view=interweave,
+      but displays links when viewing individual Parts, e.g. http://www.legislation.gov.uk/ukpga/2015/21/schedule/1/part/1/enacted?view=interweave, 
+      unless Part contains P1s with ENs, e.g. http://www.legislation.gov.uk/ukpga/2015/30/part/1/enacted?view=interweave. -->
+   <xsl:if test="self::leg:P1 or self::leg:Schedule or (self::leg:Part and . is $selectedSection and not(//leg:P1[@NotesURI]))">
+      
+      <xsl:variable name="enType" 
+   		select="if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/notes/toc' and not(@hreflang = 'cy')]/@href) then 'notes'
+   					else if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/executive-note/toc']/@href) then 'executive-notes'
+   					else if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/policy-note/toc' and not(@hreflang = 'cy')]/@href) then 'policy-notes'
+   					else if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/memorandum/toc' and not(@hreflang = 'cy')]/@href) then 'memorandum'
+   					else '' "/>
+   	<xsl:variable name="enXML" as="xs:string*"	select="/leg:Legislation/ukm:Metadata/ukm:Notes/ukm:Note/@DocumentURI"/>				
+   	
+   	<!--  the en XML exists if we have a document uri for it  -->	
+   	<xsl:if test="$enType != ''">
+   		<div class="eniw">
+   			<span class="enNote">
+   				<xsl:value-of select="leg:TranslateText(if ($enType = 'executive-notes') then 'Executive Note' 
+   											   else if ($enType = 'policy-notes') then 'Policy Notes'
+   											   else if ($enType = 'memorandum') then 'Explanatory Memorandum' 
+   											   else 'Explanatory Notes')"/>
+   			</span>
+   			<a class="LegDS noteLink" href="{substring-after(@NotesURI, 'http://www.legislation.gov.uk')}">
+   				<xsl:value-of select="leg:TranslateText('Show')"/>
+   				<xsl:text> </xsl:text>
+   				<xsl:value-of select="if ($enType = 'executive-notes') then 'EN' 
+   											   else if ($enType = 'policy-notes') then 'PN'
+   											   else if ($enType = 'memorandum') then 'EM' 
+   											   else 'EN'"/>
+   			</a>
+   		</div>		
+   	</xsl:if>
+      
+
+   </xsl:if>
+
 </xsl:template>
 
 <xsl:template match="leg:P1 | leg:Schedule" mode="showEN">
-	<xsl:if test=". is $selectedSection or parent::leg:P1group is $selectedSection">
+   <xsl:if test=". is $selectedSection or parent::leg:P1group is $selectedSection">
 		<xsl:variable name="enType" 
 			select="if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/notes/toc' and not(@hreflang = 'cy')]/@href) then 'notes'
 						else if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/executive-note/toc']/@href) then 'executive-notes'
