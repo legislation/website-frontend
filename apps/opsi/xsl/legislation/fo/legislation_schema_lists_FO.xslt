@@ -17,47 +17,50 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <!--HA054109: match altered as FOP doesn't like empty list-block elements-->
 <xsl:template match="leg:UnorderedList[leg:ListItem/leg:Para/leg:Text/node()]">
 	<xsl:for-each select="leg:ListItem">
-	<fo:block>
-		<xsl:if test="parent::leg:P1para">
-			<xsl:attribute name="margin-left">6pt</xsl:attribute>
-		</xsl:if>
-		<xsl:variable name="intProvDistance" as="xs:integer">
-			<xsl:choose>
-				<xsl:when test="ancestor::leg:ListItem">24</xsl:when>
-				<xsl:when test="@Decoration = 'dash'">36</xsl:when>
-				<xsl:otherwise>24</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-		<fo:list-block provisional-label-separation="6pt" space-before="{$g_strStandardParaGap}" provisional-distance-between-starts="{$intProvDistance}pt">
-			<xsl:if test="ancestor::xhtml:table and $g_flSuppressTableLineSpace">
-				<xsl:attribute name="space-before">0pt</xsl:attribute>
-			</xsl:if>
-			
-				<fo:list-item space-before="{$g_strStandardParaGap}">
+		<!-- HA074029: further check to prevent empty list-block elements causing FOP errors in, e.g. http://www.legislation.gov.uk/uksi/2006/1003/data.pdf-->
+		<xsl:if test="not(ancestor::leg:Schedule) or not(leg:Para/leg:Text/leg:Repeal) or normalize-space(leg:Para/leg:Text/leg:Repeal) != normalize-space(.) or $selectedSectionSubstituted or $showRepeals">
+			<fo:block>
+				<xsl:if test="parent::leg:P1para">
+					<xsl:attribute name="margin-left">6pt</xsl:attribute>
+				</xsl:if>
+				<xsl:variable name="intProvDistance" as="xs:integer">
+					<xsl:choose>
+						<xsl:when test="ancestor::leg:ListItem">24</xsl:when>
+						<xsl:when test="@Decoration = 'dash'">36</xsl:when>
+						<xsl:otherwise>24</xsl:otherwise>
+					</xsl:choose>
+				</xsl:variable>
+				<fo:list-block provisional-label-separation="6pt" space-before="{$g_strStandardParaGap}" provisional-distance-between-starts="{$intProvDistance}pt">
 					<xsl:if test="ancestor::xhtml:table and $g_flSuppressTableLineSpace">
 						<xsl:attribute name="space-before">0pt</xsl:attribute>
 					</xsl:if>
-					<xsl:call-template name="TSOgetID"/>
-					<fo:list-item-label end-indent="label-end()">
-						<fo:block font-size="{$g_strBodySize}" text-align="right" font-weight="bold">
-							<xsl:choose>
-								<xsl:when test="parent::*/@Decoration = 'dash'">&#8212;</xsl:when>
-								<!-- Put other values here -->
-							</xsl:choose>
-						</fo:block>						
-					</fo:list-item-label>
-					<fo:list-item-body start-indent="body-start()">
-						<fo:block font-size="{$g_strBodySize}" text-indent="0pt" text-align="justify">
-							<xsl:if test="ancestor::xhtml:td">
-								<xsl:attribute name="text-align">left</xsl:attribute>
+					
+						<fo:list-item space-before="{$g_strStandardParaGap}">
+							<xsl:if test="ancestor::xhtml:table and $g_flSuppressTableLineSpace">
+								<xsl:attribute name="space-before">0pt</xsl:attribute>
 							</xsl:if>
-							<xsl:apply-templates/>
-						</fo:block>						
-					</fo:list-item-body>
-				</fo:list-item>						
-			
-		</fo:list-block>
-	</fo:block>
+							<xsl:call-template name="TSOgetID"/>
+							<fo:list-item-label end-indent="label-end()">
+								<fo:block font-size="{$g_strBodySize}" text-align="right" font-weight="bold">
+									<xsl:choose>
+										<xsl:when test="parent::*/@Decoration = 'dash'">&#8212;</xsl:when>
+										<!-- Put other values here -->
+									</xsl:choose>
+								</fo:block>						
+							</fo:list-item-label>
+							<fo:list-item-body start-indent="body-start()">
+								<fo:block font-size="{$g_strBodySize}" text-indent="0pt" text-align="justify">
+									<xsl:if test="ancestor::xhtml:td">
+										<xsl:attribute name="text-align">left</xsl:attribute>
+									</xsl:if>
+									<xsl:apply-templates/>
+								</fo:block>						
+							</fo:list-item-body>
+						</fo:list-item>						
+					
+				</fo:list-block>
+			</fo:block>
+		</xsl:if>
 	<!-- Hack to get around footnote issue in FOP - footnotes in lists/tables disappear!-->
 	<!-- not needed for FOP 1.0 -->
 		<xsl:if test="g_FOprocessor = 'FOP0.95'">
