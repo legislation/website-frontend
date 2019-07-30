@@ -51,7 +51,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<p>
 						<xsl:value-of select="leg:TranslateText('Foundref_p_1')"/>
 						<xsl:text> </xsl:text>
-						<a href="mailto: legislation@nationalarchives.gsi.gov.uk?subject=Legislation%20Enquiry?subject={$reference}">legislation@nationalarchives.gsi.gov.uk</a>
+						<a href="mailto: legislation@nationalarchives.gov.uk?subject=Legislation%20Enquiry?subject={$reference}">legislation@nationalarchives.gov.uk</a>
 						<xsl:text>.</xsl:text>
 					</p>
 					<p>
