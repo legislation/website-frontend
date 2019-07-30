@@ -164,7 +164,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</html>
 </xsl:template>
 
-<xsl:template match="@href[starts-with(., 'http://www.legislation.gov.uk/') and not(ends-with(.,'htm')) and not(ends-with(.,'feed')) and not(contains(., '/images/'))]" priority="100">
+	<xsl:template match="@href[starts-with(., 'http://www.legislation.gov.uk/') and not(ends-with(.,'htm')) and not(ends-with(.,'feed')) and not(ends-with(.,'pdf')) and not(contains(., '/images/'))]" priority="100">
 	<xsl:choose>
 		<xsl:when test="$TranslateLangPrefix !=''">
 			<xsl:variable name="uriAfterDomain" as="xs:string" select="substring-after(.,'http://www.legislation.gov.uk')"/>
