@@ -23,6 +23,9 @@ html {overflow-y: scroll;} /* Stop any flickering caused by JS items being large
 input {background:transparent url(/images/chrome/home_form_shadow.gif) no-repeat scroll left top; border:1px solid #7B85AD; padding:5px 3px; margin-left: 10px; width: auto; vertical-align: middle;}
 select {vertical-align: middle;}
 
+#q  {width:95%; }
+.proximitytype {margin-left:10px;}
+
 .searchHelp {clear:both; width: 200px; background: #f0f0f0; padding: 5px}
 .searchHelp .icon {background: url(/images/chrome/advancedsearchicon.gif) no-repeat; position:absolute; left: -21px; top: 0; width:21px; height:54px; display: none}
 .searchHelp h2 {font-size: 1em}

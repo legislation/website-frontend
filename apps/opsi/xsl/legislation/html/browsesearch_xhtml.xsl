@@ -30,7 +30,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	
 		
 	<xsl:template match="atom:feed" mode="searchfacets">
-		<xsl:apply-templates select="leg:facets" mode="searchfacets"/>
+		<xsl:choose>
+			<xsl:when test="matches(atom:id, 'http://www.legislation.gov.uk/research/proximity/search')">
+				<div id="tools">
+					<!--<h2 class="accessibleText">Narrow results by:</h2>-->
+					<div class="section">
+						<div class="title">
+							<h2><a href="/research/proximity/search">Proximity Search</a></h2>
+						</div>
+					</div>
+				</div>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates select="leg:facets" mode="searchfacets"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	
 		

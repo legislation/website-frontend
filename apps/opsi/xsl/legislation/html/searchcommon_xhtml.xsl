@@ -371,7 +371,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:apply-templates select="$params[self::extent]" mode="summary" />
 				<xsl:apply-templates select="$params[self::version]" mode="summary" />
 			</xsl:variable>
-			<xsl:variable name="pageSize" as="xs:integer" select="openSearch:itemsPerPage"/>
+	
+			<xsl:variable name="pageSize" as="xs:integer?" select="openSearch:itemsPerPage"/>
 			<h2>
 				<xsl:variable name="searchResultMessage">
 				<xsl:choose>
@@ -404,6 +405,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:when test="openSearch:totalResults = '0'">no results.</xsl:when>
 					<xsl:otherwise>
 						<xsl:choose>
+							<xsl:when test="$paramsDoc/parameters/count-only='true'">
+								<xsl:value-of select="openSearch:totalResults" />
+							</xsl:when>
 							<xsl:when test="openSearch:totalResults > 200">more than 200</xsl:when>
 							<xsl:when test="openSearch:totalResults">
 								<xsl:value-of select="openSearch:totalResults" />
@@ -444,6 +448,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</xsl:otherwise>
 				</xsl:choose>				
 			</h2>
+	
+	
+			
+			
 			<xsl:variable name="messages" as="xs:string*">
 				<xsl:if test="$sort = ''">
 					<xsl:value-of select="leg:TranslateText('Search results are ordered according to relevance.')"/>
@@ -892,8 +900,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			else if (ukm:DocumentMainType/@Value='UnitedKingdomImpactAssessment' and atom:link[@rel='alternate'][not(@type='application/pdf')]) 
 			then
 				substring-after(atom:link[@rel='alternate'][not(@type='application/pdf')][last()]/@href, 'http://www.legislation.gov.uk/')
+			else if (atom:link[@rel='self']/@href) then 
+				substring-after(atom:link[@rel='self']/@href, 'http://www.legislation.gov.uk/')
+			else if (ends-with(atom:link/@href,'made')) then
+				replace(substring-after(atom:link/@href,'http://www.legislation.gov.uk/'), '/made', '/contents/made')
+			else if (ends-with(atom:link/@href,'enacted')) then
+				replace(substring-after(atom:link/@href,'http://www.legislation.gov.uk/'), '/enacted', '/contents/enacted')
 			else
-				substring-after(atom:link[@rel='self']/@href, 'http://www.legislation.gov.uk/')"/>
+				substring-after(atom:link/@href,'http://www.legislation.gov.uk/')"/>
 		<xsl:variable name="hasWelshTitle" as="xs:boolean" select="atom:title/@type = 'xhtml'" />
 		<xsl:variable name="rowspan" as="attribute(rowspan)?">
 			<xsl:if test="$hasWelshTitle">
@@ -912,16 +926,27 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:if test="$hasWelshTitle">
 					<xsl:attribute name="class" select="'bilingual en'" />
 				</xsl:if>
-				<a href="/{$tocLink}">
-					<xsl:choose>
-						<xsl:when test="$hasWelshTitle">
-							<xsl:value-of select="atom:title/xhtml:div/xhtml:span[1]" />
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:value-of select="atom:title"/>
-						</xsl:otherwise>
-					</xsl:choose>
-				</a>
+				<xsl:choose>
+					<xsl:when test=".//xhtml:article">
+						<xsl:sequence select=".//xhtml:article"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<a href="/{$tocLink}">
+							<xsl:choose>
+								<xsl:when test="$hasWelshTitle">
+									<xsl:value-of select="atom:title/xhtml:div/xhtml:span[1]" />
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="atom:title"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</a>
+					</xsl:otherwise>
+				</xsl:choose>
+				
+				
+				
+				
 				<xsl:if test="ukm:SupersededBy">
 					<xsl:variable name="superseding" select="ukm:SupersededBy[1]" />
 					<br />
@@ -1076,6 +1101,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</xsl:for-each>
 					</xsl:if>
 				</h1>
+			</xsl:when>
+			<xsl:when test="matches(atom:feed/atom:id, 'http://www.legislation.gov.uk/research/proximity/search')">
+				<h1 id="pageTitle"><xsl:value-of select="leg:TranslateText('Proximity Search Results')"/></h1>
 			</xsl:when>
 			<xsl:otherwise>
 				<h1 id="pageTitle"><xsl:value-of select="leg:TranslateText('Search Results')"/></h1>
