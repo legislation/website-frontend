@@ -50,6 +50,14 @@ $(document).ready(function () {
     // Remove these values from the submitted form so that the backend doesn't need to handle them
     $theForm.clearDefaultValues();
 
+	//Search 'number' - leading or the trailing white spaces removed
+	$("#contentSearch").submit(function(){
+		$("#contentSearch #number").val($.trim($("#contentSearch #number").val()));
+	})	
+	$("#advancedSearch").submit(function(){
+		$("#searchNumber").val($.trim($("#searchNumber").val()));
+	})
+	
     // Add the datepicker for the Point in Time search
     addDatePicker();
 
