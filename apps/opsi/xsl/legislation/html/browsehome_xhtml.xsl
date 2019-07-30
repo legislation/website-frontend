@@ -99,7 +99,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:variable name="nonDraftTypes" select="$tso:legTypeMap[not(@class = ('draft','IA'))]" />
 						<xsl:variable name="draftTypes" select="$tso:legTypeMap[@class = 'draft']" />
 						<xsl:variable name="iaTypes" select="$tso:legTypeMap[@class = 'IA']" />
-						<xsl:variable name="defraLex" select="'DEFRA'" />
+						<xsl:variable name="defraLex" select="'Defra'" />
 						<div class="s_8 p_one infoArea">
 							<dl class="key">
 								<dt class="first"><img src="/images/chrome/mapExclusiveKeyIcon.gif" alt="A blue background" /></dt>
@@ -187,7 +187,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</div>
 						<div class="s_8 p_one infoArea">
 							<h2 class="s_7 p_one"><xsl:value-of select="leg:TranslateText('Departments')"/></h2>
-							<a href="#browseIaHelp" class="helpItemToMidLeft helpIcon p_two draftHelpIcon"><img src="/images/chrome/helpIcon.gif" alt="Draft Legislation Help" /></a>							
 							<div class="s_4 p_one legCol">
 								<ul class="legTypes">
 									<li><a id="'defralex'" href="{$TranslateLangPrefix}/defralex"><xsl:value-of select="$defraLex" /></a></li>
