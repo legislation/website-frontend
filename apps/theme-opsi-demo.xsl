@@ -327,6 +327,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<li><a href="{$TranslateLangPrefix}/sitemap"><xsl:value-of select="leg:TranslateText('Site Map')"/></a></li>
 			<li><a href="{$TranslateLangPrefix}/accessibility"><xsl:value-of select="leg:TranslateText('Accessibility')"/></a></li>
 			<li><a href="{$TranslateLangPrefix}/contactus"><xsl:value-of select="leg:TranslateText('Contact Us')"/></a></li>
+			<li><a href="{$TranslateLangPrefix}/privacynotice"><xsl:value-of select="leg:TranslateText('Privacy Notice')"/></a></li>
 			<li>
 				<xsl:choose>
 					<xsl:when test="starts-with($paramsDoc/request/request-path, '/en')">
