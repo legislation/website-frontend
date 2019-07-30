@@ -19,7 +19,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	exclude-result-prefixes="xs err tso"
 	version="2.0">
 
-<xsl:variable name="hideEUdata"	as="xs:boolean">true</xsl:variable>
+<xsl:variable name="hideEUdata"	as="xs:boolean" select="@HIDEEUDATA@"/>
 	
 <xsl:variable name="strCurrentURIs" select="/leg:Legislation/ukm:Metadata/dc:identifier, 
 	/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasPart']/@href" />
