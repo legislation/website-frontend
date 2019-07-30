@@ -1407,25 +1407,28 @@ exclude-result-prefixes="tso atom">
 		</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
-
-
-
 	
 
 	<!--#154 do not process wholly repealed legislation/parts or schedules -->
 	<!--we also need to allow for any act that is to come into force sometime in the future - query the RestrictStartDate  -->
 	<xsl:template match="leg:Part | leg:Body | leg:Schedules | leg:Pblock | leg:PsubBlock" priority="60">
 		<xsl:choose>
-			<xsl:when test="every $child in (leg:* except (leg:Number, leg:Title))
+			<xsl:when test="exists(leg:*[not(self::leg:Number or self::leg:Title)]) and
+			(every $child in (leg:* except (leg:Number, leg:Title))
 				satisfies ((($child/@Match = 'false' and $child/@RestrictEndDate) and not($child/@Status = 'Prospective') and
 				   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() ))) or ($child/@Match = 'false' and $child/@Status = 'Repealed')
 				   or (
 				  (:  allowance for prosp repeals made by EPP  :)
 				  $child/@Match = 'false' and $child/@Status = 'Prospective' and (every $text in .//leg:Text satisfies normalize-space(replace($text, '\.' , '')) = '')
-				   ))">
+				   )))">
 				<xsl:apply-templates select="leg:Number | leg:Title" />
 				<fo:block>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</fo:block>
 				<xsl:apply-templates select="." mode="ProcessAnnotations"/>
+			</xsl:when>
+			<xsl:when test="self::leg:PsubBlock and empty(leg:*[not(self::leg:Number or self::leg:Title)])">
+				<fo:block  space-before="12pt" font-style="italic" text-align="center">
+					<xsl:next-match />
+				</fo:block>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:next-match />
@@ -2367,7 +2370,7 @@ exclude-result-prefixes="tso atom">
 										<xsl:attribute name="space-before">12pt</xsl:attribute>
 									</xsl:if>
 									<fo:inline>
-										<xsl:if test="not(ancestor::leg:Schedule and ($g_strDocType = 'NorthernIrelandStatutoryRule' or $g_strDocType = 'NorthernIrelandStatutoryRuleOrOrder'))">
+										<xsl:if test="not(ancestor::leg:Schedule and $g_strDocType = 'NorthernIrelandStatutoryRule')">
 											<xsl:attribute name="font-weight">bold</xsl:attribute>
 										</xsl:if>
 										<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
@@ -2571,7 +2574,7 @@ exclude-result-prefixes="tso atom">
 							<fo:block text-align="justify" space-before="6pt">
 								<xsl:attribute name="text-indent">12pt</xsl:attribute>
 								<fo:inline>
-									<xsl:if test="not(ancestor::leg:Schedule and ($g_strDocType = 'NorthernIrelandStatutoryRule' or $g_strDocType = 'NorthernIrelandStatutoryRuleOrOrder'))">
+									<xsl:if test="not(ancestor::leg:Schedule and $g_strDocType = 'NorthernIrelandStatutoryRule')">
 										<xsl:attribute name="font-weight">bold</xsl:attribute>
 									</xsl:if>
 									<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
