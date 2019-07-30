@@ -18,7 +18,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <xsl:template match="leg:UnorderedList[leg:ListItem/leg:Para/leg:Text/node()]">
 	<xsl:for-each select="leg:ListItem">
 		<!-- HA074029: further check to prevent empty list-block elements causing FOP errors in, e.g. http://www.legislation.gov.uk/uksi/2006/1003/data.pdf-->
-		<xsl:if test="not(ancestor::leg:Schedule) or not(leg:Para/leg:Text/leg:Repeal) or normalize-space(leg:Para/leg:Text/leg:Repeal) != normalize-space(.) or $selectedSectionSubstituted or $showRepeals">
+		<xsl:if test="not(ancestor::leg:Schedule) or not(leg:Para/leg:Text/leg:Repeal) or (every $text in leg:Para/leg:Text/leg:Repeal satisfies normalize-space($text) != normalize-space(.)) or $selectedSectionSubstituted or $showRepeals">
 			<fo:block>
 				<xsl:if test="parent::leg:P1para">
 					<xsl:attribute name="margin-left">6pt</xsl:attribute>
