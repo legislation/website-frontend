@@ -271,7 +271,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<h2 class="interfaceOptionsHeader"><xsl:value-of select="leg:TranslateText('Options')"/>/<xsl:value-of select="leg:TranslateText('Help')"/></h2>
 				
 				<!-- adding the view/print options-->
-				<xsl:call-template name="TSOOutputPrintOptions"	/>				
+				<xsl:if test="not(leg:IsEnPDFOnly(.))">
+					<xsl:call-template name="TSOOutputPrintOptions"	/>
+				</xsl:if>
 				
 				<!-- adding help tips-->
 				<xsl:call-template name="TSOOutputHelpTips" />

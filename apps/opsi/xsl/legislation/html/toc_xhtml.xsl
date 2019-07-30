@@ -54,6 +54,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			/leg:Legislation/@xml:lang
 		else 'en'"/>
 	
+	<xsl:variable name="prospDoc" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://purl.org/dc/terms/hasVersion' and @title = 'prospective']/@href"/>
 	<xsl:variable name="signatureURI" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/signature' and @title='signature']/@href"/>
 	<xsl:variable name="noteURI" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/note']/@href"/>
 	<xsl:variable name="earlierOrdersURI" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/earlier-orders']/@href"/>
@@ -443,7 +444,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<h2 class="interfaceOptionsHeader"><xsl:value-of select="leg:TranslateText('Options')"/>/<xsl:value-of select="leg:TranslateText('Help')"/></h2>
 
 				<!-- adding the view/print options-->
-				<xsl:call-template name="TSOOutputPrintOptions"	/>
+				<xsl:if test="not($IsPDFOnly)">
+					<xsl:call-template name="TSOOutputPrintOptions"	/>
+				</xsl:if>
 				
 				<!-- opening options model -->
 				<xsl:call-template name="TSOOutputOpeningOptionsWarning"/>
@@ -2569,6 +2572,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 															<em class="accessibleText"> - Amendment</em>
 														</span>
 													</span>
+												</xsl:when>
+												<!--  Prevent a link to a prosp doc if none exists but retain the timeline icons  -->
+												<xsl:when test="lower-case(@title) = 'prospective' and empty($prospDoc)">
+													<a href="#">		
+														<span class="pointer"/>
+														<span>
+															<xsl:value-of select="leg:FormatDate(@title)"/><em class="accessibleText"> - Amendment</em>
+														</span>
+													</a>
 												</xsl:when>
 												<xsl:otherwise>
 													<a href="{leg:FormatURL(@href)}">		

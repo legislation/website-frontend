@@ -3833,6 +3833,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:call-template name="FuncCheckForID"/>
 				<xsl:apply-templates/>	
 			</em>
+		   <!-- JDC HA069475 - Do post ops separately so they don't also come out in italics. -->  
+		   <xsl:apply-templates mode="PostOpsOnly"/>	
 		</xsl:otherwise>
 	</xsl:choose>
 	
@@ -4079,6 +4081,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:call-template name="FuncTextPostOperations"/>
 </xsl:template>
 
+<xsl:template match="text()" mode="PostOpsOnly">
+   <xsl:call-template name="FuncTextPostOperations"/>
+</xsl:template>
+   
 <xsl:template match="comment()">
 	<xsl:copy-of select="."/>
 </xsl:template>

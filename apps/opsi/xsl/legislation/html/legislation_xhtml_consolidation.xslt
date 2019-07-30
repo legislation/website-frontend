@@ -1659,7 +1659,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			</xsl:call-template>		
 		</xsl:otherwise>
 	</xsl:choose>		
-	<xsl:call-template name="FuncTextPostOperations"/>
+   <!-- JDC HA069475 - Don't do post ops here if text is within an "Emphasis" element, as they would also be output in italics. -->  
+   <xsl:if test="not(parent::leg:Emphasis)">
+      <xsl:call-template name="FuncTextPostOperations"/>
+   </xsl:if>
 </xsl:template>
 
 <xsl:variable name="g_strUnicodeCharsRegex" as="xs:string">
