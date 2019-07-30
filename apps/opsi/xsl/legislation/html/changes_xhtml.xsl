@@ -947,7 +947,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 	<xsl:template match="ukm:Section">
 		<xsl:choose>
-			<xsl:when test="@Missing = 'true'">
+			<xsl:when test="@Missing = 'true' or matches(@URI, '/(eur|eudr|eudn|eut)/')">
 				<xsl:apply-templates />
 			</xsl:when>
 			<xsl:otherwise>

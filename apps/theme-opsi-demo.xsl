@@ -53,6 +53,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:sequence select="$paramsDoc/parameters/section !='' or $paramsDoc/parameters/view = 'introduction'" />
 </xsl:function>	
 
+<xsl:variable name="serverName" as="xs:string?" select="'$SERVER'" />
+<xsl:variable name="serverPrefix" as="xs:string" select="if (exists($serverName)) then concat('https://', $serverName) else ''" />
+	
 <xsl:template match="/*">
 	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dct="http://purl.org/dc/terms/" lang="en" xml:lang="en">
 		<xsl:apply-templates select="@*"/>
@@ -161,7 +164,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</html>
 </xsl:template>
 
-<xsl:template match="@href[starts-with(., 'http://www.legislation.gov.uk/') and not(ends-with(.,'htm')) and not(ends-with(.,'feed')) and not(ends-with(.,'pdf')) and not(contains(., '/images/'))]" priority="100">
+<xsl:template match="@href[starts-with(., 'http://www.legislation.gov.uk/') and not(ends-with(.,'htm')) and not(ends-with(.,'feed')) and not(contains(., '/images/'))]" priority="100">
 	<xsl:choose>
 		<xsl:when test="$TranslateLangPrefix !=''">
 			<xsl:variable name="uriAfterDomain" as="xs:string" select="substring-after(.,'http://www.legislation.gov.uk')"/>
@@ -183,6 +186,34 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:next-match/>
 		</xsl:otherwise>
 	</xsl:choose>
+</xsl:template>
+
+<!-- HA083023 FIX /admin/log table uri's - resolving to the correct URL depending on server -->
+	<xsl:template match="@href[starts-with(.,'http://www.legislation.gov.uk/') and $paramsDoc/request/request-path[.='/admin/log'] and ancestor::*[name()='tr' and contains(@class,'publish')]]" priority="50">
+	<xsl:attribute name="href">
+		<xsl:variable name="prefix">
+			<!-- server prefix check the request server-name or the $servername capture only staging, test or localhost -->
+			<xsl:choose>
+				<xsl:when test="matches($paramsDoc/request/server-name,'.*(staging|test|localhost).*')">
+					<xsl:value-of select="replace($paramsDoc/request/server-name,'.*(staging|test|localhost).*','$1')"/>
+				</xsl:when>
+				<xsl:when test="matches(lower-case($serverName),'.*(staging|test|localhost).*')">
+					<xsl:value-of select="replace(lower-case($serverName),'.*(staging|test|localhost).*','$1')"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<!-- no need to change the server prefix as $2 = 'www'  -->
+					<xsl:value-of select="'$2'" />
+				</xsl:otherwise>
+			</xsl:choose>		
+		</xsl:variable>
+		<!-- set the replace regex picture $1$2$3$4 is no change-->
+		<xsl:variable name="host-regex">
+			<xsl:value-of select="concat('$1', $prefix ,if($prefix='localhost') then '$4' else '$3$4')"/> 
+		</xsl:variable>
+		<xsl:attribute name="href">
+			<xsl:value-of select="replace(., '(https?://)(www\.admin|www|admin)?(\.[^/]+)(.*)',$host-regex)"/>
+		</xsl:attribute>
+	</xsl:attribute>
 </xsl:template>
 
 <xsl:template name="background">
@@ -254,7 +285,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</div>
 </xsl:template>
 
-<xsl:template match="@href[starts-with(., 'http://www.legislation.gov.uk/') and not(ends-with(.,'htm')) and not(ends-with(.,'feed')) ]">
+<xsl:template match="@href[starts-with(.,'http://www.legislation.gov.uk/') and not(ends-with(.,'htm')) and not(ends-with(.,'feed')) ]">
 	<xsl:attribute name="href">
 		<xsl:value-of select="substring-after(., 'http://www.legislation.gov.uk')"/>
 		<xsl:if test="string-length($paramsDoc/request/query-string) > 0 and not(contains(., '?'))">?<xsl:value-of select="$paramsDoc/request/query-string"/></xsl:if>

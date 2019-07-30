@@ -3642,17 +3642,14 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <!-- ========== Abbreviations ========== -->
 
 <xsl:template match="leg:Abbreviation">
-	<abbr title="{@Expansion}">
+	
 		<xsl:apply-templates/>
-	</abbr>
 	<!-- Check if last node in a footnote in which case output back link if a standard footnote -->
 	<xsl:call-template name="FuncIsLastElementInFootnote"/>
 </xsl:template>
 
 <xsl:template match="leg:Acronym">
-	<acronym title="{@Expansion}">
 		<xsl:apply-templates/>
-	</acronym>
 	<!-- Check if last node in a footnote in which case output back link if a standard footnote -->
 	<xsl:call-template name="FuncIsLastElementInFootnote"/>
 </xsl:template>
