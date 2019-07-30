@@ -265,6 +265,7 @@
 							<xsl:when test="$ukm-doctype = 'NorthernIrelandOrderInCouncil'">government/uk</xsl:when>
 							<xsl:when test="$ukm-doctype = 'NorthernIrelandDraftOrderInCouncil'">government/uk</xsl:when>
 							<xsl:when test="$ukm-doctype = 'NorthernIrelandStatutoryRule'">government/northern-ireland</xsl:when>
+							<xsl:when test="$ukm-doctype = 'NorthernIrelandStatutoryRuleOrOrder'">government/northern-ireland</xsl:when>
 							<xsl:when test="$ukm-doctype = 'NorthernIrelandDraftStatutoryRule'">government/northern-ireland</xsl:when>
 							<xsl:when test="$ukm-doctype = 'ScottishAct'">legislature/ScottishParliament</xsl:when>
 							<xsl:when test="$ukm-doctype = 'ScottishOldAct'">legislature/OldScottishParliament</xsl:when>
@@ -297,6 +298,7 @@
 							<xsl:when test="$ukm-doctype = 'NorthernIrelandOrderInCouncil'">GB-NIR</xsl:when>
 							<xsl:when test="$ukm-doctype = 'NorthernIrelandDraftOrderInCouncil'">GB-NIR</xsl:when>
 							<xsl:when test="$ukm-doctype = 'NorthernIrelandStatutoryRule'">GB-NIR</xsl:when>
+							<xsl:when test="$ukm-doctype = 'NorthernIrelandStatutoryRuleOrOrder'">GB-NIR</xsl:when>
 							<xsl:when test="$ukm-doctype = 'NorthernIrelandDraftStatutoryRule'">GB-NIR</xsl:when>
 							<xsl:when test="$ukm-doctype = 'ScottishAct'">GB-SCT</xsl:when>
 							<xsl:when test="$ukm-doctype = 'ScottishOldAct'">GB-SCT</xsl:when>
@@ -349,7 +351,7 @@
 								<xsl:variable name="alt-num" select="ukm:SecondaryMetadata/ukm:AlternativeNumber[@Category='NI']/@Value" />
 								<xsl:value-of select="concat('S.I. ', $year, '/', $num, ' (N.I. ', $alt-num, ')')" />
 							</xsl:when>
-							<xsl:when test="$ukm-doctype = 'NorthernIrelandStatutoryRule' or $ukm-doctype = 'NorthernIrelandDraftStatutoryRule'">
+							<xsl:when test="$ukm-doctype = 'NorthernIrelandStatutoryRule' or $ukm-doctype = 'NorthernIrelandStatutoryRuleOrOrder' or $ukm-doctype = 'NorthernIrelandDraftStatutoryRule'">
 								<xsl:choose>
 									<xsl:when test="ukm:SecondaryMetadata/ukm:AlternativeNumber[@Category='C']">
 										<xsl:variable name="c-num" select="ukm:SecondaryMetadata/ukm:AlternativeNumber[@Category='C']/@Value" />

@@ -364,7 +364,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		</xsl:if>
 		<xsl:for-each select="$g_ndsMetadata//ukm:DocumentClassification/ukm:DocumentMainType">
 			<xsl:choose>
-				<xsl:when test="@Value = 'NorthernIrelandStatutoryRule' or @Value = 'NorthernIrelandStatutoryRuleLocal' or @Value = 'NorthernIrelandDraftStatutoryRule'">Statutory Rules of Northern Ireland</xsl:when>
+				<xsl:when test="@Value = 'NorthernIrelandStatutoryRule' or @Value = 'NorthernIrelandStatutoryRuleOrOrder' or @Value = 'NorthernIrelandStatutoryRuleLocal' or @Value = 'NorthernIrelandDraftStatutoryRule'">Statutory Rules of Northern Ireland</xsl:when>
 				<xsl:when test="@Value = 'ScottishStatutoryInstrument' or @Value = 'ScottishStatutoryInstrumentLocal'or @Value = 'ScottishDraftStatutoryInstrument'">Scottish Statutory Instruments</xsl:when>
        			<xsl:when test="@Value = 'UnitedKingdomChurchInstrument' or @Value = 'UnitedKingdomChurchInstrumentLocal'">Church Instruments</xsl:when>
       			<xsl:when test="@Value = 'UnitedKingdomMinisterialOrder' or @Value = 'UnitedKingdomMinisterialOrderLocal'">Ministerial Order</xsl:when>
@@ -378,7 +378,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	</p>
 	<!--Chunyu Added changed for Approved text in the correct place for  NI secondary legislation HA048652  -->
 	<xsl:choose>
-		<xsl:when test="$g_strDocumentMainType = 'NorthernIrelandStatutoryRule' and leg:Approved">
+		<xsl:when test="($g_strDocumentMainType = 'NorthernIrelandStatutoryRule' or $g_strDocumentMainType = 'NorthernIrelandStatutoryRuleOrOrder') and leg:Approved">
 			<xsl:apply-templates select="leg:Number | leg:SubjectInformation | leg:Title | leg:Approved | leg:LaidDraft | leg:LaidDate  | processing-instruction()"/>
 		</xsl:when>
 		<xsl:otherwise>
@@ -439,7 +439,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <!--Chunyu Added changed for Approved text in the correct place for NI secondary legislation  HA048652 -->
 <xsl:template match="leg:SecondaryPrelims/leg:Approved">
 	<xsl:choose>
-		<xsl:when test="$g_strDocumentMainType = 'NorthernIrelandStatutoryRule'">
+		<xsl:when test="$g_strDocumentMainType = 'NorthernIrelandStatutoryRule' or $g_strDocumentMainType = 'NorthernIrelandStatutoryRuleOrOrder'">
 			<xsl:apply-templates select="following-sibling::leg:MadeDate"/>
 			<xsl:apply-templates select="following-sibling::leg:ComingIntoForce"/>
 			<div class="LegDate">

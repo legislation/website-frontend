@@ -45,6 +45,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<Code spo="31001" schema="ScottishStatutoryInstrument" uri="ssi" status="made" authority="kqps"/>
 		<Code spo="31002" schema="WelshStatutoryInstrument" uri="wsi" status="made" authority="kqpap"/>
 		<Code schema="UnitedKingdomStatutoryRuleOrOrder" uri="uksro" status="made" authority="kqpap"/>
+		<Code schema="NorthernIrelandStatutoryRuleOrOrder" uri="nisro" status="made" authority="gpni"/>
+		<Code schema="NorthernIrelandStatutoryRuleOrOrder" uri="nisro" status="revised" authority="gpni"/>
 		<Code schema="UnitedKingdomStatutoryInstrumentLocal" uri="uksi" status="made" authority="kqpap"/>
 		<Code schema="ScottishStatutoryInstrumentLocal" uri="ssi" status="made" authority="kqps"/>
 		<Code schema="WelshStatutoryInstrumentLocal" uri="wsi" status="made" authority="kqpap"/>

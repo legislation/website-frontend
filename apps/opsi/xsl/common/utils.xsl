@@ -96,6 +96,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<tso:legType schemaType="UnitedKingdomStatutoryRuleOrOrder" class="secondary" category="Order" abbrev="uksro" 
 		en="Executive Note" em="Explanatory Memorandum" pn="Policy Note" singular="UK Statutory Rule Or Order" plural="{leg:TranslateText('UK Statutory Rules and Orders')}"
 		start="1900" end="1948" revised="false" />
+  <tso:legType schemaType="NorthernIrelandStatutoryRuleOrOrder" class="secondary" category="Order" abbrev="nisro" 
+  	em="Explanatory Memorandum" singular="Northern Ireland Statutory Rule Or Order" plural="{leg:TranslateText('Northern Ireland Statutory Rules and Orders')}"
+  	start="1922" end="1973" revised="false" />
 	<tso:legType schemaType="NorthernIrelandAssemblyMeasure" class="primary" category="Measure" abbrev="mnia" 
 		singular="Measure of the Northern Ireland Assembly" plural="{leg:TranslateText('Measures of the Northern Ireland Assembly')}"
 		start="1974" end="1974" timeline="none" revised="true" />
@@ -673,6 +676,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:when test="$legType = 'WelshStatutoryInstrument'">W.S.I. </xsl:when>
 				<xsl:when test="$legType = 'ScottishStatutoryInstrument'">S.S.I. </xsl:when>
 				<xsl:when test="$legType = 'NorthernIrelandStatutoryRule'">S.R. </xsl:when>
+				<xsl:when test="$legType = 'NorthernIrelandStatutoryRuleOrOrder'">S.R. and O. </xsl:when>
 				<xsl:otherwise>S.I. </xsl:otherwise>
 			</xsl:choose>
 			<xsl:value-of select="$legYear" />
@@ -696,7 +700,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:otherwise>
 			<xsl:choose>
 				<xsl:when test="$legType = 'ScottishStatutoryInstrument'">SSI </xsl:when>
-				<xsl:when test="$legType = 'NorthernIrelandStatutoryRule'">SR </xsl:when>
+				<xsl:when test="$legType = ('NorthernIrelandStatutoryRule', 'NorthernIrelandStatutoryRuleOrOrder')">SR </xsl:when>
 				<xsl:otherwise>SI </xsl:otherwise>
 			</xsl:choose>
 			<xsl:value-of select="$legYear" />

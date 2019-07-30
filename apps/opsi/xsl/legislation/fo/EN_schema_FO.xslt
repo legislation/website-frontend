@@ -1502,7 +1502,7 @@ exclude-result-prefixes="tso atom">
 									<xsl:attribute name="space-before">12pt</xsl:attribute>
 								</xsl:if>
 								<fo:inline>
-									<xsl:if test="not(ancestor::leg:Schedule and $g_strDocType = 'NorthernIrelandStatutoryRule')">
+									<xsl:if test="not(ancestor::leg:Schedule and ($g_strDocType = 'NorthernIrelandStatutoryRule' or $g_strDocType = 'NorthernIrelandStatutoryRuleOrOrder'))">
 										<xsl:attribute name="font-weight">bold</xsl:attribute>
 									</xsl:if>
 									<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
@@ -1661,7 +1661,7 @@ exclude-result-prefixes="tso atom">
 						<fo:block text-align="justify" space-before="6pt">
 							<xsl:attribute name="text-indent">12pt</xsl:attribute>
 							<fo:inline>
-								<xsl:if test="not(ancestor::leg:Schedule and $g_strDocType = 'NorthernIrelandStatutoryRule')">
+								<xsl:if test="not(ancestor::leg:Schedule and ($g_strDocType = 'NorthernIrelandStatutoryRule' or $g_strDocType = 'NorthernIrelandStatutoryRuleOrOrder'))">
 									<xsl:attribute name="font-weight">bold</xsl:attribute>
 								</xsl:if>
 								<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>

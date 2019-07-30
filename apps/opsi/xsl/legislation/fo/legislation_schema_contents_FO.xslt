@@ -116,7 +116,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:text>DRAFT  </xsl:text>
 			</xsl:if>
 			<xsl:choose>
-				<xsl:when test="$g_strDocType= 'NorthernIrelandStatutoryRule' or $g_strDocType='NorthernIrelandStatutoryRuleLocal' or $g_strDocType='NorthernIrelandDraftStatutoryRule'">
+				<xsl:when test="$g_strDocType= 'NorthernIrelandStatutoryRule' or $g_strDocType='NorthernIrelandStatutoryRuleLocal' or $g_strDocType='NorthernIrelandDraftStatutoryRule' or $g_strDocType= 'NorthernIrelandStatutoryRuleOrOrder'">
 					<xsl:text>STATUTORY  RULES OF NORTHERN IRELAND</xsl:text>
 				</xsl:when>
 				<xsl:when test="$g_strDocType = 'ScottishStatutoryInstrument' or $g_strDocType='ScottishStatutoryInstrumentLocal' or $g_strDocType='ScottishDraftStatutoryInstrument'">
@@ -168,7 +168,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</xsl:choose>
 		</fo:block>
 		
-		<xsl:if test="not($g_strDocType = 'NorthernIrelandStatutoryRule')">
+		<xsl:if test="not($g_strDocType = 'NorthernIrelandStatutoryRule') and not($g_strDocType = 'NorthernIrelandStatutoryRuleOrOrder')">
 			<fo:block space-before="24pt" text-align="center" font-style="italic">
 				<xsl:apply-templates select="$g_ndsLegPrelims/leg:Approved"/>
 			</fo:block>
@@ -184,7 +184,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:if test="$g_ndsLegPrelims[leg:MadeDate or leg:LaidDate or leg:ComingIntoForce]">
 			<fo:block text-align="center" margin-left="96pt" margin-right="96pt" >
 				<xsl:attribute name="space-before" select="if ($g_ndsLegPrelims[leg:Approved or leg:LaidDraft]) then '12pt' else '24pt'"/>
-				<xsl:attribute name="space-after" select="if ($g_ndsLegPrelims[leg:Approved] and $g_strDocType = 'NorthernIrelandStatutoryRule') then '0pt' else '24pt'"/>
+				<xsl:attribute name="space-after" select="if ($g_ndsLegPrelims[leg:Approved] and ($g_strDocType = 'NorthernIrelandStatutoryRule' or $g_strDocType = 'NorthernIrelandStatutoryRuleOrOrder')) then '0pt' else '24pt'"/>
 				<fo:table font-size="{$g_strBodySize}" font-style="italic" margin-left="0pt" margin-right="0pt" table-layout="fixed" width="100%">
 					<fo:table-column column-width="50%"/>
 					<fo:table-column column-width="10%"/>
@@ -198,7 +198,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</fo:block>
 		</xsl:if>
 		
-		<xsl:if test="$g_strDocType = 'NorthernIrelandStatutoryRule'">
+		<xsl:if test="$g_strDocType = 'NorthernIrelandStatutoryRule' or $g_strDocType = 'NorthernIrelandStatutoryRuleOrOrder'">
 			<fo:block space-before="6pt" space-after="24pt" text-align="center" font-style="italic" font-size="11pt">
 				<xsl:apply-templates select="$g_ndsLegPrelims/leg:Approved"/>
 			</fo:block>
@@ -798,7 +798,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 <xsl:template match="leg:ContentsSchedule|leg:ContentsAppendix">
 	<xsl:choose>
-		<xsl:when test="$g_strDocType = ('NorthernIrelandStatutoryRule', 'WelshStatutoryInstrument')">
+		<xsl:when test="$g_strDocType = ('NorthernIrelandStatutoryRule', 'WelshStatutoryInstrument', 'NorthernIrelandStatutoryRuleOrOrder')">
 			<fo:table font-size="{$g_strBodySize}">
 				<fo:table-column column-width="15%"/>
 				<fo:table-column column-width="5%"/>		

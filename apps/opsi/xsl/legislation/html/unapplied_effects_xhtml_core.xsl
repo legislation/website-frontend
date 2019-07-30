@@ -323,7 +323,7 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 		<xsl:when test="$strName = 'ScottishStatutoryInstrument'">
 			<xsl:number value="7"/>
 		</xsl:when>
-		<xsl:when test="$strName = 'NorthernIrelandStatutoryRule'">
+		<xsl:when test="$strName = ('NorthernIrelandStatutoryRule', 'NorthernIrelandStatutoryRuleOrOrder')">
 			<xsl:number value="8"/>
 		</xsl:when>
 		<xsl:when test="$strName = 'NorthernIrelandOrderInCouncil'">
@@ -399,7 +399,7 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 		<xsl:when test="$strName = 'ScottishStatutoryInstrument'">
 			<xsl:value-of select="concat('S.S.I. ',$strYear,'/',$strNumber)"/>
 		</xsl:when>
-		<xsl:when test="$strName = 'NorthernIrelandStatutoryRule'">
+		<xsl:when test="$strName = ('NorthernIrelandStatutoryRule', 'NorthernIrelandStatutoryRuleOrOrder')">
 			<xsl:value-of select="concat('S.R. ',$strYear,'/',$strNumber)"/>
 		</xsl:when>
 		<xsl:when test="$strName = 'NorthernIrelandOrderInCouncil'">

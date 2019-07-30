@@ -101,7 +101,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:text>@import "/styles/legislation.css";&#xA;</xsl:text>
 					<xsl:text>@import "/styles/secondarylegislation.css";&#xA;</xsl:text>
 				</xsl:when>
-				<xsl:when test="$uriPrefix ='uksi' or  $uriPrefix ='ssi'  or  $uriPrefix ='wsi'  or  $uriPrefix ='nisr'  or  $uriPrefix ='ukci'  or  $uriPrefix ='nisi' or  $uriPrefix ='ukmo' ">
+				<xsl:when test="$uriPrefix ='uksi' or  $uriPrefix ='ssi'  or  $uriPrefix ='wsi'  or  $uriPrefix ='nisr'  or  $uriPrefix ='ukci'  or  $uriPrefix ='nisi' or  $uriPrefix ='ukmo' or  $uriPrefix ='nisro' ">
 					<xsl:text>@import "/styles/legislation.css";&#xA;</xsl:text>
 					<xsl:text>@import "/styles/secondarylegislation.css";&#xA;</xsl:text>
 				</xsl:when>												

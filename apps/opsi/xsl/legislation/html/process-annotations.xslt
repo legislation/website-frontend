@@ -241,7 +241,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 					<!-- FM:  Issue 364: In NI legislation before 1.1.2006 - f-notes are used across the board i.e. not just for textual amendments. Removing the annotation heading for textual texts --> 
 					<xsl:variable name="oldNI" select="$documentType = 
-					('NorthernIrelandAct' , 'NorthernIrelandOrderInCouncil' , 'NorthernIrelandStatutoryRule', 
+					('NorthernIrelandAct' , 'NorthernIrelandOrderInCouncil' , 'NorthernIrelandStatutoryRule', 'NorthernIrelandStatutoryRuleOrOrder', 
 					'NorthernIrelandAssemblyMeasure', 'NorthernIrelandParliamentAct') and ($documentYear &lt; 2006)"/>
 
 					<!-- TNA requirement based on above :
@@ -253,7 +253,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 						What we would like to do is apply this same code to all the revised S.I.s  on legislation.gov.uk.” 
 						-->
 					<xsl:variable name="revisedSI" select="$documentType = 
-					('UnitedKingdomStatutoryInstrument' , 'ScottishStatutoryInstrument' , 'WelshStatutoryInstrument', 'NorthernIrelandStatutoryRule') and ($documentRevised = 'revised')"/>
+					('UnitedKingdomStatutoryInstrument' , 'ScottishStatutoryInstrument' , 'WelshStatutoryInstrument', 'NorthernIrelandStatutoryRule', 'NorthernIrelandStatutoryRuleOrOrder') and ($documentRevised = 'revised')"/>
 
 					<xsl:for-each-group select="$showComments" group-by="@Type">
 						<xsl:sort select="@Type = 'M'"/>			
