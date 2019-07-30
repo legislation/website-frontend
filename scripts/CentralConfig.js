@@ -1,10 +1,10 @@
 /*
  (c)  Crown copyright
- 
+
  You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
+
  http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
- 
+
  */
 // JavaScript for Welsh Lnaguage wrapper
 
@@ -54,7 +54,7 @@ var config = {
         },
         expandCollapse: {
             message1: {
-                en: "Modify search", // search.js   line no 63 
+                en: "Modify search", // search.js   line no 63
                 cy: "Addasu’r chwiliad"
             },
             message2: {
@@ -79,7 +79,7 @@ var config = {
             cy: "Cyfuniadau graddfa y bydd y chwiliad hwn yn eu cynnwys:"
         }
     },
-    pagination: {// minpagination.js  line no 127 
+    pagination: {// minpagination.js  line no 127
         currPageInfo: {
             textPage: {
                 en: "Page ",
@@ -218,17 +218,17 @@ var config = {
     },
     modalwin: {
         title: {
-            en: "Large image view", //   showMessageDialog.js  line no 170  
-            cy: "Gwedd delwedd mawr"                     //   showMessageDialog.js  line no 170  
+            en: "Large image view", //   showMessageDialog.js  line no 170
+            cy: "Gwedd delwedd mawr"                     //   showMessageDialog.js  line no 170
         }
     },
     viewLegContents: {
         previous: {
-            en: "Previous match", //  prevousNextTextMatches.js   line no:  12 
-            cy: "Canlyniad blaenorol"                   // 
+            en: "Previous match", //  prevousNextTextMatches.js   line no:  12
+            cy: "Canlyniad blaenorol"                   //
         },
         next: {
-            en: "Next match", //  prevousNextTextMatches.js   line no:  12 
+            en: "Next match", //  prevousNextTextMatches.js   line no:  12
             cy: "Canlyniad nesaf"
         },
         backToSearch: {
@@ -244,16 +244,16 @@ var config = {
 /*   this is the configs for "eniw_leg.gov.uk.js"   line no 61 and 62
  explanatory: {
  collapseText:{
- en: "Collapse All Explanatory Notes (ENs)", 
+ en: "Collapse All Explanatory Notes (ENs)",
  cy: "Collapse Pob Nodyn Esboniadol (ENs)"
  },
- 
+
  expandText:{
  en: "Expand All Explanatory Notes (ENs)",
  cy: "Ehangu Pob Nodyn Esboniadol (ENs)"
  }
- } 
- 
+ }
+
  */
 
 
@@ -381,7 +381,7 @@ $(document).ready(function() {
      * jQuery Cookies Functions
      */
     function cli_show_cookiebar(html, json_payload) {
-        var ACCEPT_COOKIE_NAME = 'accepted_cookie_policy_legislation';
+        var ACCEPT_COOKIE_NAME = 'close_have_your_say_survey_banner_cookie';
         var ACCEPT_COOKIE_EXPIRE = 365;
         var settings = eval('(' + json_payload + ')');
 
@@ -538,24 +538,11 @@ $(document).ready(function() {
      * Inject message in English site and normal view
      * renmoved target=\"_blank\" for DEFRALEX link
      */
-	
+
     if ((LANG != "cy") && (!$("body").hasClass("plainview"))) {
         var a = '<div id="cookie-law-info-bar"><span>Have your say and help improve the Legislation.gov.uk website. <a href=\"http://www.smartsurvey.co.uk/s/8RF41/\" id=\"CONSTANT_OPEN_URL\" target=\"_blank\" class=\"cli-plugin-main-link\"  >Take part in our survey</a>. <a href=\"#\" id=\"cookie_action_close_header\"  class=\"medium cli-plugin-button cli-plugin-main-button\" >Close</a></span></div>',
                 b = '{"animate_speed_hide":"500","animate_speed_show":"500","background":"","border":"","border_on":"false","button_1_button_colour":"","button_1_button_hover":"","button_1_link_colour":"","button_1_as_button":false,"button_2_button_colour":"","button_2_button_hover":"","button_2_link_colour":"","button_2_as_button":false,"font_family":"","notify_animate_hide":true,"notify_animate_show":false,"notify_div_id":"#cookie-law-info-bar","notify_position_horizontal":"right","notify_position_vertical":"top","showagain_tab":false,"showagain_background":"","showagain_border":"","showagain_div_id":"#cookie-law-info-again","showagain_x_position":"100px","text":""}';
         cli_show_cookiebar(a, b);
-    } 
+    }
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
