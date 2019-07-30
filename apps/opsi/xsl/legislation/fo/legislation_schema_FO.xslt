@@ -1370,7 +1370,7 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 
 	<!-- this needs the highest priority so that the annotations get processed  -->
-	<xsl:template match="leg:Schedule//leg:P1 | leg:PrimaryPrelims | leg:SecondaryPrelims | leg:EUPrelims | leg:P1group | leg:Schedule/leg:ScheduleBody//leg:Tabular | leg:P1[not(parent::leg:P1group)]" priority="400">
+	<xsl:template match="leg:Schedule//leg:P1 | leg:PrimaryPrelims | leg:SecondaryPrelims | leg:EUPrelims | leg:P1group | leg:Schedule/leg:ScheduleBody/leg:Tabular | leg:P1[not(parent::leg:P1group)]" priority="400">
 		<xsl:next-match>
 			<xsl:with-param name="showRepeals" select="$showRepeals" tunnel="yes"/>
 		</xsl:next-match>

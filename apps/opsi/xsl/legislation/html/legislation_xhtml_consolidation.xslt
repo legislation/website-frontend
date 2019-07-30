@@ -1230,7 +1230,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	</xsl:if>
 </xsl:template>
 
-<xsl:template match="leg:Schedule//leg:P1 | leg:PrimaryPrelims | leg:SecondaryPrelims | leg:P1group | leg:P1[not(parent::leg:P1group)] | leg:Schedule/leg:ScheduleBody//leg:Tabular">
+<xsl:template match="leg:Schedule//leg:P1 | leg:PrimaryPrelims | leg:SecondaryPrelims | leg:P1group | leg:P1[not(parent::leg:P1group)] | leg:Schedule/leg:ScheduleBody/leg:Tabular">
 	<xsl:next-match/>
 	<!-- If there are alternate versions outputting ot annotations will happen there -->
 	
