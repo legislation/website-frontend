@@ -652,6 +652,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 															<xsl:copy-of select="$ndsOriginal" />
 														</span>
 													</xsl:when>
+													<xsl:when test="empty(//atom:link[@rel='alternate' and @hreflang='en'])">
+														<!-- there is no corrosponding english version of the provision  -->
+													</xsl:when>
 													<xsl:otherwise>
 														<a href="{leg:FormatURL(//atom:link[@rel='alternate' and @hreflang='en']/@href)}" class="userFunctionalElement" >
 															<xsl:copy-of select="$ndsOriginal" />
@@ -706,6 +709,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 															<span class="userFunctionalElement active">
 																<xsl:copy-of select="$ndsOriginal" />
 															</span>
+														</xsl:when>
+														<xsl:when test="empty(//atom:link[@rel='alternate' and @hreflang='cy'])">
+															<!-- there is no corrosponding english version of the provision  -->
 														</xsl:when>
 														<xsl:otherwise>
 															<a href="{leg:FormatURL(//atom:link[@rel='alternate' and @hreflang='cy']/@href)}" class="userFunctionalElement" >
@@ -2762,9 +2768,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</xsl:when>
 			<xsl:otherwise>
 				<!-- if the $url is not available then link to the same page -->
-				<xsl:value-of select="string-join(($requestInfoDoc/request/request-url, if ($addQueryString) then $requestInfoDoc/request/request-querystring else ()), '?')"/>
+				<xsl:value-of select="string-join((leg:RemoveDomainFromURI($requestInfoDoc/request/request-url), if ($addQueryString) then $requestInfoDoc/request/request-querystring else ()), '?')"/>
 			</xsl:otherwise>
 		</xsl:choose>
+	</xsl:function>
+	
+	<xsl:function name="leg:RemoveDomainFromURI" as="xs:string">
+		<xsl:param name="uri"/>
+		<xsl:sequence 
+			select="if (matches($uri, '^http[s]?://')) then 
+						concat('/', string-join((tokenize(replace($uri, '^http[s]?://', ''), '/'))[not(position() = 1)], '/')) 
+					else $uri"/>
 	</xsl:function>
 	
 	<!-- removing the extent information from the  PDF/HTM URL-->

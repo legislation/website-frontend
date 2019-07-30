@@ -42,6 +42,9 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 	
 	<xsl:variable name="hasXML" as="xs:boolean"
 		select="exists(/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/tableOfContents'])" />
+		
+	<xsl:variable name="documentMainType" as="xs:string"
+		select="leg:GetDocumentMainType(/)" />	
 	
 	<xsl:output indent="yes" method="xhtml" />
 
@@ -229,11 +232,11 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 				</div>
 			</xsl:if>
 			<!-- displaying the associated documents -->
-			<xsl:call-template name="AssociatedDocuments">
-				<xsl:with-param name="associatedDocuments">
-					<xsl:apply-templates select="ukm:Metadata//*[not(name() = 'ukm:ImpactAssessment' or name() = 'ukm:Supersedes')][@URI]" mode="AssociatedDocuments">
-						<!-- alternative versions first -->
-						<xsl:sort select="@Title = 'Print Version'" order="descending" />
+			<!-- perform the sort first so that we can determine the suffix number correctly  -->
+			<xsl:variable name="sortedAssociated">
+				<xsl:perform-sort select="ukm:Metadata//*[not(name() = 'ukm:ImpactAssessment' or name() = 'ukm:Supersedes')][@URI][not(self::ukm:Alternative) or (self::ukm:Alternative and ancestor::ukm:Notes) or @Revised]">
+					<!-- alternative versions first -->
+					<xsl:sort select="@Title = 'Print Version'" order="descending" />
 						<xsl:sort select=". instance of element(ukm:Alternative) and not(./@Revised)" order="descending" />
 						<xsl:sort select="xs:date(self::ukm:Alternative/@Revised)" order="descending" />
 						<!-- ENs & EMs after print PDFs -->
@@ -255,7 +258,11 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						<!-- Most recent first -->
 						<xsl:sort select="@URI" order="ascending"/>
 						<!--<xsl:sort select="xs:date(@Date)" order="descending" />-->
-					</xsl:apply-templates>
+				</xsl:perform-sort>
+			</xsl:variable>
+			<xsl:call-template name="AssociatedDocuments">
+				<xsl:with-param name="associatedDocuments">
+					<xsl:apply-templates select="$sortedAssociated/*" mode="AssociatedDocuments"/>
 					<xsl:apply-templates select="ukm:Supersedes" mode="AssociatedDocuments"/>
 				</xsl:with-param>
 			</xsl:call-template>
@@ -455,9 +462,8 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 		</li>
 	</xsl:template>
 
-	<!-- generation of an associated document list item - this really needs separating out as above -->
-	<xsl:template match="ukm:Metadata/ukm:Alternatives/ukm:Alternative 
-	 	| ukm:Metadata/ukm:Notes/ukm:Alternatives/ukm:Alternative 
+	<!-- generation of an associated document list item -->
+	<xsl:template match="ukm:Alternative 
 	 	|ukm:CorrectionSlip
 	 	|ukm:TableOfEffects
 	 	|ukm:OrderInCouncil
@@ -468,7 +474,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 	 	|ukm:UKExplanatoryMemorandum
 	 	|ukm:NIExplanatoryMemorandum
 	 	|ukm:OtherDocument[not(@Type='signlang')]" mode="AssociatedDocuments">
-		 <xsl:if test="not(self::ukm:Alternative) or (self::ukm:Alternative and ancestor::ukm:Notes) or @Revised">
+		 
 			 <!-- if draft legislation then all alternative versions(print) will also be included -->
 		 	<xsl:variable name="dateSuffix">
 		 		<!-- add a date suffix if there are other versions of this type with the same Title and Language -->
@@ -508,7 +514,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						<xsl:when test="starts-with($title, 'Mixed Language')"><xsl:value-of select="leg:TranslateText(concat(substring-after($title, 'Mixed Language'), $dateSuffix, ' - ', 'Mixed Language'))"/></xsl:when>
 						<xsl:when test="@Language = 'Mixed'"><xsl:value-of select="leg:TranslateText(concat($title, $dateSuffix, ' - Mixed Language'))" /></xsl:when>
 						<xsl:when test="exists(@Language)"><xsl:value-of select="leg:TranslateText(concat($title, $dateSuffix, ' - ', @Language))" /></xsl:when>
-						<xsl:when test="matches(@URI, '_en(_[0-9]{3})?.pdf$') and leg:GetDocumentMainType(./root()) = ('WelshAssemblyMeasure','WelshStatutoryInstrument','WelshNationalAssemblyAct')"><xsl:value-of select="leg:TranslateText(concat($title, $dateSuffix, ' - English'))"/></xsl:when>
+						<xsl:when test="matches(@URI, '_en(_[0-9]{3})?.pdf$') and $documentMainType = ('WelshAssemblyMeasure','WelshStatutoryInstrument','WelshNationalAssemblyAct')"><xsl:value-of select="leg:TranslateText(concat($title, $dateSuffix, ' - English'))"/></xsl:when>
 						<!-- There are sometimes Welsh-language versions of UKSIs, so don't restrict this to MWAs & WSIs -->
 						<xsl:when test="matches(@URI, '_we(_[0-9]{3})?.pdf$')"><xsl:value-of select="leg:TranslateText(concat($title, $dateSuffix, ' - Welsh'))"/></xsl:when>
 						
@@ -521,42 +527,29 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 									<xsl:text>Correction Slip - </xsl:text>
 									<xsl:value-of select="leg:FormatDate(@Date)"/>
 								</xsl:when>
-																		
-								<xsl:when test="self::ukm:Alternative[exists($ia[4])]">
-									<xsl:value-of select="$title"/>
+								<xsl:when test="self::ukm:Alternative">
+									<xsl:variable name="number" as="xs:integer" select="count(preceding-sibling::ukm:Alternative[@Title = current()/@Title])"/>
+									<xsl:value-of select="leg:TranslateText($title)"/>
 									<xsl:text> </xsl:text>
-									<xsl:value-of select="number(replace($ia[4],'.pdf','','i')) + 1 "/>
-								</xsl:when>
-								<xsl:when test="self::ukm:Alternative[preceding-sibling::*[self::ukm:Alternative] and not(following-sibling::*)]						
-									">
-									<xsl:value-of select="$title"/>
-									
-								</xsl:when>
-								<xsl:when test="self::ukm:ComingIntoForce[exists($ia[4])]  | 
-									self::ukm:UKRPCOpinion[exists($ia[4])] |
-									self::ukm:CodeofConduct[exists($ia[4])] | 
-									self::ukm:OtherDocument[exists($ia[4])] | 
-									self::ukm:UKExplanatoryMemorandum[exists($ia[4])] | 
-									self::ukm:NIExplanatoryMemorandum[exists($ia[4])] | 
-									self::ukm:TranspositionNote[exists($ia[4])] ">
-									<xsl:value-of select="$title"/>
+									<xsl:value-of select="if ($number gt 0 or following-sibling::ukm:Alternative[@Title = current()/@Title])
+									then $number + 1 else ()"/>
+								</xsl:when>										
+								<xsl:when test="self::ukm:ComingIntoForce  | 
+									self::ukm:UKRPCOpinion |
+									self::ukm:CodeofConduct | 
+									self::ukm:OtherDocument | 
+									self::ukm:UKExplanatoryMemorandum | 
+									self::ukm:NIExplanatoryMemorandum | 
+									self::ukm:TranspositionNote ">
+									<xsl:variable name="doctype" as="xs:string" select="self::*/local-name()"/>
+									<xsl:variable name="number" as="xs:integer" select="count(preceding-sibling::*[local-name() = $doctype][@Title = current()/@Title])"/>
+									<xsl:value-of select="$title" />	
 									<xsl:text> </xsl:text>
-									<xsl:value-of select="number(replace($ia[4],'.pdf','','i')) + 1 "/>
-									
+									<xsl:value-of select="if ($number gt 0 or following-sibling::*[local-name() = $doctype][@Title = current()/@Title])
+									then $number + 1 else ()"/>
 								</xsl:when>
-								<xsl:when test="self::ukm:ComingIntoForce[preceding-sibling::*[self::ukm:ComingIntoForce] and not(following-sibling::*)]
-									| self::ukm:UKRPCOpinion[preceding-sibling::*[self::ukm:UKRPCOpinion] and not(following-sibling::*)]
-									| self::ukm:CodeofConduct[preceding-sibling::*[self::ukm:CodeofConduct] and not(following-sibling::*)]
-									| self::ukm:OtherDocument[preceding-sibling::*[self::ukm:OtherDocument] and not(following-sibling::*)]
-									| self::ukm:TranspositionNote[preceding-sibling::*[self::ukm:TranspositionNote] and not(following-sibling::*)]
-									| self::ukm:UKExplanatoryMemorandum[preceding-sibling::*[self::ukm:UKExplanatoryMemorandum] and not(following-sibling::*)]
-									| self::NIExplanatoryMemorandum[preceding-sibling::*[self::NIExplanatoryMemorandum] and not(following-sibling::*)]
-									">
-									<xsl:value-of select="$title"/>
-									<xsl:text> 1</xsl:text>
-								</xsl:when>	
 								<xsl:otherwise>
-									<xsl:value-of select="$title" />
+									<xsl:value-of select="leg:TranslateText($title)" />
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:when>
@@ -566,46 +559,31 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 							<xsl:value-of select="leg:FormatDate(@Date)"/>
 						</xsl:when>
 						<xsl:when test="self::ukm:Alternative[@Revised]">
-							<xsl:value-of select="$title"/>
+							<xsl:value-of select="leg:TranslateText($title)"/>
 							<xsl:text> </xsl:text>
 							<xsl:value-of select="if (@Revised castable as xs:date) then format-date(@Revised,'[D]/[M]/[Y]') else @Revised"/>
 						</xsl:when>
-						<xsl:when test="self::ukm:Alternative[exists($ia[4])]">
-							<xsl:value-of select="$title"/>
+						<xsl:when test="self::ukm:Alternative">
+							<xsl:variable name="number" as="xs:integer" select="count(preceding-sibling::ukm:Alternative[@Title = current()/@Title])"/>
+							<xsl:value-of select="leg:TranslateText($title)"/>
 							<xsl:text> </xsl:text>
-							<xsl:value-of select="number(replace($ia[4],'.pdf','','i')) + 1 "/>
-							
+							<xsl:value-of select="if ($number gt 0 or following-sibling::ukm:Alternative[@Title = current()/@Title])
+							then $number + 1 else ()"/>
 						</xsl:when>
-						<xsl:when test="self::ukm:Alternative[preceding-sibling::*[self::ukm:Alternative] and not(following-sibling::*)]						
-							">
-							<xsl:value-of select="leg:TranslateText($title)" />	
-							
-							
-						</xsl:when>
-						<xsl:when test="self::ukm:ComingIntoForce[exists($ia[4])] | 
-							self::ukm:UKRPCOpinion[exists($ia[4])] |
-							self::ukm:CodeofConduct[exists($ia[4])] | 
-							self::ukm:OtherDocument[exists($ia[4])] | 
-							self::ukm:UKExplanatoryMemorandum[exists($ia[4])] | 
-							self::ukm:NIExplanatoryMemorandum[exists($ia[4])] | 
-							self::ukm:TranspositionNote[exists($ia[4])] ">
+						<xsl:when test="self::ukm:ComingIntoForce | 
+							self::ukm:UKRPCOpinion |
+							self::ukm:CodeofConduct | 
+							self::ukm:OtherDocument | 
+							self::ukm:UKExplanatoryMemorandum | 
+							self::ukm:NIExplanatoryMemorandum | 
+							self::ukm:TranspositionNote ">
+							<xsl:variable name="doctype" as="xs:string" select="self::*/local-name()"/>
+							<xsl:variable name="number" as="xs:integer" select="count(preceding-sibling::*[local-name() = $doctype][@Title = current()/@Title])"/>
 							<xsl:value-of select="leg:TranslateText($title)" />	
 							<xsl:text> </xsl:text>
-							<xsl:value-of select="number(replace($ia[4],'.pdf','','i')) + 1 "/>
-						
+							<xsl:value-of select="if ($number gt 0 or following-sibling::*[local-name() = $doctype][@Title = current()/@Title])
+							then $number + 1 else ()"/>
 						</xsl:when>
-						<xsl:when test="self::ukm:ComingIntoForce[preceding-sibling::*[self::ukm:ComingIntoForce] and not(following-sibling::*)]
-							| self::ukm:UKRPCOpinion[preceding-sibling::*[self::ukm:UKRPCOpinion] and not(following-sibling::*)]
-							| self::ukm:CodeofConduct[preceding-sibling::*[self::ukm:CodeofConduct] and not(following-sibling::*)]
-							| self::ukm:OtherDocument[preceding-sibling::*[self::ukm:OtherDocument] and not(following-sibling::*)]
-							| self::ukm:TranspositionNote[preceding-sibling::*[self::ukm:TranspositionNote] and not(following-sibling::*)]
-							| self::ukm:UKExplanatoryMemorandum[preceding-sibling::*[self::ukm:UKExplanatoryMemorandum] and not(following-sibling::*)]
-							| self::NIExplanatoryMemorandum[preceding-sibling::*[self::NIExplanatoryMemorandum] and not(following-sibling::*)]
-							">
-							<xsl:value-of select="leg:TranslateText($title)" />	
-							<xsl:text> 1</xsl:text>
-							
-						</xsl:when>	
 						<!--<xsl:value-of select="$dateSuffix" />-->
 						<xsl:otherwise>
 							<xsl:value-of select="leg:TranslateText($title)" />							
@@ -615,7 +593,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 				<xsl:text>   </xsl:text>
 				<span class="filesize"><xsl:sequence select="tso:GetFileSize(@Size)"/></span>
 			</li>
-		</xsl:if>
+		
 	 </xsl:template>
 	 
 	 <xsl:template match="ukm:Supersedes" mode="AssociatedDocuments">
