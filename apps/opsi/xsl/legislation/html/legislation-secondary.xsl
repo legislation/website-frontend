@@ -90,7 +90,7 @@ version="2.0">
 			<xsl:apply-templates select="leg:Number | leg:SubjectInformation | leg:Title | leg:Approved | leg:LaidDraft | leg:LaidDate  | processing-instruction()"/>
 		</xsl:when>
 		<xsl:otherwise>
-			<xsl:apply-templates select="leg:Number | leg:SubjectInformation | leg:Title | leg:Approved | leg:LaidDraft | leg:MadeDate | leg:LaidDate | leg:ComingIntoForce | processing-instruction()"/>
+			<xsl:apply-templates select="leg:Number | leg:SubjectInformation | leg:Title | leg:Approved  | leg:LaidDraft | leg:SiftedDate | leg:MadeDate | leg:LaidDate | leg:ComingIntoForce | processing-instruction()"/>
 		</xsl:otherwise>
 	</xsl:choose>
 	<!-- DP. Closed off the template element. Was open - agreed with Chunyu-->
@@ -140,6 +140,17 @@ version="2.0">
 	<p class="LegApproved">
 		<xsl:apply-templates/>
 	</p>
+</xsl:template>
+
+<xsl:template match="leg:SecondaryPrelims/leg:SiftedDate">
+	<div class="LegDate">
+		<p class="LegDateText">
+			<xsl:apply-templates select="leg:Text/node()"/>
+		</p>
+		<p class="LegDateDate">
+			<xsl:apply-templates select="leg:DateText/node()"/>
+		</p>
+	</div>
 </xsl:template>
 
 <xsl:template match="leg:SecondaryPrelims/leg:MadeDate">

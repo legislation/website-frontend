@@ -384,7 +384,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:apply-templates select="leg:Number | leg:SubjectInformation | leg:Title | leg:Approved | leg:LaidDraft | leg:LaidDate  | processing-instruction()"/>
 		</xsl:when>
 		<xsl:otherwise>
-		<xsl:apply-templates select="leg:Number | leg:SubjectInformation | leg:Title | leg:Approved | leg:LaidDraft | leg:MadeDate | leg:LaidDate | leg:ComingIntoForce | processing-instruction()"/>
+			<xsl:apply-templates select="leg:Number | leg:SubjectInformation | leg:Title | leg:Approved | leg:LaidDraft | leg:SiftedDate | leg:MadeDate | leg:LaidDate | leg:ComingIntoForce | processing-instruction()"/>
 		</xsl:otherwise>
 	</xsl:choose>
 	
@@ -461,6 +461,21 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	</xsl:choose>
 	<xsl:call-template name="FuncApplyVersions"/>
 </xsl:template>
+
+	<xsl:template match="leg:SecondaryPrelims/leg:SiftedDate">
+		
+		<div class="LegDate">
+			<p class="LegDateText">
+				<xsl:apply-templates select="leg:Text/node() | processing-instruction()[following-sibling::leg:DateText]"/>
+			</p>
+			<p class="LegDateDate">
+				<xsl:apply-templates select="leg:DateText/node() | processing-instruction()[preceding-sibling::leg:DateText]"/>
+			</p>
+		</div>
+		<xsl:call-template name="FuncApplyVersions"/>
+		
+	</xsl:template>
+
 
 <xsl:template match="leg:SecondaryPrelims/leg:MadeDate">
 	

@@ -961,24 +961,27 @@
 	<p class="approved"><xsl:apply-templates /></p>
 </xsl:template>
 
-<xsl:template match="LaidDraft | MadeDate | LaidDate | ComingIntoForce[not(ComingIntoForceClauses)] | ComingIntoForceClauses">
+<xsl:template match="LaidDraft | SiftedDate | MadeDate | LaidDate | ComingIntoForce[not(ComingIntoForceClauses)] | ComingIntoForceClauses">
 	<p class="{local-name()}"><xsl:apply-templates /></p>
 </xsl:template>
 <xsl:template match="ComingIntoForce[ComingIntoForceClauses]">
 	<container name="{local-name()}"><xsl:apply-templates /></container>
 </xsl:template>
 
-<xsl:template match="LaidDraft/Text | MadeDate/Text | LaidDate/Text | ComingIntoForce[not(ComingIntoForceClauses)]/Text | ComingIntoForceClauses/Text">
+	<xsl:template match="LaidDraft/Text  | SiftedDate/Text | MadeDate/Text | LaidDate/Text | ComingIntoForce[not(ComingIntoForceClauses)]/Text | ComingIntoForceClauses/Text">
 	<span><xsl:apply-templates /></span>
 </xsl:template>
 <xsl:template match="ComingIntoForce[ComingIntoForceClauses]/Text">
 	<p><xsl:apply-templates /></p>
 </xsl:template>
 
-<xsl:template match="MadeDate/DateText | LaidDate/DateText | ComingIntoForce/DateText | ComingIntoForceClauses/DateText">
+	<xsl:template match="MadeDate/DateText  | SiftedDate/DateText  |  LaidDate/DateText | ComingIntoForce/DateText | ComingIntoForceClauses/DateText">
 	<docDate>
 		<xsl:attribute name="date">
 			<xsl:choose>
+				<xsl:when test="parent::SiftedDate">
+					<xsl:value-of select="/Legislation/ukm:Metadata/ukm:*/ukm:Sifted/@Date" />
+				</xsl:when>
 				<xsl:when test="parent::MadeDate">
 					<xsl:value-of select="/Legislation/ukm:Metadata/ukm:*/ukm:Made/@Date" />
 				</xsl:when>
