@@ -247,7 +247,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:param name="href"/>
 		<xsl:param name="defaultSort" />
 		<xsl:variable name="href" as="xs:string"
-			select="replace($href, 'http://legislation.data.gov.uk', '')" />
+			select="replace($href, '(http://legislation.data.gov.uk)|(http://www.legislation.gov.uk)', '')" />
 		<xsl:variable name="href" as="xs:string"
 			select="replace($href, '/data.feed', '')" />
 		<xsl:variable name="href" as="xs:string"

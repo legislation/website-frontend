@@ -370,7 +370,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						
 						<xsl:when test="$dcIdentifier = ($signatureURI, $noteURI, $earlierOrdersURI)"><xsl:attribute name="class">legContent</xsl:attribute></xsl:when>
 						<xsl:when test="leg:IsContent()"><xsl:attribute name="class">legContent</xsl:attribute></xsl:when>						
-						<xsl:when test="$wholeActURI = $dcIdentifier "><xsl:attribute name="class">legComplete</xsl:attribute></xsl:when>
+						<xsl:when test="$wholeActURI = $dcIdentifier "><xsl:attribute name="class">legComplete</xsl:attribute></xsl:when>						
+						<xsl:when test="matches($dcIdentifier, concat('^(', $wholeActURI, ')(/(scotland|england|wales|ni))$'))"><xsl:attribute name="class">legComplete</xsl:attribute></xsl:when>						
 						<xsl:when test="$wholeActWithoutSchedulesURI = $dcIdentifier "><xsl:attribute name="class">legComplete</xsl:attribute></xsl:when>						
 						<xsl:when test="$schedulesOnlyURI = $dcIdentifier "><xsl:attribute name="class">legComplete</xsl:attribute></xsl:when>												
 						<xsl:otherwise/>
