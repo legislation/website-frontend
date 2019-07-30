@@ -381,7 +381,7 @@ $(document).ready(function() {
      * jQuery Cookies Functions
      */
     function cli_show_cookiebar(html, json_payload) {
-        var ACCEPT_COOKIE_NAME = 'close_job_advert_2018-08_cookie';
+        var ACCEPT_COOKIE_NAME = 'close_job_advert_cookie_2019_06_191235'; //close_job_advert_cookie_{yyyy_mm_ddHHMM}
         var ACCEPT_COOKIE_EXPIRE = 365;
         var settings = eval('(' + json_payload + ')');
 
