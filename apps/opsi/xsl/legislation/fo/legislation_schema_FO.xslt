@@ -30,6 +30,7 @@ exclude-result-prefixes="tso atom">
 	<xsl:import href="../html/statuswarning.xsl"/>
 	<xsl:import href="../html/process-annotations.xslt"/>
 
+		
 	<xsl:output method="xml" version="1.0" omit-xml-declaration="no"  indent="no" standalone="no" use-character-maps="FOcharacters"/>
 
 	
@@ -114,6 +115,7 @@ exclude-result-prefixes="tso atom">
 		<!-- Do this just so we can see NBSP -->
 		<xsl:output-character character="&#160;" string="&amp;#160;"/>
 		<xsl:output-character character="⿿" string="-"/>
+		<xsl:output-character character="&#8209;" string="-"/>
 		<xsl:output-character character="&#x2FFF;" string="&#x201C;"/><!--left double quote-->
 		<xsl:output-character character="&#x2FDD;" string="&#x201D;"/><!--right double quote-->
 		<xsl:output-character character="&#x2015;" string="&#x2014;"/><!--emdash-->
@@ -3045,7 +3047,7 @@ exclude-result-prefixes="tso atom">
 								<xsl:attribute name="margin-top">18pt</xsl:attribute>
 							</xsl:if>
 							<xsl:if test="not(following-sibling::leg:Para)">
-								<xsl:attribute name="space-after">48pt</xsl:attribute>
+								<xsl:attribute name="space-after">24pt</xsl:attribute>
 							</xsl:if>
 							<xsl:apply-templates/>
 						</fo:block>
@@ -3064,6 +3066,27 @@ exclude-result-prefixes="tso atom">
 								<!--					<fo:table-column column-width="30%"/>
 							<fo:table-column column-width="70%"/>	-->
 								<fo:table-body>
+							<xsl:if test="leg:LSseal">
+								<fo:table-row>
+									<fo:table-cell display-align="before"  number-columns-spanned="2">
+										<xsl:choose>
+											<xsl:when test="$lssealuri">
+												<fo:block keep-with-next="always">
+													<fo:external-graphic src='url("{//leg:Resource[@id = $lssealuri]/leg:ExternalVersion/@URI}")' fox:alt-text="Legal seal"/>
+												</fo:block>
+											</xsl:when>
+											<xsl:when test="not(normalize-space(leg:LSseal) = '')">
+												<fo:block keep-with-next="always">
+													<xsl:apply-templates select="leg:LSseal"/>
+												</fo:block>
+											</xsl:when>
+											<xsl:otherwise>
+												<fo:block keep-with-next="always">L.S.</fo:block>
+											</xsl:otherwise>
+										</xsl:choose>
+									</fo:table-cell>
+								</fo:table-row>
+							</xsl:if>
 									<fo:table-row>
 										<fo:table-cell display-align="after">
 											<xsl:if test="not(leg:Address or leg:DateSigned/leg:DateText or leg:LSseal)">
@@ -3796,7 +3819,7 @@ exclude-result-prefixes="tso atom">
 		<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 	</xsl:template>
 
-	<xsl:template match="leg:ExplanatoryNotes">
+	<xsl:template match="leg:ExplanatoryNotes" priority="10">
 		<xsl:next-match/>
 		<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 	</xsl:template>
