@@ -63,7 +63,9 @@ exclude-result-prefixes="tso atom">
 	</xsl:variable>	
 
 	<!-- document uri -->
-	<xsl:variable name="strDocURI" select="/leg:Legislation/@DocumentURI"/>		
+	<xsl:variable name="strDocURI" select="/leg:Legislation/@DocumentURI"/>	
+
+	<xsl:variable name="isRepealedAct" select="matches((/leg:Legislation/ukm:Metadata/dc:title)[1], '\((repealed|revoked)(\s*[\d]{1,2}\.[\d]{1,2}\.[\d]{4}\s*)?\)\s*$', 'i')"/>
 	
 	<!-- this is a global variable which has to match the name of the version variable in the imported stylesheet statuswarning.xsl otherwise we will not have the correct status warnings when run from the PDF service -->
 	<!-- as we do not have the pramsdoc available to the PDF service we will have to determine the version from the document URI -->
