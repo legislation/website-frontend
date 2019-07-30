@@ -86,7 +86,7 @@ exclude-result-prefixes="leg ukm math xhtml dc ukm fo xsl">
 						This SHOULD be the case but bugs in augment.xsl caused duplciation if the version with 
 						same ID if the same image was referrenced twice as is the case with HA052048 -->
 						<xsl:apply-templates select="(//leg:Version[@id = current()/@AltVersionRefs])[1]/*"/>
-						<xsl:apply-templates select=".//(leg:Substitution|leg:Addition|leg:Repeal)" mode="mathrevisions"/>
+						<xsl:apply-templates select=".//(leg:Substitution|leg:Addition|leg:Repeal)[ancestor::math:math]" mode="mathrevisions"/>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:call-template name="FuncOutputError"/>

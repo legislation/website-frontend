@@ -52,7 +52,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:when test="ancestor::leg:BlockAmendment">
 					<!--Block amendment annotations handled at end of provision-->
 				</xsl:when>
-				<xsl:when test="self::leg:Part[not(ancestor::leg:BlockAmendment)] | self::leg:Chapter[not(ancestor::leg:BlockAmendment)] | self::leg:Pblock[not(ancestor::leg:BlockAmendment)]">
+				<xsl:when test="self::leg:Part[not(ancestor::leg:BlockAmendment)] | self::leg:Chapter[not(ancestor::leg:BlockAmendment)] | self::leg:Pblock[not(ancestor::leg:BlockAmendment)] | self::leg:PsubBlock[not(ancestor::leg:BlockAmendment)]">
 					<xsl:sequence select="(leg:Number | leg:Title)/descendant::leg:CommentaryRef" />
 				</xsl:when>
 				<xsl:when test="self::leg:P1group[not(ancestor::leg:BlockAmendment)] | self::leg:P1[not(parent::leg:P1group)][not(ancestor::leg:BlockAmendment)][not(ancestor::leg:Tabular)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:Tabular[not(parent::leg:P1)][not(parent::leg:P)]">
@@ -83,7 +83,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:when test="ancestor::leg:BlockAmendment">
 					<!--Block amendment annotations handled at end of provision-->
 				</xsl:when>
-				<xsl:when test="self::leg:Part[not(ancestor::leg:BlockAmendment)] | self::leg:Chapter[not(ancestor::leg:BlockAmendment)] | self::leg:Pblock[not(ancestor::leg:BlockAmendment)]">
+				<xsl:when test="self::leg:Part[not(ancestor::leg:BlockAmendment)] | self::leg:Chapter[not(ancestor::leg:BlockAmendment)] | self::leg:Pblock[not(ancestor::leg:BlockAmendment)] | self::leg:PsubBlock[not(ancestor::leg:BlockAmendment)]">
 					<xsl:sequence select="(leg:Number | leg:Title)/(descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution)" />
 				</xsl:when>
 				<!-- for prelims we need to take all descendent amendments -->

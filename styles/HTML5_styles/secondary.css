@@ -1,13 +1,13 @@
 /*
 (c)  Crown copyright
- 
+
 You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
+
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
 
-@import 'legislation.css';
+@import '../legislation.css';
 
 /* preface */
 
@@ -23,6 +23,12 @@ article[data-name='ScottishStatutoryInstrument'] > .preface::before {
 article[data-name='WelshStatutoryInstrument'] > .preface::before {
 	content: 'Welsh Statutory Instruments'
 }
+article[data-name='UnitedKingdomMinisterialOrder'] > .preface::before {
+	content: 'Ministerial Order'
+}
+article[data-name='UnitedKingdomMinisterialDirection'] > .preface::before {
+	content: 'Ministerial Directions'
+}
 
 p.number { margin-top: 2em; margin-bottom: 1.5em }
 .docNumber { font-size: 125%; font-weight: bold }
@@ -30,10 +36,10 @@ p.number { margin-top: 2em; margin-bottom: 1.5em }
 .concept { display: block; margin-top: 1em; text-align: center; text-transform: uppercase }
 .concept.title { font-size: 125% }
 
-.LaidDraft, .MadeDate, .LaidDate, .ComingIntoForce { position: relative; width: 70%; left:15%; font-style: italic }
+.LaidDraft, .SiftedDate, .MadeDate, .LaidDate, .ComingIntoForce { position: relative; width: 70%; left:15%; font-style: italic }
 .ComingIntoForce > p { position: relative; margin: 0 }
 .ComingIntoForce > p.ComingIntoForceClauses { margin-left: 2em }
-.MadeDate > time, .LaidDate > time, .ComingIntoForce > time, .ComingIntoForceClauses > .time { position: absolute; right: 0 }
+.SiftedDate > time, .MadeDate > time, .LaidDate > time, .ComingIntoForce > time, .ComingIntoForceClauses > .time { position: absolute; right: 0 }
 
 *[data-name='RoyalPresence'] { text-align: center }
 

@@ -843,9 +843,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					select="tso:GetNumberForLegislation(@AffectedClass, @AffectedYear, @AffectedNumber)"
 				/>
 			</xsl:variable>
-			<a href="/id/{tso:GetUriPrefixFromType(@AffectedClass, @AffectedYear)}/{@AffectedYear}/{@AffectedNumber}">
-				<xsl:value-of select="$effectedYearNumber"/>
-			</a>
+			<xsl:variable name="link" select="concat('/id/', tso:GetUriPrefixFromType(@AffectedClass, @AffectedYear), '/', @AffectedYear, '/', @AffectedNumber)"/>
+			<xsl:sequence select="leg:makeLink(@AffectedClass, $link, $effectedYearNumber)"/>
 		</td>
 	</xsl:template>
 
@@ -857,9 +856,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:apply-templates select="ukm:AffectedProvisions" />
 				</xsl:when>
 				<xsl:otherwise>
-					<a href="/{substring-after(@AffectedURI, 'www.legislation.gov.uk/')}">
-						<xsl:value-of select="@AffectedProvisions"/>
-					</a>
+					<xsl:variable name="link" select="concat('/', substring-after(@AffectedURI, 'www.legislation.gov.uk/'))"/>
+					<xsl:sequence select="leg:makeLink(@AffectedClass, $link, @AffectedProvisions)"/>
 				</xsl:otherwise>
 			</xsl:choose>
 		</td>
@@ -886,11 +884,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<!-- Affecting Year and Number-->
 	<xsl:template match="ukm:Effect" mode="resultsAffectingYearNumber">
 		<td class="centralCol">
-			<a href="/id/{tso:GetUriPrefixFromType(@AffectingClass, @AffectingYear)}/{@AffectingYear}/{@AffectingNumber}">
+			<xsl:variable name="link" select="concat('/id/', tso:GetUriPrefixFromType(@AffectingClass, @AffectingYear), '/', @AffectingYear, '/', @AffectingNumber)"/>
+			<xsl:variable name="value">
 				<xsl:value-of select="@AffectingYear"/>
 				<xsl:text>&#160;</xsl:text>
 				<xsl:value-of select="tso:GetNumberForLegislation(@AffectingClass, @AffectingYear, @AffectingNumber)" />
-			</a>
+			</xsl:variable>
+			<xsl:sequence select="leg:makeLink(@AffectingClass, $link, $value)"/>
 		</td>
 	</xsl:template>
 
@@ -902,9 +902,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:apply-templates select="ukm:AffectingProvisions" />
 				</xsl:when>
 				<xsl:otherwise>
-					<a href="/{substring-after(@AffectingURI, 'www.legislation.gov.uk/')}">
-						<xsl:value-of select="@AffectingProvisions" />
-					</a>
+					<xsl:variable name="link" select="concat('/', substring-after(@AffectingURI, 'www.legislation.gov.uk/'))"/>
+					<xsl:sequence select="leg:makeLink(@AffectingClass, $link, @AffectingProvisions)"/>
 				</xsl:otherwise>
 			</xsl:choose>
 		</td>
@@ -975,7 +974,24 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template match="ukm:AffectedProvisions//text() | ukm:AffectingProvisions//text() | ukm:Commenced//text()">
 		<xsl:value-of select="." />
 	</xsl:template>
-
+	
+	<!-- for now we will not link to EU legisaltin as we do not currently hold it -->
+	<xsl:function name="leg:makeLink">		
+		<xsl:param name="class" as="xs:string?"/>
+		<xsl:param name="link" as="xs:string?"/>
+		<xsl:param name="value" as="xs:string?"/>
+		<xsl:choose>
+			<xsl:when test="$class = $leg:euretained">
+				<xsl:value-of select="$value"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<a href="{$link}">
+					<xsl:value-of select="$value"/>
+				</a>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:function>
+	
 	<!-- ========== Standard code for search results========= -->
 
 	<xsl:template match="atom:feed" mode="pagesummary">

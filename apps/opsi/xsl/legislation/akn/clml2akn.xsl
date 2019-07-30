@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- v1.3, written by Jim Mangiafico, updated 16 April 2016 -->
+<!-- v1.4, written by Jim Mangiafico, updated 24 May 2018 -->
 
 <xsl:stylesheet version="2.0"
 	xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/WD16"
@@ -265,7 +265,6 @@
 							<xsl:when test="$ukm-doctype = 'NorthernIrelandOrderInCouncil'">government/uk</xsl:when>
 							<xsl:when test="$ukm-doctype = 'NorthernIrelandDraftOrderInCouncil'">government/uk</xsl:when>
 							<xsl:when test="$ukm-doctype = 'NorthernIrelandStatutoryRule'">government/northern-ireland</xsl:when>
-							<xsl:when test="$ukm-doctype = 'NorthernIrelandStatutoryRuleOrOrder'">government/northern-ireland</xsl:when>
 							<xsl:when test="$ukm-doctype = 'NorthernIrelandDraftStatutoryRule'">government/northern-ireland</xsl:when>
 							<xsl:when test="$ukm-doctype = 'ScottishAct'">legislature/ScottishParliament</xsl:when>
 							<xsl:when test="$ukm-doctype = 'ScottishOldAct'">legislature/OldScottishParliament</xsl:when>
@@ -283,6 +282,7 @@
 							<xsl:when test="$ukm-doctype = 'WelshNationalAssemblyAct'">legislature/NationalAssemblyForWales</xsl:when>
 							<xsl:when test="$ukm-doctype = 'WelshStatutoryInstrument'">government/wales</xsl:when>
 							<xsl:when test="$ukm-doctype = 'WelshDraftStatutoryInstrument'">government/wales</xsl:when>
+							<xsl:when test="$ukm-doctype = 'UnitedKingdomMinisterialDirection'">government/uk</xsl:when>
 						</xsl:choose>
 					</xsl:attribute>
 				</FRBRauthor>
@@ -298,7 +298,6 @@
 							<xsl:when test="$ukm-doctype = 'NorthernIrelandOrderInCouncil'">GB-NIR</xsl:when>
 							<xsl:when test="$ukm-doctype = 'NorthernIrelandDraftOrderInCouncil'">GB-NIR</xsl:when>
 							<xsl:when test="$ukm-doctype = 'NorthernIrelandStatutoryRule'">GB-NIR</xsl:when>
-							<xsl:when test="$ukm-doctype = 'NorthernIrelandStatutoryRuleOrOrder'">GB-NIR</xsl:when>
 							<xsl:when test="$ukm-doctype = 'NorthernIrelandDraftStatutoryRule'">GB-NIR</xsl:when>
 							<xsl:when test="$ukm-doctype = 'ScottishAct'">GB-SCT</xsl:when>
 							<xsl:when test="$ukm-doctype = 'ScottishOldAct'">GB-SCT</xsl:when>
@@ -316,6 +315,7 @@
 							<xsl:when test="$ukm-doctype = 'WelshNationalAssemblyAct'">GB-WLS</xsl:when>
 							<xsl:when test="$ukm-doctype = 'WelshStatutoryInstrument'">GB-WLS</xsl:when>
 							<xsl:when test="$ukm-doctype = 'WelshDraftStatutoryInstrument'">GB-WLS</xsl:when>
+							<xsl:when test="$ukm-doctype = 'UnitedKingdomMinisterialDirection'">GB-UKM</xsl:when>
 							<xsl:otherwise>GB-UKM</xsl:otherwise>
 						</xsl:choose>
 					</xsl:attribute>
@@ -351,7 +351,7 @@
 								<xsl:variable name="alt-num" select="ukm:SecondaryMetadata/ukm:AlternativeNumber[@Category='NI']/@Value" />
 								<xsl:value-of select="concat('S.I. ', $year, '/', $num, ' (N.I. ', $alt-num, ')')" />
 							</xsl:when>
-							<xsl:when test="$ukm-doctype = 'NorthernIrelandStatutoryRule' or $ukm-doctype = 'NorthernIrelandStatutoryRuleOrOrder' or $ukm-doctype = 'NorthernIrelandDraftStatutoryRule'">
+							<xsl:when test="$ukm-doctype = 'NorthernIrelandStatutoryRule' or $ukm-doctype = 'NorthernIrelandDraftStatutoryRule'">
 								<xsl:choose>
 									<xsl:when test="ukm:SecondaryMetadata/ukm:AlternativeNumber[@Category='C']">
 										<xsl:variable name="c-num" select="ukm:SecondaryMetadata/ukm:AlternativeNumber[@Category='C']/@Value" />
@@ -485,6 +485,9 @@
 		<lifecycle source="#source">
 			<xsl:if test="ukm:PrimaryMetadata/ukm:EnactmentDate">
 				<eventRef date="{ukm:PrimaryMetadata/ukm:EnactmentDate/@Date}" type="generation" eId="enacted-date" source="#source" />
+			</xsl:if>
+			<xsl:if test="ukm:SecondaryMetadata/ukm:Sifted">
+				<eventRef date="{ukm:SecondaryMetadata/ukm:Sifted/@Date}" eId="sifted-date" source="#source" />
 			</xsl:if>
 			<xsl:if test="ukm:SecondaryMetadata/ukm:Made">
 				<eventRef date="{ukm:SecondaryMetadata/ukm:Made/@Date}" type="generation" eId="made-date" source="#source" />
@@ -968,14 +971,14 @@
 	<container name="{local-name()}"><xsl:apply-templates /></container>
 </xsl:template>
 
-	<xsl:template match="LaidDraft/Text  | SiftedDate/Text | MadeDate/Text | LaidDate/Text | ComingIntoForce[not(ComingIntoForceClauses)]/Text | ComingIntoForceClauses/Text">
+<xsl:template match="LaidDraft/Text | SiftedDate/Text | MadeDate/Text | LaidDate/Text | ComingIntoForce[not(ComingIntoForceClauses)]/Text | ComingIntoForceClauses/Text">
 	<span><xsl:apply-templates /></span>
 </xsl:template>
 <xsl:template match="ComingIntoForce[ComingIntoForceClauses]/Text">
 	<p><xsl:apply-templates /></p>
 </xsl:template>
 
-	<xsl:template match="MadeDate/DateText  | SiftedDate/DateText  |  LaidDate/DateText | ComingIntoForce/DateText | ComingIntoForceClauses/DateText">
+<xsl:template match="SiftedDate/DateText | MadeDate/DateText | LaidDate/DateText | ComingIntoForce/DateText | ComingIntoForceClauses/DateText">
 	<docDate>
 		<xsl:attribute name="date">
 			<xsl:choose>

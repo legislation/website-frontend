@@ -133,6 +133,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		em="" singular="UK Public Bill" plural="{leg:TranslateText('UK Public Bills')}"
   	start="1901" complete="1988" legType="UnitedKingdomDraftPublicBill" revised="false" />
 	
+	<!--  EU LEGISLATION -->
+	<tso:legType schemaType="EuropeanUnionRegulation" abbrev="eur" class="euretained" category="Regulation" 
+  	en="Explanatory Notes" pn="Policy Note" singular="European Union Regulation" plural="European Union Regulations"
+  	start="2018" complete="2018" revised="true" />
+	<tso:legType schemaType="EuropeanUnionDecision" abbrev="eudn" class="euretained" category="Decision" 
+  	en="Explanatory Notes" pn="Policy Note" singular="European Union Decision" plural="European Union Decisions"
+  	start="2018" complete="2018" revised="true" />
+	<tso:legType schemaType="EuropeanUnionDirective" abbrev="eudr" class="euretained" category="Directive" 
+  	en="Explanatory Notes" pn="Policy Note" singular="European Union Directive" plural="European Union Directives"
+  	start="2018" complete="2018" revised="true" />
+	
+</xsl:variable>
+
+<xsl:variable name="leg:euretained" as="xs:string+">
+	<xsl:sequence select="('EuropeanUnionRegulation', 'EuropeanUnionDecision', 'EuropeanUnionDirective')"/>
 </xsl:variable>
 
 <xsl:function name="tso:getType" as="element(tso:legType)?">
@@ -156,7 +171,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 </xsl:function>
 
 <xsl:function name="tso:GetEffectingTypes" as="element(tso:legType)+">
-	<xsl:sequence select="$tso:legTypeMap[not(@class = ('draft','IA')) and (@start >= 2002 or @complete >= 2002 or not(@end))]"/>
+	<xsl:sequence select="$tso:legTypeMap[not(@class = ('draft','IA', 'euretained')) and (@start >= 2002 or @complete >= 2002 or not(@end))]"/>
 </xsl:function>
 
 <xsl:function name="tso:ShowMoreResources" as="xs:boolean">
