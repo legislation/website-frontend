@@ -1275,11 +1275,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:variable name="strMinorType"
 					select="$nstDocumentClassification/ukm:DocumentMinorType/@Value" />
 				<xsl:choose>
+					<xsl:when test="ancestor::leg:Schedule[not(ancestor::leg:BlockAmendment)]">Paragraph </xsl:when>
 					<xsl:when test="$strMainType = 'NorthernIrelandOrderInCouncil'">Article </xsl:when>
 					<xsl:when test="$strMinorType = 'rule'">Rule </xsl:when>
 					<xsl:when test="$strMinorType = 'regulation'">Regulation </xsl:when>
 					<xsl:when test="$strCategory = 'secondary'">Article </xsl:when>
-					<xsl:when test="ancestor::leg:Schedule">Paragraph </xsl:when>
 					<xsl:otherwise>Section </xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
