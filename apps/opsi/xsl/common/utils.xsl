@@ -171,7 +171,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 </xsl:function>
 
 <xsl:function name="tso:GetEffectingTypes" as="element(tso:legType)+">
-	<xsl:sequence select="$tso:legTypeMap[not(@class = ('draft','IA', 'euretained')) and (@start >= 2002 or @complete >= 2002 or not(@end))]"/>
+	<xsl:sequence select="$tso:legTypeMap[not(@class = ('draft','IA', 'euretained', 'Bill')) and (@start >= 2002 or @complete >= 2002 or not(@end))]"/>
 </xsl:function>
 
 <xsl:function name="tso:ShowMoreResources" as="xs:boolean">
