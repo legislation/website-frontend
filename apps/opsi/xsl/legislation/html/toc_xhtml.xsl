@@ -1348,6 +1348,25 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:choose>
 	</xsl:template>
 	
+	<xsl:template match="*[leg:Title='' and not(leg:Number) and not (leg:Pnumber) and matches(@id,'[^/]*n[0-9]+')]" mode="TSOBreadcrumbItem" priority="4">
+		<xsl:choose>
+			<xsl:when test="exists(descendant::*[local-name() = 'Emphasis'])">
+				<xsl:variable name="title" select="(//leg:Emphasis)[1]" />
+				<xsl:value-of select="
+					concat(
+					replace($title,'([A-Za-z])([A-Za-z]+)\s([^\s]+).*','$1'),
+					replace($title,'([A-Za-z])([A-Za-z]+)\s([^\s]+).*','$2'),
+					replace($title,'([A-Za-z])([A-Za-z]+)\s([^\s]+).*',' $3')
+					)
+					" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="local-name(.)" />
+				<xsl:value-of select="replace(@id, replace(@id,'n[0-9]+',''), ' ')" />                
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
 	<xsl:template match="*[leg:Title]" mode="TSOBreadcrumbItem" priority="2">
 		<xsl:choose>
 			<xsl:when test="leg:Title = ''">
@@ -1357,6 +1376,35 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:value-of select="leg:abridgeContent(leg:Title[1], 4)" />
 			</xsl:otherwise>
 		</xsl:choose>
+	</xsl:template>
+	
+	<xsl:template match="*[leg:TitleBlock]" mode="TSOBreadcrumbItem" priority="2">
+		<!-- This will pick up the Title from the TitleBlock -->
+		<xsl:variable name="title">
+			<xsl:apply-templates select="leg:TitleBlock" mode="TSOBreadcrumbItem" />
+		</xsl:variable>
+		<xsl:variable name="path-seq">
+			<xsl:if test="exists(@IdURI)">
+				<xsl:variable name="seq" as="xs:string*" select="tokenize(replace(@IdURI,'(https?://)(www)?(.[^/]+)/id/(.*)','$4'),'/')" />
+				<xsl:value-of select="string-join(subsequence($seq,4),' ')" />
+			</xsl:if>
+		</xsl:variable>
+		<xsl:choose>
+			<xsl:when test="lower-case($title) != $path-seq and string-length($title) lt string-length($path-seq)">
+				<xsl:choose>
+					<xsl:when test="upper-case($title) = $title">
+						<xsl:value-of select="upper-case($path-seq)" />
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$path-seq" />
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="upper-case($title) != $title" />
+				<xsl:value-of select="$path-seq" />
+			</xsl:otherwise>
+		</xsl:choose>        
 	</xsl:template>
 	
 	<xsl:template match="*[leg:TitleBlock]" mode="TSOBreadcrumbItem" priority="1">

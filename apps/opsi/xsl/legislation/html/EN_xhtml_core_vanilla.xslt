@@ -733,9 +733,9 @@ exclude-result-prefixes="leg ukm math msxsl dc ukm fo xsl svg xhtml lnk">
 
 	<xsl:template match="leg:Contents//*[leg:* except (leg:ContentsTitle, leg:ContentsNumber)]" priority="2">
 		<li class="ENClearFix EN{local-name()}">
-			<xsl:apply-templates select="leg:ContentsTitle" />
 			<!-- addedby Yash - Call HA051277 - ContentsNumber was missing from TOC for notes -http://www.legislation.gov.uk/ukpga/2011/16/notes/contents-->
 			<xsl:apply-templates select="leg:ContentsNumber" />
+			<xsl:apply-templates select="leg:ContentsTitle" />			
 			<ol>
 				<xsl:apply-templates select="* except (leg:ContentsTitle, leg:ContentsNumber)" />
 			</ol>
@@ -2208,10 +2208,6 @@ TODO: need to add semantic id based on EN structure
 	<xsl:template match="leg:Annex/leg:Number">
 
 	</xsl:template>
-
-	<xsl:template match="leg:Annex/leg:Number">
-		
-	</xsl:template>	
 	
 	
 	<xsl:template match="leg:Reference">

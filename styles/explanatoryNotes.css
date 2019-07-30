@@ -874,3 +874,6 @@ sup, sub { height: 0; line-height: 1; vertical-align: baseline;  _vertical-align
 sup { bottom: 1ex;}
 
 sub { top: .5ex;}
+
+/* Numbered content */
+.LegContentsNo:after { content: " " }

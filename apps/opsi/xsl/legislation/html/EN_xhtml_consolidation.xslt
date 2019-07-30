@@ -170,6 +170,46 @@ exclude-result-prefixes="leg ukm math msxsl dc fo xsl svg xhtml xs tso">
 </xsl:template>
 
 
+<!-- Varun: 03/08/2018: call HA088187/History No. HH849788: Annex ToC entries to be formatted on one line (i.e. as one para)
+		START-->
+	<xsl:template match="leg:ContentsNumber	[parent::leg:ContentsAnnex]
+											[following-sibling::leg:ContentsTitle]">
+		<!-- Generate suffix to be added for CSS classes for amendments -->
+		<xsl:variable name="strAmendmentSuffix">
+			<xsl:call-template name="FuncCalcAmendmentNo"/>
+		</xsl:variable>
+		<p class="{concat('ENContentsTitle', $strAmendmentSuffix)}">
+			<a href="{parent::*/@DocumentURI}">
+				<span class="{concat('LegContentsNo', $strAmendmentSuffix)}">
+					<xsl:choose>
+						<xsl:when test="parent::*/@DocumentURI">
+							<xsl:apply-templates/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</span>
+				<span>
+					<xsl:choose>
+						<xsl:when test="parent::*/@DocumentURI">
+							<xsl:apply-templates select="following-sibling::leg:ContentsTitle/node()"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates select="following-sibling::leg:ContentsTitle/node()"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</span>
+			</a>
+		</p>		
+	</xsl:template>
+	
+	<xsl:template match="leg:ContentsTitle 	[parent::leg:ContentsAnnex]
+											[preceding-sibling::leg:ContentsNumber]"/>
+		
+	<!-- END -->
+
+
 <xsl:template match="leg:Contents/leg:ContentsTitle | leg:ContentsSchedules/leg:ContentsTitle">
 	<xsl:apply-imports />
 </xsl:template>
