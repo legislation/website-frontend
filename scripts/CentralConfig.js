@@ -537,12 +537,12 @@ $(document).ready(function() {
     /**
      * Inject message in English site and normal view
      */
-    /*
+    /**/
     if ((LANG != "cy") && (!$("body").hasClass("plainview"))) {
-        var a = '<div id="cookie-law-info-bar"><span>Legislation.gov.uk user survey. Tell us your views. <a href=\"http://www.smartsurvey.co.uk/s/204Y1" target=\"_blank\" id=\"CONSTANT_OPEN_URL\" class=\"cli-plugin-main-link\"  >Take the survey now</a>. <a href=\"#\" id=\"cookie_action_close_header\"  class=\"medium cli-plugin-button cli-plugin-main-button\" >Close</a></span></div>',
+        var a = '<div id="cookie-law-info-bar"><span>Explore the new online portal to Defra legislation: <a href=\"http://www.legislation.gov.uk/defralex" target=\"_blank\" id=\"CONSTANT_OPEN_URL\" class=\"cli-plugin-main-link\"  >DefraLex</a>. <a href=\"#\" id=\"cookie_action_close_header\"  class=\"medium cli-plugin-button cli-plugin-main-button\" >Close</a></span></div>',
                 b = '{"animate_speed_hide":"500","animate_speed_show":"500","background":"","border":"","border_on":"false","button_1_button_colour":"","button_1_button_hover":"","button_1_link_colour":"","button_1_as_button":false,"button_2_button_colour":"","button_2_button_hover":"","button_2_link_colour":"","button_2_as_button":false,"font_family":"","notify_animate_hide":true,"notify_animate_show":false,"notify_div_id":"#cookie-law-info-bar","notify_position_horizontal":"right","notify_position_vertical":"top","showagain_tab":false,"showagain_background":"","showagain_border":"","showagain_div_id":"#cookie-law-info-again","showagain_x_position":"100px","text":""}';
         cli_show_cookiebar(a, b);
-    } */
+    } 
 
 });
 
