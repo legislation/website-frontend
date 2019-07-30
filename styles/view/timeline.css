@@ -244,9 +244,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #timeline .per00 a em {height: 100px;}
 
 /* Slider */
-#resultsTimeline .decades {z-index: 30;}
+#resultsTimeline .decades {z-index: 30; position: relative; }
 #resultsTimeline {z-index: 20;}
-#resultsTimeline #fisheye {bottom: 10px; height: 30px; border: 1px solid #6CA1C0; position:absolute; background: #FFFFFF; z-index: -1;}
+#resultsTimeline #fisheye {
+  position: absolute; bottom: 0; left: 0; top: -3px;
+  z-index: -1;
+  height: 30px; width: 0;
+  border: 1px solid #6CA1C0; background: #FFFFFF;
+  visibility: hidden;
+}
 #resultsTimeline #arrowLeft {float:left;}
 #resultsTimeline #arrowRight {float:right;}
 

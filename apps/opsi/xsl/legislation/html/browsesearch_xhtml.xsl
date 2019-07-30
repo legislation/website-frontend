@@ -760,6 +760,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<td><xsl:value-of select="$startGroup" /></td>
 						</xsl:for-each>
 					</tr>
+					<tr id="fisheye" />
 				</table>
 			</div>
 		</xsl:if>

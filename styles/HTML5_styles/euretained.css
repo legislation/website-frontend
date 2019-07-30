@@ -1,0 +1,276 @@
+@charset "UTF-8";
+body {
+  margin: 1cm 1in;
+}
+
+section {
+  position: relative;
+  margin-top: 2em;
+}
+
+ol, ul {
+  position: relative;
+  margin-left: 2em;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+li {
+  margin-left: 2em;
+}
+
+li > .num {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+}
+
+li > ol, li > ul {
+  margin-left: 0;
+}
+
+/* tables */
+table {
+  width: 100%;
+  margin: 1em 0 0 0;
+  border-collapse: collapse;
+  font-size: smaller;
+}
+
+th, td {
+  padding: 6pt;
+}
+
+th {
+  font-weight: normal;
+}
+
+td {
+  vertical-align: top;
+}
+
+th > *:first-child, td > *:first-child {
+  margin-top: 0;
+}
+
+th > *:last-child, td > *:last-child {
+  margin-bottom: 0;
+}
+
+*[data-startQuote]:before {
+  content: attr(data-startQuote);
+}
+
+/* images */
+.uppercase {
+  text-transform: uppercase;
+}
+
+.noteRef {
+  vertical-align: super;
+}
+
+.noteRef.footnote {
+  font-size: x-small;
+}
+
+a {
+  color: #2790C4;
+}
+
+a[href=""], a[href^="#"] {
+  color: inherit;
+  text-decoration: none;
+}
+a[href=""]:hover, a[href^="#"]:hover {
+  text-decoration: underline;
+}
+
+.footnotes {
+  margin-top: 2em;
+  border-top: thin solid black;
+}
+
+.note.footnote {
+  position: relative;
+}
+
+.note.footnote > .marker {
+  display: block;
+  position: absolute;
+  left: 0em;
+  font-size: x-small;
+}
+.note.footnote > .marker:after {
+  content: ".";
+}
+
+.note.footnote > .marker + p {
+  text-indent: 3ch;
+}
+
+ins, del {
+  text-decoration: none;
+}
+
+.annotations {
+  margin: 1em;
+  border: thin solid grey;
+  padding: 1em;
+  display: none;
+}
+
+.annotations > div + div {
+  margin-top: 1em;
+}
+
+.annotations > div:first-child {
+  font-weight: bold;
+}
+
+.annotations > div > div {
+  margin-top: 1em;
+}
+
+.annotations > div > div:first-child {
+  border-top: thin dotted gray;
+  padding-top: 1em;
+  font-weight: bold;
+}
+
+.annotations > div > div > span.marker {
+  display: block;
+  position: absolute;
+}
+
+.annotations > div > div > span.marker + * {
+  text-indent: 2em;
+}
+
+body {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.longTitle {
+  margin: 1em 2em 0 2em;
+}
+
+.longTitle > p {
+  margin: 0.5em 0 0 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+.preamble {
+  margin-top: 2em;
+}
+.preamble .tblock {
+  margin-top: 1em;
+}
+.preamble .tblock > .num {
+  display: inline-block;
+  position: absolute;
+}
+.preamble .tblock > :not(.num) {
+  display: block;
+  margin-left: 2.5em;
+}
+
+h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-size: medium;
+  font-weight: normal;
+}
+
+*[data-name=schedule] > h2 > .heading, *[data-name=schedules] > h2 > .heading, .article > h2 > .heading, .section > h2 > .heading, .chapter > h2 > .heading, .title > h2 > .heading, *[data-name=schedule] > h2 > .num, .article > h2 > .num, .section > h2 > .num, .chapter > h2 > .num, .title > h2 > .num {
+  display: block;
+  text-align: center;
+}
+
+*[data-name=schedule] > h2 > .num, .article > h2 > .num, .section > h2 > .num, .chapter > h2 > .num, .title > h2 > .num {
+  margin-top: 2em;
+}
+
+*[data-name=schedule] > h2 > .heading, *[data-name=schedules] > h2 > .heading, .article > h2 > .heading, .section > h2 > .heading, .chapter > h2 > .heading, .title > h2 > .heading {
+  margin-top: 1em;
+}
+
+.section > h2 > .num {
+  letter-spacing: 2px;
+}
+
+.section > h2 > .heading {
+  letter-spacing: 2px;
+}
+
+.article > h2 > .num {
+  font-style: italic;
+}
+
+.article > h2 > .heading {
+  font-weight: bold;
+}
+
+.paragraph {
+  position: relative;
+}
+
+.paragraph > * > span.num {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+}
+
+.paragraph > * > span.num > ins.first::before {
+  position: absolute;
+  left: -1ch;
+}
+
+.paragraph > .content > p:first-child {
+  text-indent: 2.5em;
+}
+
+.level > h2 > .num {
+  display: inline-block;
+  width: 2.5em;
+}
+
+.level > h2.noheading > .num {
+  position: absolute;
+  left: 0;
+}
+
+.level > h2.noheading + div > *:first-child {
+  text-indent: 2.5em;
+}
+
+/* lists */
+ul > li:before {
+  content: "—";
+  position: absolute;
+  left: 0;
+}
+
+/* tables */
+th, td {
+  border-top: thin solid black;
+  border-bottom: thin solid black;
+  border-right: thin solid black;
+}
+
+th:last-child, td:last-child {
+  border-right: none;
+}
+
+.signees {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.signee {
+  padding-left: 1em;
+  padding-right: 6em;
+}
+.signee p {
+  text-align: center;
+}
