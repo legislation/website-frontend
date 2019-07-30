@@ -71,6 +71,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Northern Ireland Draft Statutory Rules">Rheolau Statudol Drafft Gogledd Iwerddon</resource>
 		<resource id="All UK Impact Assements">Pob Asesiad Effaith y Deyrnas Unedig</resource>
 		<resource id="UK Impact Assessments">Asesiadau Effaith y Deyrnas Unedig</resource>
+		<resource id="Northern Ireland Statutory Rules and Orders">Reolau a Gorchmynion Statudol Gogledd Iwerddon</resource>
+		<resource id="UK Ministerial Directions">Chyfarwyddiadau Gweinidogol y Deyrnas Unedig</resource>
 
 		<!--Singular versions of legislation types --> 
 		<resource id="Act of the English Parliament">Deddf Senedd Lloegr</resource>

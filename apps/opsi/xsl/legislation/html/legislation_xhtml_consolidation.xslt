@@ -655,6 +655,51 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:apply-templates/>
 	<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 </xsl:template>
+	
+	<!-- Varun 18/12/2018: Edge case: anomaly in input data where leg:Number and leg:Part are provided as text in single leg:P.
+			See Sunrise call HA091464 -->
+<xsl:template match="leg:P	[preceding-sibling::element()[1]/self::leg:Title[.=''][not(preceding-sibling::element())]]
+								[not(following-sibling::element())]
+								[parent::leg:Part]" priority="+100">
+		
+		<xsl:variable name="RestrictExtent" as="attribute()?" select="parent::leg:Part/@RestrictExtent"/>		
+		
+		<xsl:analyze-string select="normalize-space(.)" regex="PART [IVX]+">
+			<xsl:matching-substring>
+				<xsl:variable name="legPartNumber" as="element(leg:Part)">
+					<leg:Part>
+						<xsl:if test="$RestrictExtent">
+							<xsl:attribute name="RestrictExtent" select="$RestrictExtent"/>
+						</xsl:if>
+							<leg:Number><xsl:value-of select="."/></leg:Number>
+							<leg:Title/>
+					</leg:Part>
+				</xsl:variable>
+				<xsl:for-each select="$legPartNumber//leg:Number">
+					<xsl:call-template name="FuncGenerateMajorHeadingNumber">
+						<xsl:with-param name="strHeading" select="local-name(parent::*)"/>
+					</xsl:call-template>
+				</xsl:for-each>				
+			</xsl:matching-substring>
+			<xsl:non-matching-substring>
+				<xsl:variable name="legPartTitle" as="element(leg:Part)">
+					<leg:Part>
+						<xsl:if test="$RestrictExtent">
+							<xsl:attribute name="RestrictExtent" select="$RestrictExtent"/>
+						</xsl:if>
+							<leg:Number/>
+							<leg:Title><xsl:value-of select="."/></leg:Title>
+					</leg:Part>
+				</xsl:variable>
+				<xsl:for-each select="$legPartTitle//leg:Title">
+					<xsl:call-template name="FuncGenerateMajorHeadingTitle">
+						<xsl:with-param name="strHeading" select="local-name(parent::*)"/>
+					</xsl:call-template>
+				</xsl:for-each>				
+			</xsl:non-matching-substring>			
+		</xsl:analyze-string>
+		<xsl:apply-templates select="." mode="ProcessAnnotations"/>
+	</xsl:template>
 
 <xsl:template match="leg:SignedSection">
 	<xsl:next-match/>
@@ -915,7 +960,27 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 					every $child in (leg:* except (leg:Number, leg:Title)) satisfies
 					(exists($child//leg:Text) or exists($child//xhtml:td)) and 
 					(every $text in ($child//leg:Text | $child//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = ''))
-				)"/>
+				) or
+				(
+						(
+							(@Match = 'false' and @RestrictEndDate) and 
+							not(@Status = 'Prospective') and
+							(
+							(
+							($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= xs:date($version) 
+							) or (not($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= current-date() )
+							)
+						)
+						and
+						(				
+							leg:Title[.=''][not(preceding-sibling::element())]/following-sibling::element()[1]
+																		[self::leg:P][normalize-space(.) != '']
+																		[not(following-sibling::element())]
+						)
+				
+				)
+				
+				"/>
 	
 					
 	<xsl:choose>
@@ -974,7 +1039,15 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 				<xsl:text>First</xsl:text>
 			</xsl:if>
 		</xsl:attribute>
-		<xsl:apply-templates select="leg:Number | leg:Title | leg:TitleBlock | processing-instruction()[following-sibling::leg:Number or following-sibling::leg:Title or following-sibling::leg:TitleBlock or following-sibling::leg:Reference]"/>
+		<xsl:apply-templates select="leg:Number | leg:Title | leg:TitleBlock | 
+										processing-instruction()[following-sibling::leg:Number or following-sibling::leg:Title or following-sibling::leg:TitleBlock or following-sibling::leg:Reference]"/>
+	
+		<!-- Varun 18/12/2018: Edge case: anomaly in input data where leg:Number and leg:Part are provided as text in single leg:P.
+			See Sunrise call HA091464 -->
+		<xsl:apply-templates select="leg:P	[preceding-sibling::element()[1]/self::leg:Title[.=''][not(preceding-sibling::element())]]
+											[not(following-sibling::element())]
+											[parent::leg:Part]"/>
+	
 	</xsl:element>
 	<xsl:if test="leg:Reference and contains($g_strDocumentMainType, 'ScottishAct')">
 		<!-- Generate suffix to be added for CSS classes for amendments -->

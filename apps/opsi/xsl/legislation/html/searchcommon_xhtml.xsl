@@ -423,22 +423,110 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</xsl:choose>				
 				</xsl:variable>				
 				
-				<!-- added this code to display messages in welsh languages for welsh version of site-->
+				<!-- added this code to display messages in welsh languages for welsh version of site
 				<xsl:variable name="fr" select="('Your text search for','Your search for','Your title search for', 'in legislation from', 'legislation from', 'numbered','has returned no results','in legislation','has returned','results','in Secondary Legislation','result')"/>
-				<xsl:variable name="to" select="('Mae eich chwiliad testun am ','Mae eich chwiliad am','Nid yw eich chwiliad teitl am', 'mewn deddfwriaeth o ', 'deddfwriaeth o ', 'wedi ei rifo ','wedi dod o hyd i unrhyw ganlyniadau','mewn deddfwriaeth','wedi dod o hyd i ','o ganlyniadau','mewn Deddfwriaeth Eilaidd','ganlyniad')"/>
+				<xsl:variable name="to" select="('Mae eich chwiliad testun am ','Mae eich chwiliad am','Nid yw eich chwiliad teitl am', 'mewn deddfwriaeth o ', 'deddfwriaeth o ', 'wedi ei rifo ','wedi dod o hyd i unrhyw ganlyniadau','mewn deddfwriaeth','wedi dod o hyd i ','o ganlyniadau','mewn Deddfwriaeth Eilaidd','ganlyniad')"/>-->
 				
 				<xsl:choose>
 					<xsl:when test="$TranslateLang='cy'">
 						<xsl:choose>
-							<xsl:when test="$searchResultMessage='Your search for legislation has returned more than 200 results.'">Mae eich chwiliad am ddeddfwriaeth wedi dychwelyd mwy na 200 o ganlyniadau.</xsl:when>
-							<xsl:when test="$searchResultMessage='Your search for Primary Legislation has returned   more than 200  results.'">Mae eich chwiliad am ddeddfwriaeth sylfaenol wedi dychwelyd mwy na 200 o ganlyniadau.</xsl:when>
-							<xsl:when test="$searchResultMessage='Your search for Secondary Legislation has returned   more than 200  results.'">Mae eich chwiliad am is-ddeddfwriaeth wedi dychwelyd mwy na 200 o ganlyniadau.</xsl:when>
-							<xsl:when test="$searchResultMessage='Your search for Draft Legislation has returned   more than 200  results.'">Mae eich chwiliad am Deddfwriaeth ddrafft wedi dychwelyd mwy na 200 o ganlyniadau.</xsl:when>
-							<xsl:when test="$searchResultMessage='Your search for Asesiadau Effaith y Deyrnas Unedig has returned   more than 200  results.'">Mae eich chwiliad am Asesiadau Effaith DU wedi dychwelyd mwy na 200 o ganlyniadau.</xsl:when>
-							<xsl:when test="$searchResultMessage='Your search for UK Statutory Instruments has returned   more than 200  results.'">Mae eich chwiliad am UK Offerynnau Statudol wedi dychwelyd mwy na 200 o ganlyniadau.</xsl:when>
-							<xsl:when test="contains($searchResultMessage,'more than 200  results')"><xsl:value-of select="$searchResultMessage"/></xsl:when>
-							<xsl:otherwise><xsl:value-of select="leg:replace-multi($searchResultMessage,$fr,$to)"/></xsl:otherwise>
-						</xsl:choose>
+							<xsl:when test="normalize-space(normalize-space(string($searchResultMessage)))='Your search for legislation has returned more than 200 results.'">Mae eich chwiliad am ddeddfwriaeth wedi dychwelyd mwy na 200 o ganlyniadau.</xsl:when>
+							<xsl:when test="normalize-space(string($searchResultMessage))='Your search for Primary Legislation has returned   more than 200  results.'">Mae eich chwiliad am ddeddfwriaeth sylfaenol wedi dychwelyd mwy na 200 o ganlyniadau.</xsl:when>
+							<xsl:when test="normalize-space(string($searchResultMessage))='Your search for Secondary Legislation has returned   more than 200  results.'">Mae eich chwiliad am is-ddeddfwriaeth wedi dychwelyd mwy na 200 o ganlyniadau.</xsl:when>
+							<xsl:when test="normalize-space(string($searchResultMessage))='Your search for Draft Legislation has returned   more than 200  results.'">Mae eich chwiliad am Deddfwriaeth ddrafft wedi dychwelyd mwy na 200 o ganlyniadau.</xsl:when>
+							<xsl:when test="normalize-space(string($searchResultMessage))='Your search for Asesiadau Effaith y Deyrnas Unedig has returned   more than 200  results.'">Mae eich chwiliad am Asesiadau Effaith DU wedi dychwelyd mwy na 200 o ganlyniadau.</xsl:when>
+							<xsl:when test="normalize-space(string($searchResultMessage))='Your search for UK Statutory Instruments has returned   more than 200  results.'">Mae eich chwiliad am UK Offerynnau Statudol wedi dychwelyd mwy na 200 o ganlyniadau.</xsl:when>
+							<xsl:when test="contains(normalize-space(string($searchResultMessage)),'more than 200  results')"><xsl:value-of select="$searchResultMessage"/></xsl:when>
+							<xsl:otherwise>								
+								<xsl:analyze-string select="normalize-space(string($searchResultMessage))" regex="Your ((text|title)( ))?search for">
+									<xsl:matching-substring>
+<!--								Debug:		<xsl:message select="concat('1', .)"/>-->
+										<xsl:choose>
+											<xsl:when test="(. = 'Your search for') and ends-with(normalize-space(string($searchResultMessage)), 'no results.')">
+												<xsl:value-of select="'Nid yw eich chwiliad am'"/>
+											</xsl:when>
+											<xsl:when test="(. = 'Your search for')">
+												<xsl:value-of select="'Mae eich chwiliad am'"/>
+											</xsl:when>
+											<xsl:when test="(. = 'Your text search for') and ends-with(normalize-space(string($searchResultMessage)), 'no results.')">
+												<xsl:value-of select="'Nid yw eich chwiliad testun am'"/>
+											</xsl:when>
+											<xsl:when test="(. = 'Your text search for')">
+												<xsl:value-of select="'Mae eich chwiliad testun am'"/>
+											</xsl:when>
+											<xsl:when test="(. = 'Your title search for') and ends-with(normalize-space(string($searchResultMessage)), 'no results.')">
+												<xsl:value-of select="'Nid yw eich chwiliad teiti am'"/>
+											</xsl:when>
+											<xsl:when test="(. = 'Your title search for')">
+												<xsl:value-of select="'Mae eich chwiliad teiti am'"/>
+											</xsl:when>
+										</xsl:choose>
+									</xsl:matching-substring>
+									<xsl:non-matching-substring>										
+										<xsl:analyze-string select="." regex="(in)|(from)|(and)">
+											<xsl:matching-substring>
+												<!--Debug: <xsl:message select="concat('2', .)"/>-->												
+												<xsl:variable name="fr" select="('in', 'from', 'and')"/>
+												<xsl:variable name="to" select="('mewn', 'o', 'a')"/>												
+												<xsl:value-of select="leg:replace-multi(., $fr, $to)"/>											
+											</xsl:matching-substring>
+											<xsl:non-matching-substring>
+												<xsl:analyze-string select="." regex="(Welsh-language legislation)|(Welsh-language Secondary Legislation)|(Welsh-language Primary Legislation)|(Welsh-language Legislation)|(Welsh-language Primary)|(Welsh-language Secondary)|(legislation)|(Secondary Legislation)|(Primary Legislation)|(Legislation)|(Primary)|(Secondary)|(Welsh-language)">
+													<xsl:matching-substring>
+														<!--Debug: <xsl:message select="concat('2a', .)"/>-->												
+														<xsl:variable name="fr" select="('Welsh-language legislation', 'Welsh-language Secondary Legislation', 'Welsh-language Primary Legislation', 'Welsh-language Legislation', 'Welsh-language Primary', 'Welsh-language Secondary', 'legislation', 'Secondary Legislation', 'Primary Legislation', 'Legislation', 'Primary', 'Secondary', 'Welsh-language')"/>
+														<xsl:variable name="to" select="('ddeddfwriaeth Gymraeg', 'Ddeddfwriaeth Gymraeg Eilaidd', 'Ddeddfwriaeth Gymraeg Sylfaenol', 'Ddeddfwriaeth Gymraeg', 'Gymraeg Sylfaenol', 'Gymraeg Eilaidd', 'ddeddfwriaeth', 'Ddeddfwriaeth Eilaidd', 'Ddeddfwriaeth Sylfaenol', 'Ddeddfwriaeth', 'Sylfaenol', 'Eilaidd', 'Gymraeg')"/>												
+														<xsl:value-of select="leg:replace-multi(., $fr, $to)"/>											
+													</xsl:matching-substring>
+													<xsl:non-matching-substring>
+														<xsl:analyze-string select="." regex="numbered">
+															<xsl:matching-substring>
+																<!--Debug: <xsl:message select="concat('3', .)"/>-->
+																<xsl:value-of select="'wedi ei rifo'"/>
+															</xsl:matching-substring>
+															<xsl:non-matching-substring>
+																<xsl:analyze-string select="." regex="has returned( no results.)?">
+																	<xsl:matching-substring>
+																		<!--Debug: <xsl:message select="concat('4', .)"/>-->
+																		<xsl:choose>
+																			<xsl:when test="(. = 'has returned no results.')">
+																				<xsl:value-of select="'wedi dod hyd i unrhyw ganlyniadau.'"/>
+																			</xsl:when>
+																			<xsl:when test="(. = 'has returned')">
+																				<xsl:value-of select="'wedi dod o hyd i'"/>
+																			</xsl:when>
+																		</xsl:choose>
+																	</xsl:matching-substring>
+																	<xsl:non-matching-substring>
+																		<xsl:analyze-string select="." regex="result(s)?.">
+																			<xsl:matching-substring>
+																				<!--Debug: <xsl:message select="concat('5', .)"/>-->
+																				<xsl:choose>
+																					<xsl:when test="(. = 'results.')">
+																						<xsl:value-of select="'o ganlyniadau.'"/>
+																					</xsl:when>
+																					<xsl:when test="(. = 'result.')">
+																						<xsl:value-of select="'canlyniad.'"/>
+																					</xsl:when>
+																				</xsl:choose>
+																			</xsl:matching-substring>
+																			<xsl:non-matching-substring>
+																				<!--Debug: <xsl:message select="concat('6', .)"/>-->
+																				<xsl:value-of select="."/>
+																			</xsl:non-matching-substring>
+																		</xsl:analyze-string>
+																	</xsl:non-matching-substring>															
+																</xsl:analyze-string>
+															</xsl:non-matching-substring>
+														</xsl:analyze-string>
+													</xsl:non-matching-substring>
+												</xsl:analyze-string>
+											</xsl:non-matching-substring>											
+										</xsl:analyze-string>
+									</xsl:non-matching-substring>									
+								</xsl:analyze-string>								
+							</xsl:otherwise>
+						</xsl:choose>						
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:value-of select="$searchResultMessage"/>

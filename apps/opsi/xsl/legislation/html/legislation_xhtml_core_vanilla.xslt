@@ -1005,6 +1005,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <xsl:template match="leg:Group/leg:Title | leg:Part/leg:Title | leg:Chapter/leg:Title | leg:Pblock/leg:Title | leg:PsubBlock/leg:Title | leg:Schedule/leg:TitleBlock/leg:Title | leg:Schedule/leg:TitleBlock/leg:Subtitle | leg:Form/leg:TitleBlock/leg:Title | leg:Form/leg:TitleBlock/leg:Subtitle">
 	<xsl:apply-templates select="." mode="StructureTitle"/>
 </xsl:template>
+	
+	<xsl:template match="leg:Part/leg:Title[.=''][not(node() | attribute())]" priority="+10"/>
 
 <xsl:template match="leg:Group/leg:Title | leg:Part/leg:Title | leg:Chapter/leg:Title | leg:Pblock/leg:Title | leg:PsubBlock/leg:Title | leg:Schedule/leg:TitleBlock/leg:Title | leg:Schedule/leg:TitleBlock/leg:Subtitle | leg:Form/leg:TitleBlock/leg:Title | leg:Form/leg:TitleBlock/leg:Subtitle" mode="StructureTitle">
 	<xsl:call-template name="FuncGenerateMajorHeadingTitle">

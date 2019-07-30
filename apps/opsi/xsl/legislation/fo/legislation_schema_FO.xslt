@@ -125,8 +125,10 @@ exclude-result-prefixes="tso atom">
 
 	<xsl:variable name="FOparamsDoc" select="if (doc-available('input:request')) then doc('input:request') else ()"/>
 
-	<xsl:variable name="g_matchExtent" 
-	select="if ($FOparamsDoc/parameters/extent != '' or $query_view='extent') then 'true' else 'false'"/>
+	<!-- cssup: set extent to true to generate this particular pdf -->
+	<!--xsl:variable name="g_matchExtent" 
+	select="if ($FOparamsDoc/parameters/extent != '' or $query_view='extent') then 'true' else 'false'"/-->
+	<xsl:variable name="g_matchExtent">true</xsl:variable>
 
 	<xsl:variable name="g_view" as="xs:string" select="($FOparamsDoc/parameters/view, '')[1]"/>
 	

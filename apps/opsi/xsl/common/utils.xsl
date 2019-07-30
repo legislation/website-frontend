@@ -19,7 +19,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	exclude-result-prefixes="xs err tso"
 	version="2.0">
 
-<xsl:variable name="hideEUdata"	as="xs:boolean" select="@HIDEEUDATA@"/>
+<xsl:variable name="hideEUdata"	as="xs:boolean">true</xsl:variable>
 	
 <xsl:variable name="strCurrentURIs" select="/leg:Legislation/ukm:Metadata/dc:identifier, 
 	/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasPart']/@href" />
@@ -976,8 +976,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <xsl:variable name="TranslateLangPrefix" select="leg:LangPrefix()"/>
 <xsl:function name="leg:LangPrefix" as="xs:string?">
 	<xsl:choose>
-		<xsl:when test="$paramsDoc/parameters/wrapper = 'cy' or $paramsDoc/conditions/parameters/wrapper = 'cy' or starts-with($paramsDoc/request/request-path, '/cy')"><xsl:text>/cy</xsl:text></xsl:when>
-		<xsl:when test="$paramsDoc/parameters/wrapper = 'en' or $paramsDoc/conditions/parameters/wrapper = 'en' or starts-with($paramsDoc/request/request-path, '/en')"><xsl:text>/en</xsl:text></xsl:when>		
+		<xsl:when test="$paramsDoc/parameters/wrapper = 'cy' or $paramsDoc/conditions/parameters/wrapper = 'cy' or starts-with($paramsDoc/request/request-path, '/cy') or $paramsDoc/parameters/lang = 'cy'"><xsl:text>/cy</xsl:text></xsl:when>
+		<xsl:when test="$paramsDoc/parameters/wrapper = 'en' or $paramsDoc/conditions/parameters/wrapper = 'en' or starts-with($paramsDoc/request/request-path, '/en') or $paramsDoc/parameters/lang = 'en'"><xsl:text>/en</xsl:text></xsl:when>		
 		<xsl:otherwise></xsl:otherwise>
 	</xsl:choose>
 </xsl:function>
