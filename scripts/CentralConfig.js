@@ -381,7 +381,7 @@ $(document).ready(function() {
      * jQuery Cookies Functions
      */
     function cli_show_cookiebar(html, json_payload) {
-        var ACCEPT_COOKIE_NAME = 'close_have_your_say_survey_banner_cookie';
+        var ACCEPT_COOKIE_NAME = 'close_job_advert_2018-08_cookie';
         var ACCEPT_COOKIE_EXPIRE = 365;
         var settings = eval('(' + json_payload + ')');
 
@@ -539,10 +539,10 @@ $(document).ready(function() {
      * renmoved target=\"_blank\" for DEFRALEX link
      */
 /*
+*/
     if ((LANG != "cy") && (!$("body").hasClass("plainview"))) {
-        var a = '<div id="cookie-law-info-bar"><span>Have your say and help improve the Legislation.gov.uk website. <a href=\"http://www.smartsurvey.co.uk/s/8RF41/\" id=\"CONSTANT_OPEN_URL\" target=\"_blank\" class=\"cli-plugin-main-link\"  >Take part in our survey</a>. <a href=\"#\" id=\"cookie_action_close_header\"  class=\"medium cli-plugin-button cli-plugin-main-button\" >Close</a></span></div>',
+        var a = '<div id="cookie-law-info-bar"><span>Do you want to join the Legislation Services Team? The National Archives are recruiting a <a href=\"https://www.civilservicejobs.service.gov.uk/csr/jobs.cgi?jcode=1595317\" id=\"CONSTANT_OPEN_URL\" target=\"_blank\" class=\"cli-plugin-main-link\"  >Legislation Data Analyst</a> &amp; <a href=\"https://www.civilservicejobs.service.gov.uk/csr/jobs.cgi?jcode=1595321\" id=\"CONSTANT_OPEN_URL\" target=\"_blank\" class=\"cli-plugin-main-link\"  >Legal Editor (SI Registration)</a>. <a href=\"#\" id=\"cookie_action_close_header\"  class=\"medium cli-plugin-button cli-plugin-main-button\" >[ Close ]</a></span></div>',
                 b = '{"animate_speed_hide":"500","animate_speed_show":"500","background":"","border":"","border_on":"false","button_1_button_colour":"","button_1_button_hover":"","button_1_link_colour":"","button_1_as_button":false,"button_2_button_colour":"","button_2_button_hover":"","button_2_link_colour":"","button_2_as_button":false,"font_family":"","notify_animate_hide":true,"notify_animate_show":false,"notify_div_id":"#cookie-law-info-bar","notify_position_horizontal":"right","notify_position_vertical":"top","showagain_tab":false,"showagain_background":"","showagain_border":"","showagain_div_id":"#cookie-law-info-again","showagain_x_position":"100px","text":""}';
         cli_show_cookiebar(a, b);
     }
-*/
 });
