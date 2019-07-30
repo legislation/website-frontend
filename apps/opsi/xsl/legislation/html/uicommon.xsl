@@ -68,10 +68,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<meta name="Legislation.year" content="{*/ukm:Year/@Value}" />	
 	</xsl:template>
 	
+	<!--HA070053: condition added to exclude the PDF alternate link from documents which are print only ie. we don't hold any xml data for, as these create a broken link-->
 	<xsl:template match="atom:link[@rel = ('self', 'alternate')]" mode="HTMLmetadata">
-		<link rel="alternate"><xsl:apply-templates select="@type, @href, @title" mode="HTMLmetadata" /></link>
-	</xsl:template>
-
+ 		<xsl:if test="(@type!='application/pdf')or ((@type='application/pdf')and not(leg:IsPDFOnly(/)))">
+            <link rel="alternate"><xsl:apply-templates select="@type, @href, @title" mode="HTMLmetadata" /></link>
+        </xsl:if>
+  	</xsl:template>
+	
 	<xsl:template match="atom:link[@rel = 'http://purl.org/dc/terms/tableOfContents']" mode="HTMLmetadata">
 		<link rel="index"><xsl:apply-templates select="@type, @href, @title" mode="HTMLmetadata" /></link>
 	</xsl:template>
