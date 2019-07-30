@@ -12,6 +12,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml"
 xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation"
 xmlns:ukm="http://www.legislation.gov.uk/namespaces/metadata"
 xmlns:dc="http://purl.org/dc/elements/1.1/" 
+xmlns:dct="http://purl.org/dc/terms/"
 xmlns:tso="http://www.tso.co.uk/assets/namespaces/functions"
 xmlns:xs="http://www.w3.org/2001/XMLSchema"
 xmlns:atom="http://www.w3.org/2005/Atom" 
@@ -23,10 +24,13 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 
 <xsl:template match="ukm:UnappliedEffects" mode="filterUnappliedEffects">
 	<xsl:param name="includeTooltip" as="xs:boolean" tunnel="yes" select="false()"/>
+	<xsl:param name="IsEURetained" as="xs:boolean" tunnel="yes" select="false()"/>
+	<xsl:param name="IsRevisedEUPDFOnly" as="xs:boolean" tunnel="yes" select="false()"/>
 	
 	<!-- Don't use the global variable as this will not be in the call from the status warning  -->
 	<xsl:variable name="strDocType" select="ancestor::ukm:Metadata//ukm:DocumentClassification/ukm:DocumentMainType/@Value" as="xs:string"/>
 	<xsl:variable name="strTitle" select="ancestor::ukm:Metadata/dc:title" as="xs:string"/>
+	<xsl:variable name="strAlternativeTitle" select="ancestor::ukm:Metadata/dct:alternative" as="xs:string?"/>
 	<xsl:variable name="commencementOrders" as="element(ukm:UnappliedEffect)*" select="*[ukm:Commenced or @Type = 'Commencement Order']" />
 	<xsl:variable name="effects" as="element(ukm:UnappliedEffect)*" select="*[not(ukm:Commenced)]" />
 	
@@ -36,7 +40,9 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 								select="($effects except $commencementOrders)
 													[ukm:AffectedProvisions//*[name() = 'ukm:Section'][@FoundRef or @Missing = 'true'] or
 													     ukm:AffectedProvisions//ukm:SectionRange[@FoundStart or @FoundEnd or @MissingStart = 'true' or @MissingEnd = 'true'] or
-													 @AffectedProvisions[normalize-space(lower-case(.)) = $largerProvisions]]" />
+													 @AffectedProvisions[normalize-space(lower-case(.)) = $largerProvisions] or (
+													 @AffectedProvisions = '' and empty(ukm:AffectedProvisions//*[name() = 'ukm:Section']) and empty(ukm:AffectedProvisions//ukm:SectionRange)
+													 )]" />
 	<xsl:variable name="sectionEffects"
 								as="element(ukm:UnappliedEffect)*"
 								select="$effects except ($commencementOrders, $largerEffects)" />
@@ -44,12 +50,24 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 
 	<!-- FM Issue 261: Changes to Legislation for the introductory text - we don't really want to show all the outstanding effects for the whole Act in here -  as there won't ever be any effects listed that are for just for the introductory text - please can you just remove the category which lists effects for the specific provision you are - so there should only be ones for the whole Act and the commencement orders listed at this level -->
 	<xsl:variable name="introURI" select="ancestor::ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/introduction' and @title='introduction']/@href"/>
+	
+	<xsl:variable name="isEUPDF" as="xs:boolean" select="ancestor::ukm:Metadata/ukm:EUMetadata and exists(ancestor::ukm:Metadata/ukm:Alternatives/ukm:Alternative) and empty(ancestor::leg:Legislation/leg:EURetained)"/>
 
-	<xsl:if test="exists($sectionEffects) and $introURI != ancestor::ukm:Metadata/dc:identifier">
+	<xsl:if test="exists($sectionEffects) and ($introURI != ancestor::ukm:Metadata/dc:identifier or $isEUPDF)">
 		<div class="section" id="statusEffectsAppliedSection">
 			<div class="title">
-				<xsl:variable name="test"><xsl:value-of select="test"/></xsl:variable>
-				<h3><xsl:value-of select="leg:TranslateText('unapp_effects_applied_section',concat('test=',$test))"/></h3>
+				<xsl:variable name="test"><xsl:value-of select="tso:TitleCase(translate($paramsDoc/parameters/section,'/',' '))"/></xsl:variable>
+				<h3>
+					<xsl:choose>
+						<xsl:when test="$IsRevisedEUPDFOnly">
+							<xsl:value-of select="leg:TranslateText('Changes and effects to ')"/>
+							<xsl:value-of select="if ($strAlternativeTitle) then $strAlternativeTitle else $strTitle"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="leg:TranslateText('unapp_effects_applied_section',concat('test=',$test))"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</h3>
 				<xsl:if test="$includeTooltip">
 					<a href="#ChangesEffectSectionHelp" class="helpItem helpItemToBot">
 						<img src="/images/chrome/helpIcon.gif" alt=" Help about changes and effects"/>
@@ -85,7 +103,21 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 	<xsl:if test="exists($largerEffects)">
 		<div class="section" id="changesAppliedSection">
 			<div class="title">
-				<h3><xsl:value-of select="leg:TranslateText('unapp_effects_changes_app_section',concat('docType=',tso:type($strDocType)))"/></h3>				
+				<h3>
+					<xsl:choose>
+						<xsl:when test="$IsRevisedEUPDFOnly">
+							<xsl:value-of select="leg:TranslateText('Changes and effects to ')"/>
+							<xsl:value-of select="if ($strAlternativeTitle) then $strAlternativeTitle else $strTitle"/>
+						</xsl:when>
+						<xsl:when test="$IsEURetained">
+							<xsl:value-of select="leg:TranslateText('unapp_effects_generic_changes_app_section')"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="leg:TranslateText('unapp_effects_changes_app_section',concat('docType=',tso:type($strDocType)))"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				
+				</h3>				
 				<xsl:if test="$includeTooltip">
 					<a href="#ChangesEffectWholeHelp" class="helpItem helpItemToBot">
 						<img src="/images/chrome/helpIcon.gif" alt=" Help about changes and effects"/>
@@ -113,7 +145,9 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 					</ul>
 				</xsl:if>
 				<xsl:if test="exists($largerEffects[not(@AffectedProvisions[normalize-space(lower-case(.)) = $largerProvisions])])">
-					<p class="coIntro"><xsl:value-of select="leg:TranslateText('unapp_effect_wholeprovision',concat('docType=',tso:type($strDocType)))"/></p>
+					<xsl:if test="not($IsEURetained)">
+						<p class="coIntro"><xsl:value-of select="leg:TranslateText('unapp_effect_wholeprovision',concat('docType=',tso:type($strDocType)))"/></p>
+					</xsl:if>
 					<ul>
 						<xsl:apply-templates select="$largerEffects[not(@AffectedProvisions[normalize-space(lower-case(.)) = $largerProvisions])]" mode="filterUnappliedEffects">
 							<xsl:sort select="if (ukm:AffectedProvisions//ukm:Section or ukm:AffectedProvisions//ukm:SectionRange) then tso:SortOrder((ukm:AffectedProvisions//(ukm:Section/@Ref | ukm:SectionRange/@Start))[1], 1) else if (@AffectedProvisions) then tso:SortOrder(translate(@AffectedProvisions,' ()','---'), 1) else 1"/>
@@ -191,6 +225,7 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 </xsl:template>
 
 <xsl:template match="ukm:UnappliedEffect[@Type != 'Commencement Order'][not(ukm:Commenced)]" mode="filterUnappliedEffects">
+	<xsl:param name="IsEURetained" as="xs:boolean" tunnel="yes" select="false()"/>
 	<xsl:variable name="documentMainType" select="ancestor::ukm:Metadata//ukm:DocumentMainType[1]/@Value"/>
 	<xsl:variable name="IdURI" select="ancestor::leg:Legislation/@IdURI"/>
 	<!-- debug ordering-->
@@ -202,6 +237,9 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 		</xsl:message>
 	</xsl:if>
 	<li>
+		<xsl:if test="$IsEURetained">
+			<xsl:attribute name="class" select="if (@AffectingClass = ($g_euTypes, 'EuropeanUnionOther')) then 'eu-effect' else 'uk-effect'"/>
+		</xsl:if>
 		<xsl:choose>
 			<xsl:when test="ukm:AffectedProvisions">
 				<xsl:apply-templates select="ukm:AffectedProvisions" mode="filterUnappliedEffects" />
@@ -272,8 +310,27 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 </xsl:template>
 
 <xsl:template match="ukm:AffectingProvisions" mode="filterUnappliedEffects">
-	<a href="{../@AffectingURI}">
-		<xsl:value-of select="tso:abbreviation(../@AffectingClass, ../@AffectingYear, ../@AffectingNumber)"/>
+	<xsl:variable name="affectingURI" as="xs:string?" select="../@AffectingURI"/>
+	<xsl:variable name="link">
+		<xsl:choose>
+			<xsl:when test="matches($affectingURI, '^https://eur-lex\.europa\.eu')">
+				<xsl:value-of select="tso:generateWebArchiveURI($affectingURI)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$affectingURI"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	
+	<a href="{$link}">
+		<xsl:choose>
+			<xsl:when test="exists(../@AffectingClass) and exists(../@AffectingYear) and exists(../@AffectingNumber)">
+				<xsl:value-of select="tso:abbreviation(../@AffectingClass, ../@AffectingYear, ../@AffectingNumber)"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="leg:TranslateText('see_amending_legislation')"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</a>
 	<xsl:text> </xsl:text>
 	<xsl:apply-templates mode="filterUnappliedEffects" />
@@ -295,6 +352,11 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 <xsl:template match="ukm:SectionRange" mode="filterUnappliedEffects">
 	<xsl:apply-templates mode="filterUnappliedEffects" />
 </xsl:template>
+
+<xsl:function name="tso:generateWebArchiveURI" as="xs:string?">
+	<xsl:param name="eurlexURI" as="xs:string" />
+	<xsl:value-of select="concat('https://webarchive.nationalarchives.gov.uk/eu-exit/', $eurlexURI)"/>
+</xsl:function>
 
 <xsl:function name="tso:orderClass" as="xs:integer">
 	<xsl:param name="strName" as="xs:string" />
@@ -407,6 +469,18 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 		</xsl:when>
 		<xsl:when test="$strName = 'NorthernIrelandOrderInCouncil'">
 			<xsl:value-of select="concat('S.I. ',$strYear,'/',$strNumber,' (N.I.)')"/><!-- need to add in series number to the square brackets but where do we take it from???? -->
+		</xsl:when>
+		<xsl:when test="$strName = ('EuropeanUnionRegulation')">
+			<xsl:value-of select="concat('EUR ',$strYear,'/',$strNumber)"/>
+		</xsl:when>
+		<xsl:when test="$strName = ('EuropeanUnionDecision')">
+			<xsl:value-of select="concat('EUDN ',$strYear,'/',$strNumber)"/>
+		</xsl:when>
+		<xsl:when test="$strName = ('EuropeanUnionDirective')">
+			<xsl:value-of select="concat('EUDR ',$strYear,'/',$strNumber)"/>
+		</xsl:when>
+		<xsl:when test="$strName = ('EuropeanUnionTreaty')">
+			<xsl:value-of select="concat('EUT ',$strYear,'/',$strNumber)"/>
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:value-of select="$strName"/>

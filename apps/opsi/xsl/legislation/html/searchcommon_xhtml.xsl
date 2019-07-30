@@ -405,13 +405,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<xsl:when test="$paramsDoc/parameters/count-only='true'">
 								<xsl:value-of select="openSearch:totalResults" />
 							</xsl:when>
-							<xsl:when test="openSearch:totalResults > 200">more than 200</xsl:when>
+							<xsl:when test="openSearch:totalResults > 200"><xsl:value-of select="if($TranslateLang='cy') then 'fwy na' else 'more than'"/> 200 </xsl:when>
 							<xsl:when test="openSearch:totalResults">
 								<xsl:value-of select="openSearch:totalResults" />
 							</xsl:when>
 							<xsl:otherwise>
 								<xsl:choose>
-									<xsl:when test="round-half-to-even((leg:page + leg:morePages) * $pageSize, -1) > 200">  more than 200 </xsl:when>
+									<xsl:when test="round-half-to-even((leg:page + leg:morePages) * $pageSize, -1) > 200">
+										<xsl:value-of select="if($TranslateLang='cy') then 'fwy na' else 'more than'"/> 200 </xsl:when>
 									<xsl:otherwise> about <xsl:value-of select="round-half-to-even((leg:page + leg:morePages) * $pageSize, -1)"/></xsl:otherwise>
 								</xsl:choose>
 							</xsl:otherwise>
@@ -463,11 +464,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										</xsl:choose>
 									</xsl:matching-substring>
 									<xsl:non-matching-substring>										
-										<xsl:analyze-string select="." regex="(in)|(from)|(and)">
+										<xsl:analyze-string select="." regex="\s(in|from|and)\s">
 											<xsl:matching-substring>
 												<!--Debug: <xsl:message select="concat('2', .)"/>-->												
-												<xsl:variable name="fr" select="('in', 'from', 'and')"/>
-												<xsl:variable name="to" select="('mewn', 'o', 'a')"/>												
+												<xsl:variable name="fr" select="(' in ', ' from ', ' and ')"/>
+												<xsl:variable name="to" select="(' mewn ', ' o ', ' a ')"/>												
 												<xsl:value-of select="leg:replace-multi(., $fr, $to)"/>											
 											</xsl:matching-substring>
 											<xsl:non-matching-substring>
@@ -1153,7 +1154,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:when test="$params/type = 'primary'">Primary Legislation</xsl:when>
 						<xsl:when test="$params/type = 'secondary'">Secondary Legislation</xsl:when>
 						<xsl:when test="$params/type = 'draft'">Draft Legislation</xsl:when>
-						<xsl:when test="$params/type = 'euretained' and not($hideEUdata)">EU Retained</xsl:when>
+						<xsl:when test="$params/type = 'eu-origin' and not($hideEUdata)">EU Retained</xsl:when>
 						<xsl:when test="$params/type != ''">
 							<xsl:value-of select="$tso:legTypeMap[@abbrev=$params/type]/@plural"/>
 						</xsl:when>

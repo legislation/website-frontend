@@ -133,8 +133,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="legislationIdURI"  select="replace(/leg:EN/@IdURI, '/notes', '')"/>		
 	<xsl:variable name="resourceURI" as="xs:string" 
 		select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/resources']/@href" />				
-	<xsl:variable name="inforceinfoURI" as="xs:string" 
-		select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/inforceinfo']/@href" />
 		
 	<xsl:variable name="impactURI" as="xs:string?" 
 		select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts']/@href" />				
@@ -608,6 +606,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<div id="breadCrumb">
 				<h3 class="accessibleText">You are here:</h3>		
 				<ul>
+					<xsl:call-template name="legtypeBreadcrumb"/>
 					<xsl:choose>
 						<xsl:when test="leg:IsTOC()">
 							<xsl:apply-templates select="/leg:EN" mode="TSOBreadcrumbItem"/>
@@ -653,7 +652,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
-		<li class="first">
+		<li>
 			<xsl:choose>
 				<xsl:when test="exists($tocURI)">
 					<a href="{leg:FormatURL($tocURI)}">

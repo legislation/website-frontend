@@ -113,19 +113,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</xsl:if>
 			
 			<xsl:if test="$g_strDocClass = $g_strConstantEuretained">
-				<fo:block font-size="24pt" line-height="30pt" margin-top="12pt" text-align="center">
-					<xsl:choose>
-						<xsl:when test="$g_strDocType = 'EuropeanUnionRegulation'">
-							<xsl:text>REGULATIONS</xsl:text>
-						</xsl:when>
-						<xsl:when test="$g_strDocType = 'EuropeanUnionDecision'">
-							<xsl:text>DECISIONS</xsl:text>
-						</xsl:when>
-						<xsl:when test="$g_strDocType = 'EuropeanUnionDirective'">
-							<xsl:text>DIRECTIVES</xsl:text>
-						</xsl:when>
-					</xsl:choose>
-				</fo:block>
 				<fo:block font-size="12pt" line-height="14pt" margin-top="12pt" text-align="center">
 					<xsl:choose>
 						<xsl:when test="$g_ndsLegPrelims/leg:Title">
@@ -253,7 +240,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <!-- fix for  issue D498 - missing sig  block in ToC  -->
 <xsl:template match="leg:Contents/*[not(self::leg:ContentsTitle) and not(ancestor::leg:BlockAmendment) and not(self::leg:ContentsSchedules)][position()=last()]" priority="1000">
 	<xsl:next-match />
-	<xsl:if test="$signatureURI">
+	<xsl:if test="$g_strsignatureURI">
 		<fo:table font-size="{$g_strBodySize}">
 			<xsl:call-template name="column-widths"/>
 			<fo:table-body>

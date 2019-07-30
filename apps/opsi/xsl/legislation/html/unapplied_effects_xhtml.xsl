@@ -23,7 +23,7 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso">
 
 
 <xsl:import href="../../common/utils.xsl"/>
-
+<xsl:import href="legislation_global_variables.xslt"/>
 <xsl:import href="unapplied_effects_xhtml_core.xsl"/>
 
 <xsl:variable name="paramsDoc" select="if (doc-available('input:request')) then doc('input:request') else ()"/>

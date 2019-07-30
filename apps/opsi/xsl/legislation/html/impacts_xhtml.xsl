@@ -79,8 +79,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			
 	<xsl:variable name="resourceURI" as="xs:string" 
 		select="leg:ImpactAssessment/ukm:Metadata/atom:link[@title='More Resources']/@href" />		
-	<xsl:variable name="inforceinfoURI" as="xs:string" 
-		select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/inforceinfo']/@href" />
 	
 	<xsl:variable name="impactURI" as="xs:string*" 
 		select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts'][1]/@href" />	
@@ -106,6 +104,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 	<!-- used by uicommon.xsl - this is the legislation main type -->
 	<xsl:variable name="documentMainType" as="xs:string?" select="/leg:ImpactAssessment/ukm:Metadata/ukm:Legislation/ukm:DocumentClassification/ukm:DocumentMainType/@Value"/>
+	
+	<xsl:variable name="iaDocumentMainType" as="xs:string?" select="/leg:ImpactAssessment/ukm:Metadata/ukm:ImpactAssessmentMetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value"/>
+	
+	<xsl:variable 	name="strSchemaDefinitions" select="$tso:legTypeMap[@schemaType = ($documentMainType, $iaDocumentMainType)[1]]"/>
+	<xsl:variable 	name="strShortType" select="$strSchemaDefinitions/@abbrev"/>
 	
 	<xsl:variable name="legislationYear" as="xs:string?" select="/leg:ImpactAssessment/ukm:Metadata/ukm:Legislation/ukm:Year/@Value"/>
 	
@@ -462,6 +465,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<div id="breadCrumb">
 				<h3 class="accessibleText">You are here:</h3>		
 				<ul>
+					<li class="first">
+						<a href="{concat('/', $strShortType)}">
+							<xsl:value-of select="$strSchemaDefinitions/@plural"/>
+						</a>
+					</li>
 					<xsl:apply-templates select="/leg:ImpactAssessment" mode="TSOBreadcrumbItem"/>
 				</ul>
 			</div>
@@ -484,23 +492,22 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:text> </xsl:text>
 					<xsl:value-of select="tso:formatISBN($isbn)" />
 				</xsl:when>
-				<xsl:otherwise>
-					<li class="activetext"><xsl:value-of select="leg:TranslateText('Impact Assessment')"/><xsl:text> </xsl:text></li>
-				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
-		<li class="first">
-			<xsl:choose>
-				<xsl:when test="exists($tocURI)">
-					<a href="{leg:FormatURL($tocURI)}">
-						<xsl:sequence select="$breadcrumb" /> 
-					</a>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:sequence select="$breadcrumb" />
-				</xsl:otherwise>
-			</xsl:choose>
-		</li>	
+		<xsl:if test="$breadcrumb and $breadcrumb != ''">
+			<li>
+				<xsl:choose>
+					<xsl:when test="exists($tocURI)">
+						<a href="{leg:FormatURL($tocURI)}">
+							<xsl:sequence select="$breadcrumb" /> 
+						</a>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:sequence select="$breadcrumb" />
+					</xsl:otherwise>
+				</xsl:choose>
+			</li>
+		</xsl:if>	
 		<li class="activetext">
 			<xsl:choose>
 				<xsl:when test="$IsLegislationView">

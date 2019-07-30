@@ -360,7 +360,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<!-- Fix to get around FOPs validation on bad data -->
 			<xsl:if test="count(parent::xhtml:tr/following-sibling::*) ge number(@rowspan) - 1"><xsl:attribute name="number-rows-spanned" select="@rowspan"/></xsl:if>
 		</xsl:if>		
-		<xsl:call-template name="TSOprocessTableBorders"/>
+		<xsl:choose>
+			<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+				<xsl:call-template name="EU-table-borders"/>					
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:call-template name="TSOprocessTableBorders"/>
+			</xsl:otherwise>		
+		</xsl:choose>
+		
 		<xsl:if test="@height">
 			<xsl:attribute name="height" select="@height"/>
 		</xsl:if>
@@ -445,7 +453,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<!-- Fix to get around FOPs validation on bad data -->
 			<xsl:if test="count(parent::xhtml:tr/following-sibling::*) ge number(@rowspan) - 1"><xsl:attribute name="number-rows-spanned" select="@rowspan"/></xsl:if>
 		</xsl:if>				
-		<xsl:call-template name="TSOprocessTableBorders"/>
+		<xsl:choose>
+			<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+				<xsl:call-template name="EU-table-borders"/>					
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:call-template name="TSOprocessTableBorders"/>
+			</xsl:otherwise>		
+		</xsl:choose>
 		<xsl:choose>
 			<xsl:when test="@valign = 'middle'">
 				<xsl:attribute name="display-align">center</xsl:attribute>
@@ -485,6 +500,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:apply-templates/>
 		</fo:block>
 	</fo:table-cell>
+</xsl:template>
+
+<xsl:template name="EU-table-borders">
+	<xsl:if test="preceding-sibling::*">
+		<xsl:attribute name="border-left">solid 0.5pt black</xsl:attribute>
+	</xsl:if>
+	<xsl:if test="following-sibling::*">
+		<xsl:attribute name="border-right">solid 0.5pt black</xsl:attribute>
+	</xsl:if>
+	<xsl:attribute name="border-top">solid 0.5pt black</xsl:attribute>
+	<xsl:attribute name="border-bottom">solid 0.5pt black</xsl:attribute>					
 </xsl:template>
 
 <xsl:template match="xhtml:tfoot//leg:Footnote">

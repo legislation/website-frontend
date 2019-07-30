@@ -143,6 +143,7 @@ $.fn.ENInterweave = function () {
 					// bind a show event to the link
 					
 					// Only perform AJAX request if the fragment hasn't been download before.
+					var $text = ($UIElement.text() =='Dangos EN')? $UIElement.text("Cuddio EN"): $UIElement.text("Hide EN");
 					if(!$UIElement.data('ENFragGot')) {
 						$.get($UIElement.attr('href') + '/data.xht', function(ENContent) {
 							
@@ -164,21 +165,22 @@ $.fn.ENInterweave = function () {
 								)
 								.attr("id", AttrEnId)
 							)					
-							.text("Hide EN");
+							.text($text);
 						},'html');  
 					} else {
 						// Repopulate AttrEnId
-						AttrEnId = "__eniw_" + sectionID;					
-						$UIElement.text("Hide EN");
+						AttrEnId = "__eniw_" + sectionID;
+						$UIElement.text($text);
 						$('#' + AttrEnId).show();					
 					}
 				})
 			   	.bind( "hideENFragment", function() { 
 			   		// bind a hide event to the link
+					var $text = ($UIElement.text() =='Cuddio EN')? $UIElement.text("Dangos EN"): $UIElement.text("Show EN");
 					if(AttrEnId != false) {
 						// Hide EN fragment
 						$("#"+AttrEnId).hide();
-						$UIElement.text("Show EN");
+						$UIElement.text($text);
 						AttrEnId = false; 
 					 }   
 				}).click(function(event) {

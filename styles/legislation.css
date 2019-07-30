@@ -65,7 +65,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 .LegSnippet .LegCommentaryText {margin: 0; display: block;}
 .LegSnippet .LegCommentaryPara {margin: 0; padding: 0.5em 0 0 0; font-size: 0.7em; color: #000}
 .LegSnippet .LegAnnotationsHeading {font-weight: 600; margin: 0; font-size: 0.8em; color: #000}
-.LegSnippet .LegAnnotationsGroupHeading {font-weight: bold; margin: 0.5em 0 0 0; padding: 0.5em 0 0 0.5em; font-size: 0.8em; color: #333; border-top:dotted #999 1px}
+.LegSnippet .LegAnnotationsGroupHeading {font-weight: bold; margin: 0.5em 0 0 0; padding: 0.5em 0 0 0.5em; font-size: 0.8em; color: #333;}
 .LegSnippet .LegAmendingText {}
 .LegSnippet .LegAffectedLink {vertical-align: middle}
 .LegSnippet .LegChangeDelimiter {color: black; font-weight: bolder; font-style: normal; font-size: 1.4em;}

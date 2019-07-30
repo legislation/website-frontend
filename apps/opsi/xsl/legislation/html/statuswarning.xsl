@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 (c)  Crown copyright
- 
+
 You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
+
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 -->
@@ -15,16 +15,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <!-- Change history
 
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-xmlns="http://www.w3.org/1999/xhtml"  version="2.0" 
-	xmlns:xhtml="http://www.w3.org/1999/xhtml" 
-	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-	xmlns:tso="http://www.tso.co.uk/assets/namespaces/functions" 
-	xmlns:dc="http://purl.org/dc/elements/1.1/" 
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
+	xmlns:xhtml="http://www.w3.org/1999/xhtml"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:tso="http://www.tso.co.uk/assets/namespaces/functions"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:dct="http://purl.org/dc/terms/"
-	xmlns:db="http://docbook.org/ns/docbook"	
+	xmlns:db="http://docbook.org/ns/docbook"
 	xmlns:ukm="http://www.legislation.gov.uk/namespaces/metadata"
-	xmlns:atom="http://www.w3.org/2005/Atom" 
+	xmlns:atom="http://www.w3.org/2005/Atom"
 	xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation"
 	xmlns:xforms="http://www.w3.org/2002/xforms"
     xmlns:ev="http://www.w3.org/2001/xml-events"
@@ -32,19 +32,21 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	>
 
 	<xsl:import href="../../common/utils.xsl"/>
+	<xsl:import href="legislation_global_variables.xslt"/>
 
 	<xsl:include href="unapplied_effects_xhtml_core.xsl"/>
 	<xsl:include href="legislation_xhtml_utilities_dates.xslt"/>
 
+
 	<xsl:variable name="g_nstCodeLists" select="document('../../codelists.xml')/CodeLists/CodeList"/>
 
 	<xsl:variable name="ndsLegislation" select="/leg:Legislation"/>
-	
-	<xsl:variable name="status-legtitle" 
-				select="leg:Legislation/ukm:Metadata/dc:title[1]"/>
-		
+
+	<xsl:variable name="status-legtitle"
+				select="if ($dcalternative) then $dcalternative else $dctitle"/>
+
 	<xsl:key name="versions" match="leg:Version" use="@id"/>
-	
+
 	<!-- input parameter doc -->
 	<xsl:variable name="paramsDoc" select="if (doc-available('input:request')) then doc('input:request') else ()"/>
 	<!--  let $version be the value of the version parameter coming through Orbeon  -->
@@ -54,13 +56,13 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	<!-- let $type be the type of legislation -->
 	<xsl:variable name="type" as="xs:string" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value"/>
 	<!-- let $baseDate be the base date for the type of legislation -->
-	<xsl:variable name="baseDate" as="xs:string" 
+	<xsl:variable name="baseDate" as="xs:string"
 		select="if ($type = ('NorthernIrelandOrderInCouncil', 'NorthernIrelandAct', 'NorthernIrelandParliamentAct')) then '2006-01-01' else '1991-02-01'"/>
-	
+
 	<!-- getting the scenario -->
 	<xsl:template name="TSOGetScenarios">
 		<xsl:param name="type"/>
-		
+
 		<xsl:choose>
 			<xsl:when test="leg:IsLegislationWeRevise(.) ">
 				<xsl:choose>
@@ -146,46 +148,188 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 		<xsl:variable name="sectionTitle">
 			<xsl:choose>
 				<xsl:when test="$nstSelectedSection"><xsl:apply-templates select="$nstSelectedSection" mode="CurrentSectionName" /></xsl:when>
-				<xsl:when test="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/introduction' and @title='introduction']/@href = leg:Legislation/ukm:Metadata/dc:identifier">
-					<xsl:text>Introductory Text</xsl:text>
+				<xsl:when test="$g_strIntroductionUri = $dcIdentifier">
+					<xsl:value-of select="leg:TranslateText('Introductory Text')"/>
 				</xsl:when>
 			</xsl:choose>
 		</xsl:variable>
-		
+
+		<xsl:if test="not($g_strDocumentMainType = ('EuropeanUnionDirective', 'EuropeanUnionTreaty', 'UnitedKingdomChurchInstrument', 'UnitedKingdomMinisterialDirection', 'UnitedKingdomMinisterialOrder', 'UnitedKingdomStatutoryRuleOrOrder', 'NorthernIrelandStatutoryRuleOrOrder')) ">
+			<!-- (Temp) message for all revised versions (UK and EU) -->
+			<xsl:variable name="unappliedURIs" select="leg:unappliedAffectingURIs(.)"/>
+			<xsl:variable name="outstandingRefs" select="$g_euExitRefs[not(. = $unappliedURIs)]"/>
+			<!-- disable this for inital release -->
+			<xsl:if test="false()">
+				<div>
+					<xsl:attribute name="id">brexitInfo</xsl:attribute>
+					<h2>
+					  <xsl:value-of select="leg:TranslateText('brexitInfo_head')"/> 
+					</h2>
+
+					<p class="intro">
+						<xsl:value-of select="leg:TranslateText('brexitInfo_content')"/>
+					</p>
+
+					<div id="outstandingRefs">
+						<xsl:choose>
+							<xsl:when test="exists($outstandingRefs)">
+								<ul>
+
+									<xsl:for-each select="$outstandingRefs">
+										<xsl:sort select="."/>
+										<xsl:variable name="tokens" select="tokenize(substring-after(., 'id/'), '/')"/>
+										<xsl:variable name="class" select="$tso:legTypeMap[@abbrev = $tokens[1]]/@schemaType"/>
+
+										<li class="uk-effect">
+											<a href="{.}">
+												<xsl:value-of select="tso:abbreviation($class, $tokens[2], $tokens[3])"/>
+											</a>
+										</li>
+									</xsl:for-each>
+
+								</ul>
+							</xsl:when>
+							<xsl:otherwise>
+								<p>No results found.</p>
+							</xsl:otherwise>
+						</xsl:choose>
+					</div>
+
+				</div>
+			</xsl:if>
+			<xsl:call-template name="TSOOutputStatusMessage">
+				<xsl:with-param name="includeTooltip" select="$includeTooltip"/>
+			</xsl:call-template>
+		</xsl:if>
+
 		<div>
 			<xsl:choose>
-				<xsl:when test="not(leg:IsPDFOnlyNotRevised(.)) and ($Scenario = '1' or  $Scenario = '5' or leg:IsCurrentRevised(.)) ">
+				<!-- EU treaty messages -->
+				<xsl:when test="$g_isEUtreaty and not(leg:IsEUPDFOnlyNotRevised(.))">
+					<xsl:attribute name="id">infoSection</xsl:attribute>
+					<h2>
+            <xsl:value-of select="leg:TranslateText('swhead_status')"/> 
+          </h2>
+					<p class="intro">
+						<xsl:choose>
+							<xsl:when test="leg:IsCurrentRevised(.)">
+								<xsl:sequence select="leg:revisedTreatyText($g_strDocumentName, leg:FormatDate(leg:legislationStartDate(.)))"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:text>This is the original version (as it was originally adopted).</xsl:text>
+							</xsl:otherwise>
+						</xsl:choose>
+					</p>
+				</xsl:when>
+				<!-- EU directives messages -->
+				<xsl:when test="$g_strDocumentMainType = 'EuropeanUnionDirective'  and $g_strDocumentStatus = 'revised'">
+					<xsl:attribute name="id">infoSection</xsl:attribute>
+					<h2>
+            			<xsl:value-of select="leg:TranslateText('statuswarning_revised_eudirective_head')"/>
+          			</h2>
+					<p class="intro">
+						<xsl:value-of select="leg:TranslateText('statuswarning_revised_eudirective_body')"/>  
+					</p>
+				</xsl:when>
+				<!-- EU PDF only data that has unapplied effects should allow these to be shown -->
+				<xsl:when test="leg:IsRevisedEUPDFOnly(.) and leg:IsOutstandingEffectExists(.)">
+					<xsl:attribute name="id">statusWarning</xsl:attribute>
+					<div class="title">
+						<h2>
+						  <xsl:value-of select="leg:TranslateText('statuswarning_changes_with_effects_head')"/>
+						</h2>
+						<p class="intro">
+							<xsl:value-of select="leg:TranslateText('statuswarning_changes_with_effects_content_p1')"/>
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="$status-legtitle"/>
+							<xsl:text>. </xsl:text>
+							<xsl:value-of select="leg:TranslateText('statuswarning_changes_with_effects_content_p2')"/>
+						</p>
+						<xsl:call-template name="processEffects">
+							<xsl:with-param name="includeTooltip" select="$includeTooltip" tunnel="yes"/>
+							<xsl:with-param name="IsRevisedEUPDFOnly" select="leg:IsRevisedEUPDFOnly(.)" tunnel="yes"/>
+						</xsl:call-template>
+					</div>
+				</xsl:when>
+				<xsl:when test="leg:IsRevisedEUPDFOnly(.)">
+					<xsl:attribute name="id">statusWarning</xsl:attribute>
+					<xsl:attribute name="class">uptoDate</xsl:attribute>
+					<div class="title">
+						<h2>
+						  <xsl:value-of select="leg:TranslateText('swhead_changes_to_legislation')"/>
+						</h2>
+						<p class="intro">
+							<xsl:value-of select="leg:TranslateText('swcontent_tocmsg_eupdf_p1')"/>
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="$status-legtitle"/>
+							<xsl:text>. </xsl:text>
+							<xsl:value-of select="leg:TranslateText('swcontent_tocmsg_eupdf_p2')"/>
+						</p>
+					</div>
+				</xsl:when>
+				<!-- EU PDF adopted only data that has unapplied effects should allow these to be shown -->
+				<xsl:when test="leg:IsEUPDFOnlyNotRevised(.) and leg:IsOutstandingEffectExists(.)">
+					<xsl:attribute name="id">infoSection</xsl:attribute>
+					<div class="title">
+						<h2><xsl:value-of select="leg:TranslateText('infoSection_head')"/> </h2>
+						<p class="intro">
+							<xsl:value-of select="leg:TranslateText('infoSection_content')"/> 
+							<xsl:text> </xsl:text>
+							<xsl:value-of select="$status-legtitle"/>
+							<xsl:text>.</xsl:text>
+						</p>
+						<p class="c2a" lang="{$TranslateLangPrefix}">
+							<a href="{if($TranslateLangPrefix='/cy') then $TranslateLangPrefix else ''}/changes/unapplied/affected/{$g_strShortType}/{$g_strDocumentYear}/{$g_strDocumentNumber}">
+								<xsl:value-of select="leg:TranslateText('infoSection_actionlink')"/>
+							</a>
+						</p>
+					</div>
+				</xsl:when>
+				<xsl:when test="leg:IsEUPDFOnlyNotRevised(.)">
+					<xsl:attribute name="id">infoSection</xsl:attribute>
+					<h2>
+						<xsl:value-of select="leg:TranslateText('swhead_status')"/> 
+					</h2>
+					<p class="intro">
+						 <xsl:value-of select="leg:TranslateText('swcontent_revisedpdf')"/>
+					</p>
+				</xsl:when>
+				<xsl:when test="(not(leg:IsPDFOnlyNotRevised(.)) and ($Scenario = '1' or  $Scenario = '5' or leg:IsCurrentRevised(.)) )">
 					<xsl:attribute name="id">statusWarning</xsl:attribute>
 					<xsl:attribute name="class"><xsl:if test="$Scenario = '1' or ($Scenario = '5' and $IsEditedByEPP and leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate(.))">uptoDate</xsl:if></xsl:attribute>
 					<div class="title">
-						<h2>Changes to legislation:</h2>
+						<h2>
+						  <xsl:value-of select="leg:TranslateText('swhead_changes_to_legislation')"/>
+						</h2>
 						<p class="intro">
 							<xsl:choose>
-								<xsl:when test="leg:IsRevisedEUPDFOnly(.)">
+								<!--<xsl:when test="leg:IsRevisedEUPDFOnly(.)">
 										<xsl:variable name="reviseddate" as="xs:date" select="max(for $d in ($ndsLegislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@Revised castable as xs:date]/@Revised) return xs:date($d))"/>
 										<xsl:text>This item of legislation is only available to download and view as PDF. There may be outstanding changes yet to be applied. This version incorporates changes up to </xsl:text>
 										<xsl:value-of select="if (exists($reviseddate)) then format-date($reviseddate,'[D]/[M]/[Y]') else 'DD/MM/YYYY'"/>
 										<xsl:text>.</xsl:text>
-								</xsl:when>
+								</xsl:when>-->
 								<xsl:when test="leg:IsRevisedPDFOnly(.)">
 										<xsl:variable name="reviseddate" as="xs:date" select="max(for $d in ($ndsLegislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@Revised castable as xs:date]/@Revised) return xs:date($d))"/>
-										<xsl:text>This item of legislation is only available to download and view as PDF. The electronic revised (latest available) version of the </xsl:text>
-										<xsl:value-of select="$status-legtitle"/>	
+										<xsl:value-of select="leg:TranslateText('swcontent_revisedpdf')"/>
+										<xsl:text> The electronic revised (latest available) version of the </xsl:text>
+										<xsl:value-of select="$status-legtitle"/>
 										<xsl:text> has been created and contributed by the Department for Work and Pensions.</xsl:text>
 										<!--<a href="http://www.legislation.gov.uk/contributors#dwp"><strong> Read more.</strong></a>-->
 										<xsl:text> There may be outstanding changes yet to be applied. This version incorporates changes up to </xsl:text>
 										<xsl:value-of select="if (exists($reviseddate)) then format-date($reviseddate,'[D]/[M]/[Y]') else 'DD/MM/YYYY'"/>
 										<xsl:text>.</xsl:text>
 								</xsl:when>
-								<xsl:when test="$Scenario = '1' ">
-									<xsl:text>There are currently no known outstanding effects for the </xsl:text><xsl:value-of select="$status-legtitle"/>
+								<xsl:when test="$Scenario = '1'">
+									<xsl:value-of select="leg:TranslateText('no_outstanding_effects')"/><xsl:text> </xsl:text>
+									<xsl:value-of select="$status-legtitle"/>
 									<xsl:if test="string-length($sectionTitle) ne 0">
 										<xsl:value-of select="concat(', ', $sectionTitle)"/>
 									</xsl:if>
 									<xsl:text>.</xsl:text>
 								</xsl:when>
-								<xsl:when test="$Scenario = '5' ">
-									<xsl:choose>							
+								<xsl:when test="$Scenario = '5'">
+									<xsl:choose>
 										<xsl:when test="$IsEditedByEPP and leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate(.)">
 											<xsl:choose>
 												<xsl:when test="leg:IsTOC()">
@@ -209,21 +353,35 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 												</xsl:otherwise>
 											</xsl:choose>
 										</xsl:when>
-										<xsl:otherwise>
-											<xsl:text>There are outstanding changes not yet made by the legislation.gov.uk editorial team to </xsl:text>
+										<xsl:when test="leg:IsEURetained(.)">
+											<xsl:value-of select="leg:TranslateText('statuswarning_euretained_p1')"/> 
+											<xsl:text> </xsl:text>
 											<xsl:value-of select="$status-legtitle"/>
-											<xsl:text>.</xsl:text> 
-											<!-- The reason for this is that people are seeing this message and wanting to immediately go to the Tables of Effects (now the Changes to Legislation) when really they would be much better off looking at the effects within the Act. -->
+											<xsl:text>.</xsl:text>
 											<xsl:if test="leg:IsTOC()">
 												<xsl:text> Those changes will be listed when you open the content using the Table of Contents below.</xsl:text>
 											</xsl:if>
-											<xsl:text> Any changes that have already been made by the team appear in the content and are referenced with annotations.</xsl:text>
+											<xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('statuswarning_euretained_p2')"/> 
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:value-of select="leg:TranslateText('swcontent_tocmsg_p1')"/> 
+											<xsl:text> </xsl:text>
+											<xsl:value-of select="$status-legtitle"/>
+											<xsl:text>.</xsl:text>
+											<!-- The reason for this is that people are seeing this message and wanting to immediately go to the Tables of Effects (now the Changes to Legislation) when really they would be much better off looking at the effects within the Act. -->
+											<xsl:if test="leg:IsTOC()">
+												<xsl:text> </xsl:text>
+												<xsl:value-of select="leg:TranslateText('swcontent_tocmsg_p2')"/>
+											</xsl:if>
+											<xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('swcontent_tocmsg_p3')"/>
 										</xsl:otherwise>
 									</xsl:choose>
 								</xsl:when>
-								
+
 							</xsl:choose>
-							
+
 							<xsl:if test="string-length ($Scenario) > 0 and $includeTooltip">
 								<a href="#Scenario{$Scenario}Help" class="helpItem helpItemToBot">
 									<img src="/images/chrome/helpIcon.gif" alt=" Help about Changes to Legislation"/>
@@ -238,40 +396,35 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 								</xsl:call-template>
 							</xsl:if>
 							<!-- adding the unapplied effects if there are oustanding changes and we are in the content tab -->
-							<xsl:if test="$Scenario = '5' and leg:IsContent() and not($pointInTimeView and $version != 'prospective')">
-								<xsl:variable name="ndsFilterUnappliedEffects">
-									<xsl:apply-templates select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:UnappliedEffects" mode="filterUnappliedEffects">
-										<xsl:with-param name="includeTooltip" select="$includeTooltip" tunnel="yes"/>													
-									</xsl:apply-templates>
-								</xsl:variable>
-								<xsl:if test="exists($ndsFilterUnappliedEffects/*)">
-									<div id="statusWarningSubSections">
-										<xsl:copy-of select="$ndsFilterUnappliedEffects/*"/>
-									</div>
-									<span/>
-								</xsl:if>
+							<xsl:if test="($Scenario = '5' and leg:IsContent() and not($pointInTimeView and $version != 'prospective'))">
+								<xsl:call-template name="processEffects">
+									<xsl:with-param name="includeTooltip" select="$includeTooltip" tunnel="yes"/>
+									<xsl:with-param name="IsEURetained" select="leg:IsEURetained(.)" tunnel="yes"/>
+								</xsl:call-template>
 							</xsl:if>
 					</div>
 				</xsl:when>
-				
+
 				<xsl:otherwise>
 					<xsl:choose>
 						<xsl:when test="leg:IsDraft(.) and /leg:Legislation/ukm:Metadata/ukm:BillMetadata">
-							<xsl:attribute name="id">infoDraft</xsl:attribute>							
+							<xsl:attribute name="id">infoDraft</xsl:attribute>
 							<h2>Draft Bill:</h2>
 						</xsl:when>
 						<xsl:when test="leg:IsDraft(.)">
-							<xsl:attribute name="id">infoDraft</xsl:attribute>							
+							<xsl:attribute name="id">infoDraft</xsl:attribute>
 							<h2>Draft Legislation:</h2>
 						</xsl:when>
 						<xsl:when test="leg:IsProposedVersion(.)">
 							<xsl:attribute name="id">infoProposed</xsl:attribute>
 							<h2>Proposed Legislation:</h2>
 						</xsl:when>
-						
+
 						<xsl:otherwise>
-							<xsl:attribute name="id">infoSection</xsl:attribute>							
-							<h2>Status:</h2>
+							<xsl:attribute name="id">infoSection</xsl:attribute>
+							<h2>
+								<xsl:value-of select="leg:TranslateText('swhead_status')"/> 
+							 </h2>
 						</xsl:otherwise>
 					</xsl:choose>
 					<p class="intro">
@@ -286,22 +439,22 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 							</xsl:when>
 							<xsl:when test="leg:IsDraft(.)">
 								<xsl:text>This is a draft item of legislation</xsl:text>
-								<!-- 
-								For a draft legislation item with a 'superseded' version: 
+								<!--
+								For a draft legislation item with a 'superseded' version:
 									Draft Legislation: This is a draft legislation item. This draft has since been made as {legislation type}: {legislation title + number}.
-								For a draft legislation item with a later draft: 
-									Draft Legislation: This is a draft legislation item and has not yet been made as a {legislation type}. This draft has been replaced by a new draft, {draft legislation title + ISBN} 
-								For a draft legislation item: 
+								For a draft legislation item with a later draft:
+									Draft Legislation: This is a draft legislation item and has not yet been made as a {legislation type}. This draft has been replaced by a new draft, {draft legislation title + ISBN}
+								For a draft legislation item:
 									Draft Legislation: This is a draft legislation item and has not yet been made as a {legislation type}.
 								-->
 								<xsl:choose>
 									<xsl:when test="exists(/leg:Legislation/ukm:Metadata/ukm:SupersededBy/ukm:Number)">
 										<xsl:text>. This draft has since been made as a </xsl:text>
 										<xsl:value-of select="tso:GetSingularTitleFromType(tso:GetTypeFromDraftType($maintype,''),'')"/>
-										<xsl:text>: </xsl:text>	
+										<xsl:text>: </xsl:text>
 									</xsl:when>
 									<xsl:otherwise>
-										<xsl:text> and has not yet been made as a </xsl:text>									
+										<xsl:text> and has not yet been made as a </xsl:text>
 										<xsl:value-of select="tso:GetSingularTitleFromType(tso:GetTypeFromDraftType($maintype,''),'')"/>
 										<xsl:text>. </xsl:text>
 										<xsl:if test="exists(/leg:Legislation/ukm:Metadata/ukm:SupersededBy)">
@@ -311,31 +464,21 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 								</xsl:choose>
 								<xsl:apply-templates select="/leg:Legislation/ukm:Metadata/ukm:SupersededBy" mode="statuswarning"/>
 								<xsl:if test="leg:IsPDFOnly(.)">
-									
-									<xsl:text>. This item of legislation is only available to download and view as PDF.</xsl:text>
+									<xsl:text>. </xsl:text>
+									<xsl:value-of select="leg:TranslateText('item_available_as_pdf_only')"/>
 								</xsl:if>
 							</xsl:when>
 							<xsl:when test="leg:IsPDFOnly(.)">
-					<xsl:text>This item of legislation is only available to download and view as PDF.</xsl:text>
-									
+								<xsl:value-of select="leg:TranslateText('item_available_as_pdf_only')"/>
 							</xsl:when>
-							<xsl:when test="$Scenario = '2'">
-								<xsl:text>This is the original version (as it was originally </xsl:text>
-								<xsl:value-of select="leg:GetCodeSchemaStatus(.)"/>
-								<xsl:text>). This item of legislation is currently only available in its original format.</xsl:text>
-							</xsl:when>
-							<xsl:when test="$Scenario = '3'">
-								<xsl:text>This is the original version (as it was originally </xsl:text>
-								<xsl:value-of select="leg:GetCodeSchemaStatus(.)"/>
-								<xsl:text>). </xsl:text>
-								<xsl:value-of select="tso:GetTitleFromType($maintype, ())"/>
-								<xsl:text> are not carried in their revised form on this site.</xsl:text>
-							</xsl:when>
-							<xsl:when test="$Scenario = '4'">
-								<xsl:text>This is the original version (as it was originally </xsl:text>
-								<xsl:value-of select="leg:GetCodeSchemaStatus(.)"/>
-								<xsl:text>).</xsl:text>
-							</xsl:when>
+							<xsl:otherwise>
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="leg:TranslateText('status_warning_original_version',(concat('type=',leg:GetCodeSchemaStatus(.))))" />
+								<xsl:if test="$Scenario = '2' or $Scenario = '3'">
+									<xsl:value-of select="leg:TranslateText(concat('status_warning_original_version',$Scenario))" />									
+								</xsl:if>
+								<xsl:text>.</xsl:text>
+							</xsl:otherwise>
 						</xsl:choose>
 						<xsl:if test="leg:isFromWestlaw(.)">
 							<xsl:text> The electronic version of this </xsl:text>
@@ -343,29 +486,39 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 							<xsl:text> has been contributed by Westlaw and is taken from the printed publication. </xsl:text>
 							<a href="/contributors#westlaw" class="more"><strong>Read more</strong></a>
 						</xsl:if>
-						
+
 					</p>
 				</xsl:otherwise>
 			</xsl:choose>
-			<!--
-				IsLegislationWeRevise: [<xsl:value-of select="leg:IsLegislationWeRevise(.)"/>]
-				<br/>
-				IsRevisedVersionExists: [<xsl:value-of select="leg:IsRevisedVersionExists(.)"/>]
-				<br/>		
-					IsOustandingEffectExists: [<xsl:value-of select="leg:IsOustandingEffectExists(.)"/>]
-				<br/>		
-				IsEnactedExists: [<xsl:value-of select="leg:IsEnactedExists(.)"/>]
-				<br/>
-				IsCurrentRevised: [<xsl:value-of select="leg:IsCurrentRevised(.)"/>]
-				<br/>
-				IsCurrentOriginal: [<xsl:value-of select="leg:IsCurrentOriginal(.)"/>]			
-				<br/>
-				Scenario: [<xsl:value-of select="$Scenario"/>]					
-				<br/>
-			</xsl:if>	 -->
 		</div>
 	</xsl:template>
-	
+
+	<xsl:template name="processEffects">
+		<xsl:param name="includeTooltip"  select="false()" as="xs:boolean"/>
+		<xsl:param name="IsEURetained" as="xs:boolean" tunnel="yes" select="false()"/>
+		<xsl:param name="IsRevisedEUPDFOnly" as="xs:boolean" tunnel="yes" select="false()"/>
+		<xsl:variable name="ndsFilterUnappliedEffects">
+			<xsl:apply-templates select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:UnappliedEffects" mode="filterUnappliedEffects">
+				<xsl:with-param name="includeTooltip" select="$includeTooltip" tunnel="yes"/>
+				<xsl:with-param name="IsEURetained" select="$IsEURetained" tunnel="yes"/>
+				<xsl:with-param name="IsRevisedEUPDFOnly" tunnel="yes" select="$IsRevisedEUPDFOnly"/>
+			</xsl:apply-templates>
+		</xsl:variable>
+		<xsl:if test="exists($ndsFilterUnappliedEffects/*)">
+			<a href="#statusWarningSubSections">
+        <xsl:attribute name="class">
+				  <xsl:value-of select="if ($IsRevisedEUPDFOnly) then 'expandCollapseLink js-IsRevisedEUPDFOnly' else 'expandCollapseLink'"/>
+        </xsl:attribute>
+        View outstanding changes
+				<!-- <xsl:value-of select="if ($IsRevisedEUPDFOnly) then 'View changes' else 'View outstanding changes'"/> -->
+			</a>
+			<div id="statusWarningSubSections">
+				<xsl:copy-of select="$ndsFilterUnappliedEffects/*"/>
+			</div>
+			<span/>
+		</xsl:if>
+	</xsl:template>
+
 	<xsl:template match="ukm:SupersededBy" mode="statuswarning">
 		<a href="{leg:FormatURL(concat(replace(@URI,'/id/','/'),'/contents', if (ukm:Number) then '/made' else ()))}"> <!-- {legislation type}: {legislation title + number}. -->
 			<xsl:value-of select="dc:title[1]" />
@@ -393,31 +546,25 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 						<xsl:otherwise>
 							<!-- cannot determine the number so display nothing  -->
 						</xsl:otherwise>
-					</xsl:choose>	
+					</xsl:choose>
 				</xsl:otherwise>
 			</xsl:choose>
 		</a>
 	</xsl:template>
-	
+
 	<!-- outputting the update status text based on the scenarios-->
 	<xsl:template name="TSOOutputUpdateStatus">
 		<xsl:param name="AddAppliedEffects" as="xs:boolean" select="false()"/>
 		<xsl:param name="includeTooltip" as="xs:boolean" select="false()"/>
-		<!-- Status messages for Revised -->
-		<xsl:if test="leg:IsCurrentRevised(.)">
-			<xsl:call-template name="TSOOutputStatusMessage">
-				<xsl:with-param name="includeTooltip" select="$includeTooltip"/>
-			</xsl:call-template>
-		</xsl:if>
 		<!-- Changes to Legislation message/Status(for enacted) message-->
 		<xsl:call-template name="TSOOutputUpdateStatusMessage">
 			<xsl:with-param name="AddAppliedEffects" select="$AddAppliedEffects"/>
 		</xsl:call-template>
 	</xsl:template>
-	
+
 	<xsl:template name="TSOOutputStatusMessage">
 		<xsl:param name="includeTooltip" as="xs:boolean" select="false()"/>
-		<xsl:param name="includeTimeline" as="xs:boolean" select="false()"/>		
+		<xsl:param name="includeTimeline" as="xs:boolean" select="false()"/>
 		<!-- status messages are only available if there is not content -->
 		<xsl:if test="not(leg:IsTOC())">
 			<xsl:variable name="strCurrentURIs" select="/leg:Legislation/ukm:Metadata/dc:identifier, /leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasPart']/@href"/>
@@ -436,7 +583,9 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 			<xsl:if test="exists($status) or string-length($pointInTimeText) > 0">
 				<!-- displaying the Status message -->
 				<div id="infoSection">
-					<h2>Status:</h2>
+					<h2>
+            <xsl:value-of select="leg:TranslateText('swhead_status')"/> 
+          </h2>
 					<p class="intro">
 						<xsl:value-of select="$pointInTimeText"/>
 						<xsl:sequence select="$status/node()[not(self::tso:extent)]" />
@@ -458,7 +607,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 								</xsl:when>
 							</xsl:choose>
 						</xsl:if>
-						
+
 						<xsl:if test="string-length ($status/@scenarioId) > 0 and $includeTooltip">
 							<a href="#Scenario{$status/@scenarioId}Help" class="helpItem helpItemToBot">
 								<img src="/images/chrome/helpIcon.gif" alt=" Help about Status"/>
@@ -481,8 +630,8 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 										<xsl:sequence select="."/>
 									</li>
 								</xsl:for-each>
-							</ul>						
-						</div>		
+							</ul>
+						</div>
 					</xsl:if>
 				</div>
 			</xsl:if>
@@ -490,7 +639,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 		<!--
 		<xsl:if test="exists($nstSection)">
 			<xsl:for-each select="$nstSection/ancestor-or-self::*[@DocumentURI]">
-				<br/>		
+				<br/>
 				[<xsl:value-of select="position()"/> : <xsl:value-of select="name()" />, <xsl:apply-templates select="current()" mode="TSOStatusMessage"/>]
 			</xsl:for-each>
 			<br/>
@@ -517,12 +666,12 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 								<p>Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area.</p>
 							</xsl:when>
 							<xsl:when test="$scenarioId = '1' ">
-								
+
 							<p>Revised legislation carried on this site may not be fully up to date. At the current time any known changes or effects made by subsequent legislation have been applied to the text of the legislation you are viewing by the editorial team.  Please see ‘Frequently Asked Questions’ for details regarding the timescales for which new effects are identified and recorded on this site.</p>
-								
+
 							</xsl:when>
-						
-							
+
+
 							<xsl:when test="$scenarioId ='5' ">
 								<xsl:choose>
 									<xsl:when test="$pointInTimeView">
@@ -530,9 +679,9 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 									</xsl:when>
 									<xsl:otherwise>
 										<xsl:choose>
-											<xsl:when test="leg:IsTOC()">
+											<xsl:when test="leg:IsTOC() and not(leg:IsRevisedEUPDFOnly)">
 												<p>
-													<xsl:text>Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area.  Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the affected provisions when you open the content using the Table of Contents below.</xsl:text> 							
+													<xsl:text>Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area.  Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the affected provisions when you open the content using the Table of Contents below.</xsl:text>
 												</p>
 											</xsl:when>
 											<xsl:otherwise>
@@ -544,10 +693,10 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 									</xsl:otherwise>
 								</xsl:choose>
 							</xsl:when>
-							<xsl:when test="$scenarioId = '5'  and leg:IsTOC()">
+							<xsl:when test="$scenarioId = '5'  and leg:IsTOC() and not(leg:IsRevisedEUPDFOnly(.))">
 								<p>Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area.  Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the affected provisions when you open the content using the Table of Contents below.</p>
 							</xsl:when>
-							<xsl:when test="$scenarioId = '5'  and leg:IsContent()">
+							<xsl:when test="$scenarioId = '5'  and (leg:IsContent() or leg:IsRevisedEUPDFOnly(.))">
 								<p>Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area. Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the legislation in the affected provisions. Use the ‘more’ link to open the changes and effects relevant to the provision you are viewing.</p>
 							</xsl:when>
 							<xsl:when test="$pointInTimeView">
@@ -668,12 +817,12 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	</xsl:template>
 	<xsl:template match="leg:P1group" mode="TSOStatusMessage" as="element(tso:status)?">
 		<xsl:choose>
-			<xsl:when test="$pointInTimeView and 
-									@RestrictStartDate castable as xs:date and 
-									$version castable as xs:date and 
+			<xsl:when test="$pointInTimeView and
+									@RestrictStartDate castable as xs:date and
+									$version castable as xs:date and
 									xs:date(@RestrictStartDate) &gt; xs:date($version)">
-				<tso:status scenarioId="S11">This version of this provision is not valid for this point in time.</tso:status>				
-			</xsl:when>	
+				<tso:status scenarioId="S11">This version of this provision is not valid for this point in time.</tso:status>
+			</xsl:when>
 			<xsl:when test="@Status = 'Prospective'">
 				<xsl:choose>
 					<xsl:when test="@Concurrent = 'true'">
@@ -686,9 +835,9 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 						<tso:status scenarioId="{if ($pointInTimeView) then 'S7' else 'S4'}">There are multiple prospective versions of this provision on screen.</tso:status>
 					</xsl:when>
 					<xsl:otherwise>
-						<tso:status scenarioId="{if ($pointInTimeView) then 
-									(if (exists(/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion' and @title castable as xs:date]) ) 
-										then  'S1' 
+						<tso:status scenarioId="{if ($pointInTimeView) then
+									(if (exists(/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion' and @title castable as xs:date]) )
+										then  'S1'
 									else 'S10')
 								else 'S1'}">This version of this provision is prospective.</tso:status>
 					</xsl:otherwise>
@@ -729,11 +878,11 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	</xsl:template>
 	<xsl:template match="*" mode="TSOStatusMessage" as="element(tso:status)?">
 		<xsl:choose>
-			<xsl:when test="$pointInTimeView and 
-									$version castable as xs:date and 
+			<xsl:when test="$pointInTimeView and
+									$version castable as xs:date and
 									exists(.//*[@RestrictStartDate castable as xs:date and xs:date(@RestrictStartDate) &gt; xs:date($version)])">
-					<tso:status scenarioId="S11">This version of this <xsl:apply-templates select="." mode="TSOStatusMessageXXX"/> contains provisions that are not valid for this point in time.</tso:status>				
-			</xsl:when>			
+					<tso:status scenarioId="S11">This version of this <xsl:apply-templates select="." mode="TSOStatusMessageXXX"/> contains provisions that are not valid for this point in time.</tso:status>
+			</xsl:when>
 			<xsl:when test="exists(.//*[@Status = 'Prospective'])">
 				<tso:status scenarioId="S1">This version of this <xsl:apply-templates select="." mode="TSOStatusMessageXXX"/> contains provisions that are prospective.</tso:status>
 			</xsl:when>
@@ -741,24 +890,25 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				<tso:status scenarioId="S8">This version of this <xsl:apply-templates select="." mode="TSOStatusMessageXXX"/> contains provisions that have not yet come into effect.</tso:status>
 			</xsl:when>
 			<xsl:when test="exists(.//*[@Match='false'])">
-				<!-- Issue U439: Only displaying ' no longer has effect' message at Act, Part, Chapter, Sch. Crossheading levels when all the child elements are repealed-->			
+				<!-- Issue U439: Only displaying ' no longer has effect' message at Act, Part, Chapter, Sch. Crossheading levels when all the child elements are repealed-->
 				<xsl:if test="(every $child in (* except (leg:Number, leg:Title))
 									satisfies ($child/@Match = 'false' and $child/@RestrictEndDate and not($child/@Status = 'Prospective'))
 								   )
-								  or  
-								  (self::leg:Schedule and 
+								  or
+								  (self::leg:Schedule and
 												  (
-													  (@Match = 'false' and @RestrictEndDate and not(@Status = 'Prospective')) 
-													  or 
+													  (@Match = 'false' and @RestrictEndDate and not(@Status = 'Prospective'))
+													  or
 													  (every $child in (leg:ScheduleBody/*)
 														  satisfies ($child/@Match = 'false' and $child/@RestrictEndDate and not($child/@Status = 'Prospective'))
 													  )
 												  )
 								 )">
 					<tso:status scenarioId="{if ($pointInTimeView) then 'S9' else 'S6'}">
-						<xsl:text>This version of this </xsl:text><xsl:apply-templates select="." mode="TSOStatusMessageXXX"/>
+						<xsl:text>This version of this </xsl:text>
+						<xsl:apply-templates select="." mode="TSOStatusMessageXXX"/>
 						<xsl:text> no longer has effect.</xsl:text>
-					</tso:status>						
+					</tso:status>
 				</xsl:if>
 				<!--
 				<tso:status scenarioId="{if ($pointInTimeView) then 'S9' else 'S6'}">This version of this <xsl:apply-templates select="." mode="TSOStatusMessageXXX"/>
@@ -783,7 +933,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	<xsl:template match="leg:Pblock" mode="TSOStatusMessageXXX">cross heading</xsl:template>
 	<xsl:template match="leg:Chapter" mode="TSOStatusMessageXXX">chapter</xsl:template>
 	<xsl:template match="*" mode="TSOStatusMessageXXX"/>
-	
+
 	<xsl:template match="*" mode="TSOExtentLinks" as="element(xhtml:a)+">
 		<xsl:variable name="results" as="element(xhtml:a)+">
 			<xsl:apply-templates select="." mode="TSOExtentLink" />
@@ -794,7 +944,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				</xsl:apply-templates>
 			</xsl:if>
 			<xsl:if test="ancestor-or-self::*/@Concurrent = 'true'">
-				<xsl:variable name="otherExtents" 
+				<xsl:variable name="otherExtents"
 					select="key('versions', tokenize(ancestor-or-self::*[@AltVersionRefs][1]/@AltVersionRefs, ' '), root())/*" />
 				<xsl:apply-templates select="$otherExtents" mode="TSOExtentLink" />
 			</xsl:if>
@@ -806,9 +956,9 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 			<xsl:sequence select="." />
 		</xsl:for-each>
 	</xsl:template>
-	
+
 	<xsl:template match="*" mode="TSOExtentLink">
-		<xsl:param name="extent" as="xs:string" select="(ancestor-or-self::*[@RestrictExtent][1]/@RestrictExtent, 'E+W+S+N.I.')[1]"/>
+		<xsl:param name="extent" as="xs:string" select="tso:resolveExtentFormatting((ancestor-or-self::*[@RestrictExtent][1]/@RestrictExtent, 'E+W+S+N.I.')[1])"/>
 		<xsl:variable name="extentsToken" select="tokenize($extent, '\+')" />
 		<a href="#extent-{translate($extent, '+', '-')}">
 			<span class="LegExtentRestriction" title="Applies to {tso:extentDescription($extentsToken)}">
@@ -822,25 +972,27 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 		</a>
 	</xsl:template>
 
-	
+
 	<!-- ========== Getting the current section name ==== -->
 	<xsl:template match="*" mode="CurrentSectionName"/>
 	<xsl:template match="*[leg:Pnumber]" mode="CurrentSectionName" priority="5">
 		<!-- Create the relevant 'Section' or 'Subsection' or 'Subsubsection' -->
-		<xsl:text>S</xsl:text>
-		<xsl:for-each select="ancestor-or-self::*[leg:Pnumber]">
-			<xsl:choose>
-				<xsl:when test="position() = last()">ection </xsl:when>
-				<xsl:otherwise>ubs</xsl:otherwise>
-			</xsl:choose>
-		</xsl:for-each>
+		<xsl:if test="not($g_isEURetainedOrEUTreaty)">
+			<xsl:text>S</xsl:text>
+			<xsl:for-each select="ancestor-or-self::*[leg:Pnumber]">
+				<xsl:choose>
+					<xsl:when test="position() = last()">ection </xsl:when>
+					<xsl:otherwise>ubs</xsl:otherwise>
+				</xsl:choose>
+			</xsl:for-each>
+		</xsl:if>
 		<xsl:value-of select="leg:Pnumber" />
 	</xsl:template>
-	
+
 	<xsl:template match="leg:Division[leg:Number]" mode="CurrentSectionName" priority="13">
 		<xsl:value-of select="concat(leg:DivisionName(.), ' ', leg:Number)" />
 	</xsl:template>
-	
+
 	<xsl:template match="*[leg:Number]" mode="CurrentSectionName" priority="3">
 		<xsl:value-of select="leg:Number" />
 	</xsl:template>
@@ -850,15 +1002,16 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	<xsl:template match="*[leg:TitleBlock]" mode="CurrentSectionName" priority="1">
 		<!-- This will pick up the Title from the TitleBlock -->
 		<xsl:apply-templates select="leg:TitleBlock" mode="CurrentSectionName" />
-	</xsl:template>	
+	</xsl:template>
 	<xsl:template match="leg:Pblock" mode="CurrentSectionName" priority="3">
-		<xsl:text>Cross Heading: </xsl:text><xsl:next-match/>
-	</xsl:template>	
+		<xsl:text>Cross Heading: </xsl:text>
+		<xsl:next-match/>
+	</xsl:template>
 
 	<!-- ========== Useful functions for the UI ========= -->
 
 	<xsl:function name="leg:IsTOC" as="xs:boolean">
-		<xsl:sequence select="$paramsDoc/parameters/view ='contents' "/>
+		<xsl:sequence select="$paramsDoc/parameters/view ='contents'"/>
 	</xsl:function>
 
 	<xsl:function name="leg:IsContent" as="xs:boolean">
@@ -891,7 +1044,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 
 	<xsl:function name="leg:IsCurrentOriginal" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
-		<xsl:sequence select="$legislation/leg:Legislation/ukm:Metadata/dc:publisher != 'Statute Law Database' and
+		<xsl:sequence select="not($legislation/leg:Legislation/ukm:Metadata/dc:publisher = 'Statute Law Database') and
 			not($legislation/leg:Legislation/ukm:Metadata/ukm:EUMetadata//ukm:DocumentStatus/@Value = 'revised') and
 			not($legislation/leg:Legislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@Revised] and $paramsDoc/parameters/version/normalize-space(.) = '')"/>
 	</xsl:function>
@@ -903,20 +1056,20 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 
 	<xsl:function name="leg:IsWelshExists" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
-		<xsl:sequence select="leg:IsCurrentWelsh($legislation) or 
+		<xsl:sequence select="leg:IsCurrentWelsh($legislation) or
 												$legislation/leg:Legislation/ukm:Metadata/atom:link[@rel= ('alternate','http://purl.org/dc/terms/hasVersion') and @hreflang='cy']"/>
-	</xsl:function>	
-	
+	</xsl:function>
+
 	<xsl:function name="leg:IsCurrentWelsh" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
 		<xsl:sequence select="ends-with($legislation/leg:Legislation/ukm:Metadata/dc:identifier, '/welsh')"/>
 	</xsl:function>
-	
+
 	<xsl:function name="leg:IsDraft" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
 		<xsl:sequence select="contains($legislation/leg:Legislation/ukm:Metadata/ukm:*/ukm:DocumentClassification/ukm:DocumentMainType/@Value, 'Draft')" />
 	</xsl:function>
-	
+
 	<xsl:function name="leg:IsBill" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
 		<xsl:sequence select="contains($legislation/leg:Legislation/ukm:Metadata/ukm:*/ukm:DocumentClassification/ukm:DocumentMainType/@Value, 'Bill')" />
@@ -930,7 +1083,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	<xsl:function name="leg:IsLegislationWeRevise" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
 		<xsl:sequence select="$legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value
-			= ('UnitedKingdomPublicGeneralAct', 'UnitedKingdomLocalAct', 'GreatBritainAct', 'EnglandAct', 'ScottishOldAct', 'ScottishAct', 
+			= ('UnitedKingdomPublicGeneralAct', 'UnitedKingdomLocalAct', 'GreatBritainAct', 'EnglandAct', 'ScottishOldAct', 'ScottishAct',
 			'IrelandAct', 'NorthernIrelandParliamentAct', 'NorthernIrelandAssemblyMeasure', 'NorthernIrelandAct',
 			'UnitedKingdomChurchMeasure', 'WelshAssemblyMeasure', 'WelshNationalAssemblyAct','NorthernIrelandOrderInCouncil',
 			'UnitedKingdomStatutoryInstrument','ScottishStatutoryInstrument', 'WelshStatutoryInstrument', 'NorthernIrelandStatutoryRule', 'NorthernIrelandStatutoryRuleOrOrder', 'EuropeanUnionRegulation', 'EuropeanUnionRegulation', 'EuropeanUnionDecision', 'EuropeanUnionDirective', 'EuropeanUnionTreaty' )"/>
@@ -940,15 +1093,15 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 		<xsl:param name="legislation" as="document-node()"/>
 		<xsl:sequence select="count($legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:UnappliedEffects/ukm:UnappliedEffect[not(@RequiresApplied='false')]) > 0"/>
 	</xsl:function>
-	
+
 	<xsl:function name="leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
 		<xsl:sequence select="
-			every $t in $legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:UnappliedEffects/ukm:UnappliedEffect[not(@RequiresApplied='false')]/ukm:InForceDates/ukm:InForce 
+			every $t in $legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:UnappliedEffects/ukm:UnappliedEffect[not(@RequiresApplied='false')]/ukm:InForceDates/ukm:InForce
 			satisfies $t[@Prospective='true' or xs:date(@Date) &gt; current-date()]
 			"/>
 	</xsl:function>
-	
+
 	<xsl:function name="leg:IsEditedByEPP" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
 		<xsl:sequence select="
@@ -956,46 +1109,62 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 			not(contains($legislation/leg:Legislation/@ValidDates, ' '))
 			"/>
 	</xsl:function>
-	
+
 	<xsl:function name="leg:IsPDFOnly" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
 		<xsl:sequence select="not(exists($legislation/leg:Legislation/* except $legislation/leg:Legislation/ukm:Metadata)) and exists($legislation/leg:Legislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@URI])"/>
 	</xsl:function>
-	
+
 	<xsl:function name="leg:IsPDFOnlyNotRevised" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
 		<xsl:sequence select="not(exists($legislation/leg:Legislation/* except $legislation/leg:Legislation/ukm:Metadata)) and not(exists($legislation/leg:Legislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@Revised])) and exists($legislation/leg:Legislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@URI])"/>
 	</xsl:function>
-	
+
+	<xsl:function name="leg:IsEUPDFOnlyNotRevised" as="xs:boolean">
+		<xsl:param name="legislation" as="document-node()"/>
+		<xsl:sequence select="
+		empty($legislation/leg:Legislation/leg:EURetained) and
+		exists($legislation/leg:Legislation/ukm:Metadata/ukm:EUMetadata) and
+		not(exists($legislation/leg:Legislation/* except $legislation/leg:Legislation/ukm:Metadata)) and exists($legislation/leg:Legislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@URI]) and
+		matches($dcIdentifier, 'adopted')"/>
+	</xsl:function>
+
 	<xsl:function name="leg:IsRevisedPDFOnly" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
 			<xsl:sequence select="exists($legislation/leg:Legislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@Revised]) and empty($legislation/leg:Legislation/(leg:Primary|leg:Secondary|leg:EURetained))"/>
 	</xsl:function>
-	
+
 	<xsl:function name="leg:IsRevisedEUPDFOnly" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
-			<xsl:sequence select="exists($legislation/leg:Legislation/ukm:Metadata/ukm:EUMetadata) and exists($legislation/leg:Legislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@Revised]) and empty($legislation/leg:Legislation/(leg:Primary|leg:Secondary|leg:EURetained))"/>
+			<xsl:sequence select="
+			empty($legislation/leg:Legislation/leg:EURetained) and
+			exists($legislation/leg:Legislation/ukm:Metadata/ukm:EUMetadata) and exists($legislation/leg:Legislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@Revised]) and not(matches($dcIdentifier, 'adopted'))"/>
 	</xsl:function>
-	
+
 	<xsl:function name="leg:IsEURetained" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
 			<xsl:sequence select="exists($legislation/leg:Legislation/leg:EURetained)"/>
 	</xsl:function>
-	
-	
+
+
 	<xsl:function name="leg:IsProposedVersion" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
 		<xsl:sequence select="$legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentStatus/@Value = 'proposed'"/>
 	</xsl:function>
-	
+
 	<xsl:function name="leg:IsRevision" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()" />
 		<xsl:sequence select="exists($legislation/leg:Legislation/ukm:Metadata/ukm:Revisions)" />
 	</xsl:function>
-	
+
 	<xsl:function name="leg:IsCheckedOut" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()" />
 		<xsl:sequence select="exists($legislation/leg:Legislation/ukm:Metadata/ukm:Checkout)" />
+	</xsl:function>
+
+	<xsl:function name="leg:unappliedAffectingURIs" as="xs:string*">
+		<xsl:param name="legislation" as="document-node()" />
+		<xsl:sequence select="$legislation/leg:Legislation/ukm:Metadata/*/ukm:UnappliedEffects/ukm:UnappliedEffect/@AffectingURI" />
 	</xsl:function>
 
 	<xsl:function name="leg:GetCodeSchemaStatus" as="xs:string">
@@ -1020,7 +1189,13 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:function>
-	
+
+	<xsl:function name="leg:legislationStartDate" as="xs:string?">
+		<xsl:param name="legislation" as="document-node()"/>
+		<xsl:sequence select="
+			($legislation/leg:Legislation/@RestrictStartDate, $legislation/leg:Legislation/ukm:Metadata/dct:valid)[1]"/>
+	</xsl:function>
+
 	<xsl:function name="leg:DivisionName" as="xs:string">
 		<xsl:param name="divelement" as="element()"/>
 		<xsl:value-of select="if ($divelement/@Type = 'EUTitle' and not(matches($divelement/leg:Number, 'title', 'i'))) then 'Title'
@@ -1033,4 +1208,46 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 									else 'Division'"/>
 	</xsl:function>
 
+	<xsl:function name="leg:revisedTreatyText" as="xs:string">
+		<xsl:param name="treatyname" as="xs:string"/>
+		<xsl:param name="date" as="xs:string"/>
+		<xsl:value-of>
+			<xsl:choose>
+				<xsl:when test="$treatyname = 'euratom'">
+					<xsl:value-of select="leg:TranslateText('treaty_default')"/>
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="$date"/>
+					<xsl:text>. </xsl:text>
+					<xsl:value-of select="leg:TranslateText('treaty_euratom')"/>
+				</xsl:when>
+				<xsl:when test="$treatyname = 'teec'">
+					<xsl:value-of select="leg:TranslateText('treaty_default')"/>
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="$date"/>
+					<xsl:text>. </xsl:text>
+					<xsl:value-of select="leg:TranslateText('treaty_teec')"/>
+				</xsl:when>
+				<xsl:when test="$treatyname = 'teu'">
+					<xsl:value-of select="leg:TranslateText('treaty_default')"/>
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="$date"/>
+					<xsl:text>. </xsl:text>
+					<xsl:value-of select="leg:TranslateText('treaty_teu')"/>
+				</xsl:when>
+				<xsl:when test="$treatyname = 'eea-agreement'">
+					<xsl:value-of select="leg:TranslateText('treaty_default')"/>
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="$date"/>
+					<xsl:text>. </xsl:text>
+					<xsl:value-of select="leg:TranslateText('treaty_eea')"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="leg:TranslateText('treaty_default')"/>
+					<xsl:text> </xsl:text>
+					<xsl:value-of select="$date"/>
+					<xsl:text>.</xsl:text>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:value-of>
+	</xsl:function>
 </xsl:stylesheet>

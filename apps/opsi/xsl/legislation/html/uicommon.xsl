@@ -65,6 +65,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template match="ukm:AlternativeNumber" mode="series">
 		<xsl:value-of select="concat(' (',  if (@Category eq 'NI') then 'N.I' else @Category, '. ', @Value, ')')"/>
 	</xsl:template>
+	
+	<!--  =========== Common Breadcrumb ================= -->
+	<xsl:template name="legtypeBreadcrumb">
+		<li class="first">
+			<a href="{concat($TranslateLangPrefix, '/', $g_strShortType)}">
+				<xsl:value-of select="$g_strSchemaDefinitions/@plural"/>
+			</a>
+		</li>
+	</xsl:template>
 
 	<!-- ========== Standard code for html metadata ========= -->
 	
@@ -182,8 +191,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<li id="legContentLink">
 					<span class="presentation"></span>
 						<xsl:choose>
-							<xsl:when test="exists($introURI)">
-								<a href="{leg:FormatURL($introURI, false())}" class="disabled"><xsl:value-of select="leg:TranslateText('Content')"/></a>							
+							<xsl:when test="exists($g_strIntroductionUri)">
+								<a href="{leg:FormatURL($g_strIntroductionUri, false())}" class="disabled"><xsl:value-of select="leg:TranslateText('Content')"/></a>							
 							</xsl:when>
 							<xsl:otherwise>
 								<span class="disabled"><xsl:value-of select="leg:TranslateText('Content')"/></span>
@@ -231,12 +240,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<a href="#moreResourcesTabHelp" class="helpItem helpItemToBot">
 							<img src="/images/chrome/helpIcon.gif" alt=" Help about More Resources"/>
 						</a>
-					</li>
-				</xsl:if>
-				<xsl:if test="$IsEURetained">
-					<li id="legInForceInfoLink">
-						<span class="presentation"></span>
-						<a href="{leg:FormatURL($inforceinfoURI, false())}"><xsl:value-of select="leg:TranslateText('In force Information')"/></a>
 					</li>
 				</xsl:if>
 		</ul>			
@@ -344,49 +347,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:if>
 		
 		<xsl:if test="$IsMoreResourcesAvailable">
-			<div class="help" id="moreResourcesTabHelp">
-				<span class="icon"/>
-				<div class="content">
-					<a href="#" class="close">
-						<img alt="Close" src="/images/chrome/closeIcon.gif"/>
-					</a>
-					<h3><xsl:value-of select="leg:TranslateText('More Resources')"/></h3>
-					<p><xsl:value-of select="leg:TranslateText('moreResourcesHelp_alt_para1')"/></p>
-					<ul>
-						<li>
-							<xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul_li_1_part1')"/>
-							<xsl:text> </xsl:text>
-							<xsl:value-of select="leg:TranslateText('enacted')"/>
-							<xsl:text> </xsl:text>							
-							<xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul_li_1_part3')"/>
-						</li>
-						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_1')"/></li>
-						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_2')"/></li>
-						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_3')"/></li>
-						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul_li_2')"/></li>
-						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_4')"/></li>																														
-					</ul>
-				</div>
-			</div>		
+			<xsl:call-template name="TSOOutputMoreResourcesHelpTip">
+				<xsl:with-param name="uriPrefix" select="$uriPrefix"/>
+				<xsl:with-param name="documentMainType" select="$documentMainType"/>
+			</xsl:call-template>		
 		</xsl:if>		
 		
 		<xsl:if test="$IsImpactAssessmentsAvailable">
-			<div class="help" id="moreIATabHelp">
-				<span class="icon"/>
-				<div class="content">
-					<a href="#" class="close">
-						<img alt="Close" src="/images/chrome/closeIcon.gif"/>
-					</a>
-					<h3><xsl:value-of select="leg:TranslateText('Impact Assessments')"/></h3>
-					<p><xsl:value-of select="leg:TranslateText('IA_tooltip_1')"/></p>
-					<ul>
-						<li><xsl:value-of select="leg:TranslateText('IA_tooltip_2')"/></li>
-						<li><xsl:value-of select="leg:TranslateText('IA_tooltip_3')"/></li>
-						<li><xsl:value-of select="leg:TranslateText('IA_tooltip_4')"/></li>
-						<li><xsl:value-of select="leg:TranslateText('IA_tooltip_5')"/></li>
-					</ul>
-				</div>
-			</div>		
+			<xsl:call-template name="TSOOutputIAHelpTip"/>		
 		</xsl:if>
 	</xsl:template>
 	
@@ -420,7 +388,22 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:if>
 		
 		<xsl:if test="$IsMoreResourcesAvailable">
-			<div class="help" id="moreResourcesTabHelp">
+			<xsl:call-template name="TSOOutputMoreResourcesHelpTip">
+				<xsl:with-param name="uriPrefix" select="$uriPrefix"/>
+				<xsl:with-param name="documentMainType" select="$documentMainType"/>
+			</xsl:call-template>		
+		</xsl:if>		
+		
+		<xsl:if test="$IsImpactAssessmentsAvailable">
+			<xsl:call-template name="TSOOutputIAHelpTip"/>	
+		</xsl:if>
+	</xsl:template>
+
+	<xsl:template name="TSOOutputMoreResourcesHelpTip">
+		<xsl:param name="uriPrefix" as="xs:string"/>
+		<xsl:param name="documentMainType" as="xs:string" />
+		
+		<div class="help" id="moreResourcesTabHelp">
 				<span class="icon"/>
 				<div class="content">
 					<a href="#" class="close">
@@ -433,40 +416,27 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<li>
 							<xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul_li_1_part1')"/>
 							<xsl:text> </xsl:text>
-							<xsl:value-of select="leg:TranslateText('enacted')"/> 
-							<xsl:text> </xsl:text>
-							<xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul_li_1_part3')"/>
+							<xsl:value-of 
+								select="if ($g_strDocumentMainType = ('UnitedKingdomMinisterialDirection', 'UnitedKingdomMinisterialOrder')) then 
+									leg:TranslateText('created')
+								else if ($g_isEURetainedOrEUTreaty) then 
+									leg:TranslateText('adopted')
+								else leg:TranslateText('enacted')"/>
+							<xsl:text> </xsl:text>							
+							<xsl:value-of select="leg:TranslateText(if ($g_isEURetainedOrEUTreaty) then 'moreResourcesHelp_ul_li_1_part3eu' else 'moreResourcesHelp_ul_li_1_part3')"/>
 						</li>
 						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_1')"/></li>
-						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_2')"/></li>
+						<xsl:if test="not($g_isEURetainedOrEUTreaty)">
+							<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_2')"/></li>
+						</xsl:if>
 						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_3')"/></li>
 						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul_li_2')"/></li>
-						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_4')"/></li>																														
+						<li><xsl:value-of select="leg:TranslateText('moreResourcesHelp_ul2_li_4')"/></li>
 					</ul>
 				</div>
-			</div>		
-		</xsl:if>		
-		
-		<xsl:if test="$IsImpactAssessmentsAvailable">
-			<div class="help" id="moreIATabHelp">
-				<span class="icon"/>
-				<div class="content">
-					<a href="#" class="close">
-						<img alt="Close" src="/images/chrome/closeIcon.gif"/>
-					</a>
-					<h3><xsl:value-of select="leg:TranslateText('Impact Assessments')"/></h3>
-					<p><xsl:value-of select="leg:TranslateText('IA_tooltip_1')"/></p>
-					<ul>
-						<li><xsl:value-of select="leg:TranslateText('IA_tooltip_2')"/></li>
-						<li><xsl:value-of select="leg:TranslateText('IA_tooltip_3')"/></li>
-						<li><xsl:value-of select="leg:TranslateText('IA_tooltip_4')"/></li>
-						<li><xsl:value-of select="leg:TranslateText('IA_tooltip_5')"/></li>
-					</ul>
-				</div>
-			</div>		
-		</xsl:if>
+			</div>	
 	</xsl:template>
-
+	
 	<xsl:template name="TSOOutputENHelpTip">
 		<xsl:param name="enType" as="xs:string"/>	
 		<xsl:param name="uriPrefix" as="xs:string"/>
@@ -494,7 +464,25 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:if>	
 	
 	</xsl:template>
-
+	
+	<xsl:template name="TSOOutputIAHelpTip">
+		<div class="help" id="moreIATabHelp">
+			<span class="icon"/>
+			<div class="content">
+				<a href="#" class="close">
+					<img alt="Close" src="/images/chrome/closeIcon.gif"/>
+				</a>
+				<h3><xsl:value-of select="leg:TranslateText('Impact Assessments')"/></h3>
+				<p><xsl:value-of select="leg:TranslateText('IA_tooltip_1')"/></p>
+				<ul>
+					<li><xsl:value-of select="leg:TranslateText('IA_tooltip_2')"/></li>
+					<li><xsl:value-of select="leg:TranslateText('IA_tooltip_3')"/></li>
+					<li><xsl:value-of select="leg:TranslateText('IA_tooltip_4')"/></li>
+					<li><xsl:value-of select="leg:TranslateText('IA_tooltip_5')"/></li>
+				</ul>
+			</div>
+		</div>	
+	</xsl:template>
 
 	<!-- ========== Standard code for query-string functions========= -->
 	

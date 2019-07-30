@@ -1,0 +1,25 @@
+/*
+(c) Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
+
+*/
+/* CSS only for Browse (Cards) pages */
+.card_list{width:960px;}
+.card_list h2{font-weight:normal;margin:10px;}
+.card_list h2 strong{font-size:1em;font-weight:bold;}
+.cards{list-style-type:none;margin:0;padding:0;display:flex;}
+.card{display:block;width:168px;min-height:168px;margin:10px;border-left:4px solid #444;}
+.card a{display:flex;height:100%;width:100%;padding:10px;background:#F4F4F4;box-sizing:border-box;border:1px solid #e4e4e4;flex-direction: column;justify-content: space-between}
+.card a:hover,.card a:focus,.card a:active{text-decoration:none;background:#e4e4e4;}
+.card h3{font-size:1.7em;}
+.card .summary{font-style:italic;font-size: 1.1em;}
+.card .content{font-size: 1.1em}
+.card .header{padding:0 0 1em}
+.card .rule{border-bottom:1px solid #444;}
+#uk.card{border-left-color:#FFB947;}
+#scotland.card{border-left-color:#B30359;}
+#wales.card{border-left-color:#006E6E;}
+#ni.card{border-left-color:#8C7DAA;}

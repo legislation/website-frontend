@@ -1,8 +1,8 @@
 /*
 (c)  Crown copyright
- 
+
 You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
+
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
@@ -25,7 +25,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #changesOverTime #timeline #timelineData {float: left;}
 
 /* Timeline list layout */
-#changesOverTime #timeline #timelineData ul {float: left; height: 7em; min-height: 84px; padding-top:4.6em; padding-left: 53px; width: 100%; background: url(/images/chrome/pointInTimeBg.gif) 0 6em repeat-x;}
+#changesOverTime #timeline #timelineData ul {float: left; height: 9em; min-height: 84px; padding-top:4.6em; padding-left: 53px; width: 100%; background: url(/images/chrome/pointInTimeBg.gif) 0 6em repeat-x;}
 #changesOverTime #timeline #timelineData ul li {background: url(/images/chrome/pointInTimeTimelineBg.png) 0 0 repeat-x; padding:15px 0 0 0; float: left; margin-top:30px; font-size: 0.9em;}
 #changesOverTime #timeline #timelineData ul li.beginning {}
 #changesOverTime #timeline #timelineData ul li .currentVersion,
@@ -33,6 +33,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #changesOverTime #timeline #timelineData ul li a:hover {text-decoration: underline;}
 #changesOverTime #timeline #timelineData ul li span.stop {color:#990100; text-decoration:none; padding: 0;text-decoration: underline; float: left; margin: -24px 0 0 -20px; font-weight: bold; text-decoration: none}
 #changesOverTime #timeline #timelineData ul li span.stop span.label {}
+
+/* Timeline list layout: EU Exit Day */
+#changesOverTime #timeline #timelineData ul li .euexitday .content, 
+#changesOverTime #timeline #timelineData ul li .exitdayoverlay .content { padding: 5px 15px; left: -20px; position: relative; background: white; border: 2px solid #ddd; border-radius: 2px; }
+#changesOverTime #timeline #timelineData ul li .euexitday .content::before, 
+#changesOverTime #timeline #timelineData ul li .exitdayoverlay .content::before{ content: '';  width: 10px; height: 10px;  display: block;  border: inherit;  background: inherit;  position: absolute;  bottom: 100%;  left: 50%;  border-bottom-color: white; border-right-color: white; transform: translate(-50%, 5px) rotate(45deg); }
+#changesOverTime #timeline #timelineData ul li .euexitday .content .description,
+#changesOverTime #timeline #timelineData ul li .euexitday .content .title,
+#changesOverTime #timeline #timelineData ul li .exitdayoverlay .content .description,
+#changesOverTime #timeline #timelineData ul li .exitdayoverlay .content .title{ display: block; }
+#changesOverTime #timeline #timelineData ul li .euexitday .content .title,
+#changesOverTime #timeline #timelineData ul li .exitdayoverlay .content .title{ font-weight: normal; border: none; }
 
 /* Line */
 #changesOverTime #timeline #timelineData ul li.currentVersion {background: url(/images/chrome/pointInTimeTimelineBgActive.png) 0 0 repeat-x;}
@@ -51,6 +63,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #changesOverTime #timeline .pointer {display: block; background-color:#000; background: url(/images/chrome/pointInTimeTimelineMarker.png) 0 0 no-repeat; height: 40px; width: 30px; margin-left: 10px}
 #changesOverTime #timeline .currentVersion .pointer {background: url(/images/chrome/pointInTimeMarkerActive.gif) 0 0 no-repeat;}
 #changesOverTime #timeline .stopDate .pointer {background: url(/images/chrome/pointInTimeMarkerStop.gif) 0 0 no-repeat;}
+#changesOverTime #timeline .euexitday .pointer { background: url(/images/chrome/circle--timeline--gray.png) 50% 25% no-repeat; width: 40px; height: 35px; margin-left: 5px;}
 #changesOverTime #timeline span.end {display: block; background-color:#000; background: url(/images/chrome/pointInTimeTimelineBgArr.png) 0 0 no-repeat; height: 40px; width: 18px; float: right; margin-top: -22px; margin-right: -10px;}
 #changesOverTime #timeline .currentVersion span.end {background: url(/images/chrome/pointInTimeTimelineBgActArr.png) 0 0 no-repeat;}
 #changesOverTime #timeline .currentProspective span.end {background: url(/images/chrome/pointInTimeTimelineBgActArr.png) 0 0 no-repeat;}
@@ -67,11 +80,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #scrollbar .arrowLeftDisabled {background:url(/images/scrollbar/scrollbar.gif) 0px 0px;}
 #scrollbar .arrowRightDisabled {background:url(/images/scrollbar/scrollbar.gif) -22px 0px;}
 
-#scrollbar .arrow {display:block; width:22px; height: 22px;} 
+#scrollbar .arrow {display:block; width:22px; height: 22px;}
 #scrollbar #slider {position:relative; float:left; width: 565px; margin: 5px 0px 0px 67px;}
 #scrollbar {height: 30px; margin-top: 3px; background:url(/images/scrollbar/scrollbar.gif) no-repeat 37px -86px;}
 
-#scrollbar .ui-slider .ui-slider-handle {background:url(/images/scrollbar/scrollbar.gif) -88px 0px; 
+#scrollbar .ui-slider .ui-slider-handle {background:url(/images/scrollbar/scrollbar.gif) -88px 0px;
  width: 133px; height:22px; margin-top: -5px; margin-left: -66px; position:absolute; z-index: 2;}
 #scrollbar .ui-slider-horizontal {height: 0.8em;}
 

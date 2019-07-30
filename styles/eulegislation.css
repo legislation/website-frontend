@@ -1,8 +1,8 @@
 /*
 (c)  Crown copyright
- 
+
 You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
+
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
@@ -257,6 +257,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 .LegSnippet .LegDivisionC1Amend {margin-left:8%;font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
 .LegSnippet .LegDivisionC3Amend {margin-left:8%;font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
 .LegSnippet .LegDivisionC4Amend {margin-left:16%;font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegDivisionC5Amend {margin-left:24%;font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegDivisionC6Amend {margin-left:32%;font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
 
 .LegSnippet .LegC1Amend {margin-left: 10%}
 .LegSnippet .LegC1C1Amend2 {margin-left: 20%}
@@ -310,6 +312,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 .LegSnippet .LegClearPblockFirst {clear: both; padding-top: 0em}
 .LegSnippet .LegClearPsubBlockFirst {clear: both; padding-top: 0em}
 
+.LegSnippet .subtitle {font-size: 1em}
 
 /* ========== Abstract ========== */
 
@@ -353,6 +356,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 .LegSnippet .LegTextC3Amend {clear: both; text-indent: 0em; text-align: justify; font-size: 0.8em; margin-left: 8%}
 .LegSnippet .LegTextC4Amend {clear: both; text-indent: 0em; text-align: justify; font-size: 0.8em; margin-left: 16%}
 .LegSnippet .LegTextC5Amend {clear: both; text-indent: 0em; text-align: justify; font-size: 0.8em; margin-left: 24%}
+.LegSnippet .LegTextC6Amend {clear: both; text-indent: 0em; text-align: justify; font-size: 0.8em; margin-left: 32%}
 
 
 .LegSnippet .LegDivisionNo {float:left; clear: both; font-size: 0.8em; width: 8%}
@@ -370,6 +374,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 .LegSnippet .LegDivisionTitleC3Amend {text-align: justify; font-size: 0.8em; }
 .LegSnippet .LegDivisionNoC4Amend {clear: both; font-size: 0.8em; width: 8%;float:left}
 .LegSnippet .LegDivisionTitleC4Amend {text-align: justify; font-size: 0.8em; }
+.LegSnippet .LegDivisionNoC5Amend {clear: both; font-size: 0.8em; width: 8%;float:left}
+.LegSnippet .LegDivisionTitleC5Amend {text-align: justify; font-size: 0.8em; }
+.LegSnippet .LegDivisionNoC6Amend {clear: both; font-size: 0.8em; width: 8%;float:left}
+.LegSnippet .LegDivisionTitleC6Amend {text-align: justify; font-size: 0.8em; }
 
 .LegSnippet .LegAnnotationNo {clear: both; font-size: 0.8em; text-align: justify; min-width: 8%}
 .LegSnippet .LegAnnotationTitle {text-align: justify; margin-left:0.5em; font-size: 0.8em; }
@@ -421,7 +429,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 .LegSnippet .LegP1No {display:block; margin:1em; text-align:center;font-style:italic;font-weight:normal}
 .LegSnippet .LegN1NoAmend .LegP1No {font-weight: normal; float: left}
 .LegSnippet .LegSP1Container .LegP1No {font-weight: normal; display:block;}
-.LegSnippet .LegP1No .LegP1No {width: auto;} 
+.LegSnippet .LegP1No .LegP1No {width: auto;}
 .LegSnippet .LegSP1Container .LegP1NoC1Amend .LegP1No {font-weight: normal; float: left; width: 100%}
 .LegSnippet .LegSP1Container .LegP1NoC3Amend .LegP1No {font-weight: normal; float: left; width: 100%}
 .LegSnippet .LegP1Container .LegP1NoC1C1C1Amend3 .LegP1No {font-weight: normal; float: right; width: 100%}
@@ -933,8 +941,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 .LegSnippet thead .LegTH .LegText em {font-style: italic}
 .LegSnippet thead .LegTHplain em {font-style: normal}
 
-.LegSnippet tbody .LegTH {text-align: left; font-style: normal; font-size: 1em; font-weight: bold; border: none; background-color: #ffffff; color: black; vertical-align: top}
-.LegSnippet tbody .LegTHplain {text-align: left; font-style: normal; font-size: 0.8em; font-weight: bold; border: none; background-color: #ffffff; color: black; vertical-align: top}
+.LegSnippet tbody .LegTH {text-align: left; font-style: normal; font-size: 1em; font-weight: bold; border: 1px solid; background-color: #ffffff; color: black; vertical-align: top}
+.LegSnippet tbody .LegTH:last-child { border-right-color: transparent;}
+.LegSnippet tbody .LegTH:first-child { border-left-color: transparent;}
+.LegSnippet tbody .LegTHplain {text-align: center; font-style: normal; font-size: 0.8em; font-weight: bold; border: 1px solid; background-color: #ffffff; color: black; vertical-align: middle}
+.LegSnippet tbody .LegTHplain:last-child { border-right-color: transparent;}
+.LegSnippet tbody .LegTHplain:first-child { border-left-color: transparent;}
 .LegSnippet tbody .LegTH strong {font-weight: normal}
 .LegSnippet tbody .LegTH .LegText strong {font-weight: bold}
 .LegSnippet tbody .LegTHplain strong {font-weight: normal}
@@ -942,8 +954,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 .LegSnippet .LegTD acronym {font-size: 0.8em;}
 .LegSnippet .LegTD .LegCitation {font-size: 0.8em;}
 
-.LegSnippet .LegTD {font-style: normal; font-size: 0.8m; font-weight: normal; border: none; vertical-align: top}
-.LegSnippet .LegTDplain {font-style: normal; font-size: 0.8em; font-weight: normal; border: none; vertical-align: top}
+.LegSnippet .LegTD {font-style: normal; font-size: 0.8m; font-weight: normal; border: 1px solid; vertical-align: top}
+.LegSnippet .LegTD:last-child { border-right-color: transparent;}
+.LegSnippet .LegTD:first-child { border-left-color: transparent;}
+.LegSnippet .LegTDplain {font-style: normal; font-size: 0.8em; font-weight: normal; border: 1px solid; vertical-align: middle;}
+.LegSnippet .LegTDplain:last-child { border-right-color: transparent;}
+.LegSnippet .LegTDplain:first-child { border-left-color: transparent;}
 .LegSnippet .LegTDmixedText {font-style: normal; font-size: 0.8em; font-weight: normal}
 .LegSnippet td .LegTDmixedText {font-size: 1em;}
 

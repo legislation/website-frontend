@@ -26,7 +26,7 @@ xmlns:dct="http://purl.org/dc/terms/"
 xmlns:fox="http://xmlgraphics.apache.org/fop/extensions"
 exclude-result-prefixes="tso atom">
 	<xsl:import href="legislation_schema_headings_FO.xslt"/>
-
+	<xsl:import href="../html/legislation_global_variables.xslt"/>
 	<xsl:import href="../html/statuswarning.xsl"/>
 	<xsl:import href="../html/process-annotations.xslt"/>
 
@@ -81,8 +81,7 @@ exclude-result-prefixes="tso atom">
 		</xsl:choose>
 	</xsl:variable>		
 	
-	<!-- check if there is a signatire block-->
-	<xsl:variable name="signatureURI" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/signature' and @title='signature']/@href"/>
+	
 	
 	<xsl:variable name="signatureText">
 		<xsl:choose>
@@ -130,10 +129,12 @@ exclude-result-prefixes="tso atom">
 
 	<xsl:variable name="FOparamsDoc" select="if (doc-available('input:request')) then doc('input:request') else ()"/>
 
-	<!-- cssup: set extent to true to generate this particular pdf -->
-	<!--xsl:variable name="g_matchExtent" 
-	select="if ($FOparamsDoc/parameters/extent != '' or $query_view='extent') then 'true' else 'false'"/-->
+	<!-- cssup: set extent to true to generate this particular pdf 
 	<xsl:variable name="g_matchExtent">true</xsl:variable>
+	-->
+	<xsl:variable name="g_matchExtent" 
+	select="if ($FOparamsDoc/parameters/extent != '' or $query_view='extent') then 'true' else 'false'"/>
+	
 
 	<xsl:variable name="g_view" as="xs:string" select="($FOparamsDoc/parameters/view, '')[1]"/>
 	
@@ -157,7 +158,6 @@ exclude-result-prefixes="tso atom">
 	<xsl:variable name="g_strConstantImagesPath" select="'http://www.legislation.gov.uk/images/crests/'" as="xs:string"/>
 	
 	
-	<xsl:variable name="dcIdentifier" select="/leg:Legislation/ukm:Metadata/dc:identifier"/>
 	<xsl:variable name="g_documentLanguage" select="if (/leg:Legislation/@xml:lang) then /leg:Legislation/@xml:lang else 'en'"  as="xs:string"/>
 	<xsl:variable name="g_dctitle" select="/leg:Legislation/ukm:Metadata/dc:title"/>
 
@@ -174,7 +174,7 @@ exclude-result-prefixes="tso atom">
 	<!-- put a bodge in to at least select /leg:Legislation  so we get something returned id this fails as in the case of ukpga/2000/36/schedules/ni   -->
 	<xsl:variable name="selectedSection" as="element()?"
 		select="
-			if ($wholeActURI = $dcIdentifier) then /leg:Legislation
+			if ($g_strwholeActURI = $dcIdentifier) then /leg:Legislation
 			else if ($dcIdentifier = ($introURI, $wholeActWithoutSchedulesURI)) then  /leg:Legislation/(leg:Primary | leg:Secondary | leg:EURetained)//*[@DocumentURI = $strCurrentURIs]
 			else if ($dcIdentifier = $schedulesOnlyURI)  then /leg:Legislation/(leg:Primary | leg:Secondary | leg:EURetained)/leg:Schedules
 			else if ($nstSection)  then $nstSection
@@ -1233,7 +1233,7 @@ exclude-result-prefixes="tso atom">
 		</fo:block>
 	</xsl:template>	
 	
-	<xsl:template match="leg:Body | leg:EUBody">
+	<xsl:template match="leg:Body | leg:EUBody" priority="10">
 		<xsl:if test="not(ancestor::leg:Attachments)">
 			<fo:block id="StartOfContent"/>
 		</xsl:if>
@@ -1258,6 +1258,8 @@ exclude-result-prefixes="tso atom">
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+	
+
 	
 	<!-- #HA057536 - MJ: output XML content within resource if file contains no main content -->
 	<xsl:template match="leg:Resources[not(preceding-sibling::leg:Primary or preceding-sibling::leg:Secondary or  preceding-sibling::leg:EURetained)]">
@@ -1474,30 +1476,83 @@ exclude-result-prefixes="tso atom">
 	</xsl:choose>
 </xsl:template>
 	
-
-	<!--#154 do not process wholly repealed legislation/parts or schedules -->
-	<!--we also need to allow for any act that is to come into force sometime in the future - query the RestrictStartDate  -->
-	<xsl:template match="leg:Part | leg:Body | leg:EUBody | leg:Schedules | leg:Pblock | leg:PsubBlock" priority="60">
+	<xsl:template match="leg:Division | leg:Part | leg:Body | leg:EUBody | leg:Schedules | leg:Pblock | leg:PsubBlock | leg:ExplanatoryNotes | leg:SignedSection | leg:EUChapter | leg:EUPart | leg:EUTitle | leg:EUSection | leg:EUSubsection" priority="61">
+		<xsl:variable name="isWholeActView" select="./root()/leg:Legislation/@DocumentURI = $dcIdentifier"/>
+		<xsl:variable name="isBodyView" select="matches($dcIdentifier, '/body')"/>
+		<xsl:variable name="isSchedulesView" select="matches($dcIdentifier, '/schedules|/annexes')"/>
+		<xsl:variable name="isSignatureView" select="matches($dcIdentifier, '/signature')"/>
+		<xsl:variable name="documentURI" select="@DocumentURI"/>
+		<xsl:variable name="repealedText" select="if ($isWholeActView) then 'act\s+(repeal|revoked|omitted)' else 'repeal'"/>
+		<!--<xsl:variable name="isRepealedAct" select="matches((ancestor::leg:Legislation/ukm:Metadata/dc:title)[1], '\(repealed\)\s*$')"/>-->
+		<xsl:variable name="commentary" as="xs:string*" 
+				select="$g_wholeActCommentaries/@id"/>				
+		<xsl:variable name="isRepealedStatus" select="@Status = 'Repealed'"/>
+		<xsl:variable name="isRepealed" select="(every $child in (leg:* except (leg:Number, leg:Title)) satisfies 
+						(
+							(
+								($child/@Match = 'false' and $child/@RestrictEndDate) and 
+								not($child/@Status = 'Prospective') and
+								(
+									(
+										($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) 
+									) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() )
+								)
+							) 
+						 or ($child/@Match = 'false' and $child/@Status = 'Repealed')
+						 or (self::leg:Division and (($child/self::leg:P[not(@id)] and $isRepealedStatus) or ($child/@Match = 'false' and $child/@Status = 'Repealed')))
+					   or (
+					  (:  allowance for prosp repeals made by EPP  :)
+							$child/@Match = 'false' and matches($child/@Status, 'prospective|repealed', 'i') and 
+							(some $text in $commentary satisfies matches(string(/leg:Legislation/leg:Commentaries/leg:Commentary[@id = $text][1]), $repealedText, 'i')
+							)  and 
+							(exists($child//leg:Text) or exists($child//xhtml:td)) and 
+							(every $text in ($child//leg:Text | $child//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = '')
+							)
+						)
+					) or 
+					(	(:  the explanatory notes do not appear to always have an enddate or status attribute so we must infer the repeal  :)
+						self::leg:ExplanatoryNotes and (
+						every $child in (leg:* except (leg:Number, leg:Title)) satisfies
+						(exists($child//leg:Text) or exists($child//xhtml:td)) and 
+						(every $text in ($child//leg:Text | $child//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = ''))
+					) or
+					(
+							(
+								(@Match = 'false' and @RestrictEndDate) and 
+								not(@Status = 'Prospective') and
+								(
+								(
+								($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= xs:date($version) 
+								) or (not($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= current-date() )
+								)
+							)
+							and
+							(				
+								leg:Title[.=''][not(preceding-sibling::element())]/following-sibling::element()[1]
+																			[self::leg:P][normalize-space(.) != '']
+																			[not(following-sibling::element())]
+							)
+					
+					)
+					
+					"/>
+		
+						
 		<xsl:choose>
-			<xsl:when test="exists(leg:*[not(self::leg:Number or self::leg:Title)]) and
-			(every $child in (leg:* except (leg:Number, leg:Title))
-				satisfies ((($child/@Match = 'false' and $child/@RestrictEndDate) and not($child/@Status = 'Prospective') and
-				   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() ))) or ($child/@Match = 'false' and $child/@Status = 'Repealed')
-				   or (
-				  (:  allowance for prosp repeals made by EPP  :)
-				  $child/@Match = 'false' and $child/@Status = 'Prospective' and (every $text in .//leg:Text satisfies normalize-space(replace($text, '\.' , '')) = '')
-				   )))">
+			<xsl:when test="$isWholeActView and $isRepealedAct and $isRepealed">
+				<fo:block>	</fo:block>
+			</xsl:when>
+			<xsl:when test="$isSignatureView and (self::leg:Body or self::leg:EUBody)">
+				<fo:block><xsl:apply-templates/></fo:block>
+			</xsl:when>
+			<xsl:when test="($documentURI = ($dcIdentifier) or $isSchedulesView or $isBodyView) and $isRepealed">
 				<xsl:apply-templates select="leg:Number | leg:Title" />
 				<fo:block>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</fo:block>
 				<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 			</xsl:when>
-			<xsl:when test="self::leg:PsubBlock and empty(leg:*[not(self::leg:Number or self::leg:Title)])">
-				<fo:block  space-before="12pt" font-style="italic" text-align="center">
-					<xsl:next-match />
-				</fo:block>
-			</xsl:when>
+			
 			<xsl:otherwise>
-				<xsl:next-match />
+				<fo:block><xsl:next-match /></fo:block>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -1578,13 +1633,14 @@ exclude-result-prefixes="tso atom">
 				</xsl:when>
 			</xsl:choose>
 			<xsl:apply-templates/>
-			<xsl:if test="ancestor-or-self::*/@RestrictExtent and  ($g_matchExtent = 'true' or parent::*/@Concurrent = 'true' or ancestor-or-self::*/@VersionReplacement) and not(ancestor::leg:BlockAmendment)">
+			<xsl:if test="not($g_strDocClass = $g_strConstantEuretained) and ancestor-or-self::*/@RestrictExtent and  ($g_matchExtent = 'true' or parent::*/@Concurrent = 'true' or ancestor-or-self::*/@VersionReplacement) and not(ancestor::leg:BlockAmendment)">
 				<xsl:copy-of select="tso:generateExtentInfo(.)"/>
 			</xsl:if>
 		</fo:block>
 					<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 
 	</xsl:template>
+		
 
 	<xsl:template match="leg:Schedule[not($g_strDocClass = ($g_strConstantSecondary, $g_strConstantEuretained))]//leg:P1group[not(ancestor::leg:BlockAmendment)]/leg:Title | leg:P1group[parent::leg:BlockAmendment[@TargetClass = 'primary' and @Context = 'schedule']]/leg:Title" priority="2">
 		<fo:block font-size="{$g_strBodySize}" font-style="italic" text-align="left" keep-with-next="always">
@@ -1603,6 +1659,9 @@ exclude-result-prefixes="tso atom">
 				<fo:block>
 					<fo:block font-size="{$g_strBodySize}" text-align="center" font-weight="normal" font-style="italic" keep-with-next="always">
 						<xsl:apply-templates select="leg:Pnumber"/>
+						<xsl:if test="ancestor-or-self::*/@RestrictExtent and  ($g_matchExtent = 'true' or parent::*/@Concurrent = 'true' or ancestor-or-self::*/@VersionReplacement) and not(ancestor::leg:BlockAmendment)">
+							<xsl:copy-of select="tso:generateExtentInfo(.)"/>
+						</xsl:if>
 					</fo:block>
 					<xsl:if test="parent::leg:P1group and not(preceding-sibling::leg:P1)">
 						<fo:block font-size="{$g_strBodySize}" text-align="center" font-weight="bold">
@@ -2355,9 +2414,9 @@ exclude-result-prefixes="tso atom">
 			<!-- this should make the dots appear as per the html pages -->
 			<xsl:choose>
 				<xsl:when test="(@Match = 'false' and @RestrictEndDate and not(@Status = 'Prospective') and
-						   ((($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= current-date() ))) or (every $child in (leg:ScheduleBody/*)
+						   ((($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= current-date() ))) or (exists(leg:ScheduleBody/*) and (every $child in (leg:ScheduleBody/*)
 				  satisfies (($child/@Match = 'false' and $child/@RestrictEndDate and not($child/@Status = 'Prospective')) and
-						   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() )))  or ($child/@Match = 'false' and $child/@Status = 'Repealed'))">
+						   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() )))  or ($child/@Match = 'false' and $child/@Status = 'Repealed')))">
 							  
 					<fo:block>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</fo:block>
 					<xsl:apply-templates select="." mode="ProcessAnnotations"/>
@@ -3622,8 +3681,8 @@ exclude-result-prefixes="tso atom">
 			<xsl:apply-templates/>
 		</fo:inline>
 		<xsl:choose>
-			<xsl:when test="$showCommentary and ancestor::xhtml:tbody and ($allChanges[ancestor::xhtml:tfoot] or  not($allChanges[last()] is .))"></xsl:when>
-			<xsl:when test="$showCommentary and ancestor::xhtml:tfoot and ($allChanges[last()][not(ancestor::xhtml:table)])"></xsl:when>
+			<xsl:when test="$showCommentary and ancestor::xhtml:tbody and (($allChanges[ancestor::xhtml:tfoot][last()]/ancestor::xhtml:table[1] is current()/ancestor::xhtml:table[1]) or  not($allChanges[last()] is .))"></xsl:when>
+			<xsl:when test="$showCommentary and ancestor::xhtml:tfoot and ($allChanges[last()][not(ancestor::xhtml:table[1])] or not($allChanges[last()]/ancestor::xhtml:table[1] is current()/ancestor::xhtml:table[1]))"></xsl:when>
 			<xsl:when test="$showCommentary and key('additionRepealChanges', @ChangeId, $showSection)[last()] is .">
 				<fo:inline font-weight="bold">]</fo:inline>
 			</xsl:when>
@@ -3670,8 +3729,8 @@ exclude-result-prefixes="tso atom">
 		<xsl:param name="showSection" />
 		<xsl:sequence 
 			select="if ($node/ancestor::*[@VersionReplacement]) then $node/ancestor::*[@VersionReplacement] 
-					else if ($node/ancestor::xhtml:tfoot) then $node/ancestor::xhtml:tfoot 
-					else if ($node/ancestor::xhtml:tbody) then $node/ancestor::xhtml:tbody 
+					else if ($node/ancestor::xhtml:tfoot) then $node/ancestor::xhtml:tfoot[1] 
+					else if ($node/ancestor::xhtml:tbody) then $node/ancestor::xhtml:tbody[1] 
 					else if (exists($showSection) and $node/ancestor-or-self::*[. is $showSection]) then $showSection 
 					else if ($g_strDocClass = $g_strConstantEuretained and $node/ancestor::leg:Footnotes) then $node/ancestor::leg:Footnotes 
 					else $node/root()/leg:Legislation/(leg:EURetained|leg:Primary|leg:Secondary)" />
@@ -3981,13 +4040,18 @@ exclude-result-prefixes="tso atom">
 		<xsl:next-match/>
 	</xsl:template>
 
-	<xsl:function name="tso:generateExtentInfo" as="element(fo:inline)">
+	<xsl:function name="tso:generateExtentInfo" as="element(fo:inline)*">
 		<xsl:param name="element" as="node()" />
-		<fo:inline color="white" background-color="rgb(102,0,102)" padding-top="3pt" padding-bottom="1pt" padding-left="5pt" padding-right="5pt" >
-			<!--<xsl:text> [</xsl:text>-->
-			<xsl:value-of select="$element/ancestor-or-self::*[@RestrictExtent][1]/@RestrictExtent"/>
-			<!--<xsl:text>]</xsl:text>-->
-		</fo:inline>
+		<xsl:variable name="extents" select="$element/ancestor-or-self::*[@RestrictExtent][1]/@RestrictExtent"/>
+		<xsl:variable name="resolvedExtents" select="if ($extents) then replace($extents, 'E\+W\+S\+N\.?I\.?', 'U.K.') else ()"/>
+		<xsl:if test="not($element/ancestor::xhtml:table)">
+			<fo:inline>&#160;</fo:inline>
+			<fo:inline color="white" background-color="rgb(102,0,102)" padding-top="3pt" padding-bottom="1pt" padding-left="5pt" padding-right="5pt">
+				<!--<xsl:text> [</xsl:text>-->
+				<xsl:value-of select="$resolvedExtents"/>
+				<!--<xsl:text>]</xsl:text>-->
+			</fo:inline>
+		</xsl:if>
 	</xsl:function>	
 
 	<!-- VERSION HANDLING -->
@@ -4395,6 +4459,9 @@ exclude-result-prefixes="tso atom">
 						<fo:block font-size="{$g_strBodySize}" text-align="justify">
 							<!--<xsl:apply-templates select="leg:P2para"/>-->
 							<xsl:apply-templates select="leg:Title"/>
+							<xsl:if test="ancestor-or-self::*/@RestrictExtent and  ($g_matchExtent = 'true' or parent::*/@Concurrent = 'true' or ancestor-or-self::*/@VersionReplacement) and not(ancestor::leg:BlockAmendment)">
+								<xsl:copy-of select="tso:generateExtentInfo(.)"/>
+							</xsl:if>
 						</fo:block>	
 					</fo:list-item-body>
 				</fo:list-item>	
@@ -4448,8 +4515,12 @@ exclude-result-prefixes="tso atom">
 		<xsl:variable name="font-weight" select="if (parent::leg:EUTitle or parent::leg:Divion/@Type = 'EUTitle') then 'bold' else 'normal'"/>
 		<fo:block font-size="{$g_strBodySize}" space-before="24pt" text-align="center" keep-with-next="always" font-weight="{font-weight}">
 			<xsl:apply-templates/>
+			<xsl:if test="ancestor-or-self::*/@RestrictExtent and  ($g_matchExtent = 'true' or parent::*/@Concurrent = 'true' or ancestor-or-self::*/@VersionReplacement) and not(ancestor::leg:BlockAmendment)">
+				<xsl:copy-of select="tso:generateExtentInfo(.)"/>
+			</xsl:if>
 		</fo:block>
 	</xsl:template>
+	
 
 	<xsl:template match="leg:EUTitle/leg:Title | leg:EUPart/leg:Title | leg:EUChapter/leg:Title | leg:EUSection/leg:Title | leg:EUSubsection/leg:Title | leg:Division[leg:Title][@Type = ('EUPart','EUTitle','EUChapter','EUSection','EUSubsection', 'ANNEX')]/leg:Title" priority="10">
 		<xsl:variable name="contentcount" select="string-length(parent::*/leg:Number)"/>
@@ -4477,6 +4548,12 @@ exclude-result-prefixes="tso atom">
 			<xsl:apply-templates/>		
 		</fo:block>
 	</xsl:template>
+	
+	<xsl:template match="leg:Attachment//leg:EUBody" priority="400">
+		<fo:block>
+			<xsl:apply-templates/>		
+		</fo:block>
+	</xsl:template>
 
 	<xsl:template match="leg:Attachments" priority="10">
 		<fo:block>
@@ -4488,6 +4565,7 @@ exclude-result-prefixes="tso atom">
 		<xsl:apply-templates/>		
 	</xsl:template>
 
+		
 	<xsl:template match="leg:Attachment" priority="10">
 		<fo:block text-align="justify" font-size="{$g_strBodySize}">
 			<xsl:call-template name="TSOgetID"/>	
@@ -4509,6 +4587,9 @@ exclude-result-prefixes="tso atom">
 		<fo:block>
 			<fo:block font-size="{$g_strBodySize}" text-align="center" font-weight="normal" font-style="italic" keep-with-next="always" space-before="8pt" space-after="8pt">
 				<xsl:apply-templates select="leg:Pnumber"/>
+				<xsl:if test="ancestor-or-self::*/@RestrictExtent and  ($g_matchExtent = 'true' or parent::*/@Concurrent = 'true' or ancestor-or-self::*/@VersionReplacement) and not(ancestor::leg:BlockAmendment)">
+					<xsl:copy-of select="tso:generateExtentInfo(.)"/>
+				</xsl:if>
 			</fo:block>
 			<xsl:if test="parent::leg:P1group and not(preceding-sibling::leg:P1)">
 				<fo:block font-size="{$g_strBodySize}" text-align="center" font-weight="bold">

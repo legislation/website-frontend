@@ -17,7 +17,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #resultsTimeline .key dd em {font-weight: bold; font-style:normal; font-size: 1.2em;}
 #resultsTimeline .key dd img {vertical-align: middle;}
 
-#resultsTimeline h3.groupInfo {width: 35%; float: right; text-align: right; padding-right: 5px; font-weight: 400;}
+#resultsTimeline h3.groupInfo {width: auto; float: right; text-align: right; padding-right: 5px; font-weight: 400;}
 #resultsTimeline h3.groupInfo strong {font-weight: 800;}
 
 #resultsTimeline .dataDescription {list-style: none; margin: 0; padding: 0; position: absolute; left: 0; height: 100%;}
@@ -25,7 +25,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #resultsTimeline .dataDescription li.year {float: left; position: relative; bottom: -85%}
 #resultsTimeline .dataDescription li.number {float: left; margin: 150px 0 0 -54px;}
 
-#resultsTimeline .explanation {clear:left;}
+#resultsTimeline .explanation {clear:left; font-weight: bold; margin: 22.5px 0 7.5px; }
 /* CSS for the timeline histogram */
 #timeline * {margin: 0; float: none; clear: none; padding: 0;}
 
@@ -53,7 +53,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #timeline h3 a { color: #069;}
 #timeline ul {clear: none; float: left; padding-left:0.475em; list-style: none;}
 #timeline .last ul {padding-right:0.475em;}
-#timeline .last h3 {width: }
+/* #timeline .last h3 {width: } */
 #timeline li {float: left; margin-right:0.5em; position: relative;}
 #timeline li.last {margin-right: 0;}
 #timeline li a * {font-size:0.95em;}
@@ -62,11 +62,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 #timeline li a {display: block; width: 3em;  height: 115px; background: #BDBF83; color: #fff; text-align: center;} /* default bg colour is for partial data */
 #timeline li.complete a {background: #66A1BF;}
+#timeline.eu li a,
+#timeline.eu li.complete a { background: #BBB; }
 
 #timeline li.currentYear a,
-#timeline li a:hover {background: #777856}
+#timeline li a:hover {background: #777856;}
 #timeline li.currentYear.complete a,
 #timeline li.complete a:hover {background: #006599}
+#timeline.eu li.currentYear a,
+#timeline.eu li a:hover,
+#timeline.eu li.currentYear.complete a,
+#timeline.eu li.complete a:hover {background: #555;}
 
 #timeline li a em {display: block; position:relative; font-style: normal;}
 #timeline .odd li a em  {background: #FFFFFF;}

@@ -126,7 +126,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<div id="errorBar" class="error errorMessage">
 								<xsl:choose>
 									<xsl:when test="$errorSearchingDoc/errorsearching/status-code = '400'">
-										<xsl:value-of select="$errorSearchingDoc/errorsearching/message"/>
+										<xsl:value-of select="leg:TranslateText(string-join($errorSearchingDoc/errorsearching/message,''))"/>
 									</xsl:when>
 									<xsl:otherwise>
 										<xsl:value-of select="concat(leg:TranslateText('Please check the form fields which are highlighted in red'),'. ', $errorSearchingDoc/errorsearching/message)"/>

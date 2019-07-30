@@ -36,9 +36,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <!-- ========== Standard code for outputting legislation ========= -->
 
 <xsl:import href="legislation_xhtml_vanilla.xslt"/>
-
+<xsl:import href="legislation_global_variables.xslt"/>
 <xsl:import href="../../common/utils.xsl"/>
 <xsl:import href="process-annotations.xslt"/>
+
 
 <xsl:output method="xml" version="1.0" omit-xml-declaration="yes"  indent="no" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
@@ -55,6 +56,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <!-- we need to reference the document order of the commentaries rather than the commenatry order in order to gain the correct numbering sequence. Therefore we will build a nodeset of all CommentartRef/Addition/Repeal elements and their types which can be queried when determining the sequence number -->
 
+				
 	<!-- Chunyu:Added a condition for versions. We should go from the root call Call HA048969 -->
 <xsl:variable name="g_commentaryOrder">
 	<xsl:variable name="commentaryRoot" as="node()+"
@@ -66,16 +68,20 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:for-each-group select="$commentaryRoot//(leg:CommentaryRef | leg:Addition | leg:Repeal | leg:Substitution)" group-by="(@Ref, @CommentaryRef)[1]">
 		<leg:commentary id="{current-grouping-key()}" Type="{key('commentary', current-grouping-key())/@Type}" />
 	</xsl:for-each-group>
+	<xsl:for-each-group select="$g_wholeActAmendments" group-by="(substring-after(@href, '#commentary-'))[1]">
+		<leg:commentary id="{current-grouping-key()}" Type="{key('commentary', current-grouping-key())/@Type}" />
+	</xsl:for-each-group>
 </xsl:variable>
+
+
 
 <xsl:variable name="paramsDoc" select="if (doc-available('input:request')) then doc('input:request') else ()"/>
 
-<xsl:variable name="legislationYear" select="/leg:Legislation/ukm:Metadata//ukm:Year/@Value"/>
-<xsl:variable name="legislationNumber" select="/leg:Legislation/ukm:Metadata//ukm:Number/@Value"/>
-<xsl:variable name="uriPrefix" select="tso:GetUriPrefixFromType(/leg:Legislation/ukm:Metadata//ukm:DocumentMainType/@Value, $legislationYear)"/>
-<xsl:variable name="dcIdentifier" select="/leg:Legislation/ukm:Metadata/dc:identifier"/>
+
+
+<xsl:variable name="uriPrefix" select="tso:GetUriPrefixFromType($g_strDocumentMainType, $g_strDocumentYear)"/>
 <xsl:variable name="isWrap" as="xs:boolean" select="$paramsDoc/parameters/wrap='true'"/>
-<xsl:variable name="isRepealedAct" select="matches((/leg:Legislation/ukm:Metadata/dc:title)[1], '\((repealed|revoked)(\s*[\d]{1,2}\.[\d]{1,2}\.[\d]{4}\s*)?\)\s*$', 'i')"/>
+<xsl:variable name="isRepealedAct" select="matches(($dctitle)[1], '\((repealed|revoked)(\s*[\d]{1,2}\.[\d]{1,2}\.[\d]{4}\s*)?\)\s*$', 'i')"/>
 
 <xsl:param name="version" as="xs:string" select="($paramsDoc/parameters/version, '')[1]"/>
 <xsl:variable name="contentsLinkParams" as="xs:string" select="if ($paramsDoc/parameters/extent[. != '']) then '?view=extent' else ''" />
@@ -319,7 +325,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <xsl:template match="leg:Contents/leg:ContentsTitle">
 	<h2 class="LegContentsHeading">
-		<xsl:value-of select="/leg:Legislation/ukm:Metadata/dc:title" />			
+		<xsl:value-of select="$dctitle" />			
 	</h2>
 </xsl:template>
 
@@ -489,8 +495,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:apply-templates/>
 	</span>
 	<xsl:choose>
-		<xsl:when test="$showCommentary and ancestor::xhtml:tbody and ($allChanges[ancestor::xhtml:tfoot] or  not($allChanges[last()] is .))"></xsl:when>
-		<xsl:when test="$showCommentary and ancestor::xhtml:tfoot and ($allChanges[last()][not(ancestor::xhtml:table)])"></xsl:when>
+		<xsl:when test="$showCommentary and ancestor::xhtml:tbody and (($allChanges[ancestor::xhtml:tfoot][last()]/ancestor::xhtml:table[1] is current()/ancestor::xhtml:table[1]) or  not($allChanges[last()] is .))"></xsl:when>
+		<xsl:when test="$showCommentary and ancestor::xhtml:tfoot and ($allChanges[last()][not(ancestor::xhtml:table[1])] or not($allChanges[last()]/ancestor::xhtml:table[1] is current()/ancestor::xhtml:table[1]))"></xsl:when>
 		<xsl:when test="$showCommentary and key('additionRepealChanges', @ChangeId, $showSection)[last()] is .">
 			<span class="LegChangeDelimiter">]</span>
 		</xsl:when>
@@ -538,8 +544,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:param name="showSection" />
 	<xsl:sequence 
 		select="if ($node/ancestor::*[@VersionReplacement]) then $node/ancestor::*[@VersionReplacement] 
-				else if ($node/ancestor::xhtml:tfoot) then $node/ancestor::xhtml:tfoot 
-				else if ($node/ancestor::xhtml:tbody) then $node/ancestor::xhtml:tbody 
+				else if ($node/ancestor::xhtml:tfoot) then $node/ancestor::xhtml:tfoot[1] 
+				else if ($node/ancestor::xhtml:tbody) then $node/ancestor::xhtml:tbody[1] 
 				else if (exists($showSection) and $node/ancestor-or-self::*[. is $showSection]) then $showSection 
 				else if ($g_strDocumentType = $g_strEUretained and $node/ancestor::leg:Footnotes) then $node/ancestor::leg:Footnotes 
 				else $node/root()/leg:Legislation/(leg:EURetained|leg:Primary|leg:Secondary)" />
@@ -758,6 +764,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	</xsl:variable>
 	<xsl:variable name="blnConcurrent" as="xs:boolean" 
 		select="parent::*/@Concurrent = 'true'" />
+		
+	
 	<xsl:element name="span">
 		<xsl:attribute name="class">
 			<xsl:text>Leg</xsl:text>
@@ -774,13 +782,14 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:if test="$blnConcurrent"> LegConcurrent</xsl:if>
 		</xsl:attribute>
 		<xsl:apply-templates/>
+		<xsl:call-template name="make-wholeact-commref"/>
 		<xsl:if test="ancestor-or-self::*/@RestrictExtent">
 			<xsl:sequence select="tso:generateExtentInfo(..)"/>
 		</xsl:if>	
 	</xsl:element>
 </xsl:template>
 
-	<xsl:template name="FuncGenerateMajorHeadingTitle">
+<xsl:template name="FuncGenerateMajorHeadingTitle">
 	<xsl:param name="strHeading"/>
 	<!-- Generate suffix to be added for CSS classes for amendments -->
 	<xsl:variable name="strAmendmentSuffix">
@@ -790,6 +799,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:variable name="blnConcurrent" as="xs:boolean" 
 		select="parent::*/@Concurrent = 'true'" />
 	<xsl:variable name="blnHasNumber" as="xs:boolean" select="exists(../leg:Number) or exists(parent::leg:TitleBlock/../leg:Number)" />
+	
 	<xsl:element name="span">		
 		<xsl:attribute name="class">
 			<!-- Yashashri: Changed To make Headings Left alligned - Support call - HA047941-->
@@ -809,14 +819,20 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				</xsl:choose>
 		</xsl:attribute>	
 		<xsl:apply-templates/>
-		<xsl:if test="not($blnHasNumber) and ancestor-or-self::*/@RestrictExtent">
-			<xsl:sequence select="tso:generateExtentInfo(if (parent::leg:TitleBlock) then parent::leg:TitleBlock/.. else ..)" />
+		<xsl:if test="not($blnHasNumber)">
+			<xsl:call-template name="make-wholeact-commref"/>
+			<xsl:if test="ancestor-or-self::*/@RestrictExtent">
+				<xsl:sequence select="tso:generateExtentInfo(if (parent::leg:TitleBlock) then parent::leg:TitleBlock/.. else ..)" />
+			</xsl:if>
 		</xsl:if>
 	</xsl:element>
 </xsl:template>
 
 <xsl:template match="leg:P1group[not(ancestor::leg:BlockAmendment)]/leg:Title/node()[last()]" priority="100">
 	<xsl:next-match/>
+	
+	<xsl:call-template name="make-wholeact-commref"/>
+	
 	<xsl:if test="ancestor-or-self::*/@RestrictExtent">
 		<xsl:variable name="blnConcurrent" as="xs:boolean" 
 			select="ancestor::leg:P1group/@Concurrent = 'true'" />
@@ -836,6 +852,26 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	</xsl:if>
 </xsl:template>
 
+<xsl:template name="make-wholeact-commref">
+	
+	<xsl:variable name="requestedProvision" 
+			select="if (ancestor-or-self::leg:P1group) then 
+						(ancestor::leg:P1group/@DocumentURI, ancestor::leg:P1group/*/@DocumentURI)[1]
+					else if (ancestor-or-self::*/@DocumentURI) then
+						ancestor-or-self::*/@DocumentURI
+					else @DocumentURI"/>
+	<xsl:variable name="isRequestedProvision" select="$dcIdentifier = $requestedProvision"/>
+	
+	<xsl:if test="$isRequestedProvision">
+		<xsl:for-each select="$g_wholeActCommentaries[@Type = 'F']">
+			<xsl:if test="empty(key('commentaryRef', @id, root()))">
+				<xsl:variable name="versionRef" select="ancestor-or-self::*[@VersionReference][1]/@VersionReference"/>
+				<xsl:sequence select="tso:OutputCommentaryRef(true(), .,  translate($versionRef,' ',''))"/>
+			</xsl:if>
+		</xsl:for-each>
+	</xsl:if>
+</xsl:template>
+
 <!--  for regular EU Divisions we need to format the extent data as per the uk legislation  -->
 <xsl:template match="leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNEX'))][not(ancestor::leg:BlockAmendment)][not(ancestor::leg:EUPrelims )]/leg:Title/node()[last()] |
 leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNEX'))][not(ancestor::leg:BlockAmendment)][not(ancestor::leg:EUPrelims )][not(leg:Title)]/*[not(self::leg:Number)][1]/leg:Text/node()[last()]" priority="100">
@@ -848,8 +884,9 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 		<xsl:variable name="blnConcurrent" as="xs:boolean" 
 			select="ancestor::leg:P1group/@Concurrent = 'true'" />
 		<xsl:variable name="nstContent" as="node()*">
-			<xsl:copy-of select="tso:generateExtentInfo(ancestor::*[@RestrictExtent][1])"/>
+			<xsl:copy-of select="tso:generateExtentInfo(.)"/>
 		</xsl:variable>
+		<xsl:call-template name="make-wholeact-commref"/>
 		<xsl:choose>
 			<xsl:when test="$blnConcurrent">
 				<span class="{concat('LegConcurrent', if (ancestor::leg:Division/@Status='Prospective') then ' LegProspective' else '' )}">
@@ -865,21 +902,23 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 
 <xsl:function name="tso:generateExtentInfo" as="element()?">
 	<xsl:param name="element" as="node()" />
-	<xsl:variable name="extent" as="xs:string" select="($element/ancestor-or-self::*[@RestrictExtent][1]/@RestrictExtent, 'E+W+S+N.I.')[1]" />
-	<span class="LegExtentRestriction">
-		<!--<xsl:if test="$nstSelectedSection is $element">-->
-			<xsl:attribute name="id" select="concat('extent-', translate($extent, '+', '-'))" />
-		<!--</xsl:if>-->
-		<xsl:attribute name="title">
-			<xsl:variable name="extentsToken" select="tokenize($extent, '\+')" />
-			<xsl:value-of select="leg:TranslateText('Applies to')"/>
-			<xsl:text> </xsl:text>
-			<xsl:value-of select="tso:extentDescription($extentsToken)" />
-		</xsl:attribute>
-		<span class="btr"></span>
-		<xsl:value-of select="$extent" />
-		<span class="bbl"></span><span class="bbr"></span>
-	</span>
+	<xsl:variable name="extent" as="xs:string" select="tso:resolveExtentFormatting(($element/ancestor-or-self::*[@RestrictExtent][1]/@RestrictExtent, 'E+W+S+N.I.')[1])" />
+	<xsl:if test="not($element/ancestor::xhtml:table)">
+		<span class="LegExtentRestriction">
+			<!--<xsl:if test="$nstSelectedSection is $element">-->
+				<xsl:attribute name="id" select="concat('extent-', translate($extent, '+', '-'))" />
+			<!--</xsl:if>-->
+			<xsl:attribute name="title">
+				<xsl:variable name="extentsToken" select="tokenize($extent, '\+')" />
+				<xsl:value-of select="leg:TranslateText('Applies to')"/>
+				<xsl:text> </xsl:text>
+				<xsl:value-of select="tso:extentDescription($extentsToken)" />
+			</xsl:attribute>
+			<span class="btr"></span>
+			<xsl:value-of select="$extent" />
+			<span class="bbl"></span><span class="bbr"></span>
+		</span>
+	</xsl:if>
 </xsl:function>
 
 <!-- FM 
@@ -935,11 +974,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	<xsl:variable name="repealedText" select="if ($isWholeActView) then 'act\s+(repeal|revoked|omitted)' else 'repeal'"/>
 	<!--<xsl:variable name="isRepealedAct" select="matches((ancestor::leg:Legislation/ukm:Metadata/dc:title)[1], '\(repealed\)\s*$')"/>-->
 	<xsl:variable name="commentary" as="xs:string*" 
-			select="if ($isWholeActView) then 
-						./root()//(leg:EUPrelims|leg:PrimaryPrelims|leg:SecondaryPrelims)//leg:CommentaryRef/@Ref
-					else if ($isBodyView or $isSchedulesView) then 
-						./root()//(leg:EURetained | leg:Primary|leg:Secondary)/leg:CommentaryRef/@Ref
-					else leg:CommentaryRef/@Ref|(leg:Number|leg:Title)/leg:CommentaryRef/@Ref"/>
+			select="$g_wholeActCommentaries/@id"/>				
 	<xsl:variable name="isRepealedStatus" select="@Status = 'Repealed'"/>
 	<xsl:variable name="isRepealed" select="(every $child in (leg:* except (leg:Number, leg:Title)) satisfies 
 					(
@@ -1085,9 +1120,9 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	<xsl:variable name="commentary" as="xs:string*" select="leg:CommentaryRef/@Ref|(leg:Number|leg:Title)/leg:CommentaryRef/@Ref"/>
 	<xsl:choose>
 		<xsl:when test="$documentURI = ($dcIdentifier) and (@Match = 'false' and @RestrictEndDate and not(@Status = 'Prospective') and
-				   ((($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= current-date() ))) or (every $child in (leg:ScheduleBody/*)
+				   ((($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date(@RestrictEndDate) &lt;= current-date() ))) or (exists(leg:ScheduleBody/*) and (every $child in (leg:ScheduleBody/*)
 		  satisfies (($child/@Match = 'false' and $child/@RestrictEndDate and not($child/@Status = 'Prospective')) and
-				   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() ))) or ($child/@Match = 'false' and $child/@Status = 'Repealed')
+				   ((($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= xs:date($version) ) or (not($version castable as xs:date) and xs:date($child/@RestrictEndDate) &lt;= current-date() ))) or ($child/@Match = 'false' and $child/@Status = 'Repealed'))
 				   or (
 				   (some $text in $commentary satisfies matches(string(/leg:Legislation/leg:Commentaries/leg:Commentary[@id = $text]), 'repeal|revoked|omitted', 'i')) and (exists(.//leg:Text) or exists(.//xhtml:td)) and (every $text in (.//leg:Text | .//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = '')
 				   ))">
@@ -1448,7 +1483,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 			<xsl:apply-templates select="$citationList/leg:Citation" mode="AffectedLegislation"/>
 		</xsl:when>
 		<xsl:otherwise>
-			<a class="LegCitation" href="/{$uriPrefix}/{$legislationYear}/{$legislationNumber}{tso:IsStartDate(@StartDate)}/affected/{$citationList/@id}" title="Go to list of affected legislation" rel="cite">
+			<a class="LegCitation" href="/{$uriPrefix}/{$g_strDocumentYear}/{$g_strDocumentNumber}{tso:IsStartDate(@StartDate)}/affected/{$citationList/@id}" title="Go to list of affected legislation" rel="cite">
 				<img class="LegAffectedLink" src="/images/icon_linkto_affected_leg.gif" alt=""/>
 			</a>
 		</xsl:otherwise>
@@ -1463,7 +1498,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 			<xsl:apply-templates select="$citationList/leg:Citation" mode="AffectedLegislation"/>
 		</xsl:when>
 		<xsl:otherwise>
-			<a class="LegCitation" href="/{$uriPrefix}/{$legislationYear}/{$legislationNumber}{tso:IsStartDate(@StartDate)}/affected/{$citationList/@id}" title="Go to list of affected legislation" rel="cite">
+			<a class="LegCitation" href="/{$uriPrefix}/{$g_strDocumentYear}/{$g_strDocumentNumber}{tso:IsStartDate(@StartDate)}/affected/{$citationList/@id}" title="Go to list of affected legislation" rel="cite">
 				<img class="LegAffectedLink" src="/images/icon_linkto_affected_leg.gif" alt=""/>
 			</a>
 			<xsl:apply-templates/>
@@ -1894,6 +1929,11 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	</span>
 </xsl:template>
 
+<!-- this is an empty division heading so just process everything within it -->
+<xsl:template match="leg:Division[not(leg:Title)][not(leg:Number)]"  priority="5">
+	<xsl:apply-templates/>
+</xsl:template>
+
 <xsl:template match="leg:EUTitle | leg:EUPart | leg:EUChapter | leg:EUSection | leg:EUSubsection | leg:Division[@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNEX')] | leg:Division[leg:Title]"  priority="15">
 	<xsl:variable name="element" select="if (@Type) then @Type else local-name()"/>
 	<xsl:variable name="intHeadingLevel">
@@ -1995,6 +2035,34 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	</xsl:choose>
 </xsl:template>
 
+<xsl:template match="leg:BlockAmendment/leg:Number">
+	<xsl:variable name="strAmendmentSuffix">
+		<xsl:call-template name="FuncCalcAmendmentNo"/>
+	</xsl:variable>
+	<p class="LegText{$strAmendmentSuffix}">
+		<xsl:apply-templates/>
+		<xsl:apply-templates select="following-sibling::*[1][self::leg:Title]" mode="number-title-block"/>
+	</p>
+</xsl:template>
+
+<xsl:template match="leg:BlockAmendment/leg:Title" mode="number-title-block">
+	<xsl:apply-templates/>
+</xsl:template>
+
+<xsl:template match="leg:BlockAmendment/leg:Title">
+	<xsl:choose>
+		<xsl:when test="preceding-sibling::*[1][self::leg:Number]"/>
+		<xsl:otherwise>
+			<xsl:variable name="strAmendmentSuffix">
+				<xsl:call-template name="FuncCalcAmendmentNo"/>
+			</xsl:variable>
+			<p class="LegText{$strAmendmentSuffix}">
+				<xsl:apply-templates/>
+			</p>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
 <xsl:template match="leg:AttachmentGroup/leg:Title | leg:EUPart/leg:Title | leg:EUChapter/leg:Title | leg:EUSection/leg:Title | leg:EUSubsection/leg:Title |  leg:Division/leg:Title">
 	<xsl:variable name="contentcount" select="string-length(normalize-space(string-join((parent::*/leg:Number//text()), '')))"/>
 	<xsl:variable name="element" select="if (parent::*/@Type) then parent::*/ @Type 
@@ -2015,6 +2083,12 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	<h2 class="LegAttachmentsTitle{$strAmendmentSuffix}">
 		<xsl:apply-templates/>
 	</h2>
+</xsl:template>
+
+<xsl:template match="leg:Subtitle">
+	<p class="subtitle">
+		<xsl:apply-templates/>
+	</p>
 </xsl:template>
 
 <xsl:template match="leg:P" mode="numberedpara">
@@ -2264,8 +2338,12 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	</xsl:if>
 </xsl:template>
 
+<xsl:template match="leg:EUPrelims/leg:Draft">
+	<xsl:apply-templates/>
+	<xsl:call-template name="FuncApplyVersions"/>
+</xsl:template>
+
 <xsl:template name="FuncOutputEUPrelimsPreContents">
-	<h1 class="LegType"><xsl:value-of select="concat(upper-case(tso:getType($g_strDocumentMainType, ())/@category), 'S')"/></h1>
 	<xsl:apply-templates select="leg:MultilineTitle"/>
 </xsl:template>
 
@@ -2295,7 +2373,8 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 
 <xsl:template match="leg:Attachment" priority="10">
 	<div class="LegClearFix legAttachment">
-		<xsl:apply-templates/>		
+		<xsl:apply-templates/>
+		<xsl:apply-templates select="." mode="ProcessAnnotations" />
 	</div>
 </xsl:template>
 

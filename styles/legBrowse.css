@@ -81,3 +81,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 /* Draft slegislation box */
 #browse  .draftHelpIcon {float: right; margin-right: 10px}
+#browse .p_eucategories{margin-top:30px;}
+#browse.euregion .p_absTopRight #map{top:30px;}
+#browse.euregion .p_absTopRight .returnLink {height:60px;}
+#browse.euregion .p_absTopRight .returnLink a{width:100%; margin-top:20px;}

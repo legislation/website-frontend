@@ -17,19 +17,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:apply-templates select="leg:abridgeContent(/leg:Legislation/ukm:Metadata/dc:title, 13)"  mode="header"/>
 				</fo:marker>
 			
-			<fo:block font-size="24pt" line-height="30pt" margin-top="12pt" text-align="center">
-				<xsl:choose>
-					<xsl:when test="$g_strDocType = 'EuropeanUnionRegulation'">
-						<xsl:text>REGULATIONS</xsl:text>
-					</xsl:when>
-					<xsl:when test="$g_strDocType = 'EuropeanUnionDecision'">
-						<xsl:text>DECISIONS</xsl:text>
-					</xsl:when>
-					<xsl:when test="$g_strDocType = 'EuropeanUnionDirective'">
-						<xsl:text>DIRECTIVES</xsl:text>
-					</xsl:when>
-				</xsl:choose>
-			</fo:block>
 			<fo:block font-size="12pt" line-height="14pt" margin-top="12pt" text-align="center">
 				<xsl:choose>
 					<xsl:when test="$g_ndsLegPrelims/leg:Title">
@@ -42,7 +29,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</fo:block>
 			
 			<xsl:apply-templates select="/leg:Legislation/leg:EURetained/leg:EUPrelims/*[not(self::leg:Title)]"/>
-			
+			<xsl:if test="not(/leg:Legislation/leg:EURetained/leg:EUPrelims/@AltVersionRefs)">
+				<xsl:apply-templates select="/leg:Legislation/leg:EURetained/leg:EUPrelims" mode="ProcessAnnotations"/>
+			</xsl:if>
 			
 			<!--<xsl:apply-templates select="$g_ndsLegPrelims/leg:LongTitle"/>
 			<xsl:apply-templates select="$g_ndsLegPrelims/leg:IntroductoryText"/>
@@ -66,6 +55,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 	
 	<xsl:template match="leg:EURetained/leg:EUPrelims">
+		<xsl:apply-templates select="leg:Draft"/>
 		<xsl:apply-templates select="leg:Title"/>
 		<xsl:apply-templates select="leg:EUPreamble/*"/>
 	</xsl:template>		
@@ -74,11 +64,25 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:apply-templates/>
 	</xsl:template>
 	
-	<xsl:template match="leg:EUPrelims/leg:MultilineTitle/leg:Text">
+	
+	<xsl:template match="leg:EUPrelims//leg:Draft">
+		<xsl:apply-templates/>
+	</xsl:template>	
+	
+	<xsl:template match="leg:EUPrelims//leg:Draft/leg:Para">
+		<xsl:apply-templates/>
+	</xsl:template>	
+	
+	<xsl:template match="leg:EUPrelims//leg:Draft/leg:Para/leg:Text" priority="10">
 		<fo:block text-align="center" space-before="12pt" space-after="12pt" font-weight="normal">
 			<xsl:apply-templates/>
 		</fo:block>
 	</xsl:template>	
 	
+	<xsl:template match="leg:EUPrelims/leg:MultilineTitle/leg:Text">
+		<fo:block text-align="center" space-before="12pt" space-after="12pt" font-weight="normal">
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template>			
 
 </xsl:stylesheet>

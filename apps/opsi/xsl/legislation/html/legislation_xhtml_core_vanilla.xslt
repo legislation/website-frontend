@@ -3610,8 +3610,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				</xsl:when>
 				<!-- Table footnote -->
 				<xsl:otherwise>
-					<xsl:variable name="strTfootID" select="generate-id(ancestor::xhtml:tfoot)"/>
-					<xsl:variable name="intFootnoteNo" select="count(preceding::leg:Footnote[generate-id(ancestor::xhtml:tfoot) = $strTfootID]) + 1"/>
+					<xsl:variable name="strTfootID" select="generate-id((ancestor::xhtml:tfoot)[1])"/>
+					<xsl:variable name="intFootnoteNo" select="count(preceding::leg:Footnote[generate-id((ancestor::xhtml:tfoot)[1]) = $strTfootID]) + 1"/>
 					<sup class="LegTableFootnoteNo">
 						<xsl:choose>
 							<xsl:when test="leg:Number">
@@ -3669,8 +3669,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			</xsl:when>
 			<!-- Table footnote -->
 			<xsl:otherwise>
-				<xsl:variable name="strTfootID" select="generate-id($g_ndsFootnotes[@id = current()/@Ref]/ancestor::xhtml:tfoot)"/>
-				<xsl:variable name="intFootnoteNo" select="count($g_ndsFootnotes[@id = current()/@Ref]/preceding::leg:Footnote[generate-id(ancestor::xhtml:tfoot) = $strTfootID]) + 1"/>
+				<xsl:variable name="strTfootID" select="generate-id($g_ndsFootnotes[@id = current()/@Ref]/ancestor::xhtml:tfoot[1])"/>
+				<xsl:variable name="intFootnoteNo" select="count($g_ndsFootnotes[@id = current()/@Ref]/preceding::leg:Footnote[generate-id(ancestor::xhtml:tfoot[1]) = $strTfootID]) + 1"/>
 				<xsl:call-template name="FuncGenerateTableFootnoteNo">
 					<xsl:with-param name="intFootnoteNo" select="$intFootnoteNo"/>
 				</xsl:call-template>

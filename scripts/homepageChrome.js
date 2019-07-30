@@ -3,104 +3,104 @@
 Legislation.gov.uk Homepage Chrome Initialisation
 
 One-liner: All script initialisation for Homepage is placed here
-Requirements: 
+Requirements:
 	jQuery framework: http://jquery.com/
 
 History:
 v0.01	GM	Created
-
+v2.0	chiich	- Refactored code to become a jQuery plugin. Call ref: HA093549
 */
 /*
 (c)  Crown copyright
- 
+
 You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
+
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
-// Create namespace values for SlideShow variables, denoted 'ss'
-var ss = new function(){};
 
-$(document).ready(function(){	
-	
-	ss.TRANSITION_LENGTH = 250;
-	ss.DISPLAY_LENGTH = 10000;
-	ss.curLink = -1;
-	ss.CONTAINER_JQ = $("#intro");
-	ss.CONTENT_JQ = $("#animContent");	
-	
+$(document).ready(function(){
 	// add js class to layout1 to prevent selector bugs in IE6
 	$("#layout1").addClass("js");
-	
-	slideShow($("#countryLeg"), ss.TRANSITION_LENGTH, ss.DISPLAY_LENGTH);		
+
+	// Initialise SlideShow config object
+	var config = {
+		fadetime: 250,
+		slidetime: 10000,
+		currentSlideIndex: 0,
+		slideContainer: $('#intro'),
+		slideContent: $('#animContent'),
+		slideNavbar: $('#countryLeg')
+	}
+
+	$('#intro').slideShow( config );
 });
 
+$.fn.slideShow = function(options) {
+	var $slideNavbar = options.slideNavbar;
+	var $slideContainer = options.slideContainer;
+	var $slideContent = options.slideContent;
+	var timer;
+	var navClicked = false;
 
+	if ( $slideNavbar.length ) {
+		var $slideNavbarLinks = $slideNavbar.find('a');
 
-// Basic function, this sets up and creates the default animation
-function slideShow($linkList, TRANSITION_LENGTH, DISPLAY_LENGTH){
-	this.$linkList = $linkList;
-	this.TRANSITION_LENGTH = TRANSITION_LENGTH;
-	this.DISPLAY_LENGTH = DISPLAY_LENGTH;
-	
-	// Event Handler
-	$("a", $linkList).click(function(event){
-		event.preventDefault();
-				
-		// Stop the animation
-		clearTimeout(ss.timeout);
-		
-		// Call the effect
-		fadeTransition($(this).attr('id'), TRANSITION_LENGTH);	
-	});
-	
-	// Bring the linkList into focus to begin with
-	$linkList.fadeTo(TRANSITION_LENGTH, 1);
-	
-	// Begin the slideshow animation
-	timedTransition($linkList);
-	
-}
+		$slideNavbarLinks.click( function(e) { // Event Handler
+			e.preventDefault();
 
-function fadeTransition(newSectionId){
-	// load all of the DOM manipulation into variables
-	// to speed client side access and prevent animation
-	// delays during the script
-	this.$newSection = $("#"+newSectionId);
-				
-	// default change animation animation
-	// works for both event handlers and normal animation
-	ss.CONTENT_JQ.fadeOut(ss.TRANSITION_LENGTH, function() {		
-		ss.CONTAINER_JQ.addClass($newSection.attr("id"));
-		ss.CONTENT_JQ.fadeIn();
-	});
-ss.CONTAINER_JQ.removeClass();
-}
+			clearTimeout(timer); // Stop the animation
 
+			navClicked = true; // Flag set
+			options.prevIndex = options.currentSlideIndex; // temp-store
+			options.currentSlideIndex = $slideNavbarLinks.index(e.target);
+			timedTransition(); // Call the effect
+		});
 
-function timedTransition($linkList)
-{
-	this.$linkList = $linkList;
-				
-	var linkAry = $("a", $linkList);
-	var newSectionId, currentLinkObj;
-	
-	
-	if (ss.curLink<linkAry.length-1){
-		ss.curLink++;
-		currentLinkObj = linkAry[ss.curLink];
-		newSectionId = $(currentLinkObj).attr("id");		
-	} else {
-		ss.curLink = 0;
-		currentLinkObj = linkAry[ss.curLink];
-		newSectionId = $(currentLinkObj).attr("id");
+		$slideContent.css('backgroundColor', '#f5f5f5'); // bg-color update
+
+		timedTransition(); // Begin the slideshow animation
 	}
-	
-	// Play the animation
-	fadeTransition(newSectionId);
-	
-	// Create a loop using basic JavaScript timing
-	// make the timeout an object so it can be halted
-	// on an event
-	ss.timeout = setTimeout("timedTransition($linkList)",ss.DISPLAY_LENGTH);
+
+	function fadeTransition(_incomingSlideId) {
+		$slideContainer.removeClass();
+		$slideContent.children('.' + _incomingSlideId).fadeIn(options.fadetime, function() {
+			$slideContainer.addClass(_incomingSlideId);
+			timer = setTimeout( timedTransition, options.slidetime );
+		});
+	}
+
+	function timedTransition() {
+		var incomingSlideId, previousSlideId = null;
+
+		// At carousel edge; reset to start
+		if ( options.currentSlideIndex > ($slideNavbarLinks.length-1) ) {
+			options.currentSlideIndex = 0;
+			previousSlideId = $slideNavbarLinks.eq( ($slideNavbarLinks.length-1) ).attr('id');
+		}
+
+		// After initial carousel load AND the current exec is not for a carousel-tem click
+		if ( options.currentSlideIndex > 0 && !navClicked ) {
+			previousSlideId = $slideNavbarLinks.eq( (options.currentSlideIndex - 1) ).attr('id');
+		}
+
+		// a carousel-tem click has occurred
+		if ( navClicked ) {
+			navClicked = false; // Reset flag
+			previousSlideId = $slideNavbarLinks.eq( (options.prevIndex-1) ).attr('id');
+			delete options.prevIndex; // Removing temp-store
+		}
+
+		incomingSlideId = $slideNavbarLinks.eq(options.currentSlideIndex).attr('id');
+
+		options.currentSlideIndex++; // Adjust pointer for next Slide
+
+		if (previousSlideId) {
+			$slideContent.children('.' + previousSlideId).fadeOut(options.fadetime, function() {
+				fadeTransition(incomingSlideId);
+			});
+		} else {
+			fadeTransition(incomingSlideId);
+		}
+	}
 }

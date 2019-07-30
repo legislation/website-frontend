@@ -28,6 +28,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 <xsl:variable name="g_nstCodeLists" select="document('../codelists.xml')/CodeLists/CodeList"/>
 
+<xsl:variable name="createdTypes" as="xs:string*"
+				  select="$g_nstCodeLists[@name = 'DocumentMainType' ]/Code[@status='created']/@schema"/>	
+
 <xsl:variable name="tso:legTypeMap" as="element()+">
 	<!-- The order here is significant; it's a preferential order for displaying the types in lists -->
 	<!-- updated to use function leg:TranslateText to display text in welsh lang in legislation dropdownlist-->
@@ -145,7 +148,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<tso:legType schemaType="EuropeanUnionDirective" abbrev="eudr" class="euretained" category="Directive" 
   	en="Explanatory Notes" pn="Policy Note" singular="European Union Directive" plural="{leg:TranslateText('European Union Directives')}"
   	start="2018" complete="2018" revised="true" />
-	<tso:legType schemaType="EuropeanUnionTreaty" abbrev="eut" class="euretained" category="Treaty" 
+	<tso:legType schemaType="EuropeanUnionTreaty" abbrev="eut" class="euretained" category="Treaty" category-plural="Treaties"
   	en="Explanatory Notes" pn="Policy Note" singular="European Union Treaty" plural="{leg:TranslateText('European Union Treaties')}"
   	start="2018" complete="2018" revised="true" />
 	
@@ -327,11 +330,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		
 		<xsl:if test="$showEUretained and not($hideEUdata)">
 			<xsl:if test="$showSecondary and $showUnrevised">
-				<option value="euretained">
-					<xsl:if test="$selected = 'euretained'">
+				<option value="eu-origin">
+					<xsl:if test="$selected = 'eu-origin'">
 						<xsl:attribute name="selected" select="'selected'" />
 					</xsl:if>
-					<xsl:value-of select="leg:TranslateText('All EU Retained')"/>
+					<xsl:value-of select="leg:TranslateText('European_Union_All')"/>
 				</option>
 			</xsl:if>
 			<xsl:apply-templates select="$tso:legTypeMap[@class = 'euretained' and ($showUnrevised or @revised = 'true')]" mode="DisplaySelectOptions">
@@ -548,12 +551,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</xsl:if>	
 					
 					<xsl:if test="$showEUretained and not($hideEUdata)">
-									<input type="checkbox" name="type" value="euretained">
-										<xsl:if test="contains($selected, 'euretained')">
+									<input type="checkbox" name="type" value="eu-origin">
+										<xsl:if test="contains($selected, 'eu-origin')">
 											<xsl:attribute name="checked"/>
 										</xsl:if>
 									</input>
-							<label><xsl:value-of select="leg:TranslateText('All EURetained')"/></label>
+							<label><xsl:value-of select="leg:TranslateText('European_Union_All')"/></label>
 						</xsl:if>
 				</xsl:otherwise>
 			</xsl:choose>
@@ -898,6 +901,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:for-each>		
 </xsl:function>
 
+<xsl:function name="tso:resolveExtentFormatting">
+	<xsl:param name="extents" as="xs:string?" />
+	<xsl:sequence select="if ($extents) then replace($extents, 'E\+W\+S\+N\.?I\.?', 'U.K.') else ()"/>
+</xsl:function>
+
 <!-- Maps between some tokens and corresponding text to show. -->
 <xsl:variable name="sectionTokens" as="element()+">
 	<token token="appendix" text="Appendix" />
@@ -1007,6 +1015,20 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:choose>
 </xsl:function>
 
+<!-- This is a generic function to pick up english and welsh text for english and welsh version of site
+It will get correct language string for the current language -->
+<xsl:function name="leg:TranslateOrdinal" as="xs:string">
+	<xsl:param name="id" as="xs:string"/>
+	<xsl:choose>
+		<xsl:when test="$TranslateLang = 'en'">
+			<xsl:value-of select="$id"/>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:value-of select="translate($id,'stndrh','')"/>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:function>
+
 <!-- So this version takes a sequence of paramater name/value pairs -->
 <xsl:function name="leg:TranslateText" as="xs:string">
 	<xsl:param name="id" as="xs:string"/>
@@ -1040,6 +1062,40 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:choose>
 	</xsl:value-of>
 </xsl:function>
+
+<xsl:function name="leg:TranslateNode">
+	<xsl:param name="id" as="xs:string"/>
+	<!-- to reduce size of resources.xml, short pieces of English text have the same value as id attribute, so can use that instead -->
+	<xsl:choose>
+		<xsl:when test="$id = $currentLangResources/resource/@id">
+			<xsl:choose>
+				<xsl:when test="$TranslateLang = 'en' and not ($currentLangResources/resource[@id=$id]/text())">
+					<xsl:value-of select="$id"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates select="$currentLangResources/resource[@id=$id]" mode="translate"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:value-of select="$id"/>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:function>
+<!--Copy node without namespace-->
+<xsl:template match="*" mode="translate">
+	<xsl:element name="{local-name()}">
+		<xsl:apply-templates select="@*|node()" mode="translate"/>
+	</xsl:element>
+</xsl:template>
+<!--Copy Attributes-->
+<xsl:template match="@*" mode="translate">
+	<xsl:copy />
+</xsl:template>
+<!--Suppress resource element-->
+<xsl:template match="*:resource" mode="translate">
+	<xsl:apply-templates select="@*|node()" mode="translate"/>
+</xsl:template>
 
 <xsl:template match="*" mode="utilsTranslate">
 	<xsl:param name="paramXML" as="element()*"/>
@@ -1087,4 +1143,5 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:otherwise>	
 	</xsl:choose>
 </xsl:function>
+
 </xsl:stylesheet>

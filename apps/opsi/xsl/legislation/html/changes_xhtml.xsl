@@ -20,7 +20,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:import href="unapplied_effects_xhtml.xsl"/>
 	<xsl:import href="searchcommon_xhtml.xsl"/>
 
-
+	<!-- this will enable/disable links to specific amending provisions if EU data is enabled-->
+	<xsl:variable name="allowEUprovisionLinks" as="xs:boolean" select="false()"/>
+	<xsl:variable name="langPrefix" as="xs:string?" select="if ($TranslateLang='cy') then '/cy' else ()"/>
 
 	<xsl:variable name="paramsDoc" as="document-node()">
 		<xsl:choose>
@@ -52,6 +54,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template match="/">
 		<html>
 			<head>
+				<title><xsl:value-of select="leg:TranslateText('Changes To Legislation')"/></title>
 				<!--
 				<xsl:variable name="lastModified" as="xs:dateTime?" select="max((/atom:feed/atom:updated, /atom:feed/atom:entry/atom:updated)/xs:dateTime(.))" />
 				<xsl:variable name="lastModified" as="xs:dateTime" select="if (exists($lastModified)) then $lastModified else current-dateTime()" />
@@ -99,10 +102,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<div id="content">
 						<xsl:if test="not(atom:feed)">
 							<div class="s_12 p_one introWrapper">
-								<h2><xsl:value-of select="leg:TranslateText('New_subtitle')"/></h2>
-								<p><xsl:value-of select="leg:TranslateText('New_p1')"/></p>
-								<p><xsl:value-of select="leg:TranslateText('New_p2')"/></p>
-								<p><xsl:value-of select="leg:TranslateText('New_p3')"/></p>
+								<p><xsl:value-of select="leg:TranslateText('New_changes_p1')"/></p>
+								<p><xsl:value-of select="leg:TranslateText('New_changes_p2')"/></p>
+								<p><xsl:value-of select="leg:TranslateText('New_changes_p3')"/></p>
+								<p><xsl:value-of select="leg:TranslateText('New_changes_p4')"/></p>
 							</div>
 						</xsl:if>
 						<div class="s_12 p_one tabWrapper createNewSearchOpt">
@@ -135,10 +138,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<p><xsl:value-of select="leg:TranslateText('Changes_chnoTable_desc')"/></p>
 								<ul class="linkList">
 									<li>
-										<a href="http://www.legislation.gov.uk/changes/chron-tables/local"><xsl:value-of select="leg:TranslateText('Chronological Table of Local Acts')"/> <span class="pageLinkIcon"></span></a>
+										<a href="{concat($langPrefix,'/changes/chron-tables/local')}"><xsl:value-of select="leg:TranslateText('Chronological Table of Local Acts')"/> <span class="pageLinkIcon"></span></a>
 									</li>
 									<li>
-										<a href="http://www.legislation.gov.uk/changes/chron-tables/private"><xsl:value-of select="leg:TranslateText('Chronological Table of Private and Personal Acts')"/> <span class="pageLinkIcon"></span></a>
+										<a href="{concat($langPrefix,'/changes/chron-tables/private')}"><xsl:value-of select="leg:TranslateText('Chronological Table of Private and Personal Acts')"/> <span class="pageLinkIcon"></span></a>
 									</li>
 								</ul>
 							</div>
@@ -281,7 +284,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</xsl:if>					
 						<option value=""><xsl:value-of select="leg:TranslateText('Any')"/></option>
 						<xsl:for-each
-							select="$g_nstCodeLists[@name = 'DocumentMainType']/Code[@status='revised'][if ($hideEUdata) then not(@schema='EuropeanUnionTreaty') else true()]">
+							select="$g_nstCodeLists[@name = 'DocumentMainType']/Code[@status='revised'][not(@schema='EuropeanUnionTreaty')]">
 							<option value="{@uri}">
 								<xsl:if test="$paramsDoc/parameters/affected-type = @uri">
 									<xsl:attribute name="selected">selected</xsl:attribute>
@@ -450,7 +453,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<xsl:attribute name="class">error</xsl:attribute>
 						</xsl:if>
 						<option value=""><xsl:value-of select="leg:TranslateText('Any')"/></option>
-						<xsl:for-each select="tso:GetEffectingTypes()">
+						<xsl:for-each select="tso:GetEffectingTypes()[not(@schemaType = 'EuropeanUnionTreaty')]">
 							<option value="{@abbrev}">
 								<xsl:if test="$paramsDoc/parameters/affecting-type = @abbrev">
 									<xsl:attribute name="selected">selected</xsl:attribute>
@@ -666,7 +669,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template match="atom:feed" mode="results">
 
 		<!-- Show the table only if there's results. -->
-			<xsl:variable name="link" as="xs:string?" select="//atom:link[@rel = 'first']/@href"/>
+			<xsl:variable name="link" as="xs:string?" select="concat($langPrefix,//atom:link[@rel = 'first']/@href)"/>
 			<div class="results s_12 p_one">
 				<div id="topPager" class="interface">
 
@@ -745,7 +748,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											<img alt="Amendment applied help" src="/images/chrome/helpIcon.gif" />
 										</a>
 									</th>
-									<th>Note</th>
+									<th><xsl:value-of select="leg:TranslateText('Note')" /></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -823,6 +826,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:when test="not(ukm:AffectedTitle)">
 					<span><xsl:value-of select="leg:TranslateText('not available')"/></span>
 				</xsl:when>
+				<xsl:when test="ukm:AffectedShortTitle[1] and ukm:AffectedTitle[1]">
+					<strong title="{ukm:AffectedTitle[1]}">
+						<xsl:value-of select="ukm:AffectedShortTitle[1]"/>
+					</strong>
+				</xsl:when>
 				<xsl:when test="ukm:AffectedTitle[1]">
 					<strong>
 						<xsl:value-of select="ukm:AffectedTitle[1]"/>
@@ -843,7 +851,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					select="tso:GetNumberForLegislation(@AffectedClass, @AffectedYear, @AffectedNumber)"
 				/>
 			</xsl:variable>
-			<xsl:variable name="link" select="concat('/id/', tso:GetUriPrefixFromType(@AffectedClass, @AffectedYear), '/', @AffectedYear, '/', @AffectedNumber)"/>
+			<xsl:variable name="link" select="concat($langPrefix,'/', tso:GetUriPrefixFromType(@AffectedClass, @AffectedYear), '/', @AffectedYear, '/', @AffectedNumber)"/>
 			<xsl:sequence select="leg:makeLink(@AffectedClass, $link, $effectedYearNumber)"/>
 		</td>
 	</xsl:template>
@@ -854,6 +862,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:choose>
 				<xsl:when test="ukm:AffectedProvisions//ukm:Section">
 					<xsl:apply-templates select="ukm:AffectedProvisions" />
+				</xsl:when>
+				<xsl:when test="not($allowEUprovisionLinks) and @AffectedClass = ($leg:euretained, 'EuropeanUnionOther')">
+					<xsl:sequence select="@AffectedProvisions"/>
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:variable name="link" select="concat('/', substring-after(@AffectedURI, 'www.legislation.gov.uk/'))"/>
@@ -872,6 +883,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:when test="not(ukm:AffectingTitle)">
 					<span><xsl:value-of select="leg:TranslateText('not available')"/></span>
 				</xsl:when>
+				<xsl:when test="ukm:AffectingShortTitle[1] and ukm:AffectingTitle[1]">
+					<strong title="{ukm:AffectingTitle[1]}">
+						<xsl:value-of select="ukm:AffectingShortTitle[1]"/>
+					</strong>
+				</xsl:when>
 				<xsl:otherwise>
 					<strong>
 						<xsl:value-of select="ukm:AffectingTitle[1]"/>
@@ -884,13 +900,19 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<!-- Affecting Year and Number-->
 	<xsl:template match="ukm:Effect" mode="resultsAffectingYearNumber">
 		<td class="centralCol">
-			<xsl:variable name="link" select="concat('/id/', tso:GetUriPrefixFromType(@AffectingClass, @AffectingYear), '/', @AffectingYear, '/', @AffectingNumber)"/>
+			<xsl:variable name="link" select="if (@AffectingClass = 'EuropeanUnionOther') then () else concat($langPrefix,'/', tso:GetUriPrefixFromType(@AffectingClass, @AffectingYear), '/', @AffectingYear, '/', @AffectingNumber)"/>
 			<xsl:variable name="value">
+				<xsl:if test="@AffectingClass = 'EuropeanUnionOther'">
+					<xsl:text>EU Other </xsl:text>
+				</xsl:if>
 				<xsl:value-of select="@AffectingYear"/>
 				<xsl:text>&#160;</xsl:text>
-				<xsl:value-of select="tso:GetNumberForLegislation(@AffectingClass, @AffectingYear, @AffectingNumber)" />
+				<xsl:value-of select="if (exists(@AffectingNumber) and not(@AffectingNumber = '')) then tso:GetNumberForLegislation(@AffectingClass, @AffectingYear, @AffectingNumber) else ()" />
 			</xsl:variable>
-			<xsl:sequence select="leg:makeLink(@AffectingClass, $link, $value)"/>
+			<xsl:sequence 
+				select="if (@AffectingClass = 'EuropeanUnionOther' and matches(@AffectingURI, '^https://eur-lex\.europa\.eu')) then 
+							(leg:makeLink(@AffectingClass,tso:generateWebArchiveURI(@AffectingURI), $value)) 
+						else  leg:makeLink(@AffectingClass, $link, $value)"/>
 		</td>
 	</xsl:template>
 
@@ -947,11 +969,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 	<xsl:template match="ukm:Section">
 		<xsl:choose>
-			<xsl:when test="@Missing = 'true' or matches(@URI, '/(eur|eudr|eudn|eut)/')">
+			<xsl:when test="@Missing = 'true' or (matches(@URI, '/(eur|eudr|eudn|eut)/') and ($hideEUdata or not($allowEUprovisionLinks)))">
 				<xsl:apply-templates />
 			</xsl:when>
 			<xsl:otherwise>
-				<a href="/{substring-after(@URI, 'www.legislation.gov.uk/')}">
+				<a href="{concat($langPrefix,'/',substring-after(@URI, 'www.legislation.gov.uk/id/'))}">
 					<xsl:apply-templates />
 				</a>
 			</xsl:otherwise>
@@ -981,7 +1003,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:param name="link" as="xs:string?"/>
 		<xsl:param name="value" as="xs:string?"/>
 		<xsl:choose>
-			<xsl:when test="$class = $leg:euretained">
+			<xsl:when test="$class = ($leg:euretained, 'EuropeanUnionOther') and $hideEUdata">
 				<xsl:value-of select="$value"/>
 			</xsl:when>
 			<xsl:otherwise>

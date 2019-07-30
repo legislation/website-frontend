@@ -240,9 +240,9 @@ Added in welsh language support for UI.
 								<div class="content">
 									<h3 class="feedTitle" id="trackingLeg"><xsl:value-of select="leg:TranslateText('Tracking UK Legislation')"/></h3>
 									<ul>
-										<li><xsl:value-of select="leg:TranslateText('New_tracking_1_1')"/><a href="http://www.parliament.uk/"><xsl:value-of select="leg:TranslateText('New_tracking_1_2')"/></a><xsl:value-of select="leg:TranslateText('New_tracking_1_3')"/><a href="http://services.parliament.uk/bills/"><xsl:value-of select="leg:TranslateText('New_tracking_1_4')"/></a><xsl:value-of select="leg:TranslateText('New_tracking_1_5')"/></li>		
-										<li><xsl:value-of select="leg:TranslateText('New_tracking_2_1')"/><a href="http://www.parliament.uk/business/publications/"><xsl:value-of select="leg:TranslateText('New_tracking_2_2')"/></a><xsl:value-of select="leg:TranslateText('New_tracking_2_3')"/></li>
-										<li><xsl:value-of select="leg:TranslateText('New_tracking_3_1')"/><a href="http://www.scottish.parliament.uk/parliamentarybusiness/Bills.aspx"><xsl:value-of select="leg:TranslateText('New_tracking_3_2')"/></a>, <a href="http://www.niassembly.gov.uk/assembly-business/legislation/2016-2021-mandate/primary-legislation---current-bills/"><xsl:value-of select="leg:TranslateText('New_tracking_3_3')"/></a> <xsl:value-of select="leg:TranslateText('New_tracking_3_4')"/><a href="https://www.assemblywales.org"><xsl:value-of select="leg:TranslateText('New_tracking_3_5')"/></a><xsl:value-of select="leg:TranslateText('New_tracking_3_6')"/></li>
+										<li><xsl:copy-of select="leg:TranslateNode('New_tracking_1')"/></li>
+										<li><xsl:copy-of select="leg:TranslateNode('New_tracking_2')"/></li>
+										<li><xsl:copy-of select="leg:TranslateNode('New_tracking_3')"/></li>
 										<li><xsl:value-of select="leg:TranslateText('New_tracking_4_1')"/></li>
 									</ul>
 								</div>
