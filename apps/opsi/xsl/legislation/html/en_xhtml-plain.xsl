@@ -29,10 +29,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	>
 	<xsl:import href="en_xhtml.xsl"/>
 	<xsl:template match="/">
+		<xsl:variable name="enTypeLabel" select="if (//dc:language = 'cy') then 'Nodiadau Esboniadol' else $enLabel" />
 		<html>
 			<head>
 				<title>
-					<xsl:value-of select="$legislationTitle"/> - <xsl:value-of select="$enLabel"/>
+					<xsl:value-of select="$legislationTitle"/> - <xsl:value-of select="$enTypeLabel"/>
 				</title>
 				<xsl:call-template name="TSOOutputAddLegislationStyles" />
 			</head>
@@ -42,7 +43,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			
 					<!-- adding the title of the legislation-->
 					<h1 class="pageTitle">
-						<xsl:value-of select="concat($legislationTitle, ' ' , $enLabel)"/>
+						<xsl:value-of select="concat($legislationTitle, ' ' , $enTypeLabel)"/>
 					</h1>
 				
 					<div class="interface">

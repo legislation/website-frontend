@@ -35,30 +35,51 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:import href="quicksearch.xsl"/>
 	<xsl:import href="uicommon.xsl"/>	
 	
-	<xsl:variable name="isReferrerWelsh" as="xs:boolean" select="contains($requestInfoDoc/request/headers/header[name='referer']/value,'/enacted/welsh')"/>
+
 	<xsl:variable name="paragraphThreshold" select="200"/>
 	<xsl:variable name="dcIdentifier" select="leg:EN/ukm:Metadata/dc:identifier"/>
 	<xsl:variable name="strCurrentURIs" select="/leg:EN/ukm:Metadata/dc:identifier, 
 		/leg:EN/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasPart']/@href" />	
 	<xsl:variable name="nstSelectedSection" as="element()?" select="/leg:EN/leg:ExplanatoryNotes/leg:Body//*[@id != '' and @DocumentURI = $strCurrentURIs]"/>
 	<xsl:variable name="nstSection" as="element()?" select="if ($nstSelectedSection/parent::leg:SubDivision) then $nstSelectedSection/.. else $nstSelectedSection"/>
-	
-	<xsl:variable name="language" select="if (/leg:EN/@xml:lang) then /leg:Legislation/@xml:lang else 'en'"/>
-	
+
+	<xsl:variable name="language" select="if (/leg:EN/@xml:lang) then /leg:EN/@xml:lang else 'en'"/>
+	<xsl:variable name="isReferrerWelsh" as="xs:boolean" select="contains($requestInfoDoc/request/headers/header[name='referer']/value,'/enacted/welsh')  or $language='cy'"/>	
 	<xsl:variable name="legislationTitle"><xsl:call-template name="TSOOutputLegislationTitle"/></xsl:variable>
 	<!-- HA052620: updated to have switching from welsh EN tab to welsh version of TOC and Content page-->
 	<!--<xsl:variable name="introURI" as="xs:string?" select="leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href" />-->
 	<xsl:variable name="introURI" as="xs:string?">
 		<xsl:choose>
-			<xsl:when test="$documentMainType = ('WelshAssemblyMeasure','WelshNationalAssemblyAct') and $isReferrerWelsh">
+			<!--  welsh en already contain welsh in the url  -->
+			<!-- this fixes the malformed URL -->
+			<xsl:when test=" $documentMainType = ('WelshNationalAssemblyAct') and $isReferrerWelsh">
 				<xsl:choose>
-					<xsl:when test="contains(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href,'/enacted')">
+					<xsl:when test="ends-with(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href,'/enacted')">
 						<xsl:value-of select="concat(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href,'/welsh')"/>
+					</xsl:when>
+					<xsl:when test="ends-with(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href,'/enacted/welsh')">
+						<xsl:value-of select="leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href"/>
+					</xsl:when>
+					<xsl:when test="leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction' and ends-with(@href,'/welsh')]">
+						<xsl:value-of select="concat(substring-before(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href,'/welsh'),'/enacted/welsh')"/>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:value-of select="concat(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href,'/enacted/welsh')"/>
 					</xsl:otherwise>
-				</xsl:choose>				
+				</xsl:choose>			
+			</xsl:when>
+			<xsl:when test=" $documentMainType = ('WelshAssemblyMeasure') and $isReferrerWelsh">
+				<xsl:choose>
+					<xsl:when test="contains(atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href,'/enacted')">
+						<xsl:value-of select="concat(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href,'/welsh')"/>
+					</xsl:when>
+					<xsl:when test="ends-with(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href,'/enacted/welsh')">
+						<xsl:value-of select="leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="concat(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href,'/enacted/welsh')"/>
+					</xsl:otherwise>
+				</xsl:choose>			
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href"/>
@@ -70,7 +91,29 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<!--<xsl:variable name="tocURI" as="xs:string?" select="leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/toc']/@href" />	-->
 	<xsl:variable name="tocURI" as="xs:string?">
 		<xsl:choose>
-			<xsl:when test=" $documentMainType = ('WelshAssemblyMeasure','WelshNationalAssemblyAct') and $isReferrerWelsh">
+			<!--  welsh en already contain welsh in the url  -->
+			<!-- this fixes the malformed URL -->
+			<xsl:when test=" $documentMainType = ('WelshNationalAssemblyAct') and $isReferrerWelsh">
+				<xsl:choose>
+					<xsl:when test="ends-with(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/toc']/@href,'/enacted')">
+						<xsl:value-of select="concat(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/toc']/@href,'/welsh')"/>
+					</xsl:when>
+					<xsl:when test="ends-with(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/toc']/@href,'/enacted/welsh')">
+						<xsl:value-of select="leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/toc']/@href"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:choose>
+							<xsl:when test="leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/toc' and ends-with(@href,'/welsh')]">
+								<xsl:value-of select="concat(substring-before(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/toc']/@href,'/welsh'),'/enacted/welsh')"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="concat(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/toc']/@href,'/welsh')"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:otherwise>
+				</xsl:choose>			
+			</xsl:when>
+			<xsl:when test=" $documentMainType = ('WelshAssemblyMeasure') and $isReferrerWelsh">
 				<xsl:choose>
 					<xsl:when test="contains(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/toc']/@href,'/enacted')">
 						<xsl:value-of select="concat(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/toc']/@href,'/welsh')"/>
@@ -88,9 +131,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="explanatoryNotesTOCURI" as="xs:string?" select="leg:EN/ukm:Metadata/atom:link[@rel='http://purl.org/dc/terms/tableOfContents']/@href" />		
 
 	<xsl:variable name="legislationIdURI"  select="replace(/leg:EN/@IdURI, '/notes', '')"/>		
-	<xsl:variable name="resourceURI" as="xs:string" 
-		select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/resources']/@href" />				
-	
+	<xsl:variable name="resourceURI" as="xs:string" select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/resources']/@href" />
+
 	<xsl:variable name="impactURI" as="xs:string?" 
 		select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts']/@href" />				
 	<xsl:variable name="emURI" as="xs:string?" select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/memorandum/toc']/@href" />
@@ -121,8 +163,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		select="exists($iaURI)"/>			
 					
 	
-	<xsl:variable name="enType" as="xs:string?" select="if (contains(/leg:EN/ukm:Metadata/dc:identifier, '/memorandum')) then 'em' 
-						else if (contains(/leg:EN/ukm:Metadata/dc:identifier, '/policy-note')) then 'pn' else 'en'" />
+	<xsl:variable name="enType" as="xs:string?" select="if (contains(/leg:EN/ukm:Metadata/dc:identifier[1], '/memorandum')) then 'em' 
+						else if (contains(/leg:EN/ukm:Metadata/dc:identifier[1], '/policy-note')) then 'pn' else 'en'" />
 	<xsl:variable name="enLabel" select="tso:GetENLabel(/leg:EN/ukm:Metadata/ukm:ENmetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value, $enType)" />
 	
 	<xsl:template match="/">
@@ -684,6 +726,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template match="leg:Title" mode="TSOBreadcrumbItem">
 		<xsl:choose>
 			<xsl:when test="leg:CitationSubRef"><xsl:value-of select="leg:CitationSubRef" separator=" / " /></xsl:when>
+			<xsl:when test="parent::*/@IdURI[ends-with(.,'/welsh')]">
+				<xsl:variable name="titleText" select="translate(.,'-–','--')" />
+				<xsl:value-of select="normalize-space( tokenize($titleText,'-')[1] )" separator=" / " />
+			</xsl:when>
 			<xsl:otherwise><xsl:value-of select="." /></xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>	
@@ -1042,7 +1088,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			@import "/styles/legislationOverwrites.css";			
 			/* End of Legislation stylesheets */	
 		</style>		
-		
+		<xsl:comment>
+		<xsl:value-of select="$introURI"></xsl:value-of>
+		<xsl:value-of select="$tocURI"></xsl:value-of>			
+		</xsl:comment>
 		<xsl:comment><![CDATA[[if IE 6]>
 				<style type="text/css">
 					@import "/styles/IE/ie6LegAdditions.css";
@@ -1069,7 +1118,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:choose>
 			<xsl:when test="string-length($url) ne 0">
 				<!-- todo: post launch <xsl:value-of select="string-join((substring-after($url,'http://www.legislation.gov.uk'), $requestInfoDoc/request/request-querystring), '?')"/>-->
-				<xsl:value-of select="concat(substring-after($url,'http://www.legislation.gov.uk'), if (string-length($requestInfoDoc/request/query-string) >0) then concat('?',$requestInfoDoc/request/query-string) else '') "/>
+				<xsl:value-of select="concat(if ( contains($url,'/id/') ) then substring-after($url,'http://www.legislation.gov.uk/id') else substring-after($url,'http://www.legislation.gov.uk'), if (string-length($requestInfoDoc/request/query-string) >0) then concat('?',$requestInfoDoc/request/query-string) else '')" />
 			</xsl:when>
 			<xsl:otherwise>
 				<!-- if the $url is not available then link to the same page -->

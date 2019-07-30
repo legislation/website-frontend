@@ -119,7 +119,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:variable>
 
 	<xsl:variable name="showInterweaveOption" as="xs:boolean"
-			select="tso:ENInterweavedAllowed(leg:GetDocumentMainType(.))  and
+			select=" 
+				tso:ENInterweavedAllowed(leg:GetDocumentMainType(.))  and
 				($IsEnAvailable or $IsEmAvailable) and
 				(if ($whatVersionScenario = ('B','D') or ($whatVersionScenario = 'A' and leg:IsCurrentOriginal(.) )) then true() else false())"/>
 	

@@ -670,7 +670,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 <xsl:function name="tso:ENInterweavedAllowed" as="xs:boolean">
 	<xsl:param name="type" as="xs:string" />
-	<xsl:value-of select="$type = ('UnitedKingdomPublicGeneralAct', 'WelshAssemblyMeasure', 'ScottishAct', 'NorthernIrelandOrderInCouncil')" /> 
+	<xsl:value-of select="$type = ('UnitedKingdomPublicGeneralAct', 'WelshAssemblyMeasure', 'ScottishAct', 'NorthernIrelandOrderInCouncil','WelshNationalAssemblyAct','NorthernIrelandAct')" /> 
 </xsl:function>
 
 
