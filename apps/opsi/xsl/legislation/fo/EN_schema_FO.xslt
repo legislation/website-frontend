@@ -2063,22 +2063,27 @@ exclude-result-prefixes="tso atom">
 
 <xsl:template match="leg:Figure">
 	<xsl:choose>
-		<xsl:when test="@Orientation = 'landscape'">
-			<fo:block-container reference-orientation="90">
-				<xsl:choose>
-					<xsl:when test="contains(leg:Image/@Width,'pt')">
-						<xsl:attribute name="inline-progression-dimension" select="leg:Image/@Width"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:attribute name="inline-progression-dimension">645pt</xsl:attribute>
-						<xsl:attribute name="break-before">page</xsl:attribute>
-						<xsl:attribute name="break-after">page</xsl:attribute>						
-					</xsl:otherwise>
-				</xsl:choose>
-				<fo:block>
-					<xsl:apply-templates/>
-				</fo:block>
-			</fo:block-container>
+	   <xsl:when test="@Orientation = 'landscape'">
+	      <fo:block-container reference-orientation="90">
+	         <xsl:choose>
+	            <xsl:when test="contains(leg:Image/@Width,'pt')">
+	               <xsl:attribute name="inline-progression-dimension" select="leg:Image/@Width"/>
+	            </xsl:when>
+	            <xsl:otherwise>
+	               <xsl:attribute name="inline-progression-dimension">645pt</xsl:attribute>
+	               <xsl:attribute name="break-before">page</xsl:attribute>
+	               <xsl:attribute name="break-after">page</xsl:attribute>						
+	            </xsl:otherwise>
+	         </xsl:choose>
+	         <fo:block>
+	            <xsl:apply-templates/>
+	         </fo:block>
+	      </fo:block-container>
+	   </xsl:when>
+	   <xsl:when test="ancestor-or-self::leg:EN/leg:ExplanatoryNotes/leg:Body/leg:Division/leg:Figure or ancestor-or-self::leg:EN/leg:ExplanatoryNotes/leg:Body/leg:Division/leg:SubDivision/leg:Figure">
+	      <fo:block>
+   			<xsl:apply-templates/>
+   		</fo:block>
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:apply-templates/>

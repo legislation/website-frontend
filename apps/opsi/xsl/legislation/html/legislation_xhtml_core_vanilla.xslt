@@ -1232,8 +1232,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 									<!-- 		ii. with a P2para/Text containing the word "schedule" -->
 									<!--e.g. ukpga/2013/26/section/7 subsection 4, first paragraph.-->
 									<!-- If we include it under these conditions, the para number will be displayed too far to the left.-->
+							      <!-- JDC - HA072391. Added P1group test to stop incorrect formatting of http://www.legislation.gov.uk/ukpga/2011/20/schedule/13/paragraph/71, sub-section 32B. -->
 									<xsl:choose>
-										<xsl:when test="ancestor::leg:P2[2]/preceding-sibling::leg:P2[not(descendant::leg:BlockAmendment)][contains(lower-case(descendant::leg:P2para[1]/leg:Text[1]),'schedule')]"> 
+										<xsl:when test="ancestor::leg:P2[2]/preceding-sibling::leg:P2[not(descendant::leg:BlockAmendment)][contains(lower-case(descendant::leg:P2para[1]/leg:Text[1]),'schedule')]
+										   and ancestor::leg:P1group"> 
 											<xsl:for-each select="ancestor::leg:P1[1]">
 												<xsl:call-template name="FuncCheckForID"/>
 												<xsl:apply-templates select="leg:Pnumber"/>
