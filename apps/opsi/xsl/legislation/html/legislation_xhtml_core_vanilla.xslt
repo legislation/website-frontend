@@ -1656,6 +1656,15 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					<xsl:when test="parent::leg:P2para and not($g_strDocumentType = ($g_strPrimary, $g_strEUretained))">
 						<xsl:value-of select="concat('LegP2Text', $strAmendmentSuffix)"/>
 					</xsl:when>
+					<xsl:when test="$g_strDocumentType = $g_strPrimary and parent::leg:P3para[not(ancestor::leg:P2para)] and (ancestor::*[self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:Schedule or self::leg:BlockAmendment[@Context = 'schedule' or ((@Context = 'unknown' or @TargetClass = 'secondary') and not(descendant::leg:P1group))]] or (ancestor::leg:P1group/@Layout = 'below' and 
+							
+							generate-id(leg:get-test-node(ancestor::leg:P1group[1])) = generate-id(node()[not(self::processing-instruction())][not(normalize-space() = '')][1]))) and
+							
+							generate-id(leg:get-test-node(ancestor::leg:P1[1])) = generate-id(node()[not(self::processing-instruction())][not(normalize-space() = '')][1]) and
+							
+							generate-id(leg:get-test-node(ancestor::leg:P3[1])) = generate-id(node()[not(self::processing-instruction())][not(normalize-space() = '')][1])">
+						<xsl:value-of select="concat('LegRHS LegP1P3Text', $strAmendmentSuffix)"/>
+					</xsl:when>
 					<xsl:when test="parent::leg:P3para">
 						<xsl:value-of select="concat('LegRHS LegP3Text', $strAmendmentSuffix)"/>
 					</xsl:when>
@@ -1702,6 +1711,37 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
+
+<xsl:function name="leg:get-test-node">
+	<xsl:param name="node"/>
+	<xsl:sequence select="$node/descendant::node()[not(self::processing-instruction())]
+		[not(ancestor::leg:Pnumber)]
+		[not(ancestor::leg:Title)]
+		[self::text()[not(normalize-space() = '')]  or 
+		  self::leg:Emphasis or 
+		  self::leg:Strong or 
+		  self::leg:Superior or 
+		  self::leg:Inferior or 
+		  self::leg:Addition or 
+		  self::leg:Repeal or 
+		  self::leg:Substitution or 
+		  self::leg:CommentaryRef or 
+		  self::leg:Citation or 
+		  self::leg:Addition or 
+		  self::leg:Repeal or 
+		  self::leg:Substitution or 
+		  self::leg:CommentaryRef or 
+		  self::leg:CitationSubRef or 
+		  self::math:math or 
+		  self::leg:Character or 
+		  self::leg:FootnoteRef or 
+		  self::leg:Span or 
+		  self::leg:Term or 
+		  self::leg:Definition or 
+		  self::leg:Proviso or 
+		  self::leg:MarginNoteRef or 
+		  self::leg:Underline or self::leg:SmallCaps][1]"/>
+</xsl:function>
 
 <xsl:template name="FuncCalcListClass">
 	<xsl:param name="flOutputPrefix" select="true()"/>

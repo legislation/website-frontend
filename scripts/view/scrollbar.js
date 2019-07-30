@@ -46,7 +46,7 @@ $.fn.addSlider = function(values){
 	var $timelineData = $timeline.find("#timelineData");
 
 	if ($timelineData.outerWidth() >= $timeline.outerWidth()) {
-		var timer, down = false;
+		var timer, down = false, fisheyeExists = false;
 		var scrollPos = 0,sliderPos = 0, fisheyeOffset = 0; // default position of histogram view
 		var timelineWidth = 0, timelineDataWidth = 0, decadesMarginLeft = 0, decadesWidth = 0;
 		var $timelineContainer, $decadeList;
@@ -62,10 +62,10 @@ $.fn.addSlider = function(values){
 
 
 		$decadeList = $timelineContainer.find('.decades').first();
-
+		fisheyeExists = $decadeList.length > 0;
 		initScrollbar();
 
-		if ($decadeList.length > 0) {
+		if (fisheyeExists) {
 			decadesMarginLeft = parseInt( $decadeList.css("marginLeft") );
 			decadesWidth = $decadeList.outerWidth();
 			// $timelineContainer.append('<div id="scrollbar"></div>'); // Default at the end of block.  Position the scrollbar depending on whether there is a decades list
@@ -287,8 +287,9 @@ $.fn.addSlider = function(values){
 		$timeline.scrollLeft( scrollPos );
 
 		// console.log('cur-pos', scrollPos, {tdw: timelineDataWidth, tw: timelineWidth, uiv: ui.value});
-
-		$fisheye.css("left", ($timeline.scrollLeft() * decadesWidth / timelineDataWidth) + fisheyeOffset);
+		if ( fisheyeExists ) {
+			$fisheye.css("left", ($timeline.scrollLeft() * decadesWidth / timelineDataWidth) + fisheyeOffset);
+		}
 
 		checkArrows(ui);
 	}
