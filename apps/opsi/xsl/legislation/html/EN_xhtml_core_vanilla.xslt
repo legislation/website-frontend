@@ -2378,14 +2378,23 @@ TODO: need to add semantic id based on EN structure
 	<!-- ========== Citations =========== -->
 
 	<xsl:template match="leg:Citation">
-		<xsl:apply-templates/>
+		<xsl:choose>
+			<xsl:when test="starts-with(@URI, 'http://www.legislation.gov.uk/id')">
+				<a href="{$TranslateLangPrefix}{substring-after(@URI, 'http://www.legislation.gov.uk/id')}">
+					<xsl:apply-templates/>
+				</a>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates/>
+			</xsl:otherwise>
+		</xsl:choose>
 		<!-- Check if last node in a footnote in which case output back link if a standard footnote -->
 		<xsl:call-template name="FuncIsLastElementInFootnote"/>
 	</xsl:template>
 
 	<xsl:template match="leg:CitationSubRef">
 		<xsl:choose>
-			<xsl:when test="ancestor::leg:Title and starts-with(@URI, 'http://www.legislation.gov.uk/id')">
+			<xsl:when test="starts-with(@URI, 'http://www.legislation.gov.uk/id')">
 				<a href="{$TranslateLangPrefix}{substring-after(@URI, 'http://www.legislation.gov.uk/id')}">
 					<xsl:apply-templates/>
 				</a>
