@@ -90,6 +90,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
   <tso:legType schemaType="UnitedKingdomChurchInstrument" class="secondary" category="Instrument" abbrev="ukci" 
   	singular="Church Instrument" plural="{leg:TranslateText('Church Instruments')}"
   	start="1991" complete="1991" revised="false" />
+  <tso:legType schemaType="UnitedKingdomMinisterialDirection" class="secondary" category="Direction" abbrev="ukmd" 
+    singular="UK Ministerial Direction" plural="{leg:TranslateText('UK Ministerial Directions')}"
+    start="2018" complete="2018" revised="false" />  	
   <tso:legType schemaType="UnitedKingdomMinisterialOrder" class="secondary" category="Order" abbrev="ukmo" 
   	singular="UK Ministerial Order" plural="{leg:TranslateText('UK Ministerial Orders')}"
   	start="1992" timeline="none" revised="false" />

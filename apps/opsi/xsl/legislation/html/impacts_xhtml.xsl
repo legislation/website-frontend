@@ -679,7 +679,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						@import "/styles/secondarylegislation.css";			
 					</xsl:text>					
 				</xsl:when>
-				<xsl:when test="$uriPrefix = ('uksi', 'ssi', 'wsi', 'nisr', 'ukci', 'nisi', 'ukmo', 'uksro', 'nisro')">
+				<xsl:when test="$uriPrefix = ('uksi', 'ukmd', 'ssi', 'wsi', 'nisr', 'ukci', 'nisi', 'ukmo', 'uksro', 'nisro')">
 					<xsl:text>
 						@import "/styles/legislation.css";
 						@import "/styles/secondarylegislation.css";

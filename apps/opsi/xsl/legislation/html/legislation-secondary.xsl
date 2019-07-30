@@ -74,6 +74,7 @@ version="2.0">
 				<xsl:when test="@Value = 'NorthernIrelandStatutoryRule' or @Value = 'NorthernIrelandStatutoryRuleLocal' or @Value = 'NorthernIrelandDraftStatutoryRule' or @Value='NorthernIrelandStatutoryRuleOrOrder'">Statutory Rules of Northern Ireland</xsl:when>
 				<xsl:when test="@Value = 'ScottishStatutoryInstrument' or @Value = 'ScottishStatutoryInstrumentLocal' or @Value = 'ScottishDraftStatutoryInstrument'">Scottish Statutory Instruments</xsl:when>
        			<xsl:when test="@Value = 'UnitedKingdomChurchInstrument' or @Value = 'UnitedKingdomChurchInstrumentLocal'">Church Instruments</xsl:when>
+       			<xsl:when test="@Value = 'UnitedKingdomMinisterialDirection'">Ministerial Directions</xsl:when>
       			<xsl:when test="@Value = 'UnitedKingdomMinisterialOrder' or @Value = 'UnitedKingdomMinisterialOrderLocal'">Ministerial Order</xsl:when>
 				<!-- Yashasri: Added to make welsh banner text correct HA049222-->
 				<xsl:when test="(@Value = 'WelshStatutoryInstrument' or @Value='WelshStatutoryInstrumentLocal') and not($g_ndsMetadata/dc:language = 'cy')">Welsh Statutory Instruments</xsl:when>

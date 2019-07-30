@@ -269,6 +269,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<li> <a id="ukpga" href="{$TranslateLangPrefix}/ukpga"><xsl:value-of select="leg:TranslateText('UK Public General Acts')"/><span></span></a> </li>
 									<li> <a id="ukla" href="{$TranslateLangPrefix}/ukla"><xsl:value-of select="leg:TranslateText('UK Local Acts')"/><span></span></a> </li>
 									<li> <a id="uksi" href="{$TranslateLangPrefix}/uksi"><xsl:value-of select="leg:TranslateText('UK Statutory Instruments')"/><span></span></a> </li>
+									<li> <a id="ukmd" href="{$TranslateLangPrefix}/ukmd"><xsl:value-of select="leg:TranslateText('UK Ministerial Directions')"/><span></span></a> </li>
 									<li> <a id="ukmo" href="{$TranslateLangPrefix}/ukmo"><xsl:value-of select="leg:TranslateText('UK Ministerial Orders')"/><span></span></a> </li>
 									<li> <a id="uksro" href="{$TranslateLangPrefix}/uksro"><xsl:value-of select="leg:TranslateText('UK Statutory Rules and Orders')"/> 1900-1948<span></span></a> </li>
 									<li> <a id="ukdsi" href="{$TranslateLangPrefix}/ukdsi"><xsl:value-of select="leg:TranslateText('UK Draft Statutory Instruments')"/><span></span></a> </li>
@@ -366,6 +367,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<li> <a id="aep" href="{$TranslateLangPrefix}/aep"><xsl:value-of select="leg:TranslateText('Acts of the English Parliament')"/> 1267-1706<span></span></a> </li>
 									<li> <a id="apgb" href="{$TranslateLangPrefix}/apgb"><xsl:value-of select="leg:TranslateText('Acts of the Parliament of Great Britain')"/> 1707-1800<span></span></a> </li>
 									<li> <a id="uksi" href="{$TranslateLangPrefix}/uksi"><xsl:value-of select="leg:TranslateText('UK Statutory Instruments')"/><span></span></a> </li>
+									<li> <a id="ukmd" href="{$TranslateLangPrefix}/ukmd"><xsl:value-of select="leg:TranslateText('UK Ministerial Directions')"/><span></span></a> </li>
 									<li> <a id="uksro" href="{$TranslateLangPrefix}/uksro"><xsl:value-of select="leg:TranslateText('UK Statutory Rules and Orders')"/> 1900-1948<span></span></a> </li>
 									<li> <a id="ukdsi" href="{$TranslateLangPrefix}/ukdsi"><xsl:value-of select="leg:TranslateText('UK Draft Statutory Instruments')"/><span></span></a> </li>
 								</ul>
@@ -435,6 +437,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<li> <a id="ukla" href="{$TranslateLangPrefix}/ukla"><xsl:value-of select="leg:TranslateText('UK Local Acts')"/></a> </li>
 									<li> <a id="apgb" href="{$TranslateLangPrefix}/apgb"><xsl:value-of select="leg:TranslateText('Acts of the Parliament of Great Britain')"/> 1707-1800</a> </li>
 									<li> <a id="uksi" href="{$TranslateLangPrefix}/uksi"><xsl:value-of select="leg:TranslateText('UK Statutory Instruments')"/></a> </li>						
+									<li> <a id="ukmd" href="{$TranslateLangPrefix}/ukmd"><xsl:value-of select="leg:TranslateText('UK Ministerial Directions')"/></a> </li>						
 									<li> <a id="uksro" href="{$TranslateLangPrefix}/uksro"><xsl:value-of select="leg:TranslateText('UK Statutory Rules and Orders')"/> 1900-1948<span></span></a> </li>
 									<li> <a id="ukdsi" href="{$TranslateLangPrefix}/ukdsi"><xsl:value-of select="leg:TranslateText('UK Draft Statutory Instruments')"/><span></span></a> </li>
 								</ul>
@@ -507,6 +510,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<li> <a id="ukpga" href="{$TranslateLangPrefix}/ukpga"><xsl:value-of select="leg:TranslateText('UK Public General Acts')"/><span></span></a> </li>
 									<li> <a id="ukla" href="{$TranslateLangPrefix}/ukla"><xsl:value-of select="leg:TranslateText('UK Local Acts')"/><span></span></a> </li>
 									<li> <a id="uksi" href="{$TranslateLangPrefix}/uksi"><xsl:value-of select="leg:TranslateText('UK Statutory Instruments')"/><span></span></a> </li>
+									<li> <a id="ukmd" href="{$TranslateLangPrefix}/ukmd"><xsl:value-of select="leg:TranslateText('UK Ministerial Directions')"/><span></span></a> </li>
 									<li> <a id="uksro" href="{$TranslateLangPrefix}/uksro"><xsl:value-of select="leg:TranslateText('UK Statutory Rules and Orders')"/> 1900-1948<span></span></a> </li>
 									<li> <a id="ukdsi" href="{$TranslateLangPrefix}/ukdsi"><xsl:value-of select="leg:TranslateText('UK Draft Statutory Instruments')"/><span></span></a> </li>
 								</ul>

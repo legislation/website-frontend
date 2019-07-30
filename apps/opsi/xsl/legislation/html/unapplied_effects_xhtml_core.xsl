@@ -348,6 +348,9 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 		<xsl:when test="$strName = ('UnitedKingdomChurchInstrument','UnitedKingdomStatutoryInstrument','WelshStatutoryInstrument','ScottishStatutoryInstrument')">
 			<xsl:value-of select="'Instrument'"/>
 		</xsl:when>
+		<xsl:when test="$strName = ('UnitedKingdomMinisterialDirection')">
+			<xsl:value-of select="'Direction'"/>
+		</xsl:when>		
 		<xsl:when test="$strName = ('NorthernIrelandOrderInCouncil', 'UnitedKingdomMinisterialOrder')">
 			<xsl:value-of select="'Order'"/>
 		</xsl:when>		

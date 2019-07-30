@@ -216,6 +216,7 @@ Added in welsh language support for UI.
 										<li><a href="{$TranslateLangPrefix}/new/data.feed"><xsl:value-of select="leg:TranslateText('All Legislation (excluding drafts)')"/></a></li>
 										<li><a href="{$TranslateLangPrefix}/new/ukpga/data.feed"><xsl:value-of select="leg:TranslateText('UK Public General Acts')"/></a></li>
 										<li><a href="{$TranslateLangPrefix}/new/uksi/data.feed"><xsl:value-of select="leg:TranslateText('UK Statutory Instruments')"/></a></li>
+										<li><a href="{$TranslateLangPrefix}/new/ukmd/data.feed"><xsl:value-of select="leg:TranslateText('UK Ministerial Directions')"/></a></li>
 										<li><a href="{$TranslateLangPrefix}/new/nia/data.feed"><xsl:value-of select="leg:TranslateText('Acts of the Northern Ireland Assembly')"/></a></li>
 										<li><a href="{$TranslateLangPrefix}/new/nisi/data.feed"><xsl:value-of select="leg:TranslateText('Northern Ireland Orders in Council')"/></a></li>
 										<li><a href="{$TranslateLangPrefix}/new/nisr/data.feed"><xsl:value-of select="leg:TranslateText('Northern Ireland Statutory Rules')"/></a></li>
