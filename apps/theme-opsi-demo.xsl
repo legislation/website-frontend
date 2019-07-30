@@ -422,10 +422,64 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 </xsl:template>
 
 <xsl:template name="footer">
+	<xsl:variable name="altFormats" as="element(xhtml:link)*" select="/xhtml:html/xhtml:head/xhtml:link[@rel = 'alternate']" />
+	<xsl:variable name="copyright">
+				<p></p>
+			<p class="copyrightstatement"><xsl:value-of select="leg:TranslateText('Homepage Footer')"/><a href="{leg:TranslateText('OGL Link')}" rel="license"><xsl:value-of select="leg:TranslateText('Open Government Licence')"/></a><xsl:value-of select="leg:TranslateText('Homepage Footer End')"/><span class="copyright">&#xa9; <span rel="dct:rights" resource="http://reference.data.gov.uk/def/copyright/crown-copyright"><xsl:value-of select="leg:TranslateText('Crown copyright')"/></span></span></p>
+	</xsl:variable>
+			
 	<div id="footer">
 		<div>
-			<p></p>
-			<p class="copyrightstatement"><xsl:value-of select="leg:TranslateText('Homepage Footer')"/><a href="{leg:TranslateText('OGL Link')}" rel="license"><xsl:value-of select="leg:TranslateText('Open Government Licence')"/></a><xsl:value-of select="leg:TranslateText('Homepage Footer End')"/><span class="copyright">&#xa9; <span rel="dct:rights" resource="http://reference.data.gov.uk/def/copyright/crown-copyright"><xsl:value-of select="leg:TranslateText('Crown copyright')"/></span></span></p>
+			<xsl:choose>
+				<xsl:when test="exists($altFormats)">
+					<div class="copyright">
+						<xsl:sequence select="$copyright" />
+					</div>
+					<div class="altFormats">
+						<p>The data on this page is available in the <a href="/developer/formats">alternative data formats</a> listed:</p>
+						<ul>
+							<xsl:for-each-group select="$altFormats" group-by="@type">
+								<xsl:sort select="@type" />
+								<xsl:variable name="format" as="xs:string">
+									<xsl:choose>
+										<xsl:when test="@type = 'application/atom+xml'">Atom</xsl:when>
+										<xsl:when test="@type = 'application/xml'">XML</xsl:when>
+										<xsl:when test="@type = 'application/rdf+xml'">RDF/XML</xsl:when>
+										<xsl:when test="@type = 'application/xsd+xml'">XML Schema</xsl:when>
+										<xsl:when test="@type = 'application/vnd.ms-excel'">Excel</xsl:when>
+										<xsl:when test="@type = 'application/akn+xml'">Akoma Ntoso</xsl:when>
+										<xsl:when test="@type = 'application/akn+xhtml'">HTML 5</xsl:when>
+										<xsl:when test="@type = 'text/html'">HTML+RDFa</xsl:when>
+										<xsl:otherwise>
+											<xsl:value-of select="substring-after(@type, '/')" />
+										</xsl:otherwise>
+									</xsl:choose>
+								</xsl:variable>
+								<xsl:variable name="showTitle" as="xs:boolean" select="count(current-group()) > 1" />
+								<xsl:for-each select="current-group()">
+									<xsl:variable name="link" as="xs:string" select="replace(@href, '^http://(www.legislation.gov.uk|legislation.data.gov.uk)/', '/')" />
+									<li>
+										<a href="{$link}" rel="alternate" type="{@type}">
+											<xsl:value-of select="$format" />
+											<xsl:if test="@title and $showTitle">
+												<xsl:text> (</xsl:text>
+												<xsl:value-of select="@title" />
+												<xsl:text>)</xsl:text>
+											</xsl:if>
+											<span class="accessibleText"> alternative version</span>
+										</a>
+									</li>
+								</xsl:for-each>
+							</xsl:for-each-group>
+						</ul>
+					</div>
+				</xsl:when>
+				<xsl:otherwise>
+					<div>
+						<xsl:sequence select="$copyright" />
+					</div>
+				</xsl:otherwise>
+			</xsl:choose>
 		</div>
 	</div>
 	
