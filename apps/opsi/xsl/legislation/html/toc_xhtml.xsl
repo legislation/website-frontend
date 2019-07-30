@@ -2709,14 +2709,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:function name="leg:FormatHTMLDataURL" as="xs:string">
 		<xsl:param name="url"/>
 		
-		<xsl:variable name="legislationDataURL">
-			<xsl:choose>
-				<xsl:when test="$requestInfoDoc/request/server-name = 'staging.legislation.gov.uk'">http://staging.legislation.data.gov.uk</xsl:when>
-				<xsl:when test="$requestInfoDoc/request/server-name = 'test.legislation.gov.uk'">http://test.legislation.data.gov.uk</xsl:when>
-				<xsl:otherwise>http://legislation.data.gov.uk</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-		<xsl:sequence select="concat($legislationDataURL,$TranslateLangPrefix,tso:remove-extent(substring-after($url,concat('http://www.legislation.gov.uk',$TranslateLangPrefix))), '/data.htm','?wrap=true') "/>
+		<xsl:sequence select="concat($TranslateLangPrefix,tso:remove-extent(substring-after($url,concat('http://www.legislation.gov.uk',$TranslateLangPrefix))), '/data.xht','?view=snippet&amp;wrap=true') "/>
 	</xsl:function>	
 	
 	<xsl:function name="leg:FormatPDFDataURL" as="xs:string">

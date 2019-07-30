@@ -99,7 +99,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:variable name="nonDraftTypes" select="$tso:legTypeMap[not(@class = ('draft','IA'))]" />
 						<xsl:variable name="draftTypes" select="$tso:legTypeMap[@class = 'draft']" />
 						<xsl:variable name="iaTypes" select="$tso:legTypeMap[@class = 'IA']" />
-						<xsl:variable name="defraLex" select="'Department of Environment, Food and Rural Affairs'" />
+						<xsl:variable name="defraLex" select="'Department for Environment, Food and Rural Affairs'" />
 						<div class="s_8 p_one infoArea">
 							<dl class="key">
 								<dt class="first"><img src="/images/chrome/mapExclusiveKeyIcon.gif" alt="A blue background" /></dt>

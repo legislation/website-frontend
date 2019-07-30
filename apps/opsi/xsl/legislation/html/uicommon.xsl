@@ -94,10 +94,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:sequence select="substring-after(., 'http://www.legislation.gov.uk')" />
 				</xsl:when>
 				<xsl:when test="contains(., '/data.feed') and not(../@rel = ('self', 'alternate'))">
-					<xsl:sequence select="replace(substring-after(., 'http://legislation.data.gov.uk'), '/data\.feed', '')" />
+					<xsl:sequence select="replace(substring-after(., 'http://www.legislation.gov.uk'), '/data\.feed', '')" />
 				</xsl:when>
 				<xsl:when test="contains(., '/data.htm') and not(../@rel = ('self', 'alternate'))">
-					<xsl:sequence select="replace(substring-after(., 'http://legislation.data.gov.uk'), '/data\.htm', '')" />
+					<xsl:sequence select="replace(substring-after(., 'http://www.legislation.gov.uk'), '/data\.htm', '')" />
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:sequence select="." />

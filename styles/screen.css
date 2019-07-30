@@ -1,8 +1,8 @@
 /*
 (c)  Crown copyright
- 
+
 You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
+
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
@@ -15,7 +15,7 @@ First draft of Design
 Table of Contents
 1. Body & basic typography
 2. Page furniture
-3. Block/grid layout 
+3. Block/grid layout
 4. UI view
 	4.1. Legislation point in time
 6. Homepage
@@ -45,7 +45,7 @@ body {font: normal normal normal 75%/1.5em 'Arial', 'Garuda', sans-serif; color:
 #preloadBg {display: none;}
 
 /* reset margins and padding on the following items */
-ul#primaryNav, ul#secondaryNav, ul#bookmarks, ul.linkList, ol.linkList, img, div 
+ul#primaryNav, ul#secondaryNav, ul#bookmarks, ul.linkList, ol.linkList, img, div
 {margin: 0; padding: 0;}
 ul.accessibleLinks {margin-bottom: 0; margin-top: 0;}
 img {border: 0;}
@@ -94,7 +94,7 @@ table th a {color: #494949;}
 
 /* Begin accessible links */
 .accessibleLinks li a, .accessibleText {position: absolute; left: -999em; width: 1px; overflow: hidden;}
-.accessibleLinks a:focus, .accessibleLinks a:active {margin-left: 18px; width: 958px; position: static; text-align: center; padding: 10px 0; background: #FFF36F; display: block; color: #000; float: left; border: 1px solid #FFB82F; font-weight: bold;} 
+.accessibleLinks a:focus, .accessibleLinks a:active {margin-left: 18px; width: 958px; position: static; text-align: center; padding: 10px 0; background: #FFF36F; display: block; color: #000; float: left; border: 1px solid #FFB82F; font-weight: bold;}
 .accessibleLinks li { margin: 0; display: inline; float: left; width: inherit;}
 /* End accessible links */
 
@@ -105,9 +105,9 @@ table th a {color: #494949;}
  {background: url(/images/chrome/siteTitle.gif) no-repeat bottom left; display: block; position: absolute; left: 0; top: 0; height: 100%; width: 100%;} */
 
 .welsh {background: url(/images/chrome/legislation_logo_welsh.gif) no-repeat bottom left; display: block; position: absolute; left: 0; top: 0; height: 100%; width: 100%;}
-.english{background: url(/images/chrome/site_logo_legislation.gif) no-repeat bottom left; display: block; position: absolute; left: 0; top: 0; height: 100%; width: 100%;} 
+.english{background: url(/images/chrome/site_logo_legislation.gif) no-repeat bottom left; display: block; position: absolute; left: 0; top: 0; height: 100%; width: 100%;}
 
- 
+
 /* Primary navigation */
 /* Sliding doors - taken from ALA article: http://www.alistapart.com/articles/slidingdoors2/
    Using example 8a to work with IE6 and below */
@@ -123,7 +123,7 @@ table th a {color: #494949;}
 #primaryNav ul li#quickSearch a.active {border-top: 2px solid #CCC; color: #000;}
 #primaryNav a {float:left;text-decoration:none;padding:5px 12px 4px 13px;}
 #primaryNav a span {float:left;display:block; cursor: pointer }
-#primaryNav a span.cy{float:left;display:block; cursor: pointer;}   
+#primaryNav a span.cy{float:left;display:block; cursor: pointer;}
 #primaryNav li#quickSearch {float: right;}
 #primaryNav li#quickSearch a {background: url(/images/chrome/navDivider.gif) no-repeat bottom left;}
 .js #primaryNav li#quickSearch a span {background: url("/images/chrome/iconSprites.gif") no-repeat right -398px; padding-right: 22px;}
@@ -132,8 +132,8 @@ table th a {color: #494949;}
 
 /* primary nav active */
 #per.home        #primaryNav ul li.link1 a {margin-left: 2px;}
-#per.home        #primaryNav ul li.link1 a, 
-#doc.aboutUs     #primaryNav ul li.link2 a, 
+#per.home        #primaryNav ul li.link1 a,
+#doc.aboutUs     #primaryNav ul li.link2 a,
 #browse 	     #primaryNav ul li.link3 a,
 #leg             #primaryNav ul li.link3 a,
 #per.newLeg      #primaryNav ul li.link4 a,
@@ -152,8 +152,8 @@ table th a {color: #494949;}
 #contentSearch div.title {width: 22em;}
 #contentSearch .title input {width: 83%;}
 #contentSearch .type select {float: left; margin-left: 5px;}
-#contentSearch .year.cy{width: 13em;} 
-#contentSearch .year{width: 8em;} 
+#contentSearch .year.cy{width: 13em;}
+#contentSearch .year{width: 8em;}
 #contentSearch .number {width: 11em;}
 #contentSearch .submit {float: right;}
 #contentSearch .advSearch {padding-top: 0.5em; font-weight: bold; font-size: 1.2em; margin-right: 0; clear: both; float: none; text-align: right;}
@@ -194,11 +194,11 @@ ul#secondaryNav li a.langaugeSwitch {font-weight: bold; color: red;}
 /* end of Default non-JS element widths */
 
 /*---------------
-3. Block/grid layout 
+3. Block/grid layout
    - based on a 960px grid layout
 ---------------*/
 
-/* Sections begin 
+/* Sections begin
    .section defaults to a curved corner if the appropriate spans are available. If not then a normal square corner is applied.
 */
 
@@ -207,7 +207,7 @@ ul#secondaryNav li a.langaugeSwitch {font-weight: bold; color: red;}
 .section .title {padding: 4px 5px 4px 7px; margin:0; color: #023A5B; display: block;}
 .section .title h2 {color: #023A5B;} /* Homepage only */
 
-#tools.section .title h2, 
+#tools.section .title h2,
 #tools .section .title h3 {margin: 0; padding: 0; font-size: 1.15em; color: #333; display: inline;}
 .section .content {padding-top: 4px;}
 .section p, .section ul, .section ol {padding: 0 10px; margin: 0 0 10px 0;}
@@ -243,20 +243,20 @@ ul#secondaryNav li a.langaugeSwitch {font-weight: bold; color: red;}
 *.s_12 {width: 944px;}
 /* end of column definitions */
 
-/* TWO COLUMN SPLIT DEFINTIONS 
+/* TWO COLUMN SPLIT DEFINTIONS
    Widths of the left column and the right column.
    These need modifying if the COLUMN DEFINITIONS are modified */
 #browse #tools,
 #search #tools,
-#layout2.legToc #tools, 
-#layout2.legPDFonly #tools, 
+#layout2.legToc #tools,
+#layout2.legPDFonly #tools,
 #layout2.legContent #tools,
-#layout2.legComplete #tools, 
+#layout2.legComplete #tools,
 #layout2.legIA #tools,
 #layout2.legIAContent #tools,
 body.legContent #navigation {float: left; clear: both; width: 200px; min-height: 300px; display:block; background: url("/images/chrome/uiSprites.gif") no-repeat 0 -323px;}
 
-#leg #content, 
+#leg #content,
 body.legContent #content
 {/*margin-left: 211px;*/ width: auto; width: 768px; float: left;min-height:300px; border-top:1px solid #D3D3D3; border-bottom: none; padding: 1px; padding-bottom: 2em;  padding-left: 1px;}
 
@@ -294,7 +294,7 @@ body.legContent #content
 ---------------*/
 
 /* legislation, browse & search default title, longPageTitle is used if font needs to be smaller */
-#leg .pageTitle, 
+#leg .pageTitle,
 #browse #pageTitle,
 #search #pageTitle,
 .newLeg #pageTitle,
@@ -307,7 +307,7 @@ body.legContent #content
 
 #browse.intro #pageTitle,
 .newLeg #pageTitle,
-#error #pageTitle, 
+#error #pageTitle,
 #doc #pageTitle
 {border-bottom:1px solid #C6C6C6;}
 
@@ -353,7 +353,7 @@ ul#legSubNav li.base {margin-left: 0;}
 .legResources li#legResourcesLink,
 .legCommencement li#legConmmencementLink,
 .legIA li#legIALink,
-.legIAContent li#legIALink 
+.legIAContent li#legIALink
 {background:url("/images/chrome/tab.gif") no-repeat top right;}
 
 .legContent li#legContentLink span.presentation,
@@ -399,7 +399,7 @@ div.interface .active {color: #016398; background: #fff}
 .legEnContent div.interface,
 .legPnContent div.interface,
 .legPnToc div.interface,
-.legEnContent div.interface 
+.legEnContent div.interface
 {float: none;}
 
 .legEmToc div.interface .prevNextNav ul,
@@ -464,7 +464,7 @@ legEnToc div.interface #wholeNav,
 .legResources .printPdf h3 {width: 310px; float:left; border-bottom: none; margin-left: 8px; margin-bottom: 5px; font-size: 1.3em;}
 .legResources .printPdf * {margin-left: 12px; border: none;}
 .legResources .printPdf li,
-.legResources .printPdf img, 
+.legResources .printPdf img,
 .legResources .printPdf a {margin-left: 0;}
 .legResources .printPdf #printPDFIcon {float:right; margin-right: 10px;}
 .legResources .printPdf .plainList a {font-weight: bold;}
@@ -517,7 +517,7 @@ legEnToc div.interface #wholeNav,
 #tools .userFunctionalElement {position: static;}
 #tools a.userFunctionalElement {color: #069;}
 #tools .section .title {display: block; float: left; width:184px;}
-#tools .section .title h2, 
+#tools .section .title h2,
 #tools .section .title h3 {margin: 0; padding: 0; font-size: 1.0833em; color: #333; float: left;}
 #tools .section .title h2 a {color: #333;}
 #tools .section .title a.helpIcon {display: inline; margin-left: .25em; vertical-align: middle;}
@@ -645,14 +645,14 @@ h1.proposed {background: #FFF9EE;margin-bottom:10px !important;}
 
 /* Back to top */
 #leg #content p.backToTop {margin: 0; text-align: right; background: #E6E6E6; padding: 0; padding-top: 1px; float: left; /* added to stop scrollbars appearing in FF */ bottom: 0; width: 100%; /* can't be 100% because of the border of 1px to the left and right */}
-#leg #content p.backToTop a {font-size: 1em; font-weight: bold; padding: 0.25em 32px 0.35em 0.35em; background: url(/images/chrome/iconSprites.gif) no-repeat top right; color: #069; border-top: 1px solid #fff; display: block; margin-top: -1px;} 
+#leg #content p.backToTop a {font-size: 1em; font-weight: bold; padding: 0.25em 32px 0.35em 0.35em; background: url(/images/chrome/iconSprites.gif) no-repeat top right; color: #069; border-top: 1px solid #fff; display: block; margin-top: -1px;}
 /* End of Back to top */
 
 /* Back to top periphery pages */
 #per p.backToTop {clear: both; margin: 0; text-align: right; background: #E6E6E6;padding: 0; padding-top: 1px; border: 1px solid #c7c7c7; border-bottom: 0;}
-#per p.backToTop a {font-size: 1em; font-weight: bold; padding: 0.35em 32px 0.25em 0.35em; background: url(/images/chrome/iconSprites.gif) no-repeat top right; color: #069; border-top: 1px solid #fff; display: block; margin: -1px 0;} 
+#per p.backToTop a {font-size: 1em; font-weight: bold; padding: 0.35em 32px 0.25em 0.35em; background: url(/images/chrome/iconSprites.gif) no-repeat top right; color: #069; border-top: 1px solid #fff; display: block; margin: -1px 0;}
 /* End of Back to top periphery pages */
-    
+
 #viewLeg .LegSnippet .geoExtInfo {display: block; text-align: right; margin: 0.5em 0 0 0;}
 #viewLeg .LegSnippet .geoExtInfo p {font-weight: bold; display: inline;}
 #viewLeg .LegSnippet .geoExtInfo ul {list-style: none; margin: 0; display: inline;}
@@ -729,14 +729,15 @@ ul.optionList ul li {padding: 0;display: inline; float: none; border-left: none;
 #per.home #layout1 #animContent {height: 22em;}
 #per.home #intro #animContent div {display: inline; clear: left; overflow: hidden}
 #per.home #intro #animContent div, #per.home #intro {width: 968px; margin: 0 auto; position: relative; }
-#per.home #intro #layout1.js #animContent, 
+#per.home #intro #layout1.js #animContent,
 #per.home #intro #animContent div {height: 17.85em; border-right: 1px solid #fff;}
 #per.home #intro #animContent h2 {height: 100%; width: 45px; overflow: hidden}
 
 #per.home #intro ul#countryLeg {display: block;list-style: none; width: 969px; margin: 0 auto; padding: 0; display: block;background: #F9F9F9 url(/images/chrome/navBg.gif) repeat-x bottom left; height: 4.15em; position: relative; margin-top: -4.15em;}
 #per.home #intro ul#countryLeg {display: none}
+#per.js #intro ul#countryLeg{display:block;}
 #per.home #intro ul#countryLeg li {list-style: none; display: inline;}
-#per.home #intro ul#countryLeg li a {font-size: 1.3em; font-weight: bold; color: #0F2741; padding: 1em 1.375em 0.8em; float: left; border-right: 1px solid #C0C5C8;} 
+#per.home #intro ul#countryLeg li a {font-size: 1.3em; font-weight: bold; color: #0F2741; padding: 1em 1.375em 0.8em; float: left; border-right: 1px solid #C0C5C8;}
 
 #per.home .welcome ul#countryLeg li a#welcome {background: #02385A url(/images/chrome/homeButtonBgWelcome.gif) bottom right; color: #fff}
 #per.home .uk ul#countryLeg li a#uk{background:#9D6123 url(/images/chrome/homeButtonBgUk.gif) bottom right; color: #fff}
@@ -749,7 +750,7 @@ ul.optionList ul li {padding: 0;display: inline; float: none; border-left: none;
 
 #per.home #intro.welcome #animContent .welcome{background: #02385A url(/images/chrome/homepageCountryBG/welcome.jpg) no-repeat bottom left;}
 #per.home #intro.scotland #animContent .scotland{background: #430021 url(/images/chrome/homepageCountryBG/scotland.jpg) no-repeat bottom left; display: none}
-#per.home #intro.wales #animContent .wales {background: #002E2E url(/images/chrome/homepageCountryBG/wales.png) no-repeat bottom left; display: none}
+#per.home #intro.wales #animContent .wales {background: #002E2E url(/images/chrome/homepageCountryBG/wales.jpg) no-repeat bottom left; display: none}
 #per.home #intro.uk #animContent .uk{background: #9D6123 url(/images/chrome/homepageCountryBG/uk.jpg) no-repeat bottom left; display: none}
 #per.home #intro.ni #animContent .ni{background: #5B4F65 url(/images/chrome/homepageCountryBG/ni.jpg) no-repeat bottom left; display: none;}
 
@@ -758,10 +759,10 @@ ul.optionList ul li {padding: 0;display: inline; float: none; border-left: none;
 #per.home #intro #animContent .welcomecy, #per.home #intro #animContent .scotlandcy, #per.home #intro #animContent .walescy, #per.home #intro #animContent .ukcy, #per.home #intro #animContent .nicy {display: none;}
 .welcomecy #animContent .welcomecy, .js .scotlandcy #animContent .scotlandcy, .js .walescy #animContent .walescy, .js .ukcy #animContent .ukcy, .js .nicy #animContent .nicy {display: block !important;}
 
-#per.home #intro.welcomecy #animContent .welcomecy{background: #02385A url("/images/chrome/homepageCountryWelshBG/Welcome.jpg") no-repeat bottom left;} 
-#per.home #intro.scotlandcy #animContent .scotlandcy{background: #430021 url(/images/chrome/homepageCountryWelshBG/scotland.jpg) no-repeat bottom left; display: none}
-#per.home #intro.walescy #animContent .walescy {background: #002E2E url(/images/chrome/homepageCountryWelshBG/wales.png) no-repeat bottom left; display: none}
-#per.home #intro.ukcy #animContent .ukcy{ background: #9D6123 url(/images/chrome/homepageCountryWelshBG/uk.jpg) no-repeat bottom left; display: none}
+#per.home #intro.welcomecy #animContent .welcomecy{background: #02385A url(/images/chrome/homepageCountryWelshBG/Welcome.jpg) no-repeat bottom left;}
+#per.home #intro.scotlandcy #animContent .scotlandcy{background: #430021 url(/images/chrome/homepageCountryWelshBG/Scotland.jpg) no-repeat bottom left; display: none}
+#per.home #intro.walescy #animContent .walescy {background: #002E2E url(/images/chrome/homepageCountryWelshBG/Wales.png) no-repeat bottom left; display: none}
+#per.home #intro.ukcy #animContent .ukcy{ background: #9D6123 url(/images/chrome/homepageCountryWelshBG/UK.jpg) no-repeat bottom left; display: none}
 #per.home #intro.nicy #animContent .nicy{background: #5B4F65 url(/images/chrome/homepageCountryWelshBG/ni.png) no-repeat bottom left; display: none;}
 
 /*end here*/
@@ -874,21 +875,21 @@ p.viewMoreLink {clear: left;padding-bottom:0.75em;padding-top:0;}
 #doc legend {color: #494949; font-size:1.6em; line-height: 1.6em; font-weight: normal;}
 #doc h3 {margin-bottom: 0.5em; font-size:1.2em; font-weight:bold;}
 #doc h4 {margin-bottom: 0.5em; font-size: 1em; color: #4B4C4E; font-weight: bold;}
-#error h3, 
+#error h3,
 #doc h3 {margin-bottom: 0.5em; font-size:1.2em; font-weight:bold;}
 #doc h4 {margin-bottom: 0.5em; font-size: 1em; color: #4B4C4E; font-weight: bold;}
-#error p, 
-#doc p, 
-#doc address  
+#error p,
+#doc p,
+#doc address
 {margin-top: 0; margin-bottom: 1em; display: block;}
-#doc p.intro, 
-#doc p.first 
+#doc p.intro,
+#doc p.first
 {margin-top: 0.25em;}
 #error p.first,
 #doc p.first
 {font-size:1em;}
-#doc #content ul, 
-#doc #content ol 
+#doc #content ul,
+#doc #content ol
 {margin: 0 0 1em 0;}
 #doc #content ul.plainList {padding-left: 0; list-style: none;}
 #doc #content ul.plainList li {margin-bottom: 0.5em;}
@@ -900,7 +901,7 @@ p.viewMoreLink {clear: left;padding-bottom:0.75em;padding-top:0;}
 {padding: 10px 14px 10px 10px;}
 #doc .subNavPage #pageTitle {padding-left: 245px;}
 #subNav .section {border: 0;}
-#subNav .section li, 
+#subNav .section li,
 #subNav .section h3
 {padding: 10px 8px;}
 #subNav ul {list-style: none; margin: 0; padding: 0;}
@@ -924,8 +925,8 @@ ul.docLinks li {background: url(/images/chrome/iconSprites.gif) no-repeat -6px -
 span.pageLinkIcon {background: transparent url(/images/chrome/iconSprites.gif) no-repeat 100% -3546px; height: 12px; width: 8px; display:inline-block}
 
 /* Table sorting - asc arrows points up, desc arrow points down */
-table a.sortAsc, 
-table a.sortDesc, 
+table a.sortAsc,
+table a.sortDesc,
 table span.sortAsc,
 table span.sortDesc   {background: url(../images/chrome/tableSortIcons.gif) no-repeat 0 2px; padding-left: 16px;}
 /*table span.sortAsc:hover,  !IMPORTANT DO NOT USE THIS RULE - causes massive rendering hit to IE 7 & 8*/
@@ -954,7 +955,7 @@ a.userFunctionalElement.nav {border: 1px solid #006599; background: url(/images/
 /* To turn the links white when active */
 a.userFunctionalElement.close {background: #fff; color: #069}
 .interface .userFunctionalElement.active,
-.interface .userFunctionalElement.close 
+.interface .userFunctionalElement.close
 {border: 1px solid #069; background: #FFF url(/images/chrome/interfacebuttonSprites.gif) no-repeat -1px -141px !important;}
 .interface .userFunctionalElement.active .btl,
 .interface .userFunctionalElement.close .btl {background-position: 0px -140px}
@@ -986,11 +987,11 @@ button.userFunctionalElement {background:#676767 url(/images/chrome/grey_button.
 .help {z-index:1000; text-align: left; width:500px; margin: 10px auto;}
 .js .help {position: absolute; width: 300px; margin: 0;}
 .help .content {background:#fff; border: 1px solid #20A4D4; padding: 15px; clear:both;}
-.help .close, 
+.help .close,
 .help .icon {display: none;}
 .js .help .close {padding: 2px !important;float: right !important; margin: -15px -15px 0 0 !important; display: block;}
 .js .help .icon {background: url(/images/chrome/triangle.png) no-repeat 0 0 !important; width: 12px; height: 10px; display:block; position: absolute;}
-#statusWarning p.intro span.icon {padding: 0; display: block;}   
+#statusWarning p.intro span.icon {padding: 0; display: block;}
 
 #layout1 #layout2 .help ul {margin: 0; padding: 0 1.5em; list-style: disc outside;}
 #layout1 #layout2 .help ul * {float: none; background: none; font-weight: normal; padding: 0; line-height: 1.5em; list-style: disc outside; display:list-item}
@@ -1108,7 +1109,7 @@ Used for printing or viewing without menus, to print successfully the print styl
 .plainView #layout2 h1 {width: 960px; border: none; padding-left: 0;}
 
 /*
- Change userInterfaceElements for white background - 
+ Change userInterfaceElements for white background -
  This adds a bg gradient to their surrounding <li> element, this is because the link elements already have icon backgrounds.
  Remember that the coordinates on css backgrounds are x and then y
 */
@@ -1125,11 +1126,11 @@ Used for printing or viewing without menus, to print successfully the print styl
 /*------------------
 11. Search pages and static search browse pages
 -------------------*/
-#search #content, 
+#search #content,
 #browse #content
 {border-left: 0; border-right: 0; padding-left: 4px; padding-right: 0px;}
 
-#search #tools, 
+#search #tools,
 #browse #tools
 {border-left: 1px solid #FFF;}
 
@@ -1152,8 +1153,8 @@ Used for printing or viewing without menus, to print successfully the print styl
 {border: 1px solid #CFCFCF;}
 
 /* Table styles */
-#search table, 
-#browse table 
+#search table,
+#browse table
 {border: 0; border-bottom: 1px solid #CFCFCF; border-right: 1px solid #CFCFCF}
 
 #search.fullPageResults table {border: 1px solid #CFCFCF; margin: -1px 1px; width: 949px;/* to force border collapse if not working correctly */}
@@ -1214,7 +1215,7 @@ p.backToTop
 {margin: 0; text-align: right; background: #E6E6E6; padding: 0; padding-top: 1px; clear: left; border: 1px solid #CFCFCF; border-top: 0; border-bottom: 0; margin-bottom: -2px;}
 #search p.backToTop a,
 #browse p.backToTop a,
-#doc p.backToTop a 
+#doc p.backToTop a
 {font-size: 1em; font-weight: bold; padding: 0.05em 32px 0 0; line-height: 2em; background: url(/images/chrome/iconSprites.gif) no-repeat top right; color: #3886AC; margin: 1px; display: block;}
 #doc.changeLeg p.backToTop {margin-bottom: 20px;}
 /* End of Back to top */
@@ -1236,62 +1237,62 @@ p.backToTop
 /* end of results info */
 
 /* Tools section */
-#search #tools h3, 
+#search #tools h3,
 #browse #tools h3,
-#search #tools h4, 
+#search #tools h4,
 #browse #tools h4
 {color: #3B3B3B}
 
 #search #tools .section ul,
-#browse #tools .section ul 
+#browse #tools .section ul
 {float: left; width: 88.5%;}
 #search #tools .section ul li,
 #browse #tools .section ul li
 {float: left; width: 50%;}
 
 #search #tools #miniPageNav,
-#browse #tools #miniPageNav 
+#browse #tools #miniPageNav
 {float: left; padding: 0; width: 107%; _width: 100%;}
 #search #tools #miniPageNav li,
-#browse #tools #miniPageNav li 
+#browse #tools #miniPageNav li
 {width: auto; padding: 5px;}
 #search #tools #miniPageNav li a.disabled,
-#browse #tools #miniPageNav li a.disabled 
+#browse #tools #miniPageNav li a.disabled
 {cursor:default;}
 #search #tools #miniPageNavCurrent,
-#browse #tools #miniPageNavCurrent 
+#browse #tools #miniPageNavCurrent
 {font-size: 0.9em; font-weight: bold;}
 
-#search #tools ul li, 
-#browse #tools ul li 
+#search #tools ul li,
+#browse #tools ul li
 {list-style: none;}
 
-#search #tools ul li.legType, 
+#search #tools ul li.legType,
 #browse #tools ul li.legType
-{clear: left; width: 100%; padding: 0.25em 0;} 
+{clear: left; width: 100%; padding: 0.25em 0;}
 
-#search #tools .section, 
-#browse #tools .section 
+#search #tools .section,
+#browse #tools .section
 {float: left; width: 199px; border-bottom: 1px dotted #DDD}
 
-#search #tools #heading , 
-#browse #tools #heading 
+#search #tools #heading ,
+#browse #tools #heading
 {float: left; width: 199px; border-bottom: none}
 
 #search #tools .userFunctionalElement,
-#browse #tools .userFunctionalElement 
+#browse #tools .userFunctionalElement
 {text-align: left; background: none;}
 
-#search #tools ul li.returnLink, 
+#search #tools ul li.returnLink,
 #browse #tools ul li.returnLink
 {width: 175px; border: 0;}
 
-#search #tools ul li.returnLink a, 
-#browse #tools ul li.returnLink a 
+#search #tools ul li.returnLink a,
+#browse #tools ul li.returnLink a
 {background: url(/images/chrome/iconSprites.gif) no-repeat -5px -2588px; padding-left: 15px; font-weight: bold; color: #006193; width: 180px;}
 
 #search #tools .content span.disabled,
-#browse #tools .content span.disabled 
+#browse #tools .content span.disabled
 {font-weight: bold; color: #006193; border: 0; padding-left: 0; padding-right: 0;}
 
 #browse #tools #heading ul,
@@ -1299,15 +1300,15 @@ p.backToTop
 {margin-bottom: 0; padding-bottom: 10px;}
 
 #browse #tools #heading li.legHeading,
-#search #tools #heading li.legHeading 
+#search #tools #heading li.legHeading
 {width: 20px; height: 20px; border: 1px solid #cdcdcd; margin: 1px;  text-align:center; font-weight: bold;}
 
-#browse #tools #heading li.legHeading.legHeading a, 
-#search #tools #heading li a 
+#browse #tools #heading li.legHeading.legHeading a,
+#search #tools #heading li a
 {padding-top: 1px; width: 100%; height: 100%; display: block;}
 
-#browse #tools #heading, 
-#search #tools #heading 
+#browse #tools #heading,
+#search #tools #heading
 li.empty {color: #9a9a9a;}
 
 #browse #tools #heading li a:hover,
@@ -1366,7 +1367,7 @@ div.alphaLinkList {display: block; background: #ccc; float: left;}
 .alphaLinkList a:hover {background: #EFEFEF; text-decoration: underline;}
 /* end of a-z styling */
 
-#leg #content p.backToTop {margin-bottom: -1.9em;} 
+#leg #content p.backToTop {margin-bottom: -1.9em;}
 #browseMapHelp { display:inline-block;}
 
 #layout1 #layout2 .clear {clear: left}
@@ -1394,11 +1395,11 @@ div.alphaLinkList {display: block; background: #ccc; float: left;}
 #chron .actNumLarge {width: 10%; float: left;}
 #chron .indentNum1 {padding-left: 5%;}
 #chron .indentNum2 {padding-left: 12.5%;}
-#chron .indentNum3 {padding-left: 17.5%;}          
-#chron .indentNum4 {padding-left: 22.5%;}          
+#chron .indentNum3 {padding-left: 17.5%;}
+#chron .indentNum4 {padding-left: 22.5%;}
 #chron .indentNum5 {padding-left: 27.5%;}
-#chron .indentNum6 {padding-left: 32.5%;}          
-#chron .indentNum7 {padding-left: 37.5%;}          
+#chron .indentNum6 {padding-left: 32.5%;}
+#chron .indentNum7 {padding-left: 37.5%;}
 #chron .indentNum8 {padding-left: 42.5%;}
 #chron .head {}
 #chron  h2 {font-size: 1.4em; font-weight: bold;}
@@ -1428,13 +1429,13 @@ div.alphaLinkList {display: block; background: #ccc; float: left;}
 .hithighlight { background-color:#FFFF3D !important;}
 
 /* add class for English to Welsh language convert link */
-.changeLang{margin:0px; padding:0px;font-weight: bold;} 
+.changeLang{margin:0px; padding:0px;font-weight: bold;}
 
 
 
 /*Add new class for fixing issue's */
 
-#contentSearch .titleCy.cy{width: 13em;} 
+#contentSearch .titleCy.cy{width: 13em;}
 #contentSearch .typeCy select {float: left; margin-left: 5px; width: 342px; *width: 331px; .width: 300px;}
 #contentSearch .typeCy  {float: left; margin-left: -21px;}
 
@@ -1450,7 +1451,7 @@ div.alphaLinkList {display: block; background: #ccc; float: left;}
     text-align: center;
     width: 100%;
     z-index: 1000;
-    position: relative;  
+    position: relative;
     background-color: #424240;
     color: #ffffff;
     font-size: 1.5em;
@@ -1461,7 +1462,7 @@ div.alphaLinkList {display: block; background: #ccc; float: left;}
 }
 .cli-plugin-main-link {
     color: #ffffff;
-    text-decoration: underline;    
+    text-decoration: underline;
 }
 .cli-plugin-button, .cli-plugin-button:visited {
     padding: 4px 8px;

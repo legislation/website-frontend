@@ -44,7 +44,7 @@ select {vertical-align: middle;}
 #ui-datepicker-div a {color: #227AD4}
 #ui-datepicker-div .ui-icon-circle-triangle-w {background: url(/images/chrome/datepickerArrowLeft.gif);}
 #ui-datepicker-div .ui-icon-circle-triangle-e {background: url(/images/chrome/datepickerArrowRight.gif);}
-.ui-datepicker-trigger {background: url(/images/chrome/PITDatePicker.gif); width: 16px; height: 13px; border: 0; margin-left: 10px; cursor: pointer; cursor: hand;}
+.ui-datepicker-trigger {background: url(/images/chrome/pitDatePicker.gif); width: 16px; height: 13px; border: 0; margin-left: 10px; cursor: pointer; cursor: hand;}
 .error {}
 input.error  { border: #870600 solid 1px; color: #000000}
 span.error {color: #870600;display:block; clear:left}
