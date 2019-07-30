@@ -3162,7 +3162,37 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:for-each select="node()[not((position() = last() or preceding-sibling::node()[1][self::leg:Para]) and self::text() and normalize-space() = '')] | processing-instruction()">
 		<!-- Mixed content in a table cell (i.e. paragraph level and text level content) should not occur - but just in case it does ... -->
 		<xsl:choose>
-			<xsl:when test="self::text() and parent::*[child::*[not(self::leg:Emphasis or self::leg:Strong or self::leg:Superior or self::leg:Inferior or self::leg:Addition or self::leg:Repeal or self::leg:Substitution or self::leg:CommentaryRef or self::leg:Citation or self::leg:Addition or self::leg:Repeal or self::leg:Substitution or self::leg:CommentaryRef or self::leg:CitationSubRef or self::math:math or self::leg:Character or self::leg:FootnoteRef or self::leg:Span or self::leg:Term or self::leg:Definition or self::leg:Proviso or self::leg:MarginNoteRef or self::leg:Underline or self::leg:SmallCaps)]]">
+			<xsl:when test="self::text() and parent::*[child::*[not(
+														self::leg:Emphasis or 
+														self::leg:Strong or 
+														self::leg:Superior or 
+														self::leg:Inferior or 
+														self::leg:Addition or 
+														self::leg:Repeal or 
+														self::leg:Substitution or 
+														self::leg:CommentaryRef or 
+														self::leg:Citation or 														 
+														self::leg:CitationSubRef or 
+														self::math:math or 
+														self::leg:Character or 
+														self::leg:FootnoteRef or 
+														self::leg:Span or 
+														self::leg:Term or 
+														self::leg:Definition or 
+														self::leg:Proviso or 
+														self::leg:MarginNoteRef or 
+														self::leg:Underline or 
+														self::leg:SmallCaps or 
+														self::leg:Acronym or
+														self::leg:Abbreviation or
+														self::leg:InlineAmendment or
+														self::leg:CitationListRef or
+														self::leg:InlineExtract or
+														self::leg:InternalLink or
+														self::leg:ExternalLink or
+														self::leg:Image or
+														self::err:Error or
+														self::err:Warning)]]">
 				<span class="LegTDmixedText">
 					<xsl:apply-templates select="."/>
 				</span>

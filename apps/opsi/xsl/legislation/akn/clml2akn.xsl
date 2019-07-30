@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- v1.4, written by Jim Mangiafico, updated 24 May 2018 -->
+<!-- v1.4.1, written by Jim Mangiafico, updated 2 August 2018 -->
 
 <xsl:stylesheet version="2.0"
 	xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/WD16"
@@ -283,6 +283,8 @@
 							<xsl:when test="$ukm-doctype = 'WelshStatutoryInstrument'">government/wales</xsl:when>
 							<xsl:when test="$ukm-doctype = 'WelshDraftStatutoryInstrument'">government/wales</xsl:when>
 							<xsl:when test="$ukm-doctype = 'UnitedKingdomMinisterialDirection'">government/uk</xsl:when>
+							<xsl:when test="$ukm-doctype = 'UnitedKingdomStatutoryRuleOrOrder'">government/uk</xsl:when>
+							<xsl:when test="$ukm-doctype = 'NorthernIrelandStatutoryRuleOrOrder'">government/northern-ireland</xsl:when>
 						</xsl:choose>
 					</xsl:attribute>
 				</FRBRauthor>
@@ -316,6 +318,8 @@
 							<xsl:when test="$ukm-doctype = 'WelshStatutoryInstrument'">GB-WLS</xsl:when>
 							<xsl:when test="$ukm-doctype = 'WelshDraftStatutoryInstrument'">GB-WLS</xsl:when>
 							<xsl:when test="$ukm-doctype = 'UnitedKingdomMinisterialDirection'">GB-UKM</xsl:when>
+							<xsl:when test="$ukm-doctype = 'UnitedKingdomStatutoryRuleOrOrder'">GB-UKM</xsl:when>
+							<xsl:when test="$ukm-doctype = 'NorthernIrelandStatutoryRuleOrOrder'">GB-NIR</xsl:when>
 							<xsl:otherwise>GB-UKM</xsl:otherwise>
 						</xsl:choose>
 					</xsl:attribute>
@@ -362,6 +366,17 @@
 									</xsl:otherwise>
 								</xsl:choose>
 							</xsl:when>
+							<xsl:when test="$ukm-doctype = 'NorthernIrelandStatutoryRuleOrOrder'">
+								<xsl:choose>
+									<xsl:when test="ukm:SecondaryMetadata/ukm:AlternativeNumber[@Category='C']">
+										<xsl:variable name="c-num" select="ukm:SecondaryMetadata/ukm:AlternativeNumber[@Category='C']/@Value" />
+										<xsl:value-of select="concat('S.R. &amp; O. ', $year, '/', $num, ' (C. ', $c-num, ')')" />
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="concat('S.R. &amp; O. ', $year, '/', $num)" />
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:when>
 							<xsl:when test="$ukm-doctype = 'ScottishAct'">
 								<xsl:value-of select="concat($year, ' asp ', $num)" />
 							</xsl:when>
@@ -398,8 +413,17 @@
 							<xsl:when test="$ukm-doctype = 'UnitedKingdomMinisterialOrder'">
 								<xsl:value-of select="concat('Ministerial Order ', $year, '/', $num)" />
 							</xsl:when>
+							<xsl:when test="$ukm-doctype = 'UnitedKingdomMinisterialDirection'">
+								<xsl:value-of select="concat('Ministerial Direction ', $year, '/', $num)" />
+							</xsl:when>
 							<xsl:when test="$ukm-doctype = 'UnitedKingdomStatutoryInstrument' or $ukm-doctype = 'UnitedKingdomDraftStatutoryInstrument'">
 								<xsl:value-of select="concat('S.I. ', $year, '/', $num)" />
+								<xsl:for-each select="ukm:SecondaryMetadata/ukm:AlternativeNumber[@Category='C' or @Category='L' or @Category='S']">
+									<xsl:value-of select="concat(' (', @Category,'. ', @Value, ')')" />
+								</xsl:for-each>
+							</xsl:when>
+							<xsl:when test="$ukm-doctype = 'UnitedKingdomStatutoryRuleOrOrder'">
+								<xsl:value-of select="concat('S.R. &amp; O. ', $year, '/', $num)" />
 								<xsl:for-each select="ukm:SecondaryMetadata/ukm:AlternativeNumber[@Category='C' or @Category='L' or @Category='S']">
 									<xsl:value-of select="concat(' (', @Category,'. ', @Value, ')')" />
 								</xsl:for-each>
