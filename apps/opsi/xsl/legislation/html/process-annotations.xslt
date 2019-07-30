@@ -140,11 +140,11 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:variable name="multiple-provision-annotations" as="xs:boolean" 
 		select="if (
 			((local-name() = 'P1' and not(parent::leg:P1group) and not(ancestor::leg:BlockAmendment) and
-				(some $c in preceding-sibling::*[1][self::leg:P1]//(descendant::leg:CommentaryRef/@Ref | descendant::leg:Repeal/@CommentaryRef | descendant::leg:Substitution/@CommentaryRef | descendant::leg:Addition/@CommentaryRef) satisfies $c = ($additionRepealRefs/@CommentaryRef,$commentaryRefs/@Ref))
+				(some $c in preceding-sibling::*[self::leg:P1 or self::leg:P1group]//(descendant::leg:CommentaryRef/@Ref | descendant::leg:Repeal/@CommentaryRef | descendant::leg:Substitution/@CommentaryRef | descendant::leg:Addition/@CommentaryRef) satisfies $c = ($additionRepealRefs/@CommentaryRef,$commentaryRefs/@Ref))
 			) or 
 			(:  allowance for EPP blanket amendments - use peceding for allowance across high level boundaries :)
 			(local-name() = 'P1group' and not(ancestor::leg:BlockAmendment) and 
-				(some $c in preceding::*[self::leg:P1group]//(descendant::leg:CommentaryRef[starts-with(@Ref, 'key-')]/@Ref | descendant::leg:Repeal[starts-with(@ChangeId, 'key-')]/@CommentaryRef | descendant::leg:Substitution[starts-with(@ChangeId, 'key-')]/@CommentaryRef | descendant::leg:Addition[starts-with(@ChangeId, 'key-')]/@CommentaryRef) satisfies $c = ($additionRepealRefs/@CommentaryRef,$commentaryRefs/@Ref))
+				(some $c in preceding::*[self::leg:P1 or self::leg:P1group]//(descendant::leg:CommentaryRef[starts-with(@Ref, 'key-')]/@Ref | descendant::leg:Repeal[starts-with(@ChangeId, 'key-')]/@CommentaryRef | descendant::leg:Substitution[starts-with(@ChangeId, 'key-')]/@CommentaryRef | descendant::leg:Addition[starts-with(@ChangeId, 'key-')]/@CommentaryRef) satisfies $c = ($additionRepealRefs/@CommentaryRef,$commentaryRefs/@Ref))
 			) or 
 			(local-name() = 'P1group' and not(ancestor::leg:BlockAmendment) and 
 				(some $c in preceding-sibling::*[1][self::leg:P1group]//(descendant::leg:CommentaryRef/@Ref | descendant::leg:Repeal/@CommentaryRef | descendant::leg:Substitution/@CommentaryRef | descendant::leg:Addition/@CommentaryRef) satisfies $c  = ($additionRepealRefs/@CommentaryRef,$commentaryRefs/@Ref))
