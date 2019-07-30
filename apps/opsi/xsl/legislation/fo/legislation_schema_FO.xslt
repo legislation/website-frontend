@@ -116,10 +116,13 @@ exclude-result-prefixes="tso atom">
 		<xsl:output-character character="&#160;" string="&amp;#160;"/>
 		<xsl:output-character character="⿿" string="-"/>
 		<xsl:output-character character="&#8209;" string="-"/>
+		<xsl:output-character character="&#x2011;" string="-"/>
+		<xsl:output-character character="&#x2012;" string="-"/>	
 		<xsl:output-character character="&#x2FFF;" string="&#x201C;"/><!--left double quote-->
 		<xsl:output-character character="&#x2FDD;" string="&#x201D;"/><!--right double quote-->
 		<xsl:output-character character="&#x2015;" string="&#x2014;"/><!--emdash-->
 		<xsl:output-character character="―" string="&#8212;"/><!--right double quote-->
+		<xsl:output-character character="&#x30a;" string="&#x00B0;"/><!--combining ring above to degree-->		
 	</xsl:character-map>
 
 	<!-- these will not work for the PDF generation so not used -->
@@ -3578,6 +3581,7 @@ exclude-result-prefixes="tso atom">
 	<xsl:template match="leg:Addition | leg:Repeal | leg:Substitution">
 		<xsl:param name="showSection" select="root()" tunnel="yes" />
 		<xsl:param name="showRepeals" select="false()" tunnel="yes" />	
+		<xsl:param name="seqLastTextNodes" tunnel="yes" as="xs:string*"/>
 		<xsl:variable name="showCommentary" as="xs:boolean" select="tso:showCommentary(.)" />
 		<xsl:variable name="changeId" as="xs:string" select="@ChangeId" />
 		<xsl:variable name="showSection" as="node()" select="leg:showSection(., $showSection)" />
@@ -3624,6 +3628,13 @@ exclude-result-prefixes="tso atom">
 				<fo:inline font-weight="bold">]</fo:inline>
 			</xsl:when>
 		</xsl:choose>
+		<!-- this condition will allow for any AppendText that is usually treated in the named template FuncCheckForEndOfQuote 
+		to prevent the end bracket from incorrectly encapsulating the append text -->
+		<xsl:if test="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/following-sibling::*[1][self::leg:AppendText] and $seqLastTextNodes = generate-id(text()[not(normalize-space(.) = '')][last()])">
+			<xsl:for-each select="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/following-sibling::*[1]">
+				<xsl:apply-templates/>
+			</xsl:for-each>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:function name="leg:isFirstChange" as="xs:boolean">

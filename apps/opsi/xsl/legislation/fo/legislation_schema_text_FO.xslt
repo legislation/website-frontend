@@ -119,12 +119,16 @@ exclude-result-prefixes="tso">
 	</xsl:if>
 			
 	<!-- If part of a long quote and last text node output quote and any run-on text -->
+	<xsl:variable name="processAppendText" as="xs:boolean" select="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/following-sibling::*[1][self::leg:AppendText] and not(parent::*[self::leg:Substitution or self::leg:Addition or self::leg:Repeal])"/>
 	<xsl:if test="$seqLastTextNodes = generate-id()">
 		<xsl:for-each select="ancestor::leg:BlockAmendment[generate-id(current()) = generate-id(descendant::text()[normalize-space(.) != ''][last()])]">
 			<xsl:if test="not($g_strDocClass =  $g_strConstantEuretained)"><xsl:text>&#x201d;</xsl:text></xsl:if>
-			<xsl:apply-templates select="following-sibling::*[1][self::leg:AppendText]/node()"/>
+			<xsl:if test="$processAppendText">
+				<xsl:apply-templates select="following-sibling::*[1][self::leg:AppendText]/node()"/>
+			</xsl:if>
 		</xsl:for-each>		
 	</xsl:if>
+
 
 	<!-- Check if next text node should run on from this one - happens where an amendment starts with some text - but not if previous line ends in mdash happens in asp/2001/3/section/22) -->
 	<xsl:if test="not(following-sibling::node()) and parent::leg:Text/following-sibling::*[1][self::leg:BlockAmendment]/*[1][self::leg:Text] and not(substring(., string-length(.)) = '&#8212;')">

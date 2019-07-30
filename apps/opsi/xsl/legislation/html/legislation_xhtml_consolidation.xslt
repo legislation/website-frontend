@@ -462,6 +462,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <xsl:template match="leg:Addition | leg:Repeal | leg:Substitution">
 	<xsl:param name="showSection" select="root()" tunnel="yes" />
 	<xsl:param name="showRepeals" select="false()" tunnel="yes" />	
+	<xsl:param name="seqLastTextNodes" tunnel="yes" as="xs:string*"/>
 	<xsl:variable name="showCommentary" as="xs:boolean" select="tso:showCommentary(.)" />
 	<xsl:variable name="changeId" as="xs:string" select="@ChangeId" />
 	<xsl:variable name="showSection" as="node()" select="leg:showSection(., $showSection)" />
@@ -494,6 +495,14 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<span class="LegChangeDelimiter">]</span>
 		</xsl:when>
 	</xsl:choose>
+	<!-- this condition will allow for any AppendText that is usually treated in the named template FuncCheckForEndOfQuote 
+	to prevent the end bracket from incorrectly encapsulating the append text -->
+	<xsl:if test="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/following-sibling::*[1][self::leg:AppendText] and $seqLastTextNodes = generate-id(text()[not(normalize-space(.) = '')][last()])">
+		<xsl:for-each select="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/following-sibling::*[1]">
+			<xsl:call-template name="FuncCheckForIDnoElement"/>
+			<xsl:apply-templates/>
+		</xsl:for-each>
+	</xsl:if>
 </xsl:template>
 
 <xsl:function name="leg:isFirstChange" as="xs:boolean">
@@ -1230,7 +1239,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	</xsl:if>
 </xsl:template>
 
-<xsl:template match="leg:Schedule//leg:P1 | leg:PrimaryPrelims | leg:SecondaryPrelims | leg:P1group | leg:P1[not(parent::leg:P1group)] | leg:Schedule/leg:ScheduleBody/leg:Tabular">
+<xsl:template match="leg:Schedule//leg:P1 | leg:PrimaryPrelims | leg:SecondaryPrelims | leg:P1group | leg:P1[not(parent::leg:P1group)] | leg:Schedule/leg:ScheduleBody/leg:Tabular | leg:ScheduleBody/*[self::leg:Part or self::leg:Chapter or self::leg:EUPart or self::leg:EUChapter or self::leg:EUTitle or self::leg:EUSection or self::leg:EUSubsection]/leg:Tabular">
 	<xsl:next-match/>
 	<!-- If there are alternate versions outputting ot annotations will happen there -->
 	

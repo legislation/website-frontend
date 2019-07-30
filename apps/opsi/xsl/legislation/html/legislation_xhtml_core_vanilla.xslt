@@ -251,10 +251,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<!-- PG 2008-07-18 Welsh Measures, and indeed most new legislation, has all the info we need in the Number element, so we can just output that -->
 		<xsl:choose>
 			<xsl:when test="$g_strDocumentMainType = 'WelshAssemblyMeasure' ">
-				<xsl:apply-templates select="leg:Number"/>
+				<xsl:apply-templates select="leg:Number" mode="welshnumber"/>
 			</xsl:when>
 			<xsl:when test="$g_strDocumentMainType = 'WelshNationalAssemblyAct' ">
-				<xsl:apply-templates select="leg:Number"/>
+				<xsl:apply-templates select="leg:Number" mode="welshnumber"/>
 			</xsl:when>
 			<!-- Convoluted approach to outputting the correct act number, but probably required for legacy data -->
 			<xsl:otherwise>
@@ -336,6 +336,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:apply-templates/>
 	</h1>
 	<xsl:call-template name="FuncApplyVersions"/>
+</xsl:template>
+
+<xsl:template match="leg:PrimaryPrelims/leg:Number"  mode="welshnumber">
+	<xsl:apply-templates/>
 </xsl:template>
 
 <xsl:template match="leg:PrimaryPrelims/leg:LongTitle">
@@ -4394,6 +4398,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				</xsl:if>
 			</xsl:if>
 		</xsl:variable>
+		<xsl:variable name="processAppendText" as="xs:boolean" select="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/following-sibling::*[1][self::leg:AppendText] and not(parent::*[self::leg:Substitution or self::leg:Addition or self::leg:Repeal])"/>
 	<xsl:if test="$strIsTableFootnoteAtEnd = 'true' or $seqLastTextNodes = generate-id()">
 		<xsl:choose>
 			<!-- JDC HA056626 http://www.legislation.gov.uk/uksi/2013/2005/regulation/2/made - paragraphs 8 and 9 -->			
@@ -4404,7 +4409,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:when test="self::leg:IncludedDocument or self::leg:Image">
 				<p class="LegAmendQuoteClose">
 					<xsl:call-template name="FuncOutputAmendmentEndQuote"/>
-					<xsl:if test="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/following-sibling::*[1][self::leg:AppendText]">
+					<xsl:if test="$processAppendText">
 						<xsl:for-each select="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/following-sibling::*[1]">
 							<xsl:call-template name="FuncCheckForIDnoElement"/>
 							<xsl:apply-templates/>
@@ -4412,13 +4417,12 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					</xsl:if>
 					<xsl:call-template name="FuncCheckForEndOfNestedQuote"/>
 				</p>
-				
 			</xsl:when>
 			<xsl:otherwise>
 				<span class="LegAmendQuote">
 					<xsl:call-template name="FuncOutputAmendmentEndQuote"/>
 				</span>
-				<xsl:if test="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/following-sibling::*[1][self::leg:AppendText]">
+				<xsl:if test="$processAppendText">
 					<xsl:for-each select="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/following-sibling::*[1]">
 						<xsl:call-template name="FuncCheckForIDnoElement"/>
 						<xsl:apply-templates/>
