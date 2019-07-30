@@ -45,7 +45,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	
 	<xsl:variable name="wholeActURI" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act' and @title='whole act']/@href" />
 	<xsl:variable name="wholeActWithoutSchedulesURI" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/body' and @title='body']/@href" />
-	<xsl:variable name="schedulesOnlyURI" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/schedules' and @title='schedules']/@href" />
+	<xsl:variable name="schedulesOnlyURI" as="xs:string?" select="(/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/schedules' and @title='schedules']/@href, /leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/annexes' and @title='annexes']/@href)[1]" />
+	<xsl:variable name="attachmentsOnlyURI" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/attachments' and @title='attachments']/@href" />
 	<xsl:variable name="introURI" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/introduction' and @title='introduction']/@href" />
 	<xsl:variable name="self" as="xs:string?" select="/leg:Legislation/ukm:Metadata/atom:link[@rel='self']/@href" />
 		
@@ -70,6 +71,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	"/>
 	<xsl:variable name="resourceURI" as="xs:string" 
 		select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/resources']/@href" />				
+	<xsl:variable name="inforceinfoURI" as="xs:string" 
+		select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/inforceinfo']/@href" />
+	
 	<xsl:variable name="impactURI" as="xs:string?" 
 		select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts']/@href" />				
 	
@@ -91,7 +95,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="IsPnAvailable" as="xs:boolean" select="exists($pnURI)"/>
 	
 	<xsl:variable name="IsMoreResourcesAvailable" as="xs:boolean" select="tso:ShowMoreResources(/)" />			
-	<xsl:variable name="IsImpactAssessmentsAvailable" as="xs:boolean" select="exists($impactURI)" />			
+	<xsl:variable name="IsImpactAssessmentsAvailable" as="xs:boolean" select="exists($impactURI)" />
+	
 	
 	<xsl:variable name="IsPDFOnly" as="xs:boolean">
 		<xsl:sequence select="leg:IsPDFOnly(.)" />
@@ -131,7 +136,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		select="(exists($nstSection[@AltVersionRefs]) and $nstSection/(self::leg:P1group or self::leg:P1)) or $searchingByExtent" />
 	<xsl:variable name="showExtent" as="xs:boolean"
 		select="$forceShowExtent or contains(leg:get-query('view'), 'extent')" />
-
+		
+	<xsl:variable name="correctionSlipTitle" as="xs:string"
+			select="if ($g_strDocumentType = $g_strEUretained) then 'Corrigendum' else 'Correction Slip'" />
+			
 	<xsl:variable name="isLarge" as="xs:boolean">
 		<xsl:choose>
 			<xsl:when test="$wholeActURI = $dcIdentifier and /leg:Legislation/@NumberOfProvisions &gt; 800"><xsl:value-of select="true()"/></xsl:when>					
@@ -148,8 +156,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="selectedSection" as="element()?"
 		select="
 			if ($wholeActURI = $dcIdentifier) then /leg:Legislation
-			else if ($dcIdentifier = ($introURI, $signatureURI,  $earlierOrdersURI, $noteURI, $wholeActWithoutSchedulesURI)) then  /leg:Legislation/(leg:Primary | leg:Secondary)//*[@DocumentURI = $strCurrentURIs]
-			else if ($dcIdentifier = $schedulesOnlyURI)  then /leg:Legislation/(leg:Primary | leg:Secondary)/leg:Schedules
+			else if ($dcIdentifier = ($introURI, $signatureURI,  $earlierOrdersURI, $noteURI, $wholeActWithoutSchedulesURI)) then  /leg:Legislation/(leg:Primary | leg:Secondary | leg:EURetained)//*[@DocumentURI = $strCurrentURIs]
+			else if ($dcIdentifier = $schedulesOnlyURI)  then /leg:Legislation/(leg:Primary | leg:Secondary | leg:EURetained)/leg:Schedules
 			else $nstSection" />
 	
 	<!--  let $startDate be the latest value of RestrictStartDate on $selectedSection or any of its descendants -->
@@ -179,11 +187,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<!-- getting the document type -->
 	<xsl:function name="leg:GetDocumentMainType" as="xs:string">
 		<xsl:param name="legislation" as="document-node()" />
-		<xsl:sequence select="$legislation/*/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value" />
+		<xsl:sequence select="$legislation/*/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value" />
 	</xsl:function>	
 	
 	<!-- uri Prefix-->
-	<xsl:variable name="uriPrefix" as="xs:string"><xsl:value-of select="tso:GetUriPrefixFromType(leg:GetDocumentMainType(.), /leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:Year/@Value)"/></xsl:variable>
+	<xsl:variable name="uriPrefix" as="xs:string"><xsl:value-of select="tso:GetUriPrefixFromType(leg:GetDocumentMainType(.), /leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata | ukm:BillMetadata)/ukm:Year/@Value)"/></xsl:variable>
 	<xsl:variable name="documentMainType" as="xs:string" select="leg:GetDocumentMainType(.)"/>
 
 	<!-- Construct a list of the ContentRefs of the items that have MatchText="true" up front -->
@@ -259,16 +267,46 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:choose>
 	</xsl:variable>
 	
+	<xsl:variable name="scheduleText">
+		<xsl:value-of select="if ($g_strDocumentType = $g_strEUretained) then 'Annex' else 'Schedule'"/>
+	</xsl:variable>
+	
+	<xsl:variable name="schedulesText">
+		<xsl:value-of select="if ($g_strDocumentType = $g_strEUretained) then 'Annexes' else 'Schedules'"/>
+	</xsl:variable>
+	
+	<xsl:variable name="attachmentsText">
+		<xsl:value-of select="'Attachments'"/>
+	</xsl:variable>
+	
+	<xsl:variable name="dc-title" as="element(dc:title)*" select="/leg:Legislation/ukm:Metadata/dc:title"/>
+	
+	<xsl:variable name="title">
+		<xsl:choose>
+			<xsl:when test="$language = 'cy' and count($dc-title) &gt; 1">
+				<xsl:value-of select="$dc-title[@xml:lang='cy']" />
+			</xsl:when>
+			<xsl:when test="$language = 'cy' and count($dc-title) = 1 ">
+				<xsl:value-of select="$dc-title" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$dc-title[not(@xml:lang='cy')]" />
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	
+	
+
 	<xsl:template match="/">
 		<html>
 			<head>
 				<title>
 					<xsl:choose>
 						<xsl:when test="$language = 'cy'">
-							<xsl:value-of select="/leg:Legislation/ukm:Metadata/dc:title[@xml:lang='cy']" />
+							<xsl:value-of select="$dc-title[@xml:lang='cy']" />
 						</xsl:when>
 						<xsl:otherwise>
-							<xsl:value-of select="/leg:Legislation/ukm:Metadata/dc:title[not(@xml:lang='cy')]" />
+							<xsl:value-of select="$dc-title[not(@xml:lang='cy')]" />
 						</xsl:otherwise>
 					</xsl:choose>
 				</title>
@@ -370,10 +408,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						
 						<xsl:when test="$dcIdentifier = ($signatureURI, $noteURI, $earlierOrdersURI)"><xsl:attribute name="class">legContent</xsl:attribute></xsl:when>
 						<xsl:when test="leg:IsContent()"><xsl:attribute name="class">legContent</xsl:attribute></xsl:when>						
-						<xsl:when test="$wholeActURI = $dcIdentifier "><xsl:attribute name="class">legComplete</xsl:attribute></xsl:when>						
-						<xsl:when test="matches($dcIdentifier, concat('^(', $wholeActURI, ')(/(scotland|england|wales|ni))$'))"><xsl:attribute name="class">legComplete</xsl:attribute></xsl:when>						
-						<xsl:when test="$wholeActWithoutSchedulesURI = $dcIdentifier "><xsl:attribute name="class">legComplete</xsl:attribute></xsl:when>						
-						<xsl:when test="$schedulesOnlyURI = $dcIdentifier "><xsl:attribute name="class">legComplete</xsl:attribute></xsl:when>												
+						<xsl:when test="$dcIdentifier = ($wholeActURI, $wholeActWithoutSchedulesURI, $schedulesOnlyURI, $attachmentsOnlyURI) or matches($dcIdentifier, '[0-9]+/(ni|england|scotland|wales)')"><xsl:attribute name="class">legComplete</xsl:attribute></xsl:when>
 						<xsl:otherwise/>
 					</xsl:choose>
 					
@@ -499,6 +534,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:text>@import "/styles/legislation.css";&#xA;</xsl:text>
 					<xsl:text>@import "/styles/secondarylegislation.css";&#xA;</xsl:text>
 				</xsl:when>	
+				<xsl:when test="$uriPrefix = ('eut', 'eur', 'eudr', 'eudn')  ">
+					<xsl:text>@import "/styles/legislation.css";&#xA;</xsl:text>
+					<xsl:text>@import "/styles/eulegislation.css";&#xA;</xsl:text>
+				</xsl:when>
 			</xsl:choose>
 			<xsl:text>@import "/styles/legislationOverwrites.css";&#xA;</xsl:text>			
 			<xsl:text>/* End of Legislation stylesheets */&#xA;</xsl:text>	
@@ -665,10 +704,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 												</xsl:choose>
 											</xsl:when>
 											<xsl:otherwise>
-												<xsl:variable name="enactedLink" as="element(atom:link)?" select="//atom:link[@rel='http://purl.org/dc/terms/hasVersion' and @title = ('enacted', 'made', 'created') and (not(@hreflang) or @hreflang='en')]" />
+												<xsl:variable name="enactedLink" as="element(atom:link)?" select="//atom:link[@rel='http://purl.org/dc/terms/hasVersion' and @title = ('enacted', 'made', 'created', 'adopted') and (not(@hreflang) or @hreflang='en')]" />
 												<!-- this changes the link if we're looking a PDF-only revised version to go to the as-enacted ToC -->
 												<xsl:variable name="enactedLink" as="xs:string?"
-													select="if ($IsPDFOnly) then
+													select="if ($IsPDFOnly and not(contains($enactedLink/@href,'/contents/'))) then
 													          replace($enactedLink/@href, concat('/', $enactedLink/@title), concat('/contents/', $enactedLink/@title))
 													        else
 													        	$enactedLink/@href" />
@@ -723,7 +762,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 													</xsl:choose>
 												</xsl:when>
 												<xsl:otherwise>
-													<a href="{leg:FormatURL(//atom:link[@rel='http://purl.org/dc/terms/hasVersion' and @title = ('enacted', 'made', 'created') and @hreflang='cy']/@href)}" class="userFunctionalElement" >
+													<a href="{leg:FormatURL(//atom:link[@rel='http://purl.org/dc/terms/hasVersion' and @title = ('enacted', 'made', 'created', 'adopted') and @hreflang='cy']/@href)}" class="userFunctionalElement" >
 														<xsl:copy-of select="$ndsOriginal" />
 													</a>
 												</xsl:otherwise>
@@ -863,7 +902,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:for-each select="/leg:Legislation/ukm:Metadata/ukm:CorrectionSlips/ukm:CorrectionSlip">
 							<li>
 								<a class="pdfLink" href="{@URI}">
-									<xsl:text>Correction Slip - </xsl:text>
+									<xsl:value-of select="$correctionSlipTitle"/>
+									<xsl:text> - </xsl:text>
 									<xsl:value-of select="leg:FormatDate(@Date)"/>
 								</a>	
 							</li>					
@@ -895,12 +935,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</xsl:if>
 						
 						<xsl:choose>
-							<xsl:when test="$IsPDFOnly "><xsl:message>PARAMS: <xsl:sequence select="$paramsDoc/parameters"/></xsl:message>
+							<xsl:when test="$IsPDFOnly ">
 								<!-- If legislation is only available in PDFOnly then display PDF link -->
 								<xsl:variable name="alternatives" as="element(ukm:Alternative)+"
 									select="/leg:Legislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative" />
+								<xsl:variable name="versiondate" as="xs:date?"
+									select="if ($version castable as xs:date) then xs:date($version) else ()" />
 								<xsl:variable name="alternative" as="element(ukm:Alternative)?"
-									select="if (leg:IsCurrentRevised(.)) then
+									select="if (exists($versiondate)) then 
+												 $alternatives[@Revised = max($alternatives/@Revised/xs:date(.)[. le $versiondate])]
+											else if (leg:IsCurrentRevised(.)) then
 									          $alternatives[@Revised = max($alternatives/@Revised/xs:date(.))]
 									        else if ($language = 'cy') then
 									        	($alternatives[@Language = 'Welsh'])[1]
@@ -909,11 +953,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<!-- make sure we get one -->
 								<xsl:variable name="alternative" as="element(ukm:Alternative)"
 									select="if ($alternative) then $alternative else $alternatives[1]" />
-								<xsl:variable name="title"
-									select="if ($language = 'cy') then
-									          (/leg:Legislation/ukm:Metadata/dc:title[@xml:lang = 'cy'])[1]
-									        else
-									        	/leg:Legislation/ukm:Metadata/dc:title[not(@xml:lang = 'cy')][1]" />
 								<p class="downloadPdfVersion">
 									<a class="pdfLink" href="{$alternative/@URI}">
 										<img class="imgIcon" alt="" src="/images/chrome/pdfIconMed.gif"/>										
@@ -928,7 +967,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<xsl:otherwise>
 								<!-- adding the crest logo if introduction or whole act-->
 								<xsl:if test=" $introURI = $dcIdentifier or $wholeActURI = $dcIdentifier">
-									<xsl:variable name="uriPrefix" as="xs:string" select="tso:GetUriPrefixFromType(leg:GetDocumentMainType(.), /leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:Year/@Value)"/>
+									<xsl:variable name="uriPrefix" as="xs:string" select="tso:GetUriPrefixFromType(leg:GetDocumentMainType(.), /leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata | ukm:BillMetadata)/ukm:Year/@Value)"/>
 									<xsl:if test="$uriPrefix = ('aep', 'aip', 'apgb' , 'apni' , 'asp' , 'mnia' , 'ukcm' , 'ukla' , 'ukpga' , 'mwa', 'aosp','anaw', 'nia') ">
 										<p class="crest">
 											<a href="{leg:FormatURL($introURI)}">
@@ -951,75 +990,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</div>
 
 	 </xsl:template>
-	
+	 
 	<!-- title heading of the legislation-->
 	<xsl:template name="TSOOutputLegislationTitle">
-		<xsl:variable name="category" as="xs:string" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentCategory/@Value" />
-		<xsl:variable name="mainType" as="xs:string" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value" />
-		<xsl:variable name="number" as="xs:string" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:Number/@Value" />
-		<xsl:variable name="year" as="xs:integer?" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:Year/@Value" />
-		<xsl:variable name="altNumbers" as="element(ukm:AlternativeNumber)*" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:AlternativeNumber" />
+		<xsl:variable name="category" as="xs:string" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentCategory/@Value" />
+		<xsl:variable name="mainType" as="xs:string" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata |  ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value" />
+		<xsl:variable name="number" as="xs:string" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata |  ukm:EUMetadata | ukm:BillMetadata)/ukm:Number/@Value" />
+		<xsl:variable name="year" as="xs:integer?" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata |  ukm:EUMetadata | ukm:BillMetadata)/ukm:Year/@Value" />
+		<xsl:variable name="altNumbers" as="element(ukm:AlternativeNumber)*" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata |  ukm:EUMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:AlternativeNumber" />
 		
 		<h1 class="pageTitle{if ($isDraft) then ' draft' else if (leg:IsProposedVersion(.)) then ' proposed' else ''}">
-			<xsl:choose>
-				<xsl:when test="$language = 'cy' and count(/leg:Legislation/ukm:Metadata/dc:title) &gt; 1">
-					<xsl:value-of select="/leg:Legislation/ukm:Metadata/dc:title[@xml:lang='cy']" />
-				</xsl:when>
-				<xsl:when test="$language = 'cy' and count(/leg:Legislation/ukm:Metadata/dc:title) = 1 ">
-					<xsl:value-of select="/leg:Legislation/ukm:Metadata/dc:title" />
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="/leg:Legislation/ukm:Metadata/dc:title[not(@xml:lang='cy')]" />
-				</xsl:otherwise>
-			</xsl:choose>
-			
-			<!-- commenting out the chapter number, si number etc. from the title
-			<xsl:choose>
-				<xsl:when test="$mainType = 'UnitedKingdomChurchInstrument'" />
-				<xsl:when test="$category = 'secondary'">
-					<xsl:text> (</xsl:text>
-					<xsl:choose>
-						<xsl:when test="$mainType = 'ScottishStatutoryInstrument'">S.S.I. </xsl:when>
-						<xsl:when test="$mainType = 'NorthernIrelandStatutoryRule'">S.R. </xsl:when>
-						<xsl:otherwise>S.I. </xsl:otherwise>
-					</xsl:choose>
-					<xsl:value-of select="concat($year, '/', $number, ')')" />
-					<xsl:for-each select="$altNumbers">
-						<xsl:text> (</xsl:text>
-						<xsl:choose>
-							<xsl:when test="@Category = 'NI'">
-								<xsl:text>N.I. </xsl:text>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:value-of select="concat(@Category, '. ')" />
-							</xsl:otherwise>
-						</xsl:choose>
-						<xsl:value-of select="concat(@Value, ')')" />
-					</xsl:for-each>
-				</xsl:when>
-				<xsl:when test="$mainType = 'UnitedKingdomChurchMeasure'">
-					<xsl:value-of select="concat(' (No. ', $number, ')')" />
-				</xsl:when>
-				<xsl:when test="$mainType = 'ScottishAct' and $year > 1500">
-					<xsl:value-of select="concat(' (asp ', $number, ')')" />
-				</xsl:when>
-				<xsl:when test="$mainType = 'WelshAssemblyMeasure'">
-					<xsl:value-of select="concat(' (nawm ', $number, ')')" />
-				</xsl:when>
-				<xsl:when test="$mainType = 'WelshNationalAssemblyAct'">
-					<xsl:value-of select="concat(' (anaw ', $number, ')')" />
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:text> (</xsl:text>
-					<xsl:if test="$altNumbers[@Category = 'Regnal']">
-						<xsl:value-of select="concat(translate($altNumbers[@Category = 'Regnal']/@Value, '_', ' '), ' ')" />
-					</xsl:if>
-					<xsl:value-of select="concat('c. ', $number)" />
-					<xsl:if test="$mainType = 'ScottishAct'"> [S]</xsl:if>
-					<xsl:if test="$mainType = 'IrelandAct'"> [I]</xsl:if>
-					<xsl:text>)</xsl:text>
-				</xsl:otherwise>
-			</xsl:choose>-->
+			<xsl:value-of select="$title"/>
 		</h1>	
 	</xsl:template>
 	
@@ -1098,7 +1079,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>
 
 	<!-- adding the Signature Text -->
-	<xsl:template match="leg:Contents/*[not(self::leg:ContentsTitle) and not(ancestor::leg:Schedules) and not(ancestor::leg:BlockAmendment) and not(self::leg:ContentsSchedules)][position()=last()]" priority="1000">
+	<xsl:template match="leg:Contents/*[not(self::leg:ContentsTitle) and not(ancestor::leg:Schedules) and not(ancestor::leg:BlockAmendment) and not(self::leg:ContentsSchedules) and not(self::leg:ContentsAttachments)][position()=last()]" priority="1000">
 		<xsl:param name="matchRefs" tunnel="yes" select="''" />
 		<xsl:next-match />
 		<xsl:if test="$signatureURI">
@@ -1169,7 +1150,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:if>
 	</xsl:template>
 	
-	<xsl:template match="leg:ContentsPart[* except (leg:ContentsNumber, leg:ContentsTitle)]">
+	<xsl:template match="leg:ContentsPart[* except (leg:ContentsNumber, leg:ContentsTitle)] | leg:ContentsEUPart[* except (leg:ContentsNumber, leg:ContentsTitle)]">
 		<xsl:variable name="html" as="element()">
 			<xsl:next-match />
 		</xsl:variable>
@@ -1212,11 +1193,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</xsl:when>						
 						<xsl:when test="$wholeActWithoutSchedulesURI = $strCurrentURIs">
 							<xsl:apply-templates select="/leg:Legislation" mode="TSOBreadcrumbItem"/>
-							<li class="activetext">Whole <xsl:value-of select="tso:GetCategory(leg:GetDocumentMainType(.))"/> without Schedules</li>
+							<li class="activetext">Whole <xsl:value-of select="tso:GetCategory(leg:GetDocumentMainType(.))"/> without <xsl:value-of select="$schedulesText"/></li>
 						</xsl:when>						
-						<xsl:when test="$schedulesOnlyURI = $strCurrentURIs">
+						<xsl:when test="$strCurrentURIs = $schedulesOnlyURI">
 							<xsl:apply-templates select="/leg:Legislation" mode="TSOBreadcrumbItem"/>
-							<li class="activetext">Schedules only</li>
+							<li class="activetext"><xsl:value-of select="$schedulesText"/> only</li>
 						</xsl:when>												
 						<xsl:when test="leg:IsTOC()">
 							<xsl:apply-templates select="/leg:Legislation" mode="TSOBreadcrumbItem"/>
@@ -1239,15 +1220,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<!-- creating link for the whole act  -->
 	<xsl:template match="leg:Legislation" mode="TSOBreadcrumbItem" priority="20">
 		<xsl:variable name="nstMetadata" as="element()"
-			select="/leg:Legislation/ukm:Metadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata|ukm:BillMetadata)" />
+			select="/leg:Legislation/ukm:Metadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata|ukm:EUMetadata|ukm:BillMetadata)" />
 		<li class="first">
 			<a href="{if ($TranslateLang='cy' or $TranslateLang='en') then substring-after(@DocumentURI,'http://www.legislation.gov.uk') else @DocumentURI}">
 				<xsl:choose>
 					<xsl:when test="$nstMetadata/ukm:Number">
-				<xsl:value-of select="$nstMetadata/ukm:Year/@Value"/>&#160;<xsl:value-of select="tso:GetNumberForLegislation($nstMetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value, $nstMetadata/ukm:Year/@Value, $nstMetadata/ukm:Number/@Value)" /><xsl:apply-templates select="$nstMetadata/ukm:AlternativeNumber" mode="series"/>
+						<xsl:value-of select="$nstMetadata/ukm:Year/@Value"/>&#160;<xsl:value-of select="tso:GetNumberForLegislation($nstMetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value, $nstMetadata/ukm:Year/@Value, $nstMetadata/ukm:Number/@Value)" /><xsl:apply-templates select="$nstMetadata/ukm:AlternativeNumber" mode="series"/>
 					</xsl:when>
 					<xsl:when test="$nstMetadata/ukm:AlternativeNumber[@Category='Bill']">
-				<xsl:value-of select="$nstMetadata/ukm:Year/@Value"/>&#160;<xsl:value-of select="$nstMetadata/ukm:AlternativeNumber[@Category='Bill']/@Value" />
+						<xsl:value-of select="$nstMetadata/ukm:Year/@Value"/>&#160;<xsl:value-of select="$nstMetadata/ukm:AlternativeNumber[@Category='Bill']/@Value" />
+					</xsl:when>
+					<xsl:when test="$nstMetadata/ukm:Name">
+						<xsl:value-of select="upper-case($nstMetadata/ukm:Name/@Value)"/>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:text>ISBN </xsl:text>
@@ -1259,7 +1243,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>
 	
 	<!-- hiding the text for the body-->
-	<xsl:template match="leg:Body" mode="TSOBreadcrumbItem" priority="20"/>	
+	<xsl:template match="leg:Body | leg:EUBody" mode="TSOBreadcrumbItem" priority="20"/>	
 	
 	<xsl:template match="*[@DocumentURI]" mode="TSOBreadcrumbItem" priority="10">
 		<li>
@@ -1277,7 +1261,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</li>
 	</xsl:template>
 	
-	<xsl:template match="leg:PrimaryPrelims | leg:SecondaryPrelims" mode="TSOBreadcrumbItem" priority="5">
+	<xsl:template match="leg:PrimaryPrelims | leg:SecondaryPrelims | leg:EUPrelims" mode="TSOBreadcrumbItem" priority="5">
 		<xsl:choose>
 			<xsl:when test="leg:IsCurrentWelsh(/)">
 					<xsl:text>Cyflwyniad</xsl:text>
@@ -1300,8 +1284,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:value-of select="$earlierOrdersText"/>	
 	</xsl:template>	
 	
+	<xsl:template match="leg:AttachmentGroup[@DocumentURI] | leg:Attachment[@DocumentURI]" mode="TSOBreadcrumbItem"  priority="5">
+		<xsl:value-of select="translate(@id, '-', ' ')"/>	
+	</xsl:template>
+	
+	<xsl:template match="leg:Attachment//*[@DocumentURI]" mode="TSOBreadcrumbItem" priority="15"/>
+	
 	<xsl:template match="*[leg:Pnumber]" mode="TSOBreadcrumbItem" priority="5">
-		<xsl:param name="nstDocumentClassification" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:DocumentClassification" />
+		<xsl:param name="nstDocumentClassification" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata | ukm:BillMetadata)/ukm:DocumentClassification" />
 		<xsl:choose>
 			<xsl:when test="self::leg:P1">
 				<xsl:variable name="strCategory"
@@ -1311,6 +1301,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:variable name="strMinorType"
 					select="$nstDocumentClassification/ukm:DocumentMinorType/@Value" />
 				<xsl:choose>
+					<xsl:when test="$g_strDocumentType = $g_strEUretained"></xsl:when>
 					<xsl:when test="ancestor::leg:Schedule[not(ancestor::leg:BlockAmendment)]">Paragraph </xsl:when>
 					<xsl:when test="$strMainType = 'NorthernIrelandOrderInCouncil'">Article </xsl:when>
 					<xsl:when test="$strMinorType = 'rule'">Rule </xsl:when>
@@ -1335,7 +1326,26 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	
 	<!-- FM: Fixing the breadcrumb to display the 'leg:Title' if leg:Number is empty -->
 	<xsl:template match="*[leg:Number != '' ]" mode="TSOBreadcrumbItem" priority="3">
-		<xsl:value-of select="leg:Number" />
+		<xsl:choose>
+			<xsl:when test="self::leg:Division">
+				<xsl:variable name="prefix" 
+								select="
+									if (@Type = 'EUTitle' and not(matches(leg:Number, 'title', 'i'))) then 'Title'
+									else if (@Type = 'EUPart' and not(matches(leg:Number, 'part', 'i'))) then 'Part'
+									else if (@Type = 'EUChapter' and not(matches(leg:Number, 'chapter', 'i'))) then 'Chapter'
+									else if (@Type = 'EUSection' and not(matches(leg:Number, 'section', 'i'))) then 'Section'
+									else if (@Type = 'EUSubsection' and not(matches(leg:Number, 'section', 'i'))) then 'Sub-Section'
+									else if (@Type = 'Annotations' and not(matches(leg:Number, 'annotation', 'i'))) then 'Annotations'
+									else if (@Type = 'Annotation' and not(matches(leg:Number, 'annotation', 'i'))) then 'Annotation'
+									else if (@Type = ('EUTitle', 'EUPart', 'EUChapter', 'EUSection', 'EUSubsection', 'Annotations', 'Annotation')) then ()
+									else 'Division'
+									"/>
+				<xsl:value-of select="concat($prefix, ' ', leg:Number)" />				
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="leg:Number" />
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 	
 	<xsl:template match="*[leg:Title]" mode="TSOBreadcrumbItem" priority="2">
@@ -1344,7 +1354,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:value-of select="local-name(if (. instance of element(leg:TitleBlock)) then .. else .)" />
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="leg:Title" />
+				<xsl:value-of select="leg:abridgeContent(leg:Title[1], 4)" />
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -1355,6 +1365,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>
 
 	<xsl:template match="leg:P1group[leg:Title = '']" mode="TSOBreadcrumbItem" priority="3">Paragraphs</xsl:template>
+	
+	<!-- Container Divisions without any specific content -->
+	<xsl:template match="leg:Division[not(leg:Number)][not(leg:Title)]" mode="TSOBreadcrumbItem" priority="2">
+		<xsl:variable name="idtokens" as="xs:string*" select="tokenize(@id, '-')"/>
+		<xsl:variable name="tokencount" as="xs:integer?" select="count($idtokens)"/>
+		<xsl:value-of select="if (matches($idtokens[last()], '[0-9]+')) then 
+					concat($idtokens[$tokencount - 1], ' ', $idtokens[$tokencount])
+					else $idtokens[$tokencount]"/>
+	</xsl:template>
+	
+	<!-- prevent other matches extending the breadcrumb trail-->
+	<xsl:template match="*" mode="TSOBreadcrumbItem" priority="1"></xsl:template>
 	
 
 	<!-- ========== Standard code for previous and next ========= -->
@@ -1501,11 +1523,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:next-match/>
 	</xsl:template>
 	
-	<xsl:template match="leg:Legislation | leg:Body | leg:Part | leg:Chapter | leg:Schedules | leg:Schedule | leg:Pblock | leg:P1 | leg:SecondaryPrelims | leg:PrimaryPrelims | leg:SignedSection | leg:Secondary/leg:ExplanatoryNotes | leg:EarlierOrders" mode="TSOPrintOptions" >
+	<xsl:template match="leg:Legislation | leg:Body | leg:EUBody | leg:Part | leg:Chapter | leg:Schedules | leg:Schedule | leg:Pblock | leg:P1 | leg:SecondaryPrelims | leg:PrimaryPrelims | leg:EUPrelims | leg:SignedSection | leg:Secondary/leg:ExplanatoryNotes | leg:EarlierOrders | leg:EUPart | leg:EUTitle  | leg:EUChapter  | leg:EUSection  | leg:EUSubsection  | leg:Division  | leg:Attachments | leg:Attachment" mode="TSOPrintOptions" >
 		<li class="printWhole">
 			<xsl:variable name="displayText">
 				 <xsl:choose>
-						<xsl:when test="self::leg:Body">The <xsl:apply-templates select="." mode="TSOPrintOptionsXXX"/></xsl:when>
+						<xsl:when test="self::leg:Body or self::leg:EUBody">The <xsl:apply-templates select="." mode="TSOPrintOptionsXXX"/></xsl:when>
 						<xsl:when test="self::leg:Schedules">The <xsl:apply-templates select="." mode="TSOPrintOptionsXXX"/> only</xsl:when>						
 						<xsl:when test="self::leg:P1 and parent::leg:P1group/@AltVersionRefs">This <xsl:apply-templates select="." mode="TSOPrintOptionsXXX"/> only</xsl:when>												
 						<xsl:when test="@DocumentURI = $dcIdentifier and not(self::leg:Legislation)">This <xsl:apply-templates select="." mode="TSOPrintOptionsXXX"/> only</xsl:when>
@@ -1515,7 +1537,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	
 			<xsl:variable name="provisions" as="xs:integer">
 				<xsl:choose>
-					<xsl:when test="@NumberOfProvisions"><xsl:value-of select="xs:integer(@NumberOfProvisions)"/></xsl:when>					
+					<xsl:when test="@NumberOfProvisions"><xsl:value-of select="xs:integer(@NumberOfProvisions)"/></xsl:when>
 					<xsl:otherwise>0</xsl:otherwise>
 				</xsl:choose>
 			</xsl:variable>
@@ -1524,6 +1546,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:variable name="documentURI">
 				<xsl:choose>
 					<xsl:when test="self::leg:Schedules"><xsl:value-of select="$schedulesOnlyURI"/></xsl:when>
+					<xsl:when test="self::leg:Attachments"><xsl:value-of select="$attachmentsOnlyURI"/></xsl:when>
 					<xsl:otherwise><xsl:value-of select="@DocumentURI"/></xsl:otherwise>
 				</xsl:choose>
 			</xsl:variable>
@@ -1573,7 +1596,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>	
 	<xsl:template match="*" mode="TSOPrintOptions"/>	
 	
-	<xsl:template match="leg:Legislation | leg:Body | leg:Schedules | leg:Part | leg:Chapter | leg:Schedule | leg:Pblock | leg:P1" mode="TSOPrintOptionsWarnings" >
+	<xsl:template match="leg:Legislation | leg:Body | leg:EUBody | leg:Schedules | leg:Attachments | leg:Attachment | leg:Part | leg:Chapter | leg:Schedule | leg:Pblock | leg:P1" mode="TSOPrintOptionsWarnings" >
 		<xsl:if test="@NumberOfProvisions > $paragraphThreshold">
 		
 			<xsl:variable name="displayText">
@@ -1603,15 +1626,23 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>
 	<xsl:template match="*" mode="TSOPrintOptionsWarnings"/>			
 			
-	<xsl:template match="leg:Legislation" mode="TSOPrintOptionsXXX"><xsl:value-of select="tso:GetCategory($ndsLegislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value)"/></xsl:template>	
-	<xsl:template match="leg:Body" mode="TSOPrintOptionsXXX"><xsl:value-of select="tso:GetCategory($ndsLegislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value)"/> without Schedules</xsl:template>		
-	<xsl:template match="leg:Part" mode="TSOPrintOptionsXXX">Part</xsl:template>
-	<xsl:template match="leg:Schedule" mode="TSOPrintOptionsXXX">Schedule</xsl:template>
-	<xsl:template match="leg:Schedules" mode="TSOPrintOptionsXXX">Schedules</xsl:template>
+	<xsl:template match="leg:Legislation" mode="TSOPrintOptionsXXX"><xsl:value-of select="tso:GetCategory($ndsLegislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value)"/></xsl:template>	
+	<xsl:template match="leg:Body | leg:EUBody" mode="TSOPrintOptionsXXX"><xsl:value-of select="tso:GetCategory($ndsLegislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata | ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value)"/> without <xsl:value-of select="$schedulesText"/></xsl:template>
+	
+	<xsl:template match="leg:Part | leg:EUPart | leg:Division[@Type='EUPart']" mode="TSOPrintOptionsXXX">Part</xsl:template>
+	<xsl:template match="leg:EUTitle | leg:Division[@Type='EUTitle']" mode="TSOPrintOptionsXXX">Title</xsl:template>
+	<xsl:template match="leg:EUSection | leg:Division[@Type='EUSection']" mode="TSOPrintOptionsXXX">Section</xsl:template>
+	<xsl:template match="leg:EUSubsection | leg:Division[@Type='EUSubsection']" mode="TSOPrintOptionsXXX">Sub-section</xsl:template>
+	<xsl:template match="leg:Attachment" mode="TSOPrintOptionsXXX">Attachment</xsl:template>
+	<xsl:template match="leg:Attachments" mode="TSOPrintOptionsXXX">Attachments</xsl:template>
+	<xsl:template match="leg:Schedule" mode="TSOPrintOptionsXXX"><xsl:value-of select="$scheduleText"/></xsl:template>
+	<xsl:template match="leg:Schedules" mode="TSOPrintOptionsXXX"><xsl:value-of select="$schedulesText"/></xsl:template>
 	<xsl:template match="leg:Pblock" mode="TSOPrintOptionsXXX">Cross Heading</xsl:template>
-	<xsl:template match="leg:Chapter" mode="TSOPrintOptionsXXX">Chapter</xsl:template>	
-	<xsl:template match="leg:P1" mode="TSOPrintOptionsXXX">Section</xsl:template>		
-	<xsl:template match="leg:SecondaryPrelims | leg:PrimaryPrelims" mode="TSOPrintOptionsXXX">
+	<xsl:template match="leg:Chapter | leg:EUChapter | leg:Division[@Type='EUChapter']" mode="TSOPrintOptionsXXX">Chapter</xsl:template>	
+	<xsl:template match="leg:Division[not(@Type=('EUPart','EUTitle','EUChapter','EUSection','EUSubsection'))]" mode="TSOPrintOptionsXXX">Division</xsl:template>
+	<xsl:template match="leg:P1[$g_strDocumentType = $g_strEUretained]" mode="TSOPrintOptionsXXX">Article</xsl:template>
+	<xsl:template match="leg:P1[not($g_strDocumentType = $g_strEUretained)]" mode="TSOPrintOptionsXXX">Section</xsl:template>		
+	<xsl:template match="leg:SecondaryPrelims | leg:PrimaryPrelims | leg:EUPrelims" mode="TSOPrintOptionsXXX">
 		<xsl:value-of select="$introductoryText"/>
 	</xsl:template>
 	<xsl:template match="leg:SignedSection" mode="TSOPrintOptionsXXX">
@@ -1634,13 +1665,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:when test="leg:IsTOC()">
 						<xsl:apply-templates select="leg:Legislation" mode="TSOPrintOptions"/> <!-- displaying print options as 'Whole Act', 'Table of Content' -->
 					</xsl:when>				
-					<xsl:when test="$schedulesOnlyURI = $dcIdentifier"> <!-- displaying print options as 'Whole Act', 'The Schedules only' for Schedules only -->
+					<xsl:when test="$dcIdentifier = $schedulesOnlyURI"> <!-- displaying print options as 'Whole Act', 'The Schedules only' for Schedules only -->
 						<xsl:apply-templates select="leg:Legislation" mode="TSOPrintOptions"/>
-						<xsl:apply-templates select="leg:Legislation/(leg:Primary|leg:Secondary)/leg:Schedules" mode="TSOPrintOptions"/>						
-					</xsl:when>				
+						<xsl:apply-templates select="leg:Legislation/(leg:Primary|leg:Secondary|leg:EURetained)/leg:Schedules" mode="TSOPrintOptions"/>						
+					</xsl:when>	
+					<xsl:when test="$dcIdentifier = $attachmentsOnlyURI"> <!-- displaying print options as 'Whole Act', 'The Schedules only' for Schedules only -->
+						<xsl:apply-templates select="leg:Legislation" mode="TSOPrintOptions"/>
+						<xsl:apply-templates select="leg:Legislation/leg:EURetained/leg:Attachments" mode="TSOPrintOptions"/>						
+					</xsl:when>
 					<xsl:when test="$wholeActWithoutSchedulesURI = $dcIdentifier"><!-- displaying print options as 'Whole Act', 'Act without Schedules' for Schedules without Act only -->
 						<xsl:apply-templates select="leg:Legislation" mode="TSOPrintOptions"/>
-						<xsl:apply-templates select="leg:Legislation/(leg:Primary|leg:Secondary)/leg:Body" mode="TSOPrintOptions"/>						
+						<xsl:apply-templates select="leg:Legislation/(leg:Primary|leg:Secondary)/leg:Body | leg:Legislation/leg:EURetained/leg:EUBody" mode="TSOPrintOptions"/>						
 					</xsl:when>				
 					<xsl:otherwise>
 						<xsl:variable name="nstSection" as="element()?" select="(//*[@DocumentURI = $strCurrentURIs])[1]" />
@@ -1651,7 +1686,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								[<xsl:value-of select="position()"/> : <xsl:value-of select="name()" />]
 							</xsl:for-each>
 							<br/>			-->				
-								<xsl:apply-templates select="$nstSection/ancestor-or-self::*[@DocumentURI and not(self::leg:Body)] " mode="TSOPrintOptions"/>
+								<xsl:apply-templates select="$nstSection/ancestor-or-self::*[@DocumentURI and not(self::leg:Body or self::leg:EUBody)] " mode="TSOPrintOptions"/>
 							</xsl:when>
 							<xsl:otherwise>
 								<xsl:apply-templates select="leg:Legislation" mode="TSOPrintOptions"/>
@@ -1665,7 +1700,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:choose>
 			<xsl:when test="leg:IsTOC()">
 				<xsl:apply-templates select="leg:Legislation" mode="TSOPrintOptionsWarnings"/>
-			</xsl:when>				
+			</xsl:when>	
 			<xsl:otherwise>
 				<xsl:variable name="nstSection" as="element()?" select="(//*[@DocumentURI = $strCurrentURIs])[1]" />
 				<xsl:if test="exists($nstSection)">
@@ -1845,7 +1880,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</li>
 					</xsl:if>
 					
-					<xsl:if test="$wholeActWithoutSchedulesURI != '' and $schedulesOnlyURI != ''">
+					<xsl:if test="$wholeActWithoutSchedulesURI != '' and ($schedulesOnlyURI != '' or $attachmentsOnlyURI != '')">
 						<li class="minusSched">
 								<a>
 									<xsl:choose>
@@ -1863,13 +1898,22 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<xsl:variable name="wholeActText">
 										<xsl:text>Open </xsl:text>
 										<xsl:value-of select="tso:GetCategory(leg:GetDocumentMainType(.))"/>
-										<xsl:text> without schedules</xsl:text>
+										<xsl:text> without </xsl:text>
+										<xsl:if test="$schedulesOnlyURI != ''">
+											<xsl:value-of select="$schedulesText"/>
+										</xsl:if>
+										<xsl:if test="$schedulesOnlyURI != '' and $attachmentsOnlyURI != ''">
+											<xsl:text> or </xsl:text>
+										</xsl:if>
+										<xsl:if test="$attachmentsOnlyURI != ''">
+											<xsl:text> Attachments</xsl:text>
+										</xsl:if>
 									</xsl:variable>
 									<xsl:value-of select="leg:TranslateText($wholeActText)"/>
 								</a> 
 						</li>
 					</xsl:if>
-
+					
 					<xsl:if test="$schedulesOnlyURI != ''">
 						<li class="onlySched">
 								<a>
@@ -1885,10 +1929,31 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											<xsl:attribute name="href" select="leg:FormatURL($schedulesOnlyURI)"/>
 										</xsl:otherwise>
 									</xsl:choose>
-									<xsl:value-of select="leg:TranslateText('Open Schedules only')"/>									
+									<xsl:value-of select="leg:TranslateText(concat('Open ', $schedulesText, ' only'))"/>
 								</a>
 						</li>
 					</xsl:if>
+					
+					<xsl:if test="$attachmentsOnlyURI != ''">
+						<li class="onlySched">
+								<a>
+									<xsl:choose>
+										<xsl:when test="xs:integer(/leg:Legislation/ukm:Metadata/ukm:Statistics/ukm:AttachmentParagraphs/@Value) > $paragraphThreshold">
+											<xsl:attribute name="href" select="'#openingAttachmentsOnlyMod'"/>
+											<xsl:attribute name="class" select="'warning'"/>
+										</xsl:when>
+										<xsl:when test="leg:IsTOC()">
+											<xsl:attribute name="href" select="concat(leg:FormatURL($attachmentsOnlyURI, false()), $contentsLinkParams, $linkFragment)"/>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:attribute name="href" select="leg:FormatURL($attachmentsOnlyURI)"/>
+										</xsl:otherwise>
+									</xsl:choose>
+									<xsl:value-of select="leg:TranslateText(concat('Open ', $attachmentsText, ' only'))"/>
+								</a>
+						</li>
+					</xsl:if>
+					
 				</ul>
 			</div>
 		</div>
@@ -1898,7 +1963,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>	
 	
 	<xsl:template name="TSOOutputOpeningOptionsWarning">
-		<xsl:if test="((leg:IsTOC() or leg:IsContent()) and not($IsPDFOnly)) or ($wholeActURI = $dcIdentifier or $wholeActWithoutSchedulesURI = $dcIdentifier or $schedulesOnlyURI = $dcIdentifier)">
+		<xsl:if test="((leg:IsTOC() or leg:IsContent()) and not($IsPDFOnly)) or ($wholeActURI = $dcIdentifier or $wholeActWithoutSchedulesURI = $dcIdentifier or $schedulesOnlyURI = $dcIdentifier or $attachmentsOnlyURI = $dcIdentifier)">
 			<xsl:if test="$wholeActURI != '' and xs:integer(/leg:Legislation/ukm:Metadata/ukm:Statistics/ukm:TotalParagraphs/@Value) > $paragraphThreshold ">
 				<xsl:call-template name="TSOOutputWarningMessage">
 					<xsl:with-param name="messageId" select="'openingWholeMod' "/>	
@@ -1920,12 +1985,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:call-template name="TSOOutputWarningMessage">
 					<xsl:with-param name="messageId" select="'openingWholeWithoutSchedulesMod' "/>	
 					<xsl:with-param  name="messageType" select=" 'openingWholeWithoutSchedulesWarning' " />
-					<xsl:with-param  name="messageHeading" select="concat(leg:TranslateText('You have chosen to open'),' ', leg:TranslateText(concat('the Whole ', tso:GetCategory(leg:GetDocumentMainType(.)))),' ',leg:TranslateText('without Schedules'))"/>		
+					<xsl:with-param  name="messageHeading" select="concat(leg:TranslateText('You have chosen to open'),' ', leg:TranslateText(concat('the Whole ', tso:GetCategory(leg:GetDocumentMainType(.)))),' ',leg:TranslateText(concat('without ',$schedulesText)))"/>		
 					<xsl:with-param  name="message" select="
 						concat(
 						leg:TranslateText(concat('The Whole ',tso:GetCategory(leg:GetDocumentMainType(.)))),
 						' ',
-						leg:TranslateText('without Schedules'),
+						leg:TranslateText(concat('without ', $schedulesText)),
 						' ',
 						leg:TranslateText('EN_selected_count', concat('count=',$paragraphThreshold)),
 						leg:TranslateText('Browser_warning')
@@ -1950,6 +2015,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</xsl:call-template>			
 			</xsl:if>
 			
+			<xsl:if test="$attachmentsOnlyURI != '' and xs:integer(/leg:Legislation/ukm:Metadata/ukm:Statistics/ukm:AttachmentParagraphs/@Value) > $paragraphThreshold">
+				<xsl:call-template name="TSOOutputWarningMessage">
+					<xsl:with-param name="messageId" select="'openingAttachmentsOnlyMod' "/>	
+					<xsl:with-param  name="messageType" select=" 'openingAttachmentsOnlyWarning' " />
+					<xsl:with-param  name="messageHeading" select="leg:TranslateText('Attachments_only')"/>	
+					<xsl:with-param  name="message" select="
+						concat(
+						leg:TranslateText('The Attachments'),
+						' ',
+						leg:TranslateText('EN_selected_count', concat('count=',$paragraphThreshold)),
+						leg:TranslateText('Browser_warning')
+						)"/>
+					<xsl:with-param  name="continueURL" select="if (leg:IsTOC()) then concat(leg:FormatURL($attachmentsOnlyURI, false()), $contentsLinkParams, $linkFragment) else leg:FormatURL($attachmentsOnlyURI)" />
+				</xsl:call-template>			
+			</xsl:if>
 		</xsl:if>
 	</xsl:template>	
 	
@@ -2370,18 +2450,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<xsl:value-of select="$introductoryText"/>
 							</xsl:when>
 							<xsl:when test="$wholeActURI = $dcIdentifier">
-								<xsl:value-of select="/leg:Legislation/ukm:Metadata/dc:title"/>
+								<xsl:value-of select="$dc-title"/>
 							</xsl:when>
 							<xsl:when test="$wholeActWithoutSchedulesURI = $dcIdentifier">
-								<xsl:value-of select="/leg:Legislation/ukm:Metadata/dc:title"/>
+								<xsl:value-of select="$dc-title"/>
 								<xsl:text> (</xsl:text>
-								<xsl:value-of select="leg:TranslateText('without Schedules')"/>
+								<xsl:value-of select="leg:TranslateText(concat('without ', $schedulesText))"/>
 								<xsl:text>)</xsl:text>
 							</xsl:when>
 							<xsl:when test="$schedulesOnlyURI = $dcIdentifier">
-								<xsl:value-of select="/leg:Legislation/ukm:Metadata/dc:title"/>
+								<xsl:value-of select="$dc-title"/>
 								<xsl:text> (</xsl:text>
-								<xsl:value-of select="leg:TranslateText('Schedules only')"/>
+								<xsl:value-of select="leg:TranslateText(concat($schedulesText, ' only'))"/>
 								<xsl:text>)</xsl:text>
 							</xsl:when>							
 						</xsl:choose>

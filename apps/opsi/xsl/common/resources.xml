@@ -292,7 +292,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="All Legislation">Pob Deddfwriaeth</resource>
 		<resource id="All Primary">Pob deddfwriaeth sylfaenol</resource>
 		<resource id="All Secondary">Pob is-ddeddfwriaeth</resource>
-		<resource id="Select types">Dewis mathau</resource>
+		<resource id="Select types">Dewis mathau</resource>	
 		<resource id="Search_tooltip_title">Rhowch deitl llawn neu ran o deitl i chwilio am ganlyniadau yn seiliedig ar y teitl. Bydd y chwiliad yn dangos canlyniadau sy’n cyd-fynd ag unrhyw ran o’r teitl. Er enghraifft, bydd ‘Data’ yn cyd-fynd â ‘Deddf Diogelu Data’ a ‘Y Rheoliadau Dargadw Data’. I eithrio term, defnyddiwch y gweithredwr minws cyn y term yr hoffech ei eithrio. Er enghraifft, byddai chwilio am ‘Data -diogelu’ yn dychwelyd ‘Y Rheoliadau Dargadw Data’ ond nid y ‘Ddeddf Diogelu Data’. Defnyddiwch ddyfynodau dwbl i gael cyfatebiad union ar frawddeg e.e. byddai “Diogelu Data” yn dychwelyd ‘Y Ddeddf Diogelu Data’ ond nid ‘Y Rheoliadau Diogelu Grwpiau Bregus (Trin Data)’. Neu, gallech ei adael yn wag os nad ydych eisiau chwilio gan ddefnyddio teitl.</resource>
 		<resource id="Search_tooltip_year">Dewiswch a hoffech chwilio ar draws deddfwriaeth ar gyfer blwyddyn benodol neu ddetholiad o flynyddoedd. Nid yw hyn yn faes gofynnol a gellir ei adael yn wag os nad ydych eisiau cyfyngu eich chwiliad yn ôl blwyddyn.</resource>
 		<resource id="Search_tooltip_year_pit">Rhowch flwyddyn y ddeddfwriaeth yr hoffech ei gweld. Dyma’r flwyddyn y cafodd ei deddfu/creu.</resource>

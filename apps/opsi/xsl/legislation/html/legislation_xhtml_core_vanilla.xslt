@@ -86,6 +86,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <xsl:variable name="g_strSecondary" select="'secondary'"/>
 
+<xsl:variable name="g_strEUretained" select="'euretained'"/>
 
 <!-- ========== Global parameters ========== -->
 
@@ -189,6 +190,11 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:value-of select="$g_strStylesPath"/>
 		<xsl:text>legislation.css";</xsl:text>
 		<xsl:choose>
+			<xsl:when test="$g_strDocumentType = $g_strEUretained">
+				<xsl:text>@import "</xsl:text>
+				<xsl:value-of select="$g_strStylesPath"/>
+				<xsl:text>eulegislation.css";</xsl:text>
+			</xsl:when>
 			<xsl:when test="$g_ndsMainDoc//leg:Primary and not($g_strDocumentType = $g_strSecondary)">
 				<xsl:text>@import "</xsl:text>
 				<xsl:value-of select="$g_strStylesPath"/>
@@ -214,6 +220,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <xsl:template match="leg:Secondary">
+	<xsl:apply-templates select="* | processing-instruction()"/>
+</xsl:template>
+
+<xsl:template match="leg:EURetained">
 	<xsl:apply-templates select="* | processing-instruction()"/>
 </xsl:template>
 
@@ -634,6 +644,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:when test="self::leg:ContentsPart">
 					<xsl:call-template name="FuncContentsPart"/>
 				</xsl:when>
+				<xsl:when test="self::leg:ContentsEUTitle">
+					<xsl:call-template name="FuncContentsEUTitle"/>
+				</xsl:when>
 				<xsl:when test="self::leg:ContentsChapter">
 					<xsl:call-template name="FuncContentsChapter"/>
 				</xsl:when>
@@ -705,6 +718,13 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <xsl:template match="leg:ContentsPart" name="FuncContentsPart">
 	<li class="LegClearFix LegContentsPart{if (@ConfersPower='true') then ' LegConfersPower' else ()}">
+		<xsl:call-template name="FuncTocListContents"/>
+	</li>
+	<xsl:call-template name="FuncApplyVersions"/>
+</xsl:template>
+
+<xsl:template match="leg:ContentsEUTitle" name="FuncContentsEUTitle">
+	<li class="LegClearFix LegContentsEUTitle{if (@ConfersPower='true') then ' LegConfersPower' else ()}">
 		<xsl:call-template name="FuncTocListContents"/>
 	</li>
 	<xsl:call-template name="FuncApplyVersions"/>
@@ -882,7 +902,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <!-- ========== Main structures ========== -->
 
-<xsl:template match="leg:Body">
+<xsl:template match="leg:Body | leg:EUBody">
 	<xsl:apply-templates select="* | processing-instruction()"/>
 </xsl:template>
 
@@ -930,7 +950,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:attribute name="class">
 			<xsl:text>Leg</xsl:text>
 			<!-- For Scottish PGAs all schedule headings are the same in schedules as in the body but are not necessariliy the same for other types -->
-			<xsl:if test="ancestor::*[self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:Schedule or self::leg:BlockAmendment[@Context = 'schedule']] and $g_strDocumentType = $g_strPrimary and not(name() = 'Schedule') and not(contains($g_strDocumentMainType, 'ScottishAct'))">
+			<xsl:if test="ancestor::*[self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:Schedule or self::leg:BlockAmendment[@Context = 'schedule']] and $g_strDocumentType = ($g_strPrimary, $g_strEUretained) and not(name() = 'Schedule') and not(contains($g_strDocumentMainType, 'ScottishAct'))">
 				<xsl:text>Schedule</xsl:text>
 			</xsl:if>
 			<xsl:value-of select="name()"/>
@@ -1055,14 +1075,14 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<!-- For primary legislation the indent of content is dependent upon its parent for amendments therefore we need more information if the parent is lower level than the content being amended -->
 	<xsl:choose>
 		<!-- For some amendments text runs on from the previous paragraph so we need to suppress that text here. Also allow it for very rare instances of secondary legislation where PartialRefs forces it -->
-		<xsl:when test="($g_strDocumentType = $g_strPrimary or (string(@id) != '' and contains(ancestor::leg:BlockAmendment[1]/@PartialRefs, @id))) and generate-id(ancestor::leg:BlockAmendment[1]/descendant::*[1]) = generate-id()"/>
+		<xsl:when test="($g_strDocumentType = ($g_strPrimary) or (string(@id) != '' and contains(ancestor::leg:BlockAmendment[1]/@PartialRefs, @id))) and generate-id(ancestor::leg:BlockAmendment[1]/descendant::*[1]) = generate-id()"/>
 		<!-- Combined N2-N3 or N2-N4 or N2-N3-N4 paragraph -->
 		<xsl:when test="parent::leg:P3para/preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P3[not(preceding-sibling::*)]/parent::leg:P2para/preceding-sibling::*[1][self::leg:Pnumber]
 		 or parent::leg:P4para/preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P4[not(preceding-sibling::*)]/parent::leg:P2para/preceding-sibling::*[1][self::leg:Pnumber]
 		 or parent::leg:P4para/preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P4[not(preceding-sibling::*)]/parent::leg:P3para/preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P3[not(preceding-sibling::*)]/parent::leg:P2para/preceding-sibling::*[1][self::leg:Pnumber]">
 			<xsl:choose>
 				<!-- see local act 2009 c. i s. 4 -->
-				<xsl:when test="$g_strDocumentType = $g_strPrimary">
+				<xsl:when test="$g_strDocumentType = ($g_strPrimary)">
 					<!-- Calculate if in a primary schedule -->
 					<xsl:variable name="strScheduleContext">
 						<xsl:call-template name="FuncGetScheduleContext"/>
@@ -1122,7 +1142,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			</xsl:choose>
 		</xsl:when>
 		<!-- N1 without a P1group -->
-		<xsl:when test="not(preceding-sibling::*) and parent::leg:P1para and parent::leg:P1para/preceding-sibling::leg:*[1][self::leg:Pnumber] and not(parent::leg:P1para/parent::leg:P1[not(preceding-sibling::leg:P1)]/parent::leg:P1group) and $g_strDocumentType = $g_strPrimary">
+		<xsl:when test="not(preceding-sibling::*) and parent::leg:P1para and parent::leg:P1para/preceding-sibling::leg:*[1][self::leg:Pnumber] and not(parent::leg:P1para/parent::leg:P1[not(preceding-sibling::leg:P1)]/parent::leg:P1group) and $g_strDocumentType = ($g_strPrimary)">
 			<!-- Calculate if in a primary schedule -->
 			<xsl:variable name="strScheduleContext">
 				<xsl:call-template name="FuncGetScheduleContext"/>
@@ -1149,8 +1169,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<!-- Numbered paragraphs using hanging indent so we need to process them in a special manner -->
 		<!-- For secondary legislation we need to make sure that we dont pick up N1-N3 or N1-N3-N4 (both very rare) -->
 		<xsl:when test="not(preceding-sibling::*)
-			 and parent::*[(self::leg:P2para and $g_strDocumentType = $g_strPrimary) 
-			 or (self::leg:P1para and ancestor::*[self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:Schedule or self::leg:BlockAmendment[@Context = 'schedule' or (@Context = 'unknown' and not(descendant::leg:P1group))]] and $g_strDocumentType = $g_strPrimary)
+			 and parent::*[(self::leg:P2para and $g_strDocumentType = ($g_strPrimary, $g_strEUretained)) 
+			 or (self::leg:P1para and ancestor::*[self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:Schedule or self::leg:BlockAmendment[@Context = 'schedule' or (@Context = 'unknown' and not(descendant::leg:P1group))]] and $g_strDocumentType = ($g_strPrimary))
 			or self::leg:P3para[not($g_strDocumentType = $g_strSecondary and preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P3[not(preceding-sibling::*)]/parent::leg:P1para/preceding-sibling::*[1][self::leg:Pnumber])]
 			or self::leg:P4para[not($g_strDocumentType = $g_strSecondary and preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P4[not(preceding-sibling::*)]/parent::leg:P3para/preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P3[not(preceding-sibling::*)]/parent::leg:P1para/preceding-sibling::*[1][self::leg:Pnumber])]
 			 or self::leg:P5para or self::leg:P6para or self::leg:P7para]/preceding-sibling::*[1][self::leg:Pnumber]">
@@ -1228,7 +1248,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 						<!-- If context is unknown and BlockAmendment does not contain P1group then assume it is a schedule amendment as an amendment to a P1 in the body does not make any sense or if TargetClass is secondary apply similar logic (as secondary gets formatted like primary) -->
 						<!-- Also if the below functionality has been invoked then handle that too -->
 						<xsl:choose>					
-							<xsl:when test="$g_strDocumentType = $g_strPrimary and 
+							<xsl:when test="$g_strDocumentType = ($g_strPrimary) and 
 								parent::leg:P2para and 
 								(ancestor::*[self::leg:Schedule or self::leg:BlockAmendment][1]
 								  [self::leg:Schedule or 
@@ -1278,7 +1298,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 								</span>
 							</xsl:when>
 							<!-- P1-P3 -->
-							<xsl:when test="$g_strDocumentType = $g_strPrimary and parent::leg:P3para[not(ancestor::*[self::leg:P2para or self::leg:BlockAmendment][1][self::leg:P2para])] and (ancestor::*[self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:Schedule or self::leg:BlockAmendment[@Context = 'schedule' or ((@Context = 'unknown' or @TargetClass = 'secondary') and not(descendant::leg:P1group))]] or (ancestor::leg:P1group/@Layout = 'below' and generate-id(ancestor::leg:P1group[1]/descendant::node()[not(self::processing-instruction())][self::text()[not(normalize-space() = '' or ancestor::leg:Title)]  or self::leg:Emphasis or self::leg:Strong or self::leg:Superior or self::leg:Inferior or self::leg:Addition or self::leg:Repeal or self::leg:Substitution or self::leg:CommentaryRef or self::leg:Citation or self::leg:Addition or self::leg:Substitution or self::leg:Repeal or self::leg:CommentaryRef or self::leg:CitationSubRef or self::math:math or self::leg:Character or self::leg:FootnoteRef or self::leg:Span or self::leg:Term or self::leg:Definition or self::leg:Proviso or self::leg:MarginNoteRef or self::leg:Underline or self::leg:SmallCaps][not(ancestor::leg:Pnumber)][1]) = generate-id(node()[not(self::processing-instruction())][1]))) and
+							<xsl:when test="$g_strDocumentType = ($g_strPrimary, $g_strEUretained) and parent::leg:P3para[not(ancestor::*[self::leg:P2para or self::leg:BlockAmendment][1][self::leg:P2para])] and (ancestor::*[self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:Schedule or self::leg:BlockAmendment[@Context = 'schedule' or ((@Context = 'unknown' or @TargetClass = 'secondary') and not(descendant::leg:P1group))]] or (ancestor::leg:P1group/@Layout = 'below' and generate-id(ancestor::leg:P1group[1]/descendant::node()[not(self::processing-instruction())][self::text()[not(normalize-space() = '' or ancestor::leg:Title)]  or self::leg:Emphasis or self::leg:Strong or self::leg:Superior or self::leg:Inferior or self::leg:Addition or self::leg:Repeal or self::leg:Substitution or self::leg:CommentaryRef or self::leg:Citation or self::leg:Addition or self::leg:Substitution or self::leg:Repeal or self::leg:CommentaryRef or self::leg:CitationSubRef or self::math:math or self::leg:Character or self::leg:FootnoteRef or self::leg:Span or self::leg:Term or self::leg:Definition or self::leg:Proviso or self::leg:MarginNoteRef or self::leg:Underline or self::leg:SmallCaps][not(ancestor::leg:Pnumber)][1]) = generate-id(node()[not(self::processing-instruction())][1]))) and
 							generate-id(ancestor::leg:P1[1]/descendant::node()[not(self::processing-instruction())][self::text()[not(normalize-space() = '' or ancestor::leg:Title/parent::leg:P3group)] or self::leg:Emphasis or self::leg:Strong or self::leg:Superior or self::leg:Inferior or self::leg:Addition or self::leg:Repeal or self::leg:Substitution or self::leg:CommentaryRef or self::leg:Citation or self::leg:Addition or self::leg:Repeal or self::leg:Substitution or self::leg:CommentaryRef or self::leg:CitationSubRef or self::math:math or self::leg:Character or self::leg:FootnoteRef or self::leg:Span or self::leg:Term or self::leg:Definition or self::leg:Proviso or self::leg:MarginNoteRef or self::leg:Underline or self::leg:SmallCaps][not(ancestor::leg:Pnumber)][1]) = generate-id(node()[not(self::processing-instruction())][1]) and
 							generate-id(ancestor::leg:P3[1]/descendant::node()[not(self::processing-instruction())][self::text()[not(normalize-space() = '')] or self::leg:Emphasis or self::leg:Strong or self::leg:Superior or self::leg:Inferior or self::leg:Addition or self::leg:Repeal or self::leg:Substitution or self::leg:CommentaryRef or self::leg:Citation or self::leg:Addition or self::leg:Repeal or self::leg:Substitution or self::leg:CommentaryRef or self::leg:CitationSubRef or self::math:math or self::leg:Character or self::leg:FootnoteRef or self::leg:Span or self::leg:Term or self::leg:Definition or self::leg:Proviso or self::leg:MarginNoteRef or self::leg:Underline or self::leg:SmallCaps][not(ancestor::leg:Pnumber)][1]) = generate-id(node()[not(self::processing-instruction())][1])">
 								<span class="LegDS {concat('LegP1No', $strAmendmentSuffix)}">
@@ -1297,7 +1317,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 								</span>
 							</xsl:when>
 							<!-- Special handling for P1 numbers in schedules in primary legislation -->
-							<xsl:when test="$g_strDocumentType = $g_strPrimary and parent::leg:P1para and not(normalize-space(.) = '') ">
+							<xsl:when test="$g_strDocumentType = ($g_strPrimary, $g_strEUretained) and parent::leg:P1para and not(normalize-space(.) = '') ">
 								<span class="LegDS {concat('LegP1No', $strAmendmentSuffix)}">
 									<xsl:for-each select="parent::*/preceding-sibling::leg:Pnumber">
 										<xsl:for-each select="..">
@@ -1351,7 +1371,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<!-- Needed to e.g. show the 2nd paragraph number ("(10)") in ukpga/2013/26/section/7 subsection (4). --> 
 		<!-- Unlike the "when" above, we don't want to include the "LegDS LegSN1No..." span, or  the para number will be displayed too far to the left.-->
 		<xsl:when test="not(preceding-sibling::*)
-			 and parent::*[(self::leg:P1para and ancestor::*[self::leg:BlockAmendment][1][self::leg:BlockAmendment[@Context = 'unknown' and descendant::leg:P1group]] and $g_strDocumentType = $g_strPrimary)]/preceding-sibling::*[1][self::leg:Pnumber] and ancestor::leg:P2[1]/preceding-sibling::leg:P2[not(descendant::leg:BlockAmendment)][contains(lower-case(descendant::leg:P2para/leg:Text[1]),'schedule')]">
+			 and parent::*[(self::leg:P1para and ancestor::*[self::leg:BlockAmendment][1][self::leg:BlockAmendment[@Context = 'unknown' and descendant::leg:P1group]] and $g_strDocumentType = ($g_strPrimary, $g_strEUretained))]/preceding-sibling::*[1][self::leg:Pnumber] and ancestor::leg:P2[1]/preceding-sibling::leg:P2[not(descendant::leg:BlockAmendment)][contains(lower-case(descendant::leg:P2para/leg:Text[1]),'schedule')]">
 			<p class="LegClearFix LegP2Container">
 				<xsl:call-template name="FuncCheckForID"/>				
 				<xsl:for-each select="parent::*/preceding-sibling::leg:Pnumber">
@@ -1471,7 +1491,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <xsl:template name="FuncGetScheduleContext">
 	<!-- In the unusual example that we have a BlockAmendment containing a P1 in primary legislation with no context then assume it is amending a schedule as main does not make sense -->
 	<xsl:variable name="strIsInP1">
-		<xsl:if test="$g_strDocumentType = $g_strPrimary and ancestor::*[self::leg:P1 or self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:P1]">
+		<xsl:if test="$g_strDocumentType = ($g_strPrimary, $g_strEUretained) and ancestor::*[self::leg:P1 or self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:P1]">
 			<xsl:choose>
 				<xsl:when test="ancestor::leg:P1[1]/parent::leg:BlockAmendment[@Context = 'unknown' and @TargetClass != 'secondary']">Schedule</xsl:when>
 				<xsl:when test="ancestor::leg:P1[1]/parent::*[self::leg:Pblock or self::leg:Chapter or self::leg:Part or self::leg:Group]/parent::leg:BlockAmendment[@Context = 'unknown' and @TargetClass != 'secondary']">Schedule</xsl:when>
@@ -1482,14 +1502,14 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			</xsl:choose>
 		</xsl:if>
 	</xsl:variable>
-	<xsl:if test="$strIsInP1 = 'Schedule' or ($g_strDocumentType = $g_strPrimary and ancestor::*[self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:Schedule or self::leg:BlockAmendment[@Context = 'schedule']])">
+	<xsl:if test="$strIsInP1 = 'Schedule' or ($g_strDocumentType = ($g_strPrimary) and ancestor::*[self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:Schedule or self::leg:BlockAmendment[@Context = 'schedule']])">
 		<xsl:text>S</xsl:text>
 	</xsl:if>
 </xsl:template>
 
 <!-- Some structures in primary legislation are dependent upon their parentage we need to do some checks and alter the CSS class if necessary -->
 <xsl:template name="FuncGetPrimaryContext">
-	<xsl:if test="$g_strDocumentType = $g_strPrimary">
+	<xsl:if test="$g_strDocumentType = ($g_strPrimary, $g_strEUretained)">
 		<xsl:choose>
 			<xsl:when test="parent::leg:P3para">P3</xsl:when>
 		</xsl:choose>
@@ -1498,7 +1518,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <!-- As amendments in primary legislation are dependent upon their parentage we need to do some checks and alter the CSS class if necessary -->
 <xsl:template name="FuncGetPrimaryAmendmentContext">
-	<xsl:if test="$g_strDocumentType = $g_strPrimary">
+	<xsl:if test="$g_strDocumentType = ($g_strPrimary, $g_strEUretained)">
 			<xsl:for-each select="ancestor::leg:BlockAmendment">
 				<xsl:choose>
 					<xsl:when test="parent::leg:P3para or parent::leg:BlockText/parent::leg:P3para">C3</xsl:when>
@@ -1624,14 +1644,14 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:otherwise>
 			<xsl:variable name="strClass">
 				<xsl:choose>
-					<xsl:when test="parent::leg:P1para and $g_strDocumentType = $g_strPrimary">
+					<xsl:when test="parent::leg:P1para and $g_strDocumentType = ($g_strPrimary, $g_strEUretained)">
 						<xsl:value-of select="concat('LegRHS LegP1Text', $strAmendmentSuffix)"/>
 					</xsl:when>
 					<!-- P2 in primary is on a hanging indent -->
-					<xsl:when test="parent::leg:P2para and $g_strDocumentType = $g_strPrimary">
+					<xsl:when test="parent::leg:P2para and $g_strDocumentType = ($g_strPrimary, $g_strEUretained)">
 						<xsl:value-of select="concat('LegRHS LegP2Text', $strAmendmentSuffix)"/>
 					</xsl:when>
-					<xsl:when test="parent::leg:P2para and $g_strDocumentType != $g_strPrimary">
+					<xsl:when test="parent::leg:P2para and not($g_strDocumentType = ($g_strPrimary, $g_strEUretained))">
 						<xsl:value-of select="concat('LegP2Text', $strAmendmentSuffix)"/>
 					</xsl:when>
 					<xsl:when test="parent::leg:P3para">
@@ -1737,6 +1757,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<!--Chunyu:HA051074 Added an extra conditiion for EN see http://www.legislation.gov.uk/ukci/2010/5/note/sld/created		-->
 		<xsl:when test="parent::leg:P and not(parent::leg:P/parent::leg:ExplanatoryNotes)">3</xsl:when>
 		<xsl:when test="parent::leg:P1para">3</xsl:when>
+		<xsl:when test="parent::leg:P1">3</xsl:when>
 		<xsl:when test="parent::leg:P2">3</xsl:when>
 		<xsl:when test="parent::leg:P2para">3</xsl:when>
 		<xsl:when test="parent::leg:P3">3</xsl:when>			
@@ -1791,7 +1812,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <xsl:template match="leg:P1group" name="TSOprocessP1group">
 	<xsl:choose>
 		<!-- For Primary legislation main content  (or amendments to it) we need to use a floats mechanism for the output -->
-		<xsl:when test="(ancestor::*[self::leg:Body or self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:Body or self::leg:BlockAmendment[(@Context = 'main') or (@Context = 'unknown')]]) and $g_strDocumentType = $g_strPrimary and (not(@Layout or @Layout != 'below'))">
+		<xsl:when test="(ancestor::*[self::leg:Body or self::leg:EUBody or self::leg:Schedule or self::leg:BlockAmendment][1][(self::leg:Schedule and $g_strDocumentType = ($g_strEUretained)) or self::leg:Body or self::leg:EUBody or self::leg:BlockAmendment[(@Context = 'main') or (@Context = 'unknown')]]) and $g_strDocumentType = ($g_strPrimary, $g_strEUretained) and (not(@Layout or @Layout != 'below'))">
 	<!-- Generate suffix to be added for CSS classes for amendments -->
 	<xsl:variable name="strAmendmentSuffix">
 		<xsl:call-template name="FuncCalcAmendmentNo"/>
@@ -1808,7 +1829,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				</xsl:variable>
 				<xsl:attribute name="class">
 					<xsl:choose>
-						<xsl:when test="parent::leg:BlockAmendment and not(preceding-sibling::*) or ($g_strDocumentType = $g_strPrimary and preceding-sibling::*[1][self::leg:Title])">
+						<xsl:when test="parent::leg:BlockAmendment and not(preceding-sibling::*) or ($g_strDocumentType = ($g_strPrimary, $g_strEUretained) and preceding-sibling::*[1][self::leg:Title])">
 							<xsl:text>LegClearFix LegP1ContainerFirst</xsl:text>
 						</xsl:when>
 						<xsl:otherwise>
@@ -1862,14 +1883,14 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:call-template name="FuncCalcHeadingLevel"/>
 			</xsl:when>
 			<!-- For Primary legislation main content  (or amendments to it) we need to use a floats mechanism for the output which requires span -->
-			<xsl:when test="(ancestor::*[self::leg:Body or self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:Body or self::leg:BlockAmendment[(@Context = 'main') or (@Context = 'unknown')]]) and $g_strDocumentType = $g_strPrimary and (not(parent::*/@Layout or parent::*/@Layout != 'below'))">span</xsl:when>
+			<xsl:when test="(ancestor::*[self::leg:Body or self::leg:EUBody or self::leg:Schedule or self::leg:BlockAmendment][1][(self::leg:Schedule and $g_strDocumentType = ($g_strEUretained)) or self::leg:Body or self::leg:EUBody or self::leg:BlockAmendment[(@Context = 'main') or (@Context = 'unknown')]]) and $g_strDocumentType = ($g_strPrimary, $g_strEUretained) and (not(parent::*/@Layout or parent::*/@Layout != 'below'))">span</xsl:when>
 			<!-- Therefore for all other BlockAmendment permutations we assume a primary schedule layout -->
-			<xsl:when test="(ancestor::*[self::leg:Body or self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:BlockAmendment][@TargetClass = 'primary' and @Context = 'schedule'] or parent::*/@Layout = 'below') and $g_strDocumentType = $g_strPrimary">
+			<xsl:when test="(ancestor::*[self::leg:Body or self::leg:EUBody or self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:BlockAmendment][@TargetClass = 'primary' and @Context = 'schedule'] or parent::*/@Layout = 'below') and $g_strDocumentType = ($g_strPrimary, $g_strEUretained)">
 				<xsl:text>h</xsl:text>
 				<xsl:call-template name="FuncCalcHeadingLevel"/>
 			</xsl:when>
 			<!-- For P1group titles in primary schedules they form a heading on their own -->
-			<xsl:when test="ancestor::leg:Schedule and $g_strDocumentType = $g_strPrimary">
+			<xsl:when test="ancestor::leg:Schedule and $g_strDocumentType = ($g_strPrimary, $g_strEUretained)">
 				<xsl:text>h</xsl:text>
 				<xsl:call-template name="FuncCalcHeadingLevel"/>
 			</xsl:when>
@@ -1890,7 +1911,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					<xsl:call-template name="FuncGetScheduleContext"/>
 					<xsl:text>P1GroupTitle</xsl:text>
 					<!-- If this heading has a below to force the number below the title then simulate the schedule layout -->
-					<xsl:if test="$g_strDocumentType = $g_strPrimary and parent::*/@Layout = 'below'">Below</xsl:if>
+					<xsl:if test="$g_strDocumentType = ($g_strPrimary, $g_strEUretained) and parent::*/@Layout = 'below'">Below</xsl:if>
 					<xsl:if test="$strAmendmentSuffix != ''">
 						<!-- When first heading in an amendment we need to close up the space -->
 						<xsl:if test="parent::*[parent::leg:BlockAmendment and not(preceding-sibling::*)] or not(parent::*/preceding-sibling::*) or parent::*/preceding-sibling::*[1][self::leg:Title or self::leg:Number]">
@@ -1904,7 +1925,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					</xsl:if>
 				</xsl:attribute>
 			</xsl:when>
-			<xsl:when test="ancestor::leg:Schedule and $g_strDocumentType = $g_strPrimary">
+			<xsl:when test="ancestor::leg:Schedule and $g_strDocumentType = ($g_strPrimary)">
 				<xsl:attribute name="class">
 					<xsl:text>LegClearFix LegSP1GroupTitle</xsl:text>
 					<xsl:if test="parent::*/preceding-sibling::*[1][self::leg:Title or self::leg:Number]">First</xsl:if>
@@ -1954,7 +1975,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<!-- Julian    HA056190 - ssi/2005/190/article/2/made. Refined condition as it caused problems with the SSI specified. I think the fix which removed styling from P1s other than the first in
 	the P1Group is only required when the 1st P1 becomes a header (<hn>) not a para (<p>) - this is done in the code following from line 1756, which is only applied for primary legislation. --> 
 	<xsl:choose>
-		<xsl:when test="(parent::leg:P1[not(preceding-sibling::leg:P1) and (parent::leg:P1group)]) or $g_strDocumentType != $g_strPrimary">
+		<xsl:when test="(parent::leg:P1[not(preceding-sibling::leg:P1) and (parent::leg:P1group)]) or not($g_strDocumentType = ($g_strPrimary, $g_strEUretained))">
 			<span>
 				<xsl:attribute name="class">
 					<xsl:text>LegP1No</xsl:text>
@@ -2145,7 +2166,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <xsl:template match="leg:UnorderedList">
 	<xsl:choose>
-		<xsl:when test="$g_strDocumentType = $g_strPrimary or ($g_strDocumentType = $g_strSecondary and string(@Class) != 'Definition')">
+		<xsl:when test="$g_strDocumentType = ($g_strPrimary, $g_strEUretained) or ($g_strDocumentType = $g_strSecondary and string(@Class) != 'Definition')">
 			<!-- Generate suffix to be added for CSS classes for amendments -->
 			<xsl:variable name="strAmendmentSuffix">
 				<xsl:call-template name="FuncCalcAmendmentNo"/>
@@ -2182,7 +2203,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <xsl:template match="leg:UnorderedList/leg:ListItem">
 	<xsl:choose>
-		<xsl:when test="$g_strDocumentType = $g_strPrimary or ($g_strDocumentType = $g_strSecondary and string(parent::*/@Class) != 'Definition')">
+		<xsl:when test="$g_strDocumentType = ($g_strPrimary, $g_strEUretained) or ($g_strDocumentType = $g_strSecondary and string(parent::*/@Class) != 'Definition')">
 			<li>
 				<xsl:call-template name="FuncCheckForID"/>		
 				<xsl:apply-templates select="* | processing-instruction()"/>
@@ -2218,6 +2239,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<div>
 		<xsl:attribute name="class">
 			<xsl:text>LegListItemNo LegKey</xsl:text>
+			<!-- this is a rule to get around the lack of markup in EU legislation  -->
+			<xsl:if test="$g_strDocumentType = $g_strEUretained and (ancestor::leg:KeyList[1]/@Separator = '' or empty(ancestor::leg:KeyList[1]/@Separator) or matches(., '^[0-9]+\.|^\([ivx]+\)'))">EU</xsl:if>
 			<xsl:call-template name="FuncCalcListClass"/>
 			<xsl:value-of select="$strAmendmentSuffix"/>
 		</xsl:attribute>
@@ -2239,6 +2262,11 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <xsl:template match="leg:OrderedList">
 	<!-- Lists cannot be used because not enough numbering flexibility or compatibility with regard to CSS formatting -->
 	<div>
+		<xsl:if test="$g_strDocumentType = $g_strEUretained">
+			<xsl:attribute name="class">
+				<xsl:text>LegClearFix</xsl:text>
+			</xsl:attribute>
+		</xsl:if>
 		<xsl:call-template name="FuncGetListAncestry"/>
 		<div>
 			<xsl:call-template name="FuncCheckForID"/>
@@ -2273,7 +2301,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	</xsl:for-each>
 </xsl:template>
 
-<xsl:template match="leg:OrderedList/leg:ListItem">
+<xsl:template match="leg:OrderedList/leg:ListItem | leg:BlockAmendment/leg:ListItem">
 	<!-- Generate suffix to be added for CSS classes for amendments -->
 	<xsl:variable name="strAmendmentSuffix">
 		<xsl:call-template name="FuncCalcAmendmentNo"/>
@@ -3236,7 +3264,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <!-- ========== Resources ========== -->
 <!-- #HA057536 - MJ: output resources if file contains no main content -->
 <xsl:template match="leg:Resources">
-	<xsl:if test="not(preceding-sibling::leg:Primary or preceding-sibling::leg:Secondary)">
+	<xsl:if test="not(preceding-sibling::leg:Primary or preceding-sibling::leg:Secondary or preceding-sibling::leg:EURetained)">
 		<xsl:apply-templates/>
 	</xsl:if>
 </xsl:template>
@@ -3499,6 +3527,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<div class="LegClearFix LegFootnotesContainer">
 			<xsl:apply-templates select="* | processing-instruction()"/>
 		</div>
+		<xsl:if test="$g_strDocumentType = $g_strEUretained">
+			<xsl:apply-templates select="." mode="ProcessAnnotations"/>
+		</xsl:if>
 	</div>
 </xsl:template>
 
@@ -3950,7 +3981,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					<xsl:call-template name="FuncFormatParagraphNumberForInternalLink">
 						<xsl:with-param name="ndsNumberNode" select="$ndsTargetElement/leg:Pnumber"/>
 					</xsl:call-template>
-					<xsl:if test="$g_strDocumentType = $g_strPrimary">
+					<xsl:if test="$g_strDocumentType = ($g_strPrimary, $g_strEUretained)">
 						<xsl:text> </xsl:text>
 						<xsl:value-of select="$ndsTargetElement/parent::leg:P1group/leg:Title"/>
 						<xsl:text> </xsl:text>
@@ -3960,7 +3991,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					<xsl:call-template name="FuncFormatParagraphNumberForInternalLink">
 						<xsl:with-param name="ndsNumberNode" select="$ndsTargetElement/ancestor::leg:P1[last()]/leg:Pnumber"/>
 					</xsl:call-template>
-					<xsl:if test="$g_strDocumentType = $g_strPrimary">
+					<xsl:if test="$g_strDocumentType = ($g_strPrimary, $g_strEUretained)">
 						<xsl:text> </xsl:text>
 						<xsl:value-of select="$ndsTargetElement/ancestor::leg:P1group/leg:Title"/>
 						<xsl:text> </xsl:text>
@@ -4050,6 +4081,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:choose>
 		<xsl:when test="@Name = 'DotPadding'">
 			<xsl:text> ... ... ... ...</xsl:text>
+		</xsl:when>
+		<xsl:when test="@Name = 'BoxPadding'">
+			<div class="boxpadding">&#160;</div>
 		</xsl:when>
 		<xsl:when test="@Name = 'ThinSpace'">
 			<xsl:text>&#160;</xsl:text>
@@ -4143,6 +4177,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:if test="ancestor::leg:Pnumber and normalize-space(.) != ''">
 		<xsl:choose>
 			<xsl:when test="not(ancestor::leg:Pnumber/@PuncBefore) and ancestor::leg:Pnumber/parent::leg:P1"/>
+			<xsl:when test="not(ancestor::leg:Pnumber/@PuncBefore) and $g_strDocumentType = $g_strEUretained and ancestor::leg:Pnumber/parent::*[self::leg:P2 or self::leg:P2group]"/>
 			<xsl:when test="not(ancestor::leg:Pnumber/@PuncBefore)">(</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="ancestor::leg:Pnumber/@PuncBefore"/>
@@ -4157,6 +4192,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:if test="ancestor::leg:Pnumber and normalize-space(.) != ''">
 		<xsl:choose>
 			<xsl:when test="not(ancestor::leg:Pnumber/@PuncAfter) and ancestor::leg:Pnumber/parent::leg:P1 and $g_strDocumentType = $g_strPrimary"/>
+			<xsl:when test="not(ancestor::leg:Pnumber/@PuncAfter) and $g_strDocumentType = $g_strEUretained"/>
 			<xsl:when test="not(ancestor::leg:Pnumber/@PuncAfter) and ancestor::leg:Pnumber/parent::leg:P1">.</xsl:when>
 			<xsl:when test="not(ancestor::leg:Pnumber/@PuncAfter)">)</xsl:when>
 			<xsl:otherwise>
@@ -4174,7 +4210,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 
 	<!-- For primary legislation some amendments run on from the prevoius paragraph. Also allow it for very rare instances of secondary legislation where PartialRefs forces it -->
-	<xsl:if test="($g_strDocumentType = $g_strPrimary or ancestor::leg:Text[1]/following-sibling::*[1][self::leg:BlockAmendment[string(@PartialRefs) != '']]/child::*[1][self::leg:Text]) and generate-id(ancestor::leg:Text[1]/descendant::text()[not(normalize-space() = '')][last()]) = generate-id()">
+	<xsl:if test="($g_strDocumentType = ($g_strPrimary, $g_strEUretained) or ancestor::leg:Text[1]/following-sibling::*[1][self::leg:BlockAmendment[string(@PartialRefs) != '']]/child::*[1][self::leg:Text]) and generate-id(ancestor::leg:Text[1]/descendant::text()[not(normalize-space() = '')][last()]) = generate-id()">
 		<xsl:if test="ancestor::leg:Text[1]/following-sibling::*[1][self::leg:BlockAmendment]/child::*[1][self::leg:Text]">
 			<xsl:text> </xsl:text>
 			<span class="LegRunOnAmendment">
@@ -4246,6 +4282,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		</xsl:if>
 		<xsl:choose>
 			<xsl:when test="not($ndsNumberNode/@PuncBefore) and $ndsNumberNode/parent::leg:P1"/>
+			<xsl:when test="not($ndsNumberNode/@PuncBefore) and $ndsNumberNode/parent::leg:P2 and $g_strDocumentType = $g_strEUretained"/>
 			<xsl:when test="not($ndsNumberNode/@PuncBefore)">(</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="$ndsNumberNode/@PuncBefore"/>
@@ -4257,6 +4294,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:if test="$ndsNumberNode">
 		<xsl:choose>
 			<xsl:when test="not($ndsNumberNode/@PuncAfter) and $ndsNumberNode/parent::leg:P1 and $g_strDocumentType = $g_strPrimary"/>
+			<xsl:when test="not($ndsNumberNode/@PuncAfter) and $ndsNumberNode/parent::leg:P2 and $g_strDocumentType = $g_strEUretained"/>
 			<xsl:when test="not($ndsNumberNode/@PuncAfter) and $ndsNumberNode/parent::leg:P1">.</xsl:when>
 			<xsl:when test="not($ndsNumberNode/@PuncAfter)">)</xsl:when>
 			<xsl:otherwise>
@@ -4274,7 +4312,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<!-- This gets the ID of the first text node or applicable element in an amendment -->
 	<xsl:variable name="strFirstAmendmentID" select="generate-id(ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/descendant::node()[self::text()[not(normalize-space() = '' or parent::leg:IncludedDocument or ancestor::xhtml:tfoot)] or self::leg:IncludedDocument or self::leg:FootnoteRef or self::leg:Image][1])"/>
 	<xsl:choose>
-		<xsl:when test="$strFirstAmendmentID = generate-id() and not(ancestor::*[self::leg:BlockAmendment or self::leg:OrderedList][1][self::leg:OrderedList]) and not(parent::leg:Title[following-sibling::*[1][self::leg:P1]]/parent::leg:P1group/@Layout = 'side') and not(parent::leg:Title[following-sibling::*[1][self::leg:P1]] and $g_strDocumentType = $g_strPrimary and parent::leg:Title/parent::leg:P1group/parent::leg:BlockAmendment[1][@Context != 'schedule']) and not(parent::leg:Title[following-sibling::*[1][self::leg:P1]] and $g_strDocumentType = $g_strSecondary and ancestor::*[self::leg:Body or self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:BlockAmendment[(@Context = 'main' or @Context = 'unknown') and @TargetClass = 'primary']])">
+		<xsl:when test="$strFirstAmendmentID = generate-id() and not(ancestor::*[self::leg:BlockAmendment or self::leg:OrderedList][1][self::leg:OrderedList]) and not(parent::leg:Title[following-sibling::*[1][self::leg:P1]]/parent::leg:P1group/@Layout = 'side') and not(parent::leg:Title[following-sibling::*[1][self::leg:P1]] and $g_strDocumentType = ($g_strPrimary, $g_strEUretained) and parent::leg:Title/parent::leg:P1group/parent::leg:BlockAmendment[1][@Context != 'schedule']) and not(parent::leg:Title[following-sibling::*[1][self::leg:P1]] and $g_strDocumentType = $g_strSecondary and ancestor::*[self::leg:Body or self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:BlockAmendment[(@Context = 'main' or @Context = 'unknown') and @TargetClass = 'primary']])">
 			<xsl:choose>
 				<xsl:when test="self::leg:IncludedDocument or self::leg:Image">
 					<p class="LegAmendQuoteOpen">
@@ -4290,7 +4328,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			</xsl:choose>
 		</xsl:when>
 		<!-- Otherwise test if this is a P1group where the number of a P1 needs to be output at the side. This is tricky as the number is not the first node in the amendment - we need to check if the Title element is the first -->
-		<xsl:when test="((parent::leg:Pnumber/parent::leg:P1/parent::leg:P1group[not(@Layout = 'below')]/ancestor::leg:BlockAmendment[1][@Context != 'schedule'] and $g_strDocumentType = $g_strPrimary) or (parent::leg:Pnumber/parent::leg:P1/parent::leg:P1group[not(@Layout = 'below')] and $g_strDocumentType = $g_strSecondary and ancestor::*[self::leg:Body or self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:BlockAmendment[(@Context = 'main' or @Context = 'unknown') and @TargetClass = 'primary']])) and generate-id(ancestor::leg:P1[1]/preceding-sibling::leg:Title/descendant::node()[self::text()[not(normalize-space() = '' or parent::leg:IncludedDocument)] or self::leg:IncludedDocument or self::leg:FootnoteRef or self::leg:Character][1]) = $strFirstAmendmentID">
+		<xsl:when test="((parent::leg:Pnumber/parent::leg:P1/parent::leg:P1group[not(@Layout = 'below')]/ancestor::leg:BlockAmendment[1][@Context != 'schedule'] and $g_strDocumentType = ($g_strPrimary, $g_strEUretained)) or (parent::leg:Pnumber/parent::leg:P1/parent::leg:P1group[not(@Layout = 'below')] and $g_strDocumentType = $g_strSecondary and ancestor::*[self::leg:Body or self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:BlockAmendment[(@Context = 'main' or @Context = 'unknown') and @TargetClass = 'primary']])) and generate-id(ancestor::leg:P1[1]/preceding-sibling::leg:Title/descendant::node()[self::text()[not(normalize-space() = '' or parent::leg:IncludedDocument)] or self::leg:IncludedDocument or self::leg:FootnoteRef or self::leg:Character][1]) = $strFirstAmendmentID">
 			<span class="LegAmendQuote">
 				<xsl:call-template name="FuncOutputAmendmentOpenQuote"/>
 			</span>
@@ -4459,6 +4497,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:when test="//leg:BlockExtract[leg:IncludedDocument[@ResourceRef = current()/ancestor::leg:Resource/@id]]/@SourceClass = $g_strPrimary">
 					<xsl:value-of select="$g_strPrimary"/>
 				</xsl:when>
+				<xsl:when test="//leg:BlockExtract[leg:IncludedDocument[@ResourceRef = current()/ancestor::leg:Resource/@id]]/@SourceClass = $g_strEUretained">
+					<xsl:value-of select="$g_strEUretained"/>
+				</xsl:when>
 				<xsl:when test="//leg:BlockExtract[leg:IncludedDocument[@ResourceRef = current()/ancestor::leg:Resource/@id]]/@SourceClass = $g_strSecondary">
 					<xsl:value-of select="$g_strSecondary"/>
 				</xsl:when>
@@ -4468,12 +4509,18 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:when test="ancestor::leg:BlockAmendment[1]/@TargetClass = $g_strPrimary">
 			<xsl:value-of select="$g_strPrimary"/>
 		</xsl:when>
+		<xsl:when test="ancestor::leg:BlockAmendment[1]/@TargetClass = $g_strEUretained">
+			<xsl:value-of select="$g_strEUretained"/>
+		</xsl:when>
 		<xsl:when test="ancestor::leg:BlockAmendment[1]/@TargetClass = $g_strSecondary">
 			<xsl:value-of select="$g_strSecondary"/>
 		</xsl:when>
 		<!-- Instance level granularity -->
 		<xsl:when test="$g_strDocumentType = $g_strPrimary">
 			<xsl:value-of select="$g_strPrimary"/>
+		</xsl:when>
+		<xsl:when test="$g_strDocumentType = $g_strEUretained">
+			<xsl:value-of select="$g_strEUretained"/>
 		</xsl:when>
 		<xsl:when test="$g_strDocumentType = $g_strSecondary">
 			<xsl:value-of select="$g_strSecondary"/>
@@ -4793,7 +4840,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <xsl:template name="FuncCalcHeadingLevel">
-	<xsl:variable name="intHeadingCount" select="count(ancestor-or-self::*[self::leg:Group or self::leg:Part or self::leg:Chapter or self::leg:Pblock or self::leg:PsubBlock or self::leg:Schedule or self::leg:P1group or self::leg:P2group or self::leg:P3group or self::leg:Abstract or self::leg:Appendix or self::leg:ExplanatoryNotes or self::leg:EarlierOrders or self::leg:Tabular or self::leg:Figure or self::leg:Form])"/>
+	<xsl:variable name="intHeadingCount" select="count(ancestor-or-self::*[self::leg:Group or self::leg:Part or self::leg:Chapter or self::leg:Pblock or self::leg:PsubBlock or self::leg:Schedule or self::leg:P1group or self::leg:P2group or self::leg:P3group or self::leg:Abstract or self::leg:Appendix or self::leg:ExplanatoryNotes or self::leg:EarlierOrders or self::leg:Tabular or self::leg:Figure or self::leg:Form or self::leg:EUTitle or self::leg:EUChapter or self::leg:EUSection or self::leg:EUSubsection or self::leg:Division])"/>
 	<xsl:choose>
 		<!-- Document level headings are going to start at 1 -->
 		<xsl:when test="$intHeadingCount &lt; 6">

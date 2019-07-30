@@ -19,10 +19,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	exclude-result-prefixes="xs err tso"
 	version="2.0">
 
+<xsl:variable name="hideEUdata"	as="xs:boolean" select="@HIDEEUDATA@"/>
+	
 <xsl:variable name="strCurrentURIs" select="/leg:Legislation/ukm:Metadata/dc:identifier, 
 	/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasPart']/@href" />
 <xsl:variable name="nstSelectedSection" as="element()?" 
-	select="/leg:Legislation/(leg:Primary | leg:Secondary)/(leg:Body | leg:Schedules)//*[@id != '' and @DocumentURI = $strCurrentURIs]" />
+	select="/leg:Legislation/(leg:Primary | leg:Secondary | leg:EURetained)/(leg:Body | leg:EUBody | leg:Schedules | leg:Attachments)//*[@id != '' and @DocumentURI = $strCurrentURIs]" />
 
 <xsl:variable name="g_nstCodeLists" select="document('../codelists.xml')/CodeLists/CodeList"/>
 
@@ -128,20 +130,23 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		em="" singular="UK Impact Assessment" plural="{leg:TranslateText('UK Impact Assessments')}"
   	start="2008" complete="2008" legType="UnitedKingdomImpactAssessment" revised="false" />
 	
-	
+	<!-- BILLS  -->
 	<tso:legType schemaType="UnitedKingdomDraftPublicBill" class="Bill" category="Public Bill" abbrev="ukdpb" 
 		em="" singular="UK Public Bill" plural="{leg:TranslateText('UK Public Bills')}"
   	start="1901" complete="1988" legType="UnitedKingdomDraftPublicBill" revised="false" />
 	
 	<!--  EU LEGISLATION -->
 	<tso:legType schemaType="EuropeanUnionRegulation" abbrev="eur" class="euretained" category="Regulation" 
-  	en="Explanatory Notes" pn="Policy Note" singular="European Union Regulation" plural="European Union Regulations"
+  	en="Explanatory Notes" pn="Policy Note" singular="European Union Regulation" plural="{leg:TranslateText('European Union Regulations')}"
   	start="2018" complete="2018" revised="true" />
 	<tso:legType schemaType="EuropeanUnionDecision" abbrev="eudn" class="euretained" category="Decision" 
-  	en="Explanatory Notes" pn="Policy Note" singular="European Union Decision" plural="European Union Decisions"
+  	en="Explanatory Notes" pn="Policy Note" singular="European Union Decision" plural="{leg:TranslateText('European Union Decisions')}"
   	start="2018" complete="2018" revised="true" />
 	<tso:legType schemaType="EuropeanUnionDirective" abbrev="eudr" class="euretained" category="Directive" 
-  	en="Explanatory Notes" pn="Policy Note" singular="European Union Directive" plural="European Union Directives"
+  	en="Explanatory Notes" pn="Policy Note" singular="European Union Directive" plural="{leg:TranslateText('European Union Directives')}"
+  	start="2018" complete="2018" revised="true" />
+	<tso:legType schemaType="EuropeanUnionTreaty" abbrev="eut" class="euretained" category="Treaty" 
+  	en="Explanatory Notes" pn="Policy Note" singular="European Union Treaty" plural="{leg:TranslateText('European Union Treaties')}"
   	start="2018" complete="2018" revised="true" />
 	
 </xsl:variable>
@@ -149,6 +154,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <xsl:variable name="leg:euretained" as="xs:string+">
 	<xsl:sequence select="('EuropeanUnionRegulation', 'EuropeanUnionDecision', 'EuropeanUnionDirective')"/>
 </xsl:variable>
+
+<xsl:function name="leg:abridgeContent">
+	<xsl:param name="text" as="xs:string" />
+	<xsl:param name="nWords" as="xs:integer" />
+	<xsl:variable name="words" as="xs:string+" select="tokenize(normalize-space($text), '\s+')[position() &lt;= $nWords]" />
+	<xsl:value-of select="concat(string-join($words, ' '), if (count(tokenize(normalize-space($text), '\s+')) &gt; $nWords) then '...' else ())" />
+</xsl:function>
 
 <xsl:function name="tso:getType" as="element(tso:legType)?">
 	<xsl:param name="legType" as="xs:string" />
@@ -171,12 +183,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 </xsl:function>
 
 <xsl:function name="tso:GetEffectingTypes" as="element(tso:legType)+">
-	<xsl:sequence select="$tso:legTypeMap[not(@class = ('draft','IA', 'euretained', 'Bill')) and (@start >= 2002 or @complete >= 2002 or not(@end))]"/>
+	<xsl:sequence select="$tso:legTypeMap[not(@class = ('draft','IA', 'Bill', if ($hideEUdata) then 'euretained' else ())) and (@start >= 2002 or @complete >= 2002 or not(@end))]"/>
 </xsl:function>
 
 <xsl:function name="tso:ShowMoreResources" as="xs:boolean">
 	<xsl:param name="item" as="document-node()" />
-	<xsl:variable name="documentMainType" as="xs:string" select="$item/*/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:ENmetadata | ukm:Legislation | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value" />
+	<xsl:variable name="documentMainType" as="xs:string" select="$item/*/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata | ukm:ENmetadata | ukm:Legislation | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value" />
 	<xsl:sequence select="
 		(: PDF documents :)
 		exists($item/*/ukm:Metadata/(ukm:Notes|ukm:Alternatives|ukm:TableOfDestinations|ukm:TableOfOrigins|ukm:CorrectionSlip|ukm:TableOfEffects|ukm:CodeOfPractice|ukm:OrderInCouncil|ukm:OrdersInCouncil|ukm:OtherDocument|ukm:ExplanatoryDocuments|ukm:ExplanatoryDocument|ukm:PolicyEqualityStatements|ukm:PolicyEqualityStatement)//*[contains(@URI, '.pdf')]) or
@@ -185,7 +197,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		(: revised legislation reference to affects on this :)
 		$g_nstCodeLists[@name = 'DocumentMainType']/Code[@schema = $documentMainType]/@status = 'revised' or
 		(: potentially affecting legislation :)
-		(exists(tso:GetEffectingTypes()[@schemaType = $documentMainType]) and $item/*/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:ENmetadata)/ukm:Year/@Value >= 2002)" />
+		(exists(tso:GetEffectingTypes()[@schemaType = $documentMainType]) and $item/*/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata | ukm:ENmetadata)/ukm:Year/@Value >= 2002)" />
 </xsl:function>
 
 <xsl:function name="tso:ShowImpactAssessments" as="xs:boolean">
@@ -254,6 +266,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:param name="selected" as="xs:string" select="''" />
 	<xsl:param name="showPrimary" as="xs:boolean" select="true()" />
 	<xsl:param name="showSecondary" as="xs:boolean" select="true()" />	
+	<xsl:param name="showEUretained" as="xs:boolean" select="true()" />	
 	<xsl:param name="showDraft" as="xs:boolean" select="true()" />
 	<xsl:param name="showImpacts" as="xs:boolean" select="true()" />
 	<xsl:param name="showUnrevised" as="xs:boolean" select="true()" />
@@ -311,6 +324,24 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</xsl:apply-templates>
 		
 		</xsl:if>
+		
+		<xsl:if test="$showEUretained and not($hideEUdata)">
+			<xsl:if test="$showSecondary and $showUnrevised">
+				<option value="euretained">
+					<xsl:if test="$selected = 'euretained'">
+						<xsl:attribute name="selected" select="'selected'" />
+					</xsl:if>
+					<xsl:value-of select="leg:TranslateText('All EU Retained')"/>
+				</option>
+			</xsl:if>
+			<xsl:apply-templates select="$tso:legTypeMap[@class = 'euretained' and ($showUnrevised or @revised = 'true')]" mode="DisplaySelectOptions">
+				<xsl:with-param name="selected" select="$selected"/>
+				<xsl:with-param name="allowMultipleLines" select="$allowMultipleLines"/>				
+				<xsl:with-param name="maxLineLength" select="$maxLineLength"/>
+			</xsl:apply-templates>
+
+		</xsl:if>
+		
 		
 		<xsl:if test="$showDraft">
 			<option value="draft">
@@ -454,6 +485,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <xsl:template name="tso:TypeChoice" as="element()*">
 	<xsl:param name="showPrimary" as="xs:boolean" select="true()" />
 	<xsl:param name="showSecondary" as="xs:boolean" select="true()" />	
+	<xsl:param name="showEUretained" as="xs:boolean" select="true()" />	
 	<xsl:param name="showDraft" as="xs:boolean" select="false()" />	
 	<xsl:param name="showImpacts" as="xs:boolean" select="false()" />	
 	<xsl:param name="selected" as="xs:string" select="''" />	
@@ -485,7 +517,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</xsl:when>
 				<xsl:otherwise>
 					<div class="typeCheckBoxDoubleCol">
-						<xsl:if test="$showPrimary and $showSecondary">
+						<xsl:if test="$showPrimary and $showSecondary and $showEUretained">
 									<input type="checkbox" name="type" value="all">
 										<xsl:if test="contains($selected, 'all')">
 											<xsl:attribute name="checked"/>
@@ -513,7 +545,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</input>
 								<label><xsl:value-of select="leg:TranslateText('All Secondary')"/></label>	
 							</div>
-					</xsl:if>					
+					</xsl:if>	
+					
+					<xsl:if test="$showEUretained and not($hideEUdata)">
+									<input type="checkbox" name="type" value="euretained">
+										<xsl:if test="contains($selected, 'euretained')">
+											<xsl:attribute name="checked"/>
+										</xsl:if>
+									</input>
+							<label><xsl:value-of select="leg:TranslateText('All EURetained')"/></label>
+						</xsl:if>
 				</xsl:otherwise>
 			</xsl:choose>
 
@@ -535,6 +576,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:if test="$showSecondary">
 				<div id="secondaryLeg" class="typeCheckBoxCol">
 					<xsl:for-each select="$tso:legTypeMap[@class = 'secondary']">
+						<div>
+							<input type="checkbox" name="type" value="{@abbrev}">
+								<xsl:if test="contains($selected, @abbrev)">
+									<xsl:attribute name="checked"/>
+								</xsl:if>					
+							</input>
+							<label for="type"><xsl:value-of select="@plural"/></label>
+						</div>
+					</xsl:for-each>	
+				</div>
+			</xsl:if>
+			
+			<xsl:if test="$showEUretained and not($hideEUdata)">
+				<div id="euretainedLeg" class="typeCheckBoxCol">
+					<xsl:for-each select="$tso:legTypeMap[@class = 'euretained']">
 						<div>
 							<input type="checkbox" name="type" value="{@abbrev}">
 								<xsl:if test="contains($selected, @abbrev)">
@@ -828,6 +884,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:when test=". = ('wales', 'W')">Wales</xsl:when>
 				<xsl:when test=". = ('ni', 'N.I.')">Northern Ireland</xsl:when>
 				<xsl:when test=". = ('scotland', 'S')">Scotland</xsl:when>
+				<xsl:when test=". = ('europeanunion', 'eu', 'E.U.')">European Union</xsl:when>
 			</xsl:choose>
 		</xsl:variable>
 		<xsl:choose>

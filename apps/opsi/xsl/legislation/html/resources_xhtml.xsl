@@ -38,7 +38,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 		select="exists($g_nstCodeLists[@name = 'DocumentMainType' ]/Code[@status='revised' and @schema = $documentMainType]) and $documentMainType != 'UnitedKingdomLocalAct' "/>
 		
 	<xsl:variable name="isEffectingTypeValid" as="xs:boolean"
-		select="exists(tso:GetEffectingTypes()[@schemaType = $documentMainType]) and /leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value >=2002"/>
+		select="exists(tso:GetEffectingTypes()[@schemaType = $documentMainType]) and /leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:Year/@Value >=2002"/>
 	
 	<xsl:variable name="hasXML" as="xs:boolean"
 		select="exists(/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/tableOfContents'])" />
@@ -524,7 +524,8 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 							</xsl:if>
 							<xsl:choose>
 								<xsl:when test="self::ukm:CorrectionSlip">
-									<xsl:text>Correction Slip - </xsl:text>
+									<xsl:value-of select="$correctionSlipTitle"/>
+									<xsl:text> - </xsl:text>
 									<xsl:value-of select="leg:FormatDate(@Date)"/>
 								</xsl:when>
 								<xsl:when test="self::ukm:Alternative">
@@ -555,7 +556,8 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						</xsl:when>
 						
 						<xsl:when test="self::ukm:CorrectionSlip">
-							<xsl:text>Correction Slip - </xsl:text>
+							<xsl:value-of select="$correctionSlipTitle"/>
+							<xsl:text> - </xsl:text>
 							<xsl:value-of select="leg:FormatDate(@Date)"/>
 						</xsl:when>
 						<xsl:when test="self::ukm:Alternative[@Revised]">
@@ -644,7 +646,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 					<ul class="plainList">
 						<xsl:if test="$isRevised">
 							<li>
-								<a href="{$TranslateLangPrefix}/changes/affected/{$uriPrefix}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Number/@Value}">
+								<a href="{$TranslateLangPrefix}/changes/affected/{$uriPrefix}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:Year/@Value}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:Number/@Value}">
 									<strong><xsl:value-of select="leg:TranslateText('Affecting')"/><xsl:text> </xsl:text><xsl:value-of select="$theTitle"/></strong>
 								</a>
 								<span class="pageLinkIcon"/>	
@@ -652,7 +654,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						</xsl:if>
 						<xsl:if test="$isEffectingTypeValid">
 							<li>
-								<a href="{$TranslateLangPrefix}/changes/affecting/{$uriPrefix}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Number/@Value}">
+								<a href="{$TranslateLangPrefix}/changes/affecting/{$uriPrefix}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:Year/@Value}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:Number/@Value}">
 									<strong><xsl:value-of select="leg:TranslateText('Made by')"/><xsl:text> </xsl:text> <xsl:value-of select="$theTitle"/><xsl:text> </xsl:text> <xsl:value-of select="leg:TranslateText('affecting other Legislation')"/></strong>
 								</a>
 								<span class="pageLinkIcon"/>									
@@ -695,11 +697,11 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 				<h3><xsl:value-of select="leg:TranslateText('Next Steps')"/></h3>
 				<ul class="plainList">
 					<li><a href="{$TranslateLangPrefix}/{$uriPrefix}">
-						<xsl:value-of select="leg:TranslateText('More')"/><xsl:text> </xsl:text><xsl:value-of select="tso:GetTitleFromType($documentMainType, ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value)"/> <span class="pageLinkIcon"/>
+						<xsl:value-of select="leg:TranslateText('More')"/><xsl:text> </xsl:text><xsl:value-of select="tso:GetTitleFromType($documentMainType, ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:Year/@Value)"/> <span class="pageLinkIcon"/>
 					</a>
 					</li>
-					<li><a href="{$TranslateLangPrefix}/{$uriPrefix}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value}">
-						<xsl:value-of select="leg:TranslateText('More')"/><xsl:text> </xsl:text><xsl:value-of select="tso:GetTitleFromType($documentMainType, ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value)"/><xsl:text> </xsl:text><xsl:value-of select="leg:TranslateText('from')"/><xsl:text> </xsl:text><xsl:value-of select="ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value"/> <span class="pageLinkIcon"/>
+					<li><a href="{$TranslateLangPrefix}/{$uriPrefix}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:Year/@Value}">
+						<xsl:value-of select="leg:TranslateText('More')"/><xsl:text> </xsl:text><xsl:value-of select="tso:GetTitleFromType($documentMainType, ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:Year/@Value)"/><xsl:text> </xsl:text><xsl:value-of select="leg:TranslateText('from')"/><xsl:text> </xsl:text><xsl:value-of select="ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:Year/@Value"/> <span class="pageLinkIcon"/>
 					</a>
 					</li>
 					<li><a href="{$TranslateLangPrefix}/search"><xsl:value-of select="leg:TranslateText('Advanced Search')"/><span class="pageLinkIcon"/></a></li>

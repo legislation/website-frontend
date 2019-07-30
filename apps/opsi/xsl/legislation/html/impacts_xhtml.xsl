@@ -33,6 +33,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:import href="statuswarning.xsl"/>
 	<xsl:import href="quicksearch.xsl"/>
 	<xsl:import href="uicommon.xsl"/>	
+	<xsl:import href="legislation_xhtml_consolidation.xslt"/>
 	
 	<xsl:variable name="paragraphThreshold" select="200"/>
 	<xsl:variable name="dcIdentifier" select="leg:ImpactAssessment/ukm:Metadata/dc:identifier[starts-with(.,'http://')]"/>
@@ -52,8 +53,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="legislationTitle"><xsl:call-template name="TSOOutputLegislationTitle"/></xsl:variable>
 	
 	<xsl:variable name="iaStage" as="xs:string?" select="/leg:ImpactAssessment/ukm:Metadata/ukm:ImpactAssessmentMetadata/ukm:DocumentClassification/ukm:DocumentStage/@Value" />
-	
-	
 	
 	<xsl:variable name="iaTitle">
 		<xsl:choose>
@@ -79,7 +78,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 			
 	<xsl:variable name="resourceURI" as="xs:string" 
-		select="leg:ImpactAssessment/ukm:Metadata/atom:link[@title='More Resources']/@href" />				
+		select="leg:ImpactAssessment/ukm:Metadata/atom:link[@title='More Resources']/@href" />		
+	<xsl:variable name="inforceinfoURI" as="xs:string" 
+		select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/inforceinfo']/@href" />
 	
 	<xsl:variable name="impactURI" as="xs:string*" 
 		select="/leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts'][1]/@href" />	
@@ -651,6 +652,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			@import "/styles/explanatoryNotes.css";						
 			
 			<xsl:choose>
+				<xsl:when test="$uriPrefix = ('eut', 'eur', 'eudr', 'eudn') ">
+					<xsl:text>@import "/styles/legislation.css";</xsl:text>
+					<xsl:text>@import "/styles/eulegislation.css";</xsl:text>
+				</xsl:when>	
 				<xsl:when test="$uriPrefix ='ukpga' or  $uriPrefix ='ukla'  or  $uriPrefix ='cukla'  or  $uriPrefix ='ukcm'  ">
 					<xsl:text>
 						@import "/styles/legislation.css";

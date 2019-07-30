@@ -281,7 +281,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</xsl:if>					
 						<option value=""><xsl:value-of select="leg:TranslateText('Any')"/></option>
 						<xsl:for-each
-							select="$g_nstCodeLists[@name = 'DocumentMainType']/Code[@status='revised']">
+							select="$g_nstCodeLists[@name = 'DocumentMainType']/Code[@status='revised'][if ($hideEUdata) then not(@schema='EuropeanUnionTreaty') else true()]">
 							<option value="{@uri}">
 								<xsl:if test="$paramsDoc/parameters/affected-type = @uri">
 									<xsl:attribute name="selected">selected</xsl:attribute>

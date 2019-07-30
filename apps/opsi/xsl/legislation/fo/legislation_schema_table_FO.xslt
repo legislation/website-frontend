@@ -488,11 +488,20 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 </xsl:template>
 
 <xsl:template match="xhtml:tfoot//leg:Footnote">
+	<xsl:variable name="nstTableFootnoteRefs" select="ancestor::xhtml:table/xhtml:tfoot//leg:Footnote" as="element(leg:Footnote)*"/>
+	<xsl:variable name="strFootnoteRef" select="./@id"/>
 	<fo:list-block provisional-label-separation="6pt" provisional-distance-between-starts="18pt">
 		<fo:list-item>
 			<fo:list-item-label start-indent="0pt" end-indent="label-end()">
 				<fo:block  vertical-align="super" font-size="8pt" line-height="9pt" text-indent="0pt" margin-left="0pt" font-weight="bold">
-					<xsl:apply-templates  select="leg:Number"/>
+					<xsl:choose>
+						<xsl:when test="leg:Number">
+							<xsl:apply-templates  select="leg:Number"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="leg:format-number-as-alpha(index-of($nstTableFootnoteRefs/@id,$strFootnoteRef))"/>
+						</xsl:otherwise>
+					</xsl:choose>
 				</fo:block>
 			</fo:list-item-label>
 			<fo:list-item-body start-indent="body-start()">

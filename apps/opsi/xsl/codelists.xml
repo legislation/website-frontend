@@ -63,9 +63,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<Code schema="EuropeanUnionRegulation" uri="eur" status="revised" authority="kqpap"/>
 		<Code schema="EuropeanUnionDecision" uri="eudn" status="revised" authority="kqpap"/>
 		<Code schema="EuropeanUnionDirective" uri="eudr" status="revised" authority="kqpap"/>
+		<Code schema="EuropeanUnionTreaty" uri="eut" status="revised" authority="kqpap"/>	
 		<Code schema="EuropeanUnionRegulation" uri="eur" status="adopted" authority="kqpap"/>
 		<Code schema="EuropeanUnionDecision" uri="eudn" status="adopted" authority="kqpap"/>
 		<Code schema="EuropeanUnionDirective" uri="eudr" status="adopted" authority="kqpap"/>
+		<Code schema="EuropeanUnionTreaty" uri="eut" status="adopted" authority="kqpap"/>	
 
 		<!--
 			|_. SPO code |_. Schema value |_. URI abbreviation |_. Status |_. Authority (for opsi data. Data from sld = sld)|

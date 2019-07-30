@@ -193,6 +193,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</fo:repeatable-page-master-alternatives>
 		</fo:page-sequence-master>		
 		
+		<!-- EU End notes sequence of pages -->
+		<fo:page-sequence-master master-name="endnote-sequence">
+			<fo:repeatable-page-master-alternatives>
+				<fo:conditional-page-master-reference master-reference="odd-page" odd-or-even="odd"/>					
+				<fo:conditional-page-master-reference master-reference="even-page" odd-or-even="even"/>
+			</fo:repeatable-page-master-alternatives>
+		</fo:page-sequence-master>			
+		
 		<!-- Schedule sequence of pages -->
 		<fo:page-sequence-master master-name="schedule-sequence">
 			<fo:repeatable-page-master-alternatives>

@@ -25,6 +25,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</xsl:if>
 				<xsl:variable name="intProvDistance" as="xs:integer">
 					<xsl:choose>
+						<xsl:when test="$g_strDocClass = $g_strConstantEuretained and ancestor::leg:Footnote">18</xsl:when>
+						<xsl:when test="$g_strDocClass = $g_strConstantEuretained">42</xsl:when>
 						<xsl:when test="ancestor::leg:ListItem">24</xsl:when>
 						<xsl:when test="@Decoration = 'dash'">36</xsl:when>
 						<xsl:otherwise>24</xsl:otherwise>
@@ -41,7 +43,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							</xsl:if>
 							<xsl:call-template name="TSOgetID"/>
 							<fo:list-item-label end-indent="label-end()">
-								<fo:block font-size="{$g_strBodySize}" text-align="right" font-weight="bold">
+								<fo:block font-size="{if (ancestor::leg:Footnote) then $g_strFooterSize else $g_strBodySize}" text-align="right" font-weight="bold">
+									<xsl:if test="$g_strDocClass = ($g_strConstantEuretained)">
+										<xsl:attribute name="text-align">left</xsl:attribute>
+									</xsl:if>
 									<xsl:choose>
 										<xsl:when test="parent::*/@Decoration = 'dash'">&#8212;</xsl:when>
 										<!-- Put other values here -->
@@ -49,7 +54,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</fo:block>						
 							</fo:list-item-label>
 							<fo:list-item-body start-indent="body-start()">
-								<fo:block font-size="{$g_strBodySize}" text-indent="0pt" text-align="justify">
+								<fo:block font-size="{if (ancestor::leg:Footnote) then $g_strFooterSize else $g_strBodySize}" text-indent="0pt" text-align="justify">
+									<xsl:if test="ancestor::leg:Footnot">
+										<xsl:attribute name="line-height">9pt</xsl:attribute>
+									</xsl:if>
 									<xsl:if test="ancestor::xhtml:td">
 										<xsl:attribute name="text-align">left</xsl:attribute>
 									</xsl:if>
@@ -92,6 +100,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 		<xsl:variable name="intProvDistance" as="xs:integer">
 			<xsl:choose>
+				<xsl:when test="$g_strDocClass = $g_strConstantEuretained and ancestor::leg:Footnote">18</xsl:when>
+				<xsl:when test="$g_strDocClass = $g_strConstantEuretained">42</xsl:when>
 				<xsl:when test="$g_strDocClass = $g_strConstantPrimary and ancestor::leg:ListItem">36</xsl:when>
 				<xsl:otherwise>24</xsl:otherwise>
 			</xsl:choose>
@@ -112,13 +122,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<fo:list-block provisional-label-separation="6pt" provisional-distance-between-starts="{$intProvDistance}pt">
 			
 				<fo:list-item space-before="{$g_strStandardParaGap}">
-					<xsl:if test="ancestor::xhtml:table and $g_flSuppressTableLineSpace">
-						<xsl:attribute name="space-before">0pt</xsl:attribute>
-					</xsl:if>
+					<xsl:choose>
+						<xsl:when test="ancestor::xhtml:table and $g_flSuppressTableLineSpace">
+							<xsl:attribute name="space-before">0pt</xsl:attribute>
+						</xsl:when>
+						<xsl:when test="$g_strDocClass =  $g_strConstantEuretained and ancestor::leg:Footnote">
+							<xsl:attribute name="space-before">0pt</xsl:attribute>
+						</xsl:when>
+						<xsl:when test="$g_strDocClass =  $g_strConstantEuretained">
+							<xsl:attribute name="space-before">8pt</xsl:attribute>
+						</xsl:when>
+					</xsl:choose>
 					<xsl:call-template name="TSOgetID"/>
 					<fo:list-item-label end-indent="label-end()">
-						<fo:block font-size="{$g_strBodySize}" text-align="right">
-							<xsl:if test="$g_strDocClass = $g_strConstantSecondary">
+						<fo:block font-size="{if (ancestor::leg:Footnote) then $g_strFooterSize else $g_strBodySize}" text-align="right">
+							<xsl:if test="$g_strDocClass = ($g_strConstantSecondary, $g_strConstantEuretained)">
 								<xsl:attribute name="text-align">left</xsl:attribute>
 							</xsl:if>
 					
@@ -134,6 +152,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							</xsl:variable>
 							
 							<xsl:choose>
+								<xsl:when test="$g_strDocClass = $g_strConstantEuretained"></xsl:when>
 								<xsl:when test="$strDecoration = 'parens'">(</xsl:when>
 								<xsl:when test="$strDecoration = 'brackets'">[</xsl:when>
 							</xsl:choose>
@@ -150,6 +169,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							
 
 							<xsl:choose>
+								<xsl:when test="$g_strDocClass = $g_strConstantEuretained"></xsl:when>
 								<xsl:when test="$strDecoration = ('parens', 'parenRight')">)</xsl:when>
 								<xsl:when test="$strDecoration = ('brackets', 'bracketRight')">]</xsl:when>
 								<xsl:when test="$strDecoration = 'period'">.</xsl:when>
@@ -160,7 +180,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</fo:list-item-label>
 					
 					<fo:list-item-body start-indent="body-start()">
-						<fo:block font-size="{$g_strBodySize}" text-align="justify">
+						<fo:block font-size="{if (ancestor::leg:Footnote) then $g_strFooterSize else $g_strBodySize}" text-align="justify">
 							<xsl:apply-templates/>
 						</fo:block>						
 					</fo:list-item-body>
@@ -180,9 +200,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 <xsl:template match="leg:KeyList">
 	<fo:table font-size="{$g_strBodySize}" space-before="6pt"  table-layout="fixed" width="100%">
-		<fo:table-column column-width="5%"/>
-		<fo:table-column column-width="5%"/>	
-		<fo:table-column column-width="90%"/>
+		<xsl:choose>
+			<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+				<fo:table-column column-width="20%"/>
+				<fo:table-column column-width="5%"/>	
+				<fo:table-column column-width="75%"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<fo:table-column column-width="5%"/>
+				<fo:table-column column-width="5%"/>	
+				<fo:table-column column-width="90%"/>
+			</xsl:otherwise>
+		</xsl:choose>
 		<fo:table-body>
 			<xsl:for-each select="leg:KeyListItem">
 				<fo:table-row>

@@ -48,7 +48,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		select="exists($paramsDoc/parameters/version[. != ''])"/>
 
 	<xsl:variable name="isRevisedLegislation" as="xs:boolean"
-		select="exists($paramsDoc/parameters/type[. = ('', 'all', 'primary', 'ukpga', 'ukla', 'apgb', 'aep', 'aosp', 'asp', 'aip', 'apni', 'mnia', 'nia', 'ukcm', 'mwa', 'nisi','anaw')])"/>
+		select="exists($paramsDoc/parameters/type[. = ('', 'all', 'primary', 'ukpga', 'ukla', 'apgb', 'aep', 'aosp', 'asp', 'aip', 'apni', 'mnia', 'nia', 'ukcm', 'mwa', 'nisi','anaw', 'eudn', 'eur', 'eudr', 'eut')])"/>
 
 	<xsl:variable name="generalSearch" as="xs:boolean" select="not($paramsDoc/parameters/search-type = ('extent', 'point-in-time','draft-legislation','impacts') ) and not($isVersionSpecified)" />
 	<xsl:variable name="extentSearch" as="xs:boolean" select="$paramsDoc/parameters/search-type = 'extent' " />	
@@ -61,7 +61,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<head>
 				<link rel="stylesheet" href="/styles/advancedsearch/search.css" type="text/css"/>
                 <script type="text/javascript" src="/scripts/formFunctions/common.js"></script>
-                <script type="text/javascript" src="/scripts/advancedsearch/search.js"></script>
+                <script type="text/javascript" src="/scripts/advancedsearch/{if ($hideEUdata) then 'search.js' else 'search-eu.js'}"></script>
 				<link type="text/css" href="/styles/legBrowse.css" rel="stylesheet"/>
 				
 				<xsl:if test="$pointInTimeSearch or $impactAssessmentSearch">
@@ -230,6 +230,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<input type="checkbox" name="extent" checked="checked" value="ni" class="checkbox" />
 									<xsl:value-of select="leg:TranslateText('Northern Ireland')"/>
 								</label>
+								<xsl:if test="not($hideEUdata)">
+									<label>
+										<input type="checkbox" name="extent" checked="checked" value="eu" class="checkbox" />
+										<xsl:value-of select="leg:TranslateText('European Union')"/>
+									</label>
+								</xsl:if>
 							</div>
 						</div>
 					</div>
@@ -618,6 +624,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<xsl:call-template name="tso:TypeSelect">
 											<xsl:with-param name="showPrimary" select="true()" /> 
 											<xsl:with-param name="showSecondary" select="true()" />
+											<xsl:with-param name="showEUretained" select="true()" />
 											<xsl:with-param name="showDraft" select="false()" />
 											<xsl:with-param name="showUnrevised" select="false()" />
 											<xsl:with-param name="showImpacts" select="false()" />
@@ -658,6 +665,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<xsl:call-template name="tso:TypeChoice">
 										<xsl:with-param name="showPrimary" select="true()" /> 
 										<xsl:with-param name="showSecondary" select="true()" /> 
+										<xsl:with-param name="showEUretained" select="true()" /> 
 										<xsl:with-param name="showImpacts" select="false()" />
 										<xsl:with-param name="selected" select="$paramsDoc/parameters/type" />
 									</xsl:call-template>

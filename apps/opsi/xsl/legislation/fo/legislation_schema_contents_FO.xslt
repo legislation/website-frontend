@@ -17,7 +17,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!-- Contents -->
 		<fo:flow flow-name="xsl-region-body" font-family="{$g_strMainFont}" line-height="{$g_strLineHeight}">
 			
-			<xsl:if test="$g_strDocClass != $g_strConstantSecondary or $g_strDocType = 'NorthernIrelandAct'">
+			<xsl:if test="not($g_strDocClass = ($g_strConstantSecondary, $g_strConstantEuretained)) or $g_strDocType = 'NorthernIrelandAct'">
 				<fo:block text-align="center">
 					<xsl:choose>
 						<xsl:when test="$g_strDocType = 'ScottishAct'">
@@ -93,7 +93,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:when>	
-						
+						<xsl:when test="$g_strDocType = $g_strConstantEuretained">
+							
+						</xsl:when>
 						<xsl:otherwise>
 							<xsl:attribute name="margin-top">18pt</xsl:attribute>
 							<xsl:text>CHAPTER </xsl:text>
@@ -108,6 +110,32 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
                     	</xsl:otherwise>
                     </xsl:choose>
 				</fo:block>	
+			</xsl:if>
+			
+			<xsl:if test="$g_strDocClass = $g_strConstantEuretained">
+				<fo:block font-size="24pt" line-height="30pt" margin-top="12pt" text-align="center">
+					<xsl:choose>
+						<xsl:when test="$g_strDocType = 'EuropeanUnionRegulation'">
+							<xsl:text>REGULATIONS</xsl:text>
+						</xsl:when>
+						<xsl:when test="$g_strDocType = 'EuropeanUnionDecision'">
+							<xsl:text>DECISIONS</xsl:text>
+						</xsl:when>
+						<xsl:when test="$g_strDocType = 'EuropeanUnionDirective'">
+							<xsl:text>DIRECTIVES</xsl:text>
+						</xsl:when>
+					</xsl:choose>
+				</fo:block>
+				<fo:block font-size="12pt" line-height="14pt" margin-top="12pt" text-align="center">
+					<xsl:choose>
+						<xsl:when test="$g_ndsLegPrelims/leg:Title">
+							<xsl:apply-templates select="$g_ndsLegPrelims/leg:Title"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates select="/leg:Legislation/ukm:Metadata/dc:title"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</fo:block>
 			</xsl:if>
 			
 			<xsl:if test="$g_strDocClass = $g_strConstantSecondary and $g_strDocType != 'NorthernIrelandAct'">
@@ -227,10 +255,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:next-match />
 	<xsl:if test="$signatureURI">
 		<fo:table font-size="{$g_strBodySize}">
-			<fo:table-column column-width="10%"/>
-			<fo:table-column column-width="3%"/>		
-			<fo:table-column column-width="77%"/>	
-			<fo:table-column column-width="10%"/>
+			<xsl:call-template name="column-widths"/>
 			<fo:table-body>
 				<xsl:for-each select=". | following-sibling::leg:ContentsItem">
 					<fo:table-row>
@@ -262,10 +287,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	
 	<xsl:if test="$noteURI">
 		<fo:table font-size="{$g_strBodySize}">
-			<fo:table-column column-width="10%"/>
-			<fo:table-column column-width="3%"/>		
-			<fo:table-column column-width="77%"/>	
-			<fo:table-column column-width="10%"/>
+			<xsl:call-template name="column-widths"/>
 			<fo:table-body>
 				<xsl:for-each select=". | following-sibling::leg:ContentsItem">
 					<fo:table-row>
@@ -291,7 +313,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 </xsl:template>
 
 
-
+<xsl:template match="leg:Contents/leg:ContentsTitle[$g_strDocClass = $g_strConstantEuretained]"  priority="2000"/>
 
 
 
@@ -354,13 +376,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<xsl:call-template name="TSOdocDateTime"/>
 								</fo:table-cell>
 							</fo:table-row>
-							<fo:table-row border-bottom="solid 0.5pt black" border-top="solid 0.5pt black" >
-						<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
-							<fo:block>
-								<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
+							<xsl:call-template name="statusWarningHeader"/>
 						</fo:table-body>
 					</fo:table>
 				</xsl:when>
@@ -429,16 +445,32 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<xsl:call-template name="TSOdocDateTime"/>
 								</fo:table-cell>
 							</fo:table-row>
-							<fo:table-row border-bottom="solid 0.5pt black" border-top="solid 0.5pt black" >
-								<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
-									<fo:block>
-										<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-									</fo:block>
-								</fo:table-cell>
-							</fo:table-row>
+							<xsl:call-template name="statusWarningHeader"/>
 						</fo:table-body>
 					</fo:table>
 				</xsl:when>	
+				<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+					<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt">
+						<fo:table-column column-width="20%"/>									
+						<fo:table-column column-width="80%"/>
+						<fo:table-body border-bottom="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
+							<fo:table-row margin-left="0pt" margin-right="0pt">
+								<fo:table-cell text-align="left" font-size="10pt" margin-left="0pt" margin-right="0pt">
+									<fo:block font-family="{$g_strMainFont}">
+										<fo:inline><fo:page-number/></fo:inline>
+									</fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="right" margin-left="0pt" margin-right="0pt">
+									<fo:block font-size="{$g_strHeaderSize}" font-family="Times" font-style="italic">
+										<xsl:apply-templates select="leg:abridgeContent(/leg:Legislation/ukm:Metadata/dc:title, 15)"  mode="header"/>
+									</fo:block>
+									<xsl:call-template name="TSOdocDateTime"/>
+								</fo:table-cell>
+							</fo:table-row>
+							<xsl:call-template name="statusWarningHeader"/>
+						</fo:table-body>
+					</fo:table>
+				</xsl:when>
 				<xsl:otherwise>
 					<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt">
 						<fo:table-column column-width="20%"/>									
@@ -460,13 +492,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<xsl:call-template name="TSOdocDateTime"/>
 								</fo:table-cell>
 							</fo:table-row>
-							<fo:table-row border-bottom="solid 0.5pt black" border-top="solid 0.5pt black" >
-						<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
-							<fo:block>
-								<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
+							<xsl:call-template name="statusWarningHeader"/>
 						</fo:table-body>
 					</fo:table>
 				</xsl:otherwise>
@@ -479,13 +505,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<fo:table-column column-width="20%"/>
 				<fo:table-column column-width="80%"/>									
 				<fo:table-body border-bottom="solid 0.5pt black" border-top="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
-					<fo:table-row>
-						<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
-							<fo:block>
-								<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
+					<xsl:call-template name="statusWarningHeader"/>
 				</fo:table-body>
 			</fo:table>
 		</fo:static-content>	
@@ -516,13 +536,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</fo:block>
 								</fo:table-cell>
 							</fo:table-row>
-							<fo:table-row border-bottom="solid 0.5pt black" border-top="solid 0.5pt black" >
-						<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
-							<fo:block>
-								<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
+							<xsl:call-template name="statusWarningHeader"/>
 						</fo:table-body>
 					</fo:table>
 				</xsl:when>
@@ -546,13 +560,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</fo:block>
 								</fo:table-cell>
 							</fo:table-row>
-							<fo:table-row border-bottom="solid 0.5pt black" border-top="solid 0.5pt black" >
-						<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
-							<fo:block>
-								<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
+							<xsl:call-template name="statusWarningHeader"/>
 						</fo:table-body>
 					</fo:table>
 				</xsl:when>
@@ -584,13 +592,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</fo:block>
 								</fo:table-cell>
 							</fo:table-row>
-							<fo:table-row border-bottom="solid 0.5pt black" border-top="solid 0.5pt black" >
-								<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
-									<fo:block>
-										<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-									</fo:block>
-								</fo:table-cell>
-							</fo:table-row>
+							<xsl:call-template name="statusWarningHeader"/>
 						</fo:table-body>
 					</fo:table>
 				</xsl:when>
@@ -624,18 +626,33 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</fo:block>
 								</fo:table-cell>
 							</fo:table-row>
-							<fo:table-row border-bottom="solid 0.5pt black" border-top="solid 0.5pt black" >
-								<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
-									<fo:block>
-										<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-									</fo:block>
-								</fo:table-cell>
-							</fo:table-row>
+							<xsl:call-template name="statusWarningHeader"/>
 						</fo:table-body>
 					</fo:table>
 				</xsl:when>
 				
-				
+				<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+					<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt">
+						<fo:table-column column-width="80%"/>									
+						<fo:table-column column-width="20%"/>
+						<fo:table-body border-bottom="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
+							<fo:table-row margin-left="0pt" margin-right="0pt">
+								<fo:table-cell text-align="left" margin-left="0pt" margin-right="0pt">
+									<fo:block font-size="{$g_strHeaderSize}" font-family="Times" font-style="italic">
+										<xsl:apply-templates select="leg:abridgeContent(/leg:Legislation/ukm:Metadata/dc:title, 15)"  mode="header"/>
+									</fo:block>
+									<xsl:call-template name="TSOdocDateTime"/>
+								</fo:table-cell>
+								<fo:table-cell text-align="right" margin-left="0pt" margin-right="0pt">
+									<fo:block font-family="{$g_strMainFont}" font-size="10pt">
+										<fo:inline><fo:page-number/></fo:inline>
+									</fo:block>
+								</fo:table-cell>
+							</fo:table-row>
+							<xsl:call-template name="statusWarningHeader"/>
+						</fo:table-body>
+					</fo:table>
+				</xsl:when>
 				<xsl:otherwise>
 					<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt">
 						<fo:table-column column-width="80%"/>									
@@ -657,13 +674,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</fo:block>
 								</fo:table-cell>
 							</fo:table-row>
-							<fo:table-row border-bottom="solid 0.5pt black" border-top="solid 0.5pt black" >
-						<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
-							<fo:block>
-								<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
+							<xsl:call-template name="statusWarningHeader"/>
 						</fo:table-body>
 					</fo:table>
 				</xsl:otherwise>
@@ -690,13 +701,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<xsl:call-template name="TSOdocDateTime"/>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row border-bottom="solid 0.5pt black" border-top="solid 0.5pt black" >
-						<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
-							<fo:block>
-								<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
+					<xsl:call-template name="statusWarningHeader"/>
 				</fo:table-body>
 			</fo:table>
 		</fo:static-content>			
@@ -706,13 +711,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<fo:table-column column-width="20%"/>
 				<fo:table-column column-width="80%"/>									
 				<fo:table-body border-bottom="solid 0.5pt black" border-top="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
-					<fo:table-row>
-						<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
-							<fo:block>
-								<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
+					<xsl:call-template name="statusWarningHeader"/>
 				</fo:table-body>
 			</fo:table>
 		</fo:static-content>	
@@ -734,13 +733,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							</fo:block>
 						</fo:table-cell>
 					</fo:table-row>
-					<fo:table-row border-bottom="solid 0.5pt black" border-top="solid 0.5pt black" >
-						<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
-							<fo:block>
-								<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
+					<xsl:call-template name="statusWarningHeader"/>
 				</fo:table-body>
 			</fo:table>
 		</fo:static-content>		
@@ -801,10 +794,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:choose>
 		<xsl:when test="$g_strDocType = ('NorthernIrelandStatutoryRule', 'WelshStatutoryInstrument', 'NorthernIrelandStatutoryRuleOrOrder')">
 			<fo:table font-size="{$g_strBodySize}">
-				<fo:table-column column-width="15%"/>
-				<fo:table-column column-width="5%"/>		
-				<fo:table-column column-width="70%"/>	
-				<fo:table-column column-width="10%"/>
+				<xsl:call-template name="column-widths"/>
 				<fo:table-body>
 					<fo:table-row>
 						<fo:table-cell>
@@ -848,6 +838,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</fo:table-row>
 				</fo:table-body>
 			</fo:table>	
+			<xsl:apply-templates select="*[not(self::leg:ContentsNumber or self::leg:ContentsTitle)]"/>
+		</xsl:when>
+		<xsl:when test="$g_strDocType = ('EuropeanUnionRegulation','EuropeanUnionDecision','EuropeanUnionDirective')">
+			<fo:block font-size="{$g_strBodySize}" text-align="center" keep-with-next="always" space-before="24pt">
+				<xsl:apply-templates select="leg:ContentsNumber"/>
+			</fo:block>
+			<fo:block font-size="{$g_strBodySize}" space-before="6pt" text-align="center" keep-with-next="always" space-after="12pt">
+				<xsl:if test="not(leg:ContentsNumber)">
+					<xsl:attribute name="space-before">12pt</xsl:attribute>
+				</xsl:if>
+				<xsl:apply-templates select="leg:ContentsTitle"/>
+			</fo:block>
 			<xsl:apply-templates select="*[not(self::leg:ContentsNumber or self::leg:ContentsTitle)]"/>
 		</xsl:when>
 		<xsl:otherwise>			
@@ -947,7 +949,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:apply-templates select="*[not(self::leg:ContentsNumber or self::leg:ContentsTitle)]"/>
 </xsl:template>
 
-<xsl:template match="leg:ContentsPart">
+<xsl:template match="leg:ContentsPart | leg:ContentsEUPart | leg:ContentsEUTitle">
 	<fo:block font-size="{$g_strBodySize}" text-align="center" keep-with-next="always">
 		<xsl:if test="$g_strDocClass = $g_strConstantPrimary">
 			<xsl:attribute name="font-variant">small-caps</xsl:attribute>
@@ -962,7 +964,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:attribute>
 		<xsl:apply-templates select="leg:ContentsNumber"/>
 	</fo:block>
-	<fo:block font-size="{$g_strBodySize}" space-before="6pt" text-align="center" keep-with-next="always">
+	<fo:block font-size="{$g_strBodySize}" space-before="6pt" text-align="center" keep-with-next="{leg:keep-with-next(.)}">
 		<xsl:if test="not(leg:ContentsNumber)">
 			<xsl:attribute name="space-before">12pt</xsl:attribute>
 		</xsl:if>
@@ -980,7 +982,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:apply-templates select="*[not(self::leg:ContentsNumber or self::leg:ContentsTitle)]"/>
 </xsl:template>
 
-<xsl:template match="leg:ContentsChapter">
+<xsl:template match="leg:ContentsChapter | leg:ContentsEUChapter | leg:ContentsEUSection | leg:ContentsEUSubsection">
 	<fo:block font-size="{$g_strBodySize}" text-align="center" keep-with-next="always" space-before="12pt">
 		<xsl:if test="$g_strDocClass = $g_strConstantPrimary">
 			<xsl:attribute name="font-variant">small-caps</xsl:attribute>
@@ -988,7 +990,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:if>
 		<xsl:apply-templates select="leg:ContentsNumber"/>
 	</fo:block>
-	<fo:block font-size="{$g_strBodySize}" space-before="12pt" text-align="center" keep-with-next="always">
+	<fo:block font-size="{$g_strBodySize}" space-before="12pt" text-align="center" 
+			keep-with-next="{leg:keep-with-next(.)}">
 		<xsl:if test="$g_strDocClass = $g_strConstantPrimary">
 			<xsl:attribute name="font-variant">small-caps</xsl:attribute>
 		</xsl:if>
@@ -1001,6 +1004,33 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:apply-templates select="leg:ContentsTitle"/>
 	</fo:block>
 	<xsl:apply-templates select="*[not(self::leg:ContentsNumber or self::leg:ContentsTitle)]"/>
+</xsl:template>
+
+
+<xsl:template match="leg:ContentsDivision">
+	<xsl:variable name="indent" select="(count(ancestor::leg:ContentsDivision) + 1) * 36"/>
+	<xsl:variable name="start-indent" select="count(ancestor::leg:ContentsDivision) * 36"/>
+	<fo:block>
+		<fo:list-block provisional-label-separation="3pt" provisional-distance-between-starts="36pt">	
+			<xsl:if test="not(ancestor::leg:ContentsDivision)">
+			<xsl:attribute name="space-before">12pt</xsl:attribute>
+		</xsl:if>
+			<fo:list-item>
+				<xsl:call-template name="TSOgetID"/>
+				<fo:list-item-label start-indent="{$start-indent}pt">
+					<fo:block font-size="{$g_strBodySize}" text-align="left" margin-left="0pt">
+						<xsl:apply-templates select="leg:ContentsNumber"/>
+					</fo:block>						
+				</fo:list-item-label>
+				<fo:list-item-body start-indent="{$indent}pt" end-indent="0pt">
+					<fo:block font-size="{$g_strBodySize}" text-align="justify">
+						<xsl:apply-templates select="leg:ContentsTitle"/>
+					</fo:block>	
+				</fo:list-item-body>
+			</fo:list-item>	
+		</fo:list-block>
+		<xsl:apply-templates select="*[not(self::leg:ContentsNumber or self::leg:ContentsTitle)]"/>
+	</fo:block>
 </xsl:template>
 
 <xsl:template match="leg:ContentsPblock">
@@ -1029,10 +1059,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 <xsl:template match="leg:ContentsItem[not(preceding-sibling::leg:ContentsItem)]">
 	<fo:table font-size="{$g_strBodySize}">
-		<fo:table-column column-width="10%"/>
-		<fo:table-column column-width="3%"/>		
-		<fo:table-column column-width="77%"/>	
-		<fo:table-column column-width="10%"/>
+		<xsl:call-template name="column-widths"/>
 		<fo:table-body>
 			<xsl:for-each select=". | following-sibling::leg:ContentsItem">
 				<fo:table-row>
@@ -1080,5 +1107,36 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
+
+<xsl:template name="column-widths">
+	<xsl:choose>
+		<xsl:when test="$g_strDocType = ('NorthernIrelandStatutoryRule', 'WelshStatutoryInstrument', 'NorthernIrelandStatutoryRuleOrOrder') or $g_strDocClass = $g_strConstantEuretained">
+			<fo:table-column column-width="15%"/>
+			<fo:table-column column-width="5%"/>		
+			<fo:table-column column-width="70%"/>	
+			<fo:table-column column-width="10%"/>
+		</xsl:when>
+		<xsl:otherwise>
+			<fo:table-column column-width="10%"/>
+			<fo:table-column column-width="3%"/>		
+			<fo:table-column column-width="77%"/>	
+			<fo:table-column column-width="10%"/>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
+<xsl:function name="leg:keep-with-next" as="xs:string">
+	<xsl:param name="node" as="element()"/>
+	<xsl:value-of select="if ($node/*[self::leg:ContentsPart or	
+										self::leg:ContentsEUPart or
+										self::leg:ContentsEUTitle or
+										self::leg:ContentsChapter or
+										self::leg:ContentsEUChapter or
+										self::leg:ContentsEUSection or
+										self::leg:ContentsEUSubsection or
+										self::leg:ContentsDivision or
+										self::leg:ContentsItem]) then 'always' else 'auto'"/>
+	
+</xsl:function>
 
 </xsl:stylesheet>

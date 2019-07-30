@@ -1,0 +1,1034 @@
+/*
+(c)  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
+
+*/
+/* CSS for primary legislation as part of the XML schema XHTML output */
+
+.LegClearFix:after {content: "."; display: block; height: 0; clear: both; visibility: hidden}
+.LegClearFix {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .LegClearFix {height: 1%;}
+.LegClearFix {display: block;}
+/* End hide from IE-mac */
+
+/* ========== Preliminary matter ========== */
+
+.LegSnippet .DocContainer {float: left; width: 100%}
+/* This is to sort a problem in IE */
+* html .LegSnippet .DocContainer {float: left; width: 99%}
+
+.LegSnippet p {font-size: 0.8em; margin-bottom: 1em; margin-top: 0em; padding: 0em; font-style: normal; font-weight: normal}
+.LegSnippet td.LegTDplain  p {font-size: 1em}
+.LegSnippet td.LegTD  p {font-size: 1em}
+
+.LegSnippet div {margin: 0em; padding: 0em}
+.LegSnippet .LegDS {display: block}
+
+.LegSnippet .LegPrelims {text-align: center; margin: 0px auto}
+
+.LegSnippet .LegBanner {text-transform: uppercase; letter-spacing: 0.5em; border-top: solid 1px black; border-bottom: solid 1px black; padding: 0.5em; font-size: 1em; margin-top: 2em; margin-bottom: 2em}
+
+.LegSnippet .LegNo {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em; font-weight: bold}
+/* .LegSnippet .LegNoASP {text-transform: lowercase} */
+.LegSnippet .LegNo strong {font-weight: normal}
+.LegSnippet .LegSubject {text-transform: uppercase; font-size: 1.5em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegTitle {padding: 0em; text-align: center; margin-bottom: 1em; font-size: 1.5em; font-weight: bold; margin-top: 1em}
+.LegSnippet .LegType {padding: 0em; text-align: center; margin-bottom: 1em; font-size: 2em; font-weight: bold; margin-top: 1em; margin-bottom: 2em}
+
+
+.LegSnippet .LegLongTitle {text-align: justify; font-size: 0.8em; clear: both}
+
+.LegSnippet .LegApproved {font-style: italic}
+.LegSnippet .LegApproved em {font-style: normal}
+
+.LegSnippet .LegDate {clear: left; text-align: center; width: 70%; margin: 0px auto}
+.LegSnippet .LegDateText {float: left; margin-top: 0em; margin-bottom: 1em; width: 58%; text-align: left}
+.LegSnippet .LegDateDate {float: right; margin-top: 0em; margin-bottom: 1em; width: 38%; text-align: right}
+
+.LegSnippet p.LegLongTitle {margin-top: 1em; text-align: justify; margin-bottom: 0em; padding-bottom: 0em}
+.LegSnippet p.LegDateOfEnactment {margin-top: 0em; text-align: right; padding-bottom: 1em}
+.LegSnippet .LegLongTitleScottish {margin-top: 0em; text-align: justify; margin-bottom: 0em}
+.LegSnippet .LegDateOfEnactmentScottish {margin-top: 1em; text-align: justify; margin-bottom: 1em; font-weight: bold}
+.LegSnippet .LegDateOfEnactmentScottish strong {font-weight: normal}
+.LegSnippet .LegIntroductoryText {margin-top: 1em; text-align: justify; margin-bottom: 0em}
+.LegSnippet .LegEnactingText {margin-top: 1em; text-align: justify; margin-bottom: 2em}
+
+/* ========== TOCs ========== */
+
+.LegSnippet .LegContentsHeading {text-transform: uppercase; padding-top: 2em; padding-bottom: 1em; clear: both; text-align: center; font-size: 1.0em; margin: 0em; font-weight: normal}
+.LegSnippet .LegContentsHeadingC1Amend {text-transform: uppercase; padding-top: 2em; padding-bottom: 1em; clear: both; text-align: center; font-size: 1.0em; margin-left: 10%; font-weight: normal}
+.LegSnippet .LegScheduleContentsHeading {text-transform: uppercase; padding-top: 1em; padding-bottom: 1em; clear: both; text-align: center; font-size: 1.0em}
+.LegSnippet .LegContents {margin-bottom: 1em}
+
+.LegSnippet .LegContents ol {list-style-type: none; margin: 0em; padding: 0em}
+.LegSnippet .LegContents li {margin: 0em; padding: 0em}
+.LegSnippet .LegContents li.LegContentsEntry {margin: 0em; padding: 0em}
+
+.LegSnippet li.LegContentsSchedules {clear: both; padding-top: 1em; padding-bottom: 0em}
+.LegSnippet li.LegContentsSchedule {clear: both; padding-top: 0.5em}
+.LegSnippet li.LegContentsSchedule .LegContentsGroup {clear: both; padding-top: 0.5em; padding-bottom: 0em}
+.LegSnippet li.LegContentsSchedule .LegContentsPart {clear: both; padding-top: 0.5em; padding-bottom: 0em}
+
+.LegSnippet li.LegContentsAppendix {clear: both; padding-top: 2em}
+.LegSnippet li.LegContentsAppendix .LegContentsNo {font-size: 0.8em; text-align: center}
+.LegSnippet li.LegContentsAppendix .LegContentsTitle {font-size: 0.8em; text-align: center}
+
+.LegSnippet li.LegContentsGroup {clear: both; padding-top: 2em}
+.LegSnippet li.LegContentsGroup p.LegContentsNo {font-size: 1em; text-align: center; font-variant: small-caps; font-weight: bold; margin-bottom: 0.5em}
+.LegSnippet li.LegContentsGroup p.LegContentsTitle {font-size: 1em; text-align: center; font-variant: small-caps}
+.LegSnippet li.LegContentsGroup p.LegContentsNoC1Amend {font-size: 1em; text-align: center; font-variant: small-caps; font-weight: bold; margin-bottom: 0.5em; margin-left: 10%}
+.LegSnippet li.LegContentsGroup p.LegContentsTitleC1Amend {font-size: 1em; text-align: center; font-variant: small-caps; margin-left: 10%}
+
+.LegSnippet li.LegContentsPart {clear: both; padding-top: 2em}
+.LegSnippet li.LegContentsPart p.LegContentsNo {font-size: 0.9em; text-align: center; font-variant: small-caps; font-weight: bold; margin-bottom: 0.5em}
+.LegSnippet li.LegContentsPart p.LegContentsTitle {font-size: 0.9em; text-align: center; font-variant: small-caps}
+.LegSnippet li.LegContentsPart p.LegContentsNoC1Amend {font-size: 0.9em; text-align: center; font-variant: small-caps; font-weight: bold; margin-bottom: 0.5em; margin-left: 10%}
+.LegSnippet li.LegContentsPart p.LegContentsTitleC1Amend {font-size: 0.9em; text-align: center; font-variant: small-caps; margin-left: 10%}
+
+.LegSnippet li.LegContentsChapter {clear: both; padding-top: 1em; margin: 0em}
+.LegSnippet li.LegContentsChapter p.LegContentsNo {font-size: 0.9em; text-align: center; font-variant: small-caps; font-weight: bold; margin-bottom: 0.5em}
+.LegSnippet li.LegContentsChapter p.LegContentsTitle {font-size: 0.9em; text-align: center; font-variant: small-caps}
+.LegSnippet li.LegContentsChapter p.LegContentsNoC1Amend {font-size: 0.9em; text-align: center; font-variant: small-caps; font-weight: bold; margin-bottom: 0.5em; margin-left: 10%}
+.LegSnippet li.LegContentsChapter p.LegContentsTitleC1Amend {font-size: 0.9em; text-align: center; font-variant: small-caps; margin-left: 10%}
+
+.LegSnippet li.LegContentsPblock {clear: both; padding-top: 1em; margin: 0em}
+.LegSnippet li.LegContentsPblock p.LegContentsNo {font-size: 0.8em; text-align: center; font-weight: normal; font-style: italic; margin-bottom: 0.5em}
+.LegSnippet li.LegContentsPblock p.LegContentsTitle {font-size: 0.8em; text-align: center; font-style: italic; font-variant: normal; margin-bottom: 0.5em}
+.LegSnippet li.LegContentsPblock p.LegContentsNoC1Amend {font-size: 0.8em; text-align: center; font-weight: normal; margin-bottom: 0.5em; margin-left: 10%}
+.LegSnippet li.LegContentsPblock p.LegContentsTitleC1Amend {font-size: 0.8em; text-align: center; font-style: italic; font-variant: normal; margin-bottom: 0.5em; margin-left: 10%}
+
+.LegSnippet li.LegContentsPsubBlock {clear: both; padding-top: 1em; margin: 0em}
+.LegSnippet li.LegContentsPsubBlock p.LegContentsNo {font-size: 0.8em; text-align: center; font-weight: normal; margin-bottom: 0.5em}
+.LegSnippet li.LegContentsPsubBlock p.LegContentsTitle {font-size: 0.8em; text-align: center; font-style: italic; font-variant: normal; margin-bottom: 0.5em}
+.LegSnippet li.LegContentsPsubBlock p.LegContentsNoC1Amend {font-size: 0.8em; text-align: center; font-weight: normal; margin-bottom: 0.5em; margin-left: 10%}
+.LegSnippet li.LegContentsPsubBlock p.LegContentsTitleC1Amend {font-size: 0.8em; text-align: center; font-style: italic; font-variant: normal; margin-bottom: 0.5em; margin-left: 10%}
+
+.LegSnippet p.LegContentsItem {clear: both; margin-bottom: 0.5em; margin-top: 0em; padding: 0em; font-weight: normal; font-style: normal; font-variant: normal}
+.LegSnippet p.LegContentsItem span.LegContentsNo {float: left; width: 10%; text-align: left; font-style: normal; font-variant: normal; margin: 0em; padding: 0em; font-weight: normal}
+.LegSnippet p.LegContentsItem span.LegContentsTitle {float: right; width: 88%; clear: none; text-align: left; font-style: normal; font-variant: normal; margin: 0em; padding: 0em; font-weight: normal}
+.LegSnippet p.LegContentsItem span.LegContentsNoC1Amend {float: left; width: 10%; text-align: left; font-style: normal; font-variant: normal; padding-left: 10%; font-weight: normal}
+.LegSnippet p.LegContentsItem span.LegContentsTitleC1Amend {float: right; width: 78%; clear: none; text-align: left; font-style: normal; font-variant: normal; margin: 0em; padding: 0em; font-weight: normal}
+
+.LegSnippet li.LegContentsSchedule li.LegContentsGroup {clear: both; margin-bottom: 0.5em; padding: 0em; font-size: 1em}
+.LegSnippet li.LegContentsSchedule li.LegContentsPart {clear: both; margin-bottom: 0.5em; padding: 0em; font-size: 1em}
+.LegSnippet li.LegContentsSchedule li.LegContentsAppendix {clear: both; padding-top: 0em}
+.LegSnippet li.LegContentsSchedule li.LegContentsChapter {clear: both; margin-bottom: 0.5em; padding: 0em; font-size: 1em}
+.LegSnippet li.LegContentsSchedule li.LegContentsPblock {clear: both; margin-bottom: 0.5em; padding: 0em; font-size: 1em}
+.LegSnippet li.LegContentsSchedule p.LegContentsNo {float: left; width: 20%; font-size: 0.8em; text-align: right; font-variant: normal; font-weight: normal; margin: 0em; clear: none; padding-bottom: 0.25em}
+.LegSnippet li.LegContentsSchedule p.LegContentsTitle {float: right; width: 78%; font-size: 0.8em; text-align: left; font-variant: normal; font-weight: normal; margin-bottom: 0.5em; clear: none; padding-bottom: 0.25em}
+.LegSnippet li.LegContentsSchedule p.LegContentsNoC1Amend {float: left; width: 20%; font-size: 0.8em; text-align: right; font-variant: normal; font-weight: normal; margin: 0em; clear: none; padding-bottom: 0.25em; padding-left: 10%}
+.LegSnippet li.LegContentsSchedule p.LegContentsTitleC1Amend {float: right; width: 68%; font-size: 0.8em; text-align: left; font-variant: normal; font-weight: normal; margin-bottom: 0.5em; clear: none; padding-bottom: 0.25em}
+.LegSnippet li.LegContentsSchedule li.LegContentsGroup .LegContentsTitle {float: right; width: 78%; font-size: 0.8em; text-align: left; font-variant: normal; font-weight: normal; margin: 0em; padding: 0em; clear: none}
+.LegSnippet li.LegContentsSchedule li.LegContentsPart .LegContentsTitle {float: right; width: 78%; font-size: 0.8em; text-align: left; font-variant: normal; font-weight: normal; margin: 0em; padding: 0em; clear: none}
+
+.LegSnippet li.LegContentsSchedule p.LegContentsItem {clear: both; margin-bottom: 0.5em; margin-top: 0em; padding: 0em; font-weight: normal; font-style: normal; font-variant: normal;}
+.LegSnippet li.LegContentsSchedule p.LegContentsItem span.LegContentsNo {float: left; width: 20%; text-align: right; font-style: normal; font-variant: normal; margin: 0em; padding: 0em; font-weight: normal}
+.LegSnippet li.LegContentsSchedule p.LegContentsItem span.LegContentsTitle {float: right; width: 78%; clear: none; text-align: left; font-style: normal; font-variant: normal; margin: 0em; padding: 0em; font-weight: normal}
+
+
+/* ========== Headings ========== */
+
+.LegSnippet .LegSchedule {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegScheduleFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegScheduleSubFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em; text-align: center;}
+.LegSnippet .LegGroup {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegGroupFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegScheduleGroup {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegScheduleGroupFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegPart {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegPartFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegEUTitle {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegEUTitleFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegSchedulePart {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegSchedulePartFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegChapter {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegChapterFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegEUPart {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegEUPartFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegEUChapter {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegEUChapterFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegEUSection {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegEUSectionFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegEUSubsection {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegEUSubsectionFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegDivision {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegDivisionFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegAnnotation {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegAnnotationFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegScheduleChapter {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegScheduleChapterFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegPblock {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em; text-align:center}
+.LegSnippet .LegPblockFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em; text-align:center}
+.LegSnippet .LegSchedulePblock {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegSchedulePblockFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegPsubBlock {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegPsubBlockFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegSchedulePsubBlock {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegSchedulePsubBlockFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegForm {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegFormFirst {font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+
+.LegSnippet .LegSchedulesTitle {clear: both; text-align: center; font-size: 1.2em; font-weight: normal; padding-top: 3em; padding-bottom: 2em}
+.LegSnippet .LegSchedulesTitleC1Amend {clear: both; text-align: center; font-size: 1.2em; font-weight: normal; padding-top: 3em; padding-bottom: 2em; margin-left: 10%}
+.LegSnippet .LegScheduleNo {display: block; text-align: center; font-size: 0.9em; font-weight: normal; margin-bottom: 0.25em}
+.LegSnippet .LegScheduleNoC1Amend {display: block; text-align: center; font-size: 0.9em; font-weight: normal; margin-bottom: 0.25em; margin-left: 10%}
+.LegSnippet .LegANNEXNoC1Amend {display: block; text-align: center; font-size: 0.9em; font-weight: normal; margin-bottom: 0.5em; margin-left: 8%}
+.LegSnippet .LegANNEXTitleC1Amend {display: block; text-align: center; font-size: 0.9em; font-weight: bold; margin-bottom: 0.5em; margin-left: 8%}
+.LegSnippet .LegAnnexNoAmend {display: block; text-align: center; font-size: 0.9em; font-weight: normal; margin-bottom: 0.25em; margin-left: 8%}
+.LegSnippet .LegTitleBlockTitle {clear: both; display: block; text-align: center; font-size: 0.9em; font-weight: bold;}
+
+.LegSnippet .LegGroupNo {display: block; text-align: center; font-size: 1em; font-weight: bold; font-variant: small-caps; margin-bottom: 0.25em}
+.LegSnippet .LegGroupTitle {display: block; text-align: center; font-size: 1em; font-weight: normal; font-variant: small-caps; margin-bottom: 0.25em}
+.LegSnippet .LegGroupNo strong {font-weight: normal}
+
+.LegSnippet .LegScheduleGroup .LegGroupNo {font-weight: normal}
+.LegSnippet .LegScheduleGroupFirst .LegGroupNo {font-weight: normal}
+.LegSnippet .LegScheduleGroup .LegGroupNo strong {font-weight: bold}
+.LegSnippet .LegScheduleGroupFirst .LegGroupNo strong {font-weight: bold}
+
+.LegSnippet .LegAttachmentGroupNo {font-size: 1.2em; font-weight: normal; margin-bottom: 0.25em; padding-right: 1em;}
+.LegSnippet .LegAttachmentGroupTitle {font-size: 1.2em; font-weight: normal; margin-bottom: 0.25em}
+.LegSnippet .legAttachmentGroup {text-align: center; }
+
+.LegSnippet .LegAttachmentsTitle {font-size: 1.2em; font-weight: bold; text-align:center; margin-bottom: 1.25em}
+
+.LegSnippet .LegPartNo {display: block; text-align: center; font-size: 0.9em; font-weight: bold; font-variant: small-caps; margin-bottom: 0.25em}
+.LegSnippet .LegPartTitle {display: block; text-align: center; font-size: 0.9em; font-weight: normal; font-variant: small-caps; margin-bottom: 0.25em}
+.LegSnippet .LegPartNo strong {font-weight: normal}
+
+.LegSnippet .LegEUPartNo {display: block; text-align: center; font-size: 0.9em; font-weight: normal; font-variant: small-caps; margin-bottom: 0.25em}
+.LegSnippet .LegEUPartTitle {display: block; text-align: center; font-size: 0.9em; font-weight: normal; font-variant: small-caps; margin-bottom: 0.25em}
+.LegSnippet .LegEUPartNo strong {font-weight: normal}
+
+.LegSnippet .LegEUTitleNo {display: block; text-align: center; font-size: 0.9em; font-weight: bold; font-variant: small-caps; margin-bottom: 0.25em}
+.LegSnippet .LegEUTitleTitle {display: block; text-align: center; font-size: 0.9em; font-weight: normal; font-variant: small-caps; margin-bottom: 0.25em}
+.LegSnippet .LegEUTitleNo strong {font-weight: normal}
+
+.LegSnippet .LegSchedulePart .LegPartNo {font-weight: normal}
+.LegSnippet .LegSchedulePartFirst .LegPartNo {font-weight: normal}
+.LegSnippet .LegSchedulePart .LegPartNo strong {font-weight: bold}
+.LegSnippet .LegSchedulePartFirst .LegPartNo strong {font-weight: bold}
+
+.LegSnippet .LegChapterNo {display: block; text-align: center; font-size: 0.9em; font-variant: small-caps; font-weight: bold; margin-bottom: 0.25em}
+.LegSnippet .LegChapterTitle {display: block; text-align: center; font-size: 0.9em; font-variant: small-caps; font-weight: normal; margin-bottom: 0.25em}
+.LegSnippet .LegChapterNo strong {font-weight: normal}
+
+.LegSnippet .LegEUChapterNo {display: block; text-align: center; font-size: 0.9em; font-weight: bold; margin-bottom: 1.25em}
+.LegSnippet .LegEUChapterTitle {display: block; text-align: center; font-size: 0.9em; font-weight: normal; margin-bottom: 1.25em}
+.LegSnippet .LegEUChapterNo strong {font-weight: normal}
+.LegSnippet .LegEUChapterNo em {font-weight: normal; font-style:italic}
+
+.LegSnippet .LegEUSectionNo {display: block; text-align: center; font-size: 0.9em; font-weight: bold; margin-bottom: 1.25em}
+.LegSnippet .LegEUSectionTitle {display: block; text-align: center; font-size: 0.9em; font-weight: normal; margin-bottom: 1.25em}
+.LegSnippet .LegEUSectionTitle em {font-style:normal; letter-spacing: 2px;}
+.LegSnippet .LegEUSectionNo strong {font-weight: normal}
+.LegSnippet .LegEUSectionNo em {font-weight: normal; font-style:normal; letter-spacing: 2px;}
+
+.LegSnippet .LegScheduleSectionNo {display: block; text-align: left; font-size: 0.8em; font-weight: bold; margin-bottom: 0.5em}
+.LegSnippet .LegScheduleSectionTitle {display: block; text-align: left; font-size: 0.8em; font-weight: normal; margin-bottom: 0.5em}
+
+.LegSnippet .LegEUSubsectionNo {display: block; text-align: center; font-size: 0.9em; font-weight: bold; margin-bottom: 1.25em}
+.LegSnippet .LegEUSubsectionTitle {display: block; text-align: center; font-size: 0.9em; font-weight: normal; margin-bottom: 1.25em}
+.LegSnippet .LegEUSubsectionTitle em {font-style:normal; letter-spacing: 2px;}
+.LegSnippet .LegEUSubsectionNo strong {font-weight: normal}
+.LegSnippet .LegEUSubsectionNo em {font-weight: normal; font-style:normal; letter-spacing: 2px;}
+
+.LegSnippet .LegScheduleChapter .LegChapterNo {font-weight: normal}
+.LegSnippet .LegScheduleChapterFirst .LegChapterNo {font-weight: normal}
+.LegSnippet .LegScheduleChapter .LegChapterNo strong {font-weight: bold}
+.LegSnippet .LegScheduleChapterFirst .LegChapterNo strong {font-weight: bold}
+
+.LegSnippet .LegPblockNo {display: inline; text-align: center; font-size: 0.8em; font-weight: normal; margin-right:1em;}
+.LegSnippet .LegPblockTitle {display: inline; text-align: center; font-size: 0.8em; font-style: italic; font-weight: normal}
+.LegSnippet .LegPblockTitle em {font-style: normal}
+
+.LegSnippet .LegPsubBlockNo {display: block; text-align: center; font-size: 0.8em; font-style: normal; font-weight: normal}
+.LegSnippet .LegPsubBlockTitle {display: block; text-align: center; font-size: 0.8em; font-style: italic; font-weight: normal}
+.LegSnippet .LegPsubBlockTitle em {font-style: normal}
+
+.LegSnippet .LegFormNo {display: block; text-align: center; font-size: 0.9em; font-weight: bold; font-variant: small-caps; margin-bottom: 0.25em}
+.LegSnippet .LegFormNo strong {font-weight: normal}
+
+.LegSnippet .LegDivisionAmend {margin-left:8%;font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegDivisionC1Amend {margin-left:8%;font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegDivisionC3Amend {margin-left:8%;font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+.LegSnippet .LegDivisionC4Amend {margin-left:16%;font-size: 1em; margin-top: 0em; margin-bottom: 1em; padding: 0em}
+
+.LegSnippet .LegC1Amend {margin-left: 10%}
+.LegSnippet .LegC1C1Amend2 {margin-left: 20%}
+.LegSnippet .LegC1C1C1Amend3 {margin-left: 30%}
+.LegSnippet .LegC1C3Amend2 {margin-left: 27%}
+.LegSnippet .LegC3Amend {margin-left: 8%}
+.LegSnippet .LegC4Amend {margin-left: 16%}
+.LegSnippet .LegC5Amend {margin-left: 24%}
+
+.LegSnippet .LegHeadingFirst {padding-top: 0em}
+.LegSnippet .LegHeadingRef {padding-top: 0em; margin-left: 30%}
+.LegSnippet .LegHeadingRefFirst {padding-top: 0em; margin-left: 30%}
+.LegSnippet .LegHeadingRefC1Amend {padding-top: 0em; margin-left: 40%}
+.LegSnippet .LegHeadingRefAmend2 {padding-top: 0em; margin-left: 50%}
+
+.LegSnippet .LegEUChapterNoC3Amend {display: block; text-align: center; font-size: 0.9em; font-weight: bold; margin-bottom: 1.25em; margin-left:8%}
+.LegSnippet .LegEUChapterTitleC3Amend {display: block; text-align: center; font-size: 0.9em; font-weight: normal; margin-bottom: 1.25em; margin-left:8%}
+.LegSnippet .LegEUPartNoC3Amend {display: block; text-align: center; font-size: 0.9em; font-weight: bold; margin-bottom: 1.25em; margin-left:8%}
+.LegSnippet .LegEUPartTitleC3Amend {display: block; text-align: center; font-size: 0.9em; font-weight: normal; margin-bottom: 1.25em; margin-left:8%}
+.LegSnippet .LegEUPartTitleNoNumberC3Amend {display: block; text-align: left; font-size: 0.9em; font-weight: bold; margin-bottom: 1.25em; margin-left:8%}
+.LegSnippet .LegAnnotationsTitleNoNumberC3Amend{display: block; text-align: left; font-size: 0.9em; font-weight: bold; margin-bottom: 1.25em; margin-left:8%}
+.LegSnippet .LegAnnotationsTitleAmend {display: block; text-align: left; font-size: 0.9em; font-weight: normal; margin-bottom: 1.25em; margin-left:8%}
+.LegSnippet .LegAnnotationsTitleNoNumberAmend {display: block; text-align: left; font-size: 0.9em; font-weight: bold; margin-bottom: 1.25em; margin-left:8%}
+
+.LegSnippet .LegEUSectionNoC1Amend {display: block; text-align: center; font-size: 0.9em; font-weight: bold; margin-bottom: 1.25em;margin-left:8%}
+.LegSnippet .LegEUSectionNoC2Amend {display: block; text-align: center; font-size: 0.9em; font-weight: bold; margin-bottom: 1.25em;margin-left:8%}
+.LegSnippet .LegEUSectionNoC3Amend {display: block; text-align: center; font-size: 0.9em; font-weight: bold; margin-bottom: 1.25em;margin-left:8%}
+
+.LegSnippet .LegEUSectionTitleC1Amend {display: block; text-align: center; font-size: 0.9em; font-weight: normal; margin-bottom: 1.25em; margin-left:8%}
+.LegSnippet .LegEUSectionTitleC2Amend {display: block; text-align: center; font-size: 0.9em; font-weight: normal; margin-bottom: 1.25em; margin-left:8%}
+.LegSnippet .LegEUSectionTitleC3Amend {display: block; text-align: center; font-size: 0.9em; font-weight: normal; margin-bottom: 1.25em; margin-left:8%}
+
+.LegSnippet .LegArticleRef {clear: both; float: right; width: 30%; text-align: right; margin: 0em; padding: 0em}
+.LegSnippet .LegArticleRefScottish {clear: both; text-align: center; margin-top: 0em; margin-bottom: 0em; padding-top: 0em; padding-bottom: 1em; font-style: italic}
+.LegSnippet .LegClearSchedule {clear: both; padding-top: 3em}
+.LegSnippet .LegClearScheduleFirst {clear: both; padding-top: 0em}
+.LegSnippet .LegClearGroup {clear: both; padding-top: 2em}
+.LegSnippet .LegClearPart {clear: both; padding-top: 2em}
+.LegSnippet .LegClearChapter {clear: both; padding-top: 1em}
+.LegSnippet .LegClearEUTitle {clear: both; padding-top: 2em}
+.LegSnippet .LegClearEUPart {clear: both; padding-top: 2em}
+.LegSnippet .LegClearEUChapter {clear: both; padding-top: 1em}
+.LegSnippet .LegClearEUSection {clear: both; padding-top: 1em}
+.LegSnippet .LegClearEUSubsection {clear: both; padding-top: 1em}
+.LegSnippet .LegClearDivision {clear: both; padding-top: 0.5em}
+.LegSnippet .LegClearPblock {clear: both; padding-top: 1em}
+.LegSnippet .LegClearPsubBlock {clear: both; padding-top: 1em}
+.LegSnippet .LegClearGroupFirst {clear: both; padding-top: 0em}
+.LegSnippet .LegClearPartFirst {clear: both; padding-top: 0em}
+.LegSnippet .LegClearChapterFirst {clear: both; padding-top: 0em}
+.LegSnippet .LegClearPblockFirst {clear: both; padding-top: 0em}
+.LegSnippet .LegClearPsubBlockFirst {clear: both; padding-top: 0em}
+
+
+/* ========== Abstract ========== */
+
+.LegSnippet .LegAbstract {clear: both; padding-top: 3em; border-bottom: solid 2px black; margin-bottom: 2em; text-align: center; font-size: 1.1em; margin-bottom: 0em; font-weight: normal; padding-bottom: 0em}
+.LegSnippet .LegAbstractTitle {display: block; text-align: center; font-size: 1.1em; margin-bottom: 0em; font-weight: normal; padding-bottom: 0em; text-transform: uppercase}
+.LegSnippet .LegAbstractSubtitle {display: block; text-align: center; font-size: 1.1em; margin-top: 0em; margin-bottom: 0em; font-weight: normal; padding: 0em; font-variant: small-caps}
+
+.LegSnippet .LegAbstract .LegChapterNo {display: block; text-align: center; font-size: 0.9em; margin-bottom: 0em; padding-bottom: 0.5em; font-weight: normal; font-variant: normal}
+.LegSnippet .LegAbstract .LegChapterTitle {display: block; text-align: center; font-size: 0.9em; margin-bottom: 0em; margin-top: 0em; padding-top: 0em; padding-bottom: 1em; font-weight: normal; font-variant: normal}
+
+
+/* ========== Appendixes ========== */
+
+.LegSnippet .LegAppendix {clear: both; padding-top: 3em; text-align: center; font-size: 1.1em; margin-bottom: 0em; font-weight: normal; padding-bottom: 1em}
+.LegSnippet .LegAppendixNo {display: block; text-align: center; font-size: 1.1em; margin-bottom: 0em; font-weight: normal; padding-top: 0em}
+.LegSnippet .LegAppendixTitle {display: block; text-align: center; font-size: 1.1em; margin-bottom: 0em; font-weight: normal; padding-bottom: 1em}
+.LegSnippet .LegAppendixSubtitle {display: block; text-align: center; font-size: 1.1em; margin-top: 0em; margin-bottom: 0em; font-weight: normal; padding: 0em}
+
+
+/* ========== Provisions ========== */
+
+.LegSnippet p.LegText {clear: both; text-align: justify; font-size: 0.8em; margin-left: 0%}
+.LegSnippet .LegTabular p.LegText {clear: both; text-align: justify; margin-left: 0%}
+
+.LegSnippet .LegIntroductoryText p.LegText {clear: both; text-align: justify; font-size: 0.8em; margin-left: 0%}
+.LegSnippet .LegEnactingText p.LegText {clear: both; text-align: justify; font-size: 0.8em; margin-left: 0%}
+.LegSnippet .LegRoyalPresence .LegText {clear: both; text-align: center; font-size: 0.8em}
+
+.LegSnippet td p.LegText {clear: both; text-align: left;color:#494949;}
+.LegSnippet th p.LegText {clear: both; text-align: left;color:#494949;}
+.LegSnippet .LegFootnote .LegText {clear: none; font-size: 0.8em; float: right; width: 92%; text-align: justify; margin-bottom: 0em; padding-bottom: 0.5em; margin-top: 0em; padding-top: 0em; margin-left:0em}
+.LegSnippet tfoot .LegFootnote .LegText {clear: none; font-size: inherit; float: right; width: 96%; text-align: justify; margin-bottom: 0em; padding-bottom: 0.5em; margin-top: 0em}
+
+.LegSnippet .LegRHS {text-align: justify}
+.LegSnippet .LegPreambleP1Container .LegRHS {text-align: justify;margin-left:8%}
+.LegSnippet .LegLHS {float: left; text-align: left}
+
+.LegSnippet .LegTextC1Amend {clear: both; text-indent: 0em; text-align: justify; font-size: 0.8em; margin-left: 8%}
+.LegSnippet .LegTextC1C1Amend2 {clear: both; text-indent: 0em; text-align: justify; font-size: 0.8em; margin-left: 8%}
+.LegSnippet .LegTextC1C1C1Amend3 {clear: both; text-indent: 0em; text-align: justify; font-size: 0.8em; margin-left: 8%}
+.LegSnippet .LegTextC3Amend {clear: both; text-indent: 0em; text-align: justify; font-size: 0.8em; margin-left: 8%}
+.LegSnippet .LegTextC4Amend {clear: both; text-indent: 0em; text-align: justify; font-size: 0.8em; margin-left: 16%}
+.LegSnippet .LegTextC5Amend {clear: both; text-indent: 0em; text-align: justify; font-size: 0.8em; margin-left: 24%}
+
+
+.LegSnippet .LegDivisionNo {float:left; clear: both; font-size: 0.8em; width: 8%}
+.LegSnippet .LegDivisionTitle {text-align: justify; width: 92%; font-size: 0.8em; }
+.LegSnippet .LegScheduleSubFirst .LegDivisionNo {clear: both; font-size: 0.8em; width: 100%;font-weight:bold;display:block;margin-bottom: 1em;}
+.LegSnippet .LegScheduleSubFirst  .LegDivisionTitle {font-size: 0.8em;  width: 100%;font-weight:normal;display:block;}
+.LegSnippet .LegDivisionTitleNoNumber {clear: both; text-align: left; width: 100%; font-size: 0.8em; }
+.LegSnippet .LegDivisionTitleNoindent {clear: both; font-size: 0.8em; text-align: justify; }
+.LegSnippet .LegDivisionText {float: right; text-align: justify; width: 92%; font-size: 0.8em; }
+.LegSnippet .LegDivisionNoC1Amend {clear: both; font-size: 0.8em; width: 8%;float:left}
+.LegSnippet .LegDivisionTitleC1Amend {text-align: justify; font-size: 0.8em; }
+.LegSnippet .LegDivisionNoC2Amend {clear: both; font-size: 0.8em; width: 8%;float:left}
+.LegSnippet .LegDivisionTitleC2Amend {text-align: justify; font-size: 0.8em; }
+.LegSnippet .LegDivisionNoC3Amend {clear: both; font-size: 0.8em; width: 8%;float:left}
+.LegSnippet .LegDivisionTitleC3Amend {text-align: justify; font-size: 0.8em; }
+.LegSnippet .LegDivisionNoC4Amend {clear: both; font-size: 0.8em; width: 8%;float:left}
+.LegSnippet .LegDivisionTitleC4Amend {text-align: justify; font-size: 0.8em; }
+
+.LegSnippet .LegAnnotationNo {clear: both; font-size: 0.8em; text-align: justify; min-width: 8%}
+.LegSnippet .LegAnnotationTitle {text-align: justify; margin-left:0.5em; font-size: 0.8em; }
+.LegSnippet .LegAnnotationTitleNoNumber {clear: both; text-align: left; width: 100%; font-size: 0.8em; }
+.LegSnippet .LegAnnotationTitleNoindent {clear: both; font-size: 0.8em; text-align: justify; }
+.LegSnippet .LegAnnotationText {text-align: justify; width: 92%; font-size: 0.8em; }
+
+.LegSnippet .LegP1GroupTitle {text-align: center;margin-bottom:1em}
+.LegSnippet .LegP1GroupTitleC1Amend {text-align: center; margin-left:8%; padding-top: 0em;font-weight: bold;margin-bottom: 1em;}
+.LegSnippet .LegP1GroupTitleC1C1Amend2 {text-align: center; margin-left:8%; padding-top: 0em;font-weight: bold;margin-bottom: 1em;}
+.LegSnippet .LegP1GroupTitleC1C1C1Amend3 {text-align: center; margin-left:8%; padding-top: 0em;font-weight: bold;margin-bottom: 1em;}
+.LegSnippet .LegP1GroupTitleC1C3Amend2 {text-align: center; margin-left:8%; padding-top: 0em;font-weight: bold;margin-bottom: 1em;}
+.LegSnippet .LegP1GroupTitleC3Amend {text-align: center; margin-left:8%; padding-top: 0em;font-weight: bold;margin-bottom: 1em;}
+.LegSnippet .LegP1GroupTitleC4Amend {float: right; text-align: justify; width: 68%}
+.LegSnippet .LegP1GroupTitleFirst {display:block;margin:1em;text-align:center;font-weight:bold}
+.LegSnippet .LegP1GroupTitleFirstC1Amend {display:block;margin-top:1em;margin-bottom:1em;margin-left:8%;text-align:center;font-weight:bold}
+.LegSnippet .LegP1GroupTitleFirstC3Amend {text-align: center; margin-left:8%; padding-top: 0em;font-weight: bold;margin-bottom: 1em;}
+.LegSnippet .LegP1GroupTitleFirstC4Amend {float: right; text-align: justify; width: 68%; padding-top: 0em}
+.LegSnippet .LegP1GroupTitleFirstC1C1Amend2 {float: right; text-align: justify; width: 72%; padding-top: 0em}
+.LegSnippet .LegP1GroupTitleFirstC1C1C1Amend3 {float: right; text-align: justify; width: 62%; padding-top: 0em}
+.LegSnippet .LegP1GroupTitleFirstC1C3Amend2 {float: right; text-align: justify; width: 66%}
+
+.LegSnippet .LegP1GroupTitleBelow {clear: both; text-align: justify; padding-top: 1em}
+.LegSnippet .LegP1GroupTitleBelowAmend {clear: both; margin-left: 10%; text-align: justify}
+.LegSnippet .LegP1GroupTitleBelowFirstAmend {clear: both; margin-left: 10%; text-align: justify}
+
+.LegSnippet .LegSP1GroupTitle {clear: both; font-size: 0.8em; font-weight: normal; font-style: italic; text-align: justify; padding-top: 1em; margin-bottom: 0.5em; margin-top: 0em}
+.LegSnippet .LegSP1GroupTitle em {font-style: normal}
+.LegSnippet .LegSP1GroupTitleFirst {clear: both; font-size: 0.8em; font-weight: normal; font-style: italic; text-align: justify; padding-top: 0em; margin-bottom: 0.5em; margin-top: 0em}
+.LegSnippet .LegSP1GroupTitleFirst em {font-style: normal}
+.LegSnippet .LegSP1GroupTitleFirstC1Amend em {font-style: normal}
+
+.LegSnippet .LegSP1GroupTitleC1Amend {clear: both; margin-left: 10%; font-size: 0.8em; font-weight: normal; font-style: italic; text-align: left; margin-bottom: 0.5em; margin-top: 0em; padding-top: 1em}
+.LegSnippet .LegSP1GroupTitleC1Amend em {font-style: normal}
+.LegSnippet .LegSP1GroupTitleFirstC1Amend {clear: both; margin-left: 10%; font-size: 0.8em; font-weight: normal; font-style: italic; text-align: left; margin-bottom: 0.5em; margin-top: 0em; padding-top: 0em}
+.LegSnippet .LegSP1GroupTitleFirstC1Amend em {font-style: normal}
+.LegSnippet .LegSP1GroupTitleC3Amend {clear: both; margin-left: 17%; font-size: 0.8em; font-weight: normal; font-style: italic; text-align: left; margin-bottom: 0.5em; margin-top: 0em; padding-top: 1em}
+.LegSnippet .LegSP1GroupTitleC3Amend em {font-style: normal}
+.LegSnippet .LegSP1GroupTitleFirstC3Amend {clear: both; margin-left: 17%; font-size: 0.8em; font-weight: normal; font-style: italic; text-align: left; margin-bottom: 0.5em; margin-top: 0em; padding-top: 0em}
+.LegSnippet .LegSP1GroupTitleFirstC3Amend em {font-style: normal}
+.LegSnippet .LegSP1GroupTitleC4Amend {clear: both; margin-left: 24%; font-size: 0.8em; font-weight: normal; font-style: italic; text-align: left; margin-bottom: 0.5em; margin-top: 0em; padding-top: 1em}
+.LegSnippet .LegSP1GroupTitleC4Amend em {font-style: normal}
+.LegSnippet .LegSP1GroupTitleFirstC4Amend {clear: both; margin-left: 24%; font-size: 0.8em; font-weight: normal; font-style: italic; text-align: left; margin-bottom: 0.5em; margin-top: 0em; padding-top: 0em}
+.LegSnippet .LegSP1GroupTitleFirstC4Amend em {font-style: normal}
+
+.LegSnippet .LegPreambleP1No {float: left; clear: both; width: 8%}
+.LegSnippet .LegPreambleP1Text {margin-bottom: 1em;}
+
+.LegSnippet .LegP1No {display:block; margin:1em; text-align:center;font-style:italic;font-weight:normal}
+.LegSnippet .LegN1NoAmend .LegP1No {font-weight: normal; float: left}
+.LegSnippet .LegSP1Container .LegP1No {font-weight: normal; display:block;}
+.LegSnippet .LegP1No .LegP1No {width: auto;} 
+.LegSnippet .LegSP1Container .LegP1NoC1Amend .LegP1No {font-weight: normal; float: left; width: 100%}
+.LegSnippet .LegSP1Container .LegP1NoC3Amend .LegP1No {font-weight: normal; float: left; width: 100%}
+.LegSnippet .LegP1Container .LegP1NoC1C1C1Amend3 .LegP1No {font-weight: normal; float: right; width: 100%}
+.LegSnippet .LegSP2Container .LegP1No {font-weight: normal; display:block;}
+.LegSnippet .LegSP3Container .LegP1No {font-weight: normal; float: left; width: 6%}
+
+.LegSnippet .LegP1NoC1Amend {text-align: center;margin-left: 8%;font-weight: normal; margin-bottom: 1em;}
+.LegSnippet .LegSP1Container .LegP1NoC1Amend {font-weight: normal; float: left; width: 13%; text-align: right}
+.LegSnippet .LegP1NoC3Amend {text-align: center ; margin-left: 8%;font-weight: normal; margin-bottom: 1em;}
+.LegSnippet .LegSP1Container .LegP1NoC3Amend {float: left; width: 20%; text-align: right}
+.LegSnippet .LegP1NoC4Amend {float: left; width: 26%; text-align: right}
+.LegSnippet .LegP1NoC1C1Amend2 {float: left; width: 22%; text-align: right}
+.LegSnippet .LegP1NoC1C1C1Amend3 {float: left; width: 32%; text-align: right}
+.LegSnippet .LegP1NoC1C3Amend2 {float: left; width: 30%; text-align: right}
+.LegSnippet .LegP1NoC3C1Amend2 {margin-left:16%; text-align: center}
+
+.LegSnippet .LegP2GroupNo {float:left; width: 8%;font-size:0.8em}
+.LegSnippet .LegP2No {width: 8%}
+.LegSnippet .LegP2P3No {width: 8%}
+.LegSnippet .LegP2NoC1Amend {width: 8%;margin-left: 8%}
+.LegSnippet .LegP2NoC3Amend {width: 8%;margin-left: 8%;}
+.LegSnippet .LegP2NoC4Amend {width: 8%; margin-left: 16%}
+.LegSnippet .LegP2NoC5Amend {width: 39%}
+.LegSnippet .LegP2NoC1C1Amend2 {width: 28%}
+.LegSnippet .LegP2NoC1C1C1Amend3 {width: 38%}
+.LegSnippet .LegP2NoC1C3Amend2 {width: 35%}
+.LegSnippet .LegP2NoC1C4Amend2 {width: 42%}
+.LegSnippet .LegP2NoC3C3Amend2 {width: 42%}
+
+.LegSnippet .LegN1No {float: left; width: 8%; text-align: left}
+.LegSnippet .LegN1NoAmend {float: left; width: 8%; text-align: left; margin-left: 8%}
+.LegSnippet .LegN2No {float: left; width: 3%; text-align: right}
+.LegSnippet .LegN2NoAmend {float: left; width: 3%; text-align: right}
+.LegSnippet .LegSN1No {min-width: 8%; text-align: center; display: block; margin: 1em;}
+.LegSnippet .LegSN1NoC1Amend {float: left; width: 13%; text-align: right}
+.LegSnippet .LegSN1NoC1Amend .LegP1No {font-weight: normal; width: 100%; text-align: right}
+.LegSnippet .LegSN1NoC3Amend {float: left; width: 20%; text-align: right}
+.LegSnippet .LegSN1NoC3Amend .LegP1No {font-weight: normal; width: 100%; text-align: right}
+.LegSnippet .LegSN1NoC4Amend {float: left; width: 27%; text-align: right}
+.LegSnippet .LegSN1NoC4Amend .LegP1No {font-weight: normal; width: 100%; text-align: right}
+
+.LegSnippet .LegSN1NoC1C1C1Amend3 {float: left; width: 33%; text-align: right}
+.LegSnippet .LegSN1NoC1C1C1Amend3 .LegP1No {font-weight: normal; width: 100%; text-align: right}
+
+
+.LegSnippet .LegSN2No {float: left; width: 3%; text-align: left}
+.LegSnippet .LegSN2NoC1Amend {float: left; width: 8%; text-align: right}
+.LegSnippet .LegSN2NoC3Amend {float: left; width: 8%; text-align: right}
+.LegSnippet .LegSN2NoC4Amend {float: left; width: 8%; text-align: right}
+
+.LegSnippet .LegSN2NoC1C1C1Amend3 {float: left; width: 8%; text-align: right}
+
+.LegSnippet .LegDivisionContainer {clear: both; padding-top: 1.5em; padding-bottom: 0em; font-size: 0.8em; margin-bottom: 0.5em; margin-top: 0em; font-weight: bold;}
+.LegSnippet .LegDivisionContainer strong {font-weight: normal}
+.LegSnippet .LegDivisionContainerFirst {clear: both; padding: 0em; font-size: 0.8em; margin-bottom: 0.5em; margin-top: 0em; font-weight: bold}
+.LegSnippet .LegDivisionContainerFirst strong {font-weight: normal}
+.LegSnippet .LegSDivisionContainer {clear: both; padding-top: 0em; font-size: 0.8em; margin-bottom: 0.5em; padding: 0em}
+
+.LegSnippet .LegP1Container {clear: both; padding-top: 1.5em; padding-bottom: 0em; font-size: 0.8em; margin-bottom: 0.5em; margin-top: 0em; font-weight: bold;}
+.LegSnippet .LegP1Container strong {font-weight: normal}
+.LegSnippet .LegP1ContainerFirst {clear: both; padding: 0em; font-size: 0.8em; margin-bottom: 0.5em; margin-top: 0em;}
+.LegSnippet .LegP1ContainerFirst strong {font-weight: normal}
+.LegSnippet .LegSP1Container {clear: both; padding-top: 0em; font-size: 0.8em; margin-bottom: 0.5em; padding: 0em}
+.LegSnippet .LegPreambleP1Container {clear: both; padding-top: 0em; font-size: 0.8em; margin-bottom: 0.5em; padding: 0em}
+
+.LegSnippet .LegP1ParaText {clear: both; text-indent: 1em; text-align: justify; font-size: 0.8em}
+.LegSnippet td .LegP1ParaText {font-size: 1em;}
+.LegSnippet .LegP1Text {width: 100%; font-weight: normal;clear:both}
+.LegSnippet .LegP1TextC1Amend {width: 92%;margin-left: 8%;}
+.LegSnippet .LegP1TextC3Amend {width: 92%;margin-left: 8%;}
+.LegSnippet .LegP1TextC3C1Amend2 {margin-left: 16%;}
+.LegSnippet .LegP1TextC4Amend {width: 66%}
+.LegSnippet .LegP1TextC1C1Amend2 {width: 70%}
+.LegSnippet .LegP1TextC1C1C1Amend3 {width: 60%}
+.LegSnippet .LegP1TextC1C3Amend2 {width: 63%}
+
+.LegSnippet .LegP2Container {clear: both}
+.LegSnippet .LegSP2Container {clear: both}
+.LegSnippet .LegP2TitleContainer {clear: both; margin-bottom:1em;margin-top:2em;}
+
+.LegSnippet .LegP2GroupTitleWithNo {width:100%; font-size: 0.8em; font-weight: normal; text-align: justify; margin-bottom: 0.5em;}
+.LegSnippet .LegP2GroupTitle {clear: both; font-size: 0.8em; font-weight: normal; font-style: italic; text-align: justify; padding: 0em; margin-bottom: 0.5em; margin-left: 8%; margin-top: 1em}
+.LegSnippet .LegP2GroupTitle em {font-style: normal}
+.LegSnippet .LegP2GroupTitleC1Amend {margin-left: 18%}
+.LegSnippet .LegP2GroupTitleC3Amend {margin-left: 25%}
+.LegSnippet .LegP2GroupTitleC4Amend {margin-left: 32%}
+.LegSnippet .LegP2GroupTitleC1C3Amend2 {margin-left: 35%}
+
+.LegSnippet .LegP2ParaText {clear: both; text-indent: 1em; text-align: justify; font-size: 0.8em; margin-bottom: 0.5em}
+.LegSnippet .LegP2Text {width: 100%}
+.LegSnippet .LegP2TextC1Amend {width: 92%;margin-left: 8%;}
+.LegSnippet .LegP2TextC3Amend {width: 92%; margin-left: 8%;}
+.LegSnippet .LegP2TextC4Amend {width: 84%; margin-left: 16%;}
+.LegSnippet .LegP2TextC5Amend {width: 59%}
+.LegSnippet .LegP2TextC1C1Amend2 {width: 70%}
+.LegSnippet .LegP2TextC1C1C1Amend3 {width: 60%}
+.LegSnippet .LegP2TextC1C3Amend2 {width: 63%}
+.LegSnippet .LegP2TextC1C4Amend2 {width: 56%}
+.LegSnippet .LegP2TextC3C3Amend2 {width: 56%}
+
+.LegSnippet .LegP3GroupTitle {clear: both; font-size: 0.8em; font-weight: normal; font-style: italic; text-align: justify; padding: 0em; margin-top: 0.5em; margin-bottom: 0.25em; margin-left: 13%}
+.LegSnippet .LegP3GroupTitle em {font-style: normal}
+.LegSnippet .LegP3GroupTitleC1Amend {margin-left: 23%}
+.LegSnippet .LegP3GroupTitleC3Amend {margin-left: 30%}
+.LegSnippet .LegP3GroupTitleC4Amend {margin-left: 37%}
+.LegSnippet .LegP3GroupTitleC1C3Amend2 {margin-left: 40%}
+
+.LegSnippet .LegP3Container {clear: both; width: 100%}
+.LegSnippet .LegSP3Container {clear: both; width: 100%}
+
+.LegSnippet .LegP3No {width: 15%}
+.LegSnippet .LegP3NoC1Amend {width: 25%}
+.LegSnippet .LegP3NoC3Amend {width: 32%}
+.LegSnippet .LegP3NoC4Amend {width: 39%}
+.LegSnippet .LegP3NoC5Amend {width: 46%}
+.LegSnippet .LegP3NoC1C1Amend2 {width: 35%}
+.LegSnippet .LegP3NoC1C1C1Amend3 {width: 45%}
+.LegSnippet .LegP3NoC1C3Amend2 {width: 42%}
+.LegSnippet .LegP3NoC1C4Amend2 {width: 49%}
+.LegSnippet .LegP3NoC1C5Amend2 {width: 56%}
+.LegSnippet .LegP3NoC3C1Amend2 {width: 42%}
+.LegSnippet .LegP3NoC3C3Amend2 {width: 49%}
+.LegSnippet .LegP3NoC3C4Amend2 {width: 56%}
+.LegSnippet .LegP3NoC4C3Amend2 {width: 56%}
+
+
+
+.LegSnippet .LegN3No {width: 15%}
+.LegSnippet .LegN3NoC1Amend {width: 25%}
+.LegSnippet .LegN3NoC3Amend {width: 32%}
+.LegSnippet .LegN3NoC4Amend {width: 39%}
+.LegSnippet .LegN3NoC5Amend {width: 46%}
+.LegSnippet .LegN3NoC1C1Amend2 {width: 35%}
+.LegSnippet .LegN3NoC1C1C1Amend3 {width: 45%}
+
+.LegSnippet .LegP3Text {width: 83%}
+.LegSnippet .LegP3TextC1Amend {width: 73%}
+.LegSnippet .LegP3TextC3Amend {width: 66%}
+.LegSnippet .LegP3TextC4Amend {width: 59%}
+.LegSnippet .LegP3TextC5Amend {width: 52%}
+.LegSnippet .LegP3TextC1C1Amend2 {width: 63%}
+.LegSnippet .LegP3TextC1C1C1Amend3 {width: 53%}
+.LegSnippet .LegP3TextC1C3Amend2 {width: 56%}
+.LegSnippet .LegP3TextC1C4Amend2 {width: 49%}
+.LegSnippet .LegP3TextC3C1Amend2 {width: 56%}
+.LegSnippet .LegP3TextC3C3Amend2 {width: 49%}
+.LegSnippet .LegP3TextC3C4Amend2 {width: 42%}
+.LegSnippet .LegP3TextC4C3Amend2 {width: 42%}
+
+
+
+.LegSnippet .LegP4Container {clear: both; width: 100%; margin-bottom: 0.5em; padding: 0em; font-size: 0.8em}
+.LegSnippet .LegSP4Container {clear: both; width: 100%; margin-bottom: 0.5em; padding: 0em; font-size: 0.8em}
+
+.LegSnippet .LegP4No {width: 22%}
+.LegSnippet .LegP4NoC1Amend {width: 32%}
+.LegSnippet .LegP4NoC3Amend {width: 39%}
+.LegSnippet .LegP4NoC4Amend {width: 46%}
+.LegSnippet .LegP4NoC5Amend {width: 53%}
+.LegSnippet .LegP4NoC1C1Amend2 {width: 42%}
+.LegSnippet .LegP4NoC1C1C1Amend3 {width: 52%}
+.LegSnippet .LegP4NoC1C3Amend2 {width: 49%}
+.LegSnippet .LegP4NoC3C1Amend2 {width: 35%}
+
+.LegSnippet .LegN4No {width: 7%}
+.LegSnippet .LegN4N5No {width: 22%}
+.LegSnippet .LegN4N5NoC1Amend {width: 32%}
+.LegSnippet .LegN4N5NoC3Amend {width: 49%}
+.LegSnippet .LegN4N5NoC4Amend {width: 56%}
+.LegSnippet .LegN4N5NoC1C1Amend2 {width: 42%}
+.LegSnippet .LegN4N5NoC1C1C1Amend3 {width: 52%}
+.LegSnippet .LegN4N5NoC1C3Amend2 {width: 49%}
+
+.LegSnippet .LegP4Text {width: 76%}
+.LegSnippet .LegP4TextC1Amend {width: 66%}
+.LegSnippet .LegP4TextC3Amend {width: 59%}
+.LegSnippet .LegP4TextC4Amend {width: 52%}
+.LegSnippet .LegP4TextC5Amend {width: 45%}
+.LegSnippet .LegP4TextC1C1Amend2 {width: 56%}
+.LegSnippet .LegP4TextC1C1C1Amend3 {width: 46%}
+.LegSnippet .LegP4TextC1C3Amend2 {width: 49%}
+.LegSnippet .LegP4TextC3C1Amend2 {width: 63%}
+
+.LegSnippet .LegLevel3C5Amend{width: 68%;float:right;}
+
+.LegSnippet .LegP5Container {clear: both; width: 100%; margin-bottom: 0.5em; padding: 0em; font-size: 0.8em}
+.LegSnippet .LegSP5Container {clear: both; width: 100%; margin-bottom: 0.5em; padding: 0em; font-size: 0.8em}
+
+.LegSnippet .LegP5No {width: 29%}
+.LegSnippet .LegP5NoC1Amend {width: 39%}
+.LegSnippet .LegP5NoC3Amend {width: 46%}
+.LegSnippet .LegP5NoC4Amend {width: 53%}
+.LegSnippet .LegP5NoC5Amend {width: 60%}
+.LegSnippet .LegP5NoC1C1Amend2 {width: 49%}
+.LegSnippet .LegP5NoC1C1C1Amend3 {width: 59%}
+.LegSnippet .LegP5NoC1C3Amend2 {width: 56%}
+
+.LegSnippet .LegN5No {width: 7%}
+
+.LegSnippet .LegP5Text {width: 69%}
+.LegSnippet .LegP5TextC1Amend {width: 59%}
+.LegSnippet .LegP5TextC3Amend {width: 52%}
+.LegSnippet .LegP5TextC4Amend {width: 45%}
+.LegSnippet .LegP5TextC5Amend {width: 38%}
+.LegSnippet .LegP5TextC1C1Amend2 {width: 49%}
+.LegSnippet .LegP5TextC1C1C1Amend3 {width: 39%}
+.LegSnippet .LegP5TextC1C3Amend2 {width: 42%}
+
+.LegSnippet .LegP6Container {clear: both; width: 100%; margin-bottom: 0.5em; padding: 0em; font-size: 0.8em}
+.LegSnippet .LegSP6Container {clear: both; width: 100%; margin-bottom: 0.5em; padding: 0em; font-size: 0.8em}
+
+.LegSnippet .LegP6No {width: 36%}
+.LegSnippet .LegP6NoC1Amend {width: 46%}
+.LegSnippet .LegP6NoC3Amend {width: 53%}
+.LegSnippet .LegP6NoC4Amend {width: 60%}
+.LegSnippet .LegP6NoC1C1Amend2 {width: 56%}
+.LegSnippet .LegP6NoC1C1C1Amend3 {width: 66%}
+.LegSnippet .LegP6NoC1C3Amend2 {width: 63%}
+
+.LegSnippet .LegP6Text {width: 62%}
+.LegSnippet .LegP6TextC1Amend {width: 52%}
+.LegSnippet .LegP6TextC3Amend {width: 45%}
+.LegSnippet .LegP6TextC4Amend {width: 38%}
+.LegSnippet .LegP6TextC1C1Amend2 {width: 42%}
+.LegSnippet .LegP6TextC1C1C1Amend3 {width: 32%}
+.LegSnippet .LegP6TextC1C3Amend2 {width: 35%}
+
+.LegSnippet .LegP7Container {clear: both; width: 100%; margin-bottom: 0.5em; padding: 0em; font-size: 0.8em}
+.LegSnippet .LegSP7Container {clear: both; width: 100%; margin-bottom: 0.5em; padding: 0em; font-size: 0.8em}
+
+.LegSnippet .LegP7No {width: 43%}
+.LegSnippet .LegP7NoC1Amend {width: 53%}
+.LegSnippet .LegP7NoC3Amend {width: 60%}
+.LegSnippet .LegP7NoC4Amend {width: 67%}
+.LegSnippet .LegP7NoC1C1Amend2 {width: 63%}
+.LegSnippet .LegP7NoC1C1C1Amend3 {width: 73%}
+.LegSnippet .LegP7NoC1C3Amend2 {width: 70%}
+
+.LegSnippet .LegP7Text {width: 55%}
+.LegSnippet .LegP7TextC1Amend {width: 45%}
+.LegSnippet .LegP7TextC3Amend {width: 38%}
+.LegSnippet .LegP7TextC4Amend {width: 31%}
+.LegSnippet .LegP7TextC1C1Amend2 {width: 35%}
+.LegSnippet .LegP7TextC1C1C1Amend3 {width: 25%}
+.LegSnippet .LegP7TextC1C3Amend2 {width: 28%}
+
+
+/* ========== Lists ========== */
+
+.LegSnippet ul {margin: 0em; padding: 0em; font-size: 1em}
+.LegSnippet li {clear: both; margin: 0em; padding: 0em}
+
+.LegSnippet .LegTabbed {clear: both; list-style-type: none}
+.LegSnippet .LegTabbedDef {clear: both; list-style-type: none}
+.LegSnippet .LegDashed {clear: both; list-style: url("/images/LegDisplay/emdash.gif");}
+
+.LegSnippet .LegBulleted {clear: both; list-style-type: disc}
+
+.LegSnippet .LegTabbedC1Amend {clear: both; list-style-type: none; margin-left:8%;}
+.LegSnippet .LegTabbedDefC1Amend {clear: both; list-style-type: none}
+.LegSnippet .LegDashedC1Amend {clear: both; list-style: url("/images/LegDisplay/emdash.gif")}
+.LegSnippet ul ul.LegDashedC1Amend {margin-left:11%}
+.LegSnippet .LegBulletedC1Amend {clear: both; list-style-type: disc}
+
+.LegSnippet .LegTabbedC3Amend {clear: both; list-style-type: none}
+.LegSnippet .LegTabbedDefC3Amend {clear: both; list-style-type: none}
+.LegSnippet .LegDashedC3Amend {clear: both;  list-style: url("/images/LegDisplay/emdash.gif")}
+.LegSnippet .LegBulletedC3Amend {clear: both; list-style-type: disc}
+
+.LegSnippet .LegTabbedC4Amend {clear: both; list-style-type: none}
+.LegSnippet .LegTabbedDefC4Amend {clear: both; list-style-type: none}
+.LegSnippet .LegDashedC4Amend {clear: both;  list-style: url("/images/LegDisplay/emdash.gif")}
+.LegSnippet .LegBulletedC4Amend {clear: both; list-style-type: disc}
+
+.LegSnippet .LegTabbedC1C1Amend2 {clear: both; list-style-type: none}
+.LegSnippet .LegTabbedDefC1C1Amend2 {clear: both; list-style-type: none}
+.LegSnippet .LegDashedC1C1Amend2 {clear: both;  list-style: url("/images/LegDisplay/emdash.gif")}
+.LegSnippet .LegBulletedC1C1Amend2 {clear: both; list-style-type: disc}
+
+.LegSnippet .LegTabbedC1C1C1Amend3 {clear: both; list-style-type: none}
+.LegSnippet .LegTabbedDefC1C1C1Amend3 {clear: both; list-style-type: none}
+.LegSnippet .LegDashedC1C1C1Amend3 {clear: both;  list-style: url("/images/LegDisplay/emdash.gif")}
+.LegSnippet .LegBulletedC1C1C1Amend3 {clear: both; list-style-type: disc}
+
+.LegSnippet .LegTabbedC1C3Amend2 {clear: both; list-style-type: none}
+.LegSnippet .LegTabbedDefC1C3Amend2 {clear: both; list-style-type: none}
+.LegSnippet .LegDashedC1C3Amend2 {clear: both;  list-style: url("/images/LegDisplay/emdash.gif")}
+.LegSnippet .LegBulletedC1C3Amend2 {clear: both; list-style-type: disc}
+
+.LegSnippet ul {margin-left: 11%}
+.LegSnippet ul.LegTabbed {margin-left: 0%}
+.LegSnippet ul.LegTabbedDef {margin-left: 0%}
+.LegSnippet ul.LegTabbedDefC1Amend {margin-left: 0%}
+.LegSnippet ul.LegTabbedDefC2Amend {margin-left: 0%}
+.LegSnippet ul.LegTabbedDefC3Amend {margin-left: 0%}
+.LegSnippet ul.LegTabbedDefC4Amend {margin-left: 0%}
+.LegSnippet ul.LegTabbedDefC5Amend {margin-left: 0%}
+.LegSnippet ul.LegTabbedDefC1C1Amend2 {margin-left: 0%}
+.LegSnippet ul.LegTabbedDefC1C1C1Amend3 {margin-left: 0%}
+.LegSnippet ul.LegTabbedDefC1C3Amend2 {margin-left: 0%}
+.LegSnippet ul ul {margin-left: 9%}
+
+.LegSnippet ul.LegUnorderedListC3Amend{margin-left: 19%}
+.LegSnippet ul.LegUnorderedListC4Amend{margin-left: 27%}
+.LegSnippet .LegRomanList ul.LegUnorderedList {margin-left: 19%}
+
+.LegSnippet .LegListItem {clear: both; padding: 0em}
+.LegSnippet .LegKeyListItem {clear: both; padding: 0em}
+.LegSnippet .LegKeySeparator {float: left; width: 5%; padding: 0em; text-align: center}
+.LegSnippet .LegListItemNo {float: left; text-align: left; padding: 0em; margin: 0em; font-size: 0.8em}
+.LegSnippet td.LegTDplain  .LegListItemNo {font-size: 1em}
+
+.LegSnippet .LegKeyListItem ul {margin-left: 37%}
+.LegSnippet .LegKeyListItem ul  .LegLevel4 {width:95%}
+.LegSnippet .LegKeyListItem .LegDivision {margin-left: 34%}
+
+.LegSnippet .LegKeyLegLevel3 {float: left; padding: 0em; width: 20%; text-align: right; margin-left:8%;}
+.LegSnippet .LegKeyLegLevel4 {float: left; padding: 0em; width: 26%; text-align: right; margin-left:8%;}
+.LegSnippet .LegKeyLegLevel5 {float: left; padding: 0em; width: 32%; text-align: right; margin-left:8%;}
+
+.LegSnippet .LegKeyLegLevel3 {float: left; padding: 0em; width: 20%; text-align: right; margin-left:8%;}
+.LegSnippet .LegKeyLegLevel4 {float: left; padding: 0em; width: 26%; text-align: right; margin-left:8%;}
+.LegSnippet .LegKeyLegLevel5 {float: left; padding: 0em; width: 32%; text-align: right; margin-left:8%;}
+
+.LegSnippet .LegKeyLegLevel3C3Amend {float: left; padding: 0em; width: 20%; text-align: right; margin-left:8%;}
+
+.LegSnippet .LegKeyEULegLevel3 {float: left; padding: 0em; width: 20%; text-align: left; margin-left:8%;}
+.LegSnippet .LegKeyEULegLevel4 {float: left; padding: 0em; width: 26%; text-align: left; margin-left:8%;}
+.LegSnippet .LegKeyEULegLevel5 {float: left; padding: 0em; width: 32%; text-align: left; margin-left:8%;}
+
+.LegSnippet .LegKeyEULegLevel3C1Amend {float: left; padding: 0em; width: 20%; text-align: left; margin-left:16%;}
+.LegSnippet .LegKeyEULegLevel4C1Amend {float: left; padding: 0em; width: 20%; text-align: left; margin-left:24%;}
+.LegSnippet .LegKeyEULegLevel3C2Amend {float: left; padding: 0em; width: 20%; text-align: left; margin-left:8%;}
+.LegSnippet .LegKeyEULegLevel3C3Amend {float: left; padding: 0em; width: 20%; text-align: left; margin-left:8%;}
+
+.LegSnippet .LegLevel3NoC3Amend {float: left;margin-left: 8%;width: 8%;}
+.LegSnippet .LegLevel3NoC4Amend {float: left;margin-left: 16%;width: 8%;}
+.LegSnippet .LegLevel3NoC5Amend {float: left;margin-left: 24%;width: 8%;}
+
+.LegSnippet .LegLevel3 {float: right; width: 92%; text-align: justify}
+.LegSnippet .LegLevel4 {float: right; width: 84%; text-align: justify}
+.LegSnippet .LegLevel5 {float: right; width: 76%; text-align: justify}
+.LegSnippet .LegLevel6 {float: right; width: 68%; text-align: justify}
+.LegSnippet .LegLevel7 {float: right; width: 60%; text-align: justify}
+.LegSnippet .LegLevel8 {float: right; width: 54%; text-align: justify}
+
+.LegSnippet .LegKeyListItem .LegLevel3 {float: right; width: 66%; text-align: justify}
+.LegSnippet .LegKeyListItem .LegLevel4 {float: right; width: 60%; text-align: justify}
+.LegSnippet .LegKeyListItem .LegLevel5 {float: right; width: 54%; text-align: justify}
+
+.LegSnippet li .LegLevel3C1Amend {float: right; width: 92%; text-align: justify}
+
+.LegSnippet .LegLevel3C1Amend {float: right; width: 84%; text-align: justify}
+.LegSnippet .LegLevel4C1Amend {float: right; width: 76%; text-align: justify}
+.LegSnippet .LegLevel5C1Amend {float: right; width: 68%; text-align: justify}
+.LegSnippet .LegLevel6C1Amend {float: right; width: 60%; text-align: justify}
+.LegSnippet .LegLevel7C1Amend {float: right; width: 52%; text-align: justify}
+.LegSnippet .LegLevel8C1Amend {float: right; width: 44%; text-align: justify}
+
+.LegSnippet .LegKeyListItem .LegLevel3C1Amend {float: right; width: 60%; text-align: justify}
+.LegSnippet .LegKeyListItem .LegLevel4C1Amend {float: right; width: 52%; text-align: justify}
+
+.LegSnippet .LegLevel3C3Amend {margin-left:8%; text-align: justify}
+.LegSnippet .LegLevel4C3Amend {margin-left:8%; text-align: justify}
+.LegSnippet .LegLevel5C3Amend {float: right; width: 60%; text-align: justify}
+.LegSnippet .LegLevel6C3Amend {float: right; width: 53%; text-align: justify}
+.LegSnippet .LegLevel7C3Amend {float: right; width: 46%; text-align: justify}
+.LegSnippet .LegLevel8C3Amend {float: right; width: 39%; text-align: justify}
+
+.LegSnippet .LegLevel3C4Amend {float: right; width: 76%; text-align: justify}
+.LegSnippet .LegLevel4C4Amend {float: right; width: 68%; text-align: justify}
+.LegSnippet .LegLevel5C4Amend {float: right; width: 60%; text-align: justify}
+.LegSnippet .LegLevel6C4Amend {float: right; width: 52%; text-align: justify}
+.LegSnippet .LegLevel7C4Amend {float: right; width: 44%; text-align: justify}
+.LegSnippet .LegLevel8C4Amend {float: right; width: 36%; text-align: justify}
+
+.LegSnippet .LegLevel3C5Amend {float: right; width: 68%; text-align: justify}
+.LegSnippet .LegLevel4C5Amend {float: right; width: 60%; text-align: justify}
+.LegSnippet .LegLevel5C5Amend {float: right; width: 52%; text-align: justify}
+.LegSnippet .LegLevel6C5Amend {float: right; width: 44%; text-align: justify}
+.LegSnippet .LegLevel7C5Amend {float: right; width: 36%; text-align: justify}
+.LegSnippet .LegLevel8C5Amend {float: right; width: 28%; text-align: justify}
+
+
+.LegSnippet .LegLevel3C1C1Amend2 {float: right; width: 64%; text-align: justify}
+.LegSnippet .LegLevel4C1C1Amend2 {float: right; width: 57%; text-align: justify}
+.LegSnippet .LegLevel5C1C1Amend2 {float: right; width: 50%; text-align: justify}
+.LegSnippet .LegLevel6C1C1Amend2 {float: right; width: 43%; text-align: justify}
+.LegSnippet .LegLevel7C1C1Amend2 {float: right; width: 36%; text-align: justify}
+.LegSnippet .LegLevel8C1C1Amend2 {float: right; width: 29%; text-align: justify}
+
+.LegSnippet .LegLevel3C1C1C1Amend3 {float: right; width: 54%; text-align: justify}
+.LegSnippet .LegLevel4C1C1C1Amend3 {float: right; width: 47%; text-align: justify}
+.LegSnippet .LegLevel5C1C1C1Amend3 {float: right; width: 40%; text-align: justify}
+.LegSnippet .LegLevel6C1C1C1Amend3 {float: right; width: 33%; text-align: justify}
+.LegSnippet .LegLevel7C1C1C1Amend3 {float: right; width: 26%; text-align: justify}
+.LegSnippet .LegLevel8C1C1C1Amend3 {float: right; width: 19%; text-align: justify}
+
+.LegSnippet .LegLevel3C1C3Amend2 {float: right; width: 64%; text-align: justify}
+.LegSnippet .LegLevel4C1C3Amend2 {float: right; width: 57%; text-align: justify}
+.LegSnippet .LegLevel5C1C3Amend2 {float: right; width: 50%; text-align: justify}
+.LegSnippet .LegLevel6C1C3Amend2 {float: right; width: 43%; text-align: justify}
+.LegSnippet .LegLevel7C1C3Amend2 {float: right; width: 36%; text-align: justify}
+.LegSnippet .LegLevel8C1C3Amend2 {float: right; width: 29%; text-align: justify}
+
+.LegSnippet .LegLevel3No {width: 8%}
+.LegSnippet .LegLevel4No {width: 8%; margin-left: 8%;}
+.LegSnippet .LegLevel5No {width: 8%; margin-left: 16%;}
+.LegSnippet .LegLevel6No {width: 8%; margin-left: 24%;}
+.LegSnippet .LegLevel7No {width: 8%; margin-left: 32%;}
+.LegSnippet .LegLevel8No {width: 8%; margin-left: 40%;}
+
+.LegSnippet .LegLevel3NoC1Amend {width: 8%; margin-left: 8%;}
+.LegSnippet .LegLevel4NoC1Amend {width: 8%; margin-left: 16%;}
+.LegSnippet .LegLevel5NoC1Amend {width: 8%; margin-left: 24%;}
+.LegSnippet .LegLevel6NoC1Amend {width: 8%; margin-left: 32%;}
+.LegSnippet .LegLevel7NoC1Amend {width: 8%; margin-left: 40%;}
+.LegSnippet .LegLevel8NoC1Amend {width: 8%; margin-left: 48%;}
+
+.LegSnippet .LegLevel3NoC3Amend {width: 8%; margin-left:8%}
+.LegSnippet .LegLevel4NoC3Amend {width: 8%; margin-left:8%}
+.LegSnippet .LegLevel5NoC3Amend {width: 38%}
+.LegSnippet .LegLevel6NoC3Amend {width: 45%}
+.LegSnippet .LegLevel7NoC3Amend {width: 52%}
+.LegSnippet .LegLevel8NoC3Amend {width: 59%}
+
+.LegSnippet .LegLevel3NoC4Amend {width: 8%; margin-left:16%}
+.LegSnippet .LegLevel4NoC4Amend {width: 8%; margin-left:24%}
+.LegSnippet .LegLevel5NoC4Amend {width: 8%; margin-left:32%}
+.LegSnippet .LegLevel6NoC4Amend {width: 8%; margin-left:40%}
+.LegSnippet .LegLevel7NoC4Amend {width: 8%; margin-left:48%}
+.LegSnippet .LegLevel8NoC4Amend {width: 8%; margin-left:56%}
+
+.LegSnippet .LegLevel3NoC5Amend {width: 8%; margin-left:24%}
+.LegSnippet .LegLevel4NoC5Amend {width: 8%; margin-left:32%}
+.LegSnippet .LegLevel5NoC5Amend {width: 8%; margin-left:40%}
+.LegSnippet .LegLevel6NoC5Amend {width: 8%; margin-left:48%}
+.LegSnippet .LegLevel7NoC5Amend {width: 8%; margin-left:56%}
+.LegSnippet .LegLevel8NoC5Amend {width: 8%; margin-left:64%}
+
+.LegSnippet .LegLevel3NoC1C1Amend2 {width: 34%}
+.LegSnippet .LegLevel4NoC1C1Amend2 {width: 41%}
+.LegSnippet .LegLevel5NoC1C1Amend2 {width: 48%}
+.LegSnippet .LegLevel6NoC1C1Amend2 {width: 55%}
+.LegSnippet .LegLevel7NoC1C1Amend2 {width: 62%}
+.LegSnippet .LegLevel8NoC1C1Amend2 {width: 69%}
+
+.LegSnippet .LegLevel3NoC1C1C1Amend3 {width: 44%}
+.LegSnippet .LegLevel4NoC1C1C1Amend3 {width: 51%}
+.LegSnippet .LegLevel5NoC1C1C1Amend3 {width: 58%}
+.LegSnippet .LegLevel6NoC1C1C1Amend3 {width: 65%}
+.LegSnippet .LegLevel7NoC1C1C1Amend3 {width: 72%}
+.LegSnippet .LegLevel8NoC1C1C1Amend3 {width: 79%}
+
+.LegSnippet .LegLevel3NoC1C3Amend2 {width: 34%}
+.LegSnippet .LegLevel4NoC1C3Amend2 {width: 41%}
+.LegSnippet .LegLevel5NoC1C3Amend2 {width: 48%}
+.LegSnippet .LegLevel6NoC1C3Amend2 {width: 55%}
+.LegSnippet .LegLevel7NoC1C3Amend2 {width: 62%}
+.LegSnippet .LegLevel8NoC1C3Amend2 {width: 69%}
+
+.LegSnippet .LegLeftNoLegLevel4No {width: 14%}
+.LegSnippet .LegLeftNoLegLevel5No {width: 21%}
+.LegSnippet .LegLeftNoLegLevel6No {width: 28%}
+
+.LegSnippet .LegLeftNoLegLevel4NoC1Amend {width: 24%}
+.LegSnippet .LegLeftNoLegLevel5NoC1Amend {width: 31%}
+.LegSnippet .LegLeftNoLegLevel6NoC1Amend {width: 38%}
+
+.LegSnippet .LegLeftNoLegLevel4NoC1C1Amend2 {width: 34%}
+.LegSnippet .LegLeftNoLegLevel5NoC1C1Amend2 {width: 41%}
+.LegSnippet .LegLeftNoLegLevel6NoC1C1Amend2 {width: 48%}
+
+.LegSnippet .LegLeftNoLegLevel4NoC1C1C1Amend3 {width: 44%}
+.LegSnippet .LegLeftNoLegLevel5NoC1C1C1Amend3 {width: 51%}
+.LegSnippet .LegLeftNoLegLevel6NoC1C1C1Amend3 {width: 58%}
+
+.LegSnippet .LegRightNoLegLevel4No {width: 7%}
+.LegSnippet .LegRightNoLegLevel5No {width: 7%}
+.LegSnippet .LegRightNoLegLevel6No {width: 7%}
+
+/* lists in keylists */
+.LegSnippet .LegKeyListItem .LegAlphaList .LegLevel4No {width: 8%; margin-left: 34%;}
+.LegSnippet .LegKeyListItem .LegAlphaList .LegLevel4 {width: 56%;}
+
+/* Standard entry for list item text */
+.LegSnippet .LegListTextStandard {text-align: justify; margin-top: 0em; padding: 0em; font-size: 0.8em}
+.LegSnippet .LegPrelims .LegListTextStandard {text-align: justify; margin-top: 0em; padding: 0em; font-size: inherit;}
+.LegSnippet td.LegTDplain .LegListTextStandard {font-size: 1em}
+
+
+/* ========== Table ========== */
+
+.LegSnippet table {margin: 0em; padding: 0em}
+.LegSnippet caption {padding-bottom: 0.5em}
+
+.LegSnippet .LegTabular {text-align: left; clear: both; padding-top: 0.5em; padding-bottom: 1em; margin: 0em}
+.LegSnippet .LegTableNo {font-weight: normal; text-align: center; font-size: 0.8em; margin-bottom: 0.5em; margin-top: 0em; padding: 0em}
+.LegSnippet .LegTableTitle {font-weight: normal; text-align: center; font-size: 0.8em; margin-bottom: 0.5em; margin-top: 0em; padding: 0em}
+.LegSnippet .LegTableSubtitle {font-weight: normal; text-align: center; font-size: 0.8em; margin-bottom: 0.5em; margin-top: 0em; padding: 0em}
+
+.LegSnippet .LegTableContainer {clear: both; text-align: center; margin-bottom: 0.5em}
+.LegSnippet .LegTable {border: none; font-size: 1em; text-align: left; margin-left: auto; margin-right: auto}
+
+.LegSnippet thead .LegTH {text-align: center; font-style: italic; font-size: 1em; font-weight: normal; border: none; background-color: #ffffff; color: black; vertical-align: top}
+.LegSnippet thead .LegTHplain {text-align: center; font-style: italic; font-size: 0.8em; font-weight: normal; border: none; background-color: #ffffff; color: black; vertical-align: top}
+.LegSnippet thead .LegTDplain, .LegSnippet thead .LegTD {text-align: center;}
+.LegSnippet thead .LegTH em {font-style: normal}
+.LegSnippet thead .LegTH .LegText em {font-style: italic}
+.LegSnippet thead .LegTHplain em {font-style: normal}
+
+.LegSnippet tbody .LegTH {text-align: left; font-style: normal; font-size: 1em; font-weight: bold; border: none; background-color: #ffffff; color: black; vertical-align: top}
+.LegSnippet tbody .LegTHplain {text-align: left; font-style: normal; font-size: 0.8em; font-weight: bold; border: none; background-color: #ffffff; color: black; vertical-align: top}
+.LegSnippet tbody .LegTH strong {font-weight: normal}
+.LegSnippet tbody .LegTH .LegText strong {font-weight: bold}
+.LegSnippet tbody .LegTHplain strong {font-weight: normal}
+
+.LegSnippet .LegTD acronym {font-size: 0.8em;}
+.LegSnippet .LegTD .LegCitation {font-size: 0.8em;}
+
+.LegSnippet .LegTD {font-style: normal; font-size: 0.8m; font-weight: normal; border: none; vertical-align: top}
+.LegSnippet .LegTDplain {font-style: normal; font-size: 0.8em; font-weight: normal; border: none; vertical-align: top}
+.LegSnippet .LegTDmixedText {font-style: normal; font-size: 0.8em; font-weight: normal}
+.LegSnippet td .LegTDmixedText {font-size: 1em;}
+
+.LegSnippet tbody .LegDivision{line-height:1.5em}
+.LegSnippet tbody .LegDivisionNo{float:left; width:8%; text-align: left;  font-size:inherit; color:#494949;}
+.LegSnippet tbody .LegDivisionTitleNoNumber{text-align: left;  font-size:inherit; color:#494949;}
+.LegSnippet tbody .LegDivisionTitle {text-align: left;  font-size:inherit; color:#494949;}
+.LegSnippet tbody sup {vertical-align: baseline; position: relative; top: -0.4em; }
+
+.LegSnippet tbody .LegDivisionNoAmend{float:left; width:8%; text-align: left;  font-size:inherit; color:#494949;}
+.LegSnippet tbody .LegDivisionTitleNoNumberAmend{text-align: left;  font-size:inherit; color:#494949;}
+.LegSnippet tbody .LegDivisionTitleAmend {text-align: left;  font-size:inherit; color:#494949;}
+
+/* ========== Amends ========== */
+
+.LegSnippet .LegAmendQuoteOpen {font-weight: normal; font-style: normal; text-align: left}
+.LegSnippet .LegAmendQuoteClose {font-weight: normal; font-style: normal; text-align: right}
+.LegSnippet span.LegAmendQuote {font-weight: normal; font-style: normal}
+
+.LegSnippet .LegRunOnAmend {}
+
+
+/* ========== Forms ========== */
+
+.LegSnippet .LegClearForm {clear: both; padding-top: 0em}
+.LegSnippet .LegFormSection {margin-top: 1em; margin: 1em; padding: 0.5em}
+
+
+/* ========== Formula ========== */
+
+.LegSnippet .LegFormula {clear: both; margin-left: 10%; text-align: center}
+.LegSnippet .LegFormula {clear: both; margin-left: 10%; text-align: center}
+.LegSnippet .LegFormulaAmend {clear: both; margin-left: 10%; text-align: center}
+.LegSnippet .LegFormulaC3Amend{clear: both; margin-left: 17%; text-align: center}
+.LegSnippet .LegWhere {clear: both; margin-left: 10%}
+
+.LegSnippet .LegMaths {text-align: center; margin-top: 0.5em; font-size: 0.8em}
+.LegSnippet .LegErrorMaths {clear: both; text-align: center; margin-top: 0.5em; border: solid 1px red; background-color: white}
+
+
+/* ========== Footnotes ========== */
+
+.LegSnippet div.LegFootnotes {clear: both; padding-top: 1em}
+.LegSnippet div.LegFootnotesContainer {margin-top: 1em; border-top: solid 1px black; padding-top: 1em; padding-bottom: 1em}
+.LegSnippet .LegFootnote {clear: both; padding: 0em; margin-bottom: 0.5em}
+.LegSnippet td .LegFootnote {clear: both; margin-top: 0em; margin-bottom: 0em; padding: 0em}
+.LegSnippet .LegFootnoteRef {font-weight: bold}
+.LegSnippet .LegFootnoteNoContainer {float: left; width: 5%; font-size: 0.8em}
+.LegSnippet .LegTableFootnoteNoContainer {float: left; width: 3%; font-size: 0.8em}
+.LegSnippet .LegFootnoteNo {font-weight: bold}
+.LegSnippet .LegTableFootnoteRef {font-weight: normal}
+.LegSnippet .LegTableFootnoteNo {font-weight: normal}
+
+
+/* ========== Signatures ========== */
+
+.LegSnippet .LegSignedSection {clear: both; padding-bottom: 2em}
+.LegSnippet .LegSignatory {clear: both; padding-top: 1em}
+.LegSnippet .LegPersonName {clear: both; float: right; width: 50%; font-style: italic; margin-bottom: 0em; text-align: right}
+.LegSnippet .LegPersonName em {font-style: normal}
+.LegSnippet .LegJobTitle {clear: both; float: right; width: 50%; margin-bottom: 0em; text-align: right}
+.LegSnippet .LegDepartment {clear: both; float: right; width: 50%; margin-bottom: 0em; text-align: right}
+.LegSnippet .LegDateSigned {clear: both; width: 50%; margin-bottom: 0em; text-align: left}
+.LegSnippet .LegAddressLine {clear: both; width: 50%; margin-bottom: 0em; text-align: left}
+.LegSnippet .LegSealText {clear: both; margin-bottom: 0em; font-size: 0.8em}
+.LegSnippet .SignatureSpace {padding-top: 1em}
+.LegSnippet .LegSignee p.LegText{text-align:center}
+
+
+/* ========== Decorated groups ========== */
+
+.LegSnippet .LegDecoratedGroupLeft {border-right: solid 1px red; padding-right: 0.25em}
+.LegSnippet  .boxpadding {display: block; width: 100%; height: 2em;  border: 1px solid black;}
+
+/* ========== Images ========== */
+
+.LegSnippet .LegFigureNumber {clear: both; display: block; padding-top: 1em; text-align: center; font-weight: bold; font-size: 0.8em}
+.LegSnippet .LegFigureTitle {clear: both; display: block; padding-top: 1em; text-align: center; font-weight: bold; font-size: 0.8em}
+.LegSnippet img.LegDisplayImage {clear: both;display: block; margin-top: 1em; margin-bottom: 1em; text-align: center; margin-left: auto; margin-right: auto; max-width:90%}
+.LegSnippet .LegDisplayImageText {text-align: center; font-weight: bold; margin-top: 0em; padding-bottom: 2em;}
+.LegSnippet img.LegInlineImage {display: inline}
+.LegSnippet img.LegUnicodeCharacter {display: inline; border-style: none; height: 0.7em; width: 0.7em}
+
+
+/* ========== Inline =========== */
+
+.LegSnippet .LegSmallcaps {font-variant: small-caps}
+.uppercase{text-transform:uppercase}

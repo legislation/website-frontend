@@ -204,7 +204,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 														</xsl:choose>													
 													</xsl:attribute>
 													<xsl:value-of select="atom:title"/><span class="pageLinkIcon"></span>
-												</a>																				
+												</a>																		
 											</li>
 										</xsl:if>
 									</xsl:for-each>

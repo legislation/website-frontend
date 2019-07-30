@@ -98,6 +98,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</div>
 						<xsl:variable name="nonDraftTypes" select="$tso:legTypeMap[not(@class = ('draft','IA', 'Bill', 'euretained'))]" />
 						<xsl:variable name="draftTypes" select="$tso:legTypeMap[@class = 'draft']" />
+						<xsl:variable name="euTypes" select="$tso:legTypeMap[@class = 'euretained']" />
 						<xsl:variable name="iaTypes" select="$tso:legTypeMap[@class = 'IA']" />
 						<xsl:variable name="defraLex" select="'Department for Environment, Food and Rural Affairs'" />
 						<div class="s_8 p_one infoArea">
@@ -148,6 +149,27 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</ul>
 							</div>
 						</div>
+						<!-- EU RETAINED -->
+						<xsl:if test="not($hideEUdata)">
+							<div class="s_8 p_one infoArea">
+								<h2 class="s_7 p_one"><xsl:value-of select="leg:TranslateText('EU Retained')"/></h2>
+								<a href="#browseDraftHelp" class="helpItemToMidLeft helpIcon p_two draftHelpIcon"><img src="/images/chrome/helpIcon.gif" alt="Draft Legislation Help" /></a>							
+								<div class="s_4 p_one legCol">
+									<ul class="legTypes">
+										<xsl:for-each select="$euTypes[position() &lt;= ceiling(count($euTypes) div 2)]">
+											<li><a id="{@abbrev}" href="{$TranslateLangPrefix}/{@abbrev}"><xsl:value-of select="@plural" /></a></li>
+										</xsl:for-each>
+									</ul>							
+								</div>
+								<div class="s_4 p_two legCol">
+									<ul class="legTypes">
+										<xsl:for-each select="$euTypes[position() > ceiling(count($euTypes) div 2)]">
+											<li><a id="{@abbrev}" href="{$TranslateLangPrefix}/{@abbrev}"><xsl:value-of select="@plural" /></a></li>
+										</xsl:for-each>
+									</ul>							
+								</div>
+							</div>
+						</xsl:if>
 						
 						<div class="s_8 p_one infoArea">
 							<h2 class="s_7 p_one"><xsl:value-of select="leg:TranslateText('Draft legislation')"/></h2>

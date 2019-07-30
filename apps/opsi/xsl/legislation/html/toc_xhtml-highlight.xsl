@@ -81,6 +81,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:text>/* Legislation stylesheets - load depending on content type */&#xA;</xsl:text>
 			<xsl:text>@import "/styles/legislation.css";&#xA;</xsl:text>
 			<xsl:choose>
+				<xsl:when test="$uriPrefix = ('eut', 'eur', 'eudr', 'eudn') ">
+					<xsl:text>@import "/styles/legislation.css";&#xA;</xsl:text>
+					<xsl:text>@import "/styles/eulegislation.css";&#xA;</xsl:text>
+				</xsl:when>	
 				<xsl:when test="$uriPrefix ='ukpga' or  $uriPrefix ='ukla'  or  $uriPrefix ='cukla'  or  $uriPrefix ='ukcm'  ">
 					<xsl:text>@import "/styles/legislation.css";&#xA;</xsl:text>
 					<xsl:text>@import "/styles/primarylegislation.css";&#xA;</xsl:text>

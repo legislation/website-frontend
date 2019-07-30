@@ -1,5 +1,3 @@
-
-
 /*
 (c)  Crown copyright
  
@@ -158,15 +156,16 @@ $.fn.showExtentInfo = function (inputs) {
 				// Contains variables that will be used by the object
 
         // All combinations of extent
-        this.allExtents = ["E", "W", "S", "N.I.", "E+W", "E+S", "E+N.I.", "W+S", "W+N.I.", "S+N.I.", "E+W+S", "E+W+N.I.", "E+S+N.I.", "W+S+N.I.", "E+W+S+N.I."];
+        this.allExtents = ["E", "W", "E+W", "S", "E+S", "W+S", "E+W+S", "N.I.", "E+N.I.", "W+N.I.", "E+W+N.I.", "S+N.I.", "E+S+N.I.", "W+S+N.I.", "E+W+S+N.I.", "E.U.", "E+E.U.", "W+E.U.", "E+W+E.U.", "S+E.U.", "E+S+E.U.", "W+S+E.U.", "E+W+S+E.U.", "N.I.+E.U.", "E+N.I.+E.U.", "W+N.I.+E.U.", "E+W+N.I.+E.U.", "S+N.I.+E.U.", "E+S+N.I.+E.U.", "W+S+N.I.+E.U.", "E+W+S+N.I.+E.U."];
         this.applicableExtents = {
             uk: ["E", "W", "S", "N.I.", "E+W", "E+S", "E+N.I.", "W+S", "W+N.I.", "S+N.I.", "E+W+S", "E+W+N.I.", "E+S+N.I.", "W+S+N.I.", "E+W+S+N.I."],
             gb: ["E", "W", "S", "E+W", "E+S", "E+N.I.", "W+S", "W+N.I.", "S+N.I.", "E+W+S", "E+W+N.I.", "E+S+N.I.", "W+S+N.I.", "E+W+S+N.I."],
             ew: ["E", "W", "E+W", "E+S", "E+N.I.", "W+S", "W+N.I.", "E+W+S", "E+W+N.I.", "E+S+N.I.", "W+S+N.I.", "E+W+S+N.I."],
-            england: ["E", "E+W", "E+S", "E+N.I.", "E+W+S", "E+W+N.I.", "E+S+N.I.", "E+W+S+N.I."],
-            wales: ["W", "E+W", "W+S", "W+N.I.", "E+W+S", "E+W+N.I.", "W+S+N.I.", "E+W+S+N.I."],
-            scotland: ["S", "E+S", "W+S", "S+N.I.", "E+W+S", "E+S+N.I.", "W+S+N.I.", "E+W+S+N.I."],
-            ni: ["N.I.", "E+N.I.", "W+N.I.", "S+N.I.", "E+W+N.I.", "E+S+N.I.", "W+S+N.I.", "E+W+S+N.I."]
+            england: ["E", "E+W", "E+S", "E+W+S", "E+N.I.", "E+W+N.I.", "E+S+N.I.", "E+W+S+N.I.", "E+E.U.", "E+W+E.U.", "E+S+E.U.", "E+W+S+E.U.", "E+N.I.+E.U.", "E+W+N.I.+E.U.", "E+S+N.I.+E.U.", "E+W+S+N.I.+E.U."],
+            wales: ["W", "E+W", "W+S", "E+W+S", "W+N.I.", "E+W+N.I.", "W+S+N.I.", "E+W+S+N.I.", "W+E.U.", "E+W+E.U.", "W+S+E.U.", "E+W+S+E.U.", "W+N.I.+E.U.", "E+W+N.I.+E.U.", "W+S+N.I.+E.U.", "E+W+S+N.I.+E.U."],
+            scotland: ["S", "E+S", "W+S", "E+W+S", "S+N.I.", "E+S+N.I.", "W+S+N.I.", "E+W+S+N.I.", "S+E.U.", "E+S+E.U.", "W+S+E.U.", "E+W+S+E.U.", "S+N.I.+E.U.", "E+S+N.I.+E.U.", "W+S+N.I.+E.U.", "E+W+S+N.I.+E.U."],
+            ni: ["N.I.", "E+N.I.", "W+N.I.", "E+W+N.I.", "S+N.I.", "E+S+N.I.", "W+S+N.I.", "E+W+S+N.I.", "N.I.+E.U.", "E+N.I.+E.U.", "W+N.I.+E.U.", "E+W+N.I.+E.U.", "S+N.I.+E.U.", "E+S+N.I.+E.U.", "W+S+N.I.+E.U.", "E+W+S+N.I.+E.U."],
+			eu: ["E.U.", "E+E.U.", "W+E.U.", "E+W+E.U.", "S+E.U.", "E+S+E.U.", "W+S+E.U.", "E+W+S+E.U.", "N.I.+E.U.", "E+N.I.+E.U.", "W+N.I.+E.U.", "E+W+N.I.+E.U.", "S+N.I.+E.U.", "E+S+N.I.+E.U.", "W+S+N.I.+E.U.", "E+W+S+N.I.+E.U."]
         };
         this.extentSearchCoverage = []; // Bucket for extents that the tickboxes select
         this.html = ''; // String for html output
@@ -285,6 +284,9 @@ $.fn.showExtentInfo = function (inputs) {
 						}
 						if (extentFields.is('[value="ni"]')) {
 							exactExtents.push('N.I.');
+						}
+						if (extentFields.is('[value="eu"]')) {
+							exactExtents.push('E.U.');
 						}
 						if (exactExtents.length !== 0) {
 							ext.addCoverage(searchType, exactExtents.join('+'));

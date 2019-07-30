@@ -42,6 +42,7 @@ exclude-result-prefixes="tso atom">
 
 <xsl:variable name="g_strConstantPrimary" select="'primary'" as="xs:string"/>
 <xsl:variable name="g_strConstantSecondary" select="'secondary'" as="xs:string"/>
+<xsl:variable name="g_strConstantEuretained" select="'euretained'" as="xs:string"/>
 <xsl:variable name="g_strConstantDocumentStatusDraft" select="'draft'" as="xs:string"/>
 <xsl:variable name="g_strConstantOutputTypePrimary" select="'PrimaryStyle'" as="xs:string"/>
 <xsl:variable name="g_strConstantOutputTypeSecondary" select="'SecondaryStyle'" as="xs:string"/>

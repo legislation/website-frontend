@@ -19,8 +19,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	xmlns:xforms="http://www.w3.org/2002/xforms"
     xmlns:ev="http://www.w3.org/2001/xml-events"
 	>
+	
+	<xsl:import href="../../common/utils.xsl" />
+	
 	<xsl:variable name="requestInfoDoc" select="if (doc-available('input:request-info')) then doc('input:request-info') else ()"/>	
-
+	
+	<xsl:variable name="IsEURetained" as="xs:boolean" select="$g_strDocumentType = 'euretained'" />
+	
 	<xsl:template name="TSOOutputWarningMessage">
 			<xsl:param name="messageId" as="xs:string" />	
 			<xsl:param name="messageType" as="xs:string" />
@@ -66,6 +71,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template match="ukm:Metadata" mode="HTMLmetadata">
 		<xsl:apply-templates mode="HTMLmetadata" />
 		<meta name="Legislation.year" content="{*/ukm:Year/@Value}" />	
+		<xsl:if test="$IsEURetained and $hideEUdata">
+			<meta name="robots" content="noindex, nofollow" />
+		</xsl:if>
 	</xsl:template>
 	
 	<!--HA070053: condition added to exclude the PDF alternate link from documents which are print only ie. we don't hold any xml data for, as these create a broken link-->
@@ -223,6 +231,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<a href="#moreResourcesTabHelp" class="helpItem helpItemToBot">
 							<img src="/images/chrome/helpIcon.gif" alt=" Help about More Resources"/>
 						</a>
+					</li>
+				</xsl:if>
+				<xsl:if test="$IsEURetained">
+					<li id="legInForceInfoLink">
+						<span class="presentation"></span>
+						<a href="{leg:FormatURL($inforceinfoURI, false())}"><xsl:value-of select="leg:TranslateText('In force Information')"/></a>
 					</li>
 				</xsl:if>
 		</ul>			

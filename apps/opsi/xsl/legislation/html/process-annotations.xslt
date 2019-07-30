@@ -37,7 +37,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 	<!-- ========== Standard code for outputting legislation ========= -->
 
-	<xsl:template match="leg:Primary | leg:Secondary | leg:Body | leg:Schedules | leg:SignedSection | leg:ExplanatoryNotes | leg:P1group | leg:Title | leg:Group | leg:Part | leg:Chapter | leg:Pblock | leg:PsubBlock | leg:P1 | leg:P |leg:PrimaryPrelims | leg:SecondaryPrelims | leg:Schedule | leg:Form | leg:Schedule/leg:ScheduleBody//leg:Tabular " mode="ProcessAnnotations">
+	<xsl:template match="leg:Primary | leg:Secondary | leg:EURetained | leg:Body | leg:EUBody | leg:Schedules | leg:SignedSection | leg:ExplanatoryNotes | leg:P1group | leg:Title | leg:Group | leg:Part | leg:Chapter | leg:Pblock | leg:PsubBlock | leg:P1 | leg:P |leg:PrimaryPrelims | leg:SecondaryPrelims | leg:EUPrelims | leg:Schedule | leg:Form | leg:Schedule/leg:ScheduleBody//leg:Tabular | leg:EUPart | leg:EUChapter | leg:EUSection | leg:Division | leg:Footnotes" mode="ProcessAnnotations">
 		<xsl:param name="showSection" as="element()*" tunnel="yes" select="()" />
 		<xsl:param name="showingHigherLevel" as="xs:boolean" tunnel="yes" select="false()"/>
 		<xsl:param name="includeTooltip" as="xs:boolean" tunnel="yes" select="false()"/>
@@ -52,16 +52,16 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:when test="ancestor::leg:BlockAmendment">
 					<!--Block amendment annotations handled at end of provision-->
 				</xsl:when>
-				<xsl:when test="self::leg:Part[not(ancestor::leg:BlockAmendment)] | self::leg:Chapter[not(ancestor::leg:BlockAmendment)] | self::leg:Pblock[not(ancestor::leg:BlockAmendment)] | self::leg:PsubBlock[not(ancestor::leg:BlockAmendment)]">
+				<xsl:when test="self::leg:Part[not(ancestor::leg:BlockAmendment)] | self::leg:Chapter[not(ancestor::leg:BlockAmendment)] | self::leg:Pblock[not(ancestor::leg:BlockAmendment)] | self::leg:PsubBlock[not(ancestor::leg:BlockAmendment)] | self::leg:EUPart[not(ancestor::leg:BlockAmendment)] | self::leg:EUChapter[not(ancestor::leg:BlockAmendment)] | self::leg:EUSection[not(ancestor::leg:BlockAmendment)] | self::leg:Division[not(ancestor::leg:BlockAmendment)]">
 					<xsl:sequence select="(leg:Number | leg:Title)/descendant::leg:CommentaryRef" />
 				</xsl:when>
-				<xsl:when test="self::leg:P1group[not(ancestor::leg:BlockAmendment)] | self::leg:P1[not(parent::leg:P1group)][not(ancestor::leg:BlockAmendment)][not(ancestor::leg:Tabular)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:Tabular[not(parent::leg:P1)][not(parent::leg:P)]">
+				<xsl:when test="self::leg:P1group[not(ancestor::leg:BlockAmendment)] | self::leg:P1[not(parent::leg:P1group)][not(ancestor::leg:BlockAmendment)][not(ancestor::leg:Tabular)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:EUPrelims |self::leg:Tabular[not(parent::leg:P1)][not(parent::leg:P)]">
 					<xsl:sequence select="descendant::leg:CommentaryRef"/>
 				</xsl:when>
-				<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body or parent::leg:Schedules or parent::leg:ScheduleBody)">			
+				<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body or parent::leg:EUBody or parent::leg:Schedules or parent::leg:ScheduleBody)">			
 					<xsl:sequence select="descendant::leg:CommentaryRef"/>
 				</xsl:when>
-				<xsl:when test="self::leg:Tabular[not(parent::leg:P1)][not(parent::leg:P)] and (parent::*[@id] or parent::leg:Body )">
+				<xsl:when test="self::leg:Tabular[not(parent::leg:P1)][not(parent::leg:P)] and (parent::*[@id] or parent::leg:Body or parent::leg:EUBody )">
 					<xsl:sequence select="descendant::leg:CommentaryRef" />
 				</xsl:when>
 				<xsl:when test="self::leg:Title[parent::leg:Part or parent::leg:Chapter]">
@@ -83,11 +83,11 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:when test="ancestor::leg:BlockAmendment">
 					<!--Block amendment annotations handled at end of provision-->
 				</xsl:when>
-				<xsl:when test="self::leg:Part[not(ancestor::leg:BlockAmendment)] | self::leg:Chapter[not(ancestor::leg:BlockAmendment)] | self::leg:Pblock[not(ancestor::leg:BlockAmendment)] | self::leg:PsubBlock[not(ancestor::leg:BlockAmendment)]">
+				<xsl:when test="self::leg:Part[not(ancestor::leg:BlockAmendment)] | self::leg:Chapter[not(ancestor::leg:BlockAmendment)] | self::leg:Pblock[not(ancestor::leg:BlockAmendment)] | self::leg:PsubBlock[not(ancestor::leg:BlockAmendment)] | self::leg:EUPart[not(ancestor::leg:BlockAmendment)] | self::leg:EUChapter[not(ancestor::leg:BlockAmendment)] | self::leg:EUSection[not(ancestor::leg:BlockAmendment)] | self::leg:Division[not(ancestor::leg:BlockAmendment)]">
 					<xsl:sequence select="(leg:Number | leg:Title)/(descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution)" />
 				</xsl:when>
 				<!-- for prelims we need to take all descendent amendments -->
-				<xsl:when test="self::leg:PrimaryPrelims | self::leg:SecondaryPrelims">
+				<xsl:when test="self::leg:Footnotes | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:EUPrelims">
 					<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
 				</xsl:when>	
 				<xsl:when test="self::leg:P1group[not(ancestor::leg:BlockAmendment)] | self::leg:P1[not(parent::leg:P1group)][not(ancestor::leg:BlockAmendment)][not(ancestor::leg:Tabular)]">
@@ -99,10 +99,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:when test="self::leg:Title[parent::leg:P1group or parent::leg:P1]">
 					<!-- all other title commentaries handled at end of the provision  -->
 				</xsl:when>
-				<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body or parent::leg:Schedules or parent::leg:ScheduleBody)">
+				<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body or parent::leg:EUBody or parent::leg:Schedules or parent::leg:ScheduleBody)">
 					<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
 				</xsl:when>
-				<xsl:when test="self::leg:Tabular[not(parent::leg:P1)][not(parent::leg:P)] and (parent::*[@id] or parent::leg:Body or parent::leg:Schedules or parent::leg:ScheduleBody)">
+				<xsl:when test="self::leg:Tabular[not(parent::leg:P1)][not(parent::leg:P)] and (parent::*[@id] or parent::leg:Body or parent::leg:EUBody or parent::leg:Schedules or parent::leg:ScheduleBody)">
 					<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution" />
 				</xsl:when>
 				<xsl:otherwise>
@@ -117,11 +117,11 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:when test="@DocumentURI">
 					<xsl:value-of select="@DocumentURI"/>
 				</xsl:when>
-				<xsl:when test="self::leg:Body">
+				<xsl:when test="self::leg:Body or self::leg:EUBody">
 					<xsl:value-of select="/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/navigation/body']/@href" />
 				</xsl:when>
 				<xsl:when test="self::leg:Schedules">
-					<xsl:value-of select="/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/navigation/schedules']/@href" />
+					<xsl:value-of select="/leg:Legislation/ukm:Metadata/atom:link[@rel = ('http://www.legislation.gov.uk/def/navigation/schedules', 'http://www.legislation.gov.uk/def/navigation/annexes')]/@href" />
 				</xsl:when>
 				<xsl:when test="parent::leg:SignedSection">
 					<xsl:value-of select="/(leg:Legislation|leg:Fragment)/ukm:Metadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/navigation/signature']/@href" />
@@ -135,36 +135,19 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:variable name="isValidFrom" as="xs:boolean" select="@Match = 'false' and @RestrictStartDate and ((($version castable as xs:date) and xs:date(@RestrictStartDate) &gt; xs:date($version) ) or (not($version castable as xs:date) and xs:date(@RestrictStartDate) &gt; current-date() ))" />
 		<xsl:variable name="isRepealed" as="xs:boolean" select="(@Match = 'false' and (not(@Status) or @Status != 'Prospective') and not($isValidFrom)) or ($isRepealedAct and matches($currentURI, '/body|/schedules|/note'))"/>
 
-		<!-- when we have change annotations for insertion/addition/sub that spans multiple provisions but is not part of a whole part/schedule/chapter change then each provision will need to be annotated when viewed from a higher level
-	- see ukpga/2003/42/schedule/3 for example-->
-		<xsl:variable name="multiple-provision-annotations" as="xs:boolean" 
-		select="if (
-			((local-name() = 'P1' and not(parent::leg:P1group) and not(ancestor::leg:BlockAmendment) and
-				(some $c in preceding-sibling::*[1][self::leg:P1 or self::leg:P1group]//(descendant::leg:CommentaryRef/@Ref | descendant::leg:Repeal/@CommentaryRef | descendant::leg:Substitution/@CommentaryRef | descendant::leg:Addition/@CommentaryRef) satisfies $c = ($additionRepealRefs/@CommentaryRef,$commentaryRefs/@Ref))
-			) or 
-			(:  allowance for EPP blanket amendments - use peceding for allowance across high level boundaries :)
-			(local-name() = 'P1group' and not(ancestor::leg:BlockAmendment) and 
-				(some $c in preceding::*[self::leg:P1 or self::leg:P1group][1]//(descendant::leg:CommentaryRef[starts-with(@Ref, 'key-')]/@Ref | descendant::leg:Repeal[starts-with(@ChangeId, 'key-')]/@CommentaryRef | descendant::leg:Substitution[starts-with(@ChangeId, 'key-')]/@CommentaryRef | descendant::leg:Addition[starts-with(@ChangeId, 'key-')]/@CommentaryRef) satisfies $c = ($additionRepealRefs/@CommentaryRef,$commentaryRefs/@Ref))
-			) or 
-			(local-name() = 'P1group' and not(ancestor::leg:BlockAmendment) and 
-				(some $c in preceding-sibling::*[1][self::leg:P1group]//(descendant::leg:CommentaryRef/@Ref | descendant::leg:Repeal/@CommentaryRef | descendant::leg:Substitution/@CommentaryRef | descendant::leg:Addition/@CommentaryRef) satisfies $c  = ($additionRepealRefs/@CommentaryRef,$commentaryRefs/@Ref))
-			)) and 
-			not(ancestor::*[self::leg:Schedule or self::leg:Part or self::leg:Chapter or self::leg:Pblock or self::leg:Group]/(leg:TitleBlock | leg:Title | leg:Number)/(descendant::leg:CommentaryRef | descendant::leg:Repeal/@CommentaryRef | descendant::leg:Substitution/@CommentaryRef | descendant::leg:Addition/@CommentaryRef) = $additionRepealRefs/@CommentaryRef)
-		) then true() else false()"/>
-
-
-<!--<xsl:message><xsl:value-of select="(self::*/@id, descendant::*[@id]/@id)[1]"/>:<xsl:value-of select="$multiple-provision-annotations"/>:<xsl:value-of select="local-name() = 'P1group' and not(ancestor::leg:BlockAmendment) and 
-				(some $c in preceding-sibling::*[self::leg:P1group]//descendant::leg:CommentaryRef/@Ref satisfies $c= ($commentaryRefs/@Ref))"/></xsl:message>-->
-
-
+		
 		<xsl:variable name="showComments" as="element(leg:Commentary)*">
 			<xsl:variable name="localname" select="local-name()"/>
+			<xsl:variable name="thisSection" select="."/>
+			<xsl:variable name="ancestorRefs" select="ancestor::*[self::leg:Schedule or self::leg:Part or self::leg:Chapter or self::leg:Pblock or self::leg:Group or self::leg:EUPart or self::leg:EUChapter or self::leg:EUTitle or self::leg:EUSection or self::leg:EUSubsection or leg:Division[@Type = ('EUPart','EUTitle','EUChapter','EUSection','EUSubsection')]]/(leg:TitleBlock | leg:Title | leg:Number)/(descendant::leg:CommentaryRef/@Ref | descendant::leg:Repeal/@CommentaryRef | descendant::leg:Substitution/@CommentaryRef | descendant::leg:Addition/@CommentaryRef)"/>
+			
 			<xsl:for-each select="$commentaryItem">
-				<xsl:if test="$showingHigherLevel or not($isRepealed) or ($isRepealed and contains(., 'temp.')) or $isDead">
+				
+				<xsl:if test="self::leg:Footnotes or $showingHigherLevel or not($isRepealed) or ($isRepealed and contains(., 'temp.')) or $isDead">
 					<xsl:choose>
 						<!-- For higher level views we need to annotate all provisions that have a common change -->
-						<xsl:when test="$multiple-provision-annotations">
-							<xsl:if test="key('commentaryRef', @id, $showSection) intersect ($commentaryRefs | $additionRepealRefs)">
+						<xsl:when test="$localname = 'Footnotes' or ($localname = ('P1', 'P1group') and not(@id = $ancestorRefs))">
+							<xsl:if test="key('commentaryRef', @id, $thisSection)[1] intersect ($commentaryRefs | $additionRepealRefs)">
 								<xsl:sequence select="."/>
 							</xsl:if>
 						</xsl:when>
@@ -235,9 +218,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			-->
 				<xsl:if test="not($higherLevelComments/*)">
 
-					<xsl:variable name="documentType" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value"/>
-					<xsl:variable name="documentYear" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value"/>
-					<xsl:variable name="documentRevised" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:DocumentClassification/ukm:DocumentStatus/@Value"/>
+					<xsl:variable name="documentType" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value"/>
+					<xsl:variable name="documentYear" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:Year/@Value"/>
+					<xsl:variable name="documentRevised" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentStatus/@Value"/>
 
 					<!-- FM:  Issue 364: In NI legislation before 1.1.2006 - f-notes are used across the board i.e. not just for textual amendments. Removing the annotation heading for textual texts --> 
 					<xsl:variable name="oldNI" select="$documentType = 

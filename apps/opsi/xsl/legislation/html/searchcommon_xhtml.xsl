@@ -901,6 +901,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				substring-after(atom:link[@rel='self']/@href, 'http://www.legislation.gov.uk/')
 			else if (ends-with(atom:link/@href,'made')) then
 				replace(substring-after(atom:link/@href,'http://www.legislation.gov.uk/'), '/made', '/contents/made')
+			else if (ends-with(atom:link/@href,'adopted')) then
+				replace(substring-after(atom:link/@href,'http://www.legislation.gov.uk/'), '/adopted', '/contents/adopted')
 			else if (ends-with(atom:link/@href,'enacted')) then
 				replace(substring-after(atom:link/@href,'http://www.legislation.gov.uk/'), '/enacted', '/contents/enacted')
 			else
@@ -1045,7 +1047,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<script type="text/javascript" src="/scripts/view/jquery.ui.slider.min.js"/>
 		<script type="text/javascript" src="/scripts/view/scrollbar.js"/>
         <script type="text/javascript" src="/scripts/formFunctions/common.js"></script>
-		<script type="text/javascript" src="/scripts/advancedsearch/search.js"></script>
+		<script type="text/javascript" src="/scripts/advancedsearch/{if ($hideEUdata) then 'search.js' else 'search-eu.js'}"></script>
         <script type="text/javascript" src="/scripts/search/jquery.ui.autocomplete.min.js"></script>
         <script type="text/javascript" src="/scripts/search/jquery.ui.comboboxFromLinks.js"></script>
         <script type="text/javascript" src="/scripts/search/headingFacet.js"></script>
@@ -1063,6 +1065,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:when test="$params/type = 'primary'">Primary Legislation</xsl:when>
 						<xsl:when test="$params/type = 'secondary'">Secondary Legislation</xsl:when>
 						<xsl:when test="$params/type = 'draft'">Draft Legislation</xsl:when>
+						<xsl:when test="$params/type = 'euretained' and not($hideEUdata)">EU Retained</xsl:when>
 						<xsl:when test="$params/type != ''">
 							<xsl:value-of select="$tso:legTypeMap[@abbrev=$params/type]/@plural"/>
 						</xsl:when>
@@ -1090,6 +1093,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<xsl:when test=". = 'scotland'">Scotland</xsl:when>
 								<xsl:when test=". = 'wales'">Wales</xsl:when>
 								<xsl:when test=". = 'ni'">Northern Ireland</xsl:when>
+								<xsl:when test=". = 'eu' and not($hideEUdata)">European Union</xsl:when>
 							</xsl:choose>
 							<xsl:choose>
 								<xsl:when test="position() = last() - 1"> and </xsl:when>

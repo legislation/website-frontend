@@ -30,7 +30,7 @@ exclude-result-prefixes="tso">
 
 	<!-- Need to allow for PuncBefore and PuncAfter here -->
 	<!-- the not(normalize-space(.)='' is a quick-fix for the proposed revision where commentary/additions are putting whitespace before the  aommentary/addition elements -->
-	<xsl:if test="ancestor::leg:Pnumber[not(parent::leg:P1)] and (not(preceding-sibling::node()[not(self::processing-instruction())]) or (preceding-sibling::node()[self::leg:CommentaryRef]))
+	<xsl:if test="not($g_strDocClass = $g_strConstantEuretained) and ancestor::leg:Pnumber[not(parent::leg:P1)] and (not(preceding-sibling::node()[not(self::processing-instruction())]) or (preceding-sibling::node()[self::leg:CommentaryRef]))
 	and not(normalize-space(.)='')">
 		<xsl:text>(</xsl:text>
 	</xsl:if>
@@ -114,14 +114,14 @@ exclude-result-prefixes="tso">
 
 	<!-- Need to allow for PuncBefore and PuncAfter here -->
 	<!-- the not(normalize-space(.)='' is a quick-fix for the proposed revision where commentary/additions are putting whitespace before the  aommentary/addition elements -->
-	<xsl:if test="ancestor::leg:Pnumber[not(parent::leg:P1)] and not(following-sibling::node()[not(self::processing-instruction())]) and  not(normalize-space(.)='')">
+	<xsl:if test="not($g_strDocClass = $g_strConstantEuretained) and ancestor::leg:Pnumber[not(parent::leg:P1)] and not(following-sibling::node()[not(self::processing-instruction())]) and  not(normalize-space(.)='')">
 		<xsl:text>)</xsl:text>
 	</xsl:if>
 			
 	<!-- If part of a long quote and last text node output quote and any run-on text -->
 	<xsl:if test="$seqLastTextNodes = generate-id()">
 		<xsl:for-each select="ancestor::leg:BlockAmendment[generate-id(current()) = generate-id(descendant::text()[normalize-space(.) != ''][last()])]">
-			<xsl:text>&#x201d;</xsl:text>
+			<xsl:if test="not($g_strDocClass =  $g_strConstantEuretained)"><xsl:text>&#x201d;</xsl:text></xsl:if>
 			<xsl:apply-templates select="following-sibling::*[1][self::leg:AppendText]/node()"/>
 		</xsl:for-each>		
 	</xsl:if>
@@ -140,7 +140,8 @@ exclude-result-prefixes="tso">
 
 <xsl:template name="TSOcheckStartOfAmendment">
 	<!-- If part of a long quote and first text node output quote -->
-	<xsl:if test="ancestor::leg:BlockAmendment">
+	<!-- EU retained has the quote int he textual content   -->
+	<xsl:if test="ancestor::leg:BlockAmendment and not($g_strDocClass =  $g_strConstantEuretained)">
 	
 		<xsl:variable name="firsttextnode" select="generate-id(ancestor::leg:BlockAmendment[1]/descendant::text()[normalize-space(.) != ''][1])"/>
 		<xsl:if test="generate-id(.) = $firsttextnode and ($g_strDocClass = $g_strConstantSecondary or not(parent::leg:Title/parent::leg:P1group) or parent::leg:Title/parent::leg:P1group/parent::leg:BlockAmendment[@TargetClass = 'primary' and @Context = 'schedule'])">

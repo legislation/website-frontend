@@ -131,8 +131,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="explanatoryNotesTOCURI" as="xs:string?" select="leg:EN/ukm:Metadata/atom:link[@rel='http://purl.org/dc/terms/tableOfContents']/@href" />		
 
 	<xsl:variable name="legislationIdURI"  select="replace(/leg:EN/@IdURI, '/notes', '')"/>		
-	<xsl:variable name="resourceURI" as="xs:string" select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/resources']/@href" />
-
+	<xsl:variable name="resourceURI" as="xs:string" 
+		select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/resources']/@href" />				
+	<xsl:variable name="inforceinfoURI" as="xs:string" 
+		select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/inforceinfo']/@href" />
+		
 	<xsl:variable name="impactURI" as="xs:string?" 
 		select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/impacts']/@href" />				
 	<xsl:variable name="emURI" as="xs:string?" select="/leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/memorandum/toc']/@href" />
@@ -1050,6 +1053,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			@import "/styles/explanatoryNotes.css";						
 			<xsl:variable name="uriPrefix" as="xs:string"><xsl:value-of select="tso:GetUriPrefixFromType(/leg:EN/ukm:Metadata/ukm:ENmetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value, /leg:EN/ukm:Metadata/ukm:ENmetadata/ukm:Number/@Value)"/></xsl:variable>
 			<xsl:choose>
+				<xsl:when test="$uriPrefix = ('eut', 'eur', 'eudr', 'eudn') ">
+					<xsl:text>@import "/styles/legislation.css";</xsl:text>
+					<xsl:text>@import "/styles/eulegislation.css";</xsl:text>
+				</xsl:when>	
 				<xsl:when test="$uriPrefix ='ukpga' or  $uriPrefix ='ukla'  or  $uriPrefix ='cukla'  or  $uriPrefix ='ukcm'  ">
 					<xsl:text>
 						@import "/styles/legislation.css";

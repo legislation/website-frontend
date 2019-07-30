@@ -41,7 +41,7 @@ xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:xhtml="http://www.w3.org/1
 <xsl:template match="processing-instruction('FragmentFile')" mode="Master">
 	<xsl:variable name="strDQ">"</xsl:variable>
 	<xsl:variable name="strFilename" select="substring-before(substring-after(., $strDQ), $strDQ)"/>
-	<xsl:apply-templates select="document(concat($g_strFolder, $strFilename))/leg:Legislation/*/*[self::leg:Body or self::leg:Schedules]/*"/>
+	<xsl:apply-templates select="document(concat($g_strFolder, $strFilename))/leg:Legislation/*/*[self::leg:Body or self::leg:EUBody or self::leg:Schedules]/*"/>
 </xsl:template>
 
 </xsl:stylesheet>

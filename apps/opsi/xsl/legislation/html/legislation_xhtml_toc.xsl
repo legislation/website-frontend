@@ -53,7 +53,7 @@ version="2.0">
 	</html>
 </xsl:template>
 	
-<xsl:template  match="leg:Body" mode="GenerateTOC">
+<xsl:template  match="leg:Body | leg:EUBody" mode="GenerateTOC">
 	<xsl:apply-templates select="*" mode="#current"/>
 </xsl:template>
 	

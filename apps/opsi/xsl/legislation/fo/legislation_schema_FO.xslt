@@ -142,9 +142,11 @@ exclude-result-prefixes="tso atom">
 
 	<xsl:variable name="g_strConstantPrimary" select="'primary'" as="xs:string"/>
 	<xsl:variable name="g_strConstantSecondary" select="'secondary'" as="xs:string"/>
+	<xsl:variable name="g_strConstantEuretained" select="'euretained'" as="xs:string"/>
 	<xsl:variable name="g_strConstantDocumentStatusDraft" select="'draft'" as="xs:string"/>
 	<xsl:variable name="g_strConstantOutputTypePrimary" select="'PrimaryStyle'" as="xs:string"/>
 	<xsl:variable name="g_strConstantOutputTypeSecondary" select="'SecondaryStyle'" as="xs:string"/>
+	<xsl:variable name="g_strConstantOutputTypeEURetained" select="'euretainedStyle'" as="xs:string"/>
 	<xsl:variable name="g_strConstantImagesPath" select="'http://www.legislation.gov.uk/images/crests/'" as="xs:string"/>
 	
 	
@@ -166,8 +168,8 @@ exclude-result-prefixes="tso atom">
 	<xsl:variable name="selectedSection" as="element()?"
 		select="
 			if ($wholeActURI = $dcIdentifier) then /leg:Legislation
-			else if ($dcIdentifier = ($introURI, $wholeActWithoutSchedulesURI)) then  /leg:Legislation/(leg:Primary | leg:Secondary)//*[@DocumentURI = $strCurrentURIs]
-			else if ($dcIdentifier = $schedulesOnlyURI)  then /leg:Legislation/(leg:Primary | leg:Secondary)/leg:Schedules
+			else if ($dcIdentifier = ($introURI, $wholeActWithoutSchedulesURI)) then  /leg:Legislation/(leg:Primary | leg:Secondary | leg:EURetained)//*[@DocumentURI = $strCurrentURIs]
+			else if ($dcIdentifier = $schedulesOnlyURI)  then /leg:Legislation/(leg:Primary | leg:Secondary | leg:EURetained)/leg:Schedules
 			else if ($nstSection)  then $nstSection
 			else /leg:Legislation" />
 	<xsl:variable name="selectedSectionSubstituted" as="xs:boolean" select="tso:isSubstituted($selectedSection)" />
@@ -183,6 +185,7 @@ exclude-result-prefixes="tso atom">
 			<xsl:otherwise>11</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
+	<xsl:variable name="g_endNoteSize" as="xs:double">10</xsl:variable>
 	<xsl:variable name="g_intSmallCapsSize" as="xs:integer">
 		<xsl:choose>
 			<xsl:when test="$g_strDocType = 'NorthernIrelandAct'">9</xsl:when>
@@ -223,10 +226,10 @@ exclude-result-prefixes="tso atom">
 
 	<!-- ========== Global Variables ========== -->
 
-	<xsl:variable name="g_ndsLegMetadata" select="/(leg:Legislation | leg:EN)/ukm:Metadata/(ukm:SecondaryMetadata | ukm:PrimaryMetadata | ukm:ENmetadata)"/>
+	<xsl:variable name="g_ndsLegMetadata" select="/(leg:Legislation | leg:EN)/ukm:Metadata/(ukm:SecondaryMetadata | ukm:PrimaryMetadata | ukm:ENmetadata | ukm:EUMetadata)"/>
 
 	<xsl:variable name="g_ndsValidDate" select="/leg:Legislation/ukm:Metadata/dct:valid"/>
-	<xsl:variable name="g_ndsLegPrelims" select="/leg:Legislation/(leg:Primary/leg:PrimaryPrelims | leg:Secondary/leg:SecondaryPrelims)"/>
+	<xsl:variable name="g_ndsLegPrelims" select="/leg:Legislation/(leg:Primary/leg:PrimaryPrelims | leg:Secondary/leg:SecondaryPrelims | leg:EURetained/leg:EUPrelims)"/>
 	<xsl:variable name="g_strDocType" select="$g_ndsLegMetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value" as="xs:string"/>
 	<xsl:variable name="g_strDocClass" as="xs:string">
 		<!-- For NI Acts the look and feel is as for secondary legislation so set doc class accordingly -->
@@ -296,9 +299,9 @@ exclude-result-prefixes="tso atom">
 					<dc:title>
 						<xsl:value-of select="$g_dctitle"/>
 					</dc:title>
-					<dc:creator></dc:creator>
+					<dc:creator>www.legislation.gov.uk</dc:creator>
 					<dc:description>
-						<xsl:for-each select="leg:Legislation/ukm:Metadata/dc:subject">
+						<xsl:for-each select="(leg:Legislation/ukm:Metadata/dc:subject)">
 							<xsl:value-of select="."/>
 							<xsl:if test="following-sibling::dc:subject">
 								<xsl:text>, </xsl:text>
@@ -337,7 +340,7 @@ exclude-result-prefixes="tso atom">
 
 			
 			<!-- #HA057536 - MJ: output resources if file contains no main content -->
-			<xsl:if test="(/leg:Legislation/*/leg:Body | /leg:Legislation/*/leg:PrimaryPrelims  | /leg:Legislation/*/leg:SecondaryPrelims | /leg:Legislation/leg:Resources[not(preceding-sibling::leg:Primary or preceding-sibling::leg:Secondary)]) and $g_view != 'contents' and not(/leg:Legislation/leg:Contents)">
+			<xsl:if test="(/leg:Legislation/*/leg:Body | /leg:Legislation/*/leg:EUBody | /leg:Legislation/*/leg:PrimaryPrelims  | /leg:Legislation/*/leg:SecondaryPrelims  | /leg:Legislation/*/leg:EUPrelims | /leg:Legislation/leg:Resources[not(preceding-sibling::leg:Primary or preceding-sibling::leg:Secondary)]) and $g_view != 'contents' and not(/leg:Legislation/leg:Contents)">
 				
 				<fo:page-sequence master-reference="main-sequence" initial-page-number="1" letter-value="auto" xml:lang="{$g_documentLanguage}">
 
@@ -362,34 +365,11 @@ exclude-result-prefixes="tso atom">
 					<xsl:if test="$g_strDocType = 'NorthernIrelandAct'">
 						<fo:static-content flow-name="footer-only-before">
 							<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt" table-layout="fixed" width="{$g_PageBodyWidth}pt">
-								<fo:table-column column-width="20%"/>									
-								<fo:table-column column-width="60%"/>
-								<fo:table-column column-width="20%"/>
-								<fo:table-body margin-left="0pt" margin-right="0pt">
-									<fo:table-row border-bottom="solid 0.5pt black" border-top="solid 0.5pt black" >
-										<fo:table-cell number-columns-spanned="3" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center"  text-align-last="center">
-											<fo:block>
-												<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-											</fo:block>
-										</fo:table-cell>
-									</fo:table-row>
-									<!-- #D456 we do not need monarch info on generated PDFs as this would be incorrect for pre-1953-->
-									<!--<fo:table-row margin-left="0pt" margin-right="0pt">
-										<fo:table-cell text-align="left" margin-left="0pt" margin-right="0pt">
-											<fo:block font-family="{$g_strMainFont}">&#160;</fo:block>
-										</fo:table-cell>
-										<fo:table-cell text-align="center" margin-left="0pt" margin-right="0pt">
-											<fo:block font-size="{$g_strHeaderSize}" font-family="Times" font-weight="bold">
-												<xsl:text>ELIZABETH II</xsl:text>
-											</fo:block>
-										</fo:table-cell>
-										<fo:table-cell text-align="right" margin-left="0pt" margin-right="0pt">
-											<fo:block font-size="{$g_strHeaderSize}" font-family="{$g_strMainFont}">
-												<xsl:text>c. </xsl:text>
-												<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
-											</fo:block>
-										</fo:table-cell>
-									</fo:table-row>-->
+								<xsl:call-template name="columns-3"/>
+								<fo:table-body>
+									<xsl:call-template name="statusWarningHeader">
+										<xsl:with-param name="number-columns-spanned">3</xsl:with-param>
+									</xsl:call-template>
 								</fo:table-body>
 							</fo:table>
 						</fo:static-content>	
@@ -409,10 +389,9 @@ exclude-result-prefixes="tso atom">
 						<!-- Header for even pages -->
 						<fo:static-content flow-name="even-before">
 							<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt"  table-layout="fixed" width="{$g_PageBodyWidth}pt">
-								<fo:table-column column-width="20%"/>
-								<fo:table-column column-width="80%"/>									
-								<fo:table-body border-bottom="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
-									<fo:table-row margin-left="0pt" margin-right="0pt" border-bottom="solid 0.5pt black" >
+								<xsl:call-template name="columns-2-even"/>									
+								<fo:table-body border-bottom="solid 0.5pt black">
+									<fo:table-row border-bottom="solid 0.5pt black" >
 										<fo:table-cell font-size="10pt" margin-left="0pt" margin-right="0pt">
 											<fo:block font-family="{$g_strMainFont}">
 												<fo:inline>
@@ -421,63 +400,32 @@ exclude-result-prefixes="tso atom">
 											</fo:block>
 										</fo:table-cell>
 										<fo:table-cell text-align="right" margin-left="0pt" margin-right="0pt">
-											<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
-												<fo:retrieve-marker retrieve-class-name="runninghead2"/>
-											</fo:block>
-											<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
-												<fo:retrieve-marker retrieve-class-name="runningheadpart"/>
-											</fo:block>
-											<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
-												<fo:retrieve-marker retrieve-class-name="runningheadchapter"/>
-											</fo:block>
+											<xsl:call-template name="runningheaders-body"/>
 											<xsl:call-template name="TSOdocDateTime"/>
 										</fo:table-cell>
 									</fo:table-row>
-									<fo:table-row>
-										<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" text-align-last="center">
-											<fo:block>
-												<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-											</fo:block>
-										</fo:table-cell>
-									</fo:table-row>
+									<xsl:call-template name="statusWarningHeader"/>
 								</fo:table-body>
 							</fo:table>
 						</fo:static-content>			
 
-						
-							<fo:static-content flow-name="footer-only-before">
-								<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt"  table-layout="fixed" width="{$g_PageBodyWidth}pt">
-									<fo:table-column column-width="20%"/>
-									<fo:table-column column-width="80%"/>									
-									<fo:table-body border-bottom="solid 0.5pt black" border-top="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
-										<fo:table-row>
-											<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center"  text-align-last="center">
-												<fo:block>
-													<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-												</fo:block>
-											</fo:table-cell>
-										</fo:table-row>
-									</fo:table-body>
-								</fo:table>
-							</fo:static-content>	
+						<fo:static-content flow-name="footer-only-before">
+							<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt"  table-layout="fixed" width="{$g_PageBodyWidth}pt">
+								<xsl:call-template name="columns-2-even"/>										
+								<fo:table-body border-bottom="solid 0.5pt black" border-top="solid 0.5pt black">
+									<xsl:call-template name="statusWarningHeader"/>
+								</fo:table-body>
+							</fo:table>
+						</fo:static-content>	
 						
 						<!-- Header for odd pages -->
 						<fo:static-content flow-name="odd-before">
 							<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt" table-layout="fixed" width="{$g_PageBodyWidth}pt">
-								<fo:table-column column-width="80%"/>									
-								<fo:table-column column-width="20%"/>
-								<fo:table-body border-bottom="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
-									<fo:table-row margin-left="0pt" margin-right="0pt" border-bottom="solid 0.5pt black" >
+								<xsl:call-template name="columns-2-odd"/>
+								<fo:table-body border-bottom="solid 0.5pt black">
+									<fo:table-row border-bottom="solid 0.5pt black" >
 										<fo:table-cell margin-left="0pt" margin-right="0pt">
-											<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
-												<fo:retrieve-marker retrieve-class-name="runninghead2"/>
-											</fo:block>
-											<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
-												<fo:retrieve-marker retrieve-class-name="runningheadpart"/>
-											</fo:block>
-											<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
-												<fo:retrieve-marker retrieve-class-name="runningheadchapter"/>
-											</fo:block>
+											<xsl:call-template name="runningheaders-body"/>
 											<xsl:call-template name="TSOdocDateTime"/>									
 										</fo:table-cell>
 										<fo:table-cell text-align="right" margin-left="0pt" margin-right="0pt">
@@ -488,13 +436,7 @@ exclude-result-prefixes="tso atom">
 											</fo:block>
 										</fo:table-cell>
 									</fo:table-row>
-									<fo:table-row>
-										<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center"  text-align-last="center">
-											<fo:block>
-												<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-											</fo:block>
-										</fo:table-cell>
-									</fo:table-row>
+									<xsl:call-template name="statusWarningHeader"/>
 								</fo:table-body>
 							</fo:table>
 						</fo:static-content>		
@@ -505,10 +447,9 @@ exclude-result-prefixes="tso atom">
 						
 						<fo:static-content flow-name="even-before">
 							<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt"  table-layout="fixed" width="{$g_PageBodyWidth}pt">
-								<fo:table-column column-width="20%"/>
-								<fo:table-column column-width="80%"/>									
-								<fo:table-body border-bottom="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
-									<fo:table-row margin-left="0pt" margin-right="0pt" border-bottom="solid 0.5pt black" >
+								<xsl:call-template name="columns-2-even"/>										
+								<fo:table-body border-bottom="solid 0.5pt black">
+									<fo:table-row border-bottom="solid 0.5pt black" >
 										<fo:table-cell font-size="10pt" margin-left="0pt" margin-right="0pt">
 											<fo:block font-family="{$g_strMainFont}">
 												<fo:inline>
@@ -520,13 +461,7 @@ exclude-result-prefixes="tso atom">
 											<xsl:call-template name="TSOdocDateTime"/>
 										</fo:table-cell>
 									</fo:table-row>
-									<fo:table-row>
-										<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
-											<fo:block>
-												<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-											</fo:block>
-										</fo:table-cell>
-									</fo:table-row>
+									<xsl:call-template name="statusWarningHeader"/>
 								</fo:table-body>
 							</fo:table>
 						</fo:static-content>			
@@ -534,16 +469,9 @@ exclude-result-prefixes="tso atom">
 						
 							<fo:static-content flow-name="footer-only-before">
 								<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt"  table-layout="fixed" width="{$g_PageBodyWidth}pt">
-									<fo:table-column column-width="20%"/>
-									<fo:table-column column-width="80%"/>									
-									<fo:table-body border-bottom="solid 0.5pt black" border-top="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
-										<fo:table-row>
-											<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
-												<fo:block>
-													<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-												</fo:block>
-											</fo:table-cell>
-										</fo:table-row>
+									<xsl:call-template name="columns-2-even"/>										
+									<fo:table-body border-bottom="solid 0.5pt black" border-top="solid 0.5pt black">
+										<xsl:call-template name="statusWarningHeader"/>
 									</fo:table-body>
 								</fo:table>
 							</fo:static-content>	
@@ -551,10 +479,9 @@ exclude-result-prefixes="tso atom">
 						<!-- Header for odd pages -->
 						<fo:static-content flow-name="odd-before">
 							<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt" table-layout="fixed" width="{$g_PageBodyWidth}pt">
-								<fo:table-column column-width="80%"/>									
-								<fo:table-column column-width="20%"/>
-								<fo:table-body border-bottom="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
-									<fo:table-row margin-left="0pt" margin-right="0pt" border-bottom="solid 0.5pt black" >
+								<xsl:call-template name="columns-2-odd"/>
+								<fo:table-body border-bottom="solid 0.5pt black">
+									<fo:table-row border-bottom="solid 0.5pt black" >
 										<fo:table-cell margin-left="0pt" margin-right="0pt">
 											<xsl:call-template name="TSOdocDateTime"/>									
 										</fo:table-cell>
@@ -566,13 +493,7 @@ exclude-result-prefixes="tso atom">
 											</fo:block>
 										</fo:table-cell>
 									</fo:table-row>
-									<fo:table-row>
-										<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
-											<fo:block>
-												<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-											</fo:block>
-										</fo:table-cell>
-									</fo:table-row>
+									<xsl:call-template name="statusWarningHeader"/>
 								</fo:table-body>
 							</fo:table>
 						</fo:static-content>		
@@ -589,6 +510,9 @@ exclude-result-prefixes="tso atom">
 					</xsl:if>	
 
 					<xsl:choose>
+						<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+							<xsl:call-template name="TSO_EUPrelims"/>
+						</xsl:when>
 						<xsl:when test="$g_strDocClass = $g_strConstantPrimary or $g_strDocType = 'NorthernIrelandAct'">
 							<xsl:call-template name="TSO_PrimaryPrelims"/>
 						</xsl:when>
@@ -601,7 +525,7 @@ exclude-result-prefixes="tso atom">
 			
 			
 			<!-- SCHEDULE SEQUENCE OF PAGES -->
-			<xsl:if test="/leg:Legislation/*/leg:Schedules or /leg:Legislation/leg:Secondary/leg:ExplanatoryNotes or /leg:Legislation/leg:Secondary/leg:EarlierOrders">
+			<xsl:if test="/leg:Legislation/*/leg:Schedules or /leg:Legislation/leg:Secondary/leg:ExplanatoryNotes or /leg:Legislation/leg:Secondary/leg:EarlierOrders or /leg:Legislation/*/leg:Attachments">
 				<fo:page-sequence master-reference="schedule-sequence"  xml:lang="{$g_documentLanguage}">
 					<fo:static-content flow-name="xsl-footnote-separator">
 						<fo:block>
@@ -613,10 +537,9 @@ exclude-result-prefixes="tso atom">
 						<xsl:when test="$g_strDocClass != $g_strConstantSecondary">
 							<fo:static-content flow-name="even-before">
 								<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt" table-layout="fixed" width="{$g_PageBodyWidth}pt">
-									<fo:table-column column-width="20%"/>
-									<fo:table-column column-width="80%"/>
-									<fo:table-body border-bottom="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
-										<fo:table-row border-bottom="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
+									<xsl:call-template name="columns-2-even"/>	
+									<fo:table-body border-bottom="solid 0.5pt black">
+										<fo:table-row border-bottom="solid 0.5pt black">
 											<fo:table-cell font-size="10pt" margin-left="0pt" margin-right="0pt">
 												<fo:block font-family="{$g_strMainFont}">
 													<fo:inline>
@@ -625,44 +548,21 @@ exclude-result-prefixes="tso atom">
 												</fo:block>
 											</fo:table-cell>
 											<fo:table-cell text-align="right" margin-left="0pt" margin-right="0pt">
-												<fo:block font-size="{$g_strHeaderSize}" font-family="{$g_strMainFont}" font-style="italic">
-													<fo:retrieve-marker retrieve-class-name="runninghead2"/>
-												</fo:block>
-												<fo:block font-size="{$g_strHeaderSize}" font-family="{$g_strMainFont}" font-style="italic">
-													<fo:retrieve-marker retrieve-class-name="runningheadschedule"/>
-												</fo:block>
-												<!--<fo:block font-size="{$g_strHeaderSize}" font-family="{$g_strMainFont}" font-style="italic">
-													<fo:retrieve-marker retrieve-class-name="runningheadpart"/>
-												</fo:block>-->
+												<xsl:call-template name="runningheaders-schedule"/>
 												<xsl:call-template name="TSOdocDateTime"/>
 											</fo:table-cell>
 										</fo:table-row>
-										<fo:table-row>
-											<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
-												<fo:block>
-													<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-												</fo:block>
-											</fo:table-cell>
-										</fo:table-row>
+										<xsl:call-template name="statusWarningHeader"/>
 									</fo:table-body>
 								</fo:table>
 							</fo:static-content>			
 							<fo:static-content flow-name="odd-before">
 								<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt" table-layout="fixed" width="{$g_PageBodyWidth}pt">
-									<fo:table-column column-width="80%"/>									
-									<fo:table-column column-width="20%"/>
-									<fo:table-body border-bottom="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
-										<fo:table-row border-bottom="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
+									<xsl:call-template name="columns-2-odd"/>
+									<fo:table-body border-bottom="solid 0.5pt black">
+										<fo:table-row border-bottom="solid 0.5pt black">
 											<fo:table-cell margin-left="0pt" margin-right="0pt">
-												<fo:block font-size="{$g_strHeaderSize}" font-family="{$g_strMainFont}" font-style="italic">
-													<fo:retrieve-marker retrieve-class-name="runninghead2"/>
-												</fo:block>
-												<fo:block font-size="{$g_strHeaderSize}" font-family="{$g_strMainFont}" font-style="italic">
-													<fo:retrieve-marker retrieve-class-name="runningheadschedule"/>
-												</fo:block>
-												<!--<fo:block font-size="{$g_strHeaderSize}" font-family="{$g_strMainFont}" font-style="italic">
-													<fo:retrieve-marker retrieve-class-name="runningheadpart"/>
-												</fo:block>-->
+												<xsl:call-template name="runningheaders-schedule"/>
 												<xsl:call-template name="TSOdocDateTime"/>
 											</fo:table-cell>
 											<fo:table-cell text-align="right" margin-left="0pt" margin-right="0pt">
@@ -673,13 +573,7 @@ exclude-result-prefixes="tso atom">
 												</fo:block>
 											</fo:table-cell>
 										</fo:table-row>
-										<fo:table-row>
-											<fo:table-cell number-columns-spanned="2" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" >
-												<fo:block>
-													<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-												</fo:block>
-											</fo:table-cell>
-										</fo:table-row>
+										<xsl:call-template name="statusWarningHeader"/>
 									</fo:table-body>
 								</fo:table>
 							</fo:static-content>		
@@ -692,92 +586,68 @@ exclude-result-prefixes="tso atom">
 							
 							<fo:static-content flow-name="even-before">
 								<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt" table-layout="fixed"  width="{$g_PageBodyWidth}pt">
-									<fo:table-column column-width="20%"/>									
-									<fo:table-column column-width="60%"/>
-									<fo:table-column column-width="20%"/>
+									<xsl:call-template name="columns-3"/>
 									<fo:table-body>
 										<fo:table-row>
 											<fo:table-cell number-columns-spanned="3" text-align="right" margin-left="0pt" margin-right="0pt">
 												<xsl:call-template name="TSOdocDateTime"/>
 											</fo:table-cell>
 										</fo:table-row>
-										<fo:table-row border-bottom="solid 0.5pt black" border-top="solid 0.5pt black">
-											<fo:table-cell number-columns-spanned="3" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center"  text-align-last="center">
-												<fo:block>
-													<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-												</fo:block>
-											</fo:table-cell>
-										</fo:table-row>
+										<xsl:call-template name="statusWarningHeader">
+											<xsl:with-param name="number-columns-spanned">3</xsl:with-param>
+										</xsl:call-template>
 									</fo:table-body>
 								</fo:table>
 							</fo:static-content>					
 							<fo:static-content flow-name="even-before-first">
 								<fo:table  margin-left="90pt" margin-right="90pt" margin-top="36pt" table-layout="fixed"  width="{$g_PageBodyWidth}pt">
-									<fo:table-column column-width="20%"/>									
-									<fo:table-column column-width="60%"/>
-									<fo:table-column column-width="20%"/>
+									<xsl:call-template name="columns-3"/>
 									<fo:table-body>
 										<fo:table-row>
 											<fo:table-cell number-columns-spanned="3" text-align="right" margin-left="0pt" margin-right="0pt">
 												<xsl:call-template name="TSOdocDateTime"/>
 											</fo:table-cell>
 										</fo:table-row>
-										<fo:table-row border-bottom="solid 0.5pt black" border-top="solid 0.5pt black">
-											<fo:table-cell number-columns-spanned="3" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center"  text-align-last="center">
-												<fo:block>
-													<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-												</fo:block>
-											</fo:table-cell>
-										</fo:table-row>
+										<xsl:call-template name="statusWarningHeader">
+											<xsl:with-param name="number-columns-spanned">3</xsl:with-param>
+										</xsl:call-template>
 									</fo:table-body>
 								</fo:table>
 							</fo:static-content>
-		<!-- Header for odd pages -->
-		<fo:static-content flow-name="odd-before">
-			<fo:table  margin-left="90pt" margin-right="90pt" margin-top="36pt" table-layout="fixed"  width="{$g_PageBodyWidth}pt">
-				<fo:table-column column-width="20%"/>	
-				<fo:table-column column-width="60%"/>									
-				<fo:table-column column-width="20%"/>
-				<fo:table-body>
-					<fo:table-row>
-						<fo:table-cell number-columns-spanned="3" text-align="left" margin-left="0pt" margin-right="0pt">
-							<xsl:call-template name="TSOdocDateTime"/>
-						</fo:table-cell>
-					</fo:table-row>
-					<fo:table-row border-bottom="solid 0.5pt black" border-top="solid 0.5pt black">
-						<fo:table-cell number-columns-spanned="3" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center"  text-align-last="center">
-							<fo:block>
-								<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-				</fo:table-body>
-			</fo:table>
-			<!--<fo:block font-size="{$g_strSmallCapsSize}" font-family="{$g_strMainFont}" margin-top="24pt" margin-right="-72pt" text-align="right">
-				<fo:retrieve-marker retrieve-class-name="SideBar"/>
-			</fo:block>-->
-		</fo:static-content>		
-		<fo:static-content flow-name="odd-before-first">
-			<fo:table  margin-left="90pt" margin-right="90pt" margin-top="36pt" table-layout="fixed"  width="{$g_PageBodyWidth}pt">
-				<fo:table-column column-width="20%"/>	
-				<fo:table-column column-width="60%"/>									
-				<fo:table-column column-width="20%"/>
-				<fo:table-body>
-					<fo:table-row>
-						<fo:table-cell number-columns-spanned="3" text-align="left" margin-left="0pt" margin-right="0pt">
-							<xsl:call-template name="TSOdocDateTime"/>
-						</fo:table-cell>
-					</fo:table-row>
-					<fo:table-row border-bottom="solid 0.5pt black" border-top="solid 0.5pt black">
-						<fo:table-cell number-columns-spanned="3" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center"  text-align-last="center">
-							<fo:block>
-								<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
-							</fo:block>
-						</fo:table-cell>
-					</fo:table-row>
-				</fo:table-body>
-			</fo:table>
-		</fo:static-content>
+							<!-- Header for odd pages -->
+							<fo:static-content flow-name="odd-before">
+								<fo:table  margin-left="90pt" margin-right="90pt" margin-top="36pt" table-layout="fixed"  width="{$g_PageBodyWidth}pt">
+									<xsl:call-template name="columns-3"/>
+									<fo:table-body>
+										<fo:table-row>
+											<fo:table-cell number-columns-spanned="3" text-align="left" margin-left="0pt" margin-right="0pt">
+												<xsl:call-template name="TSOdocDateTime"/>
+											</fo:table-cell>
+										</fo:table-row>
+										<xsl:call-template name="statusWarningHeader">
+											<xsl:with-param name="number-columns-spanned">3</xsl:with-param>
+										</xsl:call-template>
+									</fo:table-body>
+								</fo:table>
+								<!--<fo:block font-size="{$g_strSmallCapsSize}" font-family="{$g_strMainFont}" margin-top="24pt" margin-right="-72pt" text-align="right">
+									<fo:retrieve-marker retrieve-class-name="SideBar"/>
+								</fo:block>-->
+							</fo:static-content>		
+							<fo:static-content flow-name="odd-before-first">
+								<fo:table  margin-left="90pt" margin-right="90pt" margin-top="36pt" table-layout="fixed"  width="{$g_PageBodyWidth}pt">
+									<xsl:call-template name="columns-3"/>
+									<fo:table-body>
+										<fo:table-row>
+											<fo:table-cell number-columns-spanned="3" text-align="left" margin-left="0pt" margin-right="0pt">
+												<xsl:call-template name="TSOdocDateTime"/>
+											</fo:table-cell>
+										</fo:table-row>
+										<xsl:call-template name="statusWarningHeader">
+											<xsl:with-param name="number-columns-spanned">3</xsl:with-param>
+										</xsl:call-template>
+									</fo:table-body>
+								</fo:table>
+							</fo:static-content>
 							
 							<xsl:call-template name="TSOsecondaryScheduleFooter"/>
 						</xsl:when>
@@ -793,6 +663,11 @@ exclude-result-prefixes="tso atom">
 							</fo:marker>	
 						</xsl:if>-->
 						<xsl:choose>
+							<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+								<fo:marker marker-class-name="runninghead2">
+									<xsl:apply-templates select="leg:abridgeContent(/leg:Legislation/ukm:Metadata/dc:title, 13)"  mode="header"/>
+								</fo:marker>
+							</xsl:when>
 							<xsl:when test="$g_strDocClass = $g_strConstantPrimary">
 								<fo:marker marker-class-name="runninghead2">
 									<xsl:choose>
@@ -846,8 +721,9 @@ exclude-result-prefixes="tso atom">
 							</xsl:otherwise>
 						</xsl:choose>
 						<xsl:apply-templates select="/leg:Legislation/*/leg:Schedules"/>
+						<xsl:apply-templates select="/leg:Legislation/*/leg:Attachments"/>
 						<!-- Chunyu:Added a condition for xmlcontent -->
-					<xsl:if test="$includDoc//leg:XMLcontent[not(descendant::leg:Figure)] | $includDoc//leg:XMLcontent[not(descendant::leg:Image)]">
+						<xsl:if test="$includDoc//leg:XMLcontent[not(descendant::leg:Figure)] | $includDoc//leg:XMLcontent[not(descendant::leg:Image)]">
 							<fo:block>
 								<xsl:apply-templates select="$includDoc//leg:XMLcontent"/>
 							</fo:block>
@@ -865,6 +741,67 @@ exclude-result-prefixes="tso atom">
 					</fo:flow>
 				</fo:page-sequence>
 			</xsl:if>
+			
+			<!-- we will treat EU footnotes as end notes -->
+			<xsl:if test="$g_strDocClass = $g_strConstantEuretained and exists(/leg:Legislation/leg:Footnotes)">
+				<fo:page-sequence master-reference="endnote-sequence"  xml:lang="{$g_documentLanguage}">
+					<!-- Header for even pages -->
+					<fo:static-content flow-name="even-before">
+						<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt"  table-layout="fixed" width="{$g_PageBodyWidth}pt">
+							<xsl:call-template name="columns-2-even"/>										
+							<fo:table-body border-bottom="solid 0.5pt black">
+								<fo:table-row margin-left="0pt" margin-right="0pt" border-bottom="solid 0.5pt black" >
+									<fo:table-cell font-size="10pt" margin-left="0pt" padding-left="0pt">
+										<fo:block font-family="{$g_strMainFont}" text-align="left">
+											<fo:inline>
+												<fo:page-number/>
+											</fo:inline>
+										</fo:block>
+									</fo:table-cell>
+									<fo:table-cell text-align="right" margin-left="0pt" margin-right="0pt">
+										<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
+											<fo:retrieve-marker retrieve-class-name="runninghead2"/>
+										</fo:block>
+										<xsl:call-template name="TSOdocDateTime"/>
+									</fo:table-cell>
+								</fo:table-row>
+								<xsl:call-template name="statusWarningHeader"/>
+							</fo:table-body>
+						</fo:table>
+					</fo:static-content>			
+
+					<fo:static-content flow-name="odd-before">
+						<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt" table-layout="fixed" width="{$g_PageBodyWidth}pt">
+							<xsl:call-template name="columns-2-odd"/>
+							<fo:table-body border-bottom="solid 0.5pt black">
+								<fo:table-row border-bottom="solid 0.5pt black" >
+									<fo:table-cell margin-left="0pt" margin-right="0pt">
+										<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
+											<fo:retrieve-marker retrieve-class-name="runninghead2"/>
+										</fo:block>
+										<xsl:call-template name="TSOdocDateTime"/>									
+									</fo:table-cell>
+									<fo:table-cell text-align="right" margin-left="0pt" margin-right="0pt">
+										<fo:block font-family="{$g_strMainFont}" font-size="10pt">
+											<fo:inline>
+												<fo:page-number/>
+											</fo:inline>
+										</fo:block>
+									</fo:table-cell>
+								</fo:table-row>
+								<xsl:call-template name="statusWarningHeader"/>
+							</fo:table-body>
+						</fo:table>
+					</fo:static-content>		
+					
+					<fo:flow flow-name="xsl-region-body" font-family="{$g_strMainFont}" font-size="{$g_strBodySize}" line-height="{$g_strLineHeight}">
+						<fo:marker marker-class-name="runninghead2">
+							<xsl:apply-templates select="leg:abridgeContent(/leg:Legislation/ukm:Metadata/dc:title, 13)"  mode="header"/>
+						</fo:marker>
+						<xsl:apply-templates select="/leg:Legislation/leg:Footnotes" mode="EU-EndNotes"/>
+					</fo:flow>
+				</fo:page-sequence>
+			</xsl:if>
 
 
 			<xsl:if test="$statusWarningHTML//xhtml:div[@id='statusWarning']">
@@ -873,12 +810,11 @@ exclude-result-prefixes="tso atom">
 						<!-- Header for even pages -->
 						<fo:static-content flow-name="even-before">
 							<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt"  table-layout="fixed" width="{$g_PageBodyWidth}pt">
-								<fo:table-column column-width="20%"/>
-								<fo:table-column column-width="80%"/>									
-								<fo:table-body border-bottom="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
+								<xsl:call-template name="columns-2-even"/>										
+								<fo:table-body border-bottom="solid 0.5pt black">
 									<fo:table-row margin-left="0pt" margin-right="0pt" border-bottom="solid 0.5pt black" >
-										<fo:table-cell font-size="10pt" margin-left="0pt" margin-right="0pt">
-											<fo:block font-family="{$g_strMainFont}">
+										<fo:table-cell font-size="10pt" margin-left="0pt" padding-left="0pt">
+											<fo:block font-family="{$g_strMainFont}" text-align="left">
 												<fo:inline>
 													<fo:page-number/>
 												</fo:inline>
@@ -903,10 +839,9 @@ exclude-result-prefixes="tso atom">
 
 						<fo:static-content flow-name="odd-before">
 							<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt" table-layout="fixed" width="{$g_PageBodyWidth}pt">
-								<fo:table-column column-width="80%"/>									
-								<fo:table-column column-width="20%"/>
-								<fo:table-body border-bottom="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
-									<fo:table-row margin-left="0pt" margin-right="0pt" border-bottom="solid 0.5pt black" >
+								<xsl:call-template name="columns-2-odd"/>	
+								<fo:table-body border-bottom="solid 0.5pt black">
+									<fo:table-row border-bottom="solid 0.5pt black" >
 										<fo:table-cell margin-left="0pt" margin-right="0pt">
 											<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
 												<fo:retrieve-marker retrieve-class-name="runninghead2"/>
@@ -934,6 +869,9 @@ exclude-result-prefixes="tso atom">
 					<fo:flow flow-name="xsl-region-body" font-family="{$g_strMainFont}" font-size="{$g_strBodySize}" line-height="{$g_strLineHeight}">
 						<fo:marker marker-class-name="runninghead2">
 							<xsl:choose>
+								<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+									<xsl:apply-templates select="leg:abridgeContent(/leg:Legislation/ukm:Metadata/dc:title, 13)"  mode="header"/>
+								</xsl:when>
 								<xsl:when test="$g_ndsLegPrelims/leg:Title">
 									<xsl:apply-templates select="$g_ndsLegPrelims/leg:Title"  mode="header"/>
 								</xsl:when>
@@ -943,6 +881,7 @@ exclude-result-prefixes="tso atom">
 							</xsl:choose>
 							<!-- addedy by Yash call	HA051710 - corrected number for wlaes measures and act-->
 							<xsl:choose>
+								<xsl:when test="$g_strDocClass = $g_strConstantEuretained"/>
 								<xsl:when test="$g_strDocType = 'ScottishAct'">
 									<xsl:text> asp </xsl:text>
 									<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>											
@@ -994,6 +933,71 @@ exclude-result-prefixes="tso atom">
 		</fo:block>
 	</xsl:template>
 
+	<xsl:template name="statusWarningHeader">
+		<xsl:param name="number-columns-spanned" select="'2'"/>
+		<fo:table-row>
+			<fo:table-cell number-columns-spanned="{$number-columns-spanned}" margin-left="0pt" margin-right="0pt" margin-top="0pt" text-align="center" text-align-last="center">
+				<fo:block>
+					<xsl:apply-templates select="$statusWarningHeader" mode="statuswarningHeader"/>
+				</fo:block>
+			</fo:table-cell>
+		</fo:table-row>
+	</xsl:template>
+	
+	<xsl:template name="runningheaders-body">
+		<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
+			<fo:retrieve-marker retrieve-class-name="runninghead2"/>
+		</fo:block>
+		<xsl:choose>
+			<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+				<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
+					<fo:retrieve-marker retrieve-class-name="runningheadEU"  retrieve-position="last-starting-within-page"/>
+				</fo:block>
+			</xsl:when>
+			<xsl:otherwise>
+				<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
+					<fo:retrieve-marker retrieve-class-name="runningheadpart"/>
+				</fo:block>
+				<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
+					<fo:retrieve-marker retrieve-class-name="runningheadchapter"/>
+				</fo:block>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
+	<xsl:template name="runningheaders-schedule">
+		<fo:block font-size="{$g_strHeaderSize}" font-family="{$g_strMainFont}" font-style="italic">
+			<fo:retrieve-marker retrieve-class-name="runninghead2"/>
+		</fo:block>
+		<fo:block font-size="{$g_strHeaderSize}" font-family="{$g_strMainFont}" font-style="italic">
+			<xsl:choose>
+				<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+					<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
+						<fo:retrieve-marker retrieve-class-name="runningheadEU" retrieve-position="last-starting-within-page"/>
+					</fo:block>
+				</xsl:when>
+				<xsl:otherwise>
+					<fo:retrieve-marker retrieve-class-name="runningheadschedule"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</fo:block>
+	</xsl:template>	
+	
+	<xsl:template name="columns-3">
+		<fo:table-column column-width="20%"/>									
+		<fo:table-column column-width="60%"/>
+		<fo:table-column column-width="20%"/>
+	</xsl:template>	
+
+	<xsl:template name="columns-2-odd">
+		<fo:table-column column-width="80%"/>									
+		<fo:table-column column-width="20%"/>
+	</xsl:template>	
+	
+	<xsl:template name="columns-2-even">
+		<fo:table-column column-width="20%"/>
+		<fo:table-column column-width="80%"/>									
+	</xsl:template>		
 
 	<xsl:template name="TSOsecondaryMainFooter">
 		<fo:static-content flow-name="even-after">
@@ -1181,13 +1185,51 @@ exclude-result-prefixes="tso atom">
 	<xsl:include href="legislation_schema_primaryprelims_FO.xslt"/>
 
 	<xsl:include href="legislation_schema_secondaryprelims_FO.xslt"/>
+	
+	<xsl:include href="legislation_schema_euretainedprelims_FO.xslt"/>
 
 	<xsl:include href="legislation_schema_contents_FO.xslt"/>
 
 
-
-	<xsl:template match="leg:Body  ">
-		<fo:block id="StartOfContent"/>
+	<xsl:template match="leg:Footnotes" mode="EU-EndNotes">
+		<fo:block>
+			<xsl:apply-templates mode="EU-EndNotes"/>
+			<xsl:apply-templates select="." mode="ProcessAnnotations" />
+		</fo:block>
+	</xsl:template>
+	
+	<xsl:template match="leg:Footnote" mode="EU-EndNotes">
+		<fo:block space-before="6pt" id="{@id}">
+			<xsl:variable name="strFootnoteRef" select="@Ref" as="xs:string"/>
+		<!--<xsl:variable name="intFootnoteNumber" select="count($g_ndsFootnotes[@id = $strFootnoteRef]/preceding-sibling::*) + 1" as="xs:integer"/>-->
+		<xsl:variable name="intFootnoteNumber" select="index-of($g_ndsFootnotes/@id, $strFootnoteRef)" as="xs:integer?"/>
+		<xsl:variable name="booTableRef" select="ancestor::xhtml:table and $strFootnoteRef = ancestor::xhtml:table/xhtml:tfoot//leg:Footnote/@id" as="xs:boolean"/>
+		
+			
+				<fo:list-block start-indent="0pt" provisional-label-separation="6pt" provisional-distance-between-starts="24pt">
+					<fo:list-item>
+						<fo:list-item-label start-indent="0pt" end-indent="label-end()">
+							<fo:block font-size="{$g_endNoteSize}pt" line-height="{$g_endNoteSize}pt" text-indent="0pt" margin-left="0pt" font-weight="bold" font-style="normal">
+								<fo:inline font-weight="normal"><xsl:text>(</xsl:text></fo:inline>
+								<xsl:number format="1"/>
+								<fo:inline font-weight="normal"><xsl:text>)</xsl:text></fo:inline>
+							</fo:block>
+						</fo:list-item-label>
+						<fo:list-item-body start-indent="body-start()">
+							<fo:block font-size="{$g_endNoteSize}pt" line-height="{$g_endNoteSize}pt" text-indent="0pt" margin-left="0pt"  font-style="normal">
+								<xsl:apply-templates select="."/>
+							</fo:block>
+						</fo:list-item-body>
+					</fo:list-item>
+				</fo:list-block>		
+			
+		</fo:block>
+	</xsl:template>	
+	
+	<xsl:template match="leg:Body | leg:EUBody">
+		<xsl:if test="not(ancestor::leg:Attachments)">
+			<fo:block id="StartOfContent"/>
+		</xsl:if>
 		<xsl:choose>
 			<xsl:when test="ancestor::leg:BlockAmendment">
 				<xsl:next-match />
@@ -1211,7 +1253,7 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 	
 	<!-- #HA057536 - MJ: output XML content within resource if file contains no main content -->
-	<xsl:template match="leg:Resources[not(preceding-sibling::leg:Primary or preceding-sibling::leg:Secondary)]">
+	<xsl:template match="leg:Resources[not(preceding-sibling::leg:Primary or preceding-sibling::leg:Secondary or  preceding-sibling::leg:EURetained)]">
 		<fo:block id="StartOfContent"/>
 		<xsl:apply-templates select="leg:Resource/leg:InternalVersion/leg:XMLcontent/node()"/>
 	</xsl:template>
@@ -1221,6 +1263,23 @@ exclude-result-prefixes="tso atom">
 	<xsl:apply-templates select="."/>
 </xsl:template>
 
+	<xsl:template name="OutputHeaderBreadscrumb">
+		 <xsl:apply-templates select="./ancestor::*[self::leg:Schedule or self::leg:EUTitle or self::leg:EUPart or self::leg:EUChapter or self::leg:EUSection  or self::leg:EUSubsection  or self::leg:Division[@Type =  ('EUPart','EUTitle','EUChapter','EUSection','EUSubsection')]]" mode="OutputHeaderBreadscrumb"/>
+	</xsl:template>
+	
+	<xsl:template match="*" mode="OutputHeaderBreadscrumb" priority="3">
+		<xsl:if test="ancestor::*[self::leg:Schedule or self::leg:EUTitle or self::leg:EUPart or self::leg:EUChapter or self::leg:EUSection  or self::leg:EUSubsection  or self::leg:Division[@Type =  ('EUPart','EUTitle','EUChapter','EUSection','EUSubsection')]]">
+			<xsl:text> </xsl:text>
+		</xsl:if>
+		<xsl:choose>
+			<xsl:when test="leg:Number != ''">
+				<xsl:value-of select="leg:Number"/>
+			</xsl:when>
+			<xsl:when test="leg:Title != ''">
+				<xsl:value-of select="leg:Title"/>
+			</xsl:when>
+		</xsl:choose>
+	</xsl:template>
 
 <!-- ##############################################  -->
 <!-- Add in titles that precede the section that has been requested  -->
@@ -1235,7 +1294,7 @@ exclude-result-prefixes="tso atom">
 	
 	<xsl:template match="leg:Legislation" mode="TSOBreadcrumbItem" priority="20"/>
 	
-	<xsl:template match="leg:Body" mode="TSOBreadcrumbItem" priority="20"/>	
+	<xsl:template match="leg:Body|leg:EUBody" mode="TSOBreadcrumbItem" priority="20"/>	
 	
 	<xsl:template match="*[@DocumentURI]" mode="TSOBreadcrumbItem" priority="10">
 		<xsl:choose>
@@ -1249,7 +1308,7 @@ exclude-result-prefixes="tso atom">
 			</xsl:choose>		
 	</xsl:template>
 	
-	<xsl:template match="leg:PrimaryPrelims | leg:SecondaryPrelims" mode="TSOBreadcrumbItem" priority="5"/>
+	<xsl:template match="leg:PrimaryPrelims | leg:SecondaryPrelims | leg:EUPrelims" mode="TSOBreadcrumbItem" priority="5"/>
 
 	<xsl:template match="leg:SignedSection" mode="TSOBreadcrumbItem" priority="5"/>	
 
@@ -1307,7 +1366,7 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 
 	<!-- this needs the highest priority so that the annotations get processed  -->
-	<xsl:template match="leg:Schedule//leg:P1 | leg:PrimaryPrelims | leg:SecondaryPrelims | leg:P1group | leg:Schedule/leg:ScheduleBody//leg:Tabular" priority="400">
+	<xsl:template match="leg:Schedule//leg:P1 | leg:PrimaryPrelims | leg:SecondaryPrelims | leg:EUPrelims | leg:P1group | leg:Schedule/leg:ScheduleBody//leg:Tabular | leg:P1[not(parent::leg:P1group)]" priority="400">
 		<xsl:next-match>
 			<xsl:with-param name="showRepeals" select="$showRepeals" tunnel="yes"/>
 		</xsl:next-match>
@@ -1411,7 +1470,7 @@ exclude-result-prefixes="tso atom">
 
 	<!--#154 do not process wholly repealed legislation/parts or schedules -->
 	<!--we also need to allow for any act that is to come into force sometime in the future - query the RestrictStartDate  -->
-	<xsl:template match="leg:Part | leg:Body | leg:Schedules | leg:Pblock | leg:PsubBlock" priority="60">
+	<xsl:template match="leg:Part | leg:Body | leg:EUBody | leg:Schedules | leg:Pblock | leg:PsubBlock" priority="60">
 		<xsl:choose>
 			<xsl:when test="exists(leg:*[not(self::leg:Number or self::leg:Title)]) and
 			(every $child in (leg:* except (leg:Number, leg:Title))
@@ -1475,7 +1534,7 @@ exclude-result-prefixes="tso atom">
 					<xsl:apply-templates select="*[not(self::leg:Title)]"/>
 				</fo:block>
 			</xsl:when>-->
-			<xsl:when test="parent::leg:BlockAmendment[@TargetClass = 'primary' and @Context = 'schedule'] or parent::leg:ScheduleBody or parent::leg:Part/parent::leg:ScheduleBody">
+			<xsl:when test="not($g_strDocClass = $g_strConstantEuretained) and (parent::leg:BlockAmendment[@TargetClass = 'primary' and @Context = 'schedule'] or  parent::leg:ScheduleBody or parent::leg:Part/parent::leg:ScheduleBody)">
 				<fo:block space-before="18pt">
 					<xsl:apply-templates/>
 				</fo:block>
@@ -1490,10 +1549,18 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 
 	<xsl:template match="leg:P1group/leg:Title" priority="1">
-		<fo:block font-size="{$g_strBodySize}" font-weight="bold" text-align="left" keep-with-next="always">
+		<fo:block font-size="{$g_strBodySize}" font-weight="bold" 
+				text-align="{if ($g_strDocClass = $g_strConstantEuretained) then 'center' else 'left'}" keep-with-next="always">
 			<xsl:if test="$g_strDocClass = $g_strConstantSecondary">
 				<xsl:attribute name="space-before">16pt</xsl:attribute>
 				<xsl:attribute name="space-after">6pt</xsl:attribute>
+				<xsl:if test="ancestor::leg:BlockAmendment">
+					<xsl:attribute name="margin-left">24pt</xsl:attribute>
+				</xsl:if>
+			</xsl:if>
+			<xsl:if test="$g_strDocClass = $g_strConstantEuretained">
+				<xsl:attribute name="space-before">8pt</xsl:attribute>
+				<xsl:attribute name="space-after">16pt</xsl:attribute>
 				<xsl:if test="ancestor::leg:BlockAmendment">
 					<xsl:attribute name="margin-left">24pt</xsl:attribute>
 				</xsl:if>
@@ -1512,7 +1579,7 @@ exclude-result-prefixes="tso atom">
 
 	</xsl:template>
 
-	<xsl:template match="leg:Schedule[not($g_strDocClass = $g_strConstantSecondary)]//leg:P1group[not(ancestor::leg:BlockAmendment)]/leg:Title | leg:P1group[parent::leg:BlockAmendment[@TargetClass = 'primary' and @Context = 'schedule']]/leg:Title" priority="2">
+	<xsl:template match="leg:Schedule[not($g_strDocClass = ($g_strConstantSecondary, $g_strConstantEuretained))]//leg:P1group[not(ancestor::leg:BlockAmendment)]/leg:Title | leg:P1group[parent::leg:BlockAmendment[@TargetClass = 'primary' and @Context = 'schedule']]/leg:Title" priority="2">
 		<fo:block font-size="{$g_strBodySize}" font-style="italic" text-align="left" keep-with-next="always">
 			<xsl:apply-templates/>
 		</fo:block>
@@ -1524,6 +1591,19 @@ exclude-result-prefixes="tso atom">
 		<xsl:choose>
 			<xsl:when test="$g_strDocClass = $g_strConstantSecondary">
 				<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
+			</xsl:when>
+			<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+				<fo:block>
+					<fo:block font-size="{$g_strBodySize}" text-align="center" font-weight="normal" font-style="italic" keep-with-next="always">
+						<xsl:apply-templates select="leg:Pnumber"/>
+					</fo:block>
+					<xsl:if test="parent::leg:P1group and not(preceding-sibling::leg:P1)">
+						<fo:block font-size="{$g_strBodySize}" text-align="center" font-weight="bold">
+							<xsl:apply-templates select="parent::*/leg:Title"/>
+						</fo:block>
+					</xsl:if>
+					<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
+				</fo:block>
 			</xsl:when>
 			<xsl:otherwise>
 				<fo:list-block provisional-label-separation="3pt" provisional-distance-between-starts="36pt" space-before="6pt">		
@@ -1583,7 +1663,7 @@ exclude-result-prefixes="tso atom">
 
 
 	<!-- change conflicting priority as other templates are using a priority of 100  -->
-	<xsl:template match="leg:Schedule//leg:P1[not(ancestor::leg:BlockAmendment[1][@Context = 'main' or @Context='unknown' or @Context = 'schedule'])]" priority="110">
+	<xsl:template match="leg:Schedule//leg:P1[not(ancestor::leg:BlockAmendment[1][@Context = 'main' or @Context='unknown' or @Context = 'schedule'])][not($g_strDocClass = $g_strConstantEuretained)]" priority="110">
 		<xsl:choose>
 			<xsl:when test="$g_strDocClass = $g_strConstantSecondary">
 				<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
@@ -1675,6 +1755,19 @@ exclude-result-prefixes="tso atom">
 					<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
 				</fo:block>
 			</xsl:when>
+			<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+				<fo:block>
+					<fo:block font-size="{$g_strBodySize}" text-align="center" font-weight="normal" font-style="italic" keep-with-next="always">
+						<xsl:apply-templates select="leg:Pnumber"/>
+					</fo:block>
+					<xsl:if test="parent::leg:P1group and not(preceding-sibling::leg:P1)">
+						<fo:block  font-size="{$g_strBodySize}" text-align="center" font-weight="bold">
+							<xsl:apply-templates select="parent::*/leg:Title"/>
+						</fo:block>
+					</xsl:if>
+					<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
+				</fo:block>
+			</xsl:when>
 			<xsl:otherwise>
 				<fo:list-block provisional-label-separation="3pt" provisional-distance-between-starts="30pt" space-before="6pt">		
 					<xsl:call-template name="TSOgetID"/>
@@ -1727,6 +1820,16 @@ exclude-result-prefixes="tso atom">
 			<xsl:when test="$g_strDocClass = $g_strConstantSecondary">
 				<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
 			</xsl:when>
+			<!--
+				THE EU has a hanging indent at this level which screws up lower level lists so we will only use the first node after the number
+				This is a hack to get around the lack of float support on FOP
+			-->
+			<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+				<fo:list-block provisional-label-separation="3pt" space-before="{$g_strLargeStandardParaGap}" provisional-distance-between-starts="42pt" text-indent="0pt">	
+					<xsl:call-template name="TSO_EU_p2"/>
+				</fo:list-block>
+				<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
+			</xsl:when>
 			<xsl:otherwise>
 				<fo:list-block provisional-label-separation="3pt" space-before="{$g_strLargeStandardParaGap}" provisional-distance-between-starts="42pt" start-indent="0pt">	
 					<xsl:call-template name="TSO_p2"/>
@@ -1736,10 +1839,25 @@ exclude-result-prefixes="tso atom">
 		<xsl:call-template name="FuncApplyVersions"/>
 	</xsl:template>
 
+	<xsl:template match="leg:P2para/leg:Text[1]" mode="EUprocessing">
+		<fo:block space-before="8pt" text-align="justify">
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template>
+	
+	<!--<xsl:template match="leg:P2para[preceding-sibling::*[1][self::leg:Pnumber]]/leg:Text[1][$g_strDocClass = $g_strConstantEuretained]" priority="100">
+	</xsl:template>-->
+	
 	<xsl:template match="leg:Schedule//leg:P2">
 		<xsl:choose>
 			<xsl:when test="$g_strDocClass = $g_strConstantSecondary">
 				<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
+			</xsl:when>
+			<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+				<!--<fo:list-block provisional-label-separation="3pt" space-before="{$g_strLargeStandardParaGap}" provisional-distance-between-starts="36pt" text-indent="12pt">-->	
+				<fo:list-block provisional-label-separation="3pt" space-before="{$g_strLargeStandardParaGap}" provisional-distance-between-starts="42pt" text-indent="0pt">	
+					<xsl:call-template name="TSO_EU_p2"/>
+				</fo:list-block>
 			</xsl:when>
 			<xsl:otherwise>
 				<fo:list-block provisional-label-separation="3pt" space-before="{$g_strLargeStandardParaGap}" provisional-distance-between-starts="36pt" start-indent="12pt">	
@@ -1763,6 +1881,12 @@ exclude-result-prefixes="tso atom">
 					</xsl:attribute>
 					<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
 				</fo:block>
+			</xsl:when>
+			<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+				<fo:list-block margin-left="0pt" provisional-label-separation="3pt" space-before="{$g_strLargeStandardParaGap}" provisional-distance-between-starts="42pt" text-indent="0pt">	
+					<xsl:call-template name="TSO_EU_p2_amend"/>
+				</fo:list-block>
+				<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
 			</xsl:when>
 			<xsl:otherwise>
 				<fo:list-block provisional-label-separation="3pt" space-before="{$g_strLargeStandardParaGap}" provisional-distance-between-starts="36pt">
@@ -1807,6 +1931,12 @@ exclude-result-prefixes="tso atom">
 			<xsl:when test="$g_strDocClass = $g_strConstantSecondary">
 				<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
 			</xsl:when>
+			<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+				<fo:list-block margin-left="0pt" provisional-label-separation="3pt" space-before="{$g_strLargeStandardParaGap}" provisional-distance-between-starts="42pt" text-indent="0pt">	
+					<xsl:call-template name="TSO_EU_p2_amend"/>
+				</fo:list-block>
+				<xsl:apply-templates select="*[not(self::leg:Pnumber)]"/>
+			</xsl:when>
 			<xsl:otherwise>
 				<xsl:if test="parent::leg:P2group and not(preceding-sibling::leg:P2)">
 					<fo:block font-style="italic" space-before="12pt">
@@ -1835,6 +1965,45 @@ exclude-result-prefixes="tso atom">
 		<xsl:call-template name="FuncApplyVersions"/>
 	</xsl:template>
 
+	<xsl:template name="TSO_EU_p2">
+		<fo:list-item text-indent="0pt">
+			<xsl:call-template name="TSOgetID"/>
+			<fo:list-item-label start-indent="0pt">
+				<fo:block font-size="{$g_strBodySize}" text-align="left" margin-left="0pt">
+					<xsl:apply-templates select="leg:Pnumber"/>
+				</fo:block>						
+			</fo:list-item-label>
+			<fo:list-item-body text-indent="42pt" end-indent="0pt">
+				<fo:block font-size="{$g_strBodySize}" text-align="justify">
+					<!--<xsl:apply-templates select="leg:P2para"/>-->
+					<xsl:apply-templates select="leg:P2para[1]/leg:Text[1]" mode="EUprocessing"/>
+				</fo:block>	
+			</fo:list-item-body>
+		</fo:list-item>						
+	</xsl:template>	
+	
+	<xsl:template name="TSO_EU_p2_amend">
+		<fo:list-item text-indent="0pt">
+			<xsl:call-template name="TSOgetID"/>
+			<fo:list-item-label start-indent="42pt">
+			<xsl:if test="ancestor::leg:ListItem/ancestor::leg:ListItem">
+				<xsl:attribute name="start-indent">
+					<xsl:value-of select="'84pt'"/>
+				</xsl:attribute>
+			</xsl:if>
+				<fo:block font-size="{$g_strBodySize}" text-align="left">
+					<xsl:apply-templates select="leg:Pnumber"/>
+				</fo:block>						
+			</fo:list-item-label>
+			<fo:list-item-body text-indent="42pt" end-indent="0pt">
+				<fo:block font-size="{$g_strBodySize}" text-align="justify">
+					<!--<xsl:apply-templates select="leg:P2para"/>-->
+					<xsl:apply-templates select="leg:P2para[1]/leg:Text[1]" mode="EUprocessing"/>
+				</fo:block>	
+			</fo:list-item-body>
+		</fo:list-item>						
+	</xsl:template>	
+	
 	<xsl:template name="TSO_p2">
 		<fo:list-item>
 			<xsl:call-template name="TSOgetID"/>
@@ -2125,27 +2294,14 @@ exclude-result-prefixes="tso atom">
 			<xsl:call-template name="TSOgetID"/>	
 			<fo:marker marker-class-name="runningheadschedule">
 				<xsl:value-of select="leg:Number"/>
-				<xsl:text> – </xsl:text>
-				<xsl:value-of select="leg:TitleBlock/leg:Title"/>
+				<xsl:if test="leg:TitleBlock/leg:Title and not($g_strDocClass = $g_strConstantEuretained)">
+					<xsl:text> – </xsl:text>
+					<xsl:value-of select="leg:TitleBlock/leg:Title"/>
+				</xsl:if>
 			</fo:marker>
 			<xsl:if test="not(leg:ScheduleBody/leg:Part)">
 				<fo:marker marker-class-name="runningheadpart">&#8203;</fo:marker>
 			</xsl:if>
-			<!--<fo:marker marker-class-name="SideBar">
-				<xsl:choose>
-					<xsl:when test="starts-with(leg:Number, 'Schedule ')">
-						<xsl:text>SCH. </xsl:text>
-						<xsl:value-of select="substring-after(leg:Number, 'Schedule ')"/>
-					</xsl:when>
-					<xsl:when test="starts-with(leg:Number, 'SCHEDULE ')">
-						<xsl:text>SCH. </xsl:text>
-						<xsl:value-of select="substring-after(leg:Number, 'SCHEDULE ')"/>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="leg:Number"/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</fo:marker>	-->	
 			<xsl:choose>
 				<xsl:when test="$g_strDocType = 'ScottishAct'">
 					<fo:block font-size="{$g_strBodySize}" space-before="36pt">
@@ -2219,8 +2375,10 @@ exclude-result-prefixes="tso atom">
 			</xsl:if>	
 			<fo:marker marker-class-name="runningheadschedule">
 				<xsl:value-of select="."/>
-				<xsl:text> – </xsl:text>
-				<xsl:value-of select="following-sibling::leg:TitleBlock/leg:Title"/>
+				<xsl:if test="following-sibling::leg:TitleBlock/leg:Title">
+					<xsl:text> – </xsl:text>
+					<xsl:value-of select="following-sibling::leg:TitleBlock/leg:Title"/>
+				</xsl:if>
 			</fo:marker>
 			<xsl:apply-templates/>
 			<xsl:call-template name="FuncGenerateMajorHeadingNumber">
@@ -2264,8 +2422,10 @@ exclude-result-prefixes="tso atom">
 		<fo:block font-size="{$g_strBodySize}" space-before="24pt" text-align="center" keep-with-next="always" page-break-before="always">
 			<fo:marker marker-class-name="runningheadschedule">
 				<xsl:value-of select="."/>
-				<xsl:text> – </xsl:text>
-				<xsl:value-of select="following-sibling::leg:TitleBlock/leg:Title"/>
+				<xsl:if test="following-sibling::leg:TitleBlock/leg:Title">
+					<xsl:text> – </xsl:text>
+					<xsl:value-of select="following-sibling::leg:TitleBlock/leg:Title"/>
+				</xsl:if>
 			</fo:marker>
 			<xsl:apply-templates/>
 			<xsl:call-template name="FuncGenerateMajorHeadingNumber">
@@ -2592,6 +2752,36 @@ exclude-result-prefixes="tso atom">
 					</xsl:choose>
 				</xsl:if>
 			</xsl:when>
+			<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+				<xsl:if test="not(preceding-sibling::*[1][self::leg:BlockAmendment])">
+					<fo:block text-align="justify">
+						<xsl:choose>
+							<xsl:when test="preceding-sibling::leg:Text">
+								<xsl:attribute name="space-before">3pt</xsl:attribute>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:attribute name="space-before">
+									<xsl:value-of select="$g_strLargeStandardParaGap"/>
+								</xsl:attribute>
+							</xsl:otherwise>
+						</xsl:choose>				
+						<xsl:choose>
+							<xsl:when test="parent::*/parent::*/parent::leg:UnorderedList">
+								<xsl:attribute name="text-indent">-12pt</xsl:attribute>
+								<xsl:attribute name="margin-left">36pt</xsl:attribute>
+							</xsl:when>
+							<xsl:when test="parent::leg:P1para/parent::leg:P1/parent::leg:P1group/parent::leg:Part/parent::leg:ScheduleBody">
+							</xsl:when>			
+							<xsl:when test="parent::leg:P1para/parent::leg:P1/parent::leg:P1group/parent::leg:ScheduleBody">
+							</xsl:when>			
+							<xsl:otherwise>
+								<xsl:attribute name="margin-left">0pt</xsl:attribute>
+							</xsl:otherwise>
+						</xsl:choose>
+						<xsl:apply-templates/>
+					</fo:block>
+				</xsl:if>
+			</xsl:when>
 			<xsl:otherwise>
 				<xsl:if test="not(preceding-sibling::*[1][self::leg:BlockAmendment])">
 					<fo:block text-align="justify">
@@ -2693,6 +2883,19 @@ exclude-result-prefixes="tso atom">
 			<xsl:when test="@Name = 'DotPadding'">
 				<xsl:text/>
 				<fo:leader leader-alignment="reference-area" leader-pattern="use-content" leader-length.maximum="100%">     ...     ...</fo:leader>
+			</xsl:when>
+			<xsl:when test="@Name = 'BoxPadding'">
+				<fo:block>
+					<fo:table>
+						<fo:table-body>
+							<fo:table-row>
+								<fo:table-cell border="solid 1px black" border-collapse="collapse" height="2em">
+									<fo:block>&#160;</fo:block>
+								</fo:table-cell>
+							</fo:table-row>
+						</fo:table-body>
+					</fo:table>
+				</fo:block>
 			</xsl:when>
 			<xsl:otherwise>
 				<fo:inline>[<xsl:value-of select="@Name"/>]</fo:inline>
@@ -2847,99 +3050,116 @@ exclude-result-prefixes="tso atom">
 					</xsl:for-each>
 				</xsl:if>
 				<xsl:for-each select="leg:Signee">
-					<xsl:variable name="lssealuri" select="leg:LSseal/@ResourceRef"/>
-					<fo:table font-size="{$g_strBodySize}" table-layout="fixed" width="100%">
-						<!--					<fo:table-column column-width="30%"/>
-					<fo:table-column column-width="70%"/>	-->
-						<fo:table-body>
-							<fo:table-row>
-								<fo:table-cell display-align="after">
-									<xsl:if test="not(leg:Address or leg:DateSigned/leg:DateText or leg:LSseal)">
-										<fo:block/>
-									</xsl:if>
-									<xsl:if test="leg:Address">
-										<fo:block keep-with-next="always">
-											<xsl:apply-templates select="leg:Address"/>
-										</fo:block>
-									</xsl:if>
-									<xsl:if test="leg:DateSigned/leg:DateText">
-										<fo:block keep-with-next="always">
-											<xsl:apply-templates select="leg:DateSigned/leg:DateText"/>
-										</fo:block>
-									</xsl:if>
-									<xsl:if test="leg:LSseal">
-										<fo:block keep-with-next="always">
-											<fo:external-graphic src='url("{//leg:Resource[@id = $lssealuri]/leg:ExternalVersion/@URI}")' fox:alt-text="Legal seal"/>
-										</fo:block>
-									</xsl:if>
-								</fo:table-cell>
-								<fo:table-cell display-align="after">
-									<xsl:for-each select="leg:PersonName">
-										<fo:block text-align="right" font-style="italic" keep-with-next="always">
-											<xsl:apply-templates select="."/>
-										</fo:block>
-									</xsl:for-each>
-									<fo:block text-align="right" keep-with-next="always">
-										<xsl:apply-templates select="leg:JobTitle"/>	
-									</fo:block>
-									<xsl:if test="leg:Department">
-										<fo:block text-align="right">
-											<xsl:apply-templates select="leg:Department"/>		
-										</fo:block>
-									</xsl:if>
-								</fo:table-cell>
-							</fo:table-row>
-						</fo:table-body>
-					</fo:table>							
+					<xsl:choose>
+						<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+							<fo:block text-align="center">
+								<xsl:apply-templates/>
+							</fo:block>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:variable name="lssealuri" select="leg:LSseal/@ResourceRef"/>
+							<fo:table font-size="{$g_strBodySize}" table-layout="fixed" width="100%">
+								<!--					<fo:table-column column-width="30%"/>
+							<fo:table-column column-width="70%"/>	-->
+								<fo:table-body>
+									<fo:table-row>
+										<fo:table-cell display-align="after">
+											<xsl:if test="not(leg:Address or leg:DateSigned/leg:DateText or leg:LSseal)">
+												<fo:block/>
+											</xsl:if>
+											<xsl:if test="leg:Address">
+												<fo:block keep-with-next="always">
+													<xsl:apply-templates select="leg:Address"/>
+												</fo:block>
+											</xsl:if>
+											<xsl:if test="leg:DateSigned/leg:DateText">
+												<fo:block keep-with-next="always">
+													<xsl:apply-templates select="leg:DateSigned/leg:DateText"/>
+												</fo:block>
+											</xsl:if>
+											<xsl:if test="leg:LSseal">
+												<fo:block keep-with-next="always">
+													<fo:external-graphic src='url("{//leg:Resource[@id = $lssealuri]/leg:ExternalVersion/@URI}")' fox:alt-text="Legal seal"/>
+												</fo:block>
+											</xsl:if>
+										</fo:table-cell>
+										<fo:table-cell display-align="after">
+											<xsl:for-each select="leg:PersonName">
+												<fo:block text-align="right" font-style="italic" keep-with-next="always">
+													<xsl:apply-templates select="."/>
+												</fo:block>
+											</xsl:for-each>
+											<fo:block text-align="right" keep-with-next="always">
+												<xsl:apply-templates select="leg:JobTitle"/>	
+											</fo:block>
+											<xsl:if test="leg:Department">
+												<fo:block text-align="right">
+													<xsl:apply-templates select="leg:Department"/>		
+												</fo:block>
+											</xsl:if>
+										</fo:table-cell>
+									</fo:table-row>
+								</fo:table-body>
+							</fo:table>	
+						</xsl:otherwise>
+					</xsl:choose>
 				</xsl:for-each>
 			</xsl:for-each>
 		</fo:block>						
 	</xsl:template>
-
+	
+	<xsl:template match="leg:SignedSection/leg:Signatory/leg:Signee/leg:Para/leg:Text[$g_strDocClass = $g_strConstantEuretained]" priority="50">
+		<fo:block text-align="center" space-before="8pt" keep-with-previous="always">
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template>
+	
 	<xsl:template match="leg:FootnoteRef">
 		<xsl:variable name="strFootnoteRef" select="@Ref" as="xs:string"/>
-		<xsl:variable name="intFootnoteNumber" select="count($g_ndsFootnotes[@id = $strFootnoteRef]/preceding-sibling::*) + 1" as="xs:integer"/>
+		<!--<xsl:variable name="intFootnoteNumber" select="count($g_ndsFootnotes[@id = $strFootnoteRef]/preceding-sibling::*) + 1" as="xs:integer"/>-->
+		<xsl:variable name="intFootnoteNumber" select="index-of($g_ndsFootnotes/@id, $strFootnoteRef)" as="xs:integer?"/>
 		<xsl:variable name="booTableRef" select="ancestor::xhtml:table and $strFootnoteRef = ancestor::xhtml:table/xhtml:tfoot//leg:Footnote/@id" as="xs:boolean"/>
+		
 		<xsl:choose>
 			<xsl:when test="ancestor::*[self::leg:Footnote]">
 				<xsl:number value="$intFootnoteNumber" format="1"/> 
 			</xsl:when>
+			<xsl:when test="$g_strDocClass = $g_strConstantEuretained and $booTableRef = true()">
+				<xsl:variable name="nstTableFootnoteRefs" select="ancestor::xhtml:table/xhtml:tfoot//leg:Footnote" as="element(leg:Footnote)*"/>
+				<fo:inline font-weight="bold" baseline-shift="super" font-size="6pt">
+					<xsl:value-of select="if ($nstTableFootnoteRefs[@id = $strFootnoteRef]/leg:Number) then
+										$nstTableFootnoteRefs[@id = $strFootnoteRef]/leg:Number
+									else if ($g_strDocClass = $g_strConstantEuretained) then
+										leg:format-number-as-alpha(index-of($nstTableFootnoteRefs/@id,$strFootnoteRef))
+									else ()"/>
+				</fo:inline>
+			</xsl:when>
+			<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+				<xsl:call-template name="processFootnoteRef">
+					<xsl:with-param name="booTableRef" select="$booTableRef"/>
+					<xsl:with-param name="strFootnoteRef" select="$strFootnoteRef"/>
+					<xsl:with-param name="intFootnoteNumber" select="$intFootnoteNumber"/>
+				</xsl:call-template>
+			</xsl:when>
 			<xsl:otherwise>
 				<fo:footnote>
-					<xsl:choose>
-						<xsl:when test="$booTableRef = true()">
-							<xsl:variable name="nstTableFootnoteRefs" select="ancestor::xhtml:table/xhtml:tfoot//leg:Footnote" as="element(leg:Footnote)*"/>
-							<fo:inline font-weight="bold" baseline-shift="super" font-size="6pt">
-								<xsl:value-of select="$nstTableFootnoteRefs[@id = $strFootnoteRef]/leg:Number"/>
-							</fo:inline>
-						</xsl:when>
-						<xsl:otherwise>
-							<fo:inline font-weight="bold">
-								<fo:inline font-weight="normal">			
-									<xsl:text>(</xsl:text>
-								</fo:inline>
-								<xsl:number value="$intFootnoteNumber" format="1"/>
-								<fo:inline font-weight="normal">
-									<xsl:text>)</xsl:text>
-								</fo:inline>
-							</fo:inline>
-						</xsl:otherwise>
-					</xsl:choose>	
-					
-					
-					
+					<xsl:call-template name="processFootnoteRef">
+						<xsl:with-param name="booTableRef" select="$booTableRef"/>
+						<xsl:with-param name="strFootnoteRef" select="$strFootnoteRef"/>
+						<xsl:with-param name="intFootnoteNumber" select="$intFootnoteNumber"/>
+					</xsl:call-template>	
 					<fo:footnote-body>
 						<fo:list-block start-indent="0pt" provisional-label-separation="6pt" provisional-distance-between-starts="18pt">
 							<fo:list-item>
 								<fo:list-item-label start-indent="0pt" end-indent="label-end()">
-									<fo:block font-size="8pt" line-height="9pt" text-indent="0pt" margin-left="0pt" font-weight="bold">
+									<fo:block font-size="8pt" line-height="9pt" text-indent="0pt" margin-left="0pt" font-weight="bold" font-style="normal">
 										<fo:inline font-weight="normal"><xsl:text>(</xsl:text></fo:inline>
 										<xsl:number value="$intFootnoteNumber" format="1"/>
 										<fo:inline font-weight="normal"><xsl:text>)</xsl:text></fo:inline>
 									</fo:block>
 								</fo:list-item-label>
 								<fo:list-item-body start-indent="body-start()">
-									<fo:block font-size="8pt" line-height="9pt" text-indent="0pt" margin-left="0pt">
+									<fo:block font-size="8pt" line-height="9pt" text-indent="0pt" margin-left="0pt"  font-style="normal">
 										<xsl:apply-templates select="$g_ndsFootnotes[@id = $strFootnoteRef][1]"/>
 									</fo:block>
 								</fo:list-item-body>
@@ -2949,7 +3169,46 @@ exclude-result-prefixes="tso atom">
 				</fo:footnote>
 			</xsl:otherwise>
 		</xsl:choose>
-		
+	</xsl:template>
+	
+	<xsl:template name="processFootnoteRef">
+		<xsl:param name="booTableRef" as="xs:boolean"/>
+		<xsl:param name="strFootnoteRef" as="xs:string"/>
+		<xsl:param name="intFootnoteNumber" as="xs:integer?"/>
+		<xsl:choose>
+			<xsl:when test="$booTableRef = true()">
+				<xsl:variable name="nstTableFootnoteRefs" select="ancestor::xhtml:table/xhtml:tfoot//leg:Footnote" as="element(leg:Footnote)*"/>
+				<fo:inline font-weight="bold" baseline-shift="super" font-size="6pt">
+					<xsl:value-of select="$nstTableFootnoteRefs[@id = $strFootnoteRef]/leg:Number"/>
+				</fo:inline>
+			</xsl:when>
+			<xsl:otherwise>
+				<fo:inline font-weight="bold">
+					<xsl:choose>
+						<xsl:when test="$g_strDocClass = $g_strConstantEuretained">
+							<fo:inline baseline-shift="super" font-size="60%" font-weight="bold">			
+								<xsl:text>(</xsl:text>
+							</fo:inline>
+							<fo:basic-link internal-destination="{@Ref}" baseline-shift="super" color="black" font-size="60%" font-weight="bold" >
+								<xsl:number value="$intFootnoteNumber" format="1"/>
+							</fo:basic-link>
+							<fo:inline baseline-shift="super" font-size="60%" font-weight="bold">			
+								<xsl:text>)</xsl:text>
+							</fo:inline>
+						</xsl:when>
+						<xsl:otherwise>
+							<fo:inline font-weight="normal">			
+								<xsl:text>(</xsl:text>
+							</fo:inline>
+							<xsl:number value="$intFootnoteNumber" format="1"/>
+							<fo:inline font-weight="normal">
+								<xsl:text>)</xsl:text>
+							</fo:inline>
+						</xsl:otherwise>
+					</xsl:choose>
+				</fo:inline>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 	<xsl:template match="leg:ExplanatoryNotes">
@@ -3118,11 +3377,11 @@ exclude-result-prefixes="tso atom">
 					<xsl:attribute name="content-height">scale-to-fit</xsl:attribute>
 				</xsl:when>
 				<!-- THIS WILL ONLY WORK IN FOP 1.0 -->
-				<!--<xsl:when test="contains(@Width, 'auto') or not(@Width)">
+				<xsl:when test="contains(@Width, 'auto') or not(@Width) and $g_strDocClass = $g_strConstantEuretained">
 					<xsl:attribute name="max-width"><xsl:value-of select="$maxWidth"/>pt</xsl:attribute>
 					<xsl:attribute name="content-width">scale-to-fit</xsl:attribute>
 					<xsl:attribute name="content-height">scale-to-fit</xsl:attribute>
-				</xsl:when>-->
+				</xsl:when>
 			</xsl:choose>
 		</fo:external-graphic>
 	</xsl:template>
@@ -3289,66 +3548,19 @@ exclude-result-prefixes="tso atom">
 			<xsl:apply-templates />
 		</fo:inline>
 	</xsl:template>
-
+	
+	
 	<xsl:template match="leg:Addition | leg:Repeal | leg:Substitution">
 		<xsl:param name="showSection" select="root()" tunnel="yes" />
-		<xsl:param name="showRepeals" select="false()" tunnel="yes" />
-		<!-- D455 we need to make sure the bracket is before the section number -->
+		<xsl:param name="showRepeals" select="false()" tunnel="yes" />	
 		<xsl:variable name="showCommentary" as="xs:boolean" select="tso:showCommentary(.)" />
 		<xsl:variable name="changeId" as="xs:string" select="@ChangeId" />
-		<!-- showSection variable - this obviously working differently to html as it is not using the correct nodeset so we shall choose from where we are in the nodeset
-		
-		<xsl:variable name="showSection" as="node()"
-		select="if (ancestor::*[@VersionReplacement]) then ancestor::*[@VersionReplacement] else 
-		if (ancestor::leg:P1group[not(ancestor::leg:BlockAmendment)]) then ancestor::leg:P1group[not(ancestor::leg:BlockAmendment)][1]/.. else if (ancestor::leg:Body) then  ancestor::leg:Body else
-		if (empty($showSection)) then root() else $showSection" />-->
-		
-		<xsl:variable name="showSection" as="node()"
-		select="if (ancestor::*[@VersionReplacement]) then ancestor::*[@VersionReplacement] else if (exists($showSection) and ancestor-or-self::*[. is $showSection]) then $showSection else root()" />
+		<xsl:variable name="showSection" as="node()" select="leg:showSection(., $showSection)" />
+		<xsl:variable name="allChanges" as="element()*" select="key('additionRepealChanges', $changeId, root()/leg:Legislation/(leg:EURetained|leg:Primary|leg:Secondary))" />
 		<xsl:variable name="sameChanges" as="element()*" select="key('additionRepealChanges', $changeId, $showSection)" />
 		<xsl:variable name="firstChange" as="element()?" select="$sameChanges[1]" />
-		<xsl:variable name="secondChange" as="element()?" select="$sameChanges[2]" />
 		<xsl:variable name="lastChange" as="element()?" select="$sameChanges[last()]" />
-		<xsl:variable name="isFirstChange" as="xs:boolean?">
-			<xsl:choose>
-				<xsl:when test="$g_strDocClass = $g_strConstantPrimary and ancestor::leg:Pnumber/parent::leg:P1/parent::leg:P1group">
-					<xsl:sequence select="$firstChange is (ancestor::leg:Pnumber/parent::leg:P1/parent::leg:P1group//(leg:Addition|leg:Repeal|leg:Substitution))[1]" />
-				</xsl:when>
-				<xsl:when test="$g_strDocClass = $g_strConstantPrimary and ancestor::leg:Title/parent::leg:P1group">
-					<xsl:sequence select="$firstChange is . and
-						empty(ancestor::leg:Title/parent::leg:P1group/leg:P1[1]/leg:Pnumber//(leg:Addition|leg:Repeal|leg:Substitution)[@ChangeId = $changeId])" />
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:sequence select="$firstChange is ." />
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:variable>
-		<xsl:if test="ancestor::leg:Pnumber">
-		
-		</xsl:if>
-		<xsl:if test="$showCommentary">
-			<xsl:if test="$isFirstChange = true()">
-				<fo:inline font-weight="bold">[</fo:inline>
-			</xsl:if>
-		</xsl:if>
-		<!--<xsl:choose>
-			<xsl:when test="($firstChange is parent::leg:Pnumber/parent::leg:P1/parent::leg:P1group/leg:Title/leg:Addition[1]) and $secondChange is .)">
-				<fo:inline font-weight="bold">[</fo:inline>
-			</xsl:when>
-			
-			<xsl:when test="parent::leg:Title/following-sibling::*[1]/leg:Pnumber/leg:Addition">
-				
-			</xsl:when>
-			<xsl:when test="key('additionRepealChanges', @ChangeId)[1] is .">
-				<fo:inline font-weight="bold">[</fo:inline>
-			</xsl:when>
-			<xsl:otherwise></xsl:otherwise>
-		</xsl:choose>-->
-		
-		<!--<xsl:if test="key('additionRepealChanges', @ChangeId)[1] is .">
-			<fo:inline font-weight="bold">[</fo:inline>
-		</xsl:if>-->
-		<xsl:apply-templates select="." mode="AdditionRepealRefs"/>
+		<xsl:variable name="isFirstChange" as="xs:boolean?" select="leg:isFirstChange(., $allChanges, $firstChange, $changeId)"/>
 		<xsl:variable name="changeType" as="xs:string">
 			<xsl:choose>
 				<xsl:when test="key('substituted', $changeId)">Substitution</xsl:when>
@@ -3357,6 +3569,12 @@ exclude-result-prefixes="tso atom">
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
+		<xsl:if test="$showCommentary">
+			<xsl:if test="$isFirstChange = true()">
+				<fo:inline font-weight="bold">[</fo:inline>
+			</xsl:if>
+			<xsl:apply-templates select="." mode="AdditionRepealRefs"/>
+		</xsl:if>
 		<fo:inline>
 			<xsl:choose>
 				<xsl:when test="@Status = 'Proposed' and $changeType = 'Substitution'">
@@ -3374,63 +3592,98 @@ exclude-result-prefixes="tso atom">
 			</xsl:choose>
 			<xsl:apply-templates/>
 		</fo:inline>
-		<!--<xsl:if test="key('additionRepealChanges', @ChangeId)[last()] is .">
-			<fo:inline font-weight="bold">]</fo:inline>
-			</xsl:if>-->
-		<xsl:if test="key('additionRepealChanges', @ChangeId, $showSection)[last()] is .">
-			<fo:inline font-weight="bold">]</fo:inline>
-		</xsl:if>
+		<xsl:choose>
+			<xsl:when test="$showCommentary and ancestor::xhtml:tbody and ($allChanges[ancestor::xhtml:tfoot] or  not($allChanges[last()] is .))"></xsl:when>
+			<xsl:when test="$showCommentary and ancestor::xhtml:tfoot and ($allChanges[last()][not(ancestor::xhtml:table)])"></xsl:when>
+			<xsl:when test="$showCommentary and key('additionRepealChanges', @ChangeId, $showSection)[last()] is .">
+				<fo:inline font-weight="bold">]</fo:inline>
+			</xsl:when>
+		</xsl:choose>
 	</xsl:template>
 
-	<!--<xsl:template match="leg:Repeal">
-		<xsl:apply-templates select="." mode="AdditionRepealRefs"/>
-		<fo:inline>
-			<xsl:apply-templates/>
-		</fo:inline>
-	</xsl:template>-->
+	<xsl:function name="leg:isFirstChange" as="xs:boolean">
+		<xsl:param name="node"  as="node()"/>
+		<xsl:param name="allChanges" />
+		<xsl:param name="firstChange" />
+		<xsl:param name="changeId" />
+		<xsl:choose>
+			<xsl:when test="$node/ancestor::xhtml:tbody and $allChanges[not(ancestor::xhtml:tfoot)][1] is $node">
+				<xsl:sequence select="true()" />
+			</xsl:when>
+			<xsl:when test="$node/ancestor::xhtml:tfoot and $allChanges[ancestor::xhtml:tbody]">
+				<xsl:sequence select="false()" />
+			</xsl:when>
+			<xsl:when test="$node/ancestor::xhtml:table and not($allChanges[1] is $firstChange)">
+				<xsl:sequence select="false()" />
+			</xsl:when>
+			<xsl:when test="$g_strDocClass = $g_strConstantPrimary and $node/ancestor::leg:Pnumber/parent::leg:P1/parent::leg:P1group">
+				<xsl:sequence select="$firstChange is ($node/ancestor::leg:Pnumber/parent::leg:P1/parent::leg:P1group//(leg:Addition|leg:Repeal|leg:Substitution))[@ChangeId = $changeId][1]" />
+			</xsl:when>
+			<xsl:when test="$g_strDocClass = $g_strConstantPrimary and $node/ancestor::leg:Title/parent::leg:P1group">
+				<xsl:sequence select="$firstChange is $node and
+					empty($node/ancestor::leg:Title/parent::leg:P1group/leg:P1[1]/leg:Pnumber//(leg:Addition|leg:Repeal|leg:Substitution)[@ChangeId = $changeId])" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:sequence select="$firstChange is $node" />
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:function>
 
+	<xsl:function name="leg:showSection" as="node()">
+		<xsl:param name="node" as="node()"/>
+		<xsl:param name="showSection" />
+		<xsl:sequence 
+			select="if ($node/ancestor::*[@VersionReplacement]) then $node/ancestor::*[@VersionReplacement] 
+					else if ($node/ancestor::xhtml:tfoot) then $node/ancestor::xhtml:tfoot 
+					else if ($node/ancestor::xhtml:tbody) then $node/ancestor::xhtml:tbody 
+					else if (exists($showSection) and $node/ancestor-or-self::*[. is $showSection]) then $showSection 
+					else if ($g_strDocClass = $g_strConstantEuretained and $node/ancestor::leg:Footnotes) then $node/ancestor::leg:Footnotes 
+					else $node/root()/leg:Legislation/(leg:EURetained|leg:Primary|leg:Secondary)" />
+	</xsl:function>
+
+	
 	<xsl:template match="leg:Addition | leg:Repeal | leg:Substitution" mode="AdditionRepealRefs">
 		<xsl:param name="showSection" select="root()" tunnel="yes" />
 		<xsl:if test="@CommentaryRef">
 			<xsl:variable name="commentaryItem" select="key('commentary', @CommentaryRef)[1]" as="element(leg:Commentary)*"/>
-	
 			<xsl:if test="$commentaryItem/@Type = ('F', 'M', 'X')">
 				<!-- The <Title> comes before the <Pnumber> in the XML, but appears after the <Pnumber> in the HTML display
 				so the first commentary reference for the change is the one in the <Title> rather than the one in the <Pnumber>-->
 				<xsl:variable name="changeId" as="xs:string" select="@ChangeId" />			
-				<xsl:variable name="showSection" as="node()"
-						select="if (ancestor::*[@VersionReplacement]) then ancestor::*[@VersionReplacement] else if (exists($showSection) and ancestor-or-self::*[. is $showSection]) then $showSection else root()" />
+				<xsl:variable name="showSection" as="node()" select="leg:showSection(., $showSection)" />
+				<xsl:variable name="sameChanges" as="element()*" select="key('commentaryRefInChange', concat(@CommentaryRef, '+', @ChangeId), $showSection)" />
+				<xsl:variable name="allChanges" as="element()*" select="key('commentaryRefInChange', concat(@CommentaryRef, '+', @ChangeId), root()/leg:Legislation/(leg:EURetained|leg:Primary|leg:Secondary))" />
+				<xsl:variable name="firstChange" as="element()?" select="$sameChanges[1]" />
 				
-				<!--<xsl:variable name="sameChanges" as="element()*" select="key('commentaryRefInChange', concat(@CommentaryRef, '+', @ChangeId))" />-->
-					<xsl:variable name="sameChanges" as="element()*" select="key('commentaryRefInChange', concat(@CommentaryRef, '+', @ChangeId), $showSection)" />
-					<xsl:variable name="firstChange" as="element()?" select="$sameChanges[1]" />
-				<xsl:variable name="isFirstChange" as="xs:boolean?">
-					<xsl:choose>
-						<xsl:when test="$g_strDocClass = $g_strConstantPrimary and ancestor::leg:Pnumber/parent::leg:P1/parent::leg:P1group">
-							<xsl:sequence select="$firstChange is (ancestor::leg:Pnumber/parent::leg:P1/parent::leg:P1group//(leg:Addition|leg:Substitution))[1]" />
-						</xsl:when>
-						<xsl:when test="$g_strDocClass = $g_strConstantPrimary and ancestor::leg:Title/parent::leg:P1group">
-							<xsl:sequence select="$firstChange is . and
-								empty(ancestor::leg:Title/parent::leg:P1group/leg:P1[1]/leg:Pnumber//(leg:Addition|leg:Substitution)[@ChangeId = $changeId])" />
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:sequence select="$firstChange is ." />
-						</xsl:otherwise>
-					</xsl:choose>
-				</xsl:variable>
+				<xsl:variable name="isFirstChange" as="xs:boolean?" select="leg:isFirstChange(., $allChanges, $firstChange, $changeId)"/>
 				
-				<xsl:if test="$isFirstChange = true()">
+				<xsl:if test="$isFirstChange">
 					<xsl:variable name="versionRef" select="ancestor-or-self::*[@VersionReference][1]/@VersionReference"/>
 					<xsl:sequence select="tso:OutputCommentaryRef(key('commentaryRef', @CommentaryRef)[1] is ., $commentaryItem,  translate($versionRef,' ',''))"/>
 				</xsl:if>		
 			</xsl:if>
 		</xsl:if>
 	</xsl:template>
+	
+	
+	
+	
 
-	<!-- Make assumption here that comments have been filtered to only contain those relevant for content being viewed -->
 
-	<!-- when commentarys are in version there can be identical id's - therefore we concatanate the version ref to these to make them unique -->
 
+	<xsl:template match="leg:CommentaryRef" priority="50">
+		<xsl:choose>
+			<xsl:when test="not(ancestor::leg:Text or ancestor::leg:Pnumber or ancestor::leg:Title or ancestor::leg:Number or ancestor::leg:Citation or ancestor::leg:CitationSubRef or ancestor::leg:CitationListRef or ancestor::leg:Addition or ancestor::leg:Repeal or ancestor::leg:Substitution)">
+				<fo:block>
+					<xsl:next-match/>
+				</fo:block>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:next-match/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
 	<xsl:template match="leg:CommentaryRef">
 		<xsl:variable name="commentaryItem" select="key('commentary', @Ref)[1]" as="element(leg:Commentary)?"/>
 		<xsl:variable name="versionRef" select="ancestor-or-self::*[@VersionReference][1]/@VersionReference"/>
@@ -3438,21 +3691,26 @@ exclude-result-prefixes="tso atom">
 			<fo:inline font-weight="bold" color="red">No commentary item could be found for this reference <xsl:value-of select="@Ref"/>
 			</fo:inline>
 		</xsl:if>
-		<xsl:if test="tso:showCommentary(.) and $commentaryItem/@Type = ('F', 'M', 'X') and key('commentaryRef', @Ref)[1] is .">
-			<!-- in the rare event that the commentary item is not within the text we need to block it as in nisi/1993/1576/2006-01-01 -->
-			<xsl:choose>
-				<xsl:when test="not(ancestor::leg:Text or ancestor::leg:Pnumber or ancestor::leg:Title or ancestor::leg:Number or ancestor::leg:Citation or ancestor::leg:CitationSubRef or ancestor::leg:CitationListRef or ancestor::leg:Addition or ancestor::leg:Repeal or ancestor::leg:Substitution)">
-					<fo:block>
-						<xsl:sequence select="tso:OutputCommentaryRef(key('commentaryRef', @Ref)[1] is ., $commentaryItem, translate($versionRef,' ',''))"/>
-					</fo:block>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:sequence select="tso:OutputCommentaryRef(key('commentaryRef', @Ref)[1] is ., $commentaryItem, translate($versionRef,' ',''))"/>
-				</xsl:otherwise>
-			</xsl:choose>
-		</xsl:if>
-
+		<xsl:choose>		
+			<xsl:when test="../(self::leg:Addition | self::leg:Repeal | self::leg:Substitution)">
+				<!--#HA050337 - updated to fix missing footnote referance. earlier code was only allowing to display first footnote referance . so if the same referance occurs twice
+					the code was avoiding it from display 
+				http://www.legislation.gov.uk/nisi/1996/275/article/8
+				http://www.legislation.gov.uk/nisi/1996/274/article/8A
+				-->
+				<xsl:if test="$commentaryItem/@Type = ('F', 'M', 'X') and key('commentaryRef', @Ref) = .">
+					<xsl:sequence select="tso:OutputCommentaryRef(key('commentaryRef', @Ref) = ., $commentaryItem,  translate($versionRef,' ',''))"/>				
+				</xsl:if>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:if test="tso:showCommentary(.) and $commentaryItem/@Type = ('F', 'M', 'X') ">
+					<xsl:sequence select="tso:OutputCommentaryRef(key('commentaryRef', @Ref)[1] is ., $commentaryItem,  translate($versionRef,' ',''))"/>
+				</xsl:if>
+			</xsl:otherwise>
+		</xsl:choose>	
 	</xsl:template>
+	
+
 
 	<!-- for markers - we do not watn commentary referemces included -->
 	<xsl:template match="leg:CommentaryRef" mode="header">
@@ -3531,7 +3789,7 @@ exclude-result-prefixes="tso atom">
 		<xsl:call-template name="FuncApplyVersions"/>
 	</xsl:template>
 	
-	<xsl:template match="leg:SignedSection">
+	<xsl:template match="leg:SignedSection" priority="20">
 		<xsl:next-match/>
 		<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 	</xsl:template>
@@ -3666,7 +3924,7 @@ exclude-result-prefixes="tso atom">
 	<!-- ========== Handle extent information ========== -->
 	<!-- May need to extend this to cover a standalone P1 as well as P1group for secondary formatted legislation -->
 
-	<xsl:template match="leg:PrimaryPrelims | leg:SecondaryPrelims" priority="100">
+	<xsl:template match="leg:PrimaryPrelims | leg:SecondaryPrelims | leg:EUPrelims" priority="100">
 		<xsl:if test="ancestor-or-self::*/@RestrictExtent and  ($g_matchExtent = 'true' or parent::*/@Concurrent = 'true' or ancestor-or-self::*/@VersionReplacement)">
 			<fo:block>
 				<xsl:copy-of select="tso:generateExtentInfo(.)"/>
@@ -4013,6 +4271,314 @@ exclude-result-prefixes="tso atom">
 			<xsl:next-match />
 		</xsl:if>
 	</xsl:template>
+	
+	
+	
+	<!-- EU TEMPLATES  -->
+	
+	<xsl:template match="leg:Expanded">
+		<fo:inline font-style="italic">
+			<xsl:apply-templates/>
+		</fo:inline>
+	</xsl:template>
+	
+	<xsl:template match="leg:Uppercase">
+		<fo:inline text-transform="uppercase">
+			<xsl:apply-templates/>
+		</fo:inline>
+	</xsl:template>
+
+	<xsl:template match="leg:P1group | leg:Division[not(@Type)]"  priority="100">
+		<!-- we need to have a marker on every page to replicate the breadcrumb in a consistent fashion -->
+		<!-- if this is marked at the high level a page which has no marker will refer to the highest level  -->
+		<!-- this should resolve such issues  -->
+		<xsl:if test="$g_strDocClass = $g_strConstantEuretained">
+			<fo:block keep-with-next="always">
+				<fo:marker marker-class-name="runningheadEU">
+					<xsl:call-template name="OutputHeaderBreadscrumb"/>
+				</fo:marker>
+			</fo:block>
+		</xsl:if>
+		<xsl:next-match/>
+	</xsl:template>
+
+
+	<xsl:template match="leg:EUTitle | leg:EUPart | leg:EUChapter | leg:EUSection | leg:EUSubsection | leg:Division[leg:Title][@Type = ('EUPart','EUTitle','EUChapter','EUSection','EUSubsection', 'ANNEX')]"  priority="20">
+		<xsl:variable name="element" select="if (@Type) then @Type else local-name()"/>
+		<xsl:variable name="name" 
+			select="
+					if (local-name() = 'Division') then
+						lower-case(substring-after(@Type, 'EU'))
+					else lower-case(substring-after(local-name(), 'EU'))"/>
+		<fo:block>
+			<!--<fo:marker marker-class-name="runningheadEU">
+				<xsl:call-template name="OutputHeaderBreadscrumb"/>
+				<xsl:apply-templates select="." mode="runningheader"/>
+			</fo:marker>-->
+			<xsl:apply-templates/>
+		</fo:block>
+		<xsl:if test="not(@AltVersionRefs) and not(parent::leg:BlockAmendment)">
+			<xsl:apply-templates select="." mode="ProcessAnnotations"/>
+		</xsl:if>
+	</xsl:template>
+	
+	<xsl:template match="*[leg:Number != '' ]" mode="runningheader" priority="3">
+		<xsl:choose>
+			<xsl:when test="self::leg:Division">
+				<xsl:variable name="prefix" 
+								select="
+									if (@Type = 'EUTitle' and not(matches(leg:Number, 'title', 'i'))) then 'Title'
+									else if (@Type = 'EUPart' and not(matches(leg:Number, 'part', 'i'))) then 'Part'
+									else if (@Type = 'EUChapter' and not(matches(leg:Number, 'chapter', 'i'))) then 'Chapter'
+									else if (@Type = 'EUSection' and not(matches(leg:Number, 'section', 'i'))) then 'Section'
+									else if (@Type = 'EUSubsection' and not(matches(leg:Number, 'section', 'i'))) then 'Sub-Section'
+									else if (@Type = 'Annotations' and not(matches(leg:Number, 'annotation', 'i'))) then 'Annotations'
+									else if (@Type = 'Annotation' and not(matches(leg:Number, 'annotation', 'i'))) then 'Annotation'
+									else if (@Type = ('EUTitle', 'EUPart', 'EUChapter', 'EUSection', 'EUSubsection', 'Annotations', 'Annotation')) then ()
+									else 'Division'
+									"/>
+				<xsl:value-of select="concat($prefix, ' ', leg:Number)" />				
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="leg:Number" />
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+	<xsl:template match="leg:Division[leg:Number][leg:Title]" priority="15">
+		<fo:block>
+			<fo:list-block provisional-label-separation="3pt" space-before="{$g_strLargeStandardParaGap}" provisional-distance-between-starts="42pt" text-indent="0pt">	
+				<fo:list-item text-indent="0pt">
+					<xsl:call-template name="TSOgetID"/>
+					<fo:list-item-label start-indent="0pt">
+						<fo:block font-size="{$g_strBodySize}" text-align="left" margin-left="0pt">
+							<xsl:apply-templates select="leg:Number"/>
+						</fo:block>						
+					</fo:list-item-label>
+					<fo:list-item-body text-indent="42pt" end-indent="0pt">
+						<fo:block font-size="{$g_strBodySize}" text-align="justify">
+							<!--<xsl:apply-templates select="leg:P2para"/>-->
+							<xsl:apply-templates select="leg:Title"/>
+						</fo:block>	
+					</fo:list-item-body>
+				</fo:list-item>	
+			</fo:list-block>
+			<xsl:apply-templates select="*[not(self::leg:Title or self::leg:Number)]"/>
+		</fo:block>
+		<xsl:if test="not(@AltVersionRefs) and not(parent::leg:BlockAmendment)">
+			<xsl:apply-templates select="." mode="ProcessAnnotations"/>
+		</xsl:if>
+	</xsl:template>
+	
+	<xsl:template match="leg:Division[leg:Number][not(leg:Title)]" priority="20">
+		<fo:block>
+			<fo:list-block provisional-label-separation="3pt" space-before="{$g_strLargeStandardParaGap}" provisional-distance-between-starts="42pt" text-indent="0pt">	
+				<fo:list-item text-indent="0pt">
+					<xsl:call-template name="TSOgetID"/>
+					<fo:list-item-label start-indent="0pt">
+						<fo:block font-size="{$g_strBodySize}" text-align="left" margin-left="0pt">
+							<xsl:apply-templates select="leg:Number"/>
+						</fo:block>						
+					</fo:list-item-label>
+					<fo:list-item-body text-indent="42pt" end-indent="0pt">
+						<fo:block font-size="{$g_strBodySize}" text-align="justify">
+							<xsl:apply-templates select="leg:Number/following-sibling::*[1]" mode="numberedpara"/>
+						</fo:block>	
+					</fo:list-item-body>
+				</fo:list-item>	
+			</fo:list-block>
+			<xsl:apply-templates select="*[not(self::leg:Number)][self::*[not(preceding-sibling::*[1][self::leg:Number])]]"/>
+		</fo:block>
+		<xsl:if test="not(@AltVersionRefs) and not(parent::leg:BlockAmendment)">
+			<xsl:apply-templates select="." mode="ProcessAnnotations"/>
+		</xsl:if>
+	</xsl:template>
+
+	<!-- very sepcific annex title that appears as the first division in a schedule body  -->
+	<xsl:template match="leg:Division[not(preceding-sibling::*)][parent::leg:ScheduleBody][not(translate(leg:Number, '.()', '') castable as xs:integer)]" priority="50">
+		<xsl:variable name="element" select="if (@Type) then @Type else local-name()"/>
+		<fo:block>
+			<xsl:apply-templates select="leg:Title | leg:Number"/>
+			<xsl:apply-templates select="*[not(self::leg:Title or self::leg:Number)]"/>
+		</fo:block>
+	</xsl:template>
+	
+	<xsl:template match="leg:Division/leg:Number | leg:Division/leg:Title">
+		<xsl:apply-templates/>
+	</xsl:template>
+
+
+	<xsl:template match="leg:EUTitle/leg:Number | leg:EUPart/leg:Number | leg:EUChapter/leg:Number | leg:EUSection/leg:Number | leg:EUSubsection/leg:Number |  leg:Division[leg:Title][@Type = ('EUPart','EUTitle','EUChapter','EUSection','EUSubsection', 'ANNEX')]/leg:Number" priority="40">
+		<xsl:variable name="font-weight" select="if (parent::leg:EUTitle or parent::leg:Divion/@Type = 'EUTitle') then 'bold' else 'normal'"/>
+		<fo:block font-size="{$g_strBodySize}" space-before="24pt" text-align="center" keep-with-next="always" font-weight="{font-weight}">
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template>
+
+	<xsl:template match="leg:EUTitle/leg:Title | leg:EUPart/leg:Title | leg:EUChapter/leg:Title | leg:EUSection/leg:Title | leg:EUSubsection/leg:Title | leg:Division[leg:Title][@Type = ('EUPart','EUTitle','EUChapter','EUSection','EUSubsection', 'ANNEX')]/leg:Title" priority="10">
+		<xsl:variable name="contentcount" select="string-length(parent::*/leg:Number)"/>
+		<xsl:variable name="element" select="if (parent::*/@Type) then parent::*/ @Type 
+			else if (parent::leg:Division[not(@type)] and ancestor::leg:Schedule and $contentcount gt 8) then 'ScheduleSection'
+			else parent::*/local-name()"/>
+		<xsl:variable name="strAmendmentSuffix">
+			<xsl:call-template name="FuncCalcAmendmentNo"/>
+		</xsl:variable>
+		<xsl:variable name="class" select="concat('Leg',$element, 'Title', $strAmendmentSuffix)"/>
+		
+		<fo:block  font-size="{$g_strBodySize}" text-align="center" keep-with-next="always" font-weight="bold" space-before="12pt">
+			<xsl:choose>
+				<xsl:when test="$class = 'LegDivisionTitle'">
+					<xsl:attribute name="text-align">left</xsl:attribute>
+					<xsl:attribute name="font-weight">normal</xsl:attribute>		
+				</xsl:when>
+			</xsl:choose>
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template>
+	
+	<xsl:template match="leg:Attachment//leg:EUPrelims" priority="10">
+		<fo:block>
+			<xsl:apply-templates/>		
+		</fo:block>
+	</xsl:template>
+
+	<xsl:template match="leg:Attachments" priority="10">
+		<fo:block>
+			<xsl:apply-templates/>		
+		</fo:block>
+	</xsl:template>
+	
+	<xsl:template match="leg:Attachment//leg:EURetained" priority="10">
+		<xsl:apply-templates/>		
+	</xsl:template>
+
+	<xsl:template match="leg:Attachment" priority="10">
+		<fo:block text-align="justify" font-size="{$g_strBodySize}">
+			<xsl:call-template name="TSOgetID"/>	
+			<fo:marker marker-class-name="runningheadschedule">
+				<xsl:value-of select="(.//leg:Title)[1]"/>
+			</fo:marker>
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template>
+
+	<xsl:template match="leg:P" mode="numberedpara">
+		<xsl:variable name="element" select="if (parent::*/@Type) then parent::*/ @Type else parent::*/local-name()"/>
+		<fo:block>
+			<xsl:apply-templates select="leg:Text/node()"/>
+		</fo:block>
+	</xsl:template>
+
+	<xsl:template match="leg:P1[not(parent::leg:P1group)][$g_strDocClass = $g_strConstantEuretained]" priority="70">
+		<fo:block>
+			<fo:block font-size="{$g_strBodySize}" text-align="center" font-weight="normal" font-style="italic" keep-with-next="always" space-before="8pt" space-after="8pt">
+				<xsl:apply-templates select="leg:Pnumber"/>
+			</fo:block>
+			<xsl:if test="parent::leg:P1group and not(preceding-sibling::leg:P1)">
+				<fo:block font-size="{$g_strBodySize}" text-align="center" font-weight="bold">
+					<xsl:apply-templates select="leg:Title"/>
+				</fo:block>
+			</xsl:if>
+			<xsl:apply-templates select="*[not(self::leg:Title or self::leg:Pnumber)]"/>
+		</fo:block>
+	</xsl:template>
+
+	<!-- EU special case numbered P2group elements -->
+	<xsl:template match="leg:P2group[leg:Pnumber][leg:Title]" priority="50">
+		<fo:block>
+			<xsl:apply-templates select="leg:Title | leg:Pnumber"/>
+		</fo:block>
+		<xsl:apply-templates select="*[not(self::leg:Title or self::leg:Pnumber)]"/>
+		<xsl:call-template name="FuncApplyVersions"/>
+	</xsl:template>
+
+
+	<xsl:template match="leg:P2group[leg:Pnumber]/leg:Title" priority="50">
+		<fo:block>
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template>
+
+	<xsl:template match="leg:P2group[leg:Pnumber]/leg:Pnumber" priority="50">
+		<fo:block>
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template>
+
+
+
+	<xsl:template match="leg:EUPreamble">
+		<fo:block font-size="{$g_strBodySize}" line-height="14pt" margin-top="12pt" text-align="justify">
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template>
+
+	<xsl:template match="leg:EUPreamble/leg:Division" priority="50">
+		<fo:list-block provisional-label-separation="3pt" provisional-distance-between-starts="36pt" space-before="6pt">		
+			<xsl:call-template name="TSOgetID"/>
+			<fo:list-item>
+				<fo:list-item-label end-indent="label-end()">
+					<fo:block font-size="{$g_strBodySize}" font-weight="normal">
+						<xsl:attribute name="text-align">left</xsl:attribute>
+						<xsl:attribute name="margin-left">
+							<xsl:choose>
+								<xsl:when test="leg:Pnumber/leg:Addition">-3pt</xsl:when>
+								<xsl:otherwise>0pt</xsl:otherwise>
+							</xsl:choose>
+						</xsl:attribute>
+						<xsl:if test="leg:Number/@PuncBefore!= ''">
+							<xsl:value-of select="leg:Pnumber/@PuncBefore"/>
+						</xsl:if>
+						<xsl:apply-templates select="leg:Number/node() | processing-instruction()"/>
+						<xsl:if test="leg:Number/@PuncAfter != ''">
+							<xsl:value-of select="leg:Number/@PuncAfter"/>
+						</xsl:if>
+					</fo:block>						
+				</fo:list-item-label>
+				<fo:list-item-body start-indent="body-start()">
+					<xsl:apply-templates select="*[not(self::leg:Number)]"/>
+				</fo:list-item-body>
+			</fo:list-item>						
+		</fo:list-block>
+		<xsl:call-template name="FuncApplyVersions"/>
+	</xsl:template>
+
+	<xsl:template match="leg:EUPreamble/leg:Division/leg:Number" priority="50">
+		<xsl:apply-templates/>
+	</xsl:template>
+
+	<xsl:template match="leg:EUPreamble/leg:Division/leg:P" priority="10">
+		<xsl:apply-templates/>
+	</xsl:template>
+
+	<xsl:template match="leg:EUPreamble/leg:Division/leg:P/leg:Text" priority="50">
+		<fo:block>
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template>
+
+	<!-- the title elemnent in the preamble appears to just be a first paragraph so treat as such-->
+	<xsl:template match="leg:EUPreamble/leg:Division/leg:Title" priority="20">
+		<fo:block>
+			<xsl:apply-templates/>
+		</fo:block>
+	</xsl:template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	<xsl:function name="tso:isProposedRepeal" as="xs:boolean">
 		<xsl:param name="element" as="element()" />
@@ -4034,7 +4600,7 @@ exclude-result-prefixes="tso atom">
 		<xsl:variable name="fragment" select="$commentaryRef/ancestor::*[@RestrictStartDate or @RestrictEndDate or @Match or @Status][1]" />
 		<xsl:variable name="isDead" as="xs:boolean" select="$fragment/@Status = 'Dead'" />
 		<xsl:variable name="isValidFrom" as="xs:boolean" select="$fragment/@Match = 'false' and $fragment/@RestrictStartDate and ((($version castable as xs:date) and xs:date($fragment/@RestrictStartDate) &gt; xs:date($version) ) or (not($version castable as xs:date) and xs:date($fragment/@RestrictStartDate) &gt; current-date() ))" />
-		<xsl:variable name="isRepealed" as="xs:boolean" select="$fragment/@Match = 'false' and (not($fragment/@Status) or $fragment/@Status != 'Prospective') and not($isValidFrom)"/>
+		<xsl:variable name="isRepealed" as="xs:boolean" select="$fragment/@Match = 'false' and (not($fragment/@Status) or $fragment/@Status != 'Prospective') and not($isValidFrom) and not($commentaryRef/ancestor::leg:EUPreamble)"/>
 		<xsl:variable name="commentary" as="element(leg:Commentary)?" select="key('commentary', $commentaryRef/(@Ref | @CommentaryRef), $commentaryRef/root())" />
 		<xsl:sequence select="tso:showCommentary($commentary, $isRepealed, $isDead)" />
 	</xsl:function>
@@ -4058,5 +4624,184 @@ exclude-result-prefixes="tso atom">
 		</xsl:choose>
 	</xsl:function>
 	
+	<xsl:function name="leg:abridgeContent">
+		<xsl:param name="text" as="xs:string" />
+		<xsl:param name="nWords" as="xs:integer" />
+		<xsl:variable name="words" as="xs:string+" select="tokenize(normalize-space($text), '\s+')[position() &lt;= $nWords]" />
+		<xsl:value-of select="string-join($words, ' ')" />
+		<xsl:if test="count(tokenize(normalize-space($text), '\s+')) &gt; $nWords">
+			<xsl:text>...</xsl:text>
+		</xsl:if>	
+	</xsl:function>
+	
+	<!-- Calculate the level of depth of indented text and output return value as Amendmentx where x is the depth (if greater than 1) -->
+	<xsl:template name="FuncCalcAmendmentNo">
+		<!-- If table is first ancestor before an amendment do not add amendment suffix -->
+		<xsl:if test="not(ancestor::*[self::xhtml:table or self::leg:BlockAmendment or self::leg:BlockExtract][1][self::xhtml:table])">
+			<xsl:call-template name="FuncGetPrimaryAmendmentContext"/>
+			<xsl:choose>
+				<!-- If we have amendments in a table that is itself in an amendment we need to drop the amendment level to 1 -->
+				<xsl:when test="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/ancestor::*[self::xhtml:table or self::leg:BlockAmendment or self::leg:BlockExtract][1][self::xhtml:table]">
+					<xsl:text>Amend</xsl:text>
+				</xsl:when>
+				<!-- If we have nested amendments in a table that is itself in an amendment we need to drop the amendment level to 2 -->
+				<xsl:when test="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][2]/ancestor::*[self::xhtml:table or self::leg:BlockAmendment or self::leg:BlockExtract][1][self::xhtml:table]">
+					<xsl:text>Amend2</xsl:text>
+				</xsl:when>
+				<xsl:when test="count(ancestor::leg:BlockAmendment) + count(ancestor::leg:BlockExtract) = 1">
+					<xsl:text>Amend</xsl:text>
+				</xsl:when>
+				<xsl:when test="ancestor::leg:BlockAmendment or ancestor::leg:BlockExtract">
+					<xsl:text>Amend</xsl:text>
+					<xsl:value-of select="count(ancestor::leg:BlockAmendment) + count(ancestor::leg:BlockExtract)"/>
+				</xsl:when>
+			</xsl:choose>
+		</xsl:if>
+	</xsl:template>
+	
+	<!-- As amendments in primary legislation are dependent upon their parentage we need to do some checks and alter the CSS class if necessary -->
+	<xsl:template name="FuncGetPrimaryAmendmentContext">
+		<xsl:if test="$g_strDocClass = $g_strConstantEuretained">
+				<xsl:for-each select="ancestor::leg:BlockAmendment">
+					<xsl:choose>
+						<xsl:when test="parent::leg:P3para or parent::leg:BlockText/parent::leg:P3para">C3</xsl:when>
+						<xsl:when test="parent::leg:P4para or parent::leg:BlockText/parent::leg:P4para">C4</xsl:when>
+						<xsl:when test="parent::leg:P5para or parent::leg:BlockText/parent::leg:P5para">C5</xsl:when>
+						<xsl:when test="parent::leg:P6para or parent::leg:BlockText/parent::leg:P6para">C6</xsl:when>
+						<xsl:when test="parent::leg:P7para or parent::leg:BlockText/parent::leg:P7para">C7</xsl:when>
+						<!-- This shouldn't really happen but just in case! -->
+						<xsl:when test="parent::leg:Para/parent::leg:ListItem">
+							<xsl:text>C</xsl:text>
+							<xsl:for-each select="parent::*/parent::*">
+								<xsl:call-template name="FuncCalcListClass">
+									<xsl:with-param name="flOutputPrefix" select="false()"/>
+								</xsl:call-template>
+							</xsl:for-each>
+						</xsl:when>
+						<!-- Level 1 and 2 are treated the same -->
+						<xsl:when test="parent::leg:BlockAmendment or parent::leg:BlockText or parent::leg:P or parent::leg:Para or parent::leg:P1para or parent::leg:P2para or parent::leg:ScheduleBody or parent::leg:AppendixBody or parent::leg:Group or parent::leg:Part or parent::leg:Chapter or parent::leg:Pblock or parent::leg:PsubBlock">C1</xsl:when>
+						<!-- Otherwise we haven't handled the situation so error -->
+						<xsl:otherwise>
+							<xsl:message terminate="yes">This document has an unhandled amendment context: <xsl:value-of select="name(parent::*)" /></xsl:message>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:for-each>	
+		</xsl:if>
+	</xsl:template>
+	
+	<xsl:template name="FuncCalcListClass">
+	<xsl:param name="flOutputPrefix" select="true()"/>
+	<xsl:variable name="intStartLevel">
+		<xsl:call-template name="TSOcalculateListLevel"/>
+	</xsl:variable>
+	<xsl:variable name="intListAncestors">
+		<xsl:call-template name="TSOgetListAncestors"/>
+	</xsl:variable>
+	<xsl:variable name="intCurrentLevel">
+		<xsl:choose>
+			<xsl:when test="number($intStartLevel) &lt; 0">
+				<xsl:value-of select="number($intListAncestors) - number($intStartLevel)"/>
+			</xsl:when>		
+			<xsl:otherwise>
+				<xsl:value-of select="number($intStartLevel) + number($intListAncestors)"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:if test="parent::leg:UnorderedList[@Decoration != 'none']">UL</xsl:if>
+	<xsl:choose>
+		<xsl:when test="number($intCurrentLevel) &gt; 0">
+			<xsl:if test="$flOutputPrefix = true()">
+				<xsl:text>LegLevel</xsl:text>
+			</xsl:if>
+			<xsl:value-of select="floor($intCurrentLevel)"/>
+		</xsl:when>
+		<xsl:otherwise>Unknown</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
+<!-- Calculate the level to convert list items to by working out the level of the top level list containing this list -->
+<xsl:template name="TSOcalculateListLevel">
+	<!-- Get ID of first blockamendment ancestor if there is one as we dont want list items outside the current amendment -->
+	<xsl:variable name="intAmendmentAncestor" select="generate-id(ancestor::leg:BlockAmendment[1])"/>
+	<xsl:variable name="ndsAncestors" select="ancestor::*[self::leg:OrderedList or self::leg:KeyList or self::leg:UnorderedList or self::leg:Formula or self::leg:BlockText][generate-id(ancestor::leg:BlockAmendment[1]) = $intAmendmentAncestor or $intAmendmentAncestor = ''][last()]"/>
+	<!-- Get back to last ancestor that qualifies in the range of elements we are 'blocking' -->
+	<xsl:choose>
+		<xsl:when test="$ndsAncestors">
+			<xsl:for-each select="$ndsAncestors">
+				<xsl:call-template name="TSOgetListLevel"/>
+			</xsl:for-each>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:call-template name="TSOgetListLevel"/>	
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
+
+<xsl:template name="TSOgetListLevel">
+	<xsl:choose>
+		<xsl:when test="parent::xhtml:td or parent::xhtml:th">3</xsl:when>
+		<xsl:when test="parent::leg:Para">3</xsl:when>
+		<!--Chunyu:HA051074 Added an extra conditiion for EN see http://www.legislation.gov.uk/ukci/2010/5/note/sld/created		-->
+		<xsl:when test="parent::leg:P and not(parent::leg:P/parent::leg:ExplanatoryNotes)">3</xsl:when>
+		<xsl:when test="parent::leg:P1para">3</xsl:when>
+		<xsl:when test="parent::leg:P2">3</xsl:when>
+		<xsl:when test="parent::leg:P2para">3</xsl:when>
+		<xsl:when test="parent::leg:P3">3</xsl:when>			
+		<xsl:when test="parent::leg:P3para">4</xsl:when>
+		<xsl:when test="parent::leg:P4">4</xsl:when>			
+		<xsl:when test="parent::leg:P4para">5</xsl:when>
+		<xsl:when test="parent::leg:P5">5</xsl:when>			
+		<xsl:when test="parent::leg:P5para">6</xsl:when>
+		<xsl:when test="parent::leg:P6">6</xsl:when>
+		<xsl:when test="parent::leg:P6para">7</xsl:when>
+		<xsl:when test="parent::leg:P7">7</xsl:when>
+		<xsl:when test="parent::leg:P7para">8</xsl:when>
+		<xsl:when test="parent::leg:BlockAmendment">3</xsl:when>
+	</xsl:choose>
+</xsl:template>
+
+<!-- Work up the hierarchy to calculate the number of list ancestors but stop if we hit an amendment element. We'll treat BlockText the same as a list-->
+<xsl:template name="TSOgetListAncestors">
+	<xsl:param name="intCount" select="0"/>
+	<xsl:choose>
+		<xsl:when test="self::leg:BlockAmendment or not(parent::*)">
+			<xsl:value-of select="$intCount"/>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:for-each select="parent::*">
+				<xsl:choose>
+					<xsl:when test="self::leg:ListItem or self::leg:BlockText">
+						<xsl:call-template name="TSOgetListAncestors">
+							<xsl:with-param name="intCount" select="$intCount + 1"/>
+						</xsl:call-template>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:call-template name="TSOgetListAncestors">
+							<xsl:with-param name="intCount" select="$intCount"/>
+						</xsl:call-template>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:for-each>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
+
+	<xsl:function name="leg:format-number-as-alpha">
+		<xsl:param name="number" as="xs:decimal"/>	
+		<xsl:value-of select="leg:format-number-as-alpha($number, ())"/>
+	</xsl:function>
+	
+	<xsl:function name="leg:format-number-as-alpha">
+		<xsl:param name="number" as="xs:decimal"/>
+		<xsl:param name="case" as="xs:string?"/>
+		<xsl:variable name="int" select="xs:integer(round($number))"/>
+		<xsl:variable name="mod" select="$int mod 26"/>
+		<xsl:variable name="times" select="xs:integer(floor($int div 26) +1)"/>
+		<xsl:variable name="alpha" select="('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')"/>
+		<xsl:variable name="numberstring" select="string-join((for $n in 1 to $times return $alpha[$mod]), '')"/>
+		<xsl:value-of select="if ($case = ('upper', 'uppercase')) then upper-case($numberstring) else $numberstring"/>
+	</xsl:function>
 	
 </xsl:stylesheet>
