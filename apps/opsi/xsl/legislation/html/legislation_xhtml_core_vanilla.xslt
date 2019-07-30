@@ -2409,7 +2409,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	</xsl:variable>
 	<xsl:variable name="strPostText">
 		<xsl:choose>
-			<xsl:when test="$strDecoration = 'parens' or $strDecoration = 'parentRight'">)</xsl:when>
+			<xsl:when test="$strDecoration = 'parens' or $strDecoration = 'parenRight'">)</xsl:when>
 			<xsl:when test="$strDecoration = 'brackets' or $strDecoration = 'bracketRight'">]</xsl:when>
 			<xsl:when test="$strDecoration = 'period'">.</xsl:when>
 			<xsl:when test="$strDecoration = 'colon'">:</xsl:when>
