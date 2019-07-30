@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- v2.0, written by Jim Mangiafico -->
+<!-- v2.0.2, written by Jim Mangiafico -->
 
 <xsl:transform version="2.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -19,7 +19,7 @@
 		<xsl:when test="$name = ('P')">
 			<xsl:value-of select="some $child in $e/* satisfies clml2akn:is-hcontainer($child)" />
 		</xsl:when>
-		<xsl:when test="$name = ('P1', 'P1group', 'P2', 'P2group', 'P3', 'P4', 'P5', 'P6')">
+		<xsl:when test="$name = ('P1', 'P1group', 'P2', 'P2group', 'P3', 'P3group', 'P4', 'P5', 'P6')">
 			<xsl:value-of select="true()" />
 		</xsl:when>
 		<xsl:when test="$name = ('Schedules', 'Schedule', 'Appendix', 'AttachmentGroup', 'Attachment')">
@@ -106,20 +106,14 @@
 	</xsl:choose>
 </xsl:function>
 
-<xsl:function name="clml2akn:add-version-to-image-url" as="xs:string">
-	<xsl:param name="url" as="xs:string" />
-	<xsl:param name="version" as="xs:string" />
-	<xsl:value-of select="replace($url, '(_en_\d{3})$', concat('_', $version, '$1'))" />
-</xsl:function>
-
 <xsl:function name="clml2akn:parse-date" as="xs:date?">
 	<xsl:param name="text" as="xs:string" />
-	<xsl:analyze-string regex="(\d{{1,2}})(st|nd|th)? (January|February|March|April|May|June|July|August|September|October|November|December) (\d{{4}})" select="normalize-space($text)">
+	<xsl:analyze-string regex="(\d{{1,2}})(st|nd|th)?( day of)? (January|February|March|April|May|June|July|August|September|October|November|December) (\d{{4}})" select="normalize-space($text)">
 		<xsl:matching-substring>
 			<xsl:variable name="day" as="xs:string" select="format-number(number(regex-group(1)), '00')" />
 			<xsl:variable name="months" as="xs:string*" select="('January','February','March','April','May','June','July','August','September','October','November','December')" />
-			<xsl:variable name="month" as="xs:string" select="format-number(index-of($months, regex-group(3)), '00')" />
-			<xsl:variable name="year" as="xs:string" select="regex-group(4)" />
+			<xsl:variable name="month" as="xs:string" select="format-number(index-of($months, regex-group(4)), '00')" />
+			<xsl:variable name="year" as="xs:string" select="regex-group(5)" />
 			<xsl:value-of select="concat($year, '-', $month, '-', $day)" />
 		</xsl:matching-substring>
 	</xsl:analyze-string>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- v2.0, written by Jim Mangiafico -->
+<!-- v2.0.2, written by Jim Mangiafico -->
 
 <xsl:transform version="2.0"
 	xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0"
@@ -146,6 +146,7 @@
 	<xsl:choose>
 		<xsl:when test="$e/self::P1">article</xsl:when>
 		<xsl:when test="$e/self::P2">paragraph</xsl:when>
+		<xsl:when test="$e/self::P3">subparagraph</xsl:when>
 	</xsl:choose>
 </xsl:function>
 

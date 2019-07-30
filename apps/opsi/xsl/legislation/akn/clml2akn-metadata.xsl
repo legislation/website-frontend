@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- v2.0, written by Jim Mangiafico -->
+<!-- v2.0.2, written by Jim Mangiafico -->
 
 <xsl:transform version="2.0"
 	xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0"
@@ -28,21 +28,22 @@
 
 <xsl:variable name="work-date">
 	<xsl:choose>
-		<xsl:when test="exists(/ukl:Legislation/ukm:Metadata/ukm:PrimaryMetadata/ukm:EnactmentDate)">
-			<xsl:value-of select="/ukl:Legislation/ukm:Metadata/ukm:PrimaryMetadata/ukm:EnactmentDate/@Date" />
+		<xsl:when test="exists(/ukl:Legislation/ukm:Metadata/ukm:PrimaryMetadata)">
+			<xsl:choose>
+				<xsl:when test="exists(/ukl:Legislation/ukm:Metadata/ukm:PrimaryMetadata/ukm:EnactmentDate)">
+					<xsl:value-of select="/ukl:Legislation/ukm:Metadata/ukm:PrimaryMetadata/ukm:EnactmentDate/@Date" />
+				</xsl:when>
+			</xsl:choose>
 		</xsl:when>
 		<xsl:when test="exists(/ukl:Legislation/ukm:Metadata/ukm:SecondaryMetadata)">
 			<xsl:choose>
 				<xsl:when test="exists(/ukl:Legislation/ukm:Metadata/ukm:SecondaryMetadata/ukm:Made)">
 					<xsl:value-of select="/ukl:Legislation/ukm:Metadata/ukm:SecondaryMetadata/ukm:Made/@Date" />
 				</xsl:when>
-				<xsl:when test="exists(/ukl:Legislation/ukl:Secondary/ukl:SecondaryPrelims/ukl:MadeDate/ukl:DateText)">
+				<xsl:when test="exists(/ukl:Legislation/ukl:Secondary/ukl:SecondaryPrelims/ukl:MadeDate/ukl:DateText/node())">
 					<xsl:value-of select="clml2akn:parse-date(/ukl:Legislation/ukl:Secondary/ukl:SecondaryPrelims/ukl:MadeDate/ukl:DateText)" />
 				</xsl:when>
 			</xsl:choose>
-		</xsl:when>
-		<xsl:when test="exists(/ukl:Legislation/ukm:Metadata/ukm:SecondaryMetadata/ukm:Made)">
-			<xsl:value-of select="/ukl:Legislation/ukm:Metadata/ukm:SecondaryMetadata/ukm:Made/@Date" />
 		</xsl:when>
 		<xsl:when test="exists(/ukl:Legislation/ukm:Metadata/ukm:EUMetadata/ukm:EnactmentDate)">
 			<xsl:value-of select="/ukl:Legislation/ukm:Metadata/ukm:EUMetadata/ukm:EnactmentDate/@Date" />
@@ -397,7 +398,10 @@
 										<xsl:when test="self::Substitution">substitution</xsl:when>
 									</xsl:choose>
 								</xsl:attribute>
-								<xsl:attribute name="eId"><xsl:value-of select="@ChangeId" /></xsl:attribute>
+								<xsl:attribute name="eId">
+									<xsl:text>mod-</xsl:text>
+									<xsl:value-of select="@ChangeId" />
+								</xsl:attribute>
 								<source href="#{@CommentaryRef}" />
 								<destination href="#{./ancestor::*[@id][1]/@id}" /><!-- id of first ancestor -->
 							</textualMod>
@@ -625,7 +629,7 @@
 		
 		<!-- notes -->
 		<!-- see templates for Commentaries, MarginNotes & Footnotes -->
-		<xsl:if test="/Legislation/Commentaries | /Legislation/MarginNotes | /Legislation/Footnotes">
+		<xsl:if test="/Legislation/Commentaries/Commentary | /Legislation/MarginNotes/MarginNote | /Legislation/Footnotes/Footnote">
 			<notes source="#source">
 				<xsl:apply-templates select="/Legislation/Commentaries/Commentary | /Legislation/MarginNotes/MarginNote | /Legislation/Footnotes/Footnote" />
 			</notes>

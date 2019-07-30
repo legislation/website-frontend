@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- v2.0, written by Jim Mangiafico -->
+<!-- v2.0.2, written by Jim Mangiafico -->
 
 <xsl:stylesheet version="2.0"
 	xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0"
@@ -95,6 +95,9 @@
 		<xsl:when test="$doc-category = 'primary'">
 			<xsl:text>enacted</xsl:text>
 		</xsl:when>
+		<xsl:when test="$ukm-doctype = ('UnitedKingdomChurchInstrument', 'UnitedKingdomMinisterialOrder')">
+			<xsl:text>created</xsl:text>
+		</xsl:when>
 		<xsl:when test="$doc-category = 'secondary'">
 			<xsl:text>made</xsl:text>
 		</xsl:when>
@@ -155,7 +158,7 @@
 	<xsl:choose>
 		<xsl:when test="$e/@id"><xsl:value-of select="$e/@id" /></xsl:when>
 		<xsl:otherwise>
-			<xsl:value-of select="concat('term-', lower-case(translate(replace($e, ' ', '-'), '&#34;“”%', '')))" />
+			<xsl:value-of select="concat('term-', lower-case(translate(replace($e, ' ', '-'), '&#xA;&#34;“”%', '')))" />
 		</xsl:otherwise>
 	</xsl:choose>
 </xsl:function>
@@ -284,7 +287,7 @@
 				</xsl:if>
 				<xsl:call-template name="period"><xsl:with-param name="e" select="Body" /></xsl:call-template>
 				<xsl:apply-templates select="PrimaryPrelims | SecondaryPrelims" />
-				<xsl:apply-templates select="Body/*[not(self::CommentaryRef)]" />
+				<xsl:apply-templates select="Body/*" />
 				<xsl:apply-templates select="Schedules" />
 				<xsl:apply-templates select="ExplanatoryNotes | EarlierOrders" />
 			</portionBody>
@@ -296,7 +299,7 @@
 					<xsl:attribute name="eId">body</xsl:attribute>
 				</xsl:if>
 				<xsl:call-template name="period"><xsl:with-param name="e" select="Body" /></xsl:call-template>
-				<xsl:apply-templates select="Body/*[not(self::CommentaryRef)]" />
+				<xsl:apply-templates select="Body/*" />
 				<xsl:apply-templates select="Schedules" />
 			</body>
 			<xsl:if test="ExplanatoryNotes | EarlierOrders">
@@ -379,7 +382,6 @@
 				</xsl:if>
 				<xsl:call-template name="period" />
 				<xsl:apply-templates select="*[not(self::PrimaryPreamble)][not(self::SecondaryPreamble)]" />
-				<xsl:apply-templates select="../Body/CommentaryRef" />
 				<xsl:apply-templates select="PrimaryPreamble | SecondaryPreamble" />	
 			</preface>
 		</xsl:when>
@@ -391,7 +393,6 @@
 				<xsl:call-template name="period" />
 				<xsl:apply-templates select="*[not(self::PrimaryPreamble)][not(self::SecondaryPreamble)]" />
 				<xsl:if test="empty(PrimaryPreamble | SecondaryPreamble)">
-					<xsl:apply-templates select="../Body/CommentaryRef" />
 				</xsl:if>
 			</preface>
 			<xsl:apply-templates select="PrimaryPreamble | SecondaryPreamble" />	
@@ -428,10 +429,12 @@
 	<p class="{local-name()}"><xsl:apply-templates /></p>
 </xsl:template>
 <xsl:template match="DateOfEnactment/DateText">
-	<docDate>
-		<xsl:attribute name="date" select="/Legislation/ukm:Metadata/ukm:*/ukm:EnactmentDate/@Date" />
-		<xsl:apply-templates />
-	</docDate>
+	<xsl:if test="exists(child::node())">
+		<docDate>
+			<xsl:attribute name="date" select="/Legislation/ukm:Metadata/ukm:*/ukm:EnactmentDate/@Date" />
+			<xsl:apply-templates />
+		</docDate>
+	</xsl:if>
 </xsl:template>
 
 <xsl:template match="Approved">
@@ -509,14 +512,12 @@
 	<xsl:choose>
 		<xsl:when test="$is-fragment">
 			<xsl:apply-templates />
-			<xsl:apply-templates select="../../Body/CommentaryRef" />
 		</xsl:when>
 		<xsl:when test="empty(*[not(self::EnactingTextOmitted)]) and empty(EnactingTextOmitted/*)" />
 		<xsl:otherwise>
 			<preamble>
 				<xsl:call-template name="period" />
 				<xsl:apply-templates />
-				<xsl:apply-templates select="../../Body/CommentaryRef" />
 			</preamble>
 		</xsl:otherwise>
 	</xsl:choose>
@@ -633,7 +634,7 @@ follows the element immediately with any alternative version(s)
 					<intro><xsl:apply-templates select="$intro" /></intro>
 				</xsl:if>
 
-				<xsl:apply-templates select="*[not(self::CommentaryRef)] except ($headers union $intro union $wrap)">
+				<xsl:apply-templates select="* except ($headers union $intro union $wrap)">
 					<xsl:with-param name="exclude" select="$intro union $wrap" />
 					<xsl:with-param name="wrap" select="true()" />
 				</xsl:apply-templates>
@@ -644,7 +645,7 @@ follows the element immediately with any alternative version(s)
 			</xsl:when>
 			<xsl:otherwise>
 				<content>
-					<xsl:apply-templates select="*[not(self::CommentaryRef)] except $headers" />
+					<xsl:apply-templates select="* except $headers" />
 				</content>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -732,7 +733,7 @@ than one child, this template is merely a hcontainer wrapper with a heading.
 set forth in the Office of Public Sector Information's "Statutory Instrument Practice" manual, available at
 http://www.opsi.gov.uk/si/si-practice.doc
 -->
-<xsl:function name="clml2akn:provision-name" as="xs:string">
+<xsl:function name="clml2akn:provision-name" as="xs:string?">
 
 	<xsl:param name="context" as="element()" />
 	<xsl:param name="name" as="xs:string" />
@@ -763,7 +764,6 @@ http://www.opsi.gov.uk/si/si-practice.doc
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:value-of>
 		<xsl:choose>
 			<xsl:when test="$type = 'act'">
 				<xsl:choose>
@@ -777,7 +777,7 @@ http://www.opsi.gov.uk/si/si-practice.doc
 			</xsl:when>
 			<xsl:when test="$type = 'bill'">
 				<xsl:choose>
-					<!-- unless Scotish -->
+					<!-- unless Scottish -->
 					<xsl:when test="$name = 'P1'">clause</xsl:when>
 					<xsl:when test="$name = 'P2'">subsection</xsl:when>
 					<xsl:when test="$name = 'P3'">paragraph</xsl:when>
@@ -840,10 +840,9 @@ http://www.opsi.gov.uk/si/si-practice.doc
 				</xsl:choose>
 			</xsl:otherwise>
 		</xsl:choose>
-	</xsl:value-of>
 </xsl:function>
 
-<xsl:function name="clml2akn:provision-name" as="xs:string">
+<xsl:function name="clml2akn:provision-name" as="xs:string?">
 	<xsl:param name="e" as="element()" />
 	<xsl:choose>
 		<xsl:when test="exists($e/ancestor::EURetained)">
@@ -859,8 +858,10 @@ http://www.opsi.gov.uk/si/si-practice.doc
 they always require a new level in the hierarchy.
 -->
 <xsl:template match="P1group[P][not(P1)] | P2group[P2para][not(P2)] | P3group[P3para][not(P3)]">
+	<xsl:variable name="name" as="xs:string?" select="clml2akn:provision-name(., substring(local-name(), 1, 2))" />
 	<xsl:call-template name="hierarchy">
-		<xsl:with-param name="name" select="clml2akn:provision-name(., substring(local-name(), 1, 2))" />
+		<xsl:with-param name="name" select="if (exists($name)) then $name else 'hcontainer'" />
+		<xsl:with-param name="hcontainer-name" select="if (empty($name)) then 'unknonwn' else ''" />
 	</xsl:call-template>
 </xsl:template>
 
@@ -885,9 +886,9 @@ wrapping needed to include a full hierarchical element seems unnecessarily clums
 	<xsl:param name="attrs" select="()" as="attribute()*" />
 	<xsl:param name="title" select="Title" as="element()?" />
 
-	<xsl:variable name="name" select="clml2akn:provision-name(.)" />
+	<xsl:variable name="name" as="xs:string?" select="clml2akn:provision-name(.)" />
 	<xsl:call-template name="hierarchy">
-		<xsl:with-param name="name" select="$name" />
+		<xsl:with-param name="name" select="if (exists($name)) then $name else 'hcontainer'" />
 		<!-- this is out of place -->
 		<xsl:with-param name="hcontainer-name">
 			<xsl:text>regulation</xsl:text>
@@ -1001,73 +1002,71 @@ hierarchical container.
 <!-- numbers and titles -->
 
 <!--
-Reference and CommentaryRef elements cannot be mapped to anything permitted within an Akoma Ntoso
+Reference elements cannot be mapped to anything permitted within an Akoma Ntoso
 hierarchical containers, but they sometimes appear as direct children of a P1 or other hierarchical element
 in CLML. They must therefore be included within preceding <num> or <heading> inline elements. The following
 helper template is called from the mapping templates for <num>, <heading> and <subheading>.
 -->
 <xsl:template name="reference">
-	<xsl:if test="following-sibling::*[1][self::Reference]">
-		<authorialNote placement="right">
-			<p><xsl:apply-templates select="following-sibling::*[1]/node()" /></p>
-		</authorialNote>
-	</xsl:if>
-	<xsl:if test="following-sibling::*[1][self::CommentaryRef]">
-		<xsl:apply-templates select="following-sibling::*[1]" />
-	</xsl:if>
+	<xsl:apply-templates select="../Reference" mode="force" />
 </xsl:template>
+
 <xsl:template match="Reference" />
+
+<xsl:template match="Reference" mode="force">
+	<authorialNote class="referenceNote" placement="right">
+		<p>
+			<xsl:apply-templates />
+		</p>
+	</authorialNote>
+</xsl:template>
 
 <xsl:template match="Number | Pnumber">
 	<num>
-<!-- 		<xsl:if test="@PuncBefore != '' or @PuncAfter != ''">
-			<xsl:attribute name="title">
-				<xsl:value-of select="@PuncBefore" />
-				<xsl:value-of select="." />
-				<xsl:value-of select="@PuncAfter" />
-			</xsl:attribute>
-		</xsl:if> -->
+		<xsl:apply-templates select="clml2akn:get-preceding-skipped-commentary-refs(.)" mode="force" />
 		<xsl:apply-templates />
 		<xsl:call-template name="reference" />
 	</num>
 </xsl:template>
 
+<xsl:template match="Title[not(parent::TitleBlock)]" priority="0">
+	<heading>
+		<xsl:apply-templates />
+		<xsl:if test="empty(preceding-sibling::Number) and empty(preceding-sibling::Pnumber)">
+			<xsl:call-template name="reference" />
+		</xsl:if>
+	</heading>
+</xsl:template>
+
+<xsl:template match="Subtitle[not(parent::TitleBlock)]" priority="0">
+	<subheading>
+		<xsl:apply-templates />
+	</subheading>
+</xsl:template>
+
+
 <xsl:template match="TitleBlock">
 	<heading>
-		<xsl:choose>
-			<xsl:when test="count(Title) > 1">
-				<xsl:for-each select="Title">
-					<inline name="multi-heading">
-						<xsl:apply-templates select="." />
-					</inline>
-					<xsl:if test="position() != last()"><br/></xsl:if>
-				</xsl:for-each>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:apply-templates select="Title" />
-			</xsl:otherwise>
-		</xsl:choose>
-		<xsl:apply-templates select="Subtitle" />
-		<xsl:call-template name="reference" />
+		<xsl:apply-templates select="Title" />
+		<xsl:if test="empty(preceding-sibling::Number)">
+			<xsl:call-template name="reference" />
+		</xsl:if>
 	</heading>
+	<xsl:if test="exists(Subtitle)">
+		<subheading>
+			<xsl:apply-templates select="Subtitle" />
+		</subheading>
+	</xsl:if>
 </xsl:template>
 
 <xsl:template match="TitleBlock/Title">
 	<xsl:apply-templates />
+	<xsl:if test="position() != last()"><br/></xsl:if>
 </xsl:template>
 
-<xsl:template match="Title">
-	<heading>
-		<xsl:apply-templates />
-		<xsl:call-template name="reference" />
-	</heading>
-</xsl:template>
-
-<xsl:template match="Subtitle">
-	<subheading>
-		<xsl:apply-templates />
-		<xsl:call-template name="reference" />
-	</subheading>
+<xsl:template match="TitleBlock/Subtitle">
+	<xsl:apply-templates />
+	<xsl:if test="position() != last()"><br/></xsl:if>
 </xsl:template>
 
 
@@ -1387,9 +1386,9 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 		<xsl:choose>
 			<xsl:when test="some $child in * satisfies clml2akn:is-hcontainer($child)">
 				<p>
-					<subFlow name="wrapper">
+					<embeddedStructure>
 						<xsl:apply-templates />
-					</subFlow>
+					</embeddedStructure>
 				</p>
 			</xsl:when>
 			<xsl:when test="every $child in * satisfies clml2akn:is-inline($child)">
@@ -1484,8 +1483,7 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 <xsl:template match="Image">
 	<img>
 		<xsl:attribute name="src">
-			<xsl:variable name="url" as="xs:string" select="key('id', @ResourceRef)/ExternalVersion/@URI" />
-			<xsl:value-of select="clml2akn:add-version-to-image-url($url, $expr-version)" />
+			<xsl:value-of select="key('id', @ResourceRef)/ExternalVersion/@URI" />
 		</xsl:attribute>
 		<xsl:if test="ends-with(@Width, 'pt') and substring(@Width, 1, string-length(@Width) - 2) castable as xs:decimal">
 	 		<xsl:attribute name="width">
@@ -1541,7 +1539,7 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 			<xsl:variable name="url" select="key('id', $res-id)/ExternalVersion/@URI" />
 			<xsl:if test="exists($url)">
 				<xsl:attribute name="altimg">
-					<xsl:value-of select="clml2akn:add-version-to-image-url($url, $expr-version)" />
+					<xsl:value-of select="$url" />
 				</xsl:attribute>
 			</xsl:if>
 		</xsl:if>
@@ -1562,14 +1560,14 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 <xsl:template match="Schedules">
 	<hcontainer name="schedules" eId="{clml2akn:id(.)}">
 		<xsl:call-template name="period" />
-		<xsl:apply-templates select="*[not(self::Reference)][not(self::CommentaryRef)]" />
+		<xsl:apply-templates />
 	</hcontainer>
 </xsl:template>
 
 <xsl:template match="Schedule | Appendix">
 	<hcontainer name="{lower-case(local-name())}" eId="{clml2akn:id(.)}">
 		<xsl:call-template name="period" />
-		<xsl:apply-templates select="*[not(self::Reference)][not(self::CommentaryRef)]" />
+		<xsl:apply-templates select="node()[not(self::Contents)]" />
 	</hcontainer>
 	<xsl:call-template name="alt-versions" />
 </xsl:template>
@@ -1577,12 +1575,12 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 <xsl:template match="ScheduleBody | AppendixBody">
 	<xsl:variable name="wrap" select="exists(Part | Chapter | Pblock | PsubBlock | P1 | P1group | P2 | P2group | P3 | P4 | P5 | P6 |
 			P/Part | P/Chapter | P/Pblock | P/PsubBlock | P/P1 | P/P1group | P/P2 | P/P2group | P/P3 | P/P4 | P/P5 | P/P6 |
-			EUPart | EUTitle | EUChapter | EUSection | EUSubsection | Division)" />
+			EUPart | EUTitle | EUChapter | EUSection | EUSubsection | Division | Form[some $ch in * satisfies clml2akn:is-hcontainer($ch)])" />
 	<xsl:variable name="has-appendix" as="xs:boolean" select="exists(following-sibling::Appendix)" />
 	<xsl:choose>
 		<xsl:when test="$has-appendix and $wrap">
 			<hcontainer name="body">
-				<xsl:apply-templates select="*[not(self::CommentaryRef)]">
+				<xsl:apply-templates select="preceding-sibling::Contents | *">
 					<xsl:with-param name="wrap" select="true()" />
 				</xsl:apply-templates>
 			</hcontainer>
@@ -1590,20 +1588,20 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 		<xsl:when test="$has-appendix">
 			<hcontainer name="body">
 				<content>
-					<xsl:apply-templates select="*[not(self::CommentaryRef)]">
+					<xsl:apply-templates select="preceding-sibling::Contents | *">
 						<xsl:with-param name="wrap" select="false()" />
 					</xsl:apply-templates>
 				</content>
 			</hcontainer>
 		</xsl:when>
 		<xsl:when test="$wrap">
-			<xsl:apply-templates select="*[not(self::CommentaryRef)]">
+			<xsl:apply-templates select="preceding-sibling::Contents | *">
 				<xsl:with-param name="wrap" select="true()" />
 			</xsl:apply-templates>
 		</xsl:when>
 		<xsl:otherwise>
 			<content>
-				<xsl:apply-templates select="*[not(self::CommentaryRef)]">
+				<xsl:apply-templates select="preceding-sibling::Contents | *">
 					<xsl:with-param name="wrap" select="false()" />
 				</xsl:apply-templates>
 			</content>
@@ -1627,6 +1625,19 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 	</xsl:choose>
 </xsl:template>
 
+<xsl:template match="Schedule/Contents | Appendix/Contents">
+	<xsl:param name="wrap" as="xs:boolean" select="false()" />
+	<xsl:choose>
+		<xsl:when test="$wrap">
+			<intro>
+				<xsl:next-match />
+			</intro>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:next-match />
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
 
 
 <!-- conclusions -->
@@ -1806,21 +1817,55 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 	<p><xsl:next-match /></p>
 </xsl:template>
 
+<xsl:function name="clml2akn:node-is-skippable-after-commentary-ref" as="xs:boolean">
+	<xsl:param name="node" as="node()" />
+	<xsl:value-of select="$node/self::text()[not(normalize-space(.))] or $node/self::CommentaryRef" />
+</xsl:function>
+<xsl:function name="clml2akn:nodes-are-skippable-after-commentary-ref" as="xs:boolean">
+	<xsl:param name="nodes" as="node()*" />
+	<xsl:value-of select="every $node in $nodes satisfies clml2akn:node-is-skippable-after-commentary-ref($node)" />
+</xsl:function>
+<xsl:function name="clml2akn:commentary-ref-can-be-skipped" as="xs:boolean">
+	<xsl:param name="commentary-ref" as="element(CommentaryRef)" />
+	<xsl:param name="anchor" as="element()" />
+	<xsl:variable name="in-between" as="node()*" select="$commentary-ref/following-sibling::node() intersect $anchor/preceding-sibling::node()" />
+	<xsl:value-of select="clml2akn:nodes-are-skippable-after-commentary-ref($in-between)" />
+</xsl:function>
+<xsl:function name="clml2akn:get-preceding-skipped-commentary-refs" as="element(CommentaryRef)*">
+	<xsl:param name="anchor" as="element()" />
+	<xsl:sequence select="$anchor/preceding-sibling::CommentaryRef[clml2akn:commentary-ref-can-be-skipped(., $anchor)]" />
+</xsl:function>
+
 <xsl:template match="CommentaryRef">
-	<xsl:if test="not(following-sibling::node()[1][self::Text])">
-		<noteRef href="#{@Ref}">
-			<xsl:variable name="commentary" as="element()?" select="key('id', @Ref)[1]" />
-			<xsl:if test="exists($commentary)">
-				<xsl:attribute name="marker">
-					<xsl:value-of select="$commentary/@Type" />
-					<xsl:value-of select="clml2akn:commentary-num($commentary/@Type, @Ref)" />
-				</xsl:attribute>
-			</xsl:if>
-			<xsl:attribute name="class">
-				<xsl:value-of select="string-join(('commentary', $commentary/@Type), ' ')" />
-			</xsl:attribute>
-		</noteRef>
+	<xsl:variable name="handled-elsewhere" as="xs:boolean">
+		<xsl:variable name="next" as="element()?" select="following-sibling::*[self::Number or self::Pnumber or self::Text][1]" />
+		<xsl:choose>
+			<xsl:when test="empty($next)">
+				<xsl:value-of select="false()" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="clml2akn:commentary-ref-can-be-skipped(., $next)" />
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:if test="not($handled-elsewhere)">
+		<xsl:apply-templates select="." mode="force" />
 	</xsl:if>
+</xsl:template>
+
+<xsl:template match="CommentaryRef" mode="force">
+	<noteRef href="#{@Ref}">
+		<xsl:variable name="commentary" as="element()?" select="key('id', @Ref)[1]" />
+		<xsl:if test="exists($commentary)">
+			<xsl:attribute name="marker">
+				<xsl:value-of select="$commentary/@Type" />
+				<xsl:value-of select="clml2akn:commentary-num($commentary/@Type, @Ref)" />
+			</xsl:attribute>
+		</xsl:if>
+		<xsl:attribute name="class">
+			<xsl:value-of select="string-join(('commentary', $commentary/@Type), ' ')" />
+		</xsl:attribute>
+	</noteRef>
 </xsl:template>
 
 <xsl:template match="MarginNoteRef">
@@ -1847,7 +1892,18 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 </xsl:template>
 
 <xsl:template match="Form">
-	<tblock class="form"><xsl:apply-templates /></tblock>
+	<xsl:choose>
+		<xsl:when test="some $child in child::* satisfies clml2akn:is-hcontainer($child)">
+			<hcontainer name="form">
+				<xsl:apply-templates />
+			</hcontainer>
+		</xsl:when>
+		<xsl:otherwise>
+			<tblock class="form">
+				<xsl:apply-templates />
+			</tblock>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 <xsl:template match="Correction">
@@ -1858,7 +1914,20 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 <!-- citations -->
 
 <xsl:template match="Citation">
-	<ref href="{@URI}"><xsl:apply-templates /></ref>
+	<xsl:choose>
+		<xsl:when test="node()[last()][self::FootnoteRef]"><!-- uksi/1999/1750/made -->
+			<xsl:variable name="fnRef" as="element()" select="node()[last()]" />
+			<ref href="{ @URI }">
+				<xsl:apply-templates select="node() except $fnRef" />
+			</ref>
+			<xsl:apply-templates select="$fnRef" />
+		</xsl:when>
+		<xsl:otherwise>
+			<ref href="{ @URI }">
+				<xsl:apply-templates />
+			</ref>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 <xsl:template match="CitationSubRef">
@@ -1909,21 +1978,19 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 
 <xsl:template match="BlockText">
 	<blockContainer class="BlockText">
-		<xsl:apply-templates select="*[not(self::CommentaryRef)]" />
+		<xsl:apply-templates />
 	</blockContainer>
 </xsl:template>
 
 <xsl:template match="BlockText/Para/Text">
 	<p>
+		<xsl:apply-templates select="clml2akn:get-preceding-skipped-commentary-refs(.)" mode="force" />
 		<xsl:apply-templates />
-		<xsl:if test="../following-sibling::*[1][self::CommentaryRef]">
-			<xsl:apply-templates select="../following-sibling::*[1]" />
-		</xsl:if>
 	</p>
 </xsl:template>
 
 <xsl:template match="BlockText/text()">
-	<p><xsl:value-of select="." /></p>
+	<p><xsl:next-match /></p>
 </xsl:template>
 
 <xsl:template match="Text">
@@ -1940,7 +2007,7 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 				</xsl:choose>
 			</xsl:attribute>
 		</xsl:if>
-		<xsl:apply-templates select="preceding-sibling::node()[1][self::CommentaryRef]" />
+		<xsl:apply-templates select="clml2akn:get-preceding-skipped-commentary-refs(.)" mode="force" />
 		<xsl:apply-templates />
 	</p>
 </xsl:template>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- v2.0, written by Jim Mangiafico -->
+<!-- v2.0.2, written by Jim Mangiafico -->
 
 <xsl:stylesheet version="2.0"
 	xpath-default-namespace="http://docs.oasis-open.org/legaldocml/ns/akn/3.0"
@@ -11,10 +11,9 @@
 	xmlns:ukl="http://www.legislation.gov.uk/namespaces/legislation"
 	xmlns:ukm="http://www.legislation.gov.uk/namespaces/metadata"
 	xmlns:local="http://jurisdatum.com/tna/akn2html"
-	xmlns="http://www.w3.org/1999/xhtml"
 	exclude-result-prefixes="xs math akn ukl ukm local">
 
-<xsl:param name="css-path" select="'/styles/HTML5_styles/'" />
+<xsl:param name="css-path" select="'/'" />
 <xsl:param name="show-annotations" select="true()" />
 <xsl:param name="show-extent" select="false()" />
 <xsl:param name="show-prospective" select="true()" />
@@ -84,7 +83,7 @@
 </xsl:function>
 
 <xsl:template match="/akomaNtoso">
-	<html id="html5">
+	<html>
 		<head>
 			<meta charset="utf-8" />
 			<title>
@@ -208,14 +207,16 @@
 				<xsl:attribute name="typeof"><xsl:value-of select="name()" /></xsl:attribute>
 				<xsl:variable name="prefix" select="prefix-from-QName(resolve-QName(name(), .))" as="xs:string?" />
 				<xsl:for-each select="@*">
-					<meta property="{name()}" content="{.}">
+					<meta>
 						<xsl:attribute name="property">
 							<xsl:if test="$prefix">
 								<xsl:value-of select="$prefix" /><xsl:text>:</xsl:text>
 							</xsl:if>
 							<xsl:value-of select="name()" />
 						</xsl:attribute>
-						<xsl:attribute name="content"><xsl:value-of select="." /></xsl:attribute>
+						<xsl:attribute name="content">
+							<xsl:value-of select="translate(., '&#128;&#132;&#149;&#150;&#153;&#157;', '')" />
+						</xsl:attribute>
 					</meta>
 				</xsl:for-each>
 				<xsl:apply-templates select="*" />
@@ -1032,7 +1033,7 @@
 </xsl:template>
 
 <xsl:template match="text()">
-	<xsl:value-of select="translate(., '&#128;&#132;&#149;&#150;&#153;', '')" />
+	<xsl:value-of select="translate(., '&#128;&#132;&#149;&#150;&#153;&#157;', '')" />
 </xsl:template>
 
 </xsl:stylesheet>
