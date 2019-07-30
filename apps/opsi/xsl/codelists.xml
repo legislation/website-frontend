@@ -56,6 +56,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<Code schema="ScottishDraftStatutoryInstrument" uri="sdsi" status="draft" authority="kqps"/>
 		<Code schema="NorthernIrelandDraftStatutoryRule" uri="nidsr" status="draft" authority="gpni"/>
 		<Code schema="NorthernIrelandDraftOrderInCouncil" uri="nidsi" status="draft" authority="gpni"/>
+		
+		<Code spo="40000" schema="PublicBill" uri="ukdpb" status="proposed" authority="kqpap"/>
+
 		<!--
 			|_. SPO code |_. Schema value |_. URI abbreviation |_. Status |_. Authority (for opsi data. Data from sld = sld)|
 			| 20100 | UnitedKingdomPublicGeneralAct | ukpga | revised/enacted | kqpap |

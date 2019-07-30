@@ -178,11 +178,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<!-- getting the document type -->
 	<xsl:function name="leg:GetDocumentMainType" as="xs:string">
 		<xsl:param name="legislation" as="document-node()" />
-		<xsl:sequence select="$legislation/*/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value" />
+		<xsl:sequence select="$legislation/*/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value" />
 	</xsl:function>	
 	
 	<!-- uri Prefix-->
-	<xsl:variable name="uriPrefix" as="xs:string"><xsl:value-of select="tso:GetUriPrefixFromType(leg:GetDocumentMainType(.), /leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value)"/></xsl:variable>
+	<xsl:variable name="uriPrefix" as="xs:string"><xsl:value-of select="tso:GetUriPrefixFromType(leg:GetDocumentMainType(.), /leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:Year/@Value)"/></xsl:variable>
 	<xsl:variable name="documentMainType" as="xs:string" select="leg:GetDocumentMainType(.)"/>
 
 	<!-- Construct a list of the ContentRefs of the items that have MatchText="true" up front -->
@@ -213,6 +213,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	
 	
 	<xsl:variable name="isDraft" as="xs:boolean" select="leg:IsDraft(.)"/>
+	
+	<xsl:variable name="isBill" as="xs:boolean" select="leg:IsBill(.)"/>
 	
 	<!-- initializing the introductory text & signature text-->
 	<xsl:variable name="introductoryText">
@@ -465,8 +467,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<style type="text/css">
 			<xsl:text>/* Legislation stylesheets - load depending on content type */&#xA;</xsl:text>
 			<xsl:text>@import "/styles/legislation.css";&#xA;</xsl:text>
+			<xsl:message>||<xsl:value-of select="$uriPrefix"/></xsl:message>
 			<xsl:choose>
-				<xsl:when test="$uriPrefix ='ukpga' or  $uriPrefix ='ukla'  or  $uriPrefix ='cukla'  or  $uriPrefix ='ukcm'  ">
+				<xsl:when test="$uriPrefix ='ukdpb' or $uriPrefix ='ukpga' or  $uriPrefix ='ukla'  or  $uriPrefix ='cukla'  or  $uriPrefix ='ukcm'  ">
 					<xsl:text>@import "/styles/legislation.css";&#xA;</xsl:text>
 					<xsl:text>@import "/styles/primarylegislation.css";&#xA;</xsl:text>
 				</xsl:when>				
@@ -570,6 +573,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<div class="content">
 				<ul class="toolList">
 					<xsl:choose>
+						<xsl:when test="leg:IsDraft(.) and leg:IsBill(.)">
+							<li>
+								<span class="userFunctionalElement active" >
+									<span class="background">
+										<span class="btl"/>
+										<span class="btr"/><xsl:value-of select="leg:TranslateText('Draft bill')"/><span class="bbl"/>
+										<span class="bbr"/>
+									</span>
+								</span>
+							</li>
+						</xsl:when>
 						<xsl:when test="leg:IsDraft(.)">
 							<li>
 								<span class="userFunctionalElement active" >
@@ -895,7 +909,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<xsl:otherwise>
 								<!-- adding the crest logo if introduction or whole act-->
 								<xsl:if test=" $introURI = $dcIdentifier or $wholeActURI = $dcIdentifier">
-									<xsl:variable name="uriPrefix" as="xs:string" select="tso:GetUriPrefixFromType(leg:GetDocumentMainType(.), /leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value)"/>
+									<xsl:variable name="uriPrefix" as="xs:string" select="tso:GetUriPrefixFromType(leg:GetDocumentMainType(.), /leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:Year/@Value)"/>
 									<xsl:if test="$uriPrefix = ('aep', 'aip', 'apgb' , 'apni' , 'asp' , 'mnia' , 'ukcm' , 'ukla' , 'ukpga' , 'mwa', 'aosp','anaw', 'nia') ">
 										<p class="crest">
 											<a href="{leg:FormatURL($introURI)}">
@@ -921,11 +935,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	
 	<!-- title heading of the legislation-->
 	<xsl:template name="TSOOutputLegislationTitle">
-		<xsl:variable name="category" as="xs:string" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:DocumentClassification/ukm:DocumentCategory/@Value" />
-		<xsl:variable name="mainType" as="xs:string" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value" />
-		<xsl:variable name="number" as="xs:string" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Number/@Value" />
-		<xsl:variable name="year" as="xs:integer?" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value" />
-		<xsl:variable name="altNumbers" as="element(ukm:AlternativeNumber)*" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:AlternativeNumber" />
+		<xsl:variable name="category" as="xs:string" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentCategory/@Value" />
+		<xsl:variable name="mainType" as="xs:string" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value" />
+		<xsl:variable name="number" as="xs:string" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:Number/@Value" />
+		<xsl:variable name="year" as="xs:integer?" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:Year/@Value" />
+		<xsl:variable name="altNumbers" as="element(ukm:AlternativeNumber)*" select="leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:AlternativeNumber" />
 		
 		<h1 class="pageTitle{if ($isDraft) then ' draft' else if (leg:IsProposedVersion(.)) then ' proposed' else ''}">
 			<xsl:choose>
@@ -1206,12 +1220,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<!-- creating link for the whole act  -->
 	<xsl:template match="leg:Legislation" mode="TSOBreadcrumbItem" priority="20">
 		<xsl:variable name="nstMetadata" as="element()"
-			select="/leg:Legislation/ukm:Metadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata)" />
+			select="/leg:Legislation/ukm:Metadata/(ukm:SecondaryMetadata|ukm:PrimaryMetadata|ukm:BillMetadata)" />
 		<li class="first">
 			<a href="{if ($TranslateLang='cy' or $TranslateLang='en') then substring-after(@DocumentURI,'http://www.legislation.gov.uk') else @DocumentURI}">
 				<xsl:choose>
 					<xsl:when test="$nstMetadata/ukm:Number">
 				<xsl:value-of select="$nstMetadata/ukm:Year/@Value"/>&#160;<xsl:value-of select="tso:GetNumberForLegislation($nstMetadata/ukm:DocumentClassification/ukm:DocumentMainType/@Value, $nstMetadata/ukm:Year/@Value, $nstMetadata/ukm:Number/@Value)" /><xsl:apply-templates select="$nstMetadata/ukm:AlternativeNumber" mode="series"/>
+					</xsl:when>
+					<xsl:when test="$nstMetadata/ukm:AlternativeNumber[@Category='Bill']">
+				<xsl:value-of select="$nstMetadata/ukm:Year/@Value"/>&#160;<xsl:value-of select="$nstMetadata/ukm:AlternativeNumber[@Category='Bill']/@Value" />
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:text>ISBN </xsl:text>
@@ -1265,7 +1282,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>	
 	
 	<xsl:template match="*[leg:Pnumber]" mode="TSOBreadcrumbItem" priority="5">
-		<xsl:param name="nstDocumentClassification" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:DocumentClassification" />
+		<xsl:param name="nstDocumentClassification" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:DocumentClassification" />
 		<xsl:choose>
 			<xsl:when test="self::leg:P1">
 				<xsl:variable name="strCategory"
@@ -1567,8 +1584,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>
 	<xsl:template match="*" mode="TSOPrintOptionsWarnings"/>			
 			
-	<xsl:template match="leg:Legislation" mode="TSOPrintOptionsXXX"><xsl:value-of select="tso:GetCategory($ndsLegislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value)"/></xsl:template>	
-	<xsl:template match="leg:Body" mode="TSOPrintOptionsXXX"><xsl:value-of select="tso:GetCategory($ndsLegislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value)"/> without Schedules</xsl:template>		
+	<xsl:template match="leg:Legislation" mode="TSOPrintOptionsXXX"><xsl:value-of select="tso:GetCategory($ndsLegislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value)"/></xsl:template>	
+	<xsl:template match="leg:Body" mode="TSOPrintOptionsXXX"><xsl:value-of select="tso:GetCategory($ndsLegislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value)"/> without Schedules</xsl:template>		
 	<xsl:template match="leg:Part" mode="TSOPrintOptionsXXX">Part</xsl:template>
 	<xsl:template match="leg:Schedule" mode="TSOPrintOptionsXXX">Schedule</xsl:template>
 	<xsl:template match="leg:Schedules" mode="TSOPrintOptionsXXX">Schedules</xsl:template>

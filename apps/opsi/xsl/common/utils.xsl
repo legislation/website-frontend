@@ -125,6 +125,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		em="" singular="UK Impact Assessment" plural="{leg:TranslateText('UK Impact Assessments')}"
   	start="2008" complete="2008" legType="UnitedKingdomImpactAssessment" revised="false" />
 	
+	
+	<tso:legType schemaType="UnitedKingdomDraftPublicBill" class="Bill" category="Public Bill" abbrev="ukdpb" 
+		em="" singular="UK Public Bill" plural="{leg:TranslateText('UK Public Bills')}"
+  	start="1901" complete="1988" legType="UnitedKingdomDraftPublicBill" revised="false" />
+	
 </xsl:variable>
 
 <xsl:function name="tso:getType" as="element(tso:legType)?">
@@ -153,7 +158,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 <xsl:function name="tso:ShowMoreResources" as="xs:boolean">
 	<xsl:param name="item" as="document-node()" />
-	<xsl:variable name="documentMainType" as="xs:string" select="$item/*/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:ENmetadata | ukm:Legislation)/ukm:DocumentClassification/ukm:DocumentMainType/@Value" />
+	<xsl:variable name="documentMainType" as="xs:string" select="$item/*/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:ENmetadata | ukm:Legislation | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value" />
 	<xsl:sequence select="
 		(: PDF documents :)
 		exists($item/*/ukm:Metadata/(ukm:Notes|ukm:Alternatives|ukm:TableOfDestinations|ukm:TableOfOrigins|ukm:CorrectionSlip|ukm:TableOfEffects|ukm:CodeOfPractice|ukm:OrderInCouncil|ukm:OrdersInCouncil|ukm:OtherDocument|ukm:ExplanatoryDocuments|ukm:ExplanatoryDocument|ukm:PolicyEqualityStatements|ukm:PolicyEqualityStatement)//*[contains(@URI, '.pdf')]) or

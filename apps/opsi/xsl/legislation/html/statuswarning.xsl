@@ -247,6 +247,10 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				
 				<xsl:otherwise>
 					<xsl:choose>
+						<xsl:when test="leg:IsDraft(.) and /leg:Legislation/ukm:Metadata/ukm:BillMetadata">
+							<xsl:attribute name="id">infoDraft</xsl:attribute>							
+							<h2>Draft Bill:</h2>
+						</xsl:when>
 						<xsl:when test="leg:IsDraft(.)">
 							<xsl:attribute name="id">infoDraft</xsl:attribute>							
 							<h2>Draft Legislation:</h2>
@@ -262,8 +266,11 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 						</xsl:otherwise>
 					</xsl:choose>
 					<p class="intro">
-						<xsl:variable name="maintype" as="xs:string" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value"/>
+						<xsl:variable name="maintype" as="xs:string" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value"/>
 						<xsl:choose>
+							<xsl:when test="(leg:IsDraft(.) or leg:IsProposedVersion(.)) and $maintype = 'UnitedKingdomDraftPublicBill'" >
+								<xsl:text> This is a draft Bill item. It has no official standing.</xsl:text>
+							</xsl:when>
 							<xsl:when test="leg:IsProposedVersion(.)">
 								<strong><xsl:value-of select="/leg:Legislation/ukm:Metadata/dct:alternative" /></strong>
 								<xsl:text> This version shows proposed changes to this legislation item. It has no official standing.</xsl:text>
@@ -894,6 +901,11 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	<xsl:function name="leg:IsDraft" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
 		<xsl:sequence select="contains($legislation/leg:Legislation/ukm:Metadata/ukm:*/ukm:DocumentClassification/ukm:DocumentMainType/@Value, 'Draft')" />
+	</xsl:function>
+	
+	<xsl:function name="leg:IsBill" as="xs:boolean">
+		<xsl:param name="legislation" as="document-node()"/>
+		<xsl:sequence select="contains($legislation/leg:Legislation/ukm:Metadata/ukm:*/ukm:DocumentClassification/ukm:DocumentMainType/@Value, 'Bill')" />
 	</xsl:function>
 
 	<xsl:function name="leg:isFromWestlaw" as="xs:boolean">

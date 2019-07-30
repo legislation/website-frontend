@@ -57,6 +57,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <xsl:variable name="g_strDocumentType">
 	<xsl:choose>
 		<xsl:when test="$g_strDocumentMainType = 'NorthernIrelandAct'">secondary</xsl:when>
+		<xsl:when test="$g_strDocumentMainType = 'UnitedKingdomDraftPublicBill'">primary</xsl:when>
 		<xsl:otherwise>
 			<xsl:value-of select="$g_ndsMetadata/*/ukm:DocumentClassification/ukm:DocumentCategory/@Value"/>
 		</xsl:otherwise>
