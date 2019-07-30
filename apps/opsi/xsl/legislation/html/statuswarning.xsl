@@ -933,12 +933,12 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	
 	<xsl:function name="leg:IsPDFOnly" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
-		<xsl:sequence select="not(exists($legislation/leg:Legislation/* except $legislation/leg:Legislation/ukm:Metadata)) and exists($legislation/leg:Legislation/ukm:Metadata/atom:link[@rel='alternate' and @title='PDF'])"/>
+		<xsl:sequence select="not(exists($legislation/leg:Legislation/* except $legislation/leg:Legislation/ukm:Metadata)) and exists($legislation/leg:Legislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@URI])"/>
 	</xsl:function>
 	
 	<xsl:function name="leg:IsPDFOnlyNotRevised" as="xs:boolean">
 		<xsl:param name="legislation" as="document-node()"/>
-		<xsl:sequence select="not(exists($legislation/leg:Legislation/* except $legislation/leg:Legislation/ukm:Metadata)) and not(exists($legislation/leg:Legislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@Revised])) and exists($legislation/leg:Legislation/ukm:Metadata/atom:link[@rel='alternate' and @title='PDF'])"/>
+		<xsl:sequence select="not(exists($legislation/leg:Legislation/* except $legislation/leg:Legislation/ukm:Metadata)) and not(exists($legislation/leg:Legislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@Revised])) and exists($legislation/leg:Legislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@URI])"/>
 	</xsl:function>
 	
 	<xsl:function name="leg:IsRevisedPDFOnly" as="xs:boolean">

@@ -473,7 +473,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:variable name="isFirstChange" as="xs:boolean?">
 		<xsl:choose>
 			<xsl:when test="$g_strDocumentType = $g_strPrimary and ancestor::leg:Pnumber/parent::leg:P1/parent::leg:P1group">
-				<xsl:sequence select="$firstChange is (ancestor::leg:Pnumber/parent::leg:P1/parent::leg:P1group//(leg:Addition|leg:Repeal|leg:Substitution))[1]" />
+				<xsl:sequence select="$firstChange is (ancestor::leg:Pnumber/parent::leg:P1/parent::leg:P1group//(leg:Addition|leg:Repeal|leg:Substitution))[@ChangeId = $changeId][1]" />
 			</xsl:when>
 			<xsl:when test="$g_strDocumentType = $g_strPrimary and ancestor::leg:Title/parent::leg:P1group">
 				<xsl:sequence select="$firstChange is . and
@@ -530,7 +530,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:variable name="isFirstChange" as="xs:boolean?">
 				<xsl:choose>
 					<xsl:when test="$g_strDocumentType = $g_strPrimary and ancestor::leg:Pnumber/parent::leg:P1/parent::leg:P1group">
-						<xsl:sequence select="$firstChange is (ancestor::leg:Pnumber/parent::leg:P1/parent::leg:P1group//(leg:Addition|leg:Substitution|leg:Repeal))[1]" />
+						<xsl:sequence select="$firstChange is (ancestor::leg:Pnumber/parent::leg:P1/parent::leg:P1group//(leg:Addition|leg:Substitution|leg:Repeal))[@ChangeId = $changeId][1]" />
 					</xsl:when>
 					<xsl:when test="$g_strDocumentType = $g_strPrimary and ancestor::leg:Title/parent::leg:P1group">
 						<xsl:sequence select="$firstChange is . and

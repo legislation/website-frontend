@@ -147,7 +147,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="selectedSection" as="element()?"
 		select="
 			if ($wholeActURI = $dcIdentifier) then /leg:Legislation
-			else if ($dcIdentifier = ($introURI, $signatureURI, $noteURI, $wholeActWithoutSchedulesURI)) then  /leg:Legislation/(leg:Primary | leg:Secondary)//*[@DocumentURI = $strCurrentURIs]
+			else if ($dcIdentifier = ($introURI, $signatureURI,  $earlierOrdersURI, $noteURI, $wholeActWithoutSchedulesURI)) then  /leg:Legislation/(leg:Primary | leg:Secondary)//*[@DocumentURI = $strCurrentURIs]
 			else if ($dcIdentifier = $schedulesOnlyURI)  then /leg:Legislation/(leg:Primary | leg:Secondary)/leg:Schedules
 			else $nstSection" />
 	
