@@ -177,12 +177,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:param name="maxPageSetSize" as="xs:integer" select="20"/>
 		
 		
-		<!-- HA047849 if we browse by draft and year the results are presented according to subject headings. This means that an item of legislation can appear multiple times. Therefore we need to base the page count on the total number of subjects rather than the total results  -->
-		<xsl:variable name="totalSubjects" as="xs:integer?" select="if (openSearch:Query/@leg:type=('ukdsi','sdsi','nidsi') and exists(openSearch:Query/@leg:year) and not(openSearch:Query/@leg:subject) and exists(leg:facets/leg:facetSubjects)) then xs:integer(sum(for $f in leg:facets/leg:facetSubjects/leg:facetSubject return xs:integer($f/@value))) else ()"/>
-		
 		<xsl:variable name="thisPage" as="xs:integer" select="leg:page" />
 		<xsl:variable name="pageSize" as="xs:integer" select="openSearch:itemsPerPage"/>
-		<xsl:variable name="lastKnownPage" as="xs:integer" select="if (exists($totalSubjects)) then xs:integer(ceiling($totalSubjects div $pageSize)) else if (exists(openSearch:totalResults)) then xs:integer(ceiling((openSearch:totalResults div $pageSize)))  else xs:integer(leg:morePages )" />
+		<xsl:variable name="lastKnownPage" as="xs:integer" select="if (exists(openSearch:totalResults)) then xs:integer(ceiling((openSearch:totalResults div $pageSize)))  else xs:integer(leg:morePages )" />
 		<xsl:variable name="firstPage" as="xs:integer" select="xs:integer(max(($thisPage - ($maxPageSetSize div 2) + 1 , 1)))" />
 		<xsl:variable name="lastPage" as="xs:integer" select="min(($lastKnownPage, (if ($thisPage &lt;=5 and $maxPageSetSize = 10) then $maxPageSetSize else $thisPage + ($maxPageSetSize div 2) - 1)))" />
 		

@@ -506,6 +506,44 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	</xsl:if>
 </xsl:template>
 
+<!-- these templates handle the display of the revision brackets for equations that have been substituted by images  -->
+<xsl:template match="leg:Addition | leg:Repeal | leg:Substitution" mode="mathrevisions">
+	<xsl:param name="showSection" select="root()" tunnel="yes" />
+	<xsl:param name="showRepeals" select="false()" tunnel="yes" />
+	<xsl:variable name="showCommentary" as="xs:boolean" select="tso:showCommentary(.)" />
+	<xsl:variable name="changeId" as="xs:string" select="@ChangeId" />
+	<xsl:variable name="showSection" as="node()"
+		select="if (ancestor::*[@VersionReplacement]) then ancestor::*[@VersionReplacement] else if (exists($showSection) and ancestor-or-self::*[. is $showSection]) then $showSection else root()" />
+	<xsl:variable name="sameChanges" as="element()*" select="key('additionRepealChanges', $changeId, $showSection)" />
+	<xsl:variable name="firstChange" as="element()?" select="$sameChanges[1]" />
+	<xsl:variable name="lastChange" as="element()?" select="$sameChanges[last()]" />
+	<xsl:variable name="isFirstChange" as="xs:boolean?">
+		<xsl:sequence select="$firstChange is ." />
+	</xsl:variable>
+	<xsl:variable name="changeType" as="xs:string">
+		<xsl:choose>
+			<xsl:when test="key('substituted', $changeId)">Substitution</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="name()" />
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	<xsl:if test="$showCommentary">
+		<xsl:if test="$isFirstChange = true()">
+			<span class="LegChangeDelimiter">[</span>
+		</xsl:if>
+		<xsl:apply-templates select="." mode="AdditionRepealRefs"/>
+	</xsl:if>
+	<xsl:apply-templates  mode="mathrevisions"/>
+	<xsl:if test="$showCommentary and key('additionRepealChanges', @ChangeId, $showSection)[last()] is .">
+		<span class="LegChangeDelimiter">]</span>
+	</xsl:if>
+</xsl:template>
+
+<xsl:template	match="node()|@*"  mode="mathrevisions">
+	<xsl:apply-templates  mode="mathrevisions"/>
+</xsl:template>
+
 <!--<xsl:template match="leg:Repeal">
 	<xsl:apply-templates select="." mode="AdditionRepealRefs"/>
 	<span class="LegRepeal">
