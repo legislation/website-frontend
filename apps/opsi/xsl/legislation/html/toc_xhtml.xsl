@@ -896,7 +896,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<!-- adding the crest logo if introduction or whole act-->
 								<xsl:if test=" $introURI = $dcIdentifier or $wholeActURI = $dcIdentifier">
 									<xsl:variable name="uriPrefix" as="xs:string" select="tso:GetUriPrefixFromType(leg:GetDocumentMainType(.), /leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata)/ukm:Year/@Value)"/>
-									<xsl:if test="$uriPrefix = ('aep', 'aip', 'apgb' , 'apni' , 'asp' , 'mnia' , 'ukcm' , 'ukla' , 'ukpga' , 'mwa', 'aosp','anaw') ">
+									<xsl:if test="$uriPrefix = ('aep', 'aip', 'apgb' , 'apni' , 'asp' , 'mnia' , 'ukcm' , 'ukla' , 'ukpga' , 'mwa', 'aosp','anaw', 'nia') ">
 										<p class="crest">
 											<a href="{leg:FormatURL($introURI)}">
 												<img alt="" src="/images/crests/{$uriPrefix}.gif" />
