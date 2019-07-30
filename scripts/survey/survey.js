@@ -19,12 +19,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
  */
  $(document).ready(function(){
 	 
-	 var link = "http://www.smartsurvey.co.uk/s/204Y1";
+	 var link = "http://www.smartsurvey.co.uk/s/PUA3T";
 	 
 	 $("body").append('<div id="feedback"><a href="#" /></div><div id="survey"></div>');	 
 	 
 	 // problems with z-index and positioning, open external window instead
-	 //if($.browser.msie && $.browser.version < 7){
+//	if($.browser.msie && $.browser.version < 7){
 		 $("#feedback")
 		 .hover(function() {
 			 $(this).animate({width: "35px"}, {duration: 100, queue: false});
@@ -57,7 +57,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		  $("#feedback").click(function(){
 				window.open(link);
 		 });
-		 /*
+		 
 	 		$("#feedback")
 		 // toggle between survey visible and hidden
 		 .toggle(function() {
