@@ -113,7 +113,7 @@ select {border: 1px solid #7B85AD; padding:5px 3px; background: url(/images/chro
 #allSecondary { float: left; }
 
 .typeCheckBoxDoubleCol, .typeCheckBoxCol { display: block; float: left; padding-top: 4px; padding-bottom: 4px;}
-.typeCheckBoxDoubleCol { width:225px; }
+.typeCheckBoxDoubleCol { width:450px; }
 .typeCheckBoxCol { width:auto; }
 .typeCheckBoxCol input[type=checkbox], .typeCheckBoxDoubleCol input[type=checkbox] { width:15px; padding-left:0px; margin-left:10px;}
 .typeCheckBoxCol input[type=checkbox] { display: block; float: left; }	
@@ -144,7 +144,7 @@ select {border: 1px solid #7B85AD; padding:5px 3px; background: url(/images/chro
 .help {clear:both;}
 
 #uniqueExtents { margin-right: 18px; margin-bottom: -1px; padding-left: 11px; padding-right: 8px; border: 1px solid #fff;  }
-#uniqueExtents input {margin-left: 0;}
+#uniqueExtents input {margin-left: -2px;}
 #lex {float: left; background: #EBEFF8; border: 1px solid #ccc; width: 440px; clear: both;}
 #uniqueExtents.expanded {background: #EBEFF8; border: 1px solid #ccc; border-bottom: 1px solid #EBEFF8; z-index: 500; position: relative;}
 

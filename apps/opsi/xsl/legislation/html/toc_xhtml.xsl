@@ -1187,12 +1187,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)"/>
 							</a>
 						</li>
-						<li>
-							<a href="{$webarchive-uri}" target="_blank">
-							<xsl:value-of select="leg:TranslateText('eu_uk_reg_archive_brexitday')"/>
-							<img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)"/>
-							</a>
-						</li>
+						<xsl:if test="not($g_strDocumentYear = $g_EUwebArchiveIgnoreYears)">
+							<li>
+								<a href="{$webarchive-uri}" target="_blank">
+								<xsl:value-of select="leg:TranslateText('eu_uk_reg_archive_brexitday')"/>
+								<img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)"/>
+								</a>
+							</li>
+						</xsl:if>
 					</ul>
 				</div>
 			</div>
@@ -1652,6 +1654,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</xsl:for-each>
 			</xsl:otherwise>
 		</xsl:choose>
+		<xsl:text> </xsl:text>
 		<xsl:value-of select="leg:Pnumber"/>
 	</xsl:template>
 
@@ -2829,16 +2832,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 	<!-- ========== Standard code for outputing legislation status/timeline ========= -->
 	<xsl:template name="TSOOutputLegislationStatusTimeline">
-
-
-		<xsl:if test="leg:IsCurrentRevised(.)">
-
-			<!-- Status messages for Revised -->
-			<xsl:call-template name="TSOOutputStatusMessage">
-				<xsl:with-param name="includeTooltip" select="tso:IncludeInlineTooltip()"/>
-				<xsl:with-param name="includeTimeline" select="not($showTimeline)"/>
-			</xsl:call-template>
-		</xsl:if>
 
 		<xsl:if test="leg:IsContent() or $g_strwholeActURI = $dcIdentifier or $g_wholeActWithoutSchedulesURI = $dcIdentifier or $g_schedulesOnlyURI = $dcIdentifier">
 			<!-- adding the changes over time -->

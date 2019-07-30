@@ -226,7 +226,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<param ref-id="count"/> provisions and might take some time to download.
 		</resource>
 		<resource id="Browser_warning" translated="false" stage2="true"> You may also experience some issues with your browser, such as an alert box that a script is taking a long time to run.</resource>
-		<resource id="EN_Help_1" translated="false" stage2="true">Text created by the government department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes were introduced in 1999 and accompany all Public Acts except Appropriation, Consolidated Fund, Finance and Consolidation Acts.</resource>
+		<resource id="EN_Help_1" translated="false" stage2="true">Testun a grëwyd gan yr adran o’r llywodraeth oedd yn gyfrifol am destun y Ddeddf i esbonio beth mae’r Ddeddf yn ceisio ei wneud ac i wneud y Ddeddf yn hygyrch i ddarllenwyr nad oes ganddynt gymhwyster cyfreithiol. Cyflwynwyd Nodiadau Esboniadol ym 1999 ac maent yn cyd-fynd â phob Deddf Gyhoeddus ac eithrio Deddfau Adfeddiannu, Cronfa Gyfunol, Cyllid a Chyfnerthiad.</resource>
 		<resource id="EN_Help_2" translated="false" stage2="true">Text created by the Northern Ireland Assembly department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes accompany all Acts of the Northern Ireland Assembly.</resource>
 		<resource id="EN_Help_3" translated="false" stage2="true">Text created by the Scottish Executive department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes were introduced in 1999 and accompany all Acts of the Scottish Parliament except those which result from Budget Bills</resource>
 		<resource id="EN_Help_4" translated="false" stage2="true">Text created by the Welsh Government department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes accompany all Acts of the National Assembly for Wales.</resource>
@@ -242,8 +242,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="PIT_toc_1" translated="false" stage2="true">This becomes available after navigating to view revised legislation as it stood at a certain point in time via Advanced Features &gt; Show Timeline of Changes or via a point in time advanced search.</resource>
 		<resource id="PIT_toc_2" translated="false" stage2="true">A point in time version is only available in English.</resource>
 		<resource id="Latest_toc_1" translated="false" stage2="true">Latest with prospective is the latest available (revised) version of the legislation but includes the prospective versions of individual provisions where they exist. This point in time view of the legislation becomes available after clicking a prospective version of a provision via Advanced Features &gt; Show Timeline of Changes.</resource>
-		<resource id="Interweave_toc_1" translated="false" stage2="true">See additional information alongside the content</resource>
-		<resource id="Interweave_toc_2" translated="false" stage2="true">Displays relevant parts of the explanatory notes interweaved within the legislation content.</resource>
+		<resource id="Interweave_toc_1" translated="false" stage2="true">Gweler y wybodaeth ychwanegol ochr yn ochr â’r cynnwys</resource>
+		<resource id="Interweave_toc_2" translated="false" stage2="true">Yn arddangos rhannau perthnasol o’r nodiadau esboniadol wedi eu cydblethu â chynnwys y ddeddfwriaeth.</resource>
 		<resource id="Displays the repeals" translated="false" stage2="true">Displays the repeals</resource>
 		<resource id="Interweave_toc_3" translated="false" stage2="true">Indicates the geographical area that this provision applies to. For further information see ‘Frequently Asked Questions’.</resource>
 		<resource id="Interweave_toc_4" translated="false" stage2="true">See how this legislation has or could change over time. Turning this feature on will show extra navigation options to go to these specific points in time. Return to the latest available version by using the controls above in the What Version box.</resource>
@@ -929,7 +929,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 		<!--EU Front Page updates-->
 			<resource id="Understanding Legislation">Deall Deddfwriaeth</resource>
-      <resource id="Howlegislationworks">Sut y mae Deddfwriaeth yn gweithio</resource>
+      <resource id="Howlegislationworks">Sut y mae deddfwriaeth yn gweithio</resource>
       <resource id="parliamentsandlegislationtypes">Sut y mae seneddau wedi newid dros amser a chreu gwahanol fathau o ddeddfwriaeth</resource>
       <resource id="citationandnumbering">Sut y mae deddfwriaeth yn cael ei rhifo ac y cyfeirir ati</resource>
       <resource id="howlegislationextends">Sut y gall deddfwriaeth rychwantu a bod yn berthnasol mewn rhannau gwahanol o’r Deyrnas Unedig</resource>
@@ -960,7 +960,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<a href="/cy/understanding-legislation#Whatlegislationisheldonlegislationgovuk">ddeddfwriaeth yr ydym yn ei chyhoeddi</a>,
 				<a href="/cy/understanding-legislation#editorialpractice">sut yr ydym yn gweithredu diwygiadau</a>,
 				<a href="/cy/understanding-legislation#revsiedlegislation">pa ddeddfwriaeth yr ydym yn ei diweddaru</a>,
-				<a href="/cy/help#aboutlegnotonwebsite">ble y gallwch gael copïau o ddeddfwriaeth nad ydym yn ei dal</a> a
+				<a href="/cy/help#aboutLegNotOnWebsite">ble y gallwch gael copïau o ddeddfwriaeth nad ydym yn ei dal</a> a
 				<a href="/cy/understanding-legislation#Howlegislationworks">sut mae deddfwriaeth yn gweithio</a>. Er mwyn dod o hyd i ddarn o ddeddfwriaeth gallwch
 				<a href="/cy/browse">bori yn ôl math a chategori’r ddeddfwriaeth</a> neu ddefnyddio
 				<a href="/cy/search">ein chwiliad uwch</a> i chwilio yn ôl teitl neu allweddair yn y testun.
@@ -1009,7 +1009,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<resource id="explore_defra_summary">Deddfwriaeth mewn grym a reolir ac a drefnir gan Defra</resource>
 		<!--End Browse (Cards) -->
 		<!--Browse EU-->
-		<resource id="Legislation originating from the EU"/>
 			<resource id="Browse_EUIntro">Cyhoeddi deddfwriaeth yr UE a nodir yn
 				<a href="/cy/ukpga/2018/16/schedule/5">Atodlen 5 o Ddeddf yr Undeb Ewropeaidd (Ymadael) 2018</a> ynghyd â Chywiriadau (Slipiau cywiro ar gyfer Deddfwriaeth yr UE) a Chyfarwyddebau’r UE a gyhoeddwyd cyn y Diwrnod Ymadael, gan gynnwys deddfwriaeth fydd yn berthnasol i’r Deyrnas Unedig ar ôl y Diwrnod Ymadael. Am ragor o wybodaeth gweler
 				<a href="/cy/understanding-legislation#WhatLegislationFromEUR-Lex">Deall Deddfwriaeth</a>
@@ -1063,8 +1062,39 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_changes_scenario_1">Revised legislation carried on this site may not be fully up to date. At the current time any known changes or effects made by subsequent legislation have been applied to the text of the legislation you are viewing by the editorial team.  Please see ‘Frequently Asked Questions’ for details regarding the timescales for which new effects are identified and recorded on this site.</resource>									
 		<resource id="status_warning_changes_point_in_time">Changes and effects yet to be applied by the editorial team are only applicable when viewing the latest version or prospective version of legislation. They are therefore not accessible when viewing legislation as at a specific point in time. To view the ‘Changes to Legislation’ information for this provision return to the latest version view using the options provided in the ‘What Version’ box above.</resource>
 		<resource id="status_warning_changes_eu_revised_pdf_only">Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area.  Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the affected provisions when you open the content using the Table of Contents below.</resource>
-		
-		
+		<resource id="Expired: see Introduction.">Wedi dirwyn i ben: gweler y Cyflwyniad.</resource>
+		<resource id="Repealed: see Introduction.">Diddymwyd: gweler y Cyflwyniad.</resource>
+		<resource id="in pt">yn rhannol</resource>
+		<resource id="cont.in pt">parh. yn rhannol</resource>
+		<resource id="excl.in pt">eith. yn rhannol</resource>
+		<resource id="saved in pt">arbed yn rhannol</resource>
+		<resource id="saved">arbed</resource>
+		<resource id="see:">gweler:</resource>
+		<resource id="excl">eith</resource>
+		<resource id="ext">est</resource> 
+		<resource id="excl.">eith.</resource>
+		<resource id="exp.in pt">wedi dod i ben yn rhannol</resource>
+		<resource id="cont.in pt.and incorp">parh. yn rhannol ac ymgorff</resource>
+		<resource id="ext.in pt">est. yn rhannol</resource>
+		<resource id="incorp.in pt">ymgorff. yn rhannol</resource> 
+		<resource id="residue exp">gweddill wedi dod i ben</resource>
+		<resource id="exp">wedi dirwyn i ben</resource>
+		<resource id="subst">disodlwyd</resource>
+		<resource id=" subst.-"> disodlwyd -</resource>
+		<resource id="appl.in pt">gweithredwyd yn rhannol</resource>
+		<resource id="ext.in pt.and appl">est. yn rhannol a gweithredwyd</resource>
+		<resource id="ext.and appl">est. a gweithredwyd</resource>
+		<resource id="ext.and appl.in pt">est. a gweithredwyd yn rhannol</resource>
+		<resource id="(saving)">(arbed)</resource>
+		<resource id="in pt.and superseded">yn rhannol a disodlwyd</resource>
+		<resource id="r.and superseded">d.a disodlwyd</resource>
+		<resource id="(prosp.)">.(darpar.)</resource>
+		<resource id="and superseded">a disodlwyd</resource>
+		<resource id="cont">parh</resource>
+		<resource id="appl">gweithredwyd</resource>
+		<resource id="r.">d.</resource>
+		<resource id=" r."> d.</resource>
+		<resource id="in pt.(saving)">yn rhannol (arbed)</resource>
 	</resources>
 
 	<resources lang="en">
@@ -1440,7 +1470,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
     <!--EU Front Page updates-->
 	<resource id="Understanding Legislation">Understanding Legislation</resource>
-    <resource id="Howlegislationworks">How Legislation works</resource>
+    <resource id="Howlegislationworks">How legislation works</resource>
     <resource id="parliamentsandlegislationtypes">How parliaments have changed over time and created different legislation types</resource>
     <resource id="citationandnumbering">How legislation is numbered and cited</resource>
     <resource id="howlegislationextends">How legislation can extend and apply to different parts of the UK</resource>
@@ -1474,7 +1504,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<a href="/understanding-legislation#Whatlegislationisheldonlegislationgovuk">legislation we publish</a>,
 		<a href="/understanding-legislation#editorialpractice">how we apply amendments</a>,
 		<a href="/understanding-legislation#revsiedlegislation">what legislation we update</a>,
-		<a href="/help#aboutlegnotonwebsite">where you can obtain copies of legislation we don’t hold</a> and
+		<a href="/help#aboutLegNotOnWebsite">where you can obtain copies of legislation we don’t hold</a> and
 		<a href="/understanding-legislation#Howlegislationworks">how legislation works</a>. To find an item of legislation you can
 		<a href="/browse">browse by legislation type and category</a> or use
 		<a href="/search">our advanced search</a> to explore by title or keyword in text.</resource>
@@ -1545,7 +1575,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="eu_uk_eudr">This is a Directive originating from the EU</resource>
 		<resource id="eu_uk_eut">This is a Treaty originating from the EU</resource>
 		<resource id="eu_uk_reg_equiv_eu">See the EU version of this legislation on EUR-Lex</resource>
-		<resource id="eu_uk_reg_archive_brexitday">See an archived version from EUR-Lex and associated case law in the web archive (opens in new window)</resource>
+		<resource id="eu_uk_reg_archive_brexitday">See an archived version from EUR-Lex in the web archive</resource>
 		<!-- End EU-UK-Reg -->
 
 		<resource id="legislation_originated_from_EU_1">This is a legislation item that originated from the EU</resource>

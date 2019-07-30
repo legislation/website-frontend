@@ -54,7 +54,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:variable 	name="g_isEUtreaty" select="$g_strDocumentMainType = ('EuropeanUnionTreaty')"/>
 	<xsl:variable 	name="g_isEURetainedOrEUTreaty" select="$g_isEUretained or $g_isEUtreaty"/>
 	<xsl:variable 	name="g_EUcelex" select="$g_ndsMetadata/ukm:EUMetadata/ukm:EURLexIdentifiers/ukm:CELEX/@Value"/>
-	
+	<xsl:variable 	name="g_EUwebArchiveIgnoreYears" select="('2019')"/>
 	
 	<xsl:variable 	name="g_pdfVersions" as="element()*" select="$g_ndsMetadata/ukm:Alternatives/ukm:Alternative"/>
 	<xsl:variable 	name="g_correctionSlips" as="element()*" select="$g_ndsMetadata/ukm:CorrectionSlips/ukm:CorrectionSlip"/>

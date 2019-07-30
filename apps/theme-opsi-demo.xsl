@@ -349,7 +349,66 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:copy>
 	</xsl:template>
 
+	<xsl:function name="leg:recurTranslate">
+		<xsl:param name="text"/>
+		<xsl:param name="tokens"/>
+	
+		<xsl:if test="count($tokens) != 0">
+			<xsl:choose>
+				<xsl:when test="contains($text, $tokens[1])">
+					<xsl:value-of 
+						select="leg:recurTranslate(
+							replace($text,$tokens[1],leg:TranslateText($tokens[1])),
+							remove($tokens,1)
+						)"
+					/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="leg:recurTranslate($text,remove($tokens,1))"/>
+				</xsl:otherwise>			
+			</xsl:choose>
+		</xsl:if>
+		<xsl:if test="count($tokens) = 0">
+			<xsl:value-of select="$text"/>
+		</xsl:if>
+	</xsl:function>
 
+	<xsl:template match="*:p|*:em|*:span" mode="isWelshChronTable">
+		<xsl:copy copy-namespaces="no">
+			<xsl:copy-of select="@*"/>
+			<xsl:for-each select="node()">
+				<xsl:choose>
+					<xsl:when test="name()='' and parent::*[local-name()='em']">
+						<xsl:value-of select="leg:TranslateText(normalize-space(.))" />
+					</xsl:when>
+					<xsl:when test="name()='' and parent::*[local-name()='span' and not(@class='actNumMedium')]">
+						<xsl:variable name="part" select="tokenize(.,'-')[1]"/>
+						<xsl:variable name="tpart">
+							<xsl:choose>
+							<xsl:when test="matches($part,'(.*)((r\.)([^-]*))$')">
+								<xsl:value-of select="if(matches($part,'(.+)((r\.)([^-]*))$')) then replace($part,'(.+)((r\.)([^-]*))$','$1') else ()"/>
+								<xsl:value-of select="leg:TranslateText(replace($part,'^(.*)((r\.)([^-]*))$','$3'))"/>
+								<xsl:variable name="rest" select="replace($part,'^(.*)((r\.)([^-]*))$','$4')"/>
+								<xsl:variable name="endPart" select="replace($rest,'(.+)(\.|\.\s)$','$2')"/>
+								<xsl:variable name="startPart" select="replace(normalize-space($rest),'^(.+)(\.|\.\s)$','$1')" />
+								<xsl:value-of select="concat(leg:TranslateText($startPart),if($endPart!=$rest) then $endPart else ())"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:variable name="endPart" select="replace($part,'^(.+)(\.|\.\s)$','$2')"/>
+								<xsl:variable name="startPart" select="replace($part,'^(.+)(\.|\.\s)$','$1')" />
+								<xsl:value-of select="concat(leg:TranslateText($startPart),if($endPart!=$part) then $endPart else ())"/>
+							</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
+						<xsl:value-of select="leg:recurTranslate(concat($tpart, substring-after(.,$part)),('see:','and superseded',' r.',' subst.-','excl.','exp.in pt'))"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:apply-templates select="."  mode="isWelshChronTable"/>
+					</xsl:otherwise>
+				</xsl:choose>	
+			</xsl:for-each>
+		</xsl:copy>
+	</xsl:template>
 
 	<!-- Simply copy everything that's not matched -->
 	<xsl:template match="@*|node()" mode="isWelshChronTable">

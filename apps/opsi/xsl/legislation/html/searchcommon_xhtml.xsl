@@ -572,6 +572,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<xsl:when test=". = 'primary'">Primary<xsl:if test="position() = last()"> Legislation</xsl:if></xsl:when>
 								<xsl:when test=". = 'secondary'">Secondary<xsl:if test="position() = last()"> Legislation</xsl:if></xsl:when>
 								<xsl:when test=". = 'draft'">Draft<xsl:if test="position() = last()"> Legislation</xsl:if></xsl:when>
+								<xsl:when test=". = 'eu-origin'"><xsl:value-of select="leg:TranslateText('All Legislation originating from the EU')"/></xsl:when>
 								<xsl:otherwise>
 									<xsl:variable name="type" select="."/>
 									<xsl:value-of select="$tso:legTypeMap[@abbrev=$type]/@plural"/>

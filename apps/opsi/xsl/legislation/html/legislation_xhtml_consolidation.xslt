@@ -1126,15 +1126,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 				   or (
 				   (some $text in $commentary satisfies matches(string(/leg:Legislation/leg:Commentaries/leg:Commentary[@id = $text]), 'repeal|revoked|omitted', 'i')) and (exists(.//leg:Text) or exists(.//xhtml:td)) and (every $text in (.//leg:Text | .//xhtml:td) satisfies normalize-space(replace($text, '[\.\s]' , '')) = '')
 				   ))">
-			<p class="LegArticleRef">
-				<xsl:for-each select="leg:Reference">
-					<xsl:call-template name="FuncCheckForID"/>
-					<xsl:apply-templates/>
-				</xsl:for-each>
-			</p>		  
-			 <h2 class="LegScheduleFirst">
-				<xsl:apply-templates select="leg:Number | leg:TitleBlock" />
-			</h2>
+			<xsl:call-template name="FuncProcessRepealedMajorHeading"/>
 			<p>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</p>
 			<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 		</xsl:when>

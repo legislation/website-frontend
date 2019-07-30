@@ -94,12 +94,9 @@ function addDatePicker() {
 }
 
 function typeShowHide() {
-    // add show/hide checkbox
-    $('#allSecondary').after('<div id="uniqueExtents" class="typeCheckBoxCol extent"><input type="checkbox" id="ind" name="type" value="individual"/><label for="ind">'+config.search.showHide.selectTypes[LANG]+'</label> </div>');
-
     // Wrap content in a single block to prevent columns of different heights 
     // from animating at different speeds
-    $('#primaryLeg, #secondaryLeg, #euretainedLeg').wrapAll('<div id="lex" />');
+    $('#primaryLeg, #secondaryLeg, #euretainedLeg, #legChoicesColRight, #legChoicesColLeft').wrapAll('<div id="lex" />');
 
     // Add the show/hide event and set default view
     $('#uniqueExtents :checkbox')

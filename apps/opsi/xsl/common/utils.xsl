@@ -497,49 +497,50 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:choose>
 				<xsl:when test="$showDraft">
 					<div class="typeCheckBoxDoubleCol">
-							<input type="checkbox" name="type" value="draft" checked="checked">
-								<xsl:if test="contains($selected, 'draft')">
-									<xsl:attribute name="checked"/>
-								</xsl:if>					
-							</input>
+						<input type="checkbox" name="type" value="draft" checked="checked">
+							<xsl:if test="contains($selected, 'draft')">
+								<xsl:attribute name="checked"/>
+							</xsl:if>					
+						</input>
 						<label><xsl:value-of select="leg:TranslateText('All Draft')"/></label>	
 					</div>				
 				</xsl:when>
 				<xsl:when test="$showImpacts">
 					<div class="typeCheckBoxDoubleCol">
-							<!--<input type="checkbox" name="type" value="ukia" checked="checked">
-								<xsl:if test="contains($selected, 'impacts')">
-									<xsl:attribute name="checked"/>
-								</xsl:if>					
-							</input>
-							<label>UK Impact Assessments</label>
-							-->
-							<input type="hidden" name="type" value="ukia"/>
-								
+						<!--<input type="checkbox" name="type" value="ukia" checked="checked">
+						<xsl:if test="contains($selected, 'impacts')">
+							<xsl:attribute name="checked"/>
+						</xsl:if>					
+					</input>
+					<label>UK Impact Assessments</label>
+					-->
+						<input type="hidden" name="type" value="ukia"/>
+						
 					</div>				
 				</xsl:when>
 				<xsl:otherwise>
 					<div class="typeCheckBoxDoubleCol">
 						<xsl:if test="$showPrimary and $showSecondary and $showEUretained">
-									<input type="checkbox" name="type" value="all">
-										<xsl:if test="contains($selected, 'all')">
-											<xsl:attribute name="checked"/>
-										</xsl:if>
-									</input>
+							<input type="checkbox" name="type" value="all">
+								<xsl:if test="contains($selected, 'all')">
+									<xsl:attribute name="checked"/>
+								</xsl:if>
+							</input>
 							<label><xsl:value-of select="leg:TranslateText('All Legislation')"/></label>
 						</xsl:if>
-				
+						
 						<xsl:if test="$showPrimary">
-									<input type="checkbox" name="type" value="primary">
-										<xsl:if test="contains($selected, 'primary')">
-											<xsl:attribute name="checked"/>
-										</xsl:if>
-									</input>
+							<input type="checkbox" name="type" value="primary">
+								<xsl:if test="contains($selected, 'primary')">
+									<xsl:attribute name="checked"/>
+								</xsl:if>
+							</input>
 							<label><xsl:value-of select="leg:TranslateText('All Primary')"/></label>
 						</xsl:if>
 					</div>
-						
-					<xsl:if test="$showSecondary">
+					
+					<div class="typeCheckBoxDoubleCol">
+						<xsl:if test="$showSecondary">
 							<div id="allSecondary"  class="typeCheckBoxCol">
 								<input type="checkbox" name="type" value="secondary">
 									<xsl:if test="contains($selected, 'secondary')">
@@ -548,78 +549,100 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</input>
 								<label><xsl:value-of select="leg:TranslateText('All Secondary')"/></label>	
 							</div>
-					</xsl:if>	
-					
-					<xsl:if test="$showEUretained and not($hideEUdata)">
-									<input type="checkbox" name="type" value="eu-origin">
-										<xsl:if test="contains($selected, 'eu-origin')">
-											<xsl:attribute name="checked"/>
-										</xsl:if>
-									</input>
-							<label><xsl:value-of select="leg:TranslateText('European_Union_All')"/></label>
 						</xsl:if>
+						
+						<xsl:if test="$showEUretained and not($hideEUdata)">
+							<div id="allEuropean" class="typeCheckBoxCol">
+								<input type="checkbox" name="type" value="eu-origin">
+									<xsl:if test="contains($selected, 'eu-origin')">
+										<xsl:attribute name="checked"/>
+									</xsl:if>
+								</input>
+								<label><xsl:value-of select="leg:TranslateText('European_Union_All')"/></label>
+							</div>	
+						</xsl:if>
+					</div>   
 				</xsl:otherwise>
 			</xsl:choose>
-
-			<xsl:if test="$showPrimary">
-						<div id="primaryLeg" class="typeCheckBoxCol">
+			
+			<xsl:variable name="dropListItems">
+				<xsl:if test="$showPrimary">
+					
 					<xsl:for-each select="$tso:legTypeMap[@class = 'primary']">
 						<div>
-									<input type="checkbox" id="type{@abbrev}" name="type" value="{@abbrev}">
-										<xsl:if test="contains($selected, @abbrev)">
-											<xsl:attribute name="checked"/>
-										</xsl:if>					
-									</input>
+							<input type="checkbox" id="type{@abbrev}" name="type" value="{@abbrev}">
+								<xsl:if test="contains($selected, @abbrev)">
+									<xsl:attribute name="checked"/>
+								</xsl:if>					
+							</input>
 							<label for="type{@abbrev}"><xsl:value-of select="@plural"/></label>
 						</div>
 					</xsl:for-each>	
-				</div>
-			</xsl:if>
-		
-			<xsl:if test="$showSecondary">
-				<div id="secondaryLeg" class="typeCheckBoxCol">
+					
+				</xsl:if>
+				
+				<xsl:if test="$showSecondary">
+					
 					<xsl:for-each select="$tso:legTypeMap[@class = 'secondary']">
 						<div>
-							<input type="checkbox" name="type" value="{@abbrev}">
+							<input type="checkbox" id="type{@abbrev}" name="type" value="{@abbrev}">
 								<xsl:if test="contains($selected, @abbrev)">
 									<xsl:attribute name="checked"/>
 								</xsl:if>					
 							</input>
-							<label for="type"><xsl:value-of select="@plural"/></label>
+							<label for="type{@abbrev}"><xsl:value-of select="@plural"/></label>
 						</div>
 					</xsl:for-each>	
-				</div>
-			</xsl:if>
-			
-			<xsl:if test="$showEUretained and not($hideEUdata)">
-				<div id="euretainedLeg" class="typeCheckBoxCol">
+					
+				</xsl:if>
+				
+				<xsl:if test="$showEUretained and not($hideEUdata)">
+					
 					<xsl:for-each select="$tso:legTypeMap[@class = 'euretained']">
 						<div>
-							<input type="checkbox" name="type" value="{@abbrev}">
+							<input type="checkbox" id="type{@abbrev}" name="type" value="{@abbrev}">
 								<xsl:if test="contains($selected, @abbrev)">
 									<xsl:attribute name="checked"/>
 								</xsl:if>					
 							</input>
-							<label for="type"><xsl:value-of select="@plural"/></label>
+							<label for="type{@abbrev}"><xsl:value-of select="@plural"/></label>
 						</div>
 					</xsl:for-each>	
+					
+				</xsl:if>
+				
+				<xsl:if test="$showDraft">
+					
+					<xsl:for-each select="$tso:legTypeMap[@class = 'draft']">
+						<div>
+							<input type="checkbox" id="type{@abbrev}" name="type" value="{@abbrev}">
+								<xsl:if test="contains($selected, @abbrev)">
+									<xsl:attribute name="checked"/>
+								</xsl:if>					
+							</input>
+							<label for="type{@abbrev}"><xsl:value-of select="@plural"/></label>
+						</div>
+					</xsl:for-each>	
+					
+				</xsl:if>
+			</xsl:variable>
+			<xsl:variable name="numberOfItems" select="count($dropListItems/*)"/>
+			
+			<xsl:if test="$numberOfItems != 0">
+				
+				<div id="uniqueExtents" class="typeCheckBoxCol extent">
+					<input type="checkbox" id="ind" name="type" value="individual"/>
+					<label for="ind"><xsl:value-of select="leg:TranslateText('Select types')"/></label> 
+				</div>
+				
+				<div id="legChoicesColLeft" class="typeCheckBoxCol" style="width:220px">
+					<xsl:copy-of select="$dropListItems/*[position() &lt; xs:integer(ceiling($numberOfItems div 2))+1]"/>
+				</div>
+				<div id="legChoicesColRight" class="typeCheckBoxCol" style="width:220px">
+					<xsl:copy-of select="$dropListItems/*[position() > xs:integer(ceiling($numberOfItems div 2))]" />
 				</div>
 			</xsl:if>
 			
-			<xsl:if test="$showDraft">
-				<div id="draftLeg" class="typeCheckBoxCol">
-					<xsl:for-each select="$tso:legTypeMap[@class = 'draft']">
-						<div>
-							<input type="checkbox" name="type" value="{@abbrev}">
-								<xsl:if test="contains($selected, @abbrev)">
-									<xsl:attribute name="checked"/>
-								</xsl:if>					
-							</input>
-							<label for="type"><xsl:value-of select="@plural"/></label>
-						</div>
-					</xsl:for-each>	
-				</div>
-			</xsl:if>			
 		</div>
 	</div>
 </xsl:template>

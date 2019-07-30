@@ -193,8 +193,8 @@ ul#secondaryNav li a:hover {text-decoration: underline;}
 .natArch a span {position: absolute; background: url("/images/chrome/nat-archive-delivered-en.svg") no-repeat;left: 17px; top: 0; height: 49px; width: 252px;}
 
 /*welsh page image*/
-.natArchWelsh a {width: 249px; height: 51px; display: block; float: right; position: relative; margin: 18px 8px 0 0;}
-.natArchWelsh a span {position: absolute; background: url("/images/chrome/nat-archive-delivered-cy.svg") no-repeat;left: 17px; top: 0px; height: 100%; width: 100%;}
+.natArchWelsh a {width: 249px; height: 51px; display: block; float: right; position: relative; margin: 18px 12px 0 0;}
+.natArchWelsh a span {position: absolute; background: url("/images/chrome/nat-archive-delivered-cy.svg") no-repeat;left: 17px; top: 0px; height: 49px; width: 252px;}
 
 /* end of secondary nav */
 
@@ -206,7 +206,7 @@ ul#secondaryNav li a.langaugeSwitch {font-weight: bold; color: red;}
 /* Footer begin */
 #footer div {padding-right:1.5em; display: flex;  font-size: 0.95em; }
 #footer .copyright { text-align:right; flex-basis: 420px; margin-left: auto; }
-#footer .copyrightstatement { /* padding-left:55px;background: url("/images/chrome/ogl-symbol.gif") no-repeat scroll 0 0; */ }
+#footer .copyrightstatement { font-size: 0.9em; /* padding-left:55px;background: url("/images/chrome/ogl-symbol.gif") no-repeat scroll 0 0; */ }
 #footer .copyrightstatement img { float: left; margin-right: 15px; }
 #footer div p {margin: 0 ; padding: 0 1% 0 1%; color: #66677C;}
 #footer div p a {color: #66677C; text-decoration: underline;}
@@ -1008,7 +1008,7 @@ p.viewMoreLink {clear: left;padding-bottom:0.75em;padding-top:0;}
 #doc .subNavPage #content
 {padding: 10px 14px 10px 10px;}
 #doc .subNavPage #pageTitle {padding-left: 245px;}
-#subNav .section {border: 0; max-height: 100vh; overflow-y: scroll; margin-bottom: 15px; }
+#subNav .section {border: 0; max-height: 100vh; margin-bottom: 15px; }
 #subNav .section li,
 #subNav .section h3
 {padding: 10px 8px;}
@@ -1583,6 +1583,41 @@ div.alphaLinkList {display: block; background: #ccc; float: left;}
     margin: 0 auto;
     display: block;
 }
+/**
+ * Survey Panel message
+ */
+
+#cookie-law-info-bar.cookie-law-info-survey-bar {
+    border: 0;
+    margin: 0 auto;
+    padding: 12px 0 10px 0;
+    text-align: center;
+    width: 100%;
+    z-index: 1000;
+    position: relative;
+    background-color: #424240;
+    color: #ffffff;
+    font-size: 1.5em;
+    border-bottom: 4px solid #000000;
+}
+
+#cookie-law-info-bar.cookie-law-info-survey-bar span {
+    vertical-align: middle;
+}
+
+.cli-plugin-main-survey-link {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.cli-plugin-survey-button, .cli-plugin-survey-button:visited {
+    padding: 4px 8px;
+    background: #ffffff;
+    margin: auto 10px;
+    color: #4B4C4E;
+    font-size: 0.9em;
+}
+
 .cli-plugin-main-link {
     /* color: #ffffff; */
     color: rgb(0, 94, 165);
