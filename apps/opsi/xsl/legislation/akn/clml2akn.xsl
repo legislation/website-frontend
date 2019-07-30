@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-(c)  Crown copyright
- 
-You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
--->
-<!-- v1.2, written by Jim Mangiafico, updated 18 September 2015 -->
+<!-- v1.3, written by Jim Mangiafico, updated 16 April 2016 -->
 
 <xsl:stylesheet version="2.0"
 	xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0/WD16"
@@ -404,15 +397,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<xsl:value-of select="concat('Ministerial Order ', $year, '/', $num)" />
 							</xsl:when>
 							<xsl:when test="$ukm-doctype = 'UnitedKingdomStatutoryInstrument' or $ukm-doctype = 'UnitedKingdomDraftStatutoryInstrument'">
-								<xsl:choose>
-									<xsl:when test="ukm:SecondaryMetadata/ukm:AlternativeNumber[@Category='C' or @Category='L' or @Category='S']">
-										<xsl:variable name="alt-num" select="ukm:SecondaryMetadata/ukm:AlternativeNumber[@Category='C' or @Category='L' or @Category='S']" />
-										<xsl:value-of select="concat('S.I. ', $year, '/', $num, ' (', $alt-num/@Category,'. ', $alt-num/@Value, ')')" />
-									</xsl:when>
-									<xsl:otherwise>
-										<xsl:value-of select="concat('S.I. ', $year, '/', $num)" />
-									</xsl:otherwise>
-								</xsl:choose>
+								<xsl:value-of select="concat('S.I. ', $year, '/', $num)" />
+								<xsl:for-each select="ukm:SecondaryMetadata/ukm:AlternativeNumber[@Category='C' or @Category='L' or @Category='S']">
+									<xsl:value-of select="concat(' (', @Category,'. ', @Value, ')')" />
+								</xsl:for-each>
 							</xsl:when>
 							<xsl:when test="$ukm-doctype = 'WelshAssemblyMeasure'">
 								<xsl:value-of select="concat($year, ' nawm ', $num)" />
