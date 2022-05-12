@@ -1232,6 +1232,6 @@ It will get correct language string for the current language -->
 
 	<xsl:function name="leg:revisedLegislationTypes" as="xs:string+">
 		<xsl:sequence
-			select="('', 'all', 'primary', 'ukpga', 'ukla', 'apgb', 'aep', 'aosp', 'asp', 'aip', 'apni', 'mnia', 'nia', 'ukcm', 'mwa', 'nisi','anaw', 'asc', 'eudn', 'eur', 'eudr', 'eut', 'uksi', 'ssi', 'wsi', 'nisr', 'eur', 'eudn', 'eudr', 'eut')"/>
+			select="('', 'all', 'primary', 'secondary','primary+secondary', 'ukpga', 'ukla', 'apgb', 'aep', 'aosp', 'asp', 'aip', 'apni', 'mnia', 'nia', 'ukcm', 'mwa', 'nisi','anaw', 'asc', 'eudn', 'eur', 'eudr', 'eut', 'uksi', 'ssi', 'wsi', 'nisr', 'eur', 'eudn', 'eudr', 'eut')"/>
 	</xsl:function>
 </xsl:stylesheet>

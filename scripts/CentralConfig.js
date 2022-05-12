@@ -8,8 +8,12 @@
  */
 // JavaScript for Welsh Lnaguage wrapper
 
-var matches = document.location.pathname.match(/^\/(cy|en)\//);
-var LANG = (matches) ? matches[1] : "en";
+var LANG;
+try {
+    LANG = document.location.pathname.substr(1).split('/').shift() === 'cy' ? 'cy' : 'en';
+} catch (e) {
+    LANG = 'en';
+}
 
 var config = {
     validate: {

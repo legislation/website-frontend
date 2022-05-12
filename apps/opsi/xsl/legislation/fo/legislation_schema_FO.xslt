@@ -2482,7 +2482,7 @@ exclude-result-prefixes="tso atom">
 		</fo:block>
 	</xsl:template>
 
-	<xsl:template match="leg:Schedule/leg:TitleBlock/leg:Title">	
+	<xsl:template match="leg:Schedule/leg:TitleBlock/leg:Title | leg:Schedule/leg:TitleBlock/leg:Subtitle">	
 		<fo:block font-size="{$g_strBodySize}" text-align="center" keep-with-next="always">
 			<xsl:choose>
 				<xsl:when test="$g_strDocClass = $g_strConstantPrimary">

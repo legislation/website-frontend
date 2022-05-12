@@ -41,7 +41,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 .LegSnippet .LegApproved {font-style: italic}
 
 .LegSnippet div.LegDate {clear: both; text-align: center; width: 70%; margin: 0px auto; padding-top: 0em}
-.LegSnippet .LegLaidDraft {float: left; margin-top: 0em; width: 58%; text-align: left; font-style: italic; margin-bottom: 0em; padding-bottom: 0.5em}
+.LegSnippet .LegLaidDraft {text-align: center; font-style: italic;}
 .LegSnippet .LegLaidDraft em {font-style: normal}
 .LegSnippet .LegDateText {float: left; margin-top: 0em; width: 58%; text-align: left; font-style: italic; margin-bottom: 0em; padding-bottom: 0.5em}
 .LegSnippet .LegDateText em {font-style: normal}

@@ -6,11 +6,22 @@
  * http://jqueryui.com/autocomplete/#combobox
  * Converted to compatibility with jQuery 1.8.24
  */
+
+var txtdropdown = 'Start Typing ...';
+ 
+function focusintxt(ele){
+    var curtxt = ele.value;
+    ele.value = (curtxt && curtxt != txtdropdown) ? curtxt : "" ;
+};
+
+function focusouttxt(ele){
+    var curtxt = ele.value;
+    ele.value = (curtxt && curtxt != "") ? curtxt : txtdropdown ; // txtdropdown : ele.value;
+};
+
 (function( $ ) {
 $.widget( "ui.comboboxFromLinks", {
-	options: {
-                title: 'Start Typing ...'
-				},
+	options: { title: txtdropdown },
     _create: function() {
         var input,
             that = this,
@@ -36,7 +47,7 @@ $.widget( "ui.comboboxFromLinks", {
             if ( !valid ) {
                 // remove invalid value, as it didn't match anything
                 $( element )
-                    .val( "" )
+                    .val( value )
                     .attr( "title", value + config.forms.errormsg3[LANG] )
                 list.val( "" );
                 input.data( "autocomplete" ).term = "";
@@ -48,6 +59,8 @@ $.widget( "ui.comboboxFromLinks", {
             .appendTo( wrapper )
             .val( value )
             .attr( "title", "" )
+            .attr( "onfocusin", "focusintxt(this)")
+            .attr( "onfocusout", "focusouttxt(this)")
             .addClass( "ui-state-default ui-combobox-input" )
             .autocomplete({
                 delay: 0,
@@ -56,17 +69,19 @@ $.widget( "ui.comboboxFromLinks", {
                     var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
                     response( list.children('li').children('a').map(function() {
                         var text = $( this ).text();
-                        if ( $( this ).attr('href') && ( !request.term || matcher.test(text) ) )
+                        if ( $( this ).attr('href') && matcher.test(text) ) {
+                            text = text.replace("&", "&amp;"); // Needs to encode ampersand, for RegExp to work
                             return {
-                                label: text.replace(
+                                label: request.term ? text.replace( // when search in progress, make typed search-terms bold
                                     new RegExp(
                                         "(?![^&;]+;)(?!<[^<>]*)(" +
                                         $.ui.autocomplete.escapeRegex(request.term) +
                                         ")(?![^<>]*>)(?![^&;]+;)", "gi"
-                                    ), "<strong>$1</strong>" ),
-                                value: text,
+                                    ), "<strong>$1</strong>" ) : text,
+                                value: text.replace("&amp;", "&"), // Decode ampersand again before sending back as value to set in the search box
                                 option: this
                             };
+                        }
                     }) );
                 },
                 select: function( event, ui ) {

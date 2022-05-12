@@ -1872,7 +1872,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 							<xsl:when test="$g_strDocumentType = $g_strPrimary and parent::leg:P3para[ancestor::leg:P2para] and (ancestor::*[self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:Schedule or self::leg:BlockAmendment[@Context = 'schedule' or ((@Context = 'unknown' or @TargetClass = 'secondary') and not(descendant::leg:P1group))]] or (ancestor::leg:P1group/@Layout = 'below' and generate-id(leg:get-test-node(ancestor::leg:P1group[1])) = generate-id(node()[not(self::processing-instruction())][1]))) and
 							generate-id(leg:get-test-node(ancestor::leg:P2[1])) = generate-id(node()[not(self::processing-instruction())][1]) and
 							generate-id(leg:get-test-node(ancestor::leg:P3[1])) = generate-id(node()[not(self::processing-instruction())][1])">
-								<xsl:attribute name="class" select="concat($strClass, ' LegExtentContainer')" />
+								<xsl:attribute name="class" select="$strClass" /><!-- removed concat($strClass, ' LegExtentContainer') -->
 								<span class="LegDS {concat('LegP2No', $strAmendmentSuffix)}">
 									<xsl:for-each select="ancestor::leg:P2[1]">
 										<xsl:call-template name="FuncCheckForID"/>
@@ -2285,6 +2285,12 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	<p class="subtitle">
 		<xsl:apply-templates/>
 	</p>
+</xsl:template>
+
+<xsl:template match="leg:Schedule/leg:TitleBlock/leg:Subtitle">
+	<span class="LegTitleBlockTitle">
+		<xsl:apply-templates/>
+	</span>
 </xsl:template>
 
 <xsl:template match="leg:P" mode="numberedpara">

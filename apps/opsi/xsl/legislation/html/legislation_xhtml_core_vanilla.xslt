@@ -512,7 +512,15 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	
 </xsl:template>
 
-<xsl:template match="leg:SecondaryPrelims/leg:LaidDraft">
+<!-- HA102182 - display it centered when no date-->
+<xsl:template match="leg:SecondaryPrelims/leg:LaidDraft[not(leg:DateText)]">
+	<p class="LegLaidDraft">
+		<xsl:apply-templates select="leg:Text/node()"/>
+	</p>
+	<xsl:call-template name="FuncApplyVersions"/>
+</xsl:template>
+
+<xsl:template match="leg:SecondaryPrelims/leg:LaidDraft[leg:DateText]">
 	<div class="LegDate">
 		<p class="LegDateText">
 			<xsl:apply-templates select="leg:Text/node() | processing-instruction()[following-sibling::leg:DateText]"/>
@@ -1184,7 +1192,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		
 		<!-- Numbered paragraphs using hanging indent so we need to process them in a special manner -->
 		<!-- For secondary legislation we need to make sure that we dont pick up N1-N3 or N1-N3-N4 (both very rare) -->
-		<xsl:when test="not(preceding-sibling::*)
+		<!-- HA101255 JDC - correct format of final text element on e.g. uksi/2020/757/regulation/13/made part A (g) and uksi/2020/632/regulation/22/made part A.1 (e)-->	
+		<xsl:when test="(not(preceding-sibling::*) or (not(following-sibling::*) and ancestor::*[leg:Secondary//leg:Part//leg:BlockAmendment//leg:Chapter or leg:Secondary//leg:P1para//leg:BlockAmendment//leg:Schedule//leg:Part]//leg:P1group//leg:P3para and preceding-sibling::*[1][self::leg:P4] and preceding-sibling::*[last()][self::leg:Text]))
 			 and parent::*[(self::leg:P2para and $g_strDocumentType = ($g_strPrimary, $g_strEUretained)) 
 			 or (self::leg:P1para and ancestor::*[self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:Schedule or self::leg:BlockAmendment[@Context = 'schedule' or (@Context = 'unknown' and not(descendant::leg:P1group))]] and $g_strDocumentType = ($g_strPrimary))
 			 or self::leg:P3para[not($g_strDocumentType = $g_strSecondary and preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P3[not(preceding-sibling::*)]/parent::leg:P1para/preceding-sibling::*[1][self::leg:Pnumber][not(parent::leg:P1[parent::leg:P1group/@Layout='side']/preceding-sibling::*[1][self::leg:Title])])]
@@ -1263,9 +1272,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 						<!-- If in a schedule and a combined N1-N2 then output N1 number. -->
 						<!-- If context is unknown and BlockAmendment does not contain P1group then assume it is a schedule amendment as an amendment to a P1 in the body does not make any sense or if TargetClass is secondary apply similar logic (as secondary gets formatted like primary) -->
 						<!-- Also if the below functionality has been invoked then handle that too -->
+						<!-- JDC HA101967 - extend N1-N2 processing to N1-N4 to fix e.g. ukpga/Geo6/14-15/65/schedule/FIRST/enacted, missing number 1 before (i) -->
 						<xsl:choose>					
 							<xsl:when test="$g_strDocumentType = ($g_strPrimary) and 
-								parent::leg:P2para and 
+								(parent::leg:P2para or parent::leg:P4para) and 
 								(ancestor::*[self::leg:Schedule or self::leg:BlockAmendment][1]
 								  [self::leg:Schedule or 
 								   self::leg:BlockAmendment
@@ -1278,7 +1288,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 								 empty(ancestor::leg:P1[1]/parent::leg:P1group)
 								) and
 								generate-id(ancestor::leg:P1[1]/descendant::text()[not(normalize-space(.) = '' or ancestor::leg:Pnumber or ancestor::leg:Title)][1]) = generate-id(descendant::text()[not(normalize-space(.) = '')][1]) and
-								generate-id(ancestor::leg:P2[1]/descendant::text()[not(normalize-space(.) = '' or ancestor::leg:Pnumber)][1]) = generate-id(descendant::text()[not(normalize-space(.) = '')][1])">
+								generate-id(ancestor::*[leg:P2 or leg:P4][1]/descendant::text()[not(normalize-space(.) = '' or ancestor::leg:Pnumber)][1]) = generate-id(descendant::text()[not(normalize-space(.) = '')][1])">
 									<!-- JDC - HA055227. Don't need the "LegDS LegSN1No..." span if -->
 									<!-- we are 2 levels down from a P2 which has a P2 sibling -->
 									<!--  		i. without a BlockAmendment  -->
@@ -1303,8 +1313,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 											</span>
 										</xsl:otherwise>
 									</xsl:choose>
-
-								<span class="LegDS {concat('LegSN2No', $strAmendmentSuffix)}">
+								
+								<span class="LegDS {concat('LegSN',substring-before(substring-after(name(parent::*),'P'),'para'),'No', $strAmendmentSuffix)}">
 									<xsl:for-each select="parent::*/preceding-sibling::leg:Pnumber">
 										<xsl:for-each select="..">
 											<xsl:call-template name="FuncCheckForID"/>
@@ -1356,7 +1366,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 										</xsl:for-each>
 									
 								</xsl:if>-->
-								<xsl:if test="not(parent::leg:P3para/ancestor::leg:P3group[1]/parent::leg:P1para)">
+								<!-- HA101255 JDC - remove PNumber from final text element in e.g. uksi/2020/757/regulation/13/made part A (g) and uksi/2020/632/regulation/22/made part A.1 (e) (caused by fix above for same call) -->
+								<xsl:if test="not(parent::leg:P3para/ancestor::leg:P3group[1]/parent::leg:P1para) and not (not(following-sibling::*) and ancestor::*[leg:Secondary//leg:Part//leg:BlockAmendment//leg:Chapter or leg:Secondary//leg:P1para//leg:BlockAmendment//leg:Schedule//leg:Part]//leg:P1group//leg:P3para and preceding-sibling::*[1][self::leg:P4] and preceding-sibling::*[last()][self::leg:Text])">
 									<span class="LegDS LegLHS {concat('Leg', name(parent::*/parent::*), 'No', $strAmendmentSuffix)}">
 										<xsl:for-each select="parent::*/preceding-sibling::leg:Pnumber">
 											<xsl:for-each select="..">
@@ -1406,7 +1417,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		</xsl:when>
 
 		<!-- JDC HA100743 - show missing sub-paragraph numbers e.g. in http://www.legislation.gov.uk/ukpga/Eliz2/10-11/52/enacted -->
-		<xsl:when test="ancestor::*/leg:P3para[preceding-sibling::leg:Pnumber]/leg:UnorderedList/leg:ListItem/leg:Para and not(ancestor::leg:ListItem[preceding-sibling::*])">
+		<!-- JDC HA102248 - tightened up criteria to stop duplicate numbers in e.g. ukpga/2008/29/schedule/12/paragraph/15/b/enacted -->
+		<xsl:when test="ancestor::*/leg:P3para[preceding-sibling::leg:Pnumber]/leg:UnorderedList[not(preceding-sibling::*)]/leg:ListItem/leg:Para and not(ancestor::leg:ListItem[preceding-sibling::*])">
 			
 			<p class="LegListTextStandard LegLevel3">
 
