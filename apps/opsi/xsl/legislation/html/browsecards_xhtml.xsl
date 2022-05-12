@@ -52,7 +52,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</h1>
 					</div>
 					<div id="content">
-						<xsl:for-each select="('browsecards_parliaments','browsecards_new','browsecards_types','browsecards_ia','browsecards_defra')">
+						<xsl:for-each select="('browsecards_explore', 'browsecards_parliaments','browsecards_new','browsecards_types','browsecards_ia','browsecards_defra')">
 							<xsl:variable name="file" select="concat('../../../www/browse/',.,'.atom.xml')"/>
 							<xsl:if test="doc-available($file)">
 								<xsl:apply-templates select="doc($file)" mode="cards"/>

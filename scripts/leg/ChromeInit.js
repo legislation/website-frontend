@@ -461,44 +461,38 @@ $(document).ready(function () {
 $(function () {
 
 	var COVID_BANNER_HTML = {
-		en: '<div class="bannercontent">' +
-			'<span class="main">' +
-			'<strong>Coronavirus</strong>' +
-			'</span>' +
+		en: '<div class="bannercontent">' +			
+			'<h2 class="accessibleText">Coronavirus</h2> ' +
 			'<span class="legislation">' +
 			'<strong>' +
-			'<a href="/coronavirus" class="link">See Coronavirus legislation</a>' +
+			'<a href="/coronavirus" class="link">Browse Coronavirus legislation</a>' +
 			'</strong>' +
-			'<br/>on legislation.gov.uk</span>' +
+			' on legislation.gov.uk</span>' +
 			'<span class="extents">' +
-			'Get Coronavirus guidance from <strong><a href="https://www.gov.uk/coronavirus" class="link" target="_blank">GOV.UK</a></strong><br/>' +
-			'Get further guidance for ' +
+			
+			'Get Coronavirus guidance for the ' +
 			'<strong>' +
-			'<a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Scotland</a> | ' +
-			'<a href="https://gov.wales/coronavirus" class="link" target="_blank">Wales</a> | ' +
+			'<a href="https://www.gov.uk/coronavirus" class="link" target="_blank">UK</a>, ' +
+			'<a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Scotland</a>, ' +
+			'<a href="https://gov.wales/coronavirus" class="link" target="_blank">Wales</a>, and ' +
 			'<a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Northern Ireland</a>' +
 			'</strong>' +
 			'</span>' +
 			'</div>',
 		cy: '<div class="bannercontent">' +
-			'<span class="main-cy">' +
-			'<strong>Coronafirws</strong>' +
-			'</span>' +
-			'<span class="legislation-cy">' +
+			'<h2 class="accessibleText">Coronafeirws</h2> ' +
+			'<span class="legislation">' +
 			'<strong>' +
-			'<a href="/coronavirus" class="link">Gweler deddfwriaeth coronafirws</a>' +
+			'<a href="/coronavirus" class="link">Pori deddfwriaeth Coronafeirws</a>' +
 			'</strong>' +
-			'<br/>ar ddeddfwriaeth.gov.uk' +
+			' ar ddeddfwriaeth.gov.uk' +
 			'</span>' +
-			'<span class="extents-cy">' +
-			'Sicrhewch ganllaw coronafirws gan ' +
+			'<span class="extents">' +			 
+			' Cael cyngor Coronafeirws ar gyfer y ' +
 			'<strong>' +
-			'<a href="https://www.gov.uk/coronavirus" class="link" target="_blank">GOV.UK</a>' +
-			'</strong>' +
-			'<br/>Cael rhagor o gyfarwyddyd ar gyfer yr<br/>' +
-			'<strong>' +
-			'<a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Yr Alban</a> | ' +
-			'<a href="https://llyw.cymru/coronavirus" class="link" target="_blank">Cymru</a> | ' +
+			'<a href="https://www.gov.uk/coronavirus" class="link" target="_blank">DU</a>, ' +
+			'<a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Yr Alban</a>, ' +
+			'<a href="https://llyw.cymru/coronavirus" class="link" target="_blank">Cymru</a>, a ' +
 			'<a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Gogledd Iwerddon</a>' +
 			'</strong>' +
 			'</span>'+

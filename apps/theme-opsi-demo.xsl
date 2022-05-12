@@ -594,6 +594,37 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</a>
 					</li>
 					<li class="link2">
+						<a href="{$TranslateLangPrefix}/browse">
+							<span>
+								<xsl:if test="$TranslateLang='cy' ">
+									<xsl:attribute name="class">cy</xsl:attribute>
+								</xsl:if>
+								<xsl:value-of select="leg:TranslateText('Browse Legislation')"/>
+							</span>
+						</a>
+					</li>
+					<li class="link3">
+						<a href="{$TranslateLangPrefix}/new">
+							<span>
+								<xsl:if test="$TranslateLang='cy' ">
+									<xsl:attribute name="class">cy</xsl:attribute>
+								</xsl:if>
+								<xsl:value-of select="leg:TranslateText('New Legislation')"/>
+							</span>
+						</a>
+					</li>
+					<li class="link4">
+						<a href="{$TranslateLangPrefix}/changes">
+							<span>
+								<xsl:if test="$TranslateLang='cy' ">
+									<xsl:attribute name="class">cy</xsl:attribute>
+								</xsl:if>
+								<xsl:value-of select="leg:TranslateText('Changes To Legislation')"/>
+							</span>
+						</a>
+					</li>
+					<!--
+					<li class="link2">
 						<a href="{$TranslateLangPrefix}/understanding-legislation">
 							<span>
 								<xsl:if test="$TranslateLang='cy' ">
@@ -603,7 +634,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							</span>
 						</a>
 					</li>
-					<!-- Hide for MVP1 -->
 					<xsl:if test="not($hideEUdata)">
 						<li class="link3">
 							<a href="{$TranslateLangPrefix}/eu-legislation-and-uk-law">
@@ -616,36 +646,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							</a>
 						</li>
 					</xsl:if>
-					<li class="link4">
-						<a href="{$TranslateLangPrefix}/browse">
-							<span>
-								<xsl:if test="$TranslateLang='cy' ">
-									<xsl:attribute name="class">cy</xsl:attribute>
-								</xsl:if>
-								<xsl:value-of select="leg:TranslateText('Browse Legislation')"/>
-							</span>
-						</a>
-					</li>
-					<!--<li class="link4">-->
-					<!--<a href="{$TranslateLangPrefix}/new">-->
-					<!--<span>-->
-					<!--<xsl:if test="$TranslateLang='cy' ">-->
-					<!--<xsl:attribute name="class">cy</xsl:attribute>-->
-					<!--</xsl:if>-->
-					<!--<xsl:value-of select="leg:TranslateText('New Legislation')"/>-->
-					<!--</span>-->
-					<!--</a>-->
-					<!--</li>-->
-					<li class="link5">
-						<a href="{$TranslateLangPrefix}/changes">
-							<span>
-								<xsl:if test="$TranslateLang='cy' ">
-									<xsl:attribute name="class">cy</xsl:attribute>
-								</xsl:if>
-								<xsl:value-of select="leg:TranslateText('Changes To Legislation')"/>
-							</span>
-						</a>
-					</li>
+					-->
 					<li id="quickSearch" class="{if ($TranslateLang = 'cy') then 'cy' else 'en'}"><a  href="#contentSearch"><span><xsl:value-of select="leg:TranslateText('Search Legislation')"/></span></a></li>
 				</ul>
 			</div>

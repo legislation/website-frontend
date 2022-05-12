@@ -1034,7 +1034,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<resource id="Signature">Llofnod</resource>
 		<!-- End PiT page -->
 		<!--Browse (Cards) -->
-			<resource id="explore_by_parliament"> </resource>
+			<resource id="explore_by_parliament">Archwilio deddfwriaeth yn ôl rhanbarth</resource>
 			<resource id="explore_new_and_amended">Archwilio deddfwriaeth newydd a diwygiedig</resource>
 			<resource id="explore_by_type">Archwiliwch ddeddfwriaeth yn ôl math</resource>
 			<resource id="explore_impact_assesments">Archwilio Asesiadau Effaith</resource>
@@ -1307,6 +1307,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_revised_p52"> contains provisions that are prospective.</resource>
 		<!-- contains provisions that have not yet come into effect. -->
 		<resource id="status_warning_revised_p53"> contains provisions that have not yet come into effect.</resource>
+		
+		<resource id="Coronavirus Legislation">Deddfwriaeth Coronafeirws</resource>
+		<resource id="coronavirus_legislation_text">Deddfwriaeth coronafeirws allweddol sy’n berthnasol i’r DU, Cymru, Lloegr, yr Alban a Gogledd Iwerddon</resource>				
+		<resource id="understanding_legislation_text">Sut y caiff deddfwriaeth y DU ei chyflwyno, diwygio a dwyn i rym, a beth a gedwir gennym ar legislation.gov.uk</resource>
+		<resource id="eu_legislation_and_uk_law_text">Mae deddfwriaeth yr UE fel yr oedd yn berthnasol i’r DU ar 31 Rhagfyr 2020 yn awr yn rhan o ddeddfwriaeth ddomestig</resource>
 	</resources>
 
 	<resources lang="en">
@@ -1768,7 +1773,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!-- End PiT page -->
 
 		<!--Browse (Cards) -->
-		<resource id="explore_by_parliament"> </resource>
+		<resource id="explore_by_parliament">Explore legislation by region</resource>
 		<resource id="explore_new_and_amended">Explore new and amended legislation</resource>
 		<resource id="explore_by_type">Explore legislation by type</resource>
 		<resource id="explore_impact_assesments">Explore Impact Assessments</resource>
@@ -2001,6 +2006,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_revised_p52"> contains provisions that are prospective.</resource>
 		<!-- contains provisions that have not yet come into effect. -->
 		<resource id="status_warning_revised_p53"> contains provisions that have not yet come into effect.</resource>
+		<resource id="Coronavirus Legislation">Coronavirus Legislation</resource>
+		<resource id="coronavirus_legislation_text">Key coronavirus legislation that applies to the UK, England, Wales, Scotland and Northern Ireland</resource>				
+		<resource id="understanding_legislation_text">How UK legislation is ontroduced, amended and brought into force, and what we hold on legislation.gov.uk</resource>
+		<resource id="eu_legislation_and_uk_law_text">EU legislation as it applied to the UK on 31 December 2020 is now a part of domestic legislation</resource>		
 	</resources>
 </allResources>
 

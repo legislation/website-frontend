@@ -154,12 +154,12 @@ Using example 8a to work with IE6 and below */
 /* primary nav active */
 /*#per.home        #primaryNav ul li.link1 a {margin-left: 2px;}*/
 /*#per.home        #primaryNav ul li.link1 a {margin-left: 2px;}*/
+/*#doc.understanding  #primaryNav ul li.link2 a,
+#doc.euleg 	     	#primaryNav ul li.link3 a,*/
 #per.home        	#primaryNav ul li.link1 a,
-#doc.understanding  #primaryNav ul li.link2 a,
-#doc.euleg 	     	#primaryNav ul li.link3 a,
-#browse             #primaryNav ul li.link4 a,
-/*#per.newLeg      	#primaryNav ul li.link4 a,*/
-#doc.changeLeg   	#primaryNav ul li.link5 a
+#browse             #primaryNav ul li.link2 a,
+#per.newLeg      	#primaryNav ul li.link3 a,
+#doc.changeLeg   	#primaryNav ul li.link4 a
  {background: url("/images/chrome/activeHeaderLink.gif") no-repeat center top; color: #333;}
 /* end of primary nav active */
 
@@ -1938,14 +1938,14 @@ p .expandCollapseLink{
 }
 
 #coronavirus-banner {
-  min-height: 70px;
+  min-height: 0.8em;
   color: rgba(255, 255, 255, 0.85);
   background-color: #333;
   justify-content: center;
   align-items: center;
   font-size: 20px;
   border-top: 5px solid #32ffff;
-  padding: 0.3em;
+  padding: 1em;
 
 }
 
@@ -1978,17 +1978,8 @@ p .expandCollapseLink{
 
 #coronavirus-banner .legislation {
   display: block;
-    width: 220px;
-    font-size: 15px;
-    text-align: center;
-    border: 1px solid #32ffff;
-	border-radius: 3px;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    margin: 0.5em;
-	padding: 0.3em;
-	float:left;
-	height: 42px;
+  float: left;
+   font-size: 0.7em;
 }
 
 #coronavirus-banner .legislation-cy {
@@ -2008,17 +1999,8 @@ p .expandCollapseLink{
 
 #coronavirus-banner .extents {
   display: block;
-    width: 420px;
-    font-size: 15px;
-    text-align: center;
-    border: 1px solid #32ffff;
-	border-radius: 3px;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    margin: 0.5em;
-	padding: 0.3em;
-	float:left;
-	height: 42px;
+  font-size: 0.7em;
+    float: right;
 }
 
 #coronavirus-banner .extents-cy {
