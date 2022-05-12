@@ -101,14 +101,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 					<div id="content">
 						<xsl:if test="not(atom:feed)">
-							<div class="s_12 p_one introWrapper">
+							<div class="s_12">
 								<p><xsl:value-of select="leg:TranslateText('New_changes_p1')"/></p>
 								<p><xsl:value-of select="leg:TranslateText('New_changes_p2')"/></p>
 								<p><xsl:value-of select="leg:TranslateText('New_changes_p3')"/></p>
 								<p><xsl:value-of select="leg:TranslateText('New_changes_p4')"/></p>
 							</div>
 						</xsl:if>
-						<div class="s_12 p_one tabWrapper createNewSearchOpt">
+						<div class="s_12 createNewSearchOpt">
 							<h2 class="accessibleText"><xsl:value-of select="leg:TranslateText('Search')"/></h2>
 							<xsl:choose>
 								<xsl:when test="atom:feed">
@@ -133,7 +133,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</div>
 						
 						<xsl:if test="not(atom:feed)">
-							<div class="s_12 p_one introWrapper">
+							<div class="s_12">
 								<h2><xsl:value-of select="leg:TranslateText('Changes to Local and Private and Personal Acts')"/></h2>
 								<p><xsl:value-of select="leg:TranslateText('Changes_chnoTable_desc')"/></p>
 								<ul class="linkList">

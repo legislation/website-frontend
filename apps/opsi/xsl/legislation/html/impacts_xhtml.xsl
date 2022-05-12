@@ -68,7 +68,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:choose>
 	</xsl:variable>
 
-	<xsl:variable name="introURI" as="xs:string?" select="leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href" />			
+	<xsl:variable name="introURI" as="xs:string?" select="leg:ImpactAssessment/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href" />
+	
+	<xsl:variable 	name="g_strIntroductionUri"  as="xs:string?"
+		select="(/(leg:ImpactAssessment)/ukm:Metadata/atom:link[@rel = ('http://www.legislation.gov.uk/def/navigation/introduction', 'http://www.legislation.gov.uk/def/navigation/act/introduction')]/@href)[1]"/>
 	
 	<xsl:variable name="iaWholeURI" as="xs:string" select="leg:ImpactAssessment/@DocumentURI" />				
 	
