@@ -2019,6 +2019,55 @@ p .expandCollapseLink{
 	height: 60px;
 }
 
+#recruitment-banner {
+    background: #0574E0;
+    border: 0;
+    color: #fff;
+	font-size: 1.02em;
+    margin: auto;
+    padding: 20px 0;
+	height: 40px;
+}
+
+#recruitment-banner .bannercontent {
+	margin: auto;
+    width: 972px;
+    display: -webkit-box;
+}
+
+#recruitment-banner .recruit-main {
+	float: left;
+}
+
+#recruitment-banner .heading {
+    font-size: 1.3em;
+	font-weight: bold;
+}
+
+#recruitment-banner ul {
+	float: right;
+	list-style: none;
+	margin: 12px 0;
+	Padding: 0;
+}
+
+#recruitment-banner li {
+	float: left;
+}
+
+#recruitment-banner li a{
+	color: #fff;
+}
+
+#recruitment-banner li .join{
+    border: 1px solid #fff;
+    border-radius: 3px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    padding: 12px;
+    margin: 0 14px;
+}
+
 #coronavirus-banner a.link {
   color:#fff;
 }
