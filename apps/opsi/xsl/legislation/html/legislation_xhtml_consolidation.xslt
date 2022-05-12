@@ -1160,7 +1160,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	<xsl:variable name="isSchedulesView" select="matches($dcIdentifier, '/schedules|/annexes')"/>
 	<xsl:variable name="isSignatureView" select="matches($dcIdentifier, '/signature')"/>
 	<xsl:variable name="documentURI" select="@DocumentURI"/>
-	<xsl:variable name="repealedText" select="if ($isWholeActView) then 'act\s+(repeal|revoked|omitted)' else 'repeal'"/>
+	<xsl:variable name="repealedText" select="if ($isWholeActView) then '(act|measure|order|regulations|rules|instrument)\s+(repeal|revoked|omitted|deleted)' else 'repeal'"/>
 	<!--<xsl:variable name="isRepealedAct" select="matches((ancestor::leg:Legislation/ukm:Metadata/dc:title)[1], '\(repealed\)\s*$')"/>-->
 	<xsl:variable name="commentary" as="xs:string*" 
 			select="$g_wholeActCommentaries/@id"/>				
