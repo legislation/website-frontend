@@ -460,59 +460,59 @@ $(document).ready(function () {
 // Banners
 $(function () {
 
-	//var RECRUITMENT_BANNER_HTML = {
-	//	en: '<div class="bannercontent">' +
-	//		'<div class="recruit-main"><span class="heading">' +
-	//		'Join the team' +
-	//		'</span><br/>' +
-	//		'<span>We&apos;re currently recruiting for a Service and Performance Manager. If you&apos;d like to join the legislation.gov.uk team please apply by 26th October.</span>' +
-	//		'</div>' +
-	//		'<ul>' +
-	//		'<li><a href="https://www.civilservicejobs.service.gov.uk/csr/jobs.cgi?jcode=1749362 " target="_blank" class="join">Apply to join the team</a></li>' +
-	//		'<li><a href="#" class="recruitment-close">Close</a></li>' +
-	//		'</ul>' +
-	//		'</div>',
-	//	cy: '<div class="bannercontent">' +
-	//		'<div class="recruit-main"><span class="heading">' +
-	//		'Join the team' +
-	//		'</span><br/>' +
-	//		'<span>We&apos;re currently recruiting for a Service and Performance Manager. If you&apos;d like to join the legislation.gov.uk team please apply by 26th October.</span>' +
-	//		'</div>' +
-	//		'<ul>' +
-	//		'<li><a href="https://www.civilservicejobs.service.gov.uk/csr/jobs.cgi?jcode=1749362" target="_blank" class="join">Apply to join the team</a></li>' +
-	//		'<li><a href="#" class="recruitment-close">Close</a></li>' +
-	//		'</ul>' +
-	//		'</div>',
-	//}
-	//var RECRUITMENT_COOKIE_NAME = 'recruitment_banner';
-	//$(RECRUITMENT_BANNER_HTML[LANG]).simpleBanner({
-	//	id: 'recruitment-banner',
-	//	closeBtnSelector: '.recruitment-close',
-	//	doShow: function () {
-	//		// By default the banner is shown unless the user has allowed cookies.
-	//		// Check the cookie to see if the banner has been closed before and hide
-	//		// if it has.
-	//		var show = true;
-	//		var cookie;
+	var RECRUITMENT_BANNER_HTML = {
+		en: '<div class="bannercontent">' +
+			'<div class="recruit-main"><span class="heading">' +
+			'Join the team' +
+			'</span><br/>' +
+			'<span>The National Archives are looking for people to join an exciting new Court Judgments service.</span>' +
+			'</div>' +
+			'<ul>' +
+			'<li><a href="https://www.civilservicejobs.service.gov.uk/csr/index.cgi?SID=cGFnZWNsYXNzPUpvYnMmb3duZXI9NTA3MDAwMCZvd25lcnR5cGU9ZmFpciZ1c2Vyc2VhcmNoY29udGV4dD0xNDM5MjQ2MzcmcGFnZWFjdGlvbj1zZWFyY2hieWNvbnRleHRpZCZyZXFzaWc9MTYzOTY1OTkyNy0xNTJhODJkMTQwZTJkYzY2YTA1MzQ3ZDhlMmI0ZDFiNGU5MGZmNzgy" target="_blank" class="join">Click here to apply</a></li>' +
+			'<li><a href="#" class="recruitment-close">Close</a></li>' +
+			'</ul>' +
+			'</div>',
+		cy: '<div class="bannercontent">' +
+			'<div class="recruit-main"><span class="heading">' +
+			'Join the team' +
+			'</span><br/>' +
+			'<span>The National Archives are looking for people to join an exciting new Court Judgments service.</span>' +
+			'</div>' +
+			'<ul>' +
+			'<li><a href="https://www.civilservicejobs.service.gov.uk/csr/index.cgi?SID=cGFnZWNsYXNzPUpvYnMmb3duZXI9NTA3MDAwMCZvd25lcnR5cGU9ZmFpciZ1c2Vyc2VhcmNoY29udGV4dD0xNDM5MjQ2MzcmcGFnZWFjdGlvbj1zZWFyY2hieWNvbnRleHRpZCZyZXFzaWc9MTYzOTY1OTkyNy0xNTJhODJkMTQwZTJkYzY2YTA1MzQ3ZDhlMmI0ZDFiNGU5MGZmNzgy" target="_blank" class="join">Click here to apply</a></li>' +
+			'<li><a href="#" class="recruitment-close">Close</a></li>' +
+			'</ul>' +
+			'</div>',
+	}
+	var RECRUITMENT_COOKIE_NAME = 'recruitment_banner';
+	$(RECRUITMENT_BANNER_HTML[LANG]).simpleBanner({
+		id: 'recruitment-banner',
+		closeBtnSelector: '.recruitment-close',
+		doShow: function () {
+			// By default the banner is shown unless the user has allowed cookies.
+			// Check the cookie to see if the banner has been closed before and hide
+			// if it has.
+			var show = true;
+			var cookie;
 
-	//		if (window.legGlobals.cookiePolicy.settings) {
-	//			cookie = $.cookie(RECRUITMENT_COOKIE_NAME);
+			if (window.legGlobals.cookiePolicy.settings) {
+				cookie = $.cookie(RECRUITMENT_COOKIE_NAME);
 
-	//			if (cookie && cookie === 'Yes') {
-	//				show = false;
-	//			}
-	//		} else {
-	//			$.removeCookie(RECRUITMENT_COOKIE_NAME, {path: '/'});
-	//		}
+				if (cookie && cookie === 'Yes') {
+					show = false;
+				}
+			} else {
+				$.removeCookie(RECRUITMENT_COOKIE_NAME, {path: '/'});
+			}
 
-	//		return show;
-	//	},
-	//	onClose: function () {
-	//		if (window.legGlobals.cookiePolicy.settings) {
-	//			$.cookie(RECRUITMENT_COOKIE_NAME, 'Yes', {expire: 30, path: '/'});
-	//		}
-	//	}
-	//});
+			return show;
+		},
+		onClose: function () {
+			if (window.legGlobals.cookiePolicy.settings) {
+				$.cookie(RECRUITMENT_COOKIE_NAME, 'Yes', {expire: 30, path: '/'});
+			}
+		}
+	});
 
 	var COVID_BANNER_HTML = {
 		en: '<div class="bannercontent">' +			

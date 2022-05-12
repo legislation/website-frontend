@@ -870,15 +870,17 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 							<span class="pageLinkIcon"/>
 						</a>
 					</li>
-					<li>
-						<a href="{$TranslateLangPrefix}/{$uriPrefix}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:Year/@Value}">
-							<xsl:value-of select="leg:TranslateText('More')"/><xsl:text> </xsl:text><xsl:value-of
-								select="tso:GetTitleFromType($documentMainType, ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:Year/@Value)"/><xsl:text> </xsl:text><xsl:value-of
-								select="leg:TranslateText('from')"/><xsl:text> </xsl:text><xsl:value-of
-								select="ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:Year/@Value"/>
-							<span class="pageLinkIcon"/>
-						</a>
-					</li>
+					<xsl:if test="$g_strDocumentMainType ne 'EuropeanUnionTreaty'">
+						<li>
+							<a href="{$TranslateLangPrefix}/{$uriPrefix}/{ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:Year/@Value}">
+								<xsl:value-of select="leg:TranslateText('More')"/><xsl:text> </xsl:text><xsl:value-of
+									select="tso:GetTitleFromType($documentMainType, ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:Year/@Value)"/><xsl:text> </xsl:text><xsl:value-of
+										select="leg:TranslateText('from')"/><xsl:text> </xsl:text><xsl:value-of
+											select="ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:Year/@Value"/>
+								<span class="pageLinkIcon"/>
+							</a>
+						</li>
+					</xsl:if>
 					<li>
 						<a href="{$TranslateLangPrefix}/search">
 							<xsl:value-of select="leg:TranslateText('Advanced Search')"/>
