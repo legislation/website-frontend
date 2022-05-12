@@ -48,7 +48,7 @@ v0.14	GM	2010-07-05	Scripts of a similar type placed into seperated document.rea
 
 */
 
-var legGlobals = new Object();
+var legGlobals = window.legGlobals = window.legGlobals || {};
 $(document).ready(function(){
 	initGlobals();
 });
@@ -128,7 +128,7 @@ $(document).ready(function(){
       }else{
         showText = config.statusWarningSubSections.expandCollapseLink.message2[LANG];
       }
-      
+
       $link.wrap("<div class='linkContainer'></div>");
 
       // use as CONFIG the data-* attributes expected on it
@@ -149,8 +149,8 @@ $(document).ready(function(){
     //     $link.text( $link.attr('data-'+LANG+'-expand') ); // if it can be helped, make sure link text isn't empty by default
     //   }
 		// }
-    
-    
+
+
     // $("p.intro:first", "#statusWarning")
     // .after($("<div/>").addClass("linkContainer"));
 
@@ -169,6 +169,18 @@ $(document).ready(function(){
 	.appendTo("#statusEffectsAppliedSection .title .linkContainer")
 	.addClass("expandCollapseLink")
 	.legExpandCollapse([config.statusEffectsAppliedSection.expandCollapseLink.message1[LANG] + '<span class="accessibleText">' + config.statusEffectsAppliedSection.expandCollapseLink.message2[LANG] + '</span>', config.statusEffectsAppliedSection.expandCollapseLink.message3[LANG] + '<span class="accessibleText">' +  config.statusEffectsAppliedSection.expandCollapseLink.message2[LANG] + '</span>']);
+
+	// EU outstanding references
+	$("<a/>")
+		.attr('href', '#outstandingRefsContent')
+		.addClass("expandCollapseLink")
+		.appendTo("#outstandingRefs .title")
+		.legExpandCollapse([
+			config.outstandingRefsContent.expandCollapseLink.show[LANG],
+			config.outstandingRefsContent.expandCollapseLink.hide[LANG]
+		], {
+			open: true
+		});
 
 	$("<a/>")
 		.attr('href', '#outstandingRefs')
@@ -444,148 +456,277 @@ $(document).ready(function () {
         );
     }
 });
+
+// Banners
+$(function () {
+
+    var RECRUITMENT_URL = "https://www.civilservicejobs.service.gov.uk/csr/jobs.cgi?jcode=1783159";
+	var RECRUITMENT_BANNER_HTML = {
+		en: '<div class="bannercontent">' +
+			'<div class="recruit-main"><span class="heading">' +
+			'Join the team' +
+			'</span><br/>' +
+			'<span>The National Archives are looking for a Product Manager to join an exciting new legislation drafting service - Lawmaker.</span>' +
+			'</div>' +
+			'<ul>' +
+			'<li><a href="' + RECRUITMENT_URL + '" target="_blank" class="join">Click here to apply</a></li>' +
+			'<li><a href="#" class="recruitment-close">Close</a></li>' +
+			'</ul>' +
+			'</div>',
+		cy: '<div class="bannercontent">' +
+			'<div class="recruit-main"><span class="heading">' +
+			'Join the team' +
+			'</span><br/>' +
+			'<span>The National Archives are looking for a Product Manager to join an exciting new legislation drafting service - Lawmaker.</span>' +
+			'</div>' +
+			'<ul>' +
+			'<li><a href="' + RECRUITMENT_URL + '" target="_blank" class="join">Click here to apply</a></li>' +
+			'<li><a href="#" class="recruitment-close">Close</a></li>' +
+			'</ul>' +
+			'</div>',
+	}
+	//var RECRUITMENT_COOKIE_NAME = 'recruitment_banner';
+	//$(RECRUITMENT_BANNER_HTML[LANG]).simpleBanner({
+	//	id: 'recruitment-banner',
+	//	closeBtnSelector: '.recruitment-close',
+	//	doShow: function () {
+			// By default the banner is shown unless the user has allowed cookies.
+			// Check the cookie to see if the banner has been closed before and hide
+			// if it has.
+	//		var show = true;
+	//		var cookie;
+
+	//		if (window.legGlobals.cookiePolicy.settings) {
+	//			cookie = $.cookie(RECRUITMENT_COOKIE_NAME);
+
+	//			if (cookie && cookie === 'Yes') {
+	//				show = false;
+	//			}
+	//		} else {
+	//			$.removeCookie(RECRUITMENT_COOKIE_NAME, {path: '/'});
+	//		}
+
+	//		return show;
+	//	},
+	//	onClose: function () {
+	//		if (window.legGlobals.cookiePolicy.settings) {
+	//			$.cookie(RECRUITMENT_COOKIE_NAME, 'Yes', {expire: 30, path: '/'});
+	//		}
+	//	}
+	//});
+
+	//var COVID_BANNER_HTML = {
+	//	en: '<div class="bannercontent">' +			
+	//		'<h2 class="accessibleText">Coronavirus</h2> ' +
+	//		'<span class="legislation">' +
+	//		'<strong>' +
+	//		'<a href="/coronavirus" class="link">Browse Coronavirus legislation</a>' +
+	//		'</strong>' +
+	//		' on legislation.gov.uk</span>' +
+	//		'<span class="extents">' +
+			
+	//		'Get Coronavirus guidance for the ' +
+	//		'<strong>' +
+	//		'<a href="https://www.gov.uk/coronavirus" class="link" target="_blank">UK</a>, ' +
+	//		'<a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Scotland</a>, ' +
+	//		'<a href="https://gov.wales/coronavirus" class="link" target="_blank">Wales</a>, and ' +
+	//		'<a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Northern Ireland</a>' +
+	//		'</strong>' +
+	//		'</span>' +
+	//		'</div>',
+	//	cy: '<div class="bannercontent">' +
+	//		'<h2 class="accessibleText">Coronafeirws</h2> ' +
+	//		'<span class="legislation">' +
+	//		'<strong>' +
+	//		'<a href="/coronavirus" class="link">Pori deddfwriaeth Coronafeirws</a>' +
+	//		'</strong>' +
+	//		' ar ddeddfwriaeth.gov.uk' +
+	//		'</span>' +
+	//		'<span class="extents">' +			 
+	//		' Cael cyngor Coronafeirws ar gyfer y ' +
+	//		'<strong>' +
+	//		'<a href="https://www.gov.uk/coronavirus" class="link" target="_blank">DU</a>, ' +
+	//		'<a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Yr Alban</a>, ' +
+	//		'<a href="https://llyw.cymru/coronavirus" class="link" target="_blank">Cymru</a>, a ' +
+	//		'<a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Gogledd Iwerddon</a>' +
+	//		'</strong>' +
+	//		'</span>'+
+	//		'</div>'
+	//}
+
+	// The banners are added *after* the ID '#top' so should be called in the opposite order to how they should appear.
+	// Uncomment to add survey banner
+	// window.legGlobals.addSurvey();
+
+	// If the coronavirus banner already exists on the page via HTML then do not add the JS version
+	//if (!$('#coronavirus-banner').length) {
+	//	$(COVID_BANNER_HTML[LANG]).simpleBanner({id: 'coronavirus-banner'});
+	//}
+
+})
 /*
 (c)  Crown copyright
- 
+
 You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
+
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
-/*
-Legislation Expand and Collapse
+/**
+ * Legislation Expand and Collapse jQuery plugin.
+ *
+ * Expand and collapse box with the controlling link being created by another function, e.g.:
+ * $(link).legExpandCollapse(['More', 'Close'], {state:, expires: 0});
+ *
+ * Notes:
+ * CSS - position: relative on the expanding element causes problems with IE by rendering all child
+ * elements after the animation, avoid if possible. By using on a child element that element is
+ * rendered before the animation has begun and could look confusing.
+ * CookieArray is an object used to store cookie key value pairs. If it isnt passed, will default to contracted
+ *
+ * @param {array} htmlValues
+ *   Values to use for the HTML text, e.g. ['More', 'Close'].
+ * @param {{state: [], expires: null|number, open: string}} options
+ *   Options for initialisation.
+ * @returns {void | jQuery}
+ *   jQuery chaining/fluent interface.
+ */
+$.fn.legExpandCollapse = function (htmlValues, options) {
 
-One-liner: Expand and collapse box with the controlling link being created by another function
-Usage: .legExpandCollapse(['More', 'Close'], cookieArray);
-Requirements: jQuery framework: http://jquery.com/
-Notes:
-CSS - position: relative on the expanding element causes problems with IE by rendering all child
-elements after the animation, avoid if possible. By using on a child element that element is 
-rendered before the animation has begun and could look confusing.
-CookieArray is an object used to store cookie key value pairs. If it isnt passed, will default to contracted
+    var href = $(this).attr('href');
+    var $this = $(this);
+    var $target = $($this.attr('href'));
 
-History:
-v0.01	GM	Created
-v0.02	GM	2010-03-15	Changed open/close text from 'open' to 'more'
-v0.03	TE 	2010-06-22	Added persistance using cookie
+    // Set any supplied options
+    var openByDefault = options && options.open !== undefined ? options.open : false;
+    var cookieArray = options && options.state !== undefined ? options.state : {};
+    var expires = options && options.expires !== undefined ? options.expires : 0;
 
-*/
-$.fn.legExpandCollapse = function(htmlValues_arr, options){
+    // We can only persist state if the user has allowed the use of cookies.
+    var useCookies = function () {
+        return window.legGlobals.cookiePolicy.settings && !!cookieArray;
+    }
 
-	if (options)
-	{
-		var cookieArray = options.state;
-		var expires = options.expires;
-		if (!expires)
-			expires = 0;
-		var open = options.open;
-	}
-	
-	if (cookieArray)
-		readCookie("legExpandCollapse", cookieArray);
-	var href = $(this).attr("href");
-	
-	var htmlExpanded, htmlContracted;
-	
-	// Check to see if any values have been passed to overwrite the defaults
-	if (htmlValues_arr) {
-		htmlContracted = htmlValues_arr[0];
-		htmlExpanded = htmlValues_arr[1];
-	}
-	else {
-		htmlContracted = "More";
-		htmlExpanded = "Close";
-	}
-	
-	// default is to hide the element
-	if (href && cookieArray && (cookieArray[href.substring(1)] == "show")) {
-		$(this).html(htmlExpanded).addClass("close");
-		$($(this).attr('href')).show();
-	}
-	else if (href && cookieArray && (cookieArray[href.substring(1)] == "hide")) {
-		$(this).html(htmlContracted)
-		$($(this).attr('href')).hide();
-	}
-	//default open
-	else if (open)
-	{
-		$(this).html(htmlExpanded).addClass("close");
-		$($(this).attr('href')).show();
-	}
-	else {	
-		$(this).html(htmlContracted);
-		$($(this).attr('href')).hide();
-	}
-	
-	// Event Handlers
-	return $(this).click(function(e){
-		if (!$(this).hasClass("close")) {
-			var href = $(this).attr("href");
-			$(href).slideDown(400);
-			$(this).html(htmlExpanded).toggleClass("close");
-			if (cookieArray)
-				updateid("legExpandCollapse", cookieArray, href.substring(1), "show", expires);
-			e.preventDefault();
-		}
-		else {
-			var href = $(this).attr("href");
-			$(href).slideUp(400);
-			$(this).html(htmlContracted).toggleClass("close");
-			if (cookieArray)
-				updateid("legExpandCollapse", cookieArray, href.substring(1), "hide", expires);
-			e.preventDefault();
-		}
-	});
-		
-	/*
-	 * Cookie Code
-	 */
-	
-	function updateid(cookieName, cookieContents, id, value, cookieExpire) {
-		cookieContents[id] = value;
-		updateCookie(cookieName, cookieContents, cookieExpire);
-	}
-	
-	function deleteid(cookieName, cookieContents, id, cookieExpire) {
-		delete cookieContents[id];		
-		updateCookie(cookieName, cookieContents, cookieExpire);
-	}
-	
-	function updateCookie(cookieName, cookieContents, cookieExpire) {
-		var temp = "";
-		for (var i in cookieContents)
-		{
-				temp += (i + "#" + cookieContents[i] + ";");
-		}		
-		
-		if (!cookieExpire)
-			var cookieExpire = null;
-		
-		$.cookie(cookieName, temp, {path: '/', expires: cookieExpire});
-	}
-	
-	// format is id#page;id#page
-	function readCookie(cookieName, cookieContents) {
-		var cookie = $.cookie(cookieName);
-		if (cookie)
-		{
-			var elements = cookie.split(';');
-		
-			for (var i = 0; i < elements.length; i++) {
-				if (elements[i] != "") 
-				{
-					var value = elements[i].split("#");
-					var page = value[0];
-					var value = value[1];
-					cookieContents[page] = value;
-				}				
-			}		
-		}		
-	}
-	
-	function eraseCookie(cookieName) {
-		$.cookie(cookieName, null, {path: "/"});
-	}	
+    // Check to see if any values have been passed to overwrite the defaults
+    var htmlContracted = htmlValues ? htmlValues[0] : 'More';
+    var htmlExpanded = htmlValues ? htmlValues[1] : 'Close';
+
+    if (useCookies()) {
+        readCookie('legExpandCollapse', cookieArray);
+    } else {
+        eraseCookie('legExpandCollapse');
+    }
+
+    // default is to hide the element
+    if (href && useCookies() && (cookieArray[href.substring(1)] === 'show')) {
+        $this.html(htmlExpanded).addClass('close');
+        $target.show();
+    } else if (href && useCookies() && (cookieArray[href.substring(1)] === 'hide')) {
+        $this.html(htmlContracted)
+        $target.hide();
+    } else if (openByDefault) {
+        $this.html(htmlExpanded).addClass('close');
+        $target.show();
+    } else {
+        $this.html(htmlContracted);
+        $target.hide();
+    }
+
+    // Event Handlers
+    return $this.click(function (e) {
+        e.preventDefault();
+
+        if (!$this.hasClass('close')) {
+            $target.slideDown(400);
+            $this.html(htmlExpanded).toggleClass('close');
+            if (useCookies()) {
+                updateIdInCookie('legExpandCollapse', cookieArray, href.substring(1), 'show', expires);
+            }
+        } else {
+            $target.slideUp(400);
+            $this.html(htmlContracted).toggleClass('close');
+            if (useCookies()) {
+                updateIdInCookie('legExpandCollapse', cookieArray, href.substring(1), 'hide', expires);
+            }
+        }
+    });
+
+    // ------------------------------
+    // Cookie functions
+    // ------------------------------
+
+    /**
+     * Update the cookie value for item with given ID.
+     *
+     * @param {string} cookieName
+     * @param {object} cookieContents
+     * @param {string} id
+     * @param {string} value
+     * @param {number} cookieExpire
+     */
+    function updateIdInCookie(cookieName, cookieContents, id, value, cookieExpire) {
+        cookieContents[id] = value;
+        updateCookie(cookieName, cookieContents, cookieExpire);
+    }
+
+    /**
+     * Persist data to cookie by serializing object into a string.
+     *
+     * @param {string} cookieName
+     * @param {object} cookieContents
+     * @param {number|null} cookieExpire
+     */
+    function updateCookie(cookieName, cookieContents, cookieExpire) {
+        var contentAsString = '';
+
+        for (var i in cookieContents) {
+            contentAsString += (i + '#' + cookieContents[i] + ';');
+        }
+
+        if (!cookieExpire) {
+            cookieExpire = null;
+        }
+
+        $.cookie(cookieName, contentAsString, {path: '/', expires: cookieExpire});
+    }
+
+    /**
+     * Deserializes the cookie string into an object.
+     *
+     * Cookie string format is id#page;id#page
+     *
+     * @param {string} cookieName
+     * @param {object} cookieContents
+     * @returns {object}
+     */
+    function readCookie(cookieName, cookieContents) {
+        var cookie = $.cookie(cookieName);
+        if (cookie) {
+            var elements = cookie.split(';');
+
+            for (var i = 0; i < elements.length; i++) {
+                if (elements[i] != '') {
+                    var value = elements[i].split('#');
+                    var page = value[0];
+                    var value = value[1];
+                    cookieContents[page] = value;
+                }
+            }
+        }
+
+        return cookieContents;
+    }
+
+    /**
+     * Remove persisted cookie.
+     *
+     * @param {string} cookieName
+     */
+    function eraseCookie(cookieName) {
+        if ($.cookie(cookieName)) {
+            $.removeCookie(cookieName, {path: '/'});
+        }
+    }
 };
 /*
 (c)  Crown copyright
@@ -1088,170 +1229,257 @@ $.fn.legModalWin = function(options){
 };
 /*
 (c)  Crown copyright
- 
+
 You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
+
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
+/**
+ * Small banner plugin to add banners to the main site.
+ *
+ * Optionally can have onClose() and onClick() handlers passed to allow for cookie persistence management.
+ *
+ * The option.doShow() function should return a boolean value to determine if the banner is shown or not.
+ *
+ * @param {[{[id]: string, [closeBtnSelector]: string, [doShow]: function|boolean, [onClose]: function, [onClick]: function}]} options
+ *   Options for the plugin.
+ * @returns {[]|jQuery|HTMLElement}
+ *   jQuery chaining/fluent interface.
+ */
+$.fn.simpleBanner = function (options) {
+
+    return $(this).each(function () {
+
+        var defaultOptions = {
+            closeBtnSelector: '.banner-close',
+            doShow: function () {
+                return true;
+            }
+        };
+
+        options = options || {};
+        options = $.extend(defaultOptions, options);
+
+        var $banner = $('<div class="banner" />');
+        var context = this;
+
+        if (options.id) {
+            $banner.attr('id', options.id);
+        }
+
+        $banner.append(this);
+
+        if (options.doShow && options.doShow()) {
+            $('#top').after($banner);
+        } else {
+            return;
+        }
+
+        if (options.closeBtnSelector) {
+
+            var $button = $banner.find(options.closeBtnSelector);
+
+            $button.click(function (e) {
+                e.preventDefault();
+                options.onClose(e);
+                context.close();
+            });
+        }
+
+        if (options.onClick) {
+            $banner.click(function (event) {
+                options.onClick.call(context, event);
+            });
+        }
+
+        this.close = function () {
+            $banner.slideUp(500, function () {
+                $banner.remove();
+            });
+        }
+    });
+
+}
 /*
+(c)  Crown copyright
 
-Legislation Table of Content Expand and Collapse
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
 
-One-liner: Expand and collapse ToC elements with the controlling link being created by another function
-Usage: .legToCExpandCollapse();
-Requirements: jQuery framework: http://jquery.com/
-
-History:
-v0.01	GM	Created
-v0.02	GM	2010-03-12	Modified to include different default states, initiated by class driven by XHTML
-v0.03	TE	2010-04-19	Added Cookie persistance
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
-$.fn.legTocExpandCollapse = function(pageID, cookieExpire){
-	
-	// using this method for inserting text and relying on CSS to show correct atrribute as less intensive on DOM.
-	// The divider is made availalable in case CSS is disabled.
-	
-	$(this).html('<span class="tocExpandText">' + config.links.message3[LANG] + '</span><span class="tocTextDivider">/</span><span class="tocCollapseText">' + config.links.message4[LANG] + '</span>');
+/**
+ * Legislation Table of Contents (ToC) Expand and Collapse.
+ *
+ * Used to add expand/collapse functionality to a ToC link element (that is created by another process), e.g.:
+ * $(link).legTocExpandCollapse('pageId', 5);
+ *
+ * @param {string} pageId
+ *   Uniquely identifiable page name.
+ * @param {number} cookieExpire
+ *   How long to persist the cookie.
+ * @returns {jQuery}
+ *   jQuery chaining/fluent interface.
+ */
+$.fn.legTocExpandCollapse = function (pageId, cookieExpire) {
 
- 
+    var COOKIE_ID = 'legTocExpandCollapse';
+    var state = {};
+    var $this = $(this);
+    var useCookies = function () {
+        return window.legGlobals.cookiePolicy.settings;
+    };
 
-	// Find the default state from the XHTML and apply
-	var tocDefaultState;
-	
-	////////////////////////////////////////////////////////
-		
-	var oldPageID = "default";
-	var associativeArray = readCookie();
-	
-	if (oldPageID != pageID) {
-		eraseCookie();
-		associativeArray = new Object();
-	}
-		
-	// if cookie stored for related id, expand part
-	$(this).each(function () {
-			var part = $(this).parent();		
-			
-			// if saved and default expanded, collapse. Saved and default collapsed, expand
-			if(readid(part.attr("id")) != null)
-			{
-				if (part.is(".tocDefaultExpanded"))
-					$(this).nextAll("ol").slideUp(0);				
-				else																					
-					$(this).addClass("expand");				
-			}
-			
-			// default expanded: expand. default collapsed: collapse
-			else 
-			{
-				if(part.is(".tocDefaultExpanded"))
-					$(this).addClass("expand");				
-				else																					
-					$(this).nextAll("ol").slideUp(0);				
-			}
-	 });
-	
-	// toggle between expand and collapse. State appended to cookie if different from default
-	$(this).each(function () {
-			$(this).click(function(e){
-					e.preventDefault(); // disable anchor link
-					var part = $(this).parent();
-					$(this).toggleClass("expand");
-					$(this).nextAll("ol").slideToggle(400).toggleClass("expanded");
-					
-					if (part.is(".tocDefaultExpanded") && !$(this).is(".expand"))			
-								updateid(part.attr("id"));						
-					else if (part.is(".tocDefaultCollapse") && $(this).is(".expand"))					
-								updateid(part.attr("id"));		
-					else
-								deleteid(part.attr("id"));
-			});
-	});
-	
-	// add click handler to Expand all and Collapse all buttons
-	$(".tocCollapseAll").click(function(event){
-					event.preventDefault();					
-					$("a.expandCollapseTocLink").removeClass("expand").nextAll("ol").hide();
-					
-					$("a.expandCollapseTocLink").each(function() {	
-							var part = $(this).parent();																			 
-							if (part.is(".tocDefaultExpanded"))			
-								updateid(part.attr("id"));	
-							else
-								deleteid(part.attr("id"));
-					});					
-	});
-	
-	$(".tocExpandAll").click(function(event){
-					event.preventDefault();					
-					$(".expandCollapseTocLink").addClass("expand").nextAll("ol").show();
-					
-					$("a.expandCollapseTocLink").each(function() {
-							var part = $(this).parent();																			 
-							if (part.is(".tocDefaultCollapse"))					
-								updateid(part.attr("id"));		
-							else
-								deleteid(part.attr("id"));
-					});					
-	});
+    if (useCookies()) {
+        state = readCookie();
+    } else {
+        eraseCookie();
+    }
 
-	function updateid(id) {
-		associativeArray[id] = "";		
-		updateCookie();
-	}
-	
-	function deleteid(id) {
-		delete associativeArray[id];		
-		updateCookie();
-	}
-	
-	// write associativeArray contents to cookie
-	function updateCookie() {
-		
-		var temp = pageID + ";";
-		for (var i in associativeArray)
-		{
-				temp += (i + "#");
-		}		
-		
-		$.cookie("legTocExpandCollapse", temp, {path: '/', expires: cookieExpire});
-		//document.cookie = pageID + "=" + temp + expires + "; path=/";
-	}
-	
-	function readCookie(){
-		var associative = new Object();
-		
-		var name = $.cookie("legTocExpandCollapse")
-		if (name) {
-			var split = name.split(";");
-			
-			if (split.length > 1) {
-				oldPageID = split[0];
-				var values = split[1].split("#");
-				
-				for (var i = 0; i < values.length; i++) {
-					if (values[i] != "")
-						associative[values[i]] = "";
-				}
-			}
-		}
-		return associative;
-		
-	}
-	
-	function readid(value)
-	{
-		if (associativeArray != null)
-			return associativeArray[value];
-		else
-			return null;
-	}
-	
-	function eraseCookie() {
-		$.cookie("legTocExpandCollapse", null, {path: "/"});
-	}
+    // Using this method for inserting text and relying on CSS to show correct attribute as less intensive on DOM.
+    // The divider is made available in case CSS is disabled.
+    $this
+        .html('<span class="tocExpandText">' + config.links.message3[LANG] + '</span>' +
+            '<span class="tocTextDivider">/</span>' +
+            '<span class="tocCollapseText">' + config.links.message4[LANG] + '</span>');
+
+    // if cookie stored for related id, expand part
+    $this.each(function () {
+        var $link = $(this);
+        var $part = $link.parent();
+
+        // if saved and default expanded, collapse. Saved and default collapsed, expand
+        if (readIdInState($part.attr('id'))) {
+            if ($part.is('.tocDefaultExpanded')) {
+                $link.nextAll('ol').slideUp(0);
+            } else {
+                $link.addClass('expand');
+            }
+        } else {
+            // default expanded: expand. default collapsed: collapse
+            if ($part.is('.tocDefaultExpanded')) {
+                $link.addClass('expand');
+            } else {
+                $link.nextAll('ol').slideUp(0);
+            }
+        }
+    });
+
+    // toggle between expand and collapse. State appended to cookie if different from default
+    $this.each(function () {
+
+        $(this).click(function (e) {
+            var $link = $(this);
+
+            // disable anchor link
+            e.preventDefault();
+
+            var $part = $link.parent();
+
+            $link.toggleClass('expand');
+            $link.nextAll('ol').slideToggle(400).toggleClass('expanded');
+
+            if ($part.is('.tocDefaultExpanded') && !$link.is('.expand')) {
+                updateId($part.attr('id'));
+            } else if ($part.is('.tocDefaultCollapse') && $link.is('.expand')) {
+                updateId($part.attr('id'));
+            } else {
+                deleteId($part.attr('id'));
+            }
+        });
+    });
+
+    /**
+     * Update the state with the value of the ID.
+     *
+     * @param {string} id
+     */
+    function updateId(id) {
+        state[id] = '';
+
+        if (useCookies()) {
+            updateCookie();
+        }
+    }
+
+    /**
+     * Delete the ID from the state.
+     *
+     * @param {string} id
+     */
+    function deleteId(id) {
+        delete state[id];
+
+        if (useCookies()) {
+            updateCookie();
+        }
+    }
+
+    // ------------------------------
+    // Cookie functions
+    // ------------------------------
+
+    /**
+     * Write state contents to cookie.
+     */
+    function updateCookie() {
+
+        var cookieContents = pageId + ';';
+        for (var i in state) {
+            cookieContents += (i + '#');
+        }
+
+        $.cookie(COOKIE_ID, cookieContents, {path: '/', expires: cookieExpire});
+    }
+
+    /**
+     * Read and deserialize the cookie values into an object.
+     *
+     * @returns {{}}
+     *   Values by ID key.
+     */
+    function readCookie() {
+        var associative = {};
+
+        var name = $.cookie(COOKIE_ID);
+        if (name) {
+            var split = name.split(';');
+
+            if (split.length > 1) {
+                var values = split[1].split('#');
+
+                for (var i = 0; i < values.length; i++) {
+                    if (values[i] !== '') {
+                        associative[values[i]] = '';
+                    }
+                }
+            }
+        }
+
+        return associative;
+    }
+
+    /**
+     * Read the value of the passed ID.
+     *
+     * @param {string} id
+     * @returns {*|null}
+     */
+    function readIdInState(id) {
+        return state && state[id] === '';
+    }
+
+    /**
+     * Delete the cookie used for persistence.
+     */
+    function eraseCookie() {
+        if ($.cookie(COOKIE_ID)) {
+            $.removeCookie(COOKIE_ID, {path: '/'});
+        }
+    }
+
+    return $this;
 };
 /*
 (c)  Crown copyright
