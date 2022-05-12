@@ -2843,8 +2843,15 @@ exclude-result-prefixes="tso atom">
 										<xsl:if test="not(ancestor::leg:Schedule and $g_strDocType = 'NorthernIrelandStatutoryRule')">
 											<xsl:attribute name="font-weight">bold</xsl:attribute>
 										</xsl:if>
-										<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
-										<xsl:text>.</xsl:text>
+										<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>										
+										<xsl:if test="ancestor::leg:P1[1]/leg:Pnumber and normalize-space(.) != ''">
+											<xsl:choose>
+												<xsl:when test="not(ancestor::leg:P1[1]/leg:Pnumber/@PuncAfter) and ancestor::leg:P1">.</xsl:when>
+												<xsl:otherwise>
+													<xsl:value-of select="ancestor::leg:P1[1]/leg:Pnumber/@PuncAfter"/>
+												</xsl:otherwise>
+											</xsl:choose>
+										</xsl:if>
 									</fo:inline>
 								</xsl:if>
 								<fo:leader leader-pattern="space" leader-length="0.5em"/>

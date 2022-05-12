@@ -894,10 +894,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<!-- Affecting Year and Number-->
 	<xsl:template match="ukm:Effect" mode="resultsAffectingYearNumber">
 		<td class="centralCol">
-			<xsl:variable name="link" select="if (@AffectingClass = 'EuropeanUnionOther') then () else concat($langPrefix,'/id/', tso:GetUriPrefixFromType(@AffectingClass, @AffectingYear), '/', @AffectingYear, '/', @AffectingNumber)"/>
+			<xsl:variable name="link" select="if (@AffectingClass = ('EuropeanUnionOther', 'EuropeanUnionCorrigendum')) then () else concat($langPrefix,'/id/', tso:GetUriPrefixFromType(@AffectingClass, @AffectingYear), '/', @AffectingYear, '/', @AffectingNumber)"/>
 			<xsl:variable name="value">
 				<xsl:choose>
-					<xsl:when test="@AffectingClass = 'EuropeanUnionOther'">
+					<xsl:when test="@AffectingClass = ('EuropeanUnionOther', 'EuropeanUnionCorrigendum') and contains(@AffectingURI, 'CELEX:')">
 						<xsl:value-of select="substring-after(@AffectingURI, 'CELEX:')" />
 					</xsl:when>
 					<xsl:otherwise>
@@ -908,11 +908,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</xsl:choose>
 			</xsl:variable>
 			<xsl:sequence 
-				select="if (@AffectingClass = 'EuropeanUnionOther' and matches(@AffectingURI, '^https://eur-lex\.europa\.eu')) then 
+				select="if (@AffectingClass = ('EuropeanUnionOther', 'EuropeanUnionCorrigendum') and matches(@AffectingURI, '^https://eur-lex\.europa\.eu')) then 
 				(leg:makeLink(@AffectingClass,tso:generateWebArchiveURI(@AffectingURI), $value)) else 
-				if (@AffectingClass = 'EuropeanUnionOther' and matches(@AffectingURI, '^https://webarchive.nationalarchives.gov.uk/eu-exit/')) then 
+				if (@AffectingClass = ('EuropeanUnionOther', 'EuropeanUnionCorrigendum') and matches(@AffectingURI, '^https://webarchive.nationalarchives.gov.uk/eu-exit/')) then 
 				(leg:makeLink(@AffectingClass,@AffectingURI, $value)) 
-				else  leg:makeLink(@AffectingClass, $link, $value)"/>
+				else  if (@AffectingClass = 'EuropeanUnionCorrigendum') then 
+				(leg:makeLink(@AffectingClass,@AffectingURI, $value))  else leg:makeLink(@AffectingClass, $link, $value)"/>
 		</td>
 	</xsl:template>
 
@@ -924,8 +925,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:apply-templates select="ukm:AffectingProvisions" />
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:variable name="link" select="concat('/', substring-after(@AffectingURI, 'www.legislation.gov.uk/'))"/>
-					<xsl:sequence select="leg:makeLink(@AffectingClass, $link, @AffectingProvisions)"/>
+					<xsl:choose>
+						<xsl:when test="@AffectingClass = 'EuropeanUnionCorrigendum' and contains(@AffectingURI, 'CELEX:')">
+							<xsl:variable name="link" select="@AffectingURI"/>
+							<xsl:sequence select="leg:makeLink(@AffectingClass, $link, @AffectingProvisions)"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:variable name="link" select="concat('/', substring-after(@AffectingURI, 'www.legislation.gov.uk/'))"/>
+							<xsl:sequence select="leg:makeLink(@AffectingClass, $link, @AffectingProvisions)"/>
+						</xsl:otherwise>
+					</xsl:choose>
+					
 				</xsl:otherwise>
 			</xsl:choose>
 		</td>
