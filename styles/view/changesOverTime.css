@@ -25,7 +25,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #changesOverTime #timeline #timelineData {float: left;}
 
 /* Timeline list layout */
-#changesOverTime #timeline #timelineData ul {float: left; height: 10em; min-height: 84px; padding-top:4.6em; padding-left: 53px; width: 100%; background: url(/images/chrome/pointInTimeBg.gif) 0 6em repeat-x;}
+#changesOverTime #timeline #timelineData ul {float: left; height: 10em; min-height: 84px; padding-top:4.6em; padding-left: 63px; width: 100%; background: url(/images/chrome/pointInTimeBg.gif) 0 6em repeat-x;}
 #changesOverTime #timeline #timelineData ul li {background: url(/images/chrome/pointInTimeTimelineBg.png) 0 0 repeat-x; padding:15px 0 0 0; float: left; margin-top:30px; font-size: 0.9em;}
 #changesOverTime #timeline #timelineData ul li.notretained {background:none; padding:15px 0 0 0; float: left; margin-top:30px; font-size: 0.9em;}
 #changesOverTime #timeline #timelineData ul li.beginning {}
@@ -60,7 +60,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #changesOverTime #timeline #timelineData ul li.currentVersion {background: url(/images/chrome/pointInTimeTimelineBgActive.png) 0 0 repeat-x;}
 #changesOverTime #timeline #timelineData ul li.currentProspective {background: url(/images/chrome/pointInTimeBgProspActive.gif) 0 0 repeat-x;}
 #changesOverTime #timeline #timelineData ul li.prospective {background: url(/images/chrome/pointInTimeBgProspective.gif) 0 0 repeat-x;}
-#changesOverTime #timeline #timelineData ul li.dash {background: url(/images/chrome/pointInTimeBgProspective.gif) 0 0 repeat-x;}
+#changesOverTime #timeline #timelineData ul li.repealed,
+#changesOverTime #timeline #timelineData ul li.future
+{background: url(/images/chrome/pointInTimeBgProspective.gif) 0 0 repeat-x;}
 
 
 
@@ -84,8 +86,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #changesOverTime #timeline .currentVersion .pointer-eu {background: url(/images/chrome/pit-marker-eu-active.png) 0 0 no-repeat; background-size: cover;}
 #changesOverTime #timeline .currentVersion .pointer-uk {background: url(/images/chrome/pit-marker-uk-active.png) 0 0 no-repeat; background-size: cover;}
 #changesOverTime #timeline .stopDate .pointer {background: url(/images/chrome/pointInTimeMarkerStop.gif) 0 0 no-repeat;}
+#changesOverTime #timeline .currentVersion .euexitday-deal .pointer,
+#changesOverTime #timeline .currentVersion  .euexitday .pointer { background: url(/images/chrome/pit-dot-active.png) 50% 25% no-repeat; width: 37px; height: 35px; margin-left: 5px;}
 #changesOverTime #timeline .euexitday-deal .pointer,
-#changesOverTime #timeline .euexitday .pointer { background: url(/images/chrome/pit-dot-active.png) 50% 25% no-repeat; width: 37px; height: 35px; margin-left: 5px;}
+#changesOverTime #timeline .euexitday .pointer { background: url(/images/chrome/pit-dot.png) 50% 25% no-repeat; width: 37px; height: 35px; margin-left: 5px;}
+
 #changesOverTime #timeline span.end {display: block; background-color:#000; background: url(/images/chrome/pointInTimeTimelineBgArr.png) 0 0 no-repeat; height: 40px; width: 18px; float: right; margin-top: -22px; margin-right: -10px;}
 #changesOverTime #timeline .currentVersion span.end {background: url(/images/chrome/pointInTimeTimelineBgActArr.png) 0 0 no-repeat;}
 #changesOverTime #timeline .currentProspective span.end {background: url(/images/chrome/pointInTimeTimelineBgActArr.png) 0 0 no-repeat;}
@@ -124,7 +129,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 * html #changesOverTime #timeline #timelineData ul li.currentVersion {background: url(/images/chrome/pointInTimeTimelineBgActive.png) 0 10px repeat-x;}
 * html #changesOverTime #timeline #timelineData ul li.currentProspective {background: url(/images/chrome/pointInTimeBgProspActive.gif) 0 10px repeat-x;}
 * html #changesOverTime #timeline #timelineData ul li.prospective {background: url(/images/chrome/pointInTimeBgProspective.gif) 0 10px repeat-x;}
-* html #changesOverTime #timeline #timelineData ul li.dash {background: url(/images/chrome/pointInTimeBgProspective.gif) 0 10px repeat-x;}
+* html #changesOverTime #timeline #timelineData ul li.repealed,
+* html #changesOverTime #timeline #timelineData ul li.future
+{background: url(/images/chrome/pointInTimeBgProspective.gif) 0 10px repeat-x;}
 * html #changesOverTime #timeline #timelineData ul li .currentVersion,
 * html #changesOverTime #timeline #timelineData ul li a {margin: -15px 0 0 0;}
 * html #changesOverTime #timeline .pointer {margin-left: 0;}

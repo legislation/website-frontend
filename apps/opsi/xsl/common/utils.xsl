@@ -309,7 +309,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:value-of select="leg:TranslateText('All')"/>
 				<xsl:text> </xsl:text>
 				<xsl:if test="not($showUnrevised)"><xsl:value-of select="leg:TranslateText('Revised')"/><xsl:text> </xsl:text></xsl:if>
-				<xsl:value-of select="leg:TranslateText('UK Legislation (including originating from the EU)')"/>
+				<xsl:value-of select="leg:TranslateText('Legislation (including originating from the EU)')"/>
 				<!--<xsl:if test="$showUnrevised"> (<xsl:value-of select="leg:TranslateText('excluding draft')"/>)</xsl:if>-->
 			</option>
 		</xsl:if>
