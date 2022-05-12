@@ -105,7 +105,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<script type="text/javascript" src="/scripts/jquery-cookie-directive/jquery.cookie.js"></script>
 				<script type="text/javascript" src="/scripts/jquery-cookie-directive/jquery-cookie-functions.js"></script>
 				<script type="text/javascript" src="/scripts/cookie-directive.js"></script>
-				<xsl:call-template name="GTMHead"/>
+				<xsl:call-template name="GoogleTagManager"/>
 			</head>
 			<body>
 				<xsl:copy-of select="xhtml:body/@*"/>
@@ -202,6 +202,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 					<!-- footer -->
 					<xsl:call-template name="footer"/>
+					<xsl:call-template name="GoogleTagManagerNoScript"/>
 				</div>
 				<!--/#layout1-->
 
@@ -755,7 +756,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:value-of select="concat(encode-for-uri(string-join($url, '.')), '&amp;', string-join($queryParams, '&amp;'))"/>
 	</xsl:function>
 	 -->
-	<xsl:template name="GTMHead">
+	<xsl:template name="GoogleTagManager">
 		<!--
 			GTM code should be managed by a front-end developer.
 			Due to XHTML being presented with the correct MIME-type of application/xhtml+xml a <noscript>
@@ -767,37 +768,51 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			GTM JS to run as it relies on cookies. The noscript alternative does not set a cookie.
 		-->
 		<xsl:comment>Google Tag Manager</xsl:comment>
+		<script type="text/javascript">
+			function addGtm(w, d, s, l, i) {
+				// Legislation.gov.uk: Check cookie preferences before running the Google analytics code.
+				if (window.legGlobals.cookiePolicy.userSet &amp;&amp; window.legGlobals.cookiePolicy.analytics) {
+					w[l] = w[l] || [];
+					w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+					var and = '&amp;';
+					and = and.charAt(0);
+					var f = d.getElementsByTagName(s)[0], j = d.createElement(s),
+							dl = l != 'dataLayer' ? (and + 'l=' + l) : '';
+					j.async = true;
+					j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+					f.parentNode.insertBefore(j, f);
+				} else {
+					$.removeCookie('_ga', {path: '/'});
+					$.removeCookie('_gid', {path: '/'});
+					$.removeCookie('_gat_UA-2827241-23', {path: '/'});
+					$.removeCookie('_ga', {path: '/', domain: '.legislation.gov.uk'});
+					$.removeCookie('_gid', {path: '/', domain: '.legislation.gov.uk'});
+					$.removeCookie('_gat_UA-2827241-23', {path: '/', domain: '.legislation.gov.uk'});
+				}
+			}
+			addGtm(window, document, 'script', 'dataLayer', 'GTM-TWB7339');
+
+			$('body').live('cookie.preferences.saved.banner', function () {
+				addGtm(window, document, 'script', 'dataLayer', 'GTM-TWB7339');
+			});
+		</script>
+		<xsl:comment>End Google Tag Manager</xsl:comment>
+	</xsl:template>
+
+	<xsl:template name="GoogleTagManagerNoScript">
+		<xsl:comment>Google Tag Manager NoScript</xsl:comment>
 		<div id="google-tag-manager">
 			<script type="text/javascript">
-				(function (w, d, s, l, i) {
-					// Legislation.gov.uk: Check cookie preferences before running the Google analytics code.
-					if (window.legGlobals.cookiePolicy.userSet &amp;&amp; window.legGlobals.cookiePolicy.analytics) {
-						w[l] = w[l] || [];
-						w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
-						var and = '&amp;';
-						and = and.charAt(0);
-						var f = d.getElementsByTagName(s)[0], j = d.createElement(s),
-								dl = l != 'dataLayer' ? (and + 'l=' + l) : '';
-						j.async = true;
-						j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-						f.parentNode.insertBefore(j, f);
-						document.getElementById('google-tag-manager').remove();
-					} else {
-						$.removeCookie('_ga', {path: '/'});
-						$.removeCookie('_gid', {path: '/'});
-						$.removeCookie('_gat_UA-2827241-23', {path: '/'});
-						$.removeCookie('_ga', {path: '/', domain: '.legislation.gov.uk'});
-						$.removeCookie('_gid', {path: '/', domain: '.legislation.gov.uk'});
-						$.removeCookie('_gat_UA-2827241-23', {path: '/', domain: '.legislation.gov.uk'});
-					}
-
-				})(window, document, 'script', 'dataLayer', 'GTM-TWB7339');
+				if (window.legGlobals.cookiePolicy.userSet &amp;&amp; window.legGlobals.cookiePolicy.analytics) {
+					var toRemove = document.getElementById('google-tag-manager');
+					document.getElementById('google-tag-manager').parentNode.removeChild(toRemove);
+				}
 			</script>
 			<div style="visibility: hidden; height: 0; width: 0; overflow: hidden; position: absolute">
 				<object data="https://www.googletagmanager.com/ns.html?id=GTM-TWB7339" height="0" width="0" type="text/html"></object>
 			</div>
 		</div>
-		<xsl:comment>End Google Tag Manager</xsl:comment>
+		<xsl:comment>End Google Tag Manager NoScript</xsl:comment>
 	</xsl:template>
 
 </xsl:stylesheet>

@@ -171,6 +171,13 @@ $(function () {
             });
     }
 
+    // If cookies are not accepted then images are injected onto the site for server-side analytics
+    if (!window.legGlobals.cookiePolicy.userSet) {
+        $('body').append('<img src="/images/analytics/cookiesBannerIgnored.gif" alt="" />');
+    } else if (!window.legGlobals.cookiePolicy.analytics) {
+        $('body').append('<img src="/images/analytics/cookiesForAnalyticsRejected.gif" alt="" />');
+    }
+
 });
 
 /**

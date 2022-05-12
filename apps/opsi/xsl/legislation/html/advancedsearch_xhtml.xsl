@@ -884,7 +884,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:if test="$invalidSeries">
 							<xsl:attribute name="class">error</xsl:attribute>
 						</xsl:if>
-						<option><xsl:value-of select="leg:TranslateText('Main')"/></option>
+						<option value=""><xsl:value-of select="leg:TranslateText('Main')"/></option>
 						<option value="w"><xsl:value-of select="leg:TranslateText('Welsh')"/></option>
 						<option value="s"><xsl:value-of select="leg:TranslateText('Scottish')"/></option>
 						<option value="ni"><xsl:value-of select="leg:TranslateText('N.I.')"/></option>
