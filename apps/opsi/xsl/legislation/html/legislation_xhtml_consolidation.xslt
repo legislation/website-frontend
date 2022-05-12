@@ -39,6 +39,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <xsl:import href="legislation_global_variables.xslt"/>
 <xsl:import href="../../common/utils.xsl"/>
 <xsl:import href="process-annotations.xslt"/>
+<xsl:import href="statuswarning.xsl"/>
 
 
 <xsl:output method="xml" version="1.0" omit-xml-declaration="yes"  indent="no" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
@@ -92,6 +93,52 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <xsl:param name="selectedSection" as="element()?" select="()" />
 
 <xsl:variable name="selectedSectionSubstituted" as="xs:boolean" select="false()" />
+
+<!-- initializing the introductory text & signature text-->
+<!-- NOTE these variables are for content welsh NOT for page furniture welsh-->
+	<xsl:variable name="introductoryText">
+		<xsl:choose>
+			<xsl:when test="leg:IsCurrentWelsh(/)">
+				<xsl:text>Testun rhagarweiniol</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>Introductory Text</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	
+	<xsl:variable name="signatureText">
+		<xsl:choose>
+			<xsl:when test="leg:IsCurrentWelsh(/)">
+				<xsl:text>Llofnod</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>Signature</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	
+	<xsl:variable name="noteText">
+		<xsl:choose>
+			<xsl:when test="leg:IsCurrentWelsh(/)">
+				<xsl:text>Nodyn Esboniadol</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>Explanatory Note</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	
+	<xsl:variable name="earlierOrdersText">
+		<xsl:choose>
+			<xsl:when test="leg:IsCurrentWelsh(/)">
+				<xsl:text>Nodyn Orchymyn Cychwyn Blaenorol</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>Note as to Earlier Commencement Orders</xsl:text>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
 
 <!-- ========= Code for consolidation ========== -->
 
@@ -415,6 +462,148 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<!-- added by Yashashri - call No : HA050979 - Links to EU legislation should not appear in TOC -->	
 	<xsl:template match="leg:ContentsSchedule/leg:ContentsTitle/leg:Citation">
 		<xsl:apply-templates/>
+	</xsl:template>
+	
+	<xsl:template match="leg:ContentsPart[* except (leg:ContentsNumber, leg:ContentsTitle)] | leg:ContentsEUPart[* except (leg:ContentsNumber, leg:ContentsTitle)]" priority="10">
+		<xsl:param name="searchingByText" tunnel="yes" as="xs:string?"  />
+		<xsl:param name="searchingByExtent" tunnel="yes" as="xs:string?"  />
+				
+		<li class="LegClearFix LegContentsPart{if (@ConfersPower='true') then ' LegConfersPower' else ()} tocDefault{
+		if ($searchingByText and $searchingByExtent) then
+				if (exists(descendant-or-self::*[@MatchText='true' and @MatchExtent='true'])) then 'Expanded' else 'Collapse'
+			else if ($searchingByText or $searchingByExtent) then
+				if (exists(descendant-or-self::*[@MatchText='true' or @MatchExtent='true'])) then 'Expanded' else 'Collapse'
+			else
+			if (ancestor::leg:ContentsSchedule) then 'Expanded' else 'Expanded'}
+		">
+			<xsl:call-template name="FuncTocListContents"/>
+		</li>
+		<xsl:call-template name="FuncApplyVersions"/>
+	</xsl:template>
+	
+	<xsl:template match="leg:ContentsSchedule">
+		<xsl:param name="searchingByText" tunnel="yes" as="xs:string?"  />
+		<xsl:param name="searchingByExtent" tunnel="yes" as="xs:string?"  />
+		<li class="LegClearFix LegContentsSchedule{if (@ConfersPower='true') then ' LegConfersPower' else ()} tocDefault{
+			if ($searchingByText and $searchingByExtent) then
+				if (exists(descendant-or-self::*[@MatchText='true' and @MatchExtent='true'])) then 'Expanded' else 'Collapse'
+			else if ($searchingByText or $searchingByExtent) then
+				if (exists(descendant-or-self::*[@MatchText='true' or @MatchExtent='true'])) then 'Expanded' else 'Collapse'
+			else
+				'Collapse'}">
+			<xsl:call-template name="FuncTocListContents"/>
+		</li>
+		<xsl:call-template name="FuncApplyVersions"/>
+	</xsl:template>
+
+	<xsl:template match="leg:Contents/leg:ContentsTitle" priority="1000">
+	</xsl:template>
+
+	<!-- adding the Introductory Text -->
+	<!-- Chunyu:adding 'not(ancestor::leg:Schedules)' for introductory text, signature and explanatory note to prevent them appering on the tocs for schedules -->
+	<xsl:template
+			match="leg:Contents/*[not(self::leg:ContentsTitle) and not(ancestor::leg:Schedules) and not(ancestor::leg:BlockAmendment)][1] "
+			priority="1000">
+		<xsl:param name="matchRefs" tunnel="yes" select="''"/>
+		<xsl:param name="linkFragment" tunnel="yes" as="xs:string?" select="()" />
+		<xsl:variable name="matchIndex" as="xs:integer?" select="index-of($matchRefs, 'introduction')[1]"/>
+		<li class="LegContentsEntry">
+			<p class="LegContentsItem LegClearFix">
+				<span class="LegDS LegContentsTitle{if (exists($matchIndex)) then ' LegSearchResult' else ()}">
+					<xsl:if test="exists($matchIndex)">
+						<xsl:attribute name="id" select="concat('match-', $matchIndex)"/>
+					</xsl:if>
+					<a href="{substring-after($g_strIntroductionUri, 'http://www.legislation.gov.uk')}{$contentsLinkParams}{$linkFragment}">
+						<xsl:value-of select="$introductoryText"/>
+					</a>
+				</span>
+				<xsl:call-template name="matchLinks">
+					<xsl:with-param name="matchIndex" select="$matchIndex"/>
+				</xsl:call-template>
+			</p>
+		</li>
+		<xsl:next-match/>
+	</xsl:template>
+
+	<!-- adding the Signature Text -->
+	<xsl:template
+			match="leg:Contents/*[not(self::leg:ContentsTitle) and not(ancestor::leg:Schedules) and not(ancestor::leg:BlockAmendment) and not(self::leg:ContentsSchedules) and not(self::leg:ContentsAttachments)][position()=last()]"
+			priority="999">
+		<xsl:param name="matchRefs" tunnel="yes" select="''"/>
+		<xsl:param name="linkFragment" tunnel="yes" as="xs:string?" select="()" />
+		<xsl:next-match/>
+		<xsl:if test="$g_strsignatureURI">
+			<xsl:variable name="matchIndex" as="xs:integer?" select="index-of($matchRefs, 'signature')[1]"/>
+			<li class="LegContentsEntry">
+				<p class="LegContentsItem LegClearFix">
+					<span class="LegDS LegContentsNo{if (exists($matchIndex)) then ' LegSearchResult' else ()}">
+						<xsl:if test="exists($matchIndex)">
+							<xsl:attribute name="id" select="concat('match-', $matchIndex)"/>
+						</xsl:if>
+						<a href="{substring-after($g_strsignatureURI, 'http://www.legislation.gov.uk')}{$contentsLinkParams}{$linkFragment}">
+							<xsl:value-of select="$signatureText"/>
+						</a>
+					</span>
+					<xsl:call-template name="matchLinks">
+						<xsl:with-param name="matchIndex" select="$matchIndex"/>
+					</xsl:call-template>
+				</p>
+			</li>
+		</xsl:if>
+	</xsl:template>
+
+	<!-- adding the Explanatory Notes link -->
+	<xsl:template
+			match="leg:Contents/*[not(self::leg:ContentsTitle) and not(ancestor::leg:Schedules) and not(ancestor::leg:BlockAmendment)][position()=last()]"
+			priority="2000">
+		<xsl:param name="matchRefs" tunnel="yes" select="''"/>
+		<xsl:param name="linkFragment" tunnel="yes" as="xs:string?" select="()" />
+		<xsl:next-match/>
+		<xsl:if test="$g_strENURI">
+			<xsl:variable name="matchIndex" as="xs:integer?" select="index-of($matchRefs, 'note')[1]"/>
+			<li class="LegContentsEntry">
+				<p class="LegContentsItem LegClearFix">
+					<span class="LegDS LegContentsNo{if (exists($matchIndex)) then ' LegSearchResult' else ()}">
+						<xsl:if test="exists($matchIndex)">
+							<xsl:attribute name="id" select="concat('match-', $matchIndex)"/>
+						</xsl:if>
+						<a href="{substring-after($g_strENURI, 'http://www.legislation.gov.uk')}{$contentsLinkParams}{$linkFragment}">
+							<xsl:value-of select="$noteText"/>
+						</a>
+					</span>
+					<xsl:call-template name="matchLinks">
+						<xsl:with-param name="matchIndex" select="$matchIndex"/>
+					</xsl:call-template>
+				</p>
+			</li>
+		</xsl:if>
+	</xsl:template>
+
+	<!-- adding the Earlier ORders link -->
+	<xsl:template
+			match="leg:Contents/*[not(self::leg:ContentsTitle) and not(ancestor::leg:BlockAmendment)][position()=last()]"
+			priority="3000">
+		<xsl:param name="matchRefs" tunnel="yes" select="''"/>
+		<xsl:param name="linkFragment" tunnel="yes" as="xs:string?" select="()" />
+		<xsl:next-match/>
+		<xsl:if test="$g_strEarlierOrdersURI">
+			<xsl:variable name="matchIndex" as="xs:integer?" select="index-of($matchRefs, 'earlier-orders')[1]"/>
+			<li class="LegContentsEntry">
+				<p class="LegContentsItem LegClearFix">
+					<span class="LegDS LegContentsNo{if (exists($matchIndex)) then ' LegSearchResult' else ()}">
+						<xsl:if test="exists($matchIndex)">
+							<xsl:attribute name="id" select="concat('match-', $matchIndex)"/>
+						</xsl:if>
+						<a href="{substring-after($g_strEarlierOrdersURI, 'http://www.legislation.gov.uk')}{$contentsLinkParams}{$linkFragment}">
+							<xsl:value-of select="$earlierOrdersText"/>
+						</a>
+					</span>
+					<xsl:call-template name="matchLinks">
+						<xsl:with-param name="matchIndex" select="$matchIndex"/>
+					</xsl:call-template>
+				</p>
+			</li>
+		</xsl:if>
 	</xsl:template>
 
 <xsl:template name="matchLinks">

@@ -89,7 +89,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					select="$g_ndsMetadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/body' and @title='body']/@href"/>
 	<xsl:variable 	name="g_wholeActWithoutSchedulesURI" as="xs:string?"
 					select="$g_bodyURI"/>				
-					
+	<xsl:variable name="g_strEarlierOrdersURI" as="xs:string?"
+				  select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/earlier-orders']/@href"/>
+				
 
 	<!-- annotations and commentaries -->	
 	<xsl:variable 	name="g_wholeActAmendments" as="element()*"

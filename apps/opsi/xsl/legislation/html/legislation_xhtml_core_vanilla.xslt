@@ -685,9 +685,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:for-each select="node()[not(self::leg:ContentsNumber | self::leg:ContentsTitle) and not(self::processing-instruction()[following-sibling::leg:ContentsNumber or following-sibling::leg:ContentsTitle])]">
 				<xsl:choose>
 					<xsl:when test="self::leg:ContentsItem">
-						<li class="LegContentsEntry{if (@ConfersPower='true') then ' LegConfersPower' else ()}">
-							<xsl:apply-templates select="."/>
-						</li>			
+						<xsl:apply-templates select="."/>
 					</xsl:when>
 					<xsl:when test="self::text()[normalize-space() = '']"/>
 					<xsl:otherwise>
@@ -756,9 +754,11 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <xsl:template match="leg:ContentsItem">
-	<p class="LegContentsItem LegClearFix">
-		<xsl:apply-templates select="* | processing-instruction()"/>
-	</p>
+	<li class="LegContentsEntry{if (@ConfersPower='true') then ' LegConfersPower' else ()}">
+		<p class="LegContentsItem LegClearFix">
+			<xsl:apply-templates select="* | processing-instruction()"/>
+		</p>
+	</li>
 	<xsl:call-template name="FuncApplyVersions"/>
 </xsl:template>
 

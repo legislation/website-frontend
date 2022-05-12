@@ -53,11 +53,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="prospDoc" as="xs:string?"
 				  select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://purl.org/dc/terms/hasVersion' and @title = 'prospective']/@href"/>
 
-	<xsl:variable name="noteURI" as="xs:string?"
-				  select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/note']/@href"/>
-	<xsl:variable name="earlierOrdersURI" as="xs:string?"
-				  select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/earlier-orders']/@href"/>
-
+		
 	<xsl:variable name="tocURI" as="xs:string?" select="
 		if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://purl.org/dc/terms/tableOfContents'][@hreflang='cy'] and $language = 'cy') then
 			/leg:Legislation/ukm:Metadata/atom:link[@rel='http://purl.org/dc/terms/tableOfContents'][@hreflang='cy']/@href
@@ -159,7 +155,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="selectedSection" as="element()?"
 				  select="
 			if ($g_strwholeActURI = $dcIdentifier) then /leg:Legislation
-			else if ($dcIdentifier = ($g_strIntroductionUri, $g_strsignatureURI,  $earlierOrdersURI, $noteURI, $g_wholeActWithoutSchedulesURI)) then  /leg:Legislation/(leg:Primary | leg:Secondary | leg:EURetained)//*[@DocumentURI = $strCurrentURIs]
+			else if ($dcIdentifier = ($g_strIntroductionUri, $g_strsignatureURI,  $g_strEarlierOrdersURI, $g_strENURI, $g_wholeActWithoutSchedulesURI)) then  /leg:Legislation/(leg:Primary | leg:Secondary | leg:EURetained)//*[@DocumentURI = $strCurrentURIs]
 			else if ($dcIdentifier = $g_schedulesOnlyURI)  then /leg:Legislation/(leg:Primary | leg:Secondary | leg:EURetained)/leg:Schedules
 			else $nstSection"/>
 
@@ -238,48 +234,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="isDraft" as="xs:boolean" select="leg:IsDraft(.)"/>
 
 	<xsl:variable name="isBill" as="xs:boolean" select="leg:IsBill(.)"/>
-
-	<!-- initializing the introductory text & signature text-->
-	<xsl:variable name="introductoryText">
-		<xsl:choose>
-			<xsl:when test="leg:IsCurrentWelsh(/)">
-				<xsl:text>Testun rhagarweiniol</xsl:text>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:text>Introductory Text</xsl:text>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-	<xsl:variable name="signatureText">
-		<xsl:choose>
-			<xsl:when test="leg:IsCurrentWelsh(/)">
-				<xsl:text>Llofnod</xsl:text>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:text>Signature</xsl:text>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-	<xsl:variable name="noteText">
-		<xsl:choose>
-			<xsl:when test="leg:IsCurrentWelsh(/)">
-				<xsl:text>Nodyn Esboniadol</xsl:text>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:text>Explanatory Note</xsl:text>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-	<xsl:variable name="earlierOrdersText">
-		<xsl:choose>
-			<xsl:when test="leg:IsCurrentWelsh(/)">
-				<xsl:text>Nodyn Orchymyn Cychwyn Blaenorol</xsl:text>
-			</xsl:when>
-			<xsl:otherwise>
-				<xsl:text>Note as to Earlier Commencement Orders</xsl:text>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
 
 	<xsl:variable name="scheduleText">
 		<xsl:value-of select="if ($g_strDocumentType = $g_strEUretained) then 'Annex' else 'Schedule'"/>
@@ -422,7 +376,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<xsl:attribute name="class">legToc</xsl:attribute>
 						</xsl:when>
 
-						<xsl:when test="$dcIdentifier = ($g_strsignatureURI, $noteURI, $earlierOrdersURI)">
+						<xsl:when test="$dcIdentifier = ($g_strsignatureURI, $g_strENURI, $g_strEarlierOrdersURI)">
 							<xsl:attribute name="class">legContent</xsl:attribute>
 						</xsl:when>
 						<xsl:when test="leg:IsContent()">
@@ -1342,6 +1296,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:with-param name="includeTooltip" select="tso:IncludeInlineTooltip()" tunnel="yes"/>
 			<xsl:with-param name="linkFragment" select="$linkFragment" tunnel="yes"/>
 			<xsl:with-param name="showRepeals" select="$showRepeals" tunnel="yes"/>
+			<xsl:with-param name="searchingByText" select="$searchingByText" tunnel="yes"/>
+			<xsl:with-param name="searchingByExtent" select="$searchingByExtent" tunnel="yes"/>
 		</xsl:apply-templates>
 	</xsl:template>
 
@@ -1361,139 +1317,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:choose>-->
 	</xsl:template>
 
-	<!-- adding the Introductory Text -->
-	<!-- Chunyu:adding 'not(ancestor::leg:Schedules)' for introductory text, signature and explanatory note to prevent them appering on the tocs for schedules -->
-	<xsl:template
-			match="leg:Contents/*[not(self::leg:ContentsTitle) and not(ancestor::leg:Schedules) and not(ancestor::leg:BlockAmendment)][1] "
-			priority="1000">
-		<xsl:param name="matchRefs" tunnel="yes" select="''"/>
-		<xsl:variable name="matchIndex" as="xs:integer?" select="index-of($matchRefs, 'introduction')[1]"/>
-		<li class="LegContentsEntry">
-			<p class="LegContentsItem LegClearFix">
-				<span class="LegDS LegContentsTitle{if (exists($matchIndex)) then ' LegSearchResult' else ()}">
-					<xsl:if test="exists($matchIndex)">
-						<xsl:attribute name="id" select="concat('match-', $matchIndex)"/>
-					</xsl:if>
-					<a href="{leg:FormatURL($g_strIntroductionUri, false())}{$contentsLinkParams}{$linkFragment}">
-						<xsl:value-of select="$introductoryText"/>
-					</a>
-				</span>
-				<xsl:call-template name="matchLinks">
-					<xsl:with-param name="matchIndex" select="$matchIndex"/>
-				</xsl:call-template>
-			</p>
-		</li>
-		<xsl:next-match/>
-	</xsl:template>
-
-	<!-- adding the Signature Text -->
-	<xsl:template
-			match="leg:Contents/*[not(self::leg:ContentsTitle) and not(ancestor::leg:Schedules) and not(ancestor::leg:BlockAmendment) and not(self::leg:ContentsSchedules) and not(self::leg:ContentsAttachments)][position()=last()]"
-			priority="1000">
-		<xsl:param name="matchRefs" tunnel="yes" select="''"/>
-		<xsl:next-match/>
-		<xsl:if test="$g_strsignatureURI">
-			<xsl:variable name="matchIndex" as="xs:integer?" select="index-of($matchRefs, 'signature')[1]"/>
-			<li class="LegContentsEntry">
-				<p class="LegContentsItem LegClearFix">
-					<span class="LegDS LegContentsNo{if (exists($matchIndex)) then ' LegSearchResult' else ()}">
-						<xsl:if test="exists($matchIndex)">
-							<xsl:attribute name="id" select="concat('match-', $matchIndex)"/>
-						</xsl:if>
-						<a href="{leg:FormatURL($g_strsignatureURI, false())}{$contentsLinkParams}{$linkFragment}">
-							<xsl:value-of select="$signatureText"/>
-						</a>
-					</span>
-					<xsl:call-template name="matchLinks">
-						<xsl:with-param name="matchIndex" select="$matchIndex"/>
-					</xsl:call-template>
-				</p>
-			</li>
-		</xsl:if>
-	</xsl:template>
-
-	<!-- adding the Explanatory Notes link -->
-	<xsl:template
-			match="leg:Contents/*[not(self::leg:ContentsTitle) and not(ancestor::leg:Schedules) and not(ancestor::leg:BlockAmendment)][position()=last()]"
-			priority="2000">
-		<xsl:param name="matchRefs" tunnel="yes" select="''"/>
-		<xsl:next-match/>
-		<xsl:if test="$noteURI">
-			<xsl:variable name="matchIndex" as="xs:integer?" select="index-of($matchRefs, 'note')[1]"/>
-			<li class="LegContentsEntry">
-				<p class="LegContentsItem LegClearFix">
-					<span class="LegDS LegContentsNo{if (exists($matchIndex)) then ' LegSearchResult' else ()}">
-						<xsl:if test="exists($matchIndex)">
-							<xsl:attribute name="id" select="concat('match-', $matchIndex)"/>
-						</xsl:if>
-						<a href="{leg:FormatURL($noteURI, false())}{$contentsLinkParams}{$linkFragment}">
-							<xsl:value-of select="$noteText"/>
-						</a>
-					</span>
-					<xsl:call-template name="matchLinks">
-						<xsl:with-param name="matchIndex" select="$matchIndex"/>
-					</xsl:call-template>
-				</p>
-			</li>
-		</xsl:if>
-	</xsl:template>
-
-	<!-- adding the Earlier ORders link -->
-	<xsl:template
-			match="leg:Contents/*[not(self::leg:ContentsTitle) and not(ancestor::leg:BlockAmendment)][position()=last()]"
-			priority="3000">
-		<xsl:param name="matchRefs" tunnel="yes" select="''"/>
-		<xsl:next-match/>
-		<xsl:if test="$earlierOrdersURI">
-			<xsl:variable name="matchIndex" as="xs:integer?" select="index-of($matchRefs, 'earlier-orders')[1]"/>
-			<li class="LegContentsEntry">
-				<p class="LegContentsItem LegClearFix">
-					<span class="LegDS LegContentsNo{if (exists($matchIndex)) then ' LegSearchResult' else ()}">
-						<xsl:if test="exists($matchIndex)">
-							<xsl:attribute name="id" select="concat('match-', $matchIndex)"/>
-						</xsl:if>
-						<a href="{leg:FormatURL($earlierOrdersURI, false())}{$contentsLinkParams}{$linkFragment}">
-							<xsl:value-of select="$earlierOrdersText"/>
-						</a>
-					</span>
-					<xsl:call-template name="matchLinks">
-						<xsl:with-param name="matchIndex" select="$matchIndex"/>
-					</xsl:call-template>
-				</p>
-			</li>
-		</xsl:if>
-	</xsl:template>
-
-	<xsl:template
-			match="leg:ContentsPart[* except (leg:ContentsNumber, leg:ContentsTitle)] | leg:ContentsEUPart[* except (leg:ContentsNumber, leg:ContentsTitle)]">
-		<xsl:variable name="html" as="element()">
-			<xsl:next-match/>
-		</xsl:variable>
-		<li class="{$html/@class} tocDefault{
-			if ($searchingByText and $searchingByExtent) then
-				if (exists(descendant-or-self::*[@MatchText='true' and @MatchExtent='true'])) then 'Expanded' else 'Collapse'
-			else if ($searchingByText or $searchingByExtent) then
-				if (exists(descendant-or-self::*[@MatchText='true' or @MatchExtent='true'])) then 'Expanded' else 'Collapse'
-			else
-			if (ancestor::leg:ContentsSchedule) then 'Expanded' else 'Expanded'}"><!-- updaed by Yashashri call HA050984 Expand and Collapse labels are coming out the wrong way round for some documents --><!-- updated by yash - call HA051711 - default view should be expanded for parts -->
-			<xsl:sequence select="$html/*"/>
-		</li>
-	</xsl:template>
-
-	<xsl:template match="leg:ContentsSchedule[* except (leg:ContentsNumber, leg:ContentsTitle)]">
-		<xsl:variable name="html" as="element()">
-			<xsl:next-match/>
-		</xsl:variable>
-		<li class="{$html/@class} tocDefault{
-			if ($searchingByText and $searchingByExtent) then
-				if (exists(descendant-or-self::*[@MatchText='true' and @MatchExtent='true'])) then 'Expanded' else 'Collapse'
-			else if ($searchingByText or $searchingByExtent) then
-				if (exists(descendant-or-self::*[@MatchText='true' or @MatchExtent='true'])) then 'Expanded' else 'Collapse'
-			else
-				'Collapse'}">
-			<xsl:sequence select="$html/*"/>
-		</li>
-	</xsl:template>
+	
+	
 
 	<!-- ========== Standard code for breadcrumb ========= -->
 	<xsl:template name="TSOOutputBreadcrumbItems">
