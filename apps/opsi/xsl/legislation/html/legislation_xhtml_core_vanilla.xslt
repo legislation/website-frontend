@@ -1230,7 +1230,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 						</span>
 					</xsl:when> -->
 					<!-- Combined N3-N4 paragraph -->
-					<xsl:when test="parent::leg:P4para/preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P4[not(preceding-sibling::*)]/parent::leg:P3para/preceding-sibling::*[1][self::leg:Pnumber]">
+					<!-- Removed : LEGDEV-1653 - P3group need pnumber before title (pnumber duplication fix)-->
+					<!--<xsl:when test="parent::leg:P4para/preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P4[not(preceding-sibling::*)]/parent::leg:P3para/preceding-sibling::*[1][self::leg:Pnumber]">
 						<span class="LegDS LegLHS {concat('LegN3No', $strAmendmentSuffix)}">
 							<xsl:for-each select="parent::*/parent::*/parent::*/preceding-sibling::leg:Pnumber">
 								<xsl:for-each select="..">
@@ -1247,7 +1248,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 								<xsl:apply-templates select="."/>
 							</xsl:for-each>
 						</span>
-					</xsl:when>
+					</xsl:when>-->
 					<!-- Combined N4-N5 paragraph -->
 					<xsl:when test="parent::leg:P5para/preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P5[not(preceding-sibling::*)]/parent::leg:P4para/preceding-sibling::*[1][self::leg:Pnumber]">
 						<span class="LegDS LegLHS {concat('LegN4N5No', $strAmendmentSuffix)}">

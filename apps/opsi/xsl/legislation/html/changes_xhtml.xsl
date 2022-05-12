@@ -949,11 +949,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>
 
 	<xsl:template match="ukm:Effect" mode="resultsApplied">
-		<!-- Applied Yes-->
+		<!-- Applied Yes or Requires-Applied No-->
 		<td>
-			<xsl:if test="@Applied eq 'true'">
-				<img src="/images/chrome/tickIcon.gif" alt="Yes"/>
-			</xsl:if>
+			<xsl:choose>
+				<xsl:when test="@RequiresApplied eq 'false'">N/A (see note)</xsl:when>
+				<xsl:when test="@Applied eq 'true'">
+					<img src="/images/chrome/tickIcon.gif" alt="Yes"/>
+				</xsl:when>
+				<xsl:otherwise></xsl:otherwise>
+			</xsl:choose>
 		</td>
 	</xsl:template>
 
