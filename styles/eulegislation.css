@@ -565,7 +565,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 .LegSnippet .LegN3NoC1C1Amend2 {width: 35%}
 .LegSnippet .LegN3NoC1C1C1Amend3 {width: 45%}
 
-.LegSnippet .LegP3Text {width: 83%}
+.LegSnippet .LegP3Text {float: right; width: 85%}
 .LegSnippet .LegP3TextC1Amend {width: 73%}
 .LegSnippet .LegP3TextC3Amend {width: 66%}
 .LegSnippet .LegP3TextC4Amend {width: 59%}
