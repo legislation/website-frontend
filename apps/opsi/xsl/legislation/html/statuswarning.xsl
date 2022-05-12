@@ -297,6 +297,19 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				<xsl:when test="(not(leg:IsPDFOnlyNotRevised(.)) and ($Scenario = '1' or  $Scenario = '5' or leg:IsCurrentRevised(.)) )">
 					<xsl:attribute name="id">statusWarning</xsl:attribute>
 					<xsl:attribute name="class"><xsl:if test="($Scenario = '1' or ($Scenario = '5' and $IsEditedByEPP and leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate(.))) and empty($g_powerToAmend)">uptoDate</xsl:if></xsl:attribute>
+					
+					<xsl:if test="leg:isFromWestlaw(.)">
+						<div class="title">
+						<h2>
+						  <xsl:value-of select="leg:TranslateText('swhead_status')"/>
+						</h2>
+						<p class="intro">
+						<xsl:value-of select="concat(' ',leg:TranslateText('status_warning_revised_is_from_westlaw_pt1'))"/>
+						<a href="/contributors#westlaw" class="more"><strong><xsl:value-of select="leg:TranslateText('Read more')"/></strong></a>
+						</p>
+						</div>
+					</xsl:if>
+					
 					<div class="title">
 						<h2>
 						  <xsl:value-of select="leg:TranslateText('swhead_changes_to_legislation')"/>
@@ -435,9 +448,8 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 						</xsl:otherwise>
 					</xsl:choose>
 					<p class="intro">
-						<xsl:variable name="maintype" as="xs:string" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata | ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value"/>
 						<xsl:choose>
-							<xsl:when test="(leg:IsDraft(.) or leg:IsProposedVersion(.)) and $maintype = 'UnitedKingdomDraftPublicBill'" >
+							<xsl:when test="(leg:IsDraft(.) or leg:IsProposedVersion(.)) and $g_strDocumentMainType = 'UnitedKingdomDraftPublicBill'" >
 								<xsl:text> </xsl:text>
 								<xsl:value-of select="leg:TranslateText('status_warning_intro_draft_bill_item') " />
 							</xsl:when>
@@ -459,12 +471,12 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 								<xsl:choose>
 									<xsl:when test="exists(/leg:Legislation/ukm:Metadata/ukm:SupersededBy/ukm:Number)">
 										<xsl:value-of select="concat('. ',leg:TranslateText('This draft has since been made as a'),' ')"/>
-										<xsl:value-of select="tso:GetSingularTitleFromType(tso:GetTypeFromDraftType($maintype,''),'')"/>
+										<xsl:value-of select="tso:GetSingularTitleFromType(tso:GetTypeFromDraftType($g_strDocumentMainType,''),'')"/>
 										<xsl:text>: </xsl:text>
 									</xsl:when>
 									<xsl:otherwise>
 										<xsl:value-of select="concat(' ',leg:TranslateText('and has not yet been made as a'),' ')"/>
-										<xsl:value-of select="tso:GetSingularTitleFromType(tso:GetTypeFromDraftType($maintype,''),'')"/>
+										<xsl:value-of select="tso:GetSingularTitleFromType(tso:GetTypeFromDraftType($g_strDocumentMainType,''),'')"/>
 										<xsl:text>. </xsl:text>
 										<xsl:if test="exists(/leg:Legislation/ukm:Metadata/ukm:SupersededBy)">
 											<xsl:value-of select="concat(leg:TranslateText('This draft has been replaced by a new draft'),', ')"/>
@@ -491,7 +503,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 						</xsl:choose>
 						<xsl:if test="leg:isFromWestlaw(.)">
 							<xsl:value-of select="concat(' ',leg:TranslateText('status_warning_is_from_westlaw_pt1'))"/>
-							<xsl:value-of select="concat(' ',tso:GetSingularTitleFromType($maintype,''),' ')" />
+							<xsl:value-of select="concat(' ',tso:GetSingularTitleFromType($g_strDocumentMainType,''),' ')" />
 							<xsl:value-of select="concat(leg:TranslateText('status_warning_is_from_westlaw_pt2'),'. ')"/>
 							<a href="/contributors#westlaw" class="more"><strong><xsl:value-of select="leg:TranslateText('Read more')"/></strong></a>
 						</xsl:if>

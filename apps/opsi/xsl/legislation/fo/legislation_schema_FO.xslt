@@ -2889,6 +2889,9 @@ exclude-result-prefixes="tso atom">
 			<xsl:choose>
 				<xsl:when test="$g_strDocClass = $g_strConstantSecondary">
 					<xsl:choose>
+						<xsl:when test="count(*)=1 and leg:Form">
+							<xsl:attribute name="margin-left">-12pt</xsl:attribute>
+						</xsl:when>
 						<xsl:when test="parent::leg:P3para">
 							<xsl:attribute name="margin-left">12pt</xsl:attribute>
 						</xsl:when>
@@ -3541,7 +3544,7 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 
 	<xsl:template match="leg:Form">
-		<fo:block>
+		<fo:block keep-with-previous="always">
 			<xsl:apply-templates/>
 		</fo:block>
 	</xsl:template>
@@ -3553,6 +3556,32 @@ exclude-result-prefixes="tso atom">
 				<fo:block>
 					<xsl:apply-templates />
 				</fo:block>
+			</xsl:when>
+			<xsl:when test="parent::leg:Form[count(*)=1]/parent::leg:BlockAmendment[count(*)=1]">
+				<fo:table margin-left="-17.5pt" margin-right="17.5pt">
+					<fo:table-body>
+						<fo:table-row>
+							<fo:table-cell display-align="before" width="5pt">
+								<fo:block>“</fo:block>
+							</fo:table-cell>
+							<fo:table-cell width="375pt">
+								<fo:block>
+									<fo:external-graphic 
+										src='url("{//leg:Resource[@id = current()/@ResourceRef]/leg:ExternalVersion/@URI}")' 
+										fox:alt-text="{.}"
+										content-width="scale-to-fit"
+										content-height="100%"
+										width="100%"
+										scaling="uniform"
+									/>
+								</fo:block>
+							</fo:table-cell>
+							<fo:table-cell display-align="after" width="5pt">
+								<fo:block>”</fo:block>
+							</fo:table-cell>
+						</fo:table-row>
+					</fo:table-body>
+				</fo:table>
 			</xsl:when>
 			<xsl:otherwise>
 				<fo:block><!--GC 2011-03-23 remove keep-with-next=always - issue D501  -->

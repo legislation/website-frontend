@@ -106,7 +106,16 @@ exclude-result-prefixes="tso">
 				<!-- Chunyu HA049446 21/05/12 Fop1.0 cant handle the text has only one single '-' -->
 				<xsl:when test=".='-'"/>
 				<xsl:otherwise>
-					<xsl:value-of select="$ndsText"/>
+					<xsl:analyze-string select="$ndsText" regex="\w+—$">
+						<xsl:matching-substring>
+							<fo:inline keep-together.within-line="always">
+								<xsl:value-of select="."/>
+							</fo:inline>
+						</xsl:matching-substring>
+						<xsl:non-matching-substring>
+							<xsl:value-of select="."/>
+						</xsl:non-matching-substring>
+					</xsl:analyze-string>
 				</xsl:otherwise>
 			</xsl:choose>		
 		</xsl:otherwise>

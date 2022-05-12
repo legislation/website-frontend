@@ -1168,6 +1168,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_is_from_westlaw_pt1">Mae’r fersiwn electronig o hwn</resource>
 		<!-- has been contributed by Westlaw and is taken from the printed publication -->
 		<resource id="status_warning_is_from_westlaw_pt2">wedi cael ei gyfrannu gan Westlaw ac fe’i cymerwyd o’r cyhoeddiad printiedig</resource>
+		<resource id="status_warning_revised_is_from_westlaw_pt1" translated="false">This revised version has been created from an electronic version contributed by Westlaw which was originally derived from the printed publication. </resource>
 		
 		<resource id="Skip to">Neidiwch i</resource>
 		<!-- Revised legislation carried on this site may not be fully up to date. -->
@@ -1278,13 +1279,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!-- This version of this  -->
 		<resource id="status_warning_revised_p49">This version of this </resource>
 		<!-- provision has been superseded. -->
-		<resource id="status_warning_revised_p50">provision has been superseded.</resource>
+		<resource id="status_warning_revised_p50"> provision has been superseded.</resource>
 		<!-- contains provisions that are not valid for this point in time. -->
-		<resource id="status_warning_revised_p51">contains provisions that are not valid for this point in time.</resource>
+		<resource id="status_warning_revised_p51"> contains provisions that are not valid for this point in time.</resource>
 		<!-- contains provisions that are prospective. -->
-		<resource id="status_warning_revised_p52">contains provisions that are prospective.</resource>
+		<resource id="status_warning_revised_p52"> contains provisions that are prospective.</resource>
 		<!-- contains provisions that have not yet come into effect. -->
-		<resource id="status_warning_revised_p53">contains provisions that have not yet come into effect.</resource>
+		<resource id="status_warning_revised_p53"> contains provisions that have not yet come into effect.</resource>
 	</resources>
 
 	<resources lang="en">
@@ -1848,6 +1849,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_PiT_timeline_changes_p1_2">to view this provision as it would have been.</resource>
 		<resource id="status_warning_is_from_westlaw_pt1">The electronic version of this</resource>
 		<resource id="status_warning_is_from_westlaw_pt2">has been contributed by Westlaw and is taken from the printed publication</resource>
+		<resource id="status_warning_revised_is_from_westlaw_pt1" translated="false">This revised version has been created from an electronic version contributed by Westlaw which was originally derived from the printed publication. </resource>
 		<resource id="status_warning_effects_pt1">is up to date with all changes known to be in force on or before</resource>
 		<resource id="status_warning_effects_pt2">There are changes that may be brought into force at a future date</resource>
 		<resource id="status_warning_effects_pt3">Changes that have been made appear in the content and are referenced with annotations</resource>
@@ -1959,13 +1961,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!-- This version of this  -->
 		<resource id="status_warning_revised_p49">This version of this </resource>
 		<!-- provision has been superseded. -->
-		<resource id="status_warning_revised_p50">provision has been superseded.</resource>
+		<resource id="status_warning_revised_p50"> provision has been superseded.</resource>
 		<!-- contains provisions that are not valid for this point in time. -->
-		<resource id="status_warning_revised_p51">contains provisions that are not valid for this point in time.</resource>
+		<resource id="status_warning_revised_p51"> contains provisions that are not valid for this point in time.</resource>
 		<!-- contains provisions that are prospective. -->
-		<resource id="status_warning_revised_p52">contains provisions that are prospective.</resource>
+		<resource id="status_warning_revised_p52"> contains provisions that are prospective.</resource>
 		<!-- contains provisions that have not yet come into effect. -->
-		<resource id="status_warning_revised_p53">contains provisions that have not yet come into effect.</resource>
+		<resource id="status_warning_revised_p53"> contains provisions that have not yet come into effect.</resource>
 	</resources>
 </allResources>
 
