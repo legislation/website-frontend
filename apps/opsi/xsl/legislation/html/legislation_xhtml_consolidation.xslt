@@ -2159,7 +2159,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 </xsl:template>
 
 <!-- this is a very specific template to handle cases where we have a numbered paragraph marked up as a division -->
-<xsl:template match="leg:Division[leg:Number][not(leg:Title)][empty(@Type) or @Type = 'Annotation']" priority="20">
+<xsl:template match="leg:Division[leg:Number][not(leg:Title)][empty(@Type) or @Type = 'Annotation']" priority="20" name="unit-test-division-no-number">
 	<xsl:variable name="element" select="if (@Type) then @Type else local-name()"/>
 	<xsl:variable name="intHeadingLevel">
 		<xsl:call-template name="FuncCalcHeadingLevel"/>
@@ -2182,14 +2182,17 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 		</xsl:choose>
 	</xsl:if>
 		<a id="{@id}" class="LegAnchorID"/>
+		
 		<xsl:element name="h{$intHeadingLevel}">
 			<xsl:attribute name="class">
 				<xsl:value-of select="concat('LegClearFix Leg', $element, if (not(preceding-sibling::*) and (parent::leg:ScheduleBody or parent::leg:AppendixBody)) then 'First' else (),$strAmendmentSuffix, $extentcontainer)"/>
 			</xsl:attribute>
 			<xsl:apply-templates select="leg:Number"/>
-			<xsl:apply-templates select="leg:Number/following-sibling::*[1]" mode="numberedpara"/>
+			<xsl:if test="leg:Number/following-sibling::*[1][self::leg:P[leg:Text]] or leg:Number/following-sibling::*[1][self::leg:Para[leg:Text]]">
+				<xsl:apply-templates select="leg:Number/following-sibling::*[1][self::leg:P] | leg:Number/following-sibling::*[1][self::leg:Para]" mode="numberedpara"/>
+			</xsl:if>
 		</xsl:element>
-		<xsl:apply-templates select="*[not(self::leg:Number)][self::*[not(preceding-sibling::*[1][self::leg:Number])]]"/>
+		<xsl:apply-templates select="*[not(self::leg:Number)][not(self::leg:P[preceding-sibling::*[1][self::leg:Number]]/leg:Text)][not(self::leg:Para[preceding-sibling::*[1][self::leg:Number]]/leg:Text)]"/>
 		<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 </xsl:template>
 
@@ -2293,7 +2296,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	</span>
 </xsl:template>
 
-<xsl:template match="leg:P" mode="numberedpara">
+<xsl:template match="leg:P[leg:Text] | leg:Para[leg:Text]" mode="numberedpara">
 	<xsl:variable name="element" select="if (parent::*/@Type) then parent::*/ @Type else parent::*/local-name()"/>
 	<xsl:variable name="strAmendmentSuffix">
 		<xsl:call-template name="FuncCalcAmendmentNo"/>

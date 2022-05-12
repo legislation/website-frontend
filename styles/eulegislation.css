@@ -360,7 +360,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 
 .LegSnippet .LegDivisionNo {float:left; clear: both; font-size: 0.8em; width: 8%}
-.LegSnippet .LegDivisionTitle {text-align: justify; width: 92%; font-size: 0.8em; }
+.LegSnippet .LegDivisionTitle {font-size: 0.8em; float: right; text-align: justify; width: 92%;}
 .LegSnippet .LegScheduleSubFirst .LegDivisionNo {clear: both; font-size: 0.8em; width: 100%;font-weight:bold;display:block;margin-bottom: 1em;}
 .LegSnippet .LegScheduleSubFirst  .LegDivisionTitle {font-size: 0.8em;  width: 100%;font-weight:normal;display:block;}
 .LegSnippet .LegDivisionTitleNoNumber {clear: both; text-align: left; width: 100%; font-size: 0.8em; }
