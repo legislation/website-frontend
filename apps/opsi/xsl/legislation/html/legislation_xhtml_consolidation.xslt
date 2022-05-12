@@ -2298,13 +2298,11 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	<xsl:variable name="strAmendmentSuffix">
 		<xsl:call-template name="FuncCalcAmendmentNo"/>
 	</xsl:variable>
-	<!--<span class="LegDivisionText{$strAmendmentSuffix}">
-		<xsl:apply-templates select="leg:Text/node()"/>
-	</span>
-	<xsl:sequence select="tso:generateExtentInfo(ancestor::*[@RestrictExtent][1])"/>-->
 	<span class="Leg{$element}Title{if (not(parent::*/leg:Number)) then 'NoNumber' else ()}{$strAmendmentSuffix}">
 		<xsl:apply-templates select="leg:Text/node()"/>
 	</span>
+	<!-- Issue LEGDEV-2742 numbered paras with annotations see eur-2011-1169-annex-IX-division-2 -->
+	<xsl:apply-templates select="." mode="ProcessAnnotations"/>
 </xsl:template>
 
 

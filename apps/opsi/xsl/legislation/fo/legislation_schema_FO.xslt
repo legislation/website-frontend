@@ -3438,8 +3438,8 @@ exclude-result-prefixes="tso atom">
 			<xsl:when test="@Orientation = 'landscape'">
 			  <fo:block-container>
 					<xsl:choose>
-						<xsl:when test="contains(leg:Image/@Width,'pt')">
-							<xsl:attribute name="inline-progression-dimension" select="leg:Image/@Width"/>
+						<xsl:when test="contains(leg:Image[1]/@Width,'pt')">
+							<xsl:attribute name="inline-progression-dimension" select="leg:Image[1]/@Width"/>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:attribute name="inline-progression-dimension">645pt</xsl:attribute>
@@ -4706,6 +4706,9 @@ exclude-result-prefixes="tso atom">
 		<fo:block>
 			<xsl:apply-templates select="leg:Text/node()"/>
 		</fo:block>
+		<xsl:if test="not(@AltVersionRefs) and not(parent::leg:BlockAmendment)">
+			<xsl:apply-templates select="." mode="ProcessAnnotations"/>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template match="leg:P1[not(parent::leg:P1group)][$g_strDocClass = $g_strConstantEuretained]" priority="70">
