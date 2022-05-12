@@ -2085,7 +2085,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:attribute name="class">
 					<xsl:text>LegP1No</xsl:text>
 					<xsl:if test="not(ancestor::xhtml:tfoot)">
-						<xsl:if test="$strAmendmentSuffix != ''">
+						<!-- Pnumber gets added infront of P1para which already has 'Amend' text
+						"<Pnumber>10</Pnumber><P1para><P2><Pnumber>1</Pnumber><P2para><Text>The Materials ... </Text>" Becomes: - "10.—(1) The Materials and Articles" -->
+						<xsl:if test="$strAmendmentSuffix != '' and not(./following-sibling::leg:P1para)">
 							<xsl:if test="$strContext = $g_strSecondary and $g_strDocumentType = $g_strSecondary">
 								<xsl:text> Leg</xsl:text>
 							</xsl:if>

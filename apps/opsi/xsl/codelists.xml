@@ -36,7 +36,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<Code spo="30112" schema="ScottishStatutoryInstrument" uri="ssi" status="revised" authority="kqps"/>
 		<Code spo="30102" schema="WelshStatutoryInstrument" uri="wsi" status="made" authority="kqpap"/>
 		<Code spo="30113" schema="WelshStatutoryInstrument" uri="wsi" status="revised" authority="kqpap"/>
-		<Code spo="30400" schema="NorthernIrelandStatutoryRule" uri="nisr" status="made" authority="gpni"/>
+		<Code spo="30400" schema="NorthernIrelandStatutoryRule" uri="nisr" status="revised" authority="gpni"/>
 		<Code spo="30411" schema="NorthernIrelandStatutoryRule" uri="nisr" status="revised" authority="gpni"/>
 		<Code spo="30500" schema="UnitedKingdomChurchInstrument" uri="ukci" status="created" authority="kqpap"/>
 		<Code spo="30800" schema="NorthernIrelandOrderInCouncil" uri="nisi" status="made" authority="gpni"/>

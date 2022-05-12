@@ -322,7 +322,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 .LegSnippet .LegSP1Container .LegP1NoC1Amend .LegP1No {font-weight: normal; float: left; width: 100%}
 .LegSnippet .LegSP1Container .LegP1NoC3Amend .LegP1No {font-weight: normal; float: left; width: 100%}
 .LegSnippet .LegP1Container .LegP1NoC1C1C1Amend3 .LegP1No {font-weight: normal; float: right; width: 100%}
-.LegSnippet .LegSP2Container .LegP1No {font-weight: normal; float: left; width: 6%}
+.LegSnippet .LegSP2Container .LegP1No {font-weight: normal; float: left; min-width: 6%}
 .LegSnippet .LegSP3Container .LegP1No {font-weight: normal; float: left; width: 6%}
 
 .LegSnippet .LegP1NoC1Amend {float: left; width: 12%; text-align: right}
@@ -367,7 +367,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 .LegSnippet .LegSN1NoC1C1C1Amend3 .LegP1No {font-weight: normal; width: 100%; text-align: right}
 
 
-.LegSnippet .LegSN2No {float: left; width: 3%; text-align: right}
+.LegSnippet .LegSN2No {float: left; min-width: 3%; text-align: right}
 .LegSnippet .LegSN2NoC1Amend {float: left; width: 5%; text-align: right}
 .LegSnippet .LegSN2NoC3Amend {float: left; width: 5%; text-align: right}
 .LegSnippet .LegSN2NoC4Amend {float: left; width: 5%; text-align: right}
