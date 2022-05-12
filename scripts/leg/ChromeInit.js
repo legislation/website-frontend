@@ -485,35 +485,35 @@ $(function () {
 			'</ul>' +
 			'</div>',
 	}
-	var RECRUITMENT_COOKIE_NAME = 'recruitment_banner';
-	$(RECRUITMENT_BANNER_HTML[LANG]).simpleBanner({
-		id: 'recruitment-banner',
-		closeBtnSelector: '.recruitment-close',
-		doShow: function () {
+	//var RECRUITMENT_COOKIE_NAME = 'recruitment_banner';
+	//$(RECRUITMENT_BANNER_HTML[LANG]).simpleBanner({
+	//	id: 'recruitment-banner',
+	//	closeBtnSelector: '.recruitment-close',
+	//	doShow: function () {
 			// By default the banner is shown unless the user has allowed cookies.
 			// Check the cookie to see if the banner has been closed before and hide
 			// if it has.
-			var show = true;
-			var cookie;
+	//		var show = true;
+	//		var cookie;
 
-			if (window.legGlobals.cookiePolicy.settings) {
-				cookie = $.cookie(RECRUITMENT_COOKIE_NAME);
+	//		if (window.legGlobals.cookiePolicy.settings) {
+	//			cookie = $.cookie(RECRUITMENT_COOKIE_NAME);
 
-				if (cookie && cookie === 'Yes') {
-					show = false;
-				}
-			} else {
-				$.removeCookie(RECRUITMENT_COOKIE_NAME, {path: '/'});
-			}
+	//			if (cookie && cookie === 'Yes') {
+	//				show = false;
+	//			}
+	//		} else {
+	//			$.removeCookie(RECRUITMENT_COOKIE_NAME, {path: '/'});
+	//		}
 
-			return show;
-		},
-		onClose: function () {
-			if (window.legGlobals.cookiePolicy.settings) {
-				$.cookie(RECRUITMENT_COOKIE_NAME, 'Yes', {expire: 30, path: '/'});
-			}
-		}
-	});
+	//		return show;
+	//	},
+	//	onClose: function () {
+	//		if (window.legGlobals.cookiePolicy.settings) {
+	//			$.cookie(RECRUITMENT_COOKIE_NAME, 'Yes', {expire: 30, path: '/'});
+	//		}
+	//	}
+	//});
 
 	//var COVID_BANNER_HTML = {
 	//	en: '<div class="bannercontent">' +			
