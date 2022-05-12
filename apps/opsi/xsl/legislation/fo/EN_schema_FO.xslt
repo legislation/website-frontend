@@ -40,6 +40,9 @@ exclude-result-prefixes="tso atom">
 	<xsl:param name="g_FOprocessor" select="'FOP1.0'" as="xs:string"/>
 <!-- ========== Global Constants ========== -->
 
+<xsl:param name="ImageBucketPath" as="xs:string?"/>
+	
+<!-- ========== Global Constants ========== -->
 <xsl:variable name="g_strConstantPrimary" select="'primary'" as="xs:string"/>
 <xsl:variable name="g_strConstantSecondary" select="'secondary'" as="xs:string"/>
 <xsl:variable name="g_strConstantEuretained" select="'euretained'" as="xs:string"/>
@@ -2092,6 +2095,18 @@ exclude-result-prefixes="tso atom">
 	</xsl:choose>
 </xsl:template>
 
+<xsl:function name="leg:graphic-url" as="xs:string">
+	<xsl:param name="strURL" as="xs:string"/>
+	<xsl:choose>
+		<xsl:when test="exists($ImageBucketPath[normalize-space()]) and contains($strURL, 'legislation.gov.uk')">
+			<xsl:value-of select="concat($ImageBucketPath, substring-after($strURL, 'legislation.gov.uk'))"/>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:value-of select="$strURL"/>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:function>
+
 <xsl:template match="leg:Image">
 	<xsl:variable name="strURL" as="xs:string">
 		<xsl:variable name="strRef" select="@ResourceRef" as="xs:string"/> 
@@ -2108,7 +2123,7 @@ exclude-result-prefixes="tso atom">
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:variable>
-	<fo:external-graphic src="url('{$strURL}')" fox:alt-text="{$strAltAttributeDesc}">
+	<fo:external-graphic src='url("{leg:graphic-url($strURL)}")' fox:alt-text="{$strAltAttributeDesc}">
 		<xsl:choose>
 			<xsl:when test="@Width = 'scale-to-fit'">
 				<xsl:attribute name="content-height">scale-to-fit</xsl:attribute>

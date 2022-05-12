@@ -43,6 +43,8 @@ exclude-result-prefixes="tso atom">
 	<!-- NOTE FOP does not support the font-selection-strategy property  -->
 	<xsl:param name="fullUTF8CSavailable" select="'false'"/>
 	
+	<xsl:param name="ImageBucketPath" as="xs:string?"/>
+	
 	<xsl:variable name="showRepeals" as="xs:boolean" 
 		select="$query_repeals = 'true'"  />		
 	
@@ -3171,7 +3173,6 @@ exclude-result-prefixes="tso atom">
 							</fo:block>
 						</xsl:when>
 						<xsl:otherwise>
-							<xsl:variable name="lssealuri" select="leg:LSseal/@ResourceRef"/>
 							<fo:table font-size="{$g_strBodySize}" table-layout="fixed" width="100%">
 								<!--					<fo:table-column column-width="30%"/>
 							<fo:table-column column-width="70%"/>	-->
@@ -3179,10 +3180,11 @@ exclude-result-prefixes="tso atom">
 							<xsl:if test="leg:LSseal">
 								<fo:table-row>
 									<fo:table-cell display-align="before"  number-columns-spanned="2">
+										<xsl:variable name="strURL" select="//leg:Resource[@id = current()/leg:LSseal/@ResourceRef]/leg:ExternalVersion/@URI" as="xs:string"/>
 										<xsl:choose>
-											<xsl:when test="$lssealuri">
+											<xsl:when test="$strURL">
 												<fo:block keep-with-next="always">
-													<fo:external-graphic src='url("{//leg:Resource[@id = $lssealuri]/leg:ExternalVersion/@URI}")' fox:alt-text="Legal seal"/>
+													<fo:external-graphic src='url("{leg:graphic-url($strURL)}")' fox:alt-text="Legal seal"/>
 												</fo:block>
 											</xsl:when>
 											<xsl:when test="not(normalize-space(leg:LSseal) = '')">
@@ -3473,16 +3475,23 @@ exclude-result-prefixes="tso atom">
 		</xsl:choose>
 	  </xsl:template>
 
+	<xsl:function name="leg:graphic-url" as="xs:string">
+		<xsl:param name="strURL" as="xs:string"/>
+		<xsl:choose>
+			<xsl:when test="exists($ImageBucketPath[normalize-space()]) and contains($strURL, 'legislation.gov.uk')">
+				<xsl:value-of select="concat($ImageBucketPath, substring-after($strURL, 'legislation.gov.uk'))"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$strURL"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:function>
+
 	<xsl:template match="leg:Image">
 		<xsl:variable name="maxHeight" select="640" as="xs:double"/>
 		<xsl:variable name="maxWidth" select="414" as="xs:double"/>
 		<xsl:variable name="imageHeight" select="number(translate(@Height, 'pt', ''))" as="xs:double"/>
 		<xsl:variable name="imageWidth" select="number(translate(@Width, 'pt', ''))" as="xs:double"/>
-		<xsl:variable name="strURL" as="xs:string">
-			<xsl:variable name="strRef" select="@ResourceRef" as="xs:string"/> 
-			<xsl:value-of select="//leg:Resource[@id = $strRef]/leg:ExternalVersion/@URI"/>
-		</xsl:variable>
-		<!-- Check whether this image is for maths, if so then the alttext attribute needs to be used for the image alt attribute, otherwise use the image Description attribute -->
 		<xsl:variable name="strAltAttributeDesc">
 			<xsl:variable name="ndsFormulaNode" select="//leg:Formula[@AltVersionRefs = current()/ancestor::leg:Version/@id]"/>
 			<xsl:choose>
@@ -3495,7 +3504,8 @@ exclude-result-prefixes="tso atom">
 			</xsl:choose>
 		</xsl:variable>
 		<!-- we cant use single quotes as part of the uri the single quote is a valid character in the URL syntax -->
-		<fo:external-graphic src='url("{$strURL}")' fox:alt-text="{$strAltAttributeDesc}">
+		<xsl:variable name="strURL" select="//leg:Resource[@id = current()/@ResourceRef]/leg:ExternalVersion/@URI" as="xs:string"/>
+		<fo:external-graphic src='url("{leg:graphic-url($strURL)}")' fox:alt-text="{$strAltAttributeDesc}">
 			<xsl:choose>
 				<xsl:when test="@Width = 'scale-to-fit'">
 					<xsl:attribute name="content-height">scale-to-fit</xsl:attribute>
@@ -3616,8 +3626,9 @@ exclude-result-prefixes="tso atom">
 							</fo:table-cell>
 							<fo:table-cell width="375pt">
 								<fo:block>
-									<fo:external-graphic 
-										src='url("{//leg:Resource[@id = current()/@ResourceRef]/leg:ExternalVersion/@URI}")' 
+									<xsl:variable name="strURL" select="//leg:Resource[@id = current()/@ResourceRef]/leg:ExternalVersion/@URI" as="xs:string"/>
+								<fo:external-graphic 
+										src='url("{leg:graphic-url($strURL)}")' 
 										fox:alt-text="{.}"
 										content-width="scale-to-fit"
 										content-height="100%"
@@ -3648,7 +3659,8 @@ exclude-result-prefixes="tso atom">
 			</xsl:when>
 			<xsl:otherwise>
 				<fo:block><!--GC 2011-03-23 remove keep-with-next=always - issue D501  -->
-					<fo:external-graphic src='url("{//leg:Resource[@id = current()/@ResourceRef]/leg:ExternalVersion/@URI}")' fox:alt-text="{.}"/>
+					<xsl:variable name="strURL" select="//leg:Resource[@id = current()/@ResourceRef]/leg:ExternalVersion/@URI" as="xs:string"/>
+				<fo:external-graphic src='url("{leg:graphic-url($strURL)}")' fox:alt-text="{.}"/>
 				</fo:block>
 			</xsl:otherwise>
 		</xsl:choose>
