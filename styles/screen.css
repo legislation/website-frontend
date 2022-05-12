@@ -1785,24 +1785,50 @@ p .expandCollapseLink{
 #coronavirus-banner .main {
   display: block;
     width: 230px;
-    font-size: 1.2em;
+    font-size: 28px;
     text-align: left;
-    margin: 1em 1.7em 1em 0.5em;
+    margin: 0.9em 1.7em 1em 0.5em;
 	color:#fff;
 	border: none;
 	float:left;	
 }
 
+#coronavirus-banner .main-cy {
+	display: block;
+    width: 190px;
+    font-size: 28px;
+    text-align: left;
+    margin: 0.9em 1.7em 1em 0.5em;
+	color:#fff;
+	border: none;
+	float:left;
+}
+
 #coronavirus-banner .legislation {
   display: block;
-    width: 230px;
-    font-size: 0.6em;
+    width: 220px;
+    font-size: 15px;
     text-align: center;
     border: 1px solid #32ffff;
 	border-radius: 3px;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
-    margin: 1em;
+    margin: 0.5em;
+	padding: 0.3em;
+	float:left;
+	height: 42px;	
+}
+
+#coronavirus-banner .legislation-cy {
+	display: block;
+    width: 240px;
+    font-size: 15px;
+    text-align: center;
+    border: 1px solid #32ffff;
+	border-radius: 3px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    margin: 0.5em;
 	padding: 0.3em;
 	float:left;
 	height: 42px;	
@@ -1810,14 +1836,29 @@ p .expandCollapseLink{
 
 #coronavirus-banner .extents {
   display: block;
-    width: 380px;
-    font-size: 0.6em;
+    width: 400px;
+    font-size: 15px;
     text-align: center;
     border: 1px solid #32ffff;
 	border-radius: 3px;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
-    margin: 1em;
+    margin: 0.5em;
+	padding: 0.3em;
+	float:left;
+	height: 42px;
+}
+
+#coronavirus-banner .extents-cy {
+   display: block;
+    width: 420px;
+    font-size: 15px;
+    text-align: center;
+    border: 1px solid #32ffff;
+	border-radius: 3px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    margin: 0.5em;
 	padding: 0.3em;
 	float:left;
 	height: 42px;
