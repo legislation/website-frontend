@@ -277,7 +277,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 							<xsl:value-of select="$status-legtitle"/>
 							<xsl:text>.</xsl:text>
 						</p>
-						<p class="c2a" lang="{$TranslateLangPrefix}">
+						<p class="c2a">
 							<a href="{if($TranslateLangPrefix='/cy') then $TranslateLangPrefix else ''}/changes/unapplied/affected/{$g_strShortType}/{$g_strDocumentYear}/{$g_strDocumentNumber}">
 								<xsl:value-of select="leg:TranslateText('infoSection_actionlink')"/>
 							</a>

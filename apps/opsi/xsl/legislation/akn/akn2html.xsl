@@ -783,7 +783,7 @@
 
 <xsl:template match="table[@cellpadding]">
 	<div>
-		<style scoped="">
+		<style>
 			<xsl:text>th, td { padding: </xsl:text>
 			<xsl:value-of select="@cellpadding" />
 			<xsl:text>pt }</xsl:text>

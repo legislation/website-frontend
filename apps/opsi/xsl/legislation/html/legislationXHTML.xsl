@@ -73,7 +73,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:if test="not($g_ndsLegisConfigDoc//path[@type='ssi'])">
 		<xsl:message terminate="yes">Configuration file is missing SSI path</xsl:message>
 	</xsl:if>
-	<html lang="en" xml:lang="en">
+	<html xml:lang="en">
 		<xsl:for-each select="$g_ndsTemplateDoc//xhtml:html">
 			<xsl:apply-templates />
 		</xsl:for-each>

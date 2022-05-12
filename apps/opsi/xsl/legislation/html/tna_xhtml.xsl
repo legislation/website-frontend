@@ -35,7 +35,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:value-of select="/leg:Legislation/ukm:Metadata/dc:title"/>
 				</title>
 			</head>
-			<body xml:lang="en" lang="en" dir="ltr">
+			<body xml:lang="en" dir="ltr">
 			
 				<xsl:variable name="externalPage" select="concat('../../../www/', $paramsDoc/parameters/page, '.xhtml') "/>
 				<xsl:variable name="comingsoonPage" select="concat('../../../www/', 'comingsoon', '.xhtml') "/>					

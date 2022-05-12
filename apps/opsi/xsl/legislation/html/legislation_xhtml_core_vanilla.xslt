@@ -2121,7 +2121,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <xsl:template match="leg:P2">
-	<xsl:call-template name="FuncCheckForIDelement"/>
+	<xsl:if test="not(@id)">
+		<xsl:call-template name="FuncCheckForIDelement"/>
+	</xsl:if>
 	<xsl:apply-templates select="*[not(self::leg:Pnumber)] | processing-instruction()"/>
 	<xsl:call-template name="FuncApplyVersions"/>
 </xsl:template>
@@ -2170,7 +2172,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <xsl:template match="leg:P3">
-	<xsl:call-template name="FuncCheckForIDelement"/>
+	<xsl:if test="not(@id)">
+		<xsl:call-template name="FuncCheckForIDelement"/>
+	</xsl:if>
 	<xsl:apply-templates select="*[not(self::leg:Pnumber)] | processing-instruction()"/>
 	<xsl:call-template name="FuncApplyVersions"/>
 </xsl:template>
@@ -2182,7 +2186,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <xsl:template match="leg:P4">
-	<xsl:call-template name="FuncCheckForIDelement"/>
+	<xsl:if test="not(@id)">
+		<xsl:call-template name="FuncCheckForIDelement"/>
+	</xsl:if>
 	<xsl:apply-templates select="*[not(self::leg:Pnumber)] | processing-instruction()"/>
 	<xsl:call-template name="FuncApplyVersions"/>
 </xsl:template>
@@ -2194,7 +2200,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <xsl:template match="leg:P5">
-	<xsl:call-template name="FuncCheckForIDelement"/>
+	<xsl:if test="not(@id)">
+		<xsl:call-template name="FuncCheckForIDelement"/>
+	</xsl:if>
 	<xsl:apply-templates select="*[not(self::leg:Pnumber)] | processing-instruction()"/>
 	<xsl:call-template name="FuncApplyVersions"/>
 </xsl:template>
@@ -2206,7 +2214,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <xsl:template match="leg:P6">
-	<xsl:call-template name="FuncCheckForIDnoElement"/>
+	<xsl:if test="not(@id)">
+		<xsl:call-template name="FuncCheckForIDelement"/>
+	</xsl:if>
 	<xsl:apply-templates select="*[not(self::leg:Pnumber)] | processing-instruction()"/>
 	<xsl:call-template name="FuncApplyVersions"/>
 </xsl:template>
@@ -2218,7 +2228,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <xsl:template match="leg:P7">
-	<xsl:call-template name="FuncCheckForIDnoElement"/>
+	<xsl:if test="not(@id)">
+		<xsl:call-template name="FuncCheckForIDelement"/>
+	</xsl:if>
 	<xsl:apply-templates select="*[not(self::leg:Pnumber)] | processing-instruction()"/>
 	<xsl:call-template name="FuncApplyVersions"/>
 </xsl:template>
@@ -3996,10 +4008,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 </xsl:template>
 
 <xsl:template match="leg:Underline">
-	<u>
+	<em class="underlined">
 		<xsl:call-template name="FuncCheckForID"/>
 		<xsl:apply-templates/>
-	</u>
+	</em>
 	<!-- Check if last node in a footnote in which case output back link if a standard footnote -->
 	<xsl:call-template name="FuncIsLastElementInFootnote"/>
 </xsl:template>
@@ -4214,7 +4226,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	</xsl:variable>
 	<xsl:choose>
 		<xsl:when test="$strLanguage != ''">
-			<span lang="{$strLanguage}" xml:lang="{$strLanguage}">
+			<span xml:lang="{$strLanguage}">
 				<!-- Check that if there are any characters that can not be rendered correctly.  If this is the case then these need to be replaced with corresponding images. -->
 				<xsl:call-template name="FuncProcessTextForUnicodeChars">
 					<xsl:with-param name="strText">
@@ -4311,7 +4323,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <!-- Check to see if we need to output a back reference for a footnote -->
 <xsl:template name="FuncCheckForBackReference">
 	<xsl:text> </xsl:text>
-	<a href="#Back{ancestor::leg:Footnote/@id}" title="Back to footnote {count(ancestor::leg:Footnote/preceding-sibling::leg:Footnote) + 1}" xml:lang="en" lang="en">
+	<a href="#Back{ancestor::leg:Footnote/@id}" title="Back to footnote {count(ancestor::leg:Footnote/preceding-sibling::leg:Footnote) + 1}" xml:lang="en">
 		<xsl:text>Back [</xsl:text>
 		<xsl:value-of select="count(ancestor::leg:Footnote/preceding-sibling::leg:Footnote) + 1"/>
 		<xsl:text>]</xsl:text>
@@ -4681,11 +4693,12 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:when test="@id">
 				<xsl:value-of select="@id" />
 			</xsl:when>
+			<xsl:otherwise/>
 		</xsl:choose>
 	</xsl:variable>
-	<xsl:if test="$anchorID">
+	<xsl:if test="$anchorID and ( $anchorID ne '' )">
 		<!-- Do it this way because IE doesn't like empty anchors -->
-		<a class="LegAnchorID" id="{$anchorID}">
+		<a class="LegAnchorID" id="{ replace($anchorID, '\s+', '-') }">
 			<!-- Copy an empty node set to force MSXML to output start and end tags -->
 			<xsl:copy-of select="/.."/>
 		</a>		

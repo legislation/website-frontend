@@ -34,7 +34,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <xsl:variable name="g_strUriRegex" as="xs:string">(apni|asp|mnia|nia|nisi|slsi|sr|ssi|ukcm|ukla|ukpga|uklsi|uksi|wsi|wlsi)/([0-9]{4}|([^/]+/[-0-9]+))/([0-9]{1,4})</xsl:variable>
 
 <xsl:template match="/*">
-	<html xml:lang="en" lang="en">
+	<html xml:lang="en">
 		<xsl:sequence select="namespace::*" />
 		<xsl:apply-templates select="@*" />
 		<head>

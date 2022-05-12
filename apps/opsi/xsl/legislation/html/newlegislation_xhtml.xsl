@@ -44,7 +44,7 @@ Added in welsh language support for UI.
 				<meta http-equiv="Last-Modified" content="{tso:httpDateTime($lastModified)}" />
 				<link type="text/css" href="/styles/per/newLeg.css" rel="stylesheet" />		
 			</head>		
-			<body lang="{$TranslateLang}" xml:lang="{$TranslateLang}" dir="ltr" id="per"  class="newLeg"> 
+			<body xml:lang="{$TranslateLang}" dir="ltr" id="per"  class="newLeg"> 
 				<div id="layout2" >
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
@@ -57,7 +57,7 @@ Added in welsh language support for UI.
 							
 							<!-- intro paras -->
 							<div class="s_6 p_one">
-								<p class=""><xsl:value-of select="leg:TranslateText('New_intro_1_1')"/></p>
+								<p><xsl:value-of select="leg:TranslateText('New_intro_1_1')"/></p>
 								<p><xsl:value-of select="leg:TranslateText('New_intro_1_2')"/></p>
 							</div>
 							<div class="s_6 p_two">
@@ -227,7 +227,7 @@ Added in welsh language support for UI.
 										<!--<li><a href="/new/mwa/data.feed">Measures of the National Assembly for Wales</a></li>-->
 										<li><a href="{$TranslateLangPrefix}/new/wsi/data.feed"><xsl:value-of select="leg:TranslateText('Wales Statutory Instruments')"/></a></li>
 									</ul>
-									<h3 class="feedTitle p_one" id="subsFeeds"><xsl:value-of select="leg:TranslateText('Free of charge draft legislation feeds')"/></h3>
+									<h3 class="feedTitle p_one" id="subsFeeds-draft"><xsl:value-of select="leg:TranslateText('Free of charge draft legislation feeds')"/></h3>
 									<ul class="p_one">
 										<li><a href="{$TranslateLangPrefix}/new/draft/data.feed"><xsl:value-of select="leg:TranslateText('All Draft Legislation')"/></a></li>
 										<li><a href="{$TranslateLangPrefix}/new/ukdsi/data.feed"><xsl:value-of select="leg:TranslateText('UK Draft Statutory Instrument')"/></a></li>
@@ -357,7 +357,7 @@ Added in welsh language support for UI.
 									</td>
 									<td>
 										<a href="{$TranslateLangPrefix}/new/{$typeConfig/@abbrev}/data.feed" class="feed">
-											<img src="/images/chrome/icon_feed_small.png" alt="" />
+											<img alt="Icon for Data Feed Link" src="/images/chrome/icon_feed_small.png" />
 										</a>
 									</td>
 								</tr>

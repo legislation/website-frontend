@@ -45,7 +45,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		
 			
 		
-			<body id="doc" class="results" lang="en" dir="ltr" xml:lang="en">
+			<body id="doc" class="results" dir="ltr" xml:lang="en">
 				
 					<div id="layout2" class="subNavPage">
 					
@@ -242,7 +242,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:sequence select="$class" />
 				<td class="bilingual cy">
 					<a href="/{if (exists($welshToCLink)) then substring-after($welshToCLink, 'http://www.legislation.gov.uk/') else $tocLink}"
-						lang="cy" xml:lang="cy">
+					 xml:lang="cy">
 						<xsl:value-of select="atom:title/xhtml:div/xhtml:span[2]" />
 					</a>
 				</td>
@@ -383,7 +383,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:sequence select="$class" />
 				<td class="bilingual cy">
 					<a href="/{if (exists($welshToCLink)) then substring-after($welshToCLink, 'http://www.legislation.gov.uk/') else $tocLink}"
-						lang="cy" xml:lang="cy">
+					 xml:lang="cy">
 						<xsl:value-of select="atom:title/xhtml:div/xhtml:span[2]" />
 					</a>
 				</td>

@@ -60,7 +60,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<form id="advancedSearch" name="advancedSearch" action="/search" method="get">
 						<xsl:if test="$paramsDoc/parameters/title[. != '']">
 							<div class="group">
-								<label for="searchText"><xsl:value-of select="leg:TranslateText('Title')"/>: </label>
+								<label for="searchTitle"><xsl:value-of select="leg:TranslateText('Title')"/>: </label>
 								<input type="title" id="searchTitle" name="title" value="{/atom:feed/openSearch:Query[@role = 'request']/@leg:title}" />
 							</div>
 						</xsl:if>
@@ -131,7 +131,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<div class="searchExtendsTo">
 								<div class="searchExtendsToInput">
 									<div class="opt1 group">
-										<label>
+										<label for="extent-match-1">
 											<input type="radio" name="extent-match" id="extent-match-1" value="applicable" class="radio yearChoice">
 												<xsl:if test="$paramsDoc/parameters/extent-match[. = 'applicable']">
 													<xsl:attribute name="checked">checked</xsl:attribute>
@@ -140,7 +140,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											<xsl:value-of select="leg:TranslateText('Applicable to')"/>
 											<xsl:text>:</xsl:text>
 										</label>
-										<label>
+										<label for="extent-match-2">
 											<input type="radio" name="extent-match" id="extent-match-2" value="exact" class="radio yearChoice">
 												<xsl:if test="$paramsDoc/parameters/extent-match[. = 'exact']">
 													<xsl:attribute name="checked">checked</xsl:attribute>
@@ -151,64 +151,64 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										</label>
 									</div>
 									<div class="opt2">
-										<label>
-											<input type="checkbox" name="extent" value="uk" class="radio">
+										<label for="uk">
+											<input type="checkbox" name="extent" value="uk" id="uk" class="radio">
 												<xsl:if test="$extents = 'uk'">
 													<xsl:attribute name="checked">checked</xsl:attribute>
 												</xsl:if>
 											</input>
 											<xsl:value-of select="leg:TranslateText('United Kingdom')"/>
 										</label>
-										<label>
-											<input type="checkbox" name="extent" value="gb" class="radio">
+										<label for="gb">
+											<input type="checkbox" name="extent" value="gb" id="gb" class="radio">
 												<xsl:if test="$extents = 'gb'">
 													<xsl:attribute name="checked">checked</xsl:attribute>
 												</xsl:if>
 											</input>
 											<xsl:value-of select="leg:TranslateText('Great Britain')"/>
 										</label>
-										<label>
-											<input type="checkbox" name="extent" value="ew" class="radio">
+										<label for="ew">
+											<input type="checkbox" name="extent" value="ew" id="ew" class="radio">
 												<xsl:if test="$extents = 'ew'">
 													<xsl:attribute name="checked">checked</xsl:attribute>
 												</xsl:if>
 											</input>
 											<xsl:value-of select="leg:TranslateText('England &amp; Wales')"/>
 										</label>
-										<label>
-											<input type="checkbox" name="extent" value="england" class="radio">
+										<label for="england">
+											<input type="checkbox" name="extent" value="england" id="england" class="radio">
 												<xsl:if test="$extents = 'england'">
 													<xsl:attribute name="checked">checked</xsl:attribute>
 												</xsl:if>
 											</input>
 											<xsl:value-of select="leg:TranslateText('England')"/>
 										</label>
-										<label>
-											<input type="checkbox" name="extent" value="wales" class="radio">
+										<label for="wales">
+											<input type="checkbox" name="extent" value="wales" id="wales" class="radio">
 												<xsl:if test="$extents = 'wales'">
 													<xsl:attribute name="checked">checked</xsl:attribute>
 												</xsl:if>
 											</input>
 											<xsl:value-of select="leg:TranslateText('Wales')"/>
 										</label>
-										<label>
-											<input type="checkbox" name="extent" value="scotland" class="radio">
+										<label for="scotland">
+											<input type="checkbox" name="extent" value="scotland" id="scotland" class="radio">
 												<xsl:if test="$extents = 'scotland'">
 													<xsl:attribute name="checked">checked</xsl:attribute>
 												</xsl:if>
 											</input>
 											<xsl:value-of select="leg:TranslateText('Scotland')"/>
 										</label>
-										<label>
-											<input type="checkbox" name="extent" value="ni" class="radio">
+										<label for="ni">
+											<input type="checkbox" name="extent" value="ni" id="ni" class="radio">
 												<xsl:if test="$extents = 'ni'">
 													<xsl:attribute name="checked">checked</xsl:attribute>
 												</xsl:if>
 											</input>
 											<xsl:value-of select="leg:TranslateText('Northern Ireland')"/>
 										</label>
-										<label>
-											<input type="checkbox" name="extent" value="eu" class="radio">
+										<label for="eu">
+											<input type="checkbox" name="extent" value="eu" id="eu" class="radio">
 												<xsl:if test="$extents = 'eu'">
 													<xsl:attribute name="checked">checked</xsl:attribute>
 												</xsl:if>

@@ -63,7 +63,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 				<xsl:call-template name="TSOOutputAddLegislationStyles"/>
 
 			</head>
-			<body xml:lang="{$TranslateLang}" lang="{$TranslateLang}" dir="ltr" id="leg" about="{$dcIdentifier}"
+			<body xml:lang="{$TranslateLang}" dir="ltr" id="leg" about="{$dcIdentifier}"
 				  class="resources">
 
 				<div id="layout2" class="legResources">
@@ -154,7 +154,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 										leg:TranslateText('Original_Print_PDF_UK_created')
 									else leg:TranslateText('Original_Print_PDF_UK')"/>
 					</h3>
-					<img id="printPDFIcon" src="/images/chrome/largePdfIcon.gif"/>
+					<img alt="Adobe PDF Icon" id="printPDFIcon" src="/images/chrome/largePdfIcon.gif"/>
 					<p>
 						<xsl:choose>
 							<xsl:when test="$isDraft">
@@ -854,7 +854,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 							</a>
 						</li>
 					</xsl:if>
-					<!--<li><a href="">Further info 2</a></li>-->
+					<!--<li><a>Further info 2</a></li>-->
 				</ul>
 			</div>
 
@@ -1007,7 +1007,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 	<xsl:template name="TSOOutputBreadcrumbItems">
 		<!--/#breadcrumbControl -->
 		<div id="breadCrumb">
-			<h3 class="accessibleText">You are here:</h3>
+			<h2 class="accessibleText">You are here:</h2>
 			<ul>
 				<xsl:call-template name="legtypeBreadcrumb"/>
 				<xsl:apply-templates select="/leg:Legislation" mode="TSOBreadcrumbItem"/>

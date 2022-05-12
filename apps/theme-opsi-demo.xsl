@@ -61,7 +61,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="serverPrefix" as="xs:string" select="if (exists($serverName)) then concat('https://', $serverName) else ''" />
 
 	<xsl:template match="/*">
-		<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dct="http://purl.org/dc/terms/" lang="en" xml:lang="en">
+		<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dct="http://purl.org/dc/terms/" xml:lang="en">
 			<xsl:apply-templates select="@*"/>
 			<xsl:text>&#10;</xsl:text>
 			<head>
@@ -98,16 +98,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</xsl:choose>
 				<!-- Add to homepage icons add -->
 				<link rel="apple-touch-icon" href="/images/chrome/apple-touch-icons/apple-touch-icon.png" />
-				<link rel="apple-touch-icon" sizes="57x57" href="/images/chrome/apple-touch-icons/apple-touch-icon-57x57.png" />
-				<link rel="apple-touch-icon" sizes="72x72" href="/images/chrome/apple-touch-icons/apple-touch-icon-72x72.png" />
-				<link rel="apple-touch-icon" sizes="76x76" href="/images/chrome/apple-touch-icons/apple-touch-icon-76x76.png" />
-				<link rel="apple-touch-icon" sizes="114x114" href="/images/chrome/apple-touch-icons/apple-touch-icon-114x114.png" />
-				<link rel="apple-touch-icon" sizes="120x120" href="/images/chrome/apple-touch-icons/apple-touch-icon-120x120.png" />
-				<link rel="apple-touch-icon" sizes="144x144" href="/images/chrome/apple-touch-icons/apple-touch-icon-144x144.png" />
-				<link rel="apple-touch-icon" sizes="152x152" href="/images/chrome/apple-touch-icons/apple-touch-icon-152x152.png" />
 
-
-				<xsl:copy-of select="xhtml:head/node() except (xhtml:head/xhtml:meta[@http-equiv], xhtml:head/xhtml)" copy-namespaces="no" />
+				<xsl:copy-of select="xhtml:head/node() except (xhtml:head/xhtml:meta[@http-equiv], xhtml:head/xhtml, xhtml:head/xhtml:title)" copy-namespaces="no" />
 				<xsl:copy-of select="xhtml:head/xhtml:meta[lower-case(@http-equiv) = 'refresh']" copy-namespaces="no" />
 				<link rel="stylesheet" href="/styles/print.css" type="text/css" media="print" />
 				<script type="text/javascript" src="/scripts/jquery-cookie-directive/jquery.cookie.js"></script>
@@ -135,52 +127,52 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<li><a href="#plainViewNav"><xsl:value-of select="leg:TranslateText('Skip to navigation')"/></a></li>
 						</xsl:when>
 						<xsl:otherwise>
-							<li><a href="#pageTitle"><xsl:value-of select="leg:TranslateText('Skip to main content')"/></a></li>
+							<li><a href="{if (leg:IsHome()) then '#intro' else '#pageTitle'}"><xsl:value-of select="leg:TranslateText('Skip to main content')"/></a></li>
 							<li><a href="#primaryNav"><xsl:value-of select="leg:TranslateText('Skip to navigation')"/></a></li>
 						</xsl:otherwise>
 					</xsl:choose>
 				</ul>
 
 				<div id="layout1">
-					<!-- <div id="brexit-scenario-banner">
-                       <xsl:if test="$brexitType = 'deal'">
-                         <span class="scenario">deal</span>
-                       </xsl:if>
-                       <xsl:if test="$brexitType = 'nodeal'">
-                         <span class="scenario">no-deal</span>
-                       </xsl:if>
-                       <xsl:if test="$brexitType = 'extension'">
-                         <span class="scenario">extension</span>
-                       </xsl:if>
-                       <xsl:if test="$brexitType = 'revoke'">
-                         <span class="scenario">revoke</span>
-                       </xsl:if>
-                       <xsl:if test="$brexitType = 'holding'">
-                         <span class="scenario">holding</span>
-                       </xsl:if>
-                     </div>-->
+         <!-- <div id="brexit-scenario-banner">
+            <xsl:if test="$brexitType = 'deal'">
+              <span class="scenario">deal</span>
+            </xsl:if>
+            <xsl:if test="$brexitType = 'nodeal'">
+              <span class="scenario">no-deal</span>
+            </xsl:if>
+            <xsl:if test="$brexitType = 'extension'">
+              <span class="scenario">extension</span>
+            </xsl:if>
+            <xsl:if test="$brexitType = 'revoke'">
+              <span class="scenario">revoke</span>
+            </xsl:if>
+			<xsl:if test="$brexitType = 'holding'">
+              <span class="scenario">holding</span>
+            </xsl:if>
+          </div>-->
 
-					<!--  CORONAVIRUS BANNER  -->
-					<!--<xsl:choose>
-                        <xsl:when test="$TranslateLang = 'cy'">
-                            <div id="coronavirus-banner" class="scenario">
-                                <div class="bannercontent">
-                                    <span class="main-cy"><strong>Coronafirws</strong></span>
-                                    <span class="legislation-cy"><strong><a href="/cy/coronavirus" class="link">Gweler deddfwriaeth coronafirws</a></strong><br/>ar ddeddfwriaeth.gov.uk</span>
-                                    <span class="extents-cy">Sicrhewch ganllaw coronafirws gan <strong><a href="https://www.gov.uk/coronavirus" class="link" target="_blank">GOV.UK</a></strong><br/>Cyngor ychwanegol: <strong><a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Yr Alban</a> | <a href="https://llyw.cymru/coronavirus" class="link" target="_blank">Cymru</a> | <a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Gogledd Iwerddon</a></strong></span>
-                                </div>
-                            </div>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <div id="coronavirus-banner" class="scenario">
-                                <div class="bannercontent">
-                                    <span class="main"><strong>Coronavirus</strong></span>
-                                    <span class="legislation"><strong><a href="/coronavirus" class="link">See Coronavirus legislation</a></strong><br/>on legislation.gov.uk</span>
-                                    <span class="extents">Get Coronavirus guidance from <strong><a href="https://www.gov.uk/coronavirus" class="link" target="_blank">GOV.UK</a></strong><br/>Additional advice for <strong><a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Scotland</a> | <a href="https://gov.wales/coronavirus" class="link" target="_blank">Wales</a> | <a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Northern Ireland</a></strong></span>
-                                </div>
-                            </div>
-                        </xsl:otherwise>
-                    </xsl:choose>-->
+		  <!--  CORONAVIRUS BANNER  -->
+		<!--<xsl:choose>
+			<xsl:when test="$TranslateLang = 'cy'">
+				<div id="coronavirus-banner" class="scenario">
+					<div class="bannercontent">
+						<span class="main-cy"><strong>Coronafirws</strong></span>
+						<span class="legislation-cy"><strong><a href="/cy/coronavirus" class="link">Gweler deddfwriaeth coronafirws</a></strong><br/>ar ddeddfwriaeth.gov.uk</span>
+						<span class="extents-cy">Sicrhewch ganllaw coronafirws gan <strong><a href="https://www.gov.uk/coronavirus" class="link" target="_blank">GOV.UK</a></strong><br/>Cyngor ychwanegol: <strong><a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Yr Alban</a> | <a href="https://llyw.cymru/coronavirus" class="link" target="_blank">Cymru</a> | <a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Gogledd Iwerddon</a></strong></span>
+					</div>
+				</div>
+			</xsl:when>
+			<xsl:otherwise>
+				<div id="coronavirus-banner" class="scenario">
+					<div class="bannercontent">
+						<span class="main"><strong>Coronavirus</strong></span>
+						<span class="legislation"><strong><a href="/coronavirus" class="link">See Coronavirus legislation</a></strong><br/>on legislation.gov.uk</span>
+						<span class="extents">Get Coronavirus guidance from <strong><a href="https://www.gov.uk/coronavirus" class="link" target="_blank">GOV.UK</a></strong><br/>Additional advice for <strong><a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Scotland</a> | <a href="https://gov.wales/coronavirus" class="link" target="_blank">Wales</a> | <a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Northern Ireland</a></strong></span>
+					</div>
+				</div>
+			</xsl:otherwise>
+		</xsl:choose>-->
 
 
 
@@ -215,7 +207,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 				<div id="modalBg" style="width: 1264px; height: 1731px; opacity: 0.8; display: none;"/>
 
-				<script>
+				<script type="text/javascript">
 					$("#statusWarningSubSections").css("display", "none");
 					$(".help").css("display", "none");
 					$("#searchChanges", "#existingSearch").css({"display": "none"});
@@ -509,7 +501,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</xsl:element>
 
 			<span class="{if ($TranslateLang ='cy') then 'natArchWelsh' else 'natArch'}">
-				<a href="http://www.nationalarchives.gov.uk"><span></span>
+				<a href="http://www.nationalarchives.gov.uk">
+					<span class="backgroundImage" />
+					<span class="accessibleText">http://www.nationalarchives.gov.uk</span>
 				</a>
 			</span>
 
@@ -799,8 +793,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 				})(window, document, 'script', 'dataLayer', 'GTM-TWB7339');
 			</script>
-			<div style="display: none"><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWB7339"
-											   height="0" width="0" style="display:none;visibility:hidden"></iframe></div>
+			<div style="visibility: hidden; height: 0; width: 0; overflow: hidden; position: absolute">
+				<object data="https://www.googletagmanager.com/ns.html?id=GTM-TWB7339" height="0" width="0" type="text/html"></object>
+			</div>
 		</div>
 		<xsl:comment>End Google Tag Manager</xsl:comment>
 	</xsl:template>

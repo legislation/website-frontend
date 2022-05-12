@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 (c)  Crown copyright
- 
+
 You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
+
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 -->
@@ -15,14 +15,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <!-- Change history
 
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml"  version="2.0" 
-	xmlns:xhtml="http://www.w3.org/1999/xhtml" 
-	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-	xmlns:tso="http://www.tso.co.uk/assets/namespaces/functions" 
-	xmlns:dc="http://purl.org/dc/elements/1.1/" 
-	xmlns:db="http://docbook.org/ns/docbook"	
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
+	xmlns:xhtml="http://www.w3.org/1999/xhtml"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:tso="http://www.tso.co.uk/assets/namespaces/functions"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:db="http://docbook.org/ns/docbook"
 	xmlns:ukm="http://www.legislation.gov.uk/namespaces/metadata"
-	xmlns:atom="http://www.w3.org/2005/Atom" 
+	xmlns:atom="http://www.w3.org/2005/Atom"
 	xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation"
 	xmlns:xforms="http://www.w3.org/2002/xforms"
     xmlns:ev="http://www.w3.org/2001/xml-events"
@@ -37,20 +37,20 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</title>
 				<xsl:call-template name="TSOOutputAddLegislationStyles" />
 			</head>
-			<body xml:lang="en" lang="en" dir="ltr" id="leg" class="plainView">
-			
+			<body xml:lang="en" dir="ltr" id="leg" class="plainView">
+
 				<div id="layout2">
-			
+
 					<!-- adding the title of the legislation-->
-					<h1 class="pageTitle">
+					<h1 id="pageTitle" class="pageTitle">
 						<xsl:value-of select="concat($legislationTitle, ' ' , $enTypeLabel)"/>
 					</h1>
-				
+
 					<div class="interface">
-						
+
 						<!-- adding the links for previous and next links-->
 						<xsl:call-template name="TSOOutputPreviousTOCNextLinks"/>
-						
+
 					</div>
 					<!--./interface -->
 
@@ -58,33 +58,33 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 						<!-- outputing the legislation content-->
 					<xsl:call-template name="TSOOutputLegislationContent" />
-	
+
 					<div class="interface">
-						
+
 						<!-- adding the links for previous and next links-->
 						<xsl:call-template name="TSOOutputPreviousTOCNextLinks"/>
-						
+
 					</div>
 					<!--./interface -->
-					
+
 						<p class="backToTop">
 							<a href="#top">Back to top</a>
-						</p>							
-	
+						</p>
+
 				</div>
 					<!--/content-->
-					
+
 				</div>
 				<!--layout2 -->
-				
+
 			</body>
 		</html>
 	</xsl:template>
-	
+
 	<xsl:function name="leg:FormatURL" as="xs:string">
 		<xsl:param name="url"/>
 		<xsl:sequence select="concat(substring-after($url,'http://www.legislation.gov.uk'), '?view=plain') "/>
-	</xsl:function>	
-	
-	
+	</xsl:function>
+
+
 </xsl:stylesheet>

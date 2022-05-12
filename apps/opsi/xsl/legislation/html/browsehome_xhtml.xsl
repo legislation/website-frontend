@@ -69,7 +69,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<script type="text/javascript" src="/scripts/browse/map.js"></script>
 			</head>
 			<!-- TSOBrowseHome has a different body@class -->
-			<body lang="{$TranslateLang}" xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro">
+			<body xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro">
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
@@ -97,16 +97,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</a>
 								</div>
 								<div id="map">
-									<img id="blank" src="/images/maps/blank.png" usemap="#imgmap" alt=""/>
-									<img class="mapImage" id="uk" src="/images/maps/uk.png" usemap="#imgmap" alt=""/>
-									<img class="mapImage" id="england" src="/images/maps/england.png" usemap="#imgmap"
-										 alt=""/>
-									<img class="mapImage" id="scotland" src="/images/maps/scotland.png" usemap="#imgmap"
-										 alt=""/>
-									<img class="mapImage" id="wales" src="/images/maps/wales.png" usemap="#imgmap"
-										 alt=""/>
-									<img class="mapImage" id="northernireland" src="/images/maps/northernireland.png"
-										 usemap="#imgmap" alt=""/>
+									<img alt="British Isles Map, blank" id="blank" src="/images/maps/blank.png" usemap="#imgmap" />
+									<img alt="British Isles Map, UK" class="mapImage" id="uk" src="/images/maps/uk.png" usemap="#imgmap" />
+									<img alt="British Isles Map, England" class="mapImage" id="england" src="/images/maps/england.png" usemap="#imgmap"
+										 />
+									<img alt="British Isles Map, Scotland" class="mapImage" id="scotland" src="/images/maps/scotland.png" usemap="#imgmap"
+										 />
+									<img alt="British Isles Map, Wales" class="mapImage" id="wales" src="/images/maps/wales.png" usemap="#imgmap"
+										 />
+									<img alt="British Isles Map, Northern Ireland" class="mapImage" id="northernireland" src="/images/maps/northernireland.png"
+										 usemap="#imgmap" />
 									<map name="imgmap" id="imgmap">
 										<area title="{upper-case(leg:TranslateText('Northern Ireland'))}" id="niarea"
 											  shape="poly" coords="87,133,79,142,79,171,102,171,103,177,124,178,112,133"
@@ -373,7 +373,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:comment>
 					<![CDATA[[if IE 7]><link rel="stylesheet" href="/styles/IE/ie7browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 			</head>
-			<body lang="{$TranslateLang}" xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro region">
+			<body xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro region">
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
@@ -384,14 +384,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</div>
 					<div id="content">
 						<div class="s_8 p_one intro">
-							<p class="">
+							<p>
 								<xsl:value-of select="leg:TranslateText('Browse_UKIntro')"/>
 							</p>
 							<!--<div class="helpPara">
 								<h2>Need more help?</h2>
 								<p>
 									Sed adipiscing sapien non dolor ornare eu hendrerit arcu varius. Phasellus aliquet bibendum nibh in ornare.
-									<a href="">Understanding legislation types</a>
+									<a>Understanding legislation types</a>
 								</p>
 							</div>-->
 							<div class="s_4 p_absTopRight">
@@ -646,7 +646,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:comment>
 					<![CDATA[[if IE 7]><link rel="stylesheet" href="/styles/IE/ie7browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 			</head>
-			<body lang="{$TranslateLang}" xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro region">
+			<body xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro region">
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
@@ -660,15 +660,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<xsl:value-of select="leg:TranslateText('Browse_WalesIntro')"/>
 							</p>
 							<!--<div class="helpPara">
-								<h2 class="">Need more help?</h2>
+								<h2>Need more help?</h2>
 								<p>
 									Sed adipiscing sapien non dolor ornare eu hendrerit arcu varius. Phasellus aliquet bibendum nibh in ornare.
-									<a href="">Understanding legislation types</a>
+									<a>Understanding legislation types</a>
 								</p>
 							</div>-->
 							<div class="s_4 p_absTopRight">
 								<div id="map">
-									<img id="blank" src="/images/maps/activeWales.gif"/>
+									<img alt="Wales Map, active" id="blank" src="/images/maps/activeWales.gif"/>
 									<div class="returnLink walesRegion">
 										<a href="{$TranslateLangPrefix}/browse">
 											<xsl:value-of select="leg:TranslateText('Browse_Back')"/>
@@ -810,7 +810,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:comment>
 					<![CDATA[[if IE 7]><link rel="stylesheet" href="/styles/IE/ie7browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 			</head>
-			<body lang="{$TranslateLang}" xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro region">
+			<body xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro region">
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
@@ -824,10 +824,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<xsl:value-of select="leg:TranslateText('Browse_ScotlandIntro')"/>
 							</p>
 							<!--<div class="helpPara">
-								<h2 class="">Need more help?</h2>
+								<h2>Need more help?</h2>
 								<p>
 									Sed adipiscing sapien non dolor ornare eu hendrerit arcu varius. Phasellus aliquet bibendum nibh in ornare.
-									<a href="">Understanding legislation types</a>
+									<a>Understanding legislation types</a>
 								</p>
 							</div>-->
 							<div class="s_4 p_absTopRight">
@@ -961,7 +961,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:comment>
 					<![CDATA[[if IE 7]><link rel="stylesheet" href="/styles/IE/ie7browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 			</head>
-			<body lang="{$TranslateLang}" xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro region">
+			<body xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro region">
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">
@@ -975,10 +975,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<xsl:value-of select="leg:TranslateText('Browse_NIIntro')"/>
 							</p>
 							<!--<div class="helpPara">
-								<h2 class="">Need more help?</h2>
+								<h2>Need more help?</h2>
 								<p>
 									Sed adipiscing sapien non dolor ornare eu hendrerit arcu varius. Phasellus aliquet bibendum nibh in ornare.
-									<a href="">Understanding legislation types</a>
+									<a>Understanding legislation types</a>
 								</p>
 							</div>-->
 							<div class="s_4 p_absTopRight">
@@ -1142,7 +1142,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:comment>
 					<![CDATA[[if IE 7]><link rel="stylesheet" href="/styles/IE/ie7browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 			</head>
-			<body lang="{$TranslateLang}" xml:lang="{$TranslateLang}" dir="ltr" id="browse"
+			<body xml:lang="{$TranslateLang}" dir="ltr" id="browse"
 				  class="intro region euregion">
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>

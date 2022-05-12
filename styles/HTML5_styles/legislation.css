@@ -1,15 +1,15 @@
 /*
 (c)  Crown copyright
- 
+
 You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
+
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
 
 body { padding: 2em; font-family: arial, helvetica, verdana, sans-serif; font-size: 12pt }
 
-a { color: #2790C4 }
+a { color: #2D7CA4 }
 a[href=''], a[href^='#'] { text-decoration: none; color: inherit }
 a[href='']:hover, a[href^='#']:hover { text-decoration: underline }
 

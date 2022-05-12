@@ -1,8 +1,8 @@
 /*
 (c)  Crown copyright
- 
+
 You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
+
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
@@ -52,7 +52,10 @@ label.error {color: #870600;font-weight:bold}
 #errorBar {background:#f5e5e5; color:#870600; height: 40px; line-height: 40px; padding-left: 20px; font-weight: bold; border:1px solid #DFCFD0;}
 #content .submit button {width: 150px; height: 30px; margin: 10px 10px; clear: left}
 
-.searchFieldCategory {border-bottom: 1px dotted #D2D2D2; padding-bottom: 5px; float: left;}	
+/* Remove the fieldset styling for search page fieldsets */
+.advancedSearch fieldset { border: none; padding: 0; }
+
+.advancedSearch .searchFieldCategory {border-bottom: 1px dotted #D2D2D2; padding-bottom: 5px; float: left;}
 .searchFieldCategory input[type=text] {width:63px;}
 
 #searchNumber{ width: 10em;}
@@ -116,7 +119,7 @@ select {border: 1px solid #7B85AD; padding:5px 3px; background: url(/images/chro
 .typeCheckBoxDoubleCol { width:450px; }
 .typeCheckBoxCol { width:auto; }
 .typeCheckBoxCol input[type=checkbox], .typeCheckBoxDoubleCol input[type=checkbox] { width:15px; padding-left:0px; margin-left:10px;}
-.typeCheckBoxCol input[type=checkbox] { display: block; float: left; }	
+.typeCheckBoxCol input[type=checkbox] { display: block; float: left; }
 .typeCheckBoxDoubleCol label { width:80px; margin-left: 5px; }
 .typeCheckBoxCol label {margin-left: 5px;}
 

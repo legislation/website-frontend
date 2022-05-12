@@ -2591,10 +2591,10 @@ TODO: need to add semantic id based on EN structure
 	</xsl:template>
 
 	<xsl:template match="leg:Underline">
-		<u>
+		<em class="underlined">
 			<xsl:call-template name="FuncCheckForID"/>
 			<xsl:apply-templates/>
-		</u>
+		</em>
 		<!-- Check if last node in a footnote in which case output back link if a standard footnote -->
 		<xsl:call-template name="FuncIsLastElementInFootnote"/>
 	</xsl:template>
@@ -2847,7 +2847,7 @@ TODO: need to add semantic id based on EN structure
 
 		<xsl:choose>
 			<xsl:when test="$strLanguage != ''">
-				<span lang="{$strLanguage}" xml:lang="{$strLanguage}">
+				<span xml:lang="{$strLanguage}">
 					<!-- Check that if there are any characters that can not be rendered correctly.  If this is the case then these need to be replaced with corresponding images. -->
 					<xsl:call-template name="FuncProcessTextForUnicodeChars">
 						<xsl:with-param name="strText">
@@ -3306,7 +3306,7 @@ TODO: need to add semantic id based on EN structure
 	<!-- Check to see if we need to output a back reference for a footnote -->
 	<xsl:template name="FuncCheckForBackReference">
 		<xsl:text/>
-		<a href="#Back{ancestor::leg:Footnote/@id}" title="Back to footnote {count(ancestor::leg:Footnote/preceding-sibling::leg:Footnote) + 1}" xml:lang="en" lang="en">
+		<a href="#Back{ancestor::leg:Footnote/@id}" title="Back to footnote {count(ancestor::leg:Footnote/preceding-sibling::leg:Footnote) + 1}" xml:lang="en">
 			<xsl:text>Back [</xsl:text>
 			<xsl:value-of select="count(ancestor::leg:Footnote/preceding-sibling::leg:Footnote) + 1"/>
 			<xsl:text>]</xsl:text>

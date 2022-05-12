@@ -1,8 +1,8 @@
 /*
 (c)  Crown copyright
- 
+
 You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
+
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
@@ -11,14 +11,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
  One-liner: Various form interactivity
  Requirements: jQuery framework: http://jquery.com/
  jqueryui 1.4
- 
+
  Detailed info:
  Adds show/hide functionality for sub groups
  A line showing details of the search term in an easy to understand line for the user.
- 
+
  Notes:
  For help, anchor link should be the same as id of associated help box
- 
+
  History:
  v0.01	TE Created
  v0.02	2010-06-08	TE	Fixed positioning
@@ -30,32 +30,30 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
                         Requires the formFunctions/common.js to preceed it in HTML
  */
 $(document).ready(function(){
-	
-	styleRadios();
-	
+
 	// Add the correct hooks to enable overlay traversing
 	$(".yearChoice").addClass("formGroup");
-	
+
 	// Set the transparent overlay to detect when someone clicks into a box
 	$("input:[name=affected-year-choice]").showHideFields();
-	$("input:[name=affecting-year-choice]").showHideFields();   
-	
+	$("input:[name=affecting-year-choice]").showHideFields();
+
 	// Add the form hints to the textboxes (selects should already be populated)
-	$("#affected-year").validate("year").addDefaultText(config.validate.year[LANG]);		
-	$("#affected-number, #affecting-number").validate("number").addDefaultText(config.validate.number[LANG]);	
-	$("#affected-start-year, #affected-end-year").validate("year").addDefaultText(config.validate.year[LANG]);	
+	$("#affected-year").validate("year").addDefaultText(config.validate.year[LANG]);
+	$("#affected-number, #affecting-number").validate("number").addDefaultText(config.validate.number[LANG]);
+	$("#affected-start-year, #affected-end-year").validate("year").addDefaultText(config.validate.year[LANG]);
 	$("#affected-title, #affecting-title").addDefaultText(config.search.affectingTitle[LANG]);
 	$("#affected-type, #affecting-type").data("defaultText", $("#affected-type option:first").text()); // the first option is the default text
-	
+
 	// Remove these values from the submitted form so that the backend doesn't need to handle them
     $("#searchChanges").clearDefaultValues();
-	
+
 	// show Modify Search button if appropriate
 	if ($("#newSearch").length) {
 		$("#newSearch").show();
 		$("#searchChanges").addClass("modifySearchBtnAdded");
 	}
-	
+
     // Set the show/hide functions for the modify search box
 	if ($(".results", "#content").length > 0){
 		$("#modifySearch")
@@ -65,9 +63,9 @@ $(document).ready(function(){
 		).click(function() {
 			// if the initial view of the form is hidden then so are the overlays used in the showHideFields plugin, these need resetting
 			$("input:[name=affected-year-choice]").showHideFields();
-			$("input:[name=affecting-year-choice]").showHideFields();	
+			$("input:[name=affecting-year-choice]").showHideFields();
 		});
-		
+
 		// show hide reset button
 		$("#modifySearch").toggle(function() {
 			$("#resetSearch").css("display","inline-block");
@@ -79,11 +77,11 @@ $(document).ready(function(){
 		// Hide this functionality
 		$("#modifySearch").hide();
 	}
-	
+
 	// Set the text preview area output and populate with the default form values
 	$previewArea = $("p", "#searchInfo")
 	searchQueryPreviewTxt($previewArea);
-	
+
 	// Add event handlers for the required fields and run the preview script when they occur
 	$("#searchChanges").find("input, select").change(function(){
 		searchQueryPreviewTxt($previewArea);
@@ -92,80 +90,58 @@ $(document).ready(function(){
 			// Don't do anything with these values
 			return;
 		}
-		searchQueryPreviewTxt($previewArea);		
+		searchQueryPreviewTxt($previewArea);
 	}).click(function(){
-		searchQueryPreviewTxt($previewArea);		
+		searchQueryPreviewTxt($previewArea);
 	});
-	
+
 	// Add the reset button
 	$("#newSearch")
 	.append('<a id="resetSearch" href="#searchChanges" class="userFunctionalElement"><span class="btl" /><span class="btr" />' + config.search.newSearch.message1[LANG] + '<span class="bbl" /><span class="bbr" /></a>')
 	.show();
-	
+
 	// Reset button functionality
 	$("#resetSearch")
 	.click(function (e) {
-		
+
 		$(':input','#searchChanges')
 		.not(':button, :submit, :reset, :hidden, :radio')
 		.val("");
-		
+
 		$("#affected-year-specific").attr("checked", "checked");
 		$("#affecting-year-choice-specific").attr("checked", "checked");
 		// Reset the type checkboxes, also emulate click on span to apply special styling
-		$("#appliedAll").attr("checked", "checked").siblings("span:first").trigger('click'); 
+		$("#appliedAll").attr("checked", "checked").siblings("span:first").trigger('click');
 
-		
+
 		$("input:[name=affected-year-choice]").showHideFields();
-		$("input:[name=affecting-year-choice]").showHideFields(); 
-		
+		$("input:[name=affecting-year-choice]").showHideFields();
+
 		// reset to default
 		$(".jsDefaultVal").each(function () {
-			$(this).val($(this).data("defaultText")); 
-		});	
-			
-		$(".errorMessage").remove();			
+			$(this).val($(this).data("defaultText"));
+		});
+
+		$(".errorMessage").remove();
 		$(".error").removeClass("error");
-		
+
 		// reset preview
 		searchQueryPreviewTxt($previewArea);
-		
+
 		e.preventDefault();
 	});
-	
+
 	// Show the button by default, but hide if the 'modify search' button is off
 	if ($(".results", "#content").length > 0){
 		$("#resetSearch").hide();
-	}	
+	}
 });
 
-
-// Adds special radio button styles
-function styleRadios()
-{
-	$("#effectsOptions input").each(function () {
-		$(this)
-		.css("display", "none");		
-		if ($(this)[0].checked)		
-				$(this).before('<span class="radio checked"></span>');
-		else
-				$(this).before('<span class="radio"></span>');				
-	});
-	
-	$("#effectsOptions span").click(function () {
-		if (!$(this).hasClass("checked"))
-		{
-			$(this).addClass("checked").next("input")[0].checked = true;
-			$("#effectsOptions span").not(this).removeClass("checked");
-			
-		}
-	});
-}
 
 function searchQueryPreviewTxt($applyTo){
 	var changesBy = new Object();
 	var affects   = new Object();
-		
+
 	// Prepare all of the object for reference later
 	// note: $ used to show that this is a jQuery obj
 	affects = {
@@ -177,7 +153,7 @@ function searchQueryPreviewTxt($applyTo){
 		"$yrRangeEndObj"  : $('#affected-end-year'),
 		"$typeObj"				:	$('#affected-type')
 	};
-	
+
 	changesBy = {
 		"$titleObj"       : $('#affecting-title'),
 		"$yrChoice"       : $('input[name=affecting-year-choice]:checked'),
@@ -187,21 +163,21 @@ function searchQueryPreviewTxt($applyTo){
 		"$yrRangeEndObj"  : $('#affecting-end-year'),
 		"$typeObj"				:	$('#affecting-type')
 	}
-	
+
 	// Add text to variables, either using a prepared function or directly using the jQuery .val() method
-	
+
 	affects.title  = byTitle(affects);
 	affects.type = byType(affects);
 	affects.year   = byYear(affects);
 	affects.number = byNumber(affects);
-	
+
 	changesBy.title  = byTitle(changesBy);
 	changesBy.type = byType(changesBy);
 	changesBy.year   = byYear(changesBy);
 	changesBy.number   = byNumber(changesBy);
-	
+
 	$applyTo.html(config.search.affect.apply.part1[LANG] + affects.type + affects.year + affects.number + config.search.affect.apply.part2[LANG] + changesBy.type + changesBy.year + changesBy.number);
-	
+
 	// Pattern for testing/amending output within function:
 	// (Only need to use this if the input cannot be directly passes straight to variable)
 	// Pass the relevent top level object containing the sub objects so that the same function can be used
@@ -217,35 +193,35 @@ function searchQueryPreviewTxt($applyTo){
 			return "";
 		}
 	}
-	
+
 	// Check to see if the value has changed from the default
 	function byType(obj) {
 		var type = $("option:selected", obj.$typeObj).text();
-		
+
 		if (type === obj.$typeObj.data("defaultText") || type == "") {
 			// default
 			//return "<strong>all Legislation</strong>";
-			return  config.search.affect.apply.part3[LANG];     
-		} else {				
+			return  config.search.affect.apply.part3[LANG];
+		} else {
 			// Grab the data from the amended fields
 			return "<strong>" + type.escapeHTML() + "</strong>";
-		}			
+		}
 	};
-	
+
 	// Check to see if the value has changed from the default
 	function byTitle(obj) {
 		if (obj || obj.$titleObj.val() === obj.$titleObj.data("defaultText") || obj.$titleObj.val() == "") {
 			// default
 			//return "<strong>all Legislation</strong>";
 			return "all legislation";
-		} else {				
+		} else {
 			// Grab the data from the amended fields
 			return "Legislation title/keywords <strong>" + obj.$titleObj.val().escapeHTML() + "</strong>";
-		}			
+		}
 	};
-	
+
 	function byYear(obj) {
-		
+
 		// Check to see if a range of years
 		if (obj.$yrChoice.val()=="specific") {
 			// One year
@@ -254,10 +230,10 @@ function searchQueryPreviewTxt($applyTo){
 				return "";
 			} else {
 				return " in <strong>" + obj.$yrSpecificObj.val().escapeHTML() + "</strong>";
-			}			
-			
+			}
+
 		} else if (obj.$yrChoice.val()=="range") {
-			
+
 			// Range of years
 			if (obj.$yrRangeBeginObj.val() == obj.$yrRangeBeginObj.data("defaultText") || obj.$yrRangeBeginObj.val() == "" || obj.$yrRangeEndObj.val() == "" || obj.$yrRangeEndObj.val() == obj.$yrRangeEndObj.data("defaultText")) {
 				// return nil so response does not exist unless changed
@@ -265,11 +241,11 @@ function searchQueryPreviewTxt($applyTo){
 			} else {
 				return " between <strong>" + obj.$yrRangeBeginObj.val().escapeHTML() + " and " + obj.$yrRangeEndObj.val().escapeHTML() + "</strong>";
 			}
-			
+
 		} else {
 			// default
 			return "";
-		}			
+		}
 	};
 }
 

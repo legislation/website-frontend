@@ -130,7 +130,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>	
 	
 	<xsl:template match="dc:title" mode="HTMLmetadata" priority="10">
-		<meta name="DC.title" content="{.}" lang="en" />
+		<meta name="DC.title" content="{.}" />
 	</xsl:template>	
 	
 	<xsl:template match="dc:date" mode="HTMLmetadata" priority="10">

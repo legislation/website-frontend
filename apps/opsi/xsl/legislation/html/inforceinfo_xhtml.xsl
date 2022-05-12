@@ -67,7 +67,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:call-template name="TSOOutputAddLegislationStyles"/>
 
 			</head>
-			<body xml:lang="{$TranslateLang}" lang="{$TranslateLang}" dir="ltr" id="leg" about="{$dcIdentifier}"
+			<body xml:lang="{$TranslateLang}" dir="ltr" id="leg" about="{$dcIdentifier}"
 				  class="resources">
 
 				<div id="layout2" class="legInForceInfo">
@@ -253,7 +253,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template name="TSOOutputBreadcrumbItems">
 		<!--/#breadcrumbControl -->
 		<div id="breadCrumb">
-			<h3 class="accessibleText">You are here:</h3>
+			<h2 class="accessibleText">You are here:</h2>
 			<ul>
 				<xsl:call-template name="legtypeBreadcrumb"/>
 				<xsl:apply-templates select="/leg:Legislation" mode="TSOBreadcrumbItem"/>

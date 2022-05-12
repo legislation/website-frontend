@@ -87,7 +87,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:variable name="class" as="xs:string"
 				select="if ($id = 'browse') then concat($paramsDoc/parameters/type, ' timeline') else 'results'" />
 		
-			<body id="{$id}" class="{$class}" lang="en" dir="ltr" xml:lang="en">
+			<body id="{$id}" class="{$class}" dir="ltr" xml:lang="en">
 			
 				<div id="layout2">
 				
@@ -1070,7 +1070,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:sequence select="$class" />
 				<td class="bilingual cy">
 					<a href="/{if (exists($welshToCLink)) then substring-after($welshToCLink, 'http://www.legislation.gov.uk/') else $tocLink}"
-						lang="cy" xml:lang="cy">
+					 xml:lang="cy">
 						<xsl:value-of select="atom:title/xhtml:div/xhtml:span[2]" />
 					</a>
 				</td>

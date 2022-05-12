@@ -42,6 +42,13 @@ $.fn.slideShow = function(options) {
 	var $slideContent = options.slideContent;
 	var timer;
 	var navClicked = false;
+	var isPaused;
+	var $pauseButton = $('<button class="carousel-pause playing" title="'+ config.carousel.pause[LANG] +'">' +
+		'<span class="accessibleText">' +
+		config.carousel.pause[LANG] +
+		'</span>' +
+		'</button>');
+	var $pauseButtonText = $pauseButton.children();
 
 	if ( $slideNavbar.length ) {
 		var $slideNavbarLinks = $slideNavbar.find('a');
@@ -62,11 +69,33 @@ $.fn.slideShow = function(options) {
 		timedTransition(); // Begin the slideshow animation
 	}
 
+	$(this).prepend($pauseButton);
+
+	$pauseButton.click(function () {
+		isPaused = !isPaused;
+
+		$pauseButton
+			.toggleClass('playing')
+			.toggleClass('paused');
+
+		if (isPaused) {
+			clearTimeout(timer);
+			$pauseButtonText.text(config.carousel.play[LANG]);
+			$pauseButton.attr('title', config.carousel.play[LANG]);
+		} else {
+			timedTransition();
+			$pauseButtonText.text(config.carousel.pause[LANG]);
+			$pauseButton.attr('title', config.carousel.pause[LANG]);
+		}
+	});
+
 	function fadeTransition(_incomingSlideId) {
 		$slideContainer.removeClass();
 		$slideContent.children('.' + _incomingSlideId).fadeIn(options.fadetime, function() {
 			$slideContainer.addClass(_incomingSlideId);
-			timer = setTimeout( timedTransition, options.slidetime );
+			if (!isPaused) {
+				timer = setTimeout( timedTransition, options.slidetime );
+			}
 		});
 	}
 

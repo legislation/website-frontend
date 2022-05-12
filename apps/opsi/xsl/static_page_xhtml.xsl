@@ -26,7 +26,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>
 
 	<xsl:template match="xhtml:body">
-		<body xml:lang="en" lang="en" dir="ltr" id="doc">
+		<body xml:lang="en" dir="ltr" id="doc">
 			<xsl:sequence select="@*"/>
 			<div id="layout2" class="subNavPage">
 
@@ -350,7 +350,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
-		<xsl:value-of select="concat($prefix,replace(normalize-space($selectedText),'[ \.\?/'']',''))"/>
+		<xsl:value-of select="concat($prefix,replace(normalize-space($selectedText),'[ \.\?/,'']',''))"/>
 	</xsl:template>
 
 </xsl:stylesheet>

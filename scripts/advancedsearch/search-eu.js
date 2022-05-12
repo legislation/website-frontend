@@ -1,8 +1,8 @@
 /*
 (c)  Crown copyright
- 
+
 You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
+
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
@@ -13,10 +13,10 @@ Requirements: jQuery framework: http://jquery.com/
 jqueryui 1.4
 jquery.ui.datepicker
 formFunctions/common.js
- 
+
 Notes:
 For help, anchor link should be the same as id of associated help box
- 
+
 History:
 v0.01	TE Created
 v0.02	2010-06-08	TE	Fixed positioning
@@ -33,7 +33,7 @@ $(document).ready(function () {
     // Show or hide fields based on radio button choices
     $("input:[name=yearRadio]").showHideFields();
 
-    // validate form - use of ID's rather than input@name is for speed   
+    // validate form - use of ID's rather than input@name is for speed
     $("#specificYear").validate("year");
     $("#yearStart").validate("year").addDefaultText(config.validate.year[LANG]);
     $("#yearEnd").validate("year").addDefaultText(config.validate.year[LANG]);
@@ -51,11 +51,11 @@ $(document).ready(function () {
 	//Search 'number' - leading or the trailing white spaces removed
 	$("#contentSearch").submit(function(){
 		$("#contentSearch #number").val($.trim($("#contentSearch #number").val()));
-	})	
+	})
 	$("#advancedSearch").submit(function(){
 		$("#searchNumber").val($.trim($("#searchNumber").val()));
 	})
-	
+
     // Add the datepicker for the Point in Time search
     addDatePicker();
 
@@ -94,7 +94,7 @@ function addDatePicker() {
 }
 
 function typeShowHide() {
-    // Wrap content in a single block to prevent columns of different heights 
+    // Wrap content in a single block to prevent columns of different heights
     // from animating at different speeds
     $('#primaryLeg, #secondaryLeg, #euretainedLeg, #legChoicesColRight, #legChoicesColLeft').wrapAll('<div id="lex" />');
 
@@ -188,7 +188,7 @@ $.fn.showExtentInfo = function (inputs) {
             } else {
             	newCoverage = [extendsTo];
             }
-			
+
             for (var i in newCoverage) {
                 this.extentSearchCoverage.push(newCoverage[i]);
             }
@@ -201,13 +201,19 @@ $.fn.showExtentInfo = function (inputs) {
             this.extentSearchCoverage = this.eliminateDuplicates(this.extentSearchCoverage); // Eliminate any duplicates that exist
             this.extentSearchCoverage.sort(this.sortOnExtent); // Sort extents based on the position of the first letter
 
+            // Reset the extent list
+            this.html = '<ul class="extentList">';
+
             for (var item in this.extentSearchCoverage) {
                 // Add the help title text
                 var title = this.extentSearchCoverage[item].replace("E", "England").replace("W", "Wales").replace("S", "Scotland").replace("N.I.", "Northern Ireland").split('+').join(' and ');
 
                 // Add html for the extent
-                this.html += '<span class="LegExtentRestriction" title="Applies to ' + title + '"><span class="btr"></span>' + this.extentSearchCoverage[item] + '<span class="bbl"></span><span class="bbr"></span></span>';
+                this.html += '<li class="LegExtentRestriction" title="Applies to ' + title + '"><span class="btr"></span>' + this.extentSearchCoverage[item] + '<span class="bbl"></span><span class="bbr"></span></li>';
+
             }
+
+            this.html += '</ul>';
 
             return this; // allow chaining
         },
@@ -251,7 +257,7 @@ $.fn.showExtentInfo = function (inputs) {
 			}
         }
     } // prototype extension
-	
+
 	// jQuery plugin return (to keep chaining)
     return this.each(function () {
         // the exact extents if necessary
@@ -264,8 +270,8 @@ $.fn.showExtentInfo = function (inputs) {
         var ext = new extent();
 
 				var extentFields = $(inputs).filter(':checked[name="extent"]');
-				
-        // Add the selected extents into the ext.extentList   
+
+        // Add the selected extents into the ext.extentList
 				if (searchType === 'applicable') {
 					extentFields.each(function () {
 						ext.addCoverage(searchType, $(this).val()); // add coverage based on the type of search and the extent range
@@ -301,10 +307,10 @@ $.fn.showExtentInfo = function (inputs) {
 
         // After all extents have been added, convert the array to HTML and output
         ext.convertExtentListToHtml().outputHtmlToElement(this);
-		
+
 		// Destroy ext
 		ext = '';
-		
+
     }); // End of return.this() plugin
-	
+
 }   // End of plugin

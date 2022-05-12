@@ -40,7 +40,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<head>
 			<title><xsl:value-of select="$reference" /></title>
 		</head>
-		<body id="doc" xml:lang="{$TranslateLang}" lang="{$TranslateLang}" dir="ltr">
+		<body id="doc" xml:lang="{$TranslateLang}" dir="ltr">
 			<div id="layout2">
 				<xsl:call-template name="TSOOutputQuickSearch" />
 				<div id="title">

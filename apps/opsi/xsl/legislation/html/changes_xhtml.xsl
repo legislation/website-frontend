@@ -68,7 +68,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:apply-templates select="/atom:feed/atom:link" mode="HTMLmetadata"/>
 			</head>
 
-			<body lang="{$TranslateLang}" xml:lang="{$TranslateLang}" dir="ltr" id="doc" class="changeLeg">
+			<body xml:lang="{$TranslateLang}" dir="ltr" id="doc" class="changeLeg">
 
 				<div id="layout2">
 					<!-- <span class="debug">
@@ -256,12 +256,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<div id="errorBar" class="error errorMessage"><xsl:value-of select="leg:TranslateText('Please check the form fields which are highlighted in red')"/></div>		
 			</xsl:if>
 			<fieldset id="affect" class="s_5 p_one">
-				<div>
+					<legend><xsl:value-of select="leg:TranslateText('Changes that affect')"/>:</legend>
 					<a class="helpItem helpItemToTop" href="#changesThatAffectHelp">
 						<img alt="Changes that affect help" src="/images/chrome/helpIcon.gif" />
 					</a>
-					<legend><xsl:value-of select="leg:TranslateText('Changes that affect')"/>:</legend>						
-				</div>
 				<div class="title">
 					<label for="affected-title"><xsl:value-of select="leg:TranslateText('Title')"/>:</label>
 					<input id="affected-title" name="affected-title" type="text" value="{$paramsDoc/parameters/affected-title}"/>
@@ -282,7 +280,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:if test="$invalidAffectedType">
 							<xsl:attribute name="class">error</xsl:attribute>						
 						</xsl:if>					
-						<option value=""><xsl:value-of select="leg:TranslateText('Any')"/></option>
+						<option><xsl:value-of select="leg:TranslateText('Any')"/></option>
 						<xsl:for-each
 							select="$g_nstCodeLists[@name = 'DocumentMainType']/Code[@status='revised'][not(@schema='EuropeanUnionTreaty')]">
 							<option value="{@uri}">
@@ -427,12 +425,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</div>
 			</fieldset>
 			<fieldset id="affecting" class="s_5 p_two">
-				<div>
+					<legend><xsl:value-of select="leg:TranslateText('made by')"/>:</legend>
 					<a class="helpItem helpItemToTop" href="#madeByHelp">
 						<img alt="Made by help" src="/images/chrome/helpIcon.gif" />
-					</a>	
-					<legend><xsl:value-of select="leg:TranslateText('made by')"/>:</legend>										
-				</div>
+					</a>
 				<div class="title">
 					<label for="affecting-title"><xsl:value-of select="leg:TranslateText('Title')"/>:</label>
 					<input id="affecting-title" name="affecting-title" type="text" value="{$paramsDoc/parameters/affecting-title}"/>
@@ -452,7 +448,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:if test="$invalidAffectingType">
 							<xsl:attribute name="class">error</xsl:attribute>
 						</xsl:if>
-						<option value=""><xsl:value-of select="leg:TranslateText('Any')"/></option>
+						<option><xsl:value-of select="leg:TranslateText('Any')"/></option>
 						<xsl:for-each select="tso:GetEffectingTypes()[not(@schemaType = 'EuropeanUnionTreaty')]">
 							<option value="{@abbrev}">
 								<xsl:if test="$paramsDoc/parameters/affecting-type = @abbrev">
@@ -493,7 +489,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<xsl:if test="$invalidAffectingYear">
 									<xsl:attribute name="class">error</xsl:attribute>
 								</xsl:if>										
-								<option value="" selected="selected"><xsl:value-of select="leg:TranslateText('Any')"/></option>
+								<option selected="selected"><xsl:value-of select="leg:TranslateText('Any')"/></option>
 								<xsl:for-each select="2002 to year-from-date(current-date())">
 									<option value="{.}">
 										<xsl:if
@@ -571,7 +567,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<xsl:if test="$invalidAffectingYearStart">
 									<xsl:attribute name="class">error</xsl:attribute>
 								</xsl:if>
-								<option value="" selected="selected"><xsl:value-of select="leg:TranslateText('YYYY')"/></option>
+								<option selected="selected"><xsl:value-of select="leg:TranslateText('YYYY')"/></option>
 								<xsl:for-each select="2002 to year-from-date(current-date())">
 									<option value="{.}">
 										<xsl:if
@@ -598,7 +594,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<xsl:attribute name="class">error</xsl:attribute>
 								</xsl:if>
 							
-								<option value="" selected="selected"><xsl:value-of select="leg:TranslateText('YYYY')"/></option>
+								<option selected="selected"><xsl:value-of select="leg:TranslateText('YYYY')"/></option>
 								<xsl:for-each select="2002 to year-from-date(current-date())">
 									<option value="{.}">
 										<xsl:if
@@ -625,12 +621,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<p/>
 				<!-- hook availabale for the JavaScript -->
 				<fieldset id="effectsOptions" class="s_6">
-					<div>
+						<legend><xsl:value-of select="leg:TranslateText('Results showing')"/></legend>
 						<a class="helpItem helpItemToMidRight" href="#resultsShowingHelp">
 							<img alt="Results showing help" src="/images/chrome/helpIcon.gif" />
-						</a>						
-						<legend><xsl:value-of select="leg:TranslateText('Results showing')"/></legend>
-					</div>
+						</a>
 					<div>
 						<input type="radio" id="appliedAll" value="all" name="applied" class="radio"
 							checked="checked">

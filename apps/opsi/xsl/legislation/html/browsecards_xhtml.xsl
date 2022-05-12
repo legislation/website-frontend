@@ -43,7 +43,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<![CDATA[[if IE 7]><link rel="stylesheet" href="/styles/IE/ie7browseAdditions.css" type="text/css" /><![endif]]]></xsl:comment>
 			</head>
 			<!-- TSOBrowseHome has a different body@class -->
-			<body lang="{$TranslateLang}" xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro">
+			<body xml:lang="{$TranslateLang}" dir="ltr" id="browse" class="intro">
 				<div id="layout2">
 					<xsl:call-template name="TSOOutputQuickSearch"/>
 					<div class="title">

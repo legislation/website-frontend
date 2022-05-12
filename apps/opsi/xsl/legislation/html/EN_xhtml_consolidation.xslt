@@ -277,7 +277,7 @@ exclude-result-prefixes="leg ukm math msxsl dc fo xsl svg xhtml xs tso">
 	<!-- Check if text node is in a language other than English -->
 	<xsl:choose>
 		<xsl:when test="$strLanguage != 'en'">
-			<span lang="{$strLanguage}" xml:lang="{$strLanguage}">
+			<span xml:lang="{$strLanguage}">
 				<!-- Check that if there are any characters that can not be rendered correctly.  If this is the case then these need to be replaced with corresponding images. -->
 				<xsl:call-template name="FuncProcessTextForUnicodeChars">
 					<xsl:with-param name="strText">

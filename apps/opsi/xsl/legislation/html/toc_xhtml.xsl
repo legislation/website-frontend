@@ -53,7 +53,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="prospDoc" as="xs:string?"
 				  select="/leg:Legislation/ukm:Metadata/atom:link[@rel='http://purl.org/dc/terms/hasVersion' and @title = 'prospective']/@href"/>
 
-		
+
 	<xsl:variable name="tocURI" as="xs:string?" select="
 		if (/leg:Legislation/ukm:Metadata/atom:link[@rel='http://purl.org/dc/terms/tableOfContents'][@hreflang='cy'] and $language = 'cy') then
 			/leg:Legislation/ukm:Metadata/atom:link[@rel='http://purl.org/dc/terms/tableOfContents'][@hreflang='cy']/@href
@@ -359,7 +359,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</script>
 				</xsl:if>-->
 			</head>
-			<body xml:lang="en" lang="en" dir="ltr" id="leg" about="{$dcIdentifier}"
+			<body xml:lang="en" dir="ltr" id="leg" about="{$dcIdentifier}"
 				  class="{concat('browse', if ($showExtent) then ' geoExtShowing' else '', if ($pointInTimeView and $version != 'prospective') then ' pointInTimeView' else '', if ($repealed) then ' hideChangestoLegislation' else '', if ($isLarge) then ' removeScripting' else '')}">
 				<!-- commenting out the highlighting
 					<xsl:if test="leg:IsContentTabDisplaying()">
@@ -1214,7 +1214,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									  select="if ($alternative) then $alternative else $alternatives[1]"/>
 						<p class="downloadPdfVersion">
 							<a class="pdfLink" href="{$alternative/@URI}">
-								<img class="imgIcon" alt="" src="/images/chrome/pdfIconMed.gif"/>
+								<img class="imgIcon" alt="PDF Icon" src="/images/chrome/pdfIconMed.gif"/>
 								<xsl:value-of select="leg:TranslateText('View PDF')"/>
 								<img class="pdfThumb"
 									 src="{replace(replace(substring-after($alternative/@URI, 'http://www.legislation.gov.uk'), '/pdfs/', '/images/'), '.pdf', '.jpg')}"
@@ -1232,7 +1232,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<xsl:if test="$uriPrefix = ('aep', 'aip', 'apgb' , 'apni' , 'asp' , 'mnia' , 'ukcm' , 'ukla' , 'ukpga' , 'mwa', 'aosp','anaw', 'asc', 'nia') ">
 								<p class="crest">
 									<a href="{leg:FormatURL($g_strIntroductionUri)}">
-										<img alt="" src="/images/crests/{$uriPrefix}.gif"/>
+										<img alt="Legislation Crest" src="/images/crests/{$uriPrefix}.gif"/>
 									</a>
 								</p>
 							</xsl:if>
@@ -1254,7 +1254,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 	<!-- title heading of the legislation-->
 	<xsl:template name="TSOOutputLegislationTitle">
-		<h1 class="pageTitle{if ($isDraft) then ' draft' else if (leg:IsProposedVersion(.)) then ' proposed' else ''}">
+		<h1 id="pageTitle" class="pageTitle{if ($isDraft) then ' draft' else if (leg:IsProposedVersion(.)) then ' proposed' else ''}">
 			<xsl:choose>
 				<xsl:when test="$dcalternative">
 					<span>
@@ -1326,15 +1326,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:choose>-->
 	</xsl:template>
 
-	
-	
+
+
 
 	<!-- ========== Standard code for breadcrumb ========= -->
 	<xsl:template name="TSOOutputBreadcrumbItems">
 		<!--/#breadcrumbControl -->
 		<xsl:variable name="maintype" select="leg:GetDocumentMainType(.)"/>
 		<div id="breadCrumb">
-			<h3 class="accessibleText">You are here:</h3>
+			<h2 class="accessibleText">You are here:</h2>
 			<ul>
 				<xsl:call-template name="legtypeBreadcrumb"/>
 				<xsl:choose>
@@ -2054,7 +2054,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<div id="advFeaturesContent" class="content">
 					<ul class="toolList">
 						<xsl:if test="leg:IsCurrentRevised(.)">
-							
+
 								<li class="concVers geoExtent first">
 									<xsl:choose>
 										<xsl:when test="$forceShowExtent">
@@ -2097,7 +2097,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</xsl:choose>
 									<!-- translate  -->
 									<span>
-										<xsl:variable name="constituents" 
+										<xsl:variable name="constituents"
 											select="for $item in ('England','Wales','Scotland','Northern Ireland') return leg:TranslateText($item)" />
 										<xsl:text>(</xsl:text>
 										<xsl:value-of select="leg:TranslateText('e.g.')"/>
@@ -2107,7 +2107,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											<xsl:for-each select="tokenize(.,' ')">
 												<xsl:variable name="head" select="substring(.,1,1)"/>
 												<xsl:variable name="tail" select="substring(.,2)" />
-												<xsl:value-of select="if(position()>1) then ' ' else ''" /><b><xsl:value-of select="$head"/></b><xsl:value-of select="$tail" />
+												<xsl:value-of select="if(position()>1) then ' ' else ''" /><strong><xsl:value-of select="$head"/></strong><xsl:value-of select="$tail" />
 											</xsl:for-each>
 											<xsl:value-of select="
 												if(position()!=count($constituents)) then
@@ -2123,7 +2123,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<xsl:text>)</xsl:text>
 									</span>
 								</li>
-							
+
 							<!--
 							The checkbox for "Show Timeline of Changes" should be checked if $showTimeline is true and unchecked if $showTimeline is false.
 							 The link, when you click on that, should take you to the same URI as the page you are on but with ?timeline=true (if $showTimeline is false) or without the timeline parameter in the URI (if $showTimeline is true).
@@ -2445,9 +2445,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</h3>
 
 				<p>
-					<b>
+					<strong>
 						<xsl:value-of select="leg:TranslateText('whatversionHelp_para1_bold')"/>
-					</b>
+					</strong>
 					<xsl:value-of select="leg:TranslateText('whatversionHelp_para1_text')"/>
 					<xsl:if test="leg:IsWelshExists(.)">
 						<xsl:text> </xsl:text>
@@ -2457,10 +2457,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:choose>
 					<xsl:when test="$g_strDocumentMainType = ('UnitedKingdomMinisterialDirection', 'UnitedKingdomMinisterialOrder')">
 						<p>
-							<b>
+							<strong>
 								<xsl:value-of select="leg:TranslateText('whatversionHelp_para_created_bold')"/>
 								<xsl:text>: </xsl:text>
-							</b>
+							</strong>
 							<xsl:value-of select="leg:TranslateText('The original')"/>
 							<xsl:text> </xsl:text>
 							<xsl:value-of select="leg:TranslateText('whatversionHelp_para_created_text')"/>
@@ -2468,10 +2468,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</xsl:when>
 					<xsl:when test="$g_isEURetainedOrEUTreaty">
 						<p>
-							<b>
+							<strong>
 								<xsl:value-of select="leg:TranslateText('Original (As adopted)')"/>
 								<xsl:text>: </xsl:text>
-							</b>
+							</strong>
 							<xsl:value-of select="leg:TranslateText('The original')"/>
 							<xsl:text> </xsl:text>
 							<xsl:value-of select="leg:TranslateText('whatversionHelp_para_eu_text')"/>
@@ -2479,14 +2479,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</xsl:when>
 					<xsl:otherwise>
 						<p>
-							<b>
+							<strong>
 								<xsl:value-of select="leg:TranslateText('whatversionHelp_para2_bold')"/>
 								<xsl:if test="leg:IsWelshExists(.)">
 									<xsl:text> - </xsl:text>
 									<xsl:value-of select="leg:TranslateText('whatversionHelp_para2_bold_1')"/>
 								</xsl:if>
 								<xsl:text>: </xsl:text>
-							</b>
+							</strong>
 							<xsl:value-of select="leg:TranslateText('The original')"/>
 							<xsl:text> </xsl:text>
 							<xsl:if test="leg:IsWelshExists(.)">
@@ -2497,12 +2497,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</p>
 					</xsl:otherwise>
 				</xsl:choose>
-				
+
 				<xsl:if test="leg:IsWelshExists(.)">
 					<p>
-						<b>
+						<strong>
 							<xsl:value-of select="leg:TranslateText('whatversionHelp_para3_bold')"/>
-						</b>
+						</strong>
 						<xsl:value-of select="leg:TranslateText('whatversionHelp_para3_text')"/>
 					</p>
 				</xsl:if>
@@ -2510,8 +2510,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:choose>
 						<xsl:when test="$version castable as xs:date">
 							<p>
-								<b><xsl:value-of select="leg:TranslateText('Point in Time')"/>:
-								</b>
+								<strong><xsl:value-of select="leg:TranslateText('Point in Time')"/>:
+								</strong>
 								<xsl:value-of select="leg:TranslateText('PIT_toc_1')"/>
 								<xsl:if test="leg:IsWelshExists(.)">
 									<xsl:text> </xsl:text>
@@ -2521,8 +2521,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</xsl:when>
 						<xsl:when test="$version ='prospective' ">
 							<p>
-								<b><xsl:value-of select="leg:TranslateText('Latest with prospective')"/>:
-								</b>
+								<strong><xsl:value-of select="leg:TranslateText('Latest with prospective')"/>:
+								</strong>
 								<xsl:value-of select="leg:TranslateText('Latest_toc_1')"/>
 							</p>
 						</xsl:when>
@@ -2544,27 +2544,27 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:choose>
 						<xsl:when test="$showInterweaveOption">
 							<p>
-								<b><xsl:value-of select="leg:TranslateText('Show Explanatory Notes for Sections')"/>:
-								</b>
+								<strong><xsl:value-of select="leg:TranslateText('Show Explanatory Notes for Sections')"/>:
+								</strong>
 								<xsl:value-of select="leg:TranslateText('Interweave_toc_2')"/>
 							</p>
 						</xsl:when>
 						<xsl:when test="leg:IsProposedVersion(.)">
 							<p>
-								<b><xsl:value-of select="leg:TranslateText('Show Repeals')"/>:
-								</b>
+								<strong><xsl:value-of select="leg:TranslateText('Show Repeals')"/>:
+								</strong>
 								<xsl:value-of select="leg:TranslateText('Displays the repeals')"/>
 							</p>
 						</xsl:when>
 						<xsl:otherwise>
 							<p>
-								<b><xsl:value-of select="leg:TranslateText('Geographical Extent')"/>:
-								</b>
+								<strong><xsl:value-of select="leg:TranslateText('Geographical Extent')"/>:
+								</strong>
 								<xsl:value-of select="leg:TranslateText('Interweave_toc_3')"/>
 							</p>
 							<p>
-								<b><xsl:value-of select="leg:TranslateText('Show Timeline of Changes')"/>:
-								</b>
+								<strong><xsl:value-of select="leg:TranslateText('Show Timeline of Changes')"/>:
+								</strong>
 								<xsl:value-of select="leg:TranslateText('Interweave_toc_4')"/>
 							</p>
 						</xsl:otherwise>

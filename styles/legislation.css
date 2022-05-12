@@ -1,8 +1,8 @@
 /*
 (c)  Crown copyright
- 
+
 You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
+
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
@@ -32,20 +32,20 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 .LegSnippet .LegSubstitution {}
 .LegSnippet .LegProposedSubstitution {color: #FF4500; text-decoration: underline;}
 
-.LegSnippet .LegBlockRepeal {background-color: #EFF5F5; padding: 10px; zoom: 1; border: 1px solid #7A8093; float: left;}
+.LegSnippet .LegBlockRepeal {background-color: #EFF5F5; padding: 10px; zoom: 1; border: 1px solid #656A7B; float: left;}
 .LegSnippet .LegBlockRepealHeading {margin:-10px 0 20px -10px; padding-bottom: 8px; background: url(/images/LegDisplay/blockRepealArrow.gif) no-repeat 92% 100%;}
-.LegSnippet .LegBlockRepealHeading span {text-transform:uppercase; background: #7A8093; width: 100%; display: block; font-weight: bold; font-size: 120%; color: #FFF; text-align: right; font-style: normal; padding: 0.25em 10px 0.25em 0;}
+.LegSnippet .LegBlockRepealHeading span {text-transform:uppercase; background: #656A7B; width: 100%; display: block; font-weight: bold; font-size: 120%; color: #FFF; text-align: right; font-style: normal; padding: 0.25em 10px 0.25em 0;}
 .LegSnippet .LegBlockRepeal p {background-color: #EFF5F5}
 .LegSnippet .LegBlockRepeal .LegAnnotations {background-color: #EFF5F5; margin-left: -10px; margin-right: -10px;}
 .LegSnippet .LegBlockRepeal .LegCommentaryItem,
-.LegSnippet .LegBlockRepeal .LegAssociatedAnnotations 
+.LegSnippet .LegBlockRepeal .LegAssociatedAnnotations
 {background-color: #EFF5F5}
 
 .LegSnippet .LegNotYetInForce {}
 
-.LegSnippet .LegBlockNotYetInForce {background-color: #EFF5F5; padding: 10px; zoom: 1; clear: both; width:728px; border: 1px solid #7A8093; float: left;}
+.LegSnippet .LegBlockNotYetInForce {background-color: #EFF5F5; padding: 10px; zoom: 1; clear: both; width:728px; border: 1px solid #656A7B; float: left;}
 .LegSnippet .LegBlockNotYetInForceHeading {margin:-10px 0 20px -10px; padding-bottom: 8px; background: url(/images/LegDisplay/blockNotYetInForceArrow.gif) no-repeat 92% 100%;}
-.LegSnippet .LegBlockNotYetInForceHeading span {text-transform:uppercase; background: #7A8093; width: 100%; display: block; font-weight: bold; font-size: 120%; color: #FFF; text-align: right; font-style: normal; padding: 0.25em 10px 0.25em 0;}
+.LegSnippet .LegBlockNotYetInForceHeading span {text-transform:uppercase; background: #656A7B; width: 100%; display: block; font-weight: bold; font-size: 120%; color: #FFF; text-align: right; font-style: normal; padding: 0.25em 10px 0.25em 0;}
 .LegSnippet .LegBlockNotYetInForce * {background-color: #EFF5F5}
 .LegSnippet .LegBlockNotYetInForce .LegP1No,
 .LegSnippet .LegBlockNotYetInForce .LegP2No,
@@ -54,7 +54,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 {background-color: transparent;}
 .LegSnippet .LegBlockNotYetInForce .LegAnnotations {background-color: #EFF5F5; margin-left: -10px; margin-right: -10px;}
 .LegSnippet .LegBlockNotYetInForce .LegCommentaryItem,
-.LegSnippet .LegBlockNotYetInForce .LegAssociatedAnnotations 
+.LegSnippet .LegBlockNotYetInForce .LegAssociatedAnnotations
 {background-color: #EFF5F5}
 
 .LegSnippet .LegNotification {font-weight: bold; margin-top: 1em; margin-bottom: 1em; border-top: solid 1px black; border-bottom: solid 1px black; text-align: justify}
@@ -86,14 +86,14 @@ a.LegExtentRestriction .bbl {background: url(/images/chrome/extentHighlightBg.gi
 a.LegExtentRestriction .bbr {background: url(/images/chrome/extentHighlightBg.gif) no-repeat -290px -90px;  bottom: 0px;  right: 0em;}
 
 .LegSnippet .LegPerspective .LegExtentRestriction  {display: none;}
-.LegSnippet .LegConcurrent .LegExtentRestriction  {display: inline-block} 
+.LegSnippet .LegConcurrent .LegExtentRestriction  {display: inline-block}
 .geoExtShowing .LegExtentRestriction {display: inline !important; display: inline-block !important; position: relative}
 
 .LegSnippet div.LegAssociatedAnnotations {border-top: dotted #999 1px; margin-top: 0.25em;}
 .LegSnippet .LegAssociatedAnnotations .LegCommentaryItem {padding-bottom: 0.25em; background-color: #EACDD2;}
 .LegSnippet .LegAssociatedAnnotations .LegAnnotationsGroupHeading {border-top: 0;}
-.LegSnippet .LegAssociatedAnnotations div, 
-.LegSnippet .LegAssociatedAnnotations span, 
+.LegSnippet .LegAssociatedAnnotations div,
+.LegSnippet .LegAssociatedAnnotations span,
 .LegSnippet .LegAssociatedAnnotations p {background-color: #EACDD2;}
 
 .LegSnippet .LegContents {text-align: center; font-size: 1em}
@@ -116,11 +116,11 @@ a.LegExtentRestriction .bbr {background: url(/images/chrome/extentHighlightBg.gi
 .LegSnippet .LegContents li {margin: 0em; padding: 0.14em 0 0 0; display: block;}
 .LegSnippet .LegContents li.LegContentsEntry {margin: 0em; padding: 0em}
 .LegSnippet .LegContents li a {color: #069}
-.LegSnippet .LegContents li a:visited {color: #2790C4}
-.LegSnippet .LegContents li a:active  {color: #2790C4}
+.LegSnippet .LegContents li a:visited {color: #2D7CA4}
+.LegSnippet .LegContents li a:active  {color: #2D7CA4}
 
-.LegSnippet a:visited {color: #2790C4}
-.LegSnippet a:active  {color: #2790C4}
+.LegSnippet a:visited {color: #2D7CA4}
+.LegSnippet a:active  {color: #2D7CA4}
 
 /* Alternative colours
    - yellow #FFFF3D

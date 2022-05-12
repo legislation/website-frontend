@@ -1092,10 +1092,11 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 <xsl:function name="tso:generateExtentInfo" as="element()?">
 	<xsl:param name="element" as="node()" />
 	<xsl:variable name="extent" as="xs:string" select="tso:resolveExtentFormatting(($element/ancestor-or-self::*[@RestrictExtent][1]/@RestrictExtent, 'E+W+S+N.I.')[1])" />
+	<!--<xsl:variable name="element-id" as="xs:string" select="generate-id($element)"/>-->
 	<xsl:if test="not($element/ancestor::xhtml:table)">
 		<span class="LegExtentRestriction">
 			<!--<xsl:if test="$nstSelectedSection is $element">-->
-				<xsl:attribute name="id" select="concat('extent-', translate($extent, '+', '-'))" />
+				<!--<xsl:attribute name="id" select="concat('extent-', translate($extent, '+', '-'), '_', $element-id)" />-->
 			<!--</xsl:if>-->
 			<xsl:attribute name="title">
 				<xsl:variable name="extentsToken" select="tokenize($extent, '\+')" />
@@ -1666,7 +1667,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 		</xsl:when>
 		<xsl:otherwise>
 			<a class="LegCitation" href="/{$uriPrefix}/{$g_strDocumentYear}/{$g_strDocumentNumber}{tso:IsStartDate(@StartDate)}/affected/{$citationList/@id}" title="Go to list of affected legislation" rel="cite">
-				<img class="LegAffectedLink" src="/images/icon_linkto_affected_leg.gif" alt=""/>
+				<img class="LegAffectedLink" alt="Link to Affected Leg." src="/images/icon_linkto_affected_leg.gif" />
 			</a>
 		</xsl:otherwise>
 	</xsl:choose>	
@@ -1681,7 +1682,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 		</xsl:when>
 		<xsl:otherwise>
 			<a class="LegCitation" href="/{$uriPrefix}/{$g_strDocumentYear}/{$g_strDocumentNumber}{tso:IsStartDate(@StartDate)}/affected/{$citationList/@id}" title="Go to list of affected legislation" rel="cite">
-				<img class="LegAffectedLink" src="/images/icon_linkto_affected_leg.gif" alt=""/>
+				<img class="LegAffectedLink" alt="Link to Affected Leg." src="/images/icon_linkto_affected_leg.gif" />
 			</a>
 			<xsl:apply-templates/>
 		</xsl:otherwise>
@@ -1690,12 +1691,17 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 
 <xsl:template match="leg:Citation" mode="AffectedLegislation">
 	<a class="LegCitation" href="/{tso:GetUriPrefixFromType(@Class, @Year)}/{@Year}/{@Number}{tso:IsStartDate(@StartDate)}#reference-{@CommentaryRef}" title="Go to affected legislation" rel="cite">
-		<img class="LegAffectedLink" src="/images/icon_linkto_affected_leg.gif" alt=""/>
+		<img class="LegAffectedLink" alt="Link to Affected Leg." src="/images/icon_linkto_affected_leg.gif" />
 	</a>
 </xsl:template>
 
 <xsl:template match="leg:Term">
-	<span class="LegTerm" id="{@id}">
+	<span class="LegTerm">
+		<xsl:if test="@id and ( @id ne '' )">
+			<xsl:attribute name="id">
+				<xsl:value-of select="@id"/>
+			</xsl:attribute>
+		</xsl:if>
 		<xsl:apply-templates/>
 	</span>
 </xsl:template>
@@ -2035,7 +2041,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	<!-- Check if text node is in a language other than English -->
 	<xsl:choose>
 		<xsl:when test="$strLanguage != 'en'">
-			<span lang="{$strLanguage}" xml:lang="{$strLanguage}">
+			<span xml:lang="{$strLanguage}">
 				<!-- Check that if there are any characters that can not be rendered correctly.  If this is the case then these need to be replaced with corresponding images. -->
 				<xsl:call-template name="FuncProcessTextForUnicodeChars">
 					<xsl:with-param name="strText">

@@ -284,37 +284,47 @@ var config = {
         settings: {
             show: {
                 en: 'Show details of these <span class="accessibleText">settings </span> cookies',
-                cy: 'Show details of these <span class="accessibleText">settings </span> cookies'
+                cy: 'Dangoswch fanylion y  <span class="accessibleText">cwcis </span> gosodiadau hyn'
             },
             hide: {
                 en: 'Hide details of these <span class="accessibleText">settings </span> cookies',
-                cy: 'Hide details of these <span class="accessibleText">settings </span> cookies'
+                cy: 'Cuddiwch fanylion y <span class="accessibleText">cwcis </span> gosodiadau hyn'
             }
         },
         analytics: {
             show: {
                 en: 'Show details of these <span class="accessibleText">analytics </span> cookies',
-                cy: 'Show details of these <span class="accessibleText">analytics </span> cookies'
+                cy: 'Dangoswch fanylion y <span class="accessibleText">cwcis </span> dadansoddiadau hyn'
             },
             hide: {
                 en: 'Hide details of these <span class="accessibleText">analytics </span> cookies',
-                cy: 'Hide details of these <span class="accessibleText">analytics </span> cookies'
+                cy: 'Cuddiwch fanylion y <span class="accessibleText">cwcis </span> dadansoddiadau hyn'
             }
         },
         essential: {
             show: {
                 en: 'Show details of these <span class="accessibleText">essential </span> cookies',
-                cy: 'Show details of these <span class="accessibleText">essential </span> cookies'
+                cy: 'Dangoswch fanylion y <span class="accessibleText">cwcis </span> hanfodol hyn'
             },
             hide: {
                 en: 'Hide details of these <span class="accessibleText">essential </span> cookies',
-                cy: 'Hide details of these <span class="accessibleText">essential </span> cookies'
+                cy: 'Cuddiwch fanylion y <span class="accessibleText">cwcis </span> hanfodol hyn'
             }
         }
     },
     cookieFormSave: {
         en: 'Save your settings',
-        cy: 'Save your settings'
+        cy: 'Cadwch eich gosodiadau'
+    },
+    carousel: {
+        play: {
+            en: 'Play',
+            cy: 'Play'
+        },
+        pause: {
+            en: 'Pause',
+            cy: 'Pause'
+        }
     }
 }
 

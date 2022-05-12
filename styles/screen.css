@@ -29,7 +29,7 @@ Table of Contents
 Colours:
 
 Active link/blue: #069
-Visited link/blue: #2790C4
+Visited link/blue: #2D7CA4
 Disabled/grey   : #878787
 Link/grey		: #666
 Heading/darkgrey: #333
@@ -40,7 +40,7 @@ Heading/darkgrey: #333
 1. Body & basic typography
 ---------------*/
 html {overflow-y: scroll;} /* Stop any flickering caused by JS items being larger than screen area */
-body {font: normal normal normal 75%/1.5em 'Arial', 'Garuda', sans-serif; color: #4B4C4E; margin: 0; background: #fff}
+body {font: normal normal normal 75%/1.5em 'Arial', 'Garuda', sans-serif; color: #292929; margin: 0; background: #fff}
 
 #preloadBg {display: none;}
 
@@ -94,7 +94,7 @@ table th a {color: #494949;}
 
 /* Begin accessible links */
 .accessibleLinks li a, .accessibleText {position: absolute; left: -999em; top: -999em; width: 1px; overflow: hidden;}
-.accessibleLinks a:focus, .accessibleLinks a:active {margin-left: 18px; width: 958px; position: static; text-align: center; padding: 10px 0; background: #FFF36F; display: block; color: #000; float: left; border: 1px solid #FFB82F; font-weight: bold;}
+.accessibleLinks a:focus, .accessibleLinks a:active {width: 958px; position: absolute; text-align: center; padding: 10px 0; background: #FFF36F; display: block; left: 50%; top: 0; color: #000; float: left; border: 1px solid #FFB82F; font-weight: bold; margin-left: -480px;}
 .accessibleLinks li { margin: 0; display: inline; float: left; width: inherit;}
 /* End accessible links */
 
@@ -190,17 +190,17 @@ ul#secondaryNav li {display: inline; list-style: none; margin: 0 1px 0 0; line-h
 ul#secondaryNav li a {text-decoration: none; font-size: 0.9em; color: #424240}
 ul#secondaryNav li a:hover {text-decoration: underline;}
 .natArch a {width: 249px; height: 51px; display: block; float: right; position: relative;  margin: 18px 12px 0 0;}
-.natArch a span {position: absolute; background: url("/images/chrome/nat-archive-delivered-en.svg") no-repeat;left: 17px; top: 0; height: 49px; width: 252px;}
+.natArch a .backgroundImage {position: absolute; background: url("/images/chrome/nat-archive-delivered-en.svg") no-repeat;left: 17px; top: 0; height: 49px; width: 252px;}
 
 /*welsh page image*/
 .natArchWelsh a {width: 249px; height: 51px; display: block; float: right; position: relative; margin: 18px 12px 0 0;}
-.natArchWelsh a span {position: absolute; background: url("/images/chrome/nat-archive-delivered-cy.svg") no-repeat;left: 17px; top: 0px; height: 49px; width: 252px;}
+.natArchWelsh a .backgroundImage {position: absolute; background: url("/images/chrome/nat-archive-delivered-cy.svg") no-repeat;left: 17px; top: 0px; height: 49px; width: 252px;}
 
 /* end of secondary nav */
 
 /*verion change link*/
 
-ul#secondaryNav li a.langaugeSwitch {font-weight: bold; color: red;}
+ul#secondaryNav li a.langaugeSwitch {font-weight: bold; color: #E00000;}
 /*end here*/
 
 /* Footer begin */
@@ -490,7 +490,7 @@ legEnToc div.interface #wholeNav,
 .legResources #content .innerContent {float: left; margin: 35px 18px 3px;} /* gives a canvas of 930px */
 .colSection {margin-bottom: 25px;}
 .legResources h3 {margin-bottom: 0.5em; font-size:1.2em; font-weight:bold;}
-.legResources h4 {margin-bottom: 0.5em; font-size: 1em; color: #4B4C4E; font-weight: bold;}
+.legResources h4 {margin-bottom: 0.5em; font-size: 1em; color: #292929; font-weight: bold;}
 .colSection h3 {border-bottom: 1px solid #CCC; padding-bottom: 0.25em;}
 .colSection h3 .aside {font-size: 0.8333em; font-style: normal; font-weight: normal}
 .colSection li {margin: 0.5em 0;}
@@ -583,7 +583,7 @@ legEnToc div.interface #wholeNav,
 
 #tools #advFeatures li.first { border-top: none;}
 #tools #advFeatures li { border-top: 1px dotted #ccc;}
-#tools #advFeatures li a.userFunctionalElement {color: #4B4C4E; background: url(/images/chrome/iconSprites.gif) no-repeat -5px -2275px; border: none; font-weight: normal; padding:6px 0 0.15em 25px; min-height: 20px; text-align: left;}
+#tools #advFeatures li a.userFunctionalElement {color: #292929; background: url(/images/chrome/iconSprites.gif) no-repeat -5px -2275px; border: none; font-weight: normal; padding:6px 0 0.15em 25px; min-height: 20px; text-align: left;}
 #tools #advFeatures li a.close {background: url(/images/chrome/iconSprites.gif) no-repeat -5px -2425px; font-weight: bold; color: #069;}
 #tools #advFeatures li span.userFunctionalElement {width: 155px; background: url(/images/chrome/iconSprites.gif) no-repeat -5px -2265px; border: none; font-weight: normal; padding:6px 0 0.15em 25px; min-height: 20px; text-align: left;}
 #tools #advFeatures li span.close {background: url(/images/chrome/iconSprites.gif) no-repeat -5px -2425px; font-weight: bold; color: #069;}
@@ -620,7 +620,7 @@ legEnToc div.interface #wholeNav,
 #tools .linkContainer {}
 #tools .section .title a.expandCollapseLink {display: inline-block; float: none; clear: none;}
 #openingOptions .content {clear: left;}
-#openingOptions .content a {clear: left; float: left; padding-left: 20px; padding-bottom: 2px; margin:0 0 4px; color:#4B4C4E;}
+#openingOptions .content a {clear: left; float: left; padding-left: 20px; padding-bottom: 2px; margin:0 0 4px; color:#292929;}
 #openingOptions .whole a {background: url(/images/chrome/iconSprites.gif) no-repeat 0 -700px;}
 #openingOptions .minusSched a {background: url(/images/chrome/iconSprites.gif) no-repeat 0 -801px;}
 #openingOptions .onlySched a {background: url(/images/chrome/iconSprites.gif) no-repeat 0 -900px;}
@@ -662,7 +662,7 @@ a.expandCollapseLink.pageTitleAltLink { position: absolute;top: 30px;right: 15px
 #statusWarning #statusWarningSubSections ul li.eu-effect { background: url(/images/chrome/icon--eu-effect.png) 0% 25% no-repeat; }
 #statusWarningSubSections .section .title h3 {font-size: 1em; width: 600px; color: #000; display: inline;}
 #statusWarning.uptoDate{background: #c7e6c9; border-left: 2px solid #337135;}
-#statusWarning.uptoDate h2{color: #337135}
+#statusWarning.uptoDate h2{color: #306E32}
 
 .hideChangestoLegislation #statusWarning {display:none;}
 .pointInTimeView #statusWarning {background: #FFF9EE; border-left-color: #FF9900;}
@@ -672,7 +672,7 @@ a.expandCollapseLink.pageTitleAltLink { position: absolute;top: 30px;right: 15px
 #statusWarning #statusWarningSubSections .LegAffected { font-weight: bold; }
 
 /* JS placement of close button */
-.js #statusWarning .title .linkContainer a {margin-top: 0.5em; display: inline; color: #4B4C4E}
+.js #statusWarning .title .linkContainer a {margin-top: 0.5em; display: inline; color: #292929}
 .js #statusWarning .title .linkContainer {text-align: right;}
 .js #statusWarning #statusWarningSubSections .title .linkContainer a {margin-top: -1.4em;}
 /* end of JS placement of button */
@@ -801,6 +801,12 @@ ul.optionList ul li {padding: 0;display: inline; float: none; border-left: none;
 #per.home #intro #animContent div {height: 17.85em; border-right: 1px solid #fff;}
 #per.home #intro #animContent h2 {height: 100%; width: 45px; overflow: hidden}
 
+/* Carousel pause button */
+.carousel-pause {position: absolute; top: 165px; left: 45px; z-index: 1000; width: 44px; height: 44px; background: transparent; border: 2px solid transparent; cursor: pointer}
+.carousel-pause:focus {border: 2px solid #fff}
+.carousel-pause.paused {background: url('/images/chrome/play-circle-outline.svg') no-repeat bottom center; }
+.carousel-pause.playing {background: url('/images/chrome/pause-circle-outline.svg') no-repeat bottom center; }
+
 #per.home #intro ul#countryLeg {display: block;list-style: none; width: 969px; margin: 0 auto; padding: 0; display: block;background: #F9F9F9 url(/images/chrome/navBg.gif) repeat-x bottom left; height: 4.15em; position: relative; margin-top: -4.15em;}
 #per.home #intro ul#countryLeg {display: none}
 #per.js #intro ul#countryLeg{display:block;}
@@ -870,7 +876,7 @@ ul.optionList ul li {padding: 0;display: inline; float: none; border-left: none;
 
 /*end here*/
 
-#per.home #intro div#animContent h2 {margin: 0; padding: 0;}
+#per.home #intro div#animContent h2 {margin: 0; padding: 0; color: #fff}
 #per.home #intro.welcome div#animContent h2 {}
 #per.home #intro.scotland div#animContent h2 {background: url(/images/chrome/homepageCountryBG/scotland_title.jpg) no-repeat;}
 #per.home #intro.wales div#animContent h2 {background: url(/images/chrome/homepageCountryBG/wales_title.jpg) no-repeat;}
@@ -886,7 +892,7 @@ ul.optionList ul li {padding: 0;display: inline; float: none; border-left: none;
 #per.home #intro.eucy div#animContent h2 {background: url(/images/chrome/homepageCountryWelshBG/eu_title.png) no-repeat;}
 
 #per.home #intro.ni div.animContent.js h2 {position: absolute; top: -8px;}
-#per.home #intro div ul {width: 520px; left: 76px; position: absolute; bottom: 10px; padding: 0; text-align: right;}
+#per.home #intro div ul {width: 520px; left: 126px; position: absolute; bottom: 10px; padding: 0; text-align: right;}
 #per.home #intro div ul a {color: #fff; font-weight: bold;}
 #per.home #intro div ul a span.pageLinkIcon {display: none;}
 #per.home #intro div ul li {list-style: none; display: inline;  background:transparent url(/images/chrome/greyBg.png) no-repeat scroll right 14.2%; margin-left: 15px; padding: 5px 16px 5px 8px;}
@@ -984,10 +990,10 @@ p.viewMoreLink {clear: left;padding-bottom:0.75em;padding-top:0;}
 #doc h2,
 #doc legend {color: #494949; font-size:1.6em; line-height: 1.6em; font-weight: normal;}
 #doc h3 {margin-bottom: 0.5em; font-size:1.2em; font-weight:bold;}
-#doc h4 {margin-bottom: 0.5em; font-size: 1em; color: #4B4C4E; font-weight: bold;}
+#doc h4 {margin-bottom: 0.5em; font-size: 1em; color: #292929; font-weight: bold;}
 #error h3,
 #doc h3 {margin-bottom: 0.5em; font-size:1.2em; font-weight:bold;}
-#doc h4 {margin-bottom: 0.5em; font-size: 1em; color: #4B4C4E; font-weight: bold;}
+#doc h4 {margin-bottom: 0.5em; font-size: 1em; color: #292929; font-weight: bold;}
 #error p,
 #doc p,
 #doc address
@@ -1295,7 +1301,7 @@ Used for printing or viewing without menus, to print successfully the print styl
 
 #search td a:visited,
 #browse td a:visited
-{color: #2790C4}
+{color: #2D7CA4}
 
 #browse tr td.bilingual.cy {border-top: 1px solid #E4E4E4;}
 #browse tr td.bilingual {padding: 0.50em;}
@@ -1311,7 +1317,7 @@ div.prevPagesNextNav ul {width: auto; float: none; display: block; margin: 0 aut
 .prevPagesNextNav li { overflow: hidden;}
 .prevPagesNextNav li.pageLink,
 .prevPagesNextNav li.lastPageLink {font-size: 0.95em; letter-spacing: 0.1em; line-height:2.5em; padding: 8px 8px; display: block; display: inline; background: url(/images/chrome/navDivider.gif) no-repeat bottom right;}
-.prevPagesNextNav li.pageLink a {padding-left: 0.1em; border-bottom: 1px solid; text-decoration: none; font-weight: bold; color: #3886AC;}
+.prevPagesNextNav li.pageLink a {padding-left: 0.1em; border-bottom: 1px solid; text-decoration: none; font-weight: bold; color: #317496;}
 .prevPagesNextNav li.pageLink a:hover {text-decoration: none; border: 0;}
 .prevPagesNextNav li.lastPageLink {background: none;}
 .prevPagesNextNav li.next {background: none; /* remove the divider */}
@@ -1328,7 +1334,7 @@ p.backToTop
 #search p.backToTop a,
 #browse p.backToTop a,
 #doc p.backToTop a
-{font-size: 1em; font-weight: bold; padding: 0.05em 32px 0 0; line-height: 2em; background: url(/images/chrome/iconSprites.gif) no-repeat top right; color: #3886AC; margin: 1px; display: block;}
+{font-size: 1em; font-weight: bold; padding: 0.05em 32px 0 0; line-height: 2em; background: url(/images/chrome/iconSprites.gif) no-repeat top right; color: #317496; margin: 1px; display: block;}
 #search #subNav p.backToTop a,
 #browse #subNav p.backToTop a,
 #doc #subNav p.backToTop a { display: inline-block; margin: 0 auto; }
@@ -1436,7 +1442,7 @@ li.empty {color: #9a9a9a;}
 
 #browse #tools a:visited,
 #search #tools a:visited
-{color: #2790C4}
+{color: #2D7CA4}
 
 #tools #refineSearch form {padding:0 7px;}
 #tools #refineSearch form p {padding: 0; clear: both; margin: 0.75em 0 0.25em}
@@ -1463,6 +1469,7 @@ li.empty {color: #9a9a9a;}
 #refineSearch .searchExtendsTo .LegExtentRestriction .btr {background: url(/images/chrome/extentBg.gif) no-repeat -290px 0;  top:    0px;  right: 0;}
 #refineSearch .searchExtendsTo .LegExtentRestriction .bbl {background: url(/images/chrome/extentBg.gif) no-repeat 0 -90px;  bottom: 0px;  left:  0px;}
 #refineSearch .searchExtendsTo .LegExtentRestriction .bbr {background: url(/images/chrome/extentBg.gif) no-repeat -290px -90px;  bottom: 0px;  right: 0em;}
+.extentList {display: inline; margin: 0; padding: 0; list-style: none;}
 
 #tools .ui-combobox .ui-widget {float: left; display: block;}
 #tools .ui-combobox input {margin-left: 6px; width: 148px; background: url(/images/chrome/home_form_shadow.gif) no-repeat left top #fff; border-radius: 0; border: 1px solid #7B85AD; border-right: none; line-height: 1.5em;}
@@ -1696,7 +1703,7 @@ https://ionicons.com/ for details.
     padding: 4px 8px;
     background: #ffffff;
     margin: auto 10px;
-    color: #4B4C4E;
+    color: #292929;
     font-size: 0.9em;
 }
 
@@ -1709,7 +1716,7 @@ https://ionicons.com/ for details.
     padding: 5px 15px;
     background: #ffffff;
     margin: auto 10px;
-    color: #4B4C4E;
+    color: #292929;
     background: #0F2741;
     color: #ffffff;
     /* box-shadow: 0px 1px 1px 0px #aaa; */

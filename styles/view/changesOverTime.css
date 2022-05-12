@@ -30,18 +30,19 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #changesOverTime #timeline #timelineData ul li.notretained {background:none; padding:15px 0 0 0; float: left; margin-top:30px; font-size: 0.9em;}
 #changesOverTime #timeline #timelineData ul li.beginning {}
 #changesOverTime #timeline #timelineData ul li .currentVersion,
+#changesOverTime #timeline #timelineData ul li .timelineLinkMimic,
 #changesOverTime #timeline #timelineData ul li a {color:#000; text-decoration:none; padding: 0;text-decoration: underline; float: left; margin: -24px 0 0 -20px; font-weight: bold; text-decoration: none}
 #changesOverTime #timeline #timelineData ul li a:hover {text-decoration: underline;}
 #changesOverTime #timeline #timelineData ul li span.stop {color:#990100; text-decoration:none; padding: 0;text-decoration: underline; float: left; margin: -24px 0 0 -20px; font-weight: bold; text-decoration: none}
 #changesOverTime #timeline #timelineData ul li span.stop span.label {}
 
 /* Timeline list layout: EU Exit Day */
-#changesOverTime #timeline #timelineData ul li .euexitday .content, 
+#changesOverTime #timeline #timelineData ul li .euexitday .content,
 #changesOverTime #timeline #timelineData ul li .exitdayoverlay .content { padding: 5px 15px; left: -20px; position: relative; background: white; border: 2px solid #ddd; border-radius: 2px; }
-#changesOverTime #timeline #timelineData ul li .euexitday-deal .content, 
-#changesOverTime #timeline #timelineData ul li .euexitdayoverlay-deal .content { padding: 5px 6px; left: -43px; position: relative; background: white; border: 2px solid #ddd; border-radius: 2px;width:115px;}
-#changesOverTime #timeline #timelineData ul li .euexitday .content::before, 
-#changesOverTime #timeline #timelineData ul li .euexitday-deal .content::before, 
+#changesOverTime #timeline #timelineData ul li .euexitday-deal .content,
+#changesOverTime #timeline #timelineData ul li .euexitdayoverlay-deal .content { padding: 5px 6px; left: -43px; position: relative; background: white; border: 2px solid #ddd; border-radius: 2px;width:115px; display: block;}
+#changesOverTime #timeline #timelineData ul li .euexitday .content::before,
+#changesOverTime #timeline #timelineData ul li .euexitday-deal .content::before,
 #changesOverTime #timeline #timelineData ul li .euexitdayoverlay-deal .content::before,
 #changesOverTime #timeline #timelineData ul li .euexitdayoverlay .content::before{ content: '';  width: 10px; height: 10px;  display: block;  border: inherit;  background: inherit;  position: absolute;  bottom: 100%;  left: 50%;  border-bottom-color: white; border-right-color: white; transform: translate(-50%, 5px) rotate(45deg); }
 #changesOverTime #timeline #timelineData ul li .euexitday .content .description,

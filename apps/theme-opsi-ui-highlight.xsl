@@ -25,7 +25,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:copy-of select="xhtml:body/node()" copy-namespaces="no" />
 	</div>	
 	
-<!--	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dct="http://purl.org/dc/terms/" lang="en" xml:lang="en">
+<!--	<html xmlns="http://www.w3.org/1999/xhtml" xmlns:dct="http://purl.org/dc/terms/" xml:lang="en">
 		<xsl:apply-templates select="@*"/>
 		<head>
 			<xsl:copy-of select="xhtml:head/node() except xhtml:head/xhtml:meta[@http-equiv]" copy-namespaces="no" />

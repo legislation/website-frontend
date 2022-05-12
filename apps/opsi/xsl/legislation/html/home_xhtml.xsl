@@ -46,7 +46,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<meta name="DC.description" content="{$description}"/>
 				<meta name="description" content="{$description}"/>
 			</head>
-			<body xml:lang="{$TranslateLang}" lang="{$TranslateLang}" dir="ltr" id="per" class="home">
+			<body xml:lang="{$TranslateLang}" dir="ltr" id="per" class="home">
 				<div id="layout2">
 					<!-- quick Search-->
 					<xsl:call-template name="TSOOutputQuickSearch"/>
@@ -187,7 +187,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</div>
 						<ul id="countryLeg">
 							<li>
-								<a href="">
+								<a href="javascript:void(0)">
 									<xsl:attribute name="id">
 										<xsl:value-of select="if ($TranslateLangPrefix='/cy') then 'welcomecy' else 'welcome'"/>
 									</xsl:attribute>
@@ -195,7 +195,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</a>
 							</li>
 							<li>
-								<a href="">
+								<a href="javascript:void(0)">
 									<xsl:attribute name="id">
 										<xsl:value-of select="if ($TranslateLangPrefix='/cy') then 'ukcy' else 'uk'"/>
 									</xsl:attribute>
@@ -203,7 +203,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</a>
 							</li>
 							<li>
-								<a href="">
+								<a href="javascript:void(0)">
 									<xsl:attribute name="id">
 										<xsl:value-of select="if ($TranslateLangPrefix='/cy') then 'scotlandcy' else 'scotland'"/>
 									</xsl:attribute>
@@ -211,7 +211,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</a>
 							</li>
 							<li>
-								<a href="">
+								<a href="javascript:void(0)">
 									<xsl:attribute name="id">
 										<xsl:value-of select="if ($TranslateLangPrefix='/cy') then 'walescy' else 'wales'"/>
 									</xsl:attribute>
@@ -219,7 +219,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</a>
 							</li>
 							<li>
-								<a href="">
+								<a href="javascript:void(0)">
 									<xsl:attribute name="id">
 										<xsl:value-of select="if ($TranslateLangPrefix='/cy') then 'nicy' else 'ni'"/>
 									</xsl:attribute>
@@ -228,7 +228,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							</li>
 							<xsl:if test="not($hideEUdata)">
 							<li>
-								<a href="">
+								<a href="javascript:void(0)">
 									<xsl:attribute name="id">
 										<xsl:value-of select="if ($TranslateLangPrefix='/cy') then 'eucy' else 'eu'"/>
 									</xsl:attribute>
@@ -237,14 +237,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							</li>
 							</xsl:if>
 						</ul>
-						
+
 						<div id="homeCTA">
 							<div class="content">
 								<img src="{concat('/images/chrome/',leg:TranslateText('site_logo_legislation'),'.gif')}" alt="legislation.gov.uk homepage call-to-action widget"/>
 						<p>
                   <xsl:value-of select="leg:TranslateText('homeCTA_content')"/>
                 </p>
-				  <xsl:variable name="uri" 
+				  <xsl:variable name="uri"
 				  		select="concat(if ($TranslateLangPrefix='/cy') then '/cy' else (),'/understanding-legislation#Whatlegislationisheldonlegislationgovuk')"/>
 				  <a href="{$uri}" class="btn">
                   <xsl:value-of select="leg:TranslateText('homeCTA_button')"/>

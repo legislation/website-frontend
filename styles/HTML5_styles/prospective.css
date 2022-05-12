@@ -1,21 +1,21 @@
 /*
 (c)  Crown copyright
- 
+
 You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
+
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
 
 :not(.prospective) > .prospective:not(.toc):not(.tocItem) {
-	border: 1px solid #7A8093;
+	border: 1px solid #656A7B;
 	background-color: #EFF5F5
 }
 
 :not(.prospective) > .prospective:not(.toc):not(.tocItem)::before {
 	display: block;
 	margin-bottom: 1em;
-	background-color: #7A8093;
+	background-color: #656A7B;
 	text-align: right;
 	padding: 6pt;
 	color: white;

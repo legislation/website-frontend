@@ -1869,7 +1869,7 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 	<p><xsl:next-match /></p>
 </xsl:template>
 <xsl:template match="Image">
-	<img>
+	<img alt="{concat('Image_', @ResourceRef)}">
 		<xsl:attribute name="src">
 			<xsl:value-of select="key('id', @ResourceRef)/ExternalVersion/@URI" />
 		</xsl:attribute>
@@ -1888,7 +1888,7 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 
 <xsl:template match="IncludedDocument">
 	<block name="included-document">
-		<img src="{key('id', @ResourceRef)/ExternalVersion/@URI}" />
+		<img alt="{concat('included-document_', @ResourceRef)}" src="{key('id', @ResourceRef)/ExternalVersion/@URI}" />
 	</block>
 </xsl:template>
 
@@ -2016,7 +2016,7 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 <xsl:template match="LSseal">
 	<xsl:choose>
 		<xsl:when test="@ResourceRef">
-			<img class="seal" src="{key('id', @ResourceRef)/ExternalVersion/@URI}" />
+			<img class="seal" alt="{concat('seal_', @ResourceRef)}" src="{key('id', @ResourceRef)/ExternalVersion/@URI}" />
 		</xsl:when>
 		<xsl:when test="@Date">
 			<date class="seal" date="{@Date}"><xsl:value-of select="." /></date>
@@ -2229,13 +2229,13 @@ helper template is called from the mapping templates for <num>, <heading> and <s
 </xsl:template>
 
 <xsl:template match="Emphasis">
-	<i><xsl:apply-templates /></i>
+	<em><xsl:apply-templates /></em>
 </xsl:template>
 <xsl:template match="Strong">
-	<b><xsl:apply-templates /></b>
+	<strong><xsl:apply-templates /></strong>
 </xsl:template>
 <xsl:template match="Underline">
-	<u><xsl:apply-templates /></u>
+	<em class="underlined"><xsl:apply-templates /></em>
 </xsl:template>
 
 <xsl:template match="SmallCaps">

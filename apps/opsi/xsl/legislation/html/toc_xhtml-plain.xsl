@@ -41,7 +41,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:call-template name="TSOOutputAddLegislationStyles" />
 				<xsl:apply-templates select="/leg:Legislation/ukm:Metadata/atom:link" mode="HTMLmetadata" />
 			</head>
-			<body xml:lang="en" lang="en" dir="ltr" id="leg" class="{concat('plainView', if (contains(leg:get-query('view'), 'extent') or $paramsDoc/parameters/extent[. != '']) then ' geoExtShowing' else '')}">
+			<body xml:lang="en" dir="ltr" id="leg" class="{concat('plainView', if (contains(leg:get-query('view'), 'extent') or $paramsDoc/parameters/extent[. != '']) then ' geoExtShowing' else '')}">
 				<div id="layout2">
 			
 					<!-- adding the title of the legislation-->

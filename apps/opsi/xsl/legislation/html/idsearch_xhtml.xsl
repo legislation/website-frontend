@@ -34,7 +34,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:value-of select="/leg:Legislation/ukm:Metadata/dc:title"/>
 				</title>
 			</head>
-			<body xml:lang="en" lang="en" dir="ltr">
+			<body xml:lang="en" dir="ltr">
 			
 				<xsl:variable name="idPage" select="'../../../www/id.xhtml'"/>
 				<xsl:variable name="pageDoc" as="document-node()?" select="doc($idPage)"/>

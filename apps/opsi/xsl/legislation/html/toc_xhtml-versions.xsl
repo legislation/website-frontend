@@ -40,7 +40,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</title>
 				<xsl:call-template name="TSOOutputAddLegislationStyles" />
 			</head>
-			<body xml:lang="en" lang="en" dir="ltr" id="leg" class="plainView">
+			<body xml:lang="en" dir="ltr" id="leg" class="plainView">
 			
 				<div id="layout2">
 			

@@ -24,32 +24,32 @@ $(function () {
             '</li>' +
             '<li>' +
             '<a class="btn set-individual-cookies" href="/cookiepolicy#Setyourcookiepreferences">' +
-            'I want to set individual cookie preferences' +
+            'Set Cookie preferences' +
             '</a>' +
             '</li>' +
             '<li>' +
-            '<a class="cookie-policy-link" href="/cookiepolicy">Find out more about the cookies we use</a>' +
+            '<a class="cookie-policy-link" href="/cookiepolicy">About the cookies we use</a>' +
             '</li>' +
             '</ul>' +
             '</div>' +
             '</div>'),
         cy: $('<div class="cookie-preferences-banner">' +
             '<div class="content">' +
-            '<h2>Cookies on Legislation.gov.uk</h2>' +
-            '<p>The cookies on legislation.gov.uk help do two things: they remember any settings you\'ve chosen so you ' +
-            'don\'t have to choose them on every page, and they help us understand how people browse our website, so we ' +
-            'can make improvements and fix problems. We need your consent to use some of these cookies.</p>' +
+            '<h2>Cwcis ar Ddeddfwriaeth.gov.uk</h2>' +
+            '<p>TMae\'r cwcis ar deddfwriaeth.gov.uk yn helpu i wneud dau beth: maent yn cofio unrhyw osodiadau rydych chi wedi\'u dewis ' +
+            'felly does dim rhaid i chi eu dewis ar bob tudalen, ac maent yn ein helpu i ddeall sut mae pobl yn pori ein gwefan, ' +
+            'er mwyn i ni allu gwneud gwelliannau a thrwsio problemau. Mae angen eich caniatâd arnom i ddefnyddio rhai o\'r cwcis hyn.</p>' +
             '<ul class="cookie-actions">' +
             '<li>' +
-            '<button class="btn accept-all-cookies">Yes, these cookies are OK</button>' +
+            '<button class="btn accept-all-cookies">Ydyn, mae\'r cwcis hyn yn iawn</button>' +
             '</li>' +
             '<li>' +
             '<a class="btn set-individual-cookies" href="/cy/cookiepolicy#Setyourcookiepreferences">' +
-            'I want to set individual cookie preferences' +
+            'Gosod dewisiadau Cwcis' +
             '</a>' +
             '</li>' +
             '<li>' +
-            '<a class="cookie-policy-link" href="/cy/cookiepolicy">Find out more about the cookies we use</a>' +
+            '<a class="cookie-policy-link" href="/cy/cookiepolicy">Ynglŷn â\’r cwcis rydym yn eu defnyddio</a>' +
             '</li>' +
             '</ul>' +
             '</div>' +
@@ -75,11 +75,11 @@ $(function () {
             '</div>'),
         cy: $('<div class="cookie-preferences-banner updated">' +
             '<div class="content">' +
-            '<h2>Cookie preferences updated</h2>' +
-            '<p>You can change your cookie settings at any time using our <a href="/cy/cookiepolicy">cookies page</a></p>' +
+            '<h2>Dewisiadau cwcis wedi\’u diweddaru</h2>' +
+            '<p>Gallwch newid eich gosodiadau cwcis ar unrhyw adeg trwy ddefnyddio ein <a href="/cy/cookiepolicy">tudalen cwcis</a></p>' +
             '<ul class="cookie-actions">' +
             '<li>' +
-            '<button class="btn dismiss-banner">Dismiss</button>' +
+            '<button class="btn dismiss-banner">Gwrthod</button>' +
             '</li>' +
             '</ul>' +
             '</div>' +

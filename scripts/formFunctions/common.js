@@ -1,8 +1,8 @@
 /*
 (c)  Crown copyright
- 
+
 You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
+
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 */
@@ -10,12 +10,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 *
 One-liner: common form interactivity
 Requirements: jQuery framework: http://jquery.com/
- 
+
 Detailed info:
 Adds show/hide functionality for sub groups
 Validates forms before sending form
 The different tests need each other to work correctly
- 
+
 History:
 v0.01	2010-12-08	GE	Created
 */
@@ -96,7 +96,7 @@ $.fn.validate = function (type) {
                     break;
                 case "number":
                     testRegexp = /(^$)|(^\d*$)|(Unrhyw un)|(Any)/;
-                    errorMsg =  config.forms.errormsg3[LANG]        
+                    errorMsg =  config.forms.errormsg3[LANG]
                     break;
             }
 
@@ -174,7 +174,9 @@ $.fn.showHideFields = function () {
 
             for (i = 0; i < controller.length; i++) {
                 controllerParent = controller.parent("div")[i];
-                $field = $(controllerParent).find("input:text, select").addClass("jsControlledField");
+                $field = $(controllerParent).find("input:text, select");
+
+                $field.addClass("jsControlledField");
 
                 // find the checked radioBtn, easier using regular JS for this bit rather than jQuery
                 if (controller[i].checked) {
@@ -187,14 +189,9 @@ $.fn.showHideFields = function () {
                     }
                 } else {
                     // disable these children
-                    $field.each(function () {
-                        if ($(this).is('input[type="text"]'))
-                            $(this).attr("disabled", "true");
-
-                        $field.addClass("disabled"); // For IE consistent CSS to be applied
-                    });
-
-
+                    $field
+                        .attr('disabled', 'disabled')
+                        .addClass('disabled'); // For IE consistent CSS to be applied
                 }
                 // Once the view has been amended add/remove the appropriates overlays
                 addRemoveOverlays();
@@ -239,7 +236,7 @@ $.fn.showHideFields = function () {
                         $formGroup.find("input:radio").click();
                         // emulate a click event on the input so that other functions can find when a user accesses it
                         $currentField.click();
-                        //alert($currentField.attr("id"));						
+                        //alert($currentField.attr("id"));
                         enableDisableFields($currentField);
                     });
                 }
