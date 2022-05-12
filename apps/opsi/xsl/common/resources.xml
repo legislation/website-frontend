@@ -382,7 +382,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Not a valid year" translated="false" stage2="true">Not a valid year</resource>
 		<resource id="The year must be valid and before the point in time search" translated="false" stage2="true">The year must be valid and before the point in time search</resource>
 		<resource id="Please select revised legislations only" translated="false" stage2="true">Please select revised legislations only</resource>
-		<resource id="Point_in_time_error" translated="false" stage2="true">Point in Time must be after 01/01/2006 if you have selected Northern Ireland legislation, and after 01/02/1991 for other primary legislation types</resource>
+		<resource id="Point_in_time_error" translated="false" stage2="true">Point in Time must be after 01/01/2006 if you have selected Northern Ireland legislation, after 01/01/1948 for United Kingdom Statutory Instruments and Northern Ireland Statutory Rules, after 01/01/1957 for EU legislation and after 01/02/1991 for other legislation types </resource>
 		<resource id="Extends">Ehangu</resource>
 		<resource id="Not a valid series" translated="false" stage2="true">Not a valid series</resource>
 		<resource id="Not a valid number" translated="true" stage2="true">Ddim yn rif dilys</resource>
@@ -1515,7 +1515,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Search_tooltip_type_pit_extent">Use the drop down to specify the type of legislation for the search. Please note that point in time and geographic extent search is only possible on legislation that we revise so only primary legislation types are listed.</resource>
 		<resource id="Search_tooltip_type_draft">It is possible to narrow your search across a particular legislation type or set of legislation types by using the checkboxes. Select ‘All Draft' if you do not wish to restrict your search to particular types of draft legislation. See the Help section for advice about understanding different legislation types.</resource>
 		<resource id="Search_tooltip_pit">Use this field to select a date and see how your specified legislation stood at a particular point in time. Only dates after the basedate (01/02/1991) are valid we do not have versions that precede this date in the data. For Northern Ireland legislation the basedate is 01/01/ 2006.</resource>
-		<resource id="Point_in_time_error">Point in Time must be after 01/01/2006 if you have selected Northern Ireland legislation, and after 01/02/1991 for other primary legislation types</resource>
+		<resource id="Point_in_time_error">Point in Time must be after 01/01/2006 if you have selected Northern Ireland legislation, after 01/01/1948 for United Kingdom Statutory Instruments and Northern Ireland Statutory Rules, after 01/01/1957 for EU legislation and after 01/02/1991 for other legislation types </resource>
 
 		<resource id="browse_explanation_uk">The counts below reflect the number of documents on legislation.gov.uk that match the search for items of this legislation type and are not intended to indicate the total legislation made, enacted or adopted in a particular year.</resource>
 		<resource id="browse_explanation_eu">The counts below reflect the number of documents on legislation.gov.uk that were taken from EUR-lex for this legislation type and are not intended to indicate the total legislation made in a particular year.</resource>

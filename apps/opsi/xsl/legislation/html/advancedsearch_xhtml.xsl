@@ -57,7 +57,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		select="exists($paramsDoc/parameters/version[. != ''])"/>
 
 	<xsl:variable name="isRevisedLegislation" as="xs:boolean"
-		select="exists($paramsDoc/parameters/type[. = ('', 'all', 'primary', 'ukpga', 'ukla', 'apgb', 'aep', 'aosp', 'asp', 'aip', 'apni', 'mnia', 'nia', 'ukcm', 'mwa', 'nisi','anaw', 'asc', 'eudn', 'eur', 'eudr', 'eut')])"/>
+		select="exists($paramsDoc/parameters/type[. = leg:revisedLegislationTypes()])"/>
 
 	<xsl:variable name="generalSearch" as="xs:boolean" select="not($paramsDoc/parameters/search-type = ('extent', 'point-in-time','draft-legislation','impacts') ) and not($isVersionSpecified)" />
 	<xsl:variable name="extentSearch" as="xs:boolean" select="$paramsDoc/parameters/search-type = 'extent' " />	
@@ -693,21 +693,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			
 			<!-- point in time -->	
 			<xsl:if test="$pointInTimeSearch">
-			
+				<xsl:variable name="basedate" select="leg:base-date(tso:getLongType($paramsDoc/parameters/type))"/>
 				<xsl:variable name="invalidPointInTime" as="xs:boolean" 
 					select="$paramsDoc/parameters/version[matches(., '[0-9]{2}/[0-9]{2}/[0-9]{4}') 
-							and xs:date(concat(substring(., 7), '-' , substring(., 4,2), '-' , substring(., 1,2))) &lt; xs:date (
-								if ($paramsDoc/parameters/type = ('nia', 'nisi', 'mnia','apni')) then '2006-01-01' 								
-								else '1991-02-01'
-								)
-							]
+							and xs:date(concat(substring(., 7), '-' , substring(., 4,2), '-' , substring(., 1,2))) &lt; $basedate]
 							 or 
 						$paramsDoc/parameters/version[. castable as xs:date and 
-							xs:date(.) &lt; xs:date(
-										if ($paramsDoc/parameters/type = ('nia', 'nisi', 'mnia','apni')) then '2006-01-01' 								
-										else '1991-02-01'
-										)
-							]"/>
+							xs:date(.) &lt; $basedate]"/>
 							
 				<div class="searchPIT searchFieldCategory">
 					<div class="searchCol1">

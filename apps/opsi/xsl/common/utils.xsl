@@ -84,19 +84,19 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<!-- half way point -->
 	<tso:legType schemaType="UnitedKingdomStatutoryInstrument" class="secondary" category="Instrument" abbrev="uksi" 
 		en="Executive Note" em="Explanatory Memorandum" pn="Policy Note" singular="UK Statutory Instrument" plural="{leg:TranslateText('UK Statutory Instruments')}"
-		start="1948" complete="1987" revised="false" />
+		start="1948" complete="1987" revised="true" />
   <tso:legType schemaType="WelshStatutoryInstrument" class="secondary" category="Instrument" abbrev="wsi" 
   	em="Explanatory Memorandum" singular="Wales Statutory Instrument" pn="Policy Note" plural="{leg:TranslateText('Wales Statutory Instruments')}"
-  	start="1999" complete="1999" revised="false" />
+  	start="1999" complete="1999" revised="true" />
   <tso:legType schemaType="ScottishStatutoryInstrument" class="secondary" category="Instrument" abbrev="ssi" 
   	en="Executive Note" pn="Policy Note" singular="Scottish Statutory Instrument" plural="{leg:TranslateText('Scottish Statutory Instruments')}"
-  	start="1999" complete="1999" revised="false" />
+  	start="1999" complete="1999" revised="true" />
   <tso:legType schemaType="NorthernIrelandOrderInCouncil" class="primary" category="Order" abbrev="nisi" 
   	em="Explanatory Memorandum" singular="Northern Ireland Order in Council" plural="{leg:TranslateText('Northern Ireland Orders in Council')}"
   	start="1972" complete="1987" revised="true" />
   <tso:legType schemaType="NorthernIrelandStatutoryRule" class="secondary" category="Rule" abbrev="nisr" 
   	em="Explanatory Memorandum" singular="Northern Ireland Statutory Rule" plural="{leg:TranslateText('Northern Ireland Statutory Rules')}"
-  	start="1991" complete="1996" revised="false" />
+  	start="1991" complete="1996" revised="true" />
   <tso:legType schemaType="UnitedKingdomChurchInstrument" class="secondary" category="Instrument" abbrev="ukci" 
   	singular="Church Instrument" plural="{leg:TranslateText('Church Instruments')}"
   	start="1991" complete="1991" revised="false" />
@@ -168,6 +168,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:param name="nWords" as="xs:integer" />
 	<xsl:variable name="words" as="xs:string+" select="tokenize(normalize-space($text), '\s+')[position() &lt;= $nWords]" />
 	<xsl:value-of select="concat(string-join($words, ' '), if (count(tokenize(normalize-space($text), '\s+')) &gt; $nWords) then '...' else ())" />
+</xsl:function>
+
+<xsl:function name="tso:getLongType" as="xs:string?">
+	<xsl:param name="legType" as="xs:string" />
+	<xsl:sequence select="$tso:legTypeMap[@abbrev = $legType]/@schemaType" />
 </xsl:function>
 
 <xsl:function name="tso:getType" as="element(tso:legType)?">
@@ -1201,4 +1206,32 @@ It will get correct language string for the current language -->
 	</xsl:choose>
 </xsl:function>
 
+	<xsl:function name="leg:base-date" as="xs:date">
+		<xsl:param name="type" as="xs:string?"/>
+		<xsl:sequence select="if ($type = ('NorthernIrelandOrderInCouncil', 'NorthernIrelandAct', 'NorthernIrelandParliamentAct')) then
+								xs:date('2006-01-01')
+							(:  we wont use the EU base date as such so choose the earliest date of 1957 when the EU was formed  :)
+							else if ($type = ('EuropeanUnionRegulation', 'EuropeanUnionDecision', 'EuropeanUnionDirective', 'EuropeanUnionTreaty')) then
+								xs:date('1957-01-01')
+							else if ($type = ('NorthernIrelandStatutoryRule', 'UnitedKingdomStatutoryInstrument')) then
+								xs:date('1948-01-01')
+							else 
+								xs:date('1991-02-01')"/>
+	</xsl:function>	
+	
+	<xsl:function name="leg:string-to-date" as="xs:date?">
+		<xsl:param name="string" as="xs:string?"/>
+			<xsl:sequence 
+				select="if ($string castable as xs:date) then 
+							xs:date($string)
+						else if (matches($string, '[0-9]{2}/[0-9]{2}/[0-9]{4}')) then
+							xs:date(concat(substring($string, 7), '-' , substring($string, 4,2), '-' , substring($string, 1,2)))
+						else ()
+			"/>
+	</xsl:function>	
+	
+	<xsl:function name="leg:revisedLegislationTypes" as="xs:string+">
+		<xsl:sequence 
+			select="('', 'all', 'primary', 'ukpga', 'ukla', 'apgb', 'aep', 'aosp', 'asp', 'aip', 'apni', 'mnia', 'nia', 'ukcm', 'mwa', 'nisi','anaw', 'asc', 'eudn', 'eur', 'eudr', 'eut', 'uksi', 'ssi', 'wsi', 'nisr', 'eur', 'eudn', 'eudr', 'eut')"/>
+	</xsl:function>		
 </xsl:stylesheet>

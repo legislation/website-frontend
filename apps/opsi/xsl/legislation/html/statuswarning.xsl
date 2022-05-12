@@ -56,8 +56,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	<!-- let $type be the type of legislation -->
 	<xsl:variable name="type" as="xs:string" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value"/>
 	<!-- let $baseDate be the base date for the type of legislation -->
-	<xsl:variable name="baseDate" as="xs:string"
-		select="if ($type = ('NorthernIrelandOrderInCouncil', 'NorthernIrelandAct', 'NorthernIrelandParliamentAct')) then '2006-01-01' else '1991-02-01'"/>
+	<xsl:variable name="baseDate" as="xs:string" select="string(leg:base-date($type))"/>
 
 	<!-- getting the scenario -->
 	<xsl:template name="TSOGetScenarios">
