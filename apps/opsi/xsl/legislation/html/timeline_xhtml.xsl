@@ -546,7 +546,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<li style="width: {$minWidth}px"/>
 							</xsl:if>
 
-												
+											
 							<xsl:for-each select="$pointers/*">
 
 								<!-- if any $versions are after the current date, a dashed bar before the pointers for those versions -->
@@ -918,7 +918,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											</xsl:when>
 											<xsl:when test="$isCurrentVersion and $repealed"/>
 											<xsl:when
-													test="($isCurrentVersion) or ($version ='prospective' and $prospective = false() and position() = last())">
+													test="($isCurrentVersion and not(following::*/@iscurrent)) or ($version ='prospective' and $prospective = false() and position() = last())">
 												<xsl:text>margin-left: </xsl:text>
 												<xsl:value-of select="-53 - xs:integer($liWidth div 2)"/>
 												<xsl:text>px;</xsl:text>

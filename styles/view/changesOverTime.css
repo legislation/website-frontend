@@ -39,7 +39,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #changesOverTime #timeline #timelineData ul li .euexitday .content, 
 #changesOverTime #timeline #timelineData ul li .exitdayoverlay .content { padding: 5px 15px; left: -20px; position: relative; background: white; border: 2px solid #ddd; border-radius: 2px; }
 #changesOverTime #timeline #timelineData ul li .euexitday-deal .content, 
-#changesOverTime #timeline #timelineData ul li .euexitdayoverlay-deal .content { padding: 5px 6px; left: -40px; position: relative; background: white; border: 2px solid #ddd; border-radius: 2px;width:115px;}
+#changesOverTime #timeline #timelineData ul li .euexitdayoverlay-deal .content { padding: 5px 6px; left: -43px; position: relative; background: white; border: 2px solid #ddd; border-radius: 2px;width:115px;}
 #changesOverTime #timeline #timelineData ul li .euexitday .content::before, 
 #changesOverTime #timeline #timelineData ul li .euexitday-deal .content::before, 
 #changesOverTime #timeline #timelineData ul li .euexitdayoverlay-deal .content::before,
@@ -84,7 +84,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 #changesOverTime #timeline .currentVersion .pointer-uk {background: url(/images/chrome/pit-marker-uk-active.png) 0 0 no-repeat; background-size: cover;}
 #changesOverTime #timeline .stopDate .pointer {background: url(/images/chrome/pointInTimeMarkerStop.gif) 0 0 no-repeat;}
 #changesOverTime #timeline .euexitday-deal .pointer,
-#changesOverTime #timeline .euexitday .pointer { background: url(/images/chrome/pit-dot-active.png) 50% 25% no-repeat; width: 40px; height: 35px; margin-left: 5px;}
+#changesOverTime #timeline .euexitday .pointer { background: url(/images/chrome/pit-dot-active.png) 50% 25% no-repeat; width: 37px; height: 35px; margin-left: 5px;}
 #changesOverTime #timeline span.end {display: block; background-color:#000; background: url(/images/chrome/pointInTimeTimelineBgArr.png) 0 0 no-repeat; height: 40px; width: 18px; float: right; margin-top: -22px; margin-right: -10px;}
 #changesOverTime #timeline .currentVersion span.end {background: url(/images/chrome/pointInTimeTimelineBgActArr.png) 0 0 no-repeat;}
 #changesOverTime #timeline .currentProspective span.end {background: url(/images/chrome/pointInTimeTimelineBgActArr.png) 0 0 no-repeat;}
