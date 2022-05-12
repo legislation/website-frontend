@@ -159,7 +159,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>
 	
 	<!-- wrapping the image around model window html -->
-	<xsl:template match="leg:ExternalVersion[not(@format = 'xml')]">
+	<xsl:template match="leg:ExternalVersion">
 		<xsl:param name="strContext"/>
 		<xsl:param name="strDisplayFormat"/>
 		<xsl:param name="strAltAttributeDesc"/>
@@ -179,22 +179,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:sequence select="$html" />
 		</a>
 	</xsl:template>
-	
-	
-	
-	<xsl:template match="leg:ExternalVersion[@format='xml']" priority="25">
-		<xsl:param name="strContext"/>
-		<xsl:param name="strDisplayFormat"/>
-		<xsl:param name="strAltAttributeDesc"/>
-		<xsl:param name="dblWidth"/>
-		<xsl:param name="dblHeight"/>
-		
-		<xsl:variable name="resourceId" select="ancestor::leg:Resource/@id"/>
-		<xsl:variable name="annexURI" select="root()//leg:Schedule[.//leg:IncludedDocument/@ResourceRef = $resourceId]/@DocumentURI"/>
-		<p class="table-link" style="text-align: center;"><a href="{concat(substring-after($g_strwholeActURI, 'http://www.legislation.gov.uk'), '/', translate($strContext, '-', '/'))}">View table</a></p>
-		
-	</xsl:template>
-
 		
 	<xsl:template match="*" mode="HTMLmetadata" />
 
