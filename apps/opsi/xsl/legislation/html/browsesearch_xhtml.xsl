@@ -81,7 +81,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</div>
 							</div>
 						</xsl:if>
-						<xsl:variable name="year" as="xs:string?" select="$paramsDoc/parameters/year[. != '']" />
+						<xsl:variable name="year" as="xs:string?" select="$paramsDoc/parameters/year[not(. = ('', '*'))]" />
 						<xsl:variable name="start-year" as="xs:string?"
 							select="if (contains($year, '-')) then substring-before($year, '-') else $paramsDoc/parameters/start-year[. != '']" />
 						<xsl:variable name="end-year" as="xs:string?"
@@ -125,15 +125,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</div>
 							</div>
 						</div>
-						<xsl:if test="$paramsDoc/parameters/extent-match[. != '']">
-							<xsl:variable name="extents" as="xs:string*" select="tokenize($paramsDoc/parameters/extent, '\+')" />
+						<xsl:if test="$paramsDoc/parameters/extent-match[. != ''] or $paramsDoc/parameters/extent[. != '']">						
+							<xsl:variable name="extents" as="xs:string*" select="tokenize(replace($paramsDoc/parameters/extent, '=', ''), '\+')" />
 							<p>Geographical extent:</p>
 							<div class="searchExtendsTo">
 								<div class="searchExtendsToInput">
 									<div class="opt1 group">
 										<label for="extent-match-1">
 											<input type="radio" name="extent-match" id="extent-match-1" value="applicable" class="radio yearChoice">
-												<xsl:if test="$paramsDoc/parameters/extent-match[. = 'applicable']">
+												<xsl:if test="$paramsDoc/parameters/extent-match[. = 'applicable'] or not(contains($paramsDoc/parameters/extent, '='))">
 													<xsl:attribute name="checked">checked</xsl:attribute>
 												</xsl:if>
 											</input>
@@ -142,7 +142,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										</label>
 										<label for="extent-match-2">
 											<input type="radio" name="extent-match" id="extent-match-2" value="exact" class="radio yearChoice">
-												<xsl:if test="$paramsDoc/parameters/extent-match[. = 'exact']">
+												<xsl:if test="$paramsDoc/parameters/extent-match[. = 'exact'] or contains($paramsDoc/parameters/extent, '=')">
 													<xsl:attribute name="checked">checked</xsl:attribute>
 												</xsl:if>
 											</input>

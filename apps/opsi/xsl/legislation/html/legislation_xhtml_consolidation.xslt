@@ -1459,7 +1459,15 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	</xsl:if>
 </xsl:template>
 
-<xsl:template match="leg:Schedule//leg:P1 | leg:PrimaryPrelims | leg:SecondaryPrelims | leg:P1group | leg:P1[not(parent::leg:P1group)] | leg:Schedule/leg:ScheduleBody/leg:Tabular | *[self::leg:Part or self::leg:Chapter or self::leg:EUPart or self::leg:EUChapter or self::leg:EUTitle or self::leg:EUSection or self::leg:EUSubsection or self::leg:Pblock]/leg:Tabular | leg:ScheduleBody/leg:BlockAmendment | leg:Part/leg:BlockAmendment">
+<xsl:template match="leg:PrimaryPrelims | leg:SecondaryPrelims | leg:P1group[count(leg:P1) = 1] | leg:P1[not(parent::leg:P1group)] | leg:Schedule/leg:ScheduleBody/leg:Tabular | *[self::leg:Part or self::leg:Chapter or self::leg:EUPart or self::leg:EUChapter or self::leg:EUTitle or self::leg:EUSection or self::leg:EUSubsection or self::leg:Pblock]/leg:Tabular | leg:ScheduleBody/leg:BlockAmendment | leg:Part/leg:BlockAmendment">
+	<xsl:next-match/>
+	<!-- If there are alternate versions outputting ot annotations will happen there -->
+	<xsl:if test="not(@AltVersionRefs) and not(parent::leg:BlockAmendment)">
+		<xsl:apply-templates select="." mode="ProcessAnnotations"/>
+	</xsl:if>
+</xsl:template>
+
+<xsl:template match="leg:P1group[count(leg:P1) gt 1]/leg:P1" priority="500">
 	<xsl:next-match/>
 	<!-- If there are alternate versions outputting ot annotations will happen there -->
 	<xsl:if test="not(@AltVersionRefs) and not(parent::leg:BlockAmendment)">

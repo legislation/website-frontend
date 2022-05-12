@@ -80,7 +80,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				self::leg:Division[not(ancestor::leg:BlockAmendment)]">
 					<xsl:sequence select="(leg:Number | leg:Title)/descendant::leg:CommentaryRef" />
 				</xsl:when>
-				<xsl:when test="self::leg:Attachment[not(ancestor::leg:BlockAmendment)] | self::leg:P1group[not(ancestor::leg:BlockAmendment)] | self::leg:P1[not(parent::leg:P1group)][not(ancestor::leg:BlockAmendment)][not(ancestor::leg:Tabular)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:EUPrelims |self::leg:Tabular[not(parent::leg:P1)][not(parent::leg:P)] | self::leg:SignedSection[not(ancestor::leg:BlockAmendment)] ">
+				<xsl:when test="self::leg:Attachment[not(ancestor::leg:BlockAmendment)] | self::leg:P1group[not(ancestor::leg:BlockAmendment)] | self::leg:P1[not(parent::leg:P1group)][not(ancestor::leg:BlockAmendment)][not(ancestor::leg:Tabular)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:EUPrelims |self::leg:Tabular[not(parent::leg:P1)][not(parent::leg:P)] | self::leg:SignedSection[not(ancestor::leg:BlockAmendment)] |
+				self::leg:P1[not(ancestor::leg:BlockAmendment)][parent::leg:P1group[count(leg:P1) gt 1]] ">
 					<xsl:sequence select="descendant::leg:CommentaryRef"/>
 				</xsl:when>
 				<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body or parent::leg:EUBody or parent::leg:Schedules or parent::leg:ScheduleBody)">			
@@ -120,7 +121,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:when test="self::leg:Footnotes | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:EUPrelims">
 					<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
 				</xsl:when>	
-				<xsl:when test="self::leg:Attachment[not(ancestor::leg:BlockAmendment)] | self::leg:P1group[not(ancestor::leg:BlockAmendment)] | self::leg:P1[not(parent::leg:P1group)][not(ancestor::leg:BlockAmendment)][not(ancestor::leg:Tabular)] | self::leg:SignedSection[not(ancestor::leg:BlockAmendment)]">
+				<xsl:when test="self::leg:Attachment[not(ancestor::leg:BlockAmendment)] | self::leg:P1group[not(ancestor::leg:BlockAmendment)] | self::leg:P1[not(parent::leg:P1group)][not(ancestor::leg:BlockAmendment)][not(ancestor::leg:Tabular)] | self::leg:SignedSection[not(ancestor::leg:BlockAmendment)] |
+				self::leg:P1[not(ancestor::leg:BlockAmendment)][parent::leg:P1group[count(leg:P1) gt 1]]">
 					<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
 				</xsl:when>
 				<xsl:when test="self::leg:Title[parent::leg:Part or parent::leg:Chapter][not(ancestor::leg:BlockAmendment)]">
