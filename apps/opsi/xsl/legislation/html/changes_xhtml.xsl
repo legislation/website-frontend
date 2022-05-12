@@ -434,7 +434,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<legend><xsl:value-of select="leg:TranslateText('made by')"/>:</legend>										
 				</div>
 				<div class="title">
-					<label for="affecting-title">Title:</label>
+					<label for="affecting-title"><xsl:value-of select="leg:TranslateText('Title')"/>:</label>
 					<input id="affecting-title" name="affecting-title" type="text" value="{$paramsDoc/parameters/affecting-title}"/>
 				</div>
 				<div class="typeChoice">

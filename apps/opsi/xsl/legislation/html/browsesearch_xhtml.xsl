@@ -624,7 +624,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:variable name="result">
 						<xsl:value-of select="if ($timeline = 'century') then '100' else '10'" />
 						<xsl:text> </xsl:text>
-						<xsl:value-of select="leg:TranslateText('year')"/>
+						<xsl:value-of select="if($paramsDoc/parameters/lang[. = 'cy']) then 'o flynyddoedd' else leg:TranslateText('year')"/>
 					</xsl:variable>
 					<xsl:variable name="param" select="concat('result=',$result)"/>
 					<xsl:variable name="translated" select="leg:TranslateText('results_grouped_by',$param)" />

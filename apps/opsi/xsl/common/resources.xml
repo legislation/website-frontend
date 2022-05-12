@@ -100,7 +100,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Northern Ireland Assembly Measures">Mesurau Cynulliad Gogledd Iwerddon</resource>
 		<resource id="All UK Impact Assements">Pob Asesiad Effaith y Deyrnas Unedig</resource>
 		<resource id="UK Impact Assessments">Asesiadau Effaith y Deyrnas Unedig</resource>
+		<resource id="Northern Ireland Statutory Rules and Orders">Rheolau a Gorchmynion Statudol Gogledd Iwerddon</resource>
+		<!--
 		<resource id="Northern Ireland Statutory Rules and Orders">Reolau a Gorchmynion Statudol Gogledd Iwerddon</resource>
+		-->
 		<resource id="UK Ministerial Directions">Cyfarwyddiadau Gweinidogol y Deyrnas Unedig</resource>
 		<resource id="Wales Draft Statutory Instruments">Offerynnau Statudol Drafft Cymru</resource>
 		<resource id="UK Church Measures">Mesurau Eglwysig y Deyrnas Unedig</resource>
@@ -363,10 +366,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!-- facet filters -->
 		<resource id="By Type" translated="false" stage2="true">By Type</resource>
 		<resource id="by Type" translated="false" stage2="true">by Type</resource>
-		<resource id="Browse by" translated="false" stage2="true">Browse by</resource>
+		<resource id="Browse by" translated="false" stage2="true">Porwch gan</resource>
 		<resource id="Any type" translated="false" stage2="true">Unrhyw fath</resource>
-		<resource id="By Year" translated="false" stage2="true">By Year</resource>
-		<resource id="by Year" translated="false" stage2="true">by Year</resource>
+		<resource id="By Year" translated="false" stage2="true">Erbyn Blwyddyn</resource>
+		<resource id="by Year" translated="false" stage2="true">erbyn blwyddyn</resource>
 		<resource id="Any year" translated="false" stage2="true">Unrhyw flwyddyn</resource>
 		<resource id="Impact Assessments by Type" translated="false" stage2="true">Impact Assessments by Type</resource>
 		<resource id="Impact Assessments by Year" translated="true" stage2="true">Asesiadau Effaith yn ôl Blwyddyn</resource>
@@ -440,7 +443,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Legislation by Department" translated="false" stage2="true">Legislation by Department</resource>
 		<resource id="No longer has effect" translated="false" stage2="true">No longer has effect</resource>
 		<resource id="No versions valid at" translated="false" stage2="true">No versions valid at</resource>
-		<resource id="Version Superseded" translated="false" stage2="true">Version Superseded</resource>
+		<resource id="Version Superseded" translated="false" stage2="true">Fersiwn wedi'i ddisodli</resource>
 		<resource id="Stop date" translated="false" stage2="true">Stop date</resource>
 		<!-- Text on Page - http://www.legislation.gov.uk/cy/search/extent-->
 		<resource id="Geographical extent search (for revised legislation only)">Chwiliad graddfa ddaearyddol (ar gyfer deddfwriaeth ddiwygiedig yn unig)</resource>
@@ -488,9 +491,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Foundref_p_2" translated="false" stage2="true">You may be interested to know that
 			<param ref-id="citation" /> is also referenced by other legislation items such as:
 		</resource>
-		<resource id="Created" translated="false" stage2="true">Created</resource>
-		<resource id="Accepted" translated="false" stage2="true">Accepted</resource>
-		<resource id="Internal Error" translated="false" stage2="true">Internal Error</resource>
+		<resource id="Created" translated="false" stage2="true">Creu</resource>
+		<resource id="Accepted" translated="false" stage2="true">Derbyn</resource>
+		<resource id="Internal Error" translated="false" stage2="true">Qwall Mewnol</resource>
 		<resource id="Error404_1" translated="false" stage2="true">Ni lwyddwyd i ddod o hyd i’r dudalen y buoch yn chwilio amdani</resource>
 		<resource id="Error404_2" translated="false" stage2="true">Gwiriwch am unrhyw un o’r canlynol os gwelwch y dudalen hon ar ôl chwiliad</resource>
 		<resource id="Error404_3" translated="false" stage2="true">Camgymeriadau sillafu yn y frawddeg chwilio</resource>
@@ -566,7 +569,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Common_word_text_message">Anwybyddwyd geiriau cyffredin yn y chwiliad hwn. Defnyddiwch ddyfynodau dwbl am eiriau cyffredin i’w cynnwyshwy.</resource>
 		<!-- Text on Page -http://www.legislation.gov.uk/cy/new-->
 		<resource id="Official_place_of_publication">Man cyhoeddi swyddogol deddfwriaeth newydd ei deddfu</resource>
-		<resource id="New_intro_1_1">Mynnwch y wybodaeth ddiweddaraf am ddeddfwriaeth newydd ei deddfu ar gyfer y Deyrnas Unedig, yr Alban (hefyd, a ddylai’r drefn gael ei newid?), Cymru a Gogledd Iwerddon fel maent yn cael eu cyhoeddi ar y safle hwn, trwy ddewis dyddiad isod neu ddefnyddio’r porthiant tanysgrifio rhad ac am ddim.</resource>
+		<resource id="New_intro_1_1">Mynnwch y wybodaeth ddiweddaraf am ddeddfwriaeth newydd ei deddfu ar gyfer y Deyrnas Unedig, yr Alban, Cymru a Gogledd Iwerddon fel maent yn cael eu cyhoeddi ar y safle hwn, trwy ddewis dyddiad isod neu ddefnyddio’r porthiant tanysgrifio rhad ac am ddim.</resource>
 		<resource id="New_intro_1_2">Y nod yw cyhoeddi deddfwriaeth ar y safle hwn ar yr un pryd neu o leiaf cyn pen 24 awr, o’i chyhoeddi ar ffurf brintiedig.</resource>
 		<resource id="New_intro_2_1">Gall unrhyw ddogfen sy’n arbennig o gymhleth o ran ei maint neu ei hargraffwaith gymryd mwy o amser i’w pharatoi.</resource>
 		<resource id="New_intro_2_2_1">Rhestrir deddfwriaeth newydd </resource>
@@ -588,7 +591,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			Gellir dod o hyd i’r holl Fesurau sydd ar hyn o bryd ger bron 
 			<a href="http://www.scottish.parliament.uk/parliamentarybusiness/Bills.aspx" target="_blank">Senedd yr Alban</a>, 
 			<a href="http://www.niassembly.gov.uk/assembly-business/legislation/2016-2021-mandate/primary-legislation---current-bills/" target="_blank">Cynulliad Gogledd Iwerddon</a> 
-			a <a href="https://www.assemblywales.org" target="_blank">Chynulliad Cenedlaethol Cymru</a> ar y gwefannau Seneddol a Chynulliad Cenedlaethol unigol.
+			a <a href="https://www.assemblywales.org/cy" target="_blank">Chynulliad Cenedlaethol Cymru</a> ar y gwefannau Seneddol a Chynulliad Cenedlaethol unigol.
 		</resource>
 		<resource id="site_logo_legislation">legislation_logo_welsh</resource>
 		<resource id="New_tracking_1_1">Rhestrir yr holl Fesurau sydd ger bron Senedd y Deyrnas Unedig ar hyn o bryd ar wefan Senedd y Deyrnas Unedig</resource>
@@ -655,8 +658,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Browse_NIApplies2">Gallai gynnwys deddfwriaeth sy’n berthnasol i Ogledd Iwerddon</resource>
 		<resource id="Browse_ScotlandApplies1">Yn berthnasol yn gyfan gwbl neu’n bennaf i’r Alban</resource>
 		<resource id="Browse_ScotlandApplies2">Gallai gynnwys deddfwriaeth sy’n berthnasol i’r Alban</resource>
-		<resource id="Browse_WalesIntro">Mae deddfwriaeth.gov.uk yn cynnwys y rhan fwyaf o fathau o Ddeddfwriaeth y Deyrnas Unedig, yn cynnwys deddfwriaeth Gymreig. Mae’r rhestr isod yn ddadansoddiad o’r mathau o ddeddfwriaeth a gedwir ar y safle hwn sydd naill ai’n berthnasol i Gymru yn unig neu’n cynnwys deddfwriaeth allai fod yn berthnasol i Gymru. O’r dudalen hon gallwch ddethol unrhyw fath o ddeddfwriaeth i barhau i bori.</resource>
-		<resource id="Browse_ScotlandIntro">Mae deddfwriaeth.gov.uk yn cynnwys y rhan fwyaf o fathau o Ddeddfwriaeth y Deyrnas Unedig, yn cynnwys deddfwriaeth Albanaidd. Mae’r rhestr isod yn ddadansoddiad o’r mathau o ddeddfwriaeth a gedwir ar y safle hwn sydd naill ai’n berthnasol i’r Alban yn unig neu’n cynnwys deddfwriaeth allai fod yn berthnasol i’r Alban. O’r dudalen hon gallwch ddethol unrhyw fath o ddeddfwriaeth i barhau i bori.</resource>
+		<resource id="Browse_WalesIntro">Mae deddfwriaeth.gov.uk yn cynnwys y rhan fwyaf o fathau o Ddeddfwriaeth y Deyrnas Unedig, yn cynnwys deddfwriaeth Cymru. Mae’r rhestr isod yn ddadansoddiad o’r mathau o ddeddfwriaeth a gedwir ar y safle hwn sydd naill ai’n berthnasol i Gymru yn unig neu’n cynnwys deddfwriaeth allai fod yn berthnasol i Gymru. O’r dudalen hon gallwch ddethol unrhyw fath o ddeddfwriaeth i barhau i bori.</resource>
+		<resource id="Browse_ScotlandIntro">Mae deddfwriaeth.gov.uk yn cynnwys y rhan fwyaf o fathau o Ddeddfwriaeth y Deyrnas Unedig, yn cynnwys deddfwriaeth yr Alban. Mae’r rhestr isod yn ddadansoddiad o’r mathau o ddeddfwriaeth a gedwir ar y safle hwn sydd naill ai’n berthnasol i’r Alban yn unig neu’n cynnwys deddfwriaeth allai fod yn berthnasol i’r Alban. O’r dudalen hon gallwch ddethol unrhyw fath o ddeddfwriaeth i barhau i bori.</resource>
 		<resource id="Browse_NIIntro">Mae deddfwriaeth.gov.uk yn cynnwys y rhan fwyaf o fathau o Ddeddfwriaeth y Deyrnas Unedig, yn cynnwys deddfwriaeth Gogledd Iwerddon. Mae’r rhestr isod yn ddadansoddiad o’r mathau o ddeddfwriaeth a gedwir ar y safle hwn sydd naill ai’n berthnasol i Ogledd Iwerddon yn unig neu’n cynnwys deddfwriaeth allai fod yn berthnasol i Ogledd Iwerddon. O’r dudalen hon gallwch ddethol unrhyw fath o ddeddfwriaeth i barhau i bori.</resource>
 		<resource id="Browse_QuickLinks">Cysylltiadau cyflym</resource>
 		<resource id="Browse_ScotlandLegislation">Deddfwriaeth yr Alban</resource>
@@ -712,7 +715,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="moreResourcesHelp_alt_para1" translated="true" stage2="true">Gallwch wneud defnydd o ddogfennau atodol hanfodol a gwybodaeth ar gyfer yr eitem ddeddfwriaeth o’r tab hwn. Yn ddibynnol ar yr eitem ddeddfwriaeth sydd i’w gweld, gallai hyn gynnwys:</resource>
 		<resource id="moreResourcesHelp_ul_li_1_part1">y PDF print gwreiddiol y fel</resource>
 		<resource id="enacted">deddfwyd</resource>
-		<resource id="created" translated="false">created</resource>
+		<resource id="created" translated="false">creu</resource>
 		<resource id="made">gwnaed</resource>
 		<resource id="moreResourcesHelp_ul_li_1_part3">fersiwn a ddefnyddiwyd am y copi print</resource>
 		<resource id="moreResourcesHelp_ul_li_1_part3eu" translated="true">version that was used for the EU Official Journal</resource>
@@ -756,7 +759,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!-- eu changes -->
 		<resource id="New_changes_p1">Mae’r rhestrau hyn yn rhoi manylion newidiadau i ddeddfwriaeth gan gynnwys diddymu, diwygio ac effeithiau eraill (e.e. addasiadau a gwybodaeth am ddechrau) a wnaed gan ddeddfwriaeth ddilynol.</resource>
 		<resource id="New_changes_p2">Mae’r ffurflen chwilio isod yn rhoi mynediad at restrau yn rhoi manylion newidiadau a wnaed gan yr holl ddeddfwriaeth yn y DU a wnaed rhwng 2002 a’r presennol i ddeddfwriaeth sylfaenol y DU a gedwir ar legislation.gov.uk. Mae newidiadau a wnaed gan ddeddfwriaeth a ddeddfwyd cyn 2002 eisoes wedi cael eu hymgorffori yng nghynnwys y ddeddfwriaeth sylfaenol ac nid ydynt ar gael eto fel rhestrau chwiliadwy. Mae newidiadau a wnaed trwy ddeddfwriaeth eilaidd a weithredwyd o 2000 ymlaen ar gael. Cynhwysir newidiadau i Reoliadau a Phenderfyniadau yr UE yn deillio o’r UE gan ddeddfwriaeth y DU hefyd yn y rhestrau hyn.</resource>
-		<resource id="New_changes_p3">Mae’r rhestrau yn cael eu diweddaru gyda newidiadau a wneir gan ddeddfwriaeth newydd cyn gynted ag sy’n bosibl ar ôl i’r ddeddfwriaeth gael ei derbyn gan dîm golygyddol legislation.gov.uk. Yn y rhan fwyaf o achosion bydd y newidiadau ar gael cyn pen pythefnos o gyhoeddi’r ddeddfwriaeth newydd, ond yn ystod cyfnodau prysur iawn o ran deddfwriaeth newydd, gall gymryd mwy o amser. Hyd at adael yr UE, mae newidiadau i ddeddfwriaeth yr UE a wnaed gan ddeddfwriaeth yr UE cyn i’r DU adael yr UE yn cael eu casglu EUR-Lex a’u cyhoeddi ar y tudalennau Newidiadau i Ddeddfwriaeth.</resource>
+		<resource id="New_changes_p3">Mae’r rhestrau yn cael eu diweddaru gyda newidiadau a wneir gan ddeddfwriaeth newydd cyn gynted ag sy’n bosibl ar ôl i’r ddeddfwriaeth gael ei derbyn gan dîm golygyddol legislation.gov.uk. Yn y rhan fwyaf o achosion bydd y newidiadau ar gael cyn pen pythefnos o gyhoeddi’r ddeddfwriaeth newydd, ond yn ystod cyfnodau prysur iawn o ran deddfwriaeth newydd, gall gymryd mwy o amser. Hyd at adael yr UE, mae newidiadau i ddeddfwriaeth yr UE a wnaed gan ddeddfwriaeth yr UE cyn i’r DU adael yr UE yn cael eu casglu ar EUR-Lex a’u cyhoeddi ar y tudalennau Newidiadau i Ddeddfwriaeth.</resource>
 		<resource id="New_changes_p3_old">Mae’r rhestrau yn cael eu diweddaru gyda newidiadau a wneir gan ddeddfwriaeth newydd cyn gynted ag sy’n bosibl ar ôl i’r ddeddfwriaeth gael ei derbyn gan dîm golygyddol legislation.gov.uk. Yn y rhan fwyaf o achosion bydd y newidiadau ar gael cyn pen pythefnos o gyhoeddi’r ddeddfwriaeth newydd, ond yn ystod cyfnodau prysur iawn o ran deddfwriaeth newydd, gall gymryd mwy o amser. Casglwyd newidiadau i ddeddfwriaeth yr UE a wnaed gan ddeddfwriaeth yr UE cyn i’r DU adael yr UE o EUR-Lex a’u cyhoeddi ar y tudalennau Newidiadau i Ddeddfwriaeth.</resource>
 		<resource id="New_changes_p4">Sylwer: Pan na fydd newidiadau ac effeithiau wedi eu gweithredu ar ddeddfwriaeth y DU neu UE yr ydych yn edrych arnynt ar y safle hwn eto, yna dangosir unrhyw ‘Newidiadau i Ddeddfwriaeth’ hefyd ochr yn ochr â chynnwys y ddeddfwriaeth ar lefel darparu.</resource>
 		
@@ -805,12 +808,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Status">Statws</resource>
 		<resource id="status_warning_original_version">Dyma’r fersiwn wreiddiol (fel y’i gwnaed yn wreiddiol)</resource>
 		<resource id="status_warning_original_version2">. Dim ond ar ei ffurf wreiddiol y mae’r eitem hon o ddeddfwriaeth ar gael ar hyn o bryd</resource>
-		<resource id="status_warning_original_version3"> are not carried in their revised form on this site</resource>
-		
-		<resource id="status_warning_outstanding_p1"> is up to date with all changes known to be in force on or before </resource>
-		<resource id="status_warning_outstanding_p1_1">There are changes that may be brought into force at a future date.</resource>
-		<resource id="status_warning_outstanding_p1_2">Changes that have been made appear in the content and are referenced with annotations.</resource>	
-		<resource id="status_warning_eu_retained_p_toc">Those changes will be listed when you open the content using the Table of Contents below.</resource>
+		<resource id="status_warning_original_version3"> ddim yn cael eu cario yn eu ffurf ddiwygiedig ar y wefan hon</resource>
+		<!--  is up to date with all changes known to be in force on or before -->
+		<resource id="status_warning_outstanding_p1">yn gyfredol gyda'r holl newidiadau y gwyddys eu bod mewn grym ar neu cyn hynny </resource>
+		<!-- There are changes that may be brought into force at a future date. -->
+		<resource id="status_warning_outstanding_p1_1">Mae newidiadau a all ddod i rym yn y dyfodol.</resource>
+		<!-- Changes that have been made appear in the content and are referenced with annotations -->
+		<resource id="status_warning_outstanding_p1_2">Mae newidiadau a wnaed yn ymddangos yn y cynnwys a chyfeirir atynt trwy anodiadau.</resource>	
+		<resource id="status_warning_eu_retained_p_toc">Bydd y newidiadau hynny yn cael eu rhestru pan fyddwch yn agor y cynnwys trwy ddefnyddio’r Rhestr Cynnwys isod.</resource>
 		
 		<resource id="Impact Assessment">Asesiad Effaith</resource>
 		<resource id="Draft Impact Assessment">Asesiad Effaith Ddrafft</resource>
@@ -876,14 +881,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<param ref-id="type"/> has no associated
 			<param ref-id="noteType"/>
 		</resource>
-		<resource id="Year_before_current" translated="false" stage2="true">Year must be before or equal to
+		<resource id="Year_before_current" translated="false" stage2="true">Rhaid i'r flwyddyn fod cyn neu'n hafal i
 			<param ref-id="year"/>
 		</resource>
 		<resource id="Year_before_range" translated="false" stage2="true">Year range must be before or equal to
 			<param ref-id="year"/> and the From year must be an earlier date than the To year
 		</resource>
 		<resource id="Not a valid legislation type" translated="false" stage2="true">Not a valid legislation type</resource>
-		<resource id="Year_after_2002" translated="false" stage2="true">Year must be between 2002 and
+		<resource id="Year_after_2002" translated="false" stage2="true">Rhaid i'r flwyddyn fod rhwng 2002 a
 			<param ref-id="year"/>
 		</resource>
 		<resource id="Changed Legislation" translated="false" stage2="true">Deddfwriaeth wedi Newid</resource>
@@ -1110,24 +1115,38 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="r.">d.</resource>
 		<resource id=" r."> d.</resource>
 		<resource id="in pt.(saving)">yn rhannol (arbed)</resource>
-		<resource id="status_warning_intro_draft_bill_item">This is a draft Bill item. It has no official standing.</resource> 
-		<resource id="status_warning_intro_proposed_version">This version shows proposed changes to this legislation item. It has no official standing.</resource> 
+		<!-- This is a draft bill. It has no official status -->
+		<resource id="status_warning_intro_draft_bill_item">Mesur drafft yw hon. Nid oes ganddi statws swyddogol.</resource> 
+		<resource id="status_warning_intro_proposed_version">Mae’r fersiwn hon yn dangos newidiadau arfaethedig i’r eitem hon o ddeddfwriaeth. Nid oes ganddi statws swyddogol.</resource> 
+		<!-- This version shows proposed changes to this item of legislation. -->
+		<resource id="status_warning_intro_proposed_version_pt1">Mae’r fersiwn hon yn dangos newidiadau arfaethedig i’r eitem hon o ddeddfwriaeth.</resource> 
+		<!-- It has no official standing. -->
+		<resource id="status_warning_intro_proposed_version_pt2">Nid oes ganddi statws swyddogol.</resource> 	
 		<resource id="status_warning_intro_draft_legislation">Mae hwn yn eitem o ddeddfwriaeth ddrafft</resource> 
 		<resource id="No results found">Ni ddarganfwyd canlyniadau</resource>
 		<resource id="Read more">Darllen mwy</resource>
-		<resource id="This draft has since been made as a">This draft has since been made as a</resource>
-		<resource id="and has not yet been made as a">and has not yet been made as a</resource>
-		<resource id="This draft has been replaced by a new draft">This draft has been replaced by a new draft</resource>
-		<resource id="status_waring_original_version">This is the original version (as it was originally adopted)</resource>
-		<resource id="status_warning_PiT_ prospective">Point in time view latest with prospective.</resource>
-		<resource id="status_warning_PiT_at">Point in time view as at</resource>
-		<resource id="status_warning_PiT__timeline_changes_p1">Show Timeline of Changes</resource>
-		<resource id="status_warning_PiT_timeline_changes_p1_1">to view this provision at an earlier point in time.</resource>
-		<resource id="status_warning_PiT_timeline_changes_p1_2">to view this provision as it would have been.</resource>
-		<resource id="status_warning_is_from_westlaw_pt1">The electronic version of this</resource>
-		<resource id="status_warning_is_from_westlaw_pt2">has been contributed by Westlaw and is taken from the printed publication</resource>
+		<!-- This draft has since been made as a -->
+		<resource id="This draft has since been made as a">Mae’r drafft hwn, ers hynny, wedi cael ei wneud yn</resource>
+		<resource id="and has not yet been made as a">ac nid yw wedi ei wneud eto fel a</resource>
+		<resource id="This draft has been replaced by a new draft">Mae’r drafft hwn wedi cael ei gyfnewid â drafft newydd</resource>
+		<!-- This is the original version (as originally adopted). -->
+		<resource id="status_waring_original_version">Dyma’r fersiwn wreiddiol (fel y’i mabwysiadwyd yn wreiddiol).</resource>
+		<!-- Point in time view latest with prospective. -->
+		<resource id="status_warning_PiT_ prospective">Golwg cyfnod mewn amser diweddaraf a darpar.</resource>
+		<!-- Point in time view as at -->
+		<resource id="status_warning_PiT_at">Golwg cyfnod mewn amser fel yr oedd ar</resource>
+		<!-- Show Timeline of Changes -->
+		<resource id="status_warning_PiT__timeline_changes_p1">Dangoswch Linell Amser o Newidiadau</resource>
+		<!-- to view this provision at an earlier point in time. -->
+		<resource id="status_warning_PiT_timeline_changes_p1_1">i weld y ddarpariaeth hon fel yr oedd yn gynharach.</resource>
+		<!-- to view this provision as it would have been. -->
+		<resource id="status_warning_PiT_timeline_changes_p1_2">i weld y ddarpariaeth hon fel y byddai wedi bod.</resource>
+		<!-- The electronic version of this -->
+		<resource id="status_warning_is_from_westlaw_pt1">Mae’r fersiwn electronig o hwn</resource>
+		<!-- has been contributed by Westlaw and is taken from the printed publication -->
+		<resource id="status_warning_is_from_westlaw_pt2">wedi cael ei gyfrannu gan Westlaw ac fe’i cymerwyd o’r cyhoeddiad printiedig</resource>
 		
-		<resource id="Skip to">Skip to</resource>
+		<resource id="Skip to">Neidiwch i</resource>
 	</resources>
 
 	<resources lang="en">
