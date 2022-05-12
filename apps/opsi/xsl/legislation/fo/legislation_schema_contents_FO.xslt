@@ -1021,7 +1021,19 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 </xsl:template>
 
 <xsl:template match="leg:ContentsPblock">
-	<xsl:if test="leg:contentsNumber">
+	<xsl:if test="leg:ContentsNumber">
+		<fo:block font-size="{$g_strBodySize}" space-before="12pt" text-align="center" keep-with-next="always">
+			<xsl:apply-templates select="leg:ContentsNumber"/>
+		</fo:block>
+	</xsl:if>
+	<fo:block font-size="{$g_strBodySize}" font-style="italic" space-before="12pt" space-after="6pt" text-align="center" keep-with-next="always">
+		<xsl:apply-templates select="leg:ContentsTitle"/>
+	</fo:block>
+	<xsl:apply-templates select="*[not(self::leg:ContentsNumber or self::leg:ContentsTitle)]"/>
+</xsl:template>
+	
+<xsl:template match="leg:ContentsPsubBlock">
+	<xsl:if test="leg:ContentsNumber">
 		<fo:block font-size="{$g_strBodySize}" space-before="12pt" text-align="center" keep-with-next="always">
 			<xsl:apply-templates select="leg:ContentsNumber"/>
 		</fo:block>
@@ -1033,7 +1045,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 </xsl:template>
 
 <xsl:template match="leg:ContentsGroup">
-	<xsl:if test="leg:contentsNumber">
+	<xsl:if test="leg:ContentsNumber">
 		<fo:block font-size="{$g_strBodySize}" space-before="12pt" font-weight="bold" text-align="center" keep-with-next="always">
 			<xsl:apply-templates select="leg:ContentsNumber"/>
 		</fo:block>

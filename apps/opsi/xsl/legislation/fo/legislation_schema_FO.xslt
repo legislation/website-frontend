@@ -2339,6 +2339,7 @@ exclude-result-prefixes="tso atom">
 		<fo:block text-align="justify" font-size="{$g_strBodySize}">
 			<xsl:apply-templates select="leg:Title"/>
 			<xsl:apply-templates select="leg:Schedule"/>
+			<xsl:apply-templates select="leg:SignedSection"/>
 		</fo:block>
 	</xsl:template>
 
@@ -3000,6 +3001,9 @@ exclude-result-prefixes="tso atom">
 					</fo:inline>
 			</xsl:otherwise>
 		</xsl:choose>
+		<xsl:if test="following-sibling::node()[1]/self::text()[normalize-space()='']/following-sibling::node()[1]/self::leg:Emphasis or following-sibling::node()[1]/self::leg:Emphasis">
+			<xsl:text>&#x00a0;</xsl:text>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template match="leg:Strong">
@@ -3151,22 +3155,16 @@ exclude-result-prefixes="tso atom">
 							</xsl:if>
 									<fo:table-row>
 										<fo:table-cell display-align="after">
-											<xsl:if test="not(leg:Address or leg:DateSigned/leg:DateText or leg:LSseal)">
+											<xsl:if test="not(leg:Address or leg:DateSigned/leg:DateText)">
 												<fo:block/>
 											</xsl:if>
 											<xsl:if test="leg:Address">
-												<fo:block keep-with-next="always">
-													<xsl:apply-templates select="leg:Address"/>
-												</fo:block>
+												<xsl:apply-templates select="leg:Address"/>
 											</xsl:if>
+											
 											<xsl:if test="leg:DateSigned/leg:DateText">
 												<fo:block keep-with-next="always">
 													<xsl:apply-templates select="leg:DateSigned/leg:DateText"/>
-												</fo:block>
-											</xsl:if>
-											<xsl:if test="leg:LSseal">
-												<fo:block keep-with-next="always">
-													<fo:external-graphic src='url("{//leg:Resource[@id = $lssealuri]/leg:ExternalVersion/@URI}")' fox:alt-text="Legal seal"/>
 												</fo:block>
 											</xsl:if>
 										</fo:table-cell>
@@ -3193,6 +3191,16 @@ exclude-result-prefixes="tso atom">
 				</xsl:for-each>
 			</xsl:for-each>
 		</fo:block>						
+	</xsl:template>
+	
+	<xsl:template match="leg:Address">		
+		<xsl:apply-templates />
+	</xsl:template>
+	
+	<xsl:template match="leg:AddressLine">
+		<fo:block keep-with-next="always">
+			<xsl:apply-templates />
+		</fo:block>		
 	</xsl:template>
 	
 	<xsl:template match="leg:SignedSection/leg:Signatory/leg:Signee/leg:Para/leg:Text[$g_strDocClass = $g_strConstantEuretained]" priority="50">
@@ -3663,7 +3671,6 @@ exclude-result-prefixes="tso atom">
 				<xsl:if test="self::leg:Addition and parent::leg:Addition and ancestor::leg:Pnumber">
 					<fo:block/>
 				</xsl:if>
-											   
 			</xsl:if>
 			<xsl:apply-templates select="." mode="AdditionRepealRefs"/>
 		</xsl:if>
@@ -3765,7 +3772,6 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 	
 	
-
 	<xsl:template match="leg:CommentaryRef" priority="50">
 		<xsl:choose>
 			<xsl:when test="not(ancestor::leg:Text or ancestor::leg:Pnumber or ancestor::leg:Title or ancestor::leg:Number or ancestor::leg:Citation or ancestor::leg:CitationSubRef or ancestor::leg:CitationListRef or ancestor::leg:Addition or ancestor::leg:Repeal or ancestor::leg:Substitution)">
