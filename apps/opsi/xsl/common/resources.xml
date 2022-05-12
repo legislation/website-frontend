@@ -622,6 +622,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Today">Heddiw</resource>
 		<resource id="Free_of_charge">Porthiant deddfwriaeth am ddim</resource>
 		<resource id="All Legislation (excluding drafts)">Pob Deddfwriaeth (ac eithrio drafftiau)</resource>
+		<resource id="UK Legislation (excluding originating from the EU)">Deddfwriaeth y Deyrnas Unedig (ac eithrio yn deillio o’r UE)</resource><!-- PT 172481089: needs checking -->
+		<resource id="UK Legislation (including originating from the EU)">Deddfwriaeth y Deyrnas Unedig (gan gynnwys tarddu o’r UE)</resource><!-- PT 172481089: needs checking -->
 		<resource id="Free of charge draft legislation feeds">Porthiant deddfwriaeth ddrafft am ddim</resource>
 		<resource id="Tracking UK Legislation">Olrhain Deddfwriaeth y Deyrnas Unedig</resource>
 		<resource id="All New Legislation">Pob Deddfwriaeth Newydd</resource>

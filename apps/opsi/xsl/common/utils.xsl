@@ -283,19 +283,31 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:if test="$error"><xsl:attribute name="class">error</xsl:attribute></xsl:if>
 	
 		<xsl:if test="$showPrimary and $showSecondary">
-			<option value="all">
+			<option value="primary+secondary">
 				<xsl:if test="$selected = ''">
 					<xsl:attribute name="selected" select="'selected'" />
 				</xsl:if>
 				<xsl:value-of select="leg:TranslateText('All')"/>
 				<xsl:text> </xsl:text>
 				<xsl:if test="not($showUnrevised)"><xsl:value-of select="leg:TranslateText('Revised')"/><xsl:text> </xsl:text></xsl:if>
-				<xsl:value-of select="leg:TranslateText('Legislation')"/>
-				<xsl:if test="$showUnrevised"> (<xsl:value-of select="leg:TranslateText('excluding draft')"/>)</xsl:if>
+				<xsl:value-of select="leg:TranslateText('UK Legislation (excluding originating from the EU)')"/>				
+				<!--<xsl:if test="$showUnrevised"> (<xsl:value-of select="leg:TranslateText('excluding draft')"/>)</xsl:if>-->
+			</option>
+			<option disabled="">--------------------------------------------</option>
+			<option value="all">
+				<xsl:if test="$selected = 'all'">
+					<xsl:attribute name="selected" select="'selected'" />
+				</xsl:if>
+				<xsl:value-of select="leg:TranslateText('All')"/>
+				<xsl:text> </xsl:text>
+				<xsl:if test="not($showUnrevised)"><xsl:value-of select="leg:TranslateText('Revised')"/><xsl:text> </xsl:text></xsl:if>
+				<xsl:value-of select="leg:TranslateText('UK Legislation (including originating from the EU)')"/>
+				<!--<xsl:if test="$showUnrevised"> (<xsl:value-of select="leg:TranslateText('excluding draft')"/>)</xsl:if>-->
 			</option>
 		</xsl:if>	
 		
 		<xsl:if test="$showPrimary">
+			<option disabled="">--------------------------------------------</option>
 			<xsl:if test="$showSecondary and $showUnrevised">
 				<option value="primary">
 					<xsl:if test="$selected = 'primary'">
@@ -313,6 +325,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:if>
 		
 		<xsl:if test="$showSecondary">
+			<option disabled="">--------------------------------------------</option>
 			<xsl:if test="$showPrimary and $showUnrevised">
 				<option value="secondary">
 					<xsl:if test="$selected = 'secondary'">
@@ -331,6 +344,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:if>
 		
 		<xsl:if test="$showEUretained and not($hideEUdata)">
+			<option disabled="">--------------------------------------------</option>
 			<xsl:if test="$showSecondary and $showUnrevised">
 				<option value="eu-origin">
 					<xsl:if test="$selected = 'eu-origin'">
@@ -349,6 +363,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		
 		
 		<xsl:if test="$showDraft">
+			<option disabled="">--------------------------------------------</option>
 			<option value="draft">
 				<xsl:if test="$selected = 'draft'">
 					<xsl:attribute name="selected" select="'selected'" />
@@ -364,6 +379,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</xsl:if>
 		<!-- note that we are currently using ukia as this is the only IA type - if we have additional this will need to be changed to 'impact' -->
 		<xsl:if test="$showImpacts">
+			<option disabled="">--------------------------------------------</option>
 			<option value="ukia">
 				<xsl:if test="$selected = 'ukia'">
 					<xsl:attribute name="selected" select="'selected'" />
