@@ -1061,7 +1061,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:text>@import "/styles/legislation.css";</xsl:text>
 					<xsl:text>@import "/styles/eulegislation.css";</xsl:text>
 				</xsl:when>
-				<xsl:when test="$uriPrefix ='ukpga' or  $uriPrefix ='ukla'  or  $uriPrefix ='cukla'  or  $uriPrefix ='ukcm'  ">
+				<xsl:when test="$uriPrefix ='ukpga' or  $uriPrefix ='ukla'  or  $uriPrefix ='cukla' ">
 					<xsl:text>
 						@import "/styles/legislation.css";
 						@import "/styles/primarylegislation.css";
@@ -1075,7 +1075,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						@import "/styles/primarylegislation.css";
 					</xsl:text>
 				</xsl:when>
-				<xsl:when test="$uriPrefix ='aep' or  $uriPrefix ='asp' ">
+				<xsl:when test="$uriPrefix = ('aep', 'asp', 'ukcm')">
 					<xsl:text>
 						@import "/styles/SPOlegislation.css";
 						@import "/styles/legislation.css";

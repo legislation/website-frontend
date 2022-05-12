@@ -159,7 +159,11 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 			<xsl:variable name="unappliedURIs" select="leg:unappliedAffectingURIs(.)"/>
 			<xsl:variable name="outstandingRefs" select="$g_euExitRefs[not(. = $unappliedURIs)]"/>
 			<!-- disable this for initial release -->
-			<xsl:if test="$g_strDocumentStatus = 'revised' and (empty($g_strReplaceBy) or matches($g_strReplaceBy, 'propsective', 'i'))">
+			<xsl:if test="$g_strDocumentStatus = 'revised' and 
+							(	empty($g_strReplaceBy) or 
+								($g_strReplaceBy castable as xs:date and xs:date($g_strReplaceBy) gt current-date()) or
+								matches($g_strReplaceBy, 'prospective', 'i')
+							)">
 				<div>
 					<xsl:attribute name="id">brexitInfo</xsl:attribute>
 					<h2>
@@ -203,7 +207,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 									</ul>
 								</xsl:when>
 								<xsl:otherwise>
-									<p><xsl:value-of select="leg:TranslateText('There are currently no additional references that you need to check')"/>.</p>
+									<p><strong><xsl:value-of select="leg:TranslateText('There are currently no additional references that you need to check')"/>.</strong></p>
 								</xsl:otherwise>
 							</xsl:choose>
 						</div>

@@ -79,13 +79,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template name="TSOOutputAddLegislationStyles">
 		<style type="text/css">
 			<xsl:text>/* Legislation stylesheets - load depending on content type */&#xA;</xsl:text>
-			<xsl:text>@import "/styles/legislation.css";&#xA;</xsl:text>
+			<!--<xsl:text>@import "/styles/legislation.css";&#xA;</xsl:text>--><!-- repeat?? keep this & remove in other places(?) if order of appearance has no impact -->
 			<xsl:choose>
 				<xsl:when test="$uriPrefix = ('eut', 'eur', 'eudr', 'eudn') ">
 					<xsl:text>@import "/styles/legislation.css";&#xA;</xsl:text>
 					<xsl:text>@import "/styles/eulegislation.css";&#xA;</xsl:text>
 				</xsl:when>	
-				<xsl:when test="$uriPrefix ='ukpga' or  $uriPrefix ='ukla'  or  $uriPrefix ='cukla'  or  $uriPrefix ='ukcm'  ">
+				<xsl:when test="$uriPrefix ='ukpga' or  $uriPrefix ='ukla'  or  $uriPrefix ='cukla' ">
 					<xsl:text>@import "/styles/legislation.css";&#xA;</xsl:text>
 					<xsl:text>@import "/styles/primarylegislation.css";&#xA;</xsl:text>
 				</xsl:when>				
@@ -95,7 +95,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:text>@import "/styles/legislation.css";&#xA;</xsl:text>
 					<xsl:text>@import "/styles/primarylegislation.css";&#xA;</xsl:text>
 				</xsl:when>
-				<xsl:when test="$uriPrefix ='aep' or  $uriPrefix ='asp' ">
+				<xsl:when test="$uriPrefix = ('aep', 'asp', 'ukcm')">
 					<xsl:text>@import "/styles/SPOlegislation.css";&#xA;</xsl:text>
 					<xsl:text>@import "/styles/legislation.css";&#xA;</xsl:text>
 					<xsl:text>@import "/styles/primarylegislation.css";&#xA;</xsl:text>
