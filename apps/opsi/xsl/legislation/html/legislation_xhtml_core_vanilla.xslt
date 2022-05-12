@@ -2064,10 +2064,11 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:apply-templates/> 
 		</span>-->
 	<!-- Chunyu HA049771 asp/2005/6 Added the condition for P1 is not the first in P1group -->
-	<!-- Julian    HA056190 - ssi/2005/190/article/2/made. Refined condition as it caused problems with the SSI specified. I think the fix which removed styling from P1s other than the first in
+	<!-- JDC	HA056190 ssi/2005/190/article/2/made. Refined condition as it caused problems with the SSI specified. I think the fix which removed styling from P1s other than the first in
 	the P1Group is only required when the 1st P1 becomes a header (<hn>) not a para (<p>) - this is done in the code following from line 1756, which is only applied for primary legislation. --> 
+	<!-- JDC 	HA101032 asp/2020/13/schedule/3/enacted. Additional refining of condition to fix format errors in given legislation (there is also a CSS change for same issue). -->
 	<xsl:choose>
-		<xsl:when test="(parent::leg:P1[not(preceding-sibling::leg:P1) and (parent::leg:P1group)]) or not($g_strDocumentType = ($g_strPrimary, $g_strEUretained))">
+		<xsl:when test="((parent::leg:P1[not(preceding-sibling::leg:P1) and (parent::leg:P1group)]) or not($g_strDocumentType = ($g_strPrimary, $g_strEUretained))) and not (//leg:Schedule//leg:Schedule//leg:P1group/leg:P1/leg:Pnumber)">
 			<span>
 				<xsl:attribute name="class">
 					<xsl:text>LegP1No</xsl:text>

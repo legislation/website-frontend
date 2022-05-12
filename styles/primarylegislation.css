@@ -200,6 +200,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 .LegSnippet .LegFormNo strong {font-weight: normal}
 
 .LegSnippet .LegC1Amend {margin-left: 10%}
+.LegSnippet .LegC1Amend2 {margin-left: 10%}
 .LegSnippet .LegC1C1Amend2 {margin-left: 20%}
 .LegSnippet .LegC1C1C1Amend3 {margin-left: 30%}
 .LegSnippet .LegC1C3Amend2 {margin-left: 27%}
@@ -299,8 +300,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 .LegSnippet .LegSP1GroupTitleC1Amend {clear: both; margin-left: 10%; font-size: 0.8em; font-weight: normal; font-style: italic; text-align: left; margin-bottom: 0.5em; margin-top: 0em; padding-top: 1em}
 .LegSnippet .LegSP1GroupTitleC1Amend em {font-style: normal}
+.LegSnippet .LegSP1GroupTitleC1Amend2 {clear: both; margin-left: 10%; font-size: 0.8em; font-weight: normal; font-style: italic; text-align: center; margin-bottom: 0.5em; margin-top: 0em; padding-top: 1em}
+.LegSnippet .LegSP1GroupTitleC1Amend2 em {font-style: normal}
 .LegSnippet .LegSP1GroupTitleFirstC1Amend {clear: both; margin-left: 10%; font-size: 0.8em; font-weight: normal; font-style: italic; text-align: left; margin-bottom: 0.5em; margin-top: 0em; padding-top: 0em}
 .LegSnippet .LegSP1GroupTitleFirstC1Amend em {font-style: normal}
+.LegSnippet .LegSP1GroupTitleFirstC1Amend2 {clear: both; margin-left: 10%; font-size: 0.8em; font-weight: normal; font-style: italic; text-align: center; margin-bottom: 0.5em; margin-top: 0em; padding-top: 0em}
+.LegSnippet .LegSP1GroupTitleFirstC1Amend2 em {font-style: normal}
 .LegSnippet .LegSP1GroupTitleC3Amend {clear: both; margin-left: 17%; font-size: 0.8em; font-weight: normal; font-style: italic; text-align: left; margin-bottom: 0.5em; margin-top: 0em; padding-top: 1em}
 .LegSnippet .LegSP1GroupTitleC3Amend em {font-style: normal}
 .LegSnippet .LegSP1GroupTitleFirstC3Amend {clear: both; margin-left: 17%; font-size: 0.8em; font-weight: normal; font-style: italic; text-align: left; margin-bottom: 0.5em; margin-top: 0em; padding-top: 0em}
