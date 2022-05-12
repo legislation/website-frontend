@@ -37,7 +37,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 	<!-- ========== Standard code for outputting legislation ========= -->
 
-	<xsl:template match="leg:Appendix | leg:Attachment | leg:Primary | leg:Secondary | leg:EURetained | leg:Body | leg:EUBody | leg:Schedules | leg:SignedSection | leg:ExplanatoryNotes | leg:P1group | leg:Title | leg:Group | leg:Part | leg:Chapter | leg:Pblock | leg:PsubBlock | leg:P1 | leg:P |leg:PrimaryPrelims | leg:SecondaryPrelims | leg:EUPrelims | leg:Schedule | leg:Form | leg:Schedule/leg:ScheduleBody//leg:Tabular | leg:EUTitle | leg:EUPart | leg:EUChapter | leg:EUSection | leg:Division | leg:Footnotes | leg:ScheduleBody/leg:BlockAmendment | *[self::leg:Part or self::leg:Chapter or self::leg:EUPart or self::leg:EUChapter or self::leg:EUTitle or self::leg:EUSection or self::leg:EUSubsection or self::leg:Pblock]/leg:Tabular" mode="ProcessAnnotations">
+	<xsl:template match="leg:Appendix | leg:Attachment | leg:Primary | leg:Secondary | leg:EURetained | leg:Body | leg:EUBody | leg:Schedules | leg:SignedSection | leg:ExplanatoryNotes | leg:P1group | leg:Title | leg:Group | leg:Part | leg:Chapter | leg:Pblock | leg:PsubBlock | leg:P1 | leg:P |leg:PrimaryPrelims | leg:SecondaryPrelims | leg:EUPrelims | leg:Schedule | leg:Form | leg:Schedule/leg:ScheduleBody//leg:Tabular | leg:EUTitle | leg:EUPart | leg:EUChapter | leg:EUSection | leg:Division | leg:Footnotes | leg:ScheduleBody/leg:BlockAmendment | leg:Part/leg:BlockAmendment | *[self::leg:Part or self::leg:Chapter or self::leg:EUPart or self::leg:EUChapter or self::leg:EUTitle or self::leg:EUSection or self::leg:EUSubsection or self::leg:Pblock]/leg:Tabular" mode="ProcessAnnotations">
 		<xsl:param name="showSection" as="element()*" tunnel="yes" select="()" />
 		<xsl:param name="showingHigherLevel" as="xs:boolean" tunnel="yes" select="false()"/>
 		<xsl:param name="includeTooltip" as="xs:boolean" tunnel="yes" select="false()"/>
@@ -86,7 +86,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body or parent::leg:EUBody or parent::leg:Schedules or parent::leg:ScheduleBody)">			
 					<xsl:sequence select="descendant::leg:CommentaryRef"/>
 				</xsl:when>
-				<xsl:when test="self::leg:BlockAmendment and parent::leg:ScheduleBody">			
+				<xsl:when test="self::leg:BlockAmendment and (parent::leg:ScheduleBody or parent::leg:Part)">			
 					<xsl:sequence select="descendant::leg:CommentaryRef"/>
 				</xsl:when>
 				<xsl:when test="self::leg:Tabular[not(parent::leg:P1)][not(parent::leg:P)] and (parent::*[@id] or parent::leg:Body or parent::leg:EUBody )">
@@ -132,7 +132,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:when test="self::leg:P and (@id or parent::*[@id] or parent::leg:Body or parent::leg:EUBody or parent::leg:Schedules or parent::leg:ScheduleBody)">
 					<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
 				</xsl:when>
-				<xsl:when test="self::leg:BlockAmendment and parent::leg:ScheduleBody">			
+				<xsl:when test="self::leg:BlockAmendment and (parent::leg:ScheduleBody or parent::leg:Part)">			
 					<xsl:sequence select="descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution"/>
 				</xsl:when>
 				<xsl:when test="self::leg:Tabular[not(parent::leg:P1)][not(parent::leg:P)] and (parent::*[@id] or parent::leg:Body or parent::leg:EUBody or parent::leg:Schedules or parent::leg:ScheduleBody)">
