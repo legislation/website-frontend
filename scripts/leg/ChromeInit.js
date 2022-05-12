@@ -484,74 +484,74 @@ $(function () {
 			'</ul>' +
 			'</div>',
 	}
-	var RECRUITMENT_COOKIE_NAME = 'recruitment_banner';
-	$(RECRUITMENT_BANNER_HTML[LANG]).simpleBanner({
-		id: 'recruitment-banner',
-		closeBtnSelector: '.recruitment-close',
-		doShow: function () {
-			// By default the banner is shown unless the user has allowed cookies.
-			// Check the cookie to see if the banner has been closed before and hide
-			// if it has.
-			var show = true;
-			var cookie;
+	//var RECRUITMENT_COOKIE_NAME = 'recruitment_banner';
+	//$(RECRUITMENT_BANNER_HTML[LANG]).simpleBanner({
+	//	id: 'recruitment-banner',
+	//	closeBtnSelector: '.recruitment-close',
+	//	doShow: function () {
+	//		// By default the banner is shown unless the user has allowed cookies.
+	//		// Check the cookie to see if the banner has been closed before and hide
+	//		// if it has.
+	//		var show = true;
+	//		var cookie;
 
-			if (window.legGlobals.cookiePolicy.settings) {
-				cookie = $.cookie(RECRUITMENT_COOKIE_NAME);
+	//		if (window.legGlobals.cookiePolicy.settings) {
+	//			cookie = $.cookie(RECRUITMENT_COOKIE_NAME);
 
-				if (cookie && cookie === 'Yes') {
-					show = false;
-				}
-			} else {
-				$.removeCookie(RECRUITMENT_COOKIE_NAME, {path: '/'});
-			}
+	//			if (cookie && cookie === 'Yes') {
+	//				show = false;
+	//			}
+	//		} else {
+	//			$.removeCookie(RECRUITMENT_COOKIE_NAME, {path: '/'});
+	//		}
 
-			return show;
-		},
-		onClose: function () {
-			if (window.legGlobals.cookiePolicy.settings) {
-				$.cookie(RECRUITMENT_COOKIE_NAME, 'Yes', {expire: 30, path: '/'});
-			}
-		}
-	});
+	//		return show;
+	//	},
+	//	onClose: function () {
+	//		if (window.legGlobals.cookiePolicy.settings) {
+	//			$.cookie(RECRUITMENT_COOKIE_NAME, 'Yes', {expire: 30, path: '/'});
+	//		}
+	//	}
+	//});
 
-	var COVID_BANNER_HTML = {
-		en: '<div class="bannercontent">' +			
-			'<h2 class="accessibleText">Coronavirus</h2> ' +
-			'<span class="legislation">' +
-			'<strong>' +
-			'<a href="/coronavirus" class="link">Browse Coronavirus legislation</a>' +
-			'</strong>' +
-			' on legislation.gov.uk</span>' +
-			'<span class="extents">' +
+	//var COVID_BANNER_HTML = {
+	//	en: '<div class="bannercontent">' +			
+	//		'<h2 class="accessibleText">Coronavirus</h2> ' +
+	//		'<span class="legislation">' +
+	//		'<strong>' +
+	//		'<a href="/coronavirus" class="link">Browse Coronavirus legislation</a>' +
+	//		'</strong>' +
+	//		' on legislation.gov.uk</span>' +
+	//		'<span class="extents">' +
 			
-			'Get Coronavirus guidance for the ' +
-			'<strong>' +
-			'<a href="https://www.gov.uk/coronavirus" class="link" target="_blank">UK</a>, ' +
-			'<a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Scotland</a>, ' +
-			'<a href="https://gov.wales/coronavirus" class="link" target="_blank">Wales</a>, and ' +
-			'<a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Northern Ireland</a>' +
-			'</strong>' +
-			'</span>' +
-			'</div>',
-		cy: '<div class="bannercontent">' +
-			'<h2 class="accessibleText">Coronafeirws</h2> ' +
-			'<span class="legislation">' +
-			'<strong>' +
-			'<a href="/coronavirus" class="link">Pori deddfwriaeth Coronafeirws</a>' +
-			'</strong>' +
-			' ar ddeddfwriaeth.gov.uk' +
-			'</span>' +
-			'<span class="extents">' +			 
-			' Cael cyngor Coronafeirws ar gyfer y ' +
-			'<strong>' +
-			'<a href="https://www.gov.uk/coronavirus" class="link" target="_blank">DU</a>, ' +
-			'<a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Yr Alban</a>, ' +
-			'<a href="https://llyw.cymru/coronavirus" class="link" target="_blank">Cymru</a>, a ' +
-			'<a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Gogledd Iwerddon</a>' +
-			'</strong>' +
-			'</span>'+
-			'</div>'
-	}
+	//		'Get Coronavirus guidance for the ' +
+	//		'<strong>' +
+	//		'<a href="https://www.gov.uk/coronavirus" class="link" target="_blank">UK</a>, ' +
+	//		'<a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Scotland</a>, ' +
+	//		'<a href="https://gov.wales/coronavirus" class="link" target="_blank">Wales</a>, and ' +
+	//		'<a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Northern Ireland</a>' +
+	//		'</strong>' +
+	//		'</span>' +
+	//		'</div>',
+	//	cy: '<div class="bannercontent">' +
+	//		'<h2 class="accessibleText">Coronafeirws</h2> ' +
+	//		'<span class="legislation">' +
+	//		'<strong>' +
+	//		'<a href="/coronavirus" class="link">Pori deddfwriaeth Coronafeirws</a>' +
+	//		'</strong>' +
+	//		' ar ddeddfwriaeth.gov.uk' +
+	//		'</span>' +
+	//		'<span class="extents">' +			 
+	//		' Cael cyngor Coronafeirws ar gyfer y ' +
+	//		'<strong>' +
+	//		'<a href="https://www.gov.uk/coronavirus" class="link" target="_blank">DU</a>, ' +
+	//		'<a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Yr Alban</a>, ' +
+	//		'<a href="https://llyw.cymru/coronavirus" class="link" target="_blank">Cymru</a>, a ' +
+	//		'<a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Gogledd Iwerddon</a>' +
+	//		'</strong>' +
+	//		'</span>'+
+	//		'</div>'
+	//}
 
 	// The banners are added *after* the ID '#top' so should be called in the opposite order to how they should appear.
 	// Uncomment to add survey banner
