@@ -677,31 +677,45 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 						<xsl:value-of select="$helpTitle"/>
 					</h3>
 						<xsl:choose>
-							<xsl:when test="leg:IsRevisedPDFOnly(.) ">
-								<p>Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area.</p>
+							<xsl:when test="leg:IsRevisedPDFOnly(.)">
+									<p>
+										<xsl:value-of select="leg:TranslateText('status_warning_revised_p1')"/><xsl:text> </xsl:text>
+										<xsl:value-of select="leg:TranslateText('status_warning_revised_p2')"/>
+									</p>
 							</xsl:when>
 							<xsl:when test="$scenarioId = '1' ">
 
-							<p>Revised legislation carried on this site may not be fully up to date. At the current time any known changes or effects made by subsequent legislation have been applied to the text of the legislation you are viewing by the editorial team.  Please see ‘Frequently Asked Questions’ for details regarding the timescales for which new effects are identified and recorded on this site.</p>
-
+							<p>
+								<xsl:value-of select="leg:TranslateText('status_warning_revised_p1')"/><xsl:text> </xsl:text>
+								<xsl:value-of select="leg:TranslateText('status_warning_revised_p3')"/><xsl:text> </xsl:text>
+								<xsl:value-of select="leg:TranslateText('status_warning_revised_p4')"/>
+							</p>
 							</xsl:when>
 
 
 							<xsl:when test="$scenarioId ='5' ">
 								<xsl:choose>
 									<xsl:when test="$pointInTimeView">
-										<p>Changes and effects yet to be applied by the editorial team are only applicable when viewing the latest version or prospective version of legislation. They are therefore not accessible when viewing legislation as at a specific point in time. To view the ‘Changes to Legislation’ information for this provision return to the latest version view using the options provided in the ‘What Version’ box above.</p>
+										<p>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p5')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p6')"/>
+										</p>
 									</xsl:when>
 									<xsl:otherwise>
 										<xsl:choose>
 											<xsl:when test="leg:IsTOC() and not(leg:IsRevisedEUPDFOnly)">
 												<p>
-													<xsl:text>Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area.  Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the affected provisions when you open the content using the Table of Contents below.</xsl:text>
+													<xsl:value-of select="leg:TranslateText('status_warning_revised_p1')"/><xsl:text> </xsl:text>
+													<xsl:value-of select="leg:TranslateText('status_warning_revised_p2')"/><xsl:text> </xsl:text>
+													<xsl:value-of select="leg:TranslateText('status_warning_revised_p7')"/>
 												</p>
 											</xsl:when>
 											<xsl:otherwise>
 												<p>
-													<xsl:text>Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area. Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the legislation in the affected provisions. Use the ‘more’ link to open the changes and effects relevant to the provision you are viewing.</xsl:text>
+													<xsl:value-of select="leg:TranslateText('status_warning_revised_p1')"/><xsl:text> </xsl:text>
+													<xsl:value-of select="leg:TranslateText('status_warning_revised_p2')"/><xsl:text> </xsl:text>
+													<xsl:value-of select="leg:TranslateText('status_warning_revised_p8')"/><xsl:text> </xsl:text>
+													<xsl:value-of select="leg:TranslateText('status_warning_revised_p9')"/>
 												</p>
 											</xsl:otherwise>
 										</xsl:choose>
@@ -709,115 +723,195 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 								</xsl:choose>
 							</xsl:when>
 							<xsl:when test="$scenarioId = '5'  and leg:IsTOC() and not(leg:IsRevisedEUPDFOnly(.))">
-								<p>Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area.  Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the affected provisions when you open the content using the Table of Contents below.</p>
+								<p>
+									<xsl:value-of select="leg:TranslateText('status_warning_revised_p1')"/><xsl:text> </xsl:text>
+									<xsl:value-of select="leg:TranslateText('status_warning_revised_p2')"/><xsl:text> </xsl:text> 
+									<xsl:value-of select="leg:TranslateText('status_warning_revised_p7')"/>
+								</p>
 							</xsl:when>
 							<xsl:when test="$scenarioId = '5'  and (leg:IsContent() or leg:IsRevisedEUPDFOnly(.))">
-								<p>Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area. Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the legislation in the affected provisions. Use the ‘more’ link to open the changes and effects relevant to the provision you are viewing.</p>
+								<p>
+									<xsl:value-of select="leg:TranslateText('status_warning_revised_p1')"/><xsl:text> </xsl:text>
+									<xsl:value-of select="leg:TranslateText('status_warning_revised_p2')"/><xsl:text> </xsl:text>
+									<xsl:value-of select="leg:TranslateText('status_warning_revised_p10')"/><xsl:text> </xsl:text>
+								 <xsl:value-of select="leg:TranslateText('status_warning_revised_p9')"/>
+								</p>
 							</xsl:when>
 							<xsl:when test="$pointInTimeView">
 								<xsl:choose>
 									<xsl:when test="$scenarioId = 'S1' ">
-										<p>The term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section.  A version of a provision is prospective either: </p>
+										<p>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p11')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p12')"/>  
+										</p>
 										<ol>
-											<li>where the provision (Part, has never come into force or; </li>
-											<li>where the text of the provision is subject to change, but no date has yet been appointed by the appropriate person or body for those changes to come into force.  </li>
+											<li><xsl:value-of select="leg:TranslateText('status_warning_revised_p12i')"/></li>
+											<li><xsl:value-of select="leg:TranslateText('status_warning_revised_p12ii')"/></li>
 										</ol>
-										<p>Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring this prospective version into force.</p>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p13')"/></p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S2' ">
-										<p>The version on screen is currently in force, but there is a version available (prospective version) to show how it could change.  The prosective version remains prospective until a date is appointed by an appropriate person or body to bring it into force.. To see the prospective version, use the Show Timeline of Changes feature under ‘Advanced Features’.</p>
-										<p>Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring changes and effects in the prospective version into force.</p>
+										<p>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p14')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p15')"/><xsl:text> </xsl:text> 
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p16')"/> 
+										</p>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p17')"/></p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S3' ">
-										<p>You are viewing this legislation item as it stood at a particular point in time.  A later version of this provision, including subsequent changes and effects, supersedes this version. Note the term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section.</p>
+										<p>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p18')"/><xsl:text> </xsl:text> 
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p19')"/><xsl:text> </xsl:text>  
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p20')"/>
+										</p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S4' ">
-										<p>You are viewing this legislation item as it stood at a particular point in time.  A later version of this or provision, including subsequent changes and effects, supersedes this version.   </p>
-										<p>Note the term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section. </p>
+										<p>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p18')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p21')"/>    
+										</p>
+										<p>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p20')"/>  
+										</p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S5' ">
-										<p>You are viewing this legislation item as it stood at a particular point in time.  At this point in time multiple versions of this provision exist for differing geographical extents. Sometimes the text of a provision is changed, but the change(s) only apply to a particular geographical area. In some limited cases where this happens, the editorial team create a version for each different geographical area. Multiple versions are only created in this way where the change in question is a substitution so that there are different versions of the text for the different extents.</p>
+										<p>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p18')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p22')"/><xsl:text> </xsl:text> 
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p23')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p24')"/><xsl:text> </xsl:text> 
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p25')"/> 
+										</p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S6' ">
-										<p>You are viewing this legislation item as it stood at a particular point in time.  At this point in time multiple versions of this provision existed for differing geographical extents. Sometimes the text of a provision is changed, but the change(s) only apply to a particular geographical area. In some limited cases where this happens, the editorial team create a version for each different geographical area. Multiple versions are only created in this way where the change in question is a substitution so that there are different versions of the text for the different extents. A later version of this provision including  subsequent changes and effects supersedes these versions. </p>
+										<p>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p18')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p22i')"/><xsl:text> </xsl:text>  
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p23')"/><xsl:text> </xsl:text>  
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p24')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p25')"/><xsl:text> </xsl:text> 
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p21i')"/>  
+										</p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S7' ">
-										<p>The term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section.  A version of a provision is prospective either: </p>
+										<p>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p11')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p12')"/>
+										</p>
 										<ol>
-											<li>where the provision (Part, Chapter or section) has never come into force or; </li>
-											<li>where the text of the provision is subject to change, but no date has yet been appointed by the appropriate person or body for those changes to come into force. </li>
+											<li><xsl:value-of select="leg:TranslateText('status_warning_revised_p12i')"/></li>
+											<li><xsl:value-of select="leg:TranslateText('status_warning_revised_p12ii')"/></li>
 										</ol>
-										<p>Multiple prospective provisions are most likely to occur where a provision that is not yet in force is subject to a change that is also not yet in force.</p>
-										<p>Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring these prospective versions into force.</p>
-										<p>Note: Point in time prospective is the latest available view of the legislation that includes by default all the prospective changes that might come into force.  </p>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p26')"/></p><xsl:text> </xsl:text>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p27')"/></p><xsl:text> </xsl:text>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p28')"/></p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S8' ">
-										<p>The term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section. Sometimes the text of a provision is changed, but the change(s) only apply to a particular geographical area. In some limited cases where this happens, the editorial team create a version for each different geographical area. Multiple versions are only created in this way where the change in question is a substitution so that there are different versions of the text for the different extents.  In this case the multiple versions on screen are also prospective, meaning that those changes have not yet been brought into force. Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring changes and effects in the prospective version into force.</p>
-										<p>Note: Point in time prospective is the latest available view of the legislation that includes by default all the prospective changes that might come into force.</p>
+										<p>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p11')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p23')"/><xsl:text> </xsl:text> 
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p24')"/><xsl:text> </xsl:text>  
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p25')"/><xsl:text> </xsl:text>   
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p29')"/><xsl:text> </xsl:text>  
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p17')"/> 
+										</p>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p28')"/></p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S9' ">
-										<p>You are viewing this legislation item as it stood at a particular point in time. 'No longer has effect', generally means that this provision has been repealed. Take a look at the annotations at the end of the provision for further information. No subsequent versions of this provision exist.</p>
+										<p>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p18')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p30')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p31')"/><xsl:text> </xsl:text>  
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p32')"/> 
+										</p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S10' ">
-										<p>The term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section.  A version of a provision is prospective either: </p>
+										<p>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p11')"/><xsl:text> </xsl:text>	
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p12')"/>
+										</p>
 										<ol>
-											<li>where the provision (Part, Chapter or section) has never come into force or; </li>
-											<li>where the text of the provision is subject to change, but no date has yet been appointed by the appropriate person or body for those changes to come into force.</li>
+											<li><xsl:value-of select="leg:TranslateText('status_warning_revised_p12i')"/></li>
+											<li><xsl:value-of select="leg:TranslateText('status_warning_revised_p12ii')"/></li>
 										</ol>
-										<p>Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring this prospective version into force. </p>
-										<p>Note: Point in time prospective is the latest available view of the legislation that includes by default all the prospective changes that might come into force.</p>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p13')"/></p>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p28')"/></p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S11' ">
-										<p>Not valid for this point in time generally means that a provision was not in force for the point in time you have selected to view it on.</p>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p33')"/> </p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S12' ">
-										<p>You are viewing this provision as it would have stood if it had come into force. It was repealed before it came into force.</p>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p34')"/> </p>
 									</xsl:when>
 								</xsl:choose>
 							</xsl:when>
 							<xsl:otherwise>
 								<xsl:choose>
 									<xsl:when test="$scenarioId = 'S1' ">
-										<p>The term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section.  A version of a provision is prospective either:</p>
+										<p>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p11')"/><xsl:text> </xsl:text> 
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p12')"/> 
+										</p>
 										<ol>
-											<li>where the provision (Part, Chapter or section) has never come into force or;</li>
-											<li>where the text of the provision is subject to change, but no date has yet been appointed by the appropriate person or body for those changes to come into force.</li>
+											<li><xsl:value-of select="leg:TranslateText('status_warning_revised_p12i')"/></li>
+											<li><xsl:value-of select="leg:TranslateText('status_warning_revised_p12ii')"/></li>
 										</ol>
-										<p>Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring this prospective version into force.</p>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p13')"/> </p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S2' ">
-										<p>The version on screen is currently in force, but there is a version available (prospective version) to show how it could change.</p>
-										<p>The prospective version will remain prospective until a date is appointed by an appropriate person or body to bring those changes into force.</p>
-										<p>To see the prospective version, use the Show Timeline of Changes feature under ‘Advanced Features’.</p>
-										<p>Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring changes and effects in the prospective version into force.</p>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p14')"/> </p>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p35')"/> </p>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p16')"/> </p>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p17')"/> </p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S3' ">
-										<p>The term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section.</p>
-										<p>Sometimes the text of a provision is changed, but the change(s) only apply to a particular geographical area. In some limited cases where this happens, the editorial team create a version for each different geographical area. Multiple versions are only created in this way where the change in question is a substitution so that there are different versions of the text for the different extents. Insertions and repeals of text do not give rise to such multiple versions.</p>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p11')"/></p>
+										<p>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p23')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p24')"/><xsl:text> </xsl:text>  
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p25')"/><xsl:text> </xsl:text>  
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p36')"/>
+										</p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S4' ">
-										<p>The term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section.  A version of a provision is prospective either: </p>
+										<p>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p11')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p12')"/>  
+										</p>
 										<ol>
-											<li>where the provision (Part, Chapter or section) has never come into force or;</li>
-											<li>where the text of the provision is subject to change, but no date has yet been appointed by the appropriate person or body for those changes to come into force. </li>
+											<li><xsl:value-of select="leg:TranslateText('status_warning_revised_p12i')"/></li>
+											<li><xsl:value-of select="leg:TranslateText('status_warning_revised_p12ii')"/></li>
 										</ol>
-										<p>Multiple prospective provisions are most likely to occur where a provision that is not yet in force is subject to a change that is also not yet in force.</p>
-										<p>Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring these prospective versions into force.</p>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p26')"/> </p>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p27')"/> </p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S5' ">
-										<p>The term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section. Sometimes the text of a provision is changed, but the change(s) only apply to a particular geographical area. In some limited cases where this happens, the editorial team create a version for each different geographical area. Multiple versions are only created in this way where the change in question is a substitution so that there are different versions of the text for the different extents.  In this case the multiple versions on screen are also prospective, meaning that those changes have not yet been brought into force. Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring changes and effects in the prospective version into force. </p>
+										<p>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p11')"/><xsl:text> </xsl:text> 
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p23')"/><xsl:text> </xsl:text> 
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p24')"/><xsl:text> </xsl:text> 
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p25')"/><xsl:text> </xsl:text>  
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p29')"/><xsl:text> </xsl:text>  
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p17')"/>  
+										</p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S6' ">
-										<p>No longer has effect, generally means that this provision has been repealed. Take a look at the annotations at the end of the provision for further information.</p>
+										<p>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p37')"/><xsl:text> </xsl:text> 
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p31')"/>
+										</p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S7' ">
-										<p>Where an 'has effect from' date is given, it generally means that the provision is not in force on today's date but will come into force with effect from the given date.</p>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p38')"/> </p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S8' ">
-										<p>Where provisions have yet to come into effect, it generally means that the provisions are not in force on today's date but will come into force with effect from the given date.</p>
+										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p39')"/> </p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S9' ">
-										<p>Where provisions never came into effect, it generally means that the provision was repealed before it came into force. Take a look at the annotations at the end of the provision for further information.</p>
+										<p>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p40')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p31')"/> 
+										</p>
 									</xsl:when>
 								</xsl:choose>
 							</xsl:otherwise>
@@ -836,38 +930,39 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 									@RestrictStartDate castable as xs:date and
 									$version castable as xs:date and
 									xs:date(@RestrictStartDate) &gt; xs:date($version)">
-				<tso:status scenarioId="S11">This version of this provision is not valid for this point in time.</tso:status>
+				<tso:status scenarioId="S11"><xsl:value-of select="leg:TranslateText('status_warning_revised_p41')"/></tso:status>
 			</xsl:when>
 			<xsl:when test="@Status = 'Prospective'">
 				<xsl:choose>
 					<xsl:when test="@Concurrent = 'true'">
 						<tso:status scenarioId="{if ($pointInTimeView) then 'S8' else 'S5'}">
-							<xsl:text>There are multiple prospective versions of this provision on screen. These apply to different geographical extents.</xsl:text>
+							<xsl:value-of select="leg:TranslateText('status_warning_revised_p42')"/><xsl:text> </xsl:text>
+							<xsl:value-of select="leg:TranslateText('status_warning_revised_p43')"/>
 							<tso:extent><xsl:apply-templates select="." mode="TSOExtentLinks" /></tso:extent>
 						</tso:status>
 					</xsl:when>
 					<xsl:when test="exists(@AltVersionRefs)">
-						<tso:status scenarioId="{if ($pointInTimeView) then 'S7' else 'S4'}">There are multiple prospective versions of this provision on screen.</tso:status>
+						<tso:status scenarioId="{if ($pointInTimeView) then 'S7' else 'S4'}"><xsl:value-of select="leg:TranslateText('status_warning_revised_p42')"/></tso:status>
 					</xsl:when>
 					<xsl:otherwise>
 						<tso:status scenarioId="{if ($pointInTimeView) then
 									(if (exists(/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion' and @title castable as xs:date]) )
 										then  'S1'
 									else 'S10')
-								else 'S1'}">This version of this provision is prospective.</tso:status>
+								else 'S1'}"><xsl:value-of select="leg:TranslateText('status_warning_revised_p44')"/> </tso:status>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
 			<xsl:when test="@Status = 'Dead'">
-				<tso:status scenarioId="{if ($pointInTimeView) then 'S12' else 'S9'}">This version of this provision never came into effect.</tso:status>
+				<tso:status scenarioId="{if ($pointInTimeView) then 'S12' else 'S9'}"><xsl:value-of select="leg:TranslateText('status_warning_revised_p45')"/></tso:status>
 			</xsl:when>
 			<xsl:when test="@Match = 'false'">
 				<xsl:choose>
 					<xsl:when test="not($pointInTimeView) and @RestrictStartDate > current-date()">
-						<tso:status scenarioId="S7">This version of this provision comes into effect on <xsl:value-of select="format-date(@RestrictStartDate, '[D01]/[M01]/[Y0001]')" />.</tso:status>
+						<tso:status scenarioId="S7"><xsl:value-of select="leg:TranslateText('status_warning_revised_p46')"/> <xsl:value-of select="format-date(@RestrictStartDate, '[D01]/[M01]/[Y0001]')" />.</tso:status>
 					</xsl:when>
 					<xsl:otherwise>
-						<tso:status scenarioId="{if ($pointInTimeView) then 'S9' else 'S6'}">This version of this provision no longer has effect.</tso:status>
+						<tso:status scenarioId="{if ($pointInTimeView) then 'S9' else 'S6'}"><xsl:value-of select="leg:TranslateText('status_warning_revised_p47')"/> </tso:status>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
@@ -875,19 +970,21 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				<tso:status>
 					<xsl:attribute name="scenarioId"><xsl:choose><xsl:when test="$pointInTimeView"><xsl:choose><xsl:when test="@Concurrent = 'true' and @AltVersionRefs">S6</xsl:when><xsl:when test="/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion' and @title = 'prospective']">S3</xsl:when><xsl:otherwise>S4</xsl:otherwise></xsl:choose></xsl:when><xsl:otherwise>S3</xsl:otherwise></xsl:choose></xsl:attribute>
 					<xsl:if test="@Concurrent = 'true' and @AltVersionRefs">
-						There are multiple versions of this provision on screen. These apply to different geographical extents.
+						<xsl:value-of select="leg:TranslateText('status_warning_revised_p42')"/>
+						<xsl:value-of select="leg:TranslateText('status_warning_revised_p43')"/> 
 					</xsl:if>
-					<xsl:text> This version of this provision has been superseded.</xsl:text>
+					<xsl:value-of select="leg:TranslateText('status_warning_revised_p49')"/> <xsl:value-of select="leg:TranslateText('status_warning_revised_p50')"/>
 				</tso:status>
 			</xsl:when>
 			<xsl:when test="@Concurrent = 'true'">
 				<tso:status scenarioId="{if ($pointInTimeView) then 'S5' else 'S3' }">
-					<xsl:text>There are multiple versions of this provision on screen. These apply to different geographical extents.</xsl:text>
+					<xsl:value-of select="leg:TranslateText('status_warning_revised_p42')"/>  
+					<xsl:value-of select="leg:TranslateText('status_warning_revised_p43')"/>
 					<tso:extent><xsl:apply-templates select="." mode="TSOExtentLinks" /></tso:extent>
 				</tso:status>
 			</xsl:when>
 			<xsl:when test="/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion' and @title = 'prospective']">
-				<tso:status scenarioId="S2">Prospective version(s) available.</tso:status>
+				<tso:status scenarioId="S2"><xsl:value-of select="leg:TranslateText('status_warning_revised_p48')"/></tso:status>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
@@ -896,13 +993,13 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 			<xsl:when test="$pointInTimeView and
 									$version castable as xs:date and
 									exists(.//*[@RestrictStartDate castable as xs:date and xs:date(@RestrictStartDate) &gt; xs:date($version)])">
-					<tso:status scenarioId="S11">This version of this <xsl:apply-templates select="." mode="TSOStatusMessageXXX"/> contains provisions that are not valid for this point in time.</tso:status>
+					<tso:status scenarioId="S11"><xsl:value-of select="leg:TranslateText('status_warning_revised_p49')"/> <xsl:apply-templates select="." mode="TSOStatusMessageXXX"/> <xsl:value-of select="leg:TranslateText('status_warning_revised_p51')"/></tso:status>
 			</xsl:when>
 			<xsl:when test="exists(.//*[@Status = 'Prospective'])">
-				<tso:status scenarioId="S1">This version of this <xsl:apply-templates select="." mode="TSOStatusMessageXXX"/> contains provisions that are prospective.</tso:status>
+				<tso:status scenarioId="S1"><xsl:value-of select="leg:TranslateText('status_warning_revised_p49')"/> <xsl:apply-templates select="." mode="TSOStatusMessageXXX"/> <xsl:value-of select="leg:TranslateText('status_warning_revised_p52')"/></tso:status>
 			</xsl:when>
 			<xsl:when test="not($pointInTimeView) and exists(.//*[@Match = 'false' and @RestrictStartDate > current-date()])">
-				<tso:status scenarioId="S8">This version of this <xsl:apply-templates select="." mode="TSOStatusMessageXXX"/> contains provisions that have not yet come into effect.</tso:status>
+				<tso:status scenarioId="S8"><xsl:value-of select="leg:TranslateText('status_warning_revised_p49')"/> <xsl:apply-templates select="." mode="TSOStatusMessageXXX"/> <xsl:value-of select="leg:TranslateText('status_warning_revised_p53')"/></tso:status>
 			</xsl:when>
 			<xsl:when test="exists(.//*[@Match='false'])">
 				<!-- Issue U439: Only displaying ' no longer has effect' message at Act, Part, Chapter, Sch. Crossheading levels when all the child elements are repealed-->
@@ -920,13 +1017,13 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 												  )
 								 )">
 					<tso:status scenarioId="{if ($pointInTimeView) then 'S9' else 'S6'}">
-						<xsl:text>This version of this </xsl:text>
+						<xsl:value-of select="leg:TranslateText('status_warning_revised_p49')"/>
 						<xsl:apply-templates select="." mode="TSOStatusMessageXXX"/>
 						<xsl:text> no longer has effect.</xsl:text>
 					</tso:status>
 				</xsl:if>
 				<!--
-				<tso:status scenarioId="{if ($pointInTimeView) then 'S9' else 'S6'}">This version of this <xsl:apply-templates select="." mode="TSOStatusMessageXXX"/>
+				<tso:status scenarioId="{if ($pointInTimeView) then 'S9' else 'S6'}"><xsl:value-of select="leg:TranslateText('status_warning_revised_p49')"/> <xsl:apply-templates select="." mode="TSOStatusMessageXXX"/>
 					<xsl:choose>
 						<xsl:when test="exists(.//*[@RestrictEndDate and @Match = 'false' and not(@Status = 'Prospective')])">
 							<xsl:text> contains provisions that no longer have effect.</xsl:text>

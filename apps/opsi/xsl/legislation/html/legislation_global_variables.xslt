@@ -72,7 +72,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<!-- document navigation uris -->
 	<xsl:variable 	name="g_self" as="xs:string?" select="$g_ndsMetadata/atom:link[@rel='self']/@href"/>
 	<xsl:variable 	name="g_strIntroductionUri"  as="xs:string?"
-					select="$g_ndsMetadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/navigation/introduction']/@href"/>
+		select="($g_ndsMetadata/atom:link[@rel = ('http://www.legislation.gov.uk/def/navigation/introduction', 'http://www.legislation.gov.uk/def/navigation/act/introduction')]/@href)[1]"/>
 	<xsl:variable 	name="g_strwholeActURI"  as="xs:string?"
 					select="$g_ndsMetadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/navigation/act']/@href"/>
 	<xsl:variable 	name="g_strToC"  as="xs:string?"

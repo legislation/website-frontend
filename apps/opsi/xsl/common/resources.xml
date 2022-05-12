@@ -10,6 +10,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 <allResources>
 	<resources lang="cy">
 		<resource id="Sort by">Didoli yn ôl</resource>
+		<resource id="to end">hyd ddiwedd</resource>
+		<resource id="end">ddiwedd</resource>		
+		<resource id="monarchs">teyrnasiadau</resource>
+		<resource id="session">ddiwedd</resource>
+		<resource id="inclusive">yn gynhwysol</resource>
+		<resource id="chapters">penodau</resource>
+		<resource id="and">ac</resource>
 		<resource id="Chronological Tables of the Private and Personal Acts">Tablau Cronolegol o Deddfau Preifat a Phersonol</resource>
 		<resource id="Chronological Tables of Local Acts">Tablau Cronolegol o Ddeddfau Lleol</resource>
 		<resource id="Acts of the Parliaments of Great Britain">Deddfau Seneddau Prydain Fawr</resource>
@@ -26,7 +33,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Open Treaty without Attachments">Agor y Cytundeb heb Atodiadau</resource>
 		<resource id="Open Attachments only">Agor Atodiadau yn Unig</resource>
 		<resource id="Open whole Order">Agor y Gorchymyn Cyfan</resource>
-		<resoucre id="Open whole Decision">Agor y Penderfyniad Cyfan</resoucre>
+		<resource id="Open whole Decision">Agor y Penderfyniad Cyfan</resource>
 		<resource id="Open Decision without Annexes">Agor y Penderfyniad heb Atodlenni</resource>
 		<resource id="www.wales.gov.uk">Lyyw.Cymru</resource>
 		<resource id="http://www.assemblywales.org">http://www.assemblywales.org/cy</resource>
@@ -362,7 +369,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Point_in_time_error" translated="false" stage2="true">Point in Time must be after 01/01/2006 if you have selected Northern Ireland legislation, and after 01/02/1991 for other primary legislation types</resource>
 		<resource id="Extends">Ehangu</resource>
 		<resource id="Not a valid series" translated="false" stage2="true">Not a valid series</resource>
-		<resource id="Not a valid number" translated="false" stage2="true">Not a valid number</resource>
+		<resource id="Not a valid number" translated="true" stage2="true">Ddim yn rif dilys</resource>
 		<resource id="no_outstanding_effects">Ar hyn o bryd nid oes unrhyw effeithiau heb eu gweithredu yn hysbys ar gyfer y </resource>
 		<!-- facet filters -->
 		<resource id="By Type" translated="false" stage2="true">By Type</resource>
@@ -815,7 +822,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!-- There are changes that may be brought into force at a future date. -->
 		<resource id="status_warning_outstanding_p1_1">Mae newidiadau a all ddod i rym yn y dyfodol.</resource>
 		<!-- Changes that have been made appear in the content and are referenced with annotations -->
-		<resource id="status_warning_outstanding_p1_2">Mae newidiadau a wnaed yn ymddangos yn y cynnwys a chyfeirir atynt trwy anodiadau.</resource>	
+		<resource id="status_warning_outstanding_p1_2">Mae newidiadau a wnaed yn ymddangos yn y cynnwys a chyfeirir atynt trwy anodiadau</resource>	
 		<resource id="status_warning_eu_retained_p_toc">Bydd y newidiadau hynny yn cael eu rhestru pan fyddwch yn agor y cynnwys trwy ddefnyddio’r Rhestr Cynnwys isod.</resource>
 		
 		<resource id="Impact Assessment">Asesiad Effaith</resource>
@@ -1072,7 +1079,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="EUR-Lex differing terminology">Cymerwyd y data hwn o’r dudalen Gwybodaeth am Ddogfennau ar EUR-Lex. Gall peth o’r derminoleg yma fod yn wahanol i’r hyn a ddefnyddir yn neddfwriaeth y Deyrnas Unedig.</resource>
 	
 		<resource id="legislation_originated_from_EU_1">Mae hon yn eitem o ddeddfwriaeth sy’n deillio o’r UE</resource>
-		<resource id="legislation_originated_from_EU_p1">Ar ôl y diwrnod ymadael bydd tair fersiwn o’r ddeddfwriaeth yma i’w gwirio at ddibenion gwahanol. Y fersiwn legislation.gov.uk yw’r fersiwn sy’n weithredol yn y Deyrnas Unedig. Y Fersiwn UE sydd ar EUR-lex ar hyn o bryd yw’r fersiwn sy’n weithredol yn yr UE h.y. efallai y bydd arnoch angen y fersiwn hon os byddwch yn gweithredu busnes yn yr UE.</resource>
+		<resource id="legislation_originated_from_EU_p1">Mae unrhyw newidiadau sydd wedi cael eu gwneud yn barod gan y tîm yn ymddangos yn y cynnwys a chyfeirir atynt gydag anodiadau.Ar ôl y diwrnod ymadael bydd tair fersiwn o’r ddeddfwriaeth yma i’w gwirio at ddibenion gwahanol. Y fersiwn legislation.gov.uk yw’r fersiwn sy’n weithredol yn y Deyrnas Unedig. Y Fersiwn UE sydd ar EUR-lex ar hyn o bryd yw’r fersiwn sy’n weithredol yn yr UE h.y. efallai y bydd arnoch angen y fersiwn hon os byddwch yn gweithredu busnes yn yr UE.</resource>
 		<resource id="legislation_originated_from_EU_p2">Y fersiwn yn yr archif ar y we yw’r fersiwn swyddogol o’r ddeddfwriaeth fel yr oedd ar y diwrnod ymadael cyn cael ei chyhoeddi ar legislation.gov.uk ac unrhyw newidiadau ac effeithiau a weithredwyd yn y Deyrnas Unedig wedyn. Mae’r archif ar y we hefyd yn cynnwys cyfraith achos a ffurfiau mewn ieithoedd eraill o EUR-Lex.</resource>
 		
 		<resource id="status_warning_changes_eu_revised_pdf_only">Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area. Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the legislation in the affected provisions. Use the ‘more’ link to open the changes and effects relevant to the provision you are viewing.</resource>
@@ -1082,7 +1089,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_changes_eu_revised_pdf_only">Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area.  Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the affected provisions when you open the content using the Table of Contents below.</resource>
 		<resource id="status_warning_effects_pt1">yn gyfredol gyda’r holl newidiadau y gwyddys eu bod mewn grym ar neu cyn</resource>
 		<resource id="status_warning_effects_pt2">Mae newidiadau a all gael eu dwyn i rym yn y dyfodol</resource>
-		<resource id="status_warning_effects_pt3">Changes that have been made appear in the content and are referenced with annotations</resource>
+		<resource id="status_warning_effects_pt3">Mae newidiadau a wnaed yn ymddangos yn y cynnwys a chyfeirir atynt trwy anodiadau</resource>
 		<resource id="Expired: see Introduction.">Wedi dirwyn i ben: gweler y Cyflwyniad.</resource>
 		<resource id="Repealed: see Introduction.">Diddymwyd: gweler y Cyflwyniad.</resource>
 		<resource id="in pt">yn rhannol</resource>
@@ -1148,6 +1155,121 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_is_from_westlaw_pt2">wedi cael ei gyfrannu gan Westlaw ac fe’i cymerwyd o’r cyhoeddiad printiedig</resource>
 		
 		<resource id="Skip to">Neidiwch i</resource>
+		<!-- Revised legislation carried on this site may not be fully up to date. -->
+		<resource id="status_warning_revised_p1">Revised legislation carried on this site may not be fully up to date.</resource>
+		<!-- Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area. -->
+		<resource id="status_warning_revised_p2">Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area.</resource>
+		<!--At the current time any known changes or effects made by subsequent legislation have been applied to the text of the legislation you are viewing by the editorial team. -->
+		<resource id="status_warning_revised_p3">At the current time any known changes or effects made by subsequent legislation have been applied to the text of the legislation you are viewing by the editorial team.</resource>
+		<!--  Please see ‘Frequently Asked Questions’ for details regarding the timescales for which new effects are identified and recorded on this site.  -->
+		<resource id="status_warning_revised_p4">Please see ‘Frequently Asked Questions’ for details regarding the timescales for which new effects are identified and recorded on this site.</resource>
+		<!--Changes and effects yet to be applied by the editorial team are only applicable when viewing the latest version or prospective version of legislation.  -->
+		<resource id="status_warning_revised_p5">Changes and effects yet to be applied by the editorial team are only applicable when viewing the latest version or prospective version of legislation.</resource>
+		<!-- They are therefore not accessible when viewing legislation as at a specific point in time. To view the ‘Changes to Legislation’ information for this provision return to the latest version view using the options provided in the ‘What Version’ box above. -->
+		<resource id="status_warning_revised_p6">They are therefore not accessible when viewing legislation as at a specific point in time. To view the ‘Changes to Legislation’ information for this provision return to the latest version view using the options provided in the ‘What Version’ box above.</resource>
+		<!-- Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the affected provisions when you open the content using the Table of Contents below. -->
+		<resource id="status_warning_revised_p7">Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the affected provisions when you open the content using the Table of Contents below.</resource>
+		<!-- Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the legislation in the affected provisions.	-->
+		<resource id="status_warning_revised_p8">Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the legislation in the affected provisions.</resource>
+		<!-- Use the ‘more’ link to open the changes and effects relevant to the provision you are viewing. -->
+		<resource id="status_warning_revised_p9">Use the ‘more’ link to open the changes and effects relevant to the provision you are viewing.</resource>
+		<!-- Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the legislation in the affected provisions.  -->
+		<resource id="status_warning_revised_p10">Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the legislation in the affected provisions. </resource>
+		<!-- The term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section. -->
+		<resource id="status_warning_revised_p11">The term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section.</resource>
+		<!-- A version of a provision is prospective either: -->
+		<resource id="status_warning_revised_p12">A version of a provision is prospective either:</resource>
+		<!-- where the provision (Part, Chapter or section) has never come into force or;  -->	
+		<resource id="status_warning_revised_p12i">where the provision (Part, Chapter or section) has never come into force or;</resource>
+		<!-- where the text of the provision is subject to change, but no date has yet been appointed by the appropriate person or body for those changes to come into force.  -->
+		<resource id="status_warning_revised_p12ii">where the text of the provision is subject to change, but no date has yet been appointed by the appropriate person or body for those changes to come into force.</resource>
+		<!-- Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring this prospective version into force. -->
+		<!-- Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring changes and effects in the prospective version into force. -->
+		<resource id="status_warning_revised_p13">Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring this prospective version into force.</resource>
+		<!--  The version on screen is currently in force, but there is a version available (prospective version) to show how it could change. -->
+		<resource id="status_warning_revised_p14">The version on screen is currently in force, but there is a version available (prospective version) to show how it could change.</resource>
+		<!-- The prosective version remains prospective until a date is appointed by an appropriate person or body to bring it into force. -->
+		<resource id="status_warning_revised_p15">The prosective version remains prospective until a date is appointed by an appropriate person or body to bring it into force.</resource>
+		<!-- To see the prospective version, use the Show Timeline of Changes feature under ‘Advanced Features’. -->
+		<resource id="status_warning_revised_p16">To see the prospective version, use the Show Timeline of Changes feature under ‘Advanced Features’.</resource>
+		<!-- Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring changes and effects in the prospective version into force. -->
+		<resource id="status_warning_revised_p17">Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring changes and effects in the prospective version into force.</resource>
+		<!-- You are viewing this legislation item as it stood at a particular point in time. -->
+		<resource id="status_warning_revised_p18">You are viewing this legislation item as it stood at a particular point in time.</resource>
+		<!--  A later version of this provision, including subsequent changes and effects, supersedes this version. -->
+		<resource id="status_warning_revised_p19">A later version of this provision, including subsequent changes and effects, supersedes this version.</resource>
+		<!-- Note the term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section. -->
+		<resource id="status_warning_revised_p20">Note the term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section.</resource>
+		<!-- A later version of this or provision, including subsequent changes and effects, supersedes this version. -->
+		<resource id="status_warning_revised_p21">A later version of this or provision, including subsequent changes and effects, supersedes this version.</resource>
+		<!--  iA later version of this provision including  subsequent changes and effects supersedes these versions. -->
+		<resource  id="status_warning_revised_p21i">A later version of this provision including  subsequent changes and effects supersedes these versions.</resource>
+		<!-- At this point in time multiple versions of this provision exist for differing geographical extents. -->
+		<resource id="status_warning_revised_p22">At this point in time multiple versions of this provision exist for differing geographical extents.</resource>
+		<!-- At this point in time multiple versions of this provision existed for differing geographical extents. -->
+		<resource id="status_warning_revised_p22i"></resource>
+		<!-- Sometimes the text of a provision is changed, but the change(s) only apply to a particular geographical area. -->
+		<resource id="status_warning_revised_p23">Sometimes the text of a provision is changed, but the change(s) only apply to a particular geographical area.</resource>
+		<!-- In some limited cases where this happens, the editorial team create a version for each different geographical area. -->
+		<resource id="status_warning_revised_p24">In some limited cases where this happens, the editorial team create a version for each different geographical area.</resource>
+		<!-- Multiple versions are only created in this way where the change in question is a substitution so that there are different versions of the text for the different extents. -->
+		<resource id="status_warning_revised_p25">Multiple versions are only created in this way where the change in question is a substitution so that there are different versions of the text for the different extents.</resource>
+		<!-- Multiple prospective provisions are most likely to occur where a provision that is not yet in force is subject to a change that is also not yet in force. -->
+		<resource id="status_warning_revised_p26">Multiple prospective provisions are most likely to occur where a provision that is not yet in force is subject to a change that is also not yet in force.</resource>
+		<!-- Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring these prospective versions into force. -->
+		<resource id="status_warning_revised_p27">Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring these prospective versions into force.</resource>
+		<!-- Note: Point in time prospective is the latest available view of the legislation that includes by default all the prospective changes that might come into force. -->
+		<resource id="status_warning_revised_p28">Note: Point in time prospective is the latest available view of the legislation that includes by default all the prospective changes that might come into force.</resource>
+		<!-- In this case the multiple versions on screen are also prospective, meaning that those changes have not yet been brought into force. -->
+		<resource id="status_warning_revised_p29">In this case the multiple versions on screen are also prospective, meaning that those changes have not yet been brought into force.</resource>
+		<!-- 'No longer has effect', generally means that this provision has been repealed. -->
+		<resource id="status_warning_revised_p30">'No longer has effect', generally means that this provision has been repealed.</resource>
+		<!-- Take a look at the annotations at the end of the provision for further information. -->
+		<resource id="status_warning_revised_p31">Take a look at the annotations at the end of the provision for further information.</resource>
+		<!-- No subsequent versions of this provision exist. -->
+		<resource id="status_warning_revised_p32">No subsequent versions of this provision exist.</resource>
+		<!-- Not valid for this point in time generally means that a provision was not in force for the point in time you have selected to view it on. -->
+		<resource id="status_warning_revised_p33">Not valid for this point in time generally means that a provision was not in force for the point in time you have selected to view it on.</resource>
+		<!-- You are viewing this provision as it would have stood if it had come into force. It was repealed before it came into force. -->
+		<resource id="status_warning_revised_p34">You are viewing this provision as it would have stood if it had come into force. It was repealed before it came into force.</resource>
+		<!-- The prospective version will remain prospective until a date is appointed by an appropriate person or body to bring those changes into force. -->
+		<resource id="status_warning_revised_p35">The prospective version will remain prospective until a date is appointed by an appropriate person or body to bring those changes into force.</resource>
+		<!-- Insertions and repeals of text do not give rise to such multiple versions. -->
+		<resource id="status_warning_revised_p36">Insertions and repeals of text do not give rise to such multiple versions.</resource>
+		<!-- No longer has effect, generally means that this provision has been repealed. -->
+		<resource id="status_warning_revised_p37">No longer has effect, generally means that this provision has been repealed.</resource>
+		<!-- Where an 'has effect from' date is given, it generally means that the provision is not in force on today's date but will come into force with effect from the given date. -->
+		<resource id="status_warning_revised_p38">Where an 'has effect from' date is given, it generally means that the provision is not in force on today's date but will come into force with effect from the given date.</resource>
+		<!-- Where provisions have yet to come into effect, it generally means that the provisions are not in force on today's date but will come into force with effect from the given date. -->
+		<resource id="status_warning_revised_p39">Where provisions have yet to come into effect, it generally means that the provisions are not in force on today's date but will come into force with effect from the given date.</resource>
+		<!-- Where provisions never came into effect, it generally means that the provision was repealed before it came into force. -->
+		<resource id="status_warning_revised_p40">Where provisions never came into effect, it generally means that the provision was repealed before it came into force.</resource>
+		<!-- This version of this provision is not valid for this point in time. -->
+		<resource id="status_warning_revised_p41">This version of this provision is not valid for this point in time.</resource>
+		<!-- There are multiple prospective versions of this provision on screen. -->
+		<resource id="status_warning_revised_p42">There are multiple prospective versions of this provision on screen.</resource>
+		<!--  These apply to different geographical extents. -->
+		<resource id="status_warning_revised_p43">These apply to different geographical extents.</resource>
+		<!-- This version of this provision is prospective. -->
+		<resource id="status_warning_revised_p44">This version of this provision is prospective.</resource>
+		<!-- This version of this provision never came into effect. -->
+		<resource id="status_warning_revised_p45">This version of this provision never came into effect.</resource>
+		<!-- This version of this provision comes into effect on -->
+		<resource id="status_warning_revised_p46">This version of this provision comes into effect on</resource>
+		<!-- This version of this provision no longer has effect. -->
+		<resource id="status_warning_revised_p47">This version of this provision no longer has effect.</resource>
+		<!-- Prospective version(s) available. -->
+		<resource id="status_warning_revised_p48">Prospective version(s) available.</resource>
+		<!-- This version of this  -->
+		<resource id="status_warning_revised_p49">This version of this </resource>
+		<!-- provision has been superseded. -->
+		<resource id="status_warning_revised_p50">provision has been superseded.</resource>
+		<!-- contains provisions that are not valid for this point in time. -->
+		<resource id="status_warning_revised_p51">contains provisions that are not valid for this point in time.</resource>
+		<!-- contains provisions that are prospective. -->
+		<resource id="status_warning_revised_p52">contains provisions that are prospective.</resource>
+		<!-- contains provisions that have not yet come into effect. -->
+		<resource id="status_warning_revised_p53">contains provisions that have not yet come into effect.</resource>
 	</resources>
 
 	<resources lang="en">
@@ -1687,8 +1809,121 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_effects_pt1">is up to date with all changes known to be in force on or before</resource>
 		<resource id="status_warning_effects_pt2">There are changes that may be brought into force at a future date</resource>
 		<resource id="status_warning_effects_pt3">Changes that have been made appear in the content and are referenced with annotations</resource>
-
-		
+		<!-- Revised legislation carried on this site may not be fully up to date. -->
+		<resource id="status_warning_revised_p1">Revised legislation carried on this site may not be fully up to date.</resource>
+		<!-- Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area. -->
+		<resource id="status_warning_revised_p2">Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area.</resource>
+		<!--At the current time any known changes or effects made by subsequent legislation have been applied to the text of the legislation you are viewing by the editorial team. -->
+		<resource id="status_warning_revised_p3">At the current time any known changes or effects made by subsequent legislation have been applied to the text of the legislation you are viewing by the editorial team.</resource>
+		<!--  Please see ‘Frequently Asked Questions’ for details regarding the timescales for which new effects are identified and recorded on this site.  -->
+		<resource id="status_warning_revised_p4">Please see ‘Frequently Asked Questions’ for details regarding the timescales for which new effects are identified and recorded on this site.</resource>
+		<!--Changes and effects yet to be applied by the editorial team are only applicable when viewing the latest version or prospective version of legislation.  -->
+		<resource id="status_warning_revised_p5">Changes and effects yet to be applied by the editorial team are only applicable when viewing the latest version or prospective version of legislation.</resource>
+		<!-- They are therefore not accessible when viewing legislation as at a specific point in time. To view the ‘Changes to Legislation’ information for this provision return to the latest version view using the options provided in the ‘What Version’ box above. -->
+		<resource id="status_warning_revised_p6">They are therefore not accessible when viewing legislation as at a specific point in time. To view the ‘Changes to Legislation’ information for this provision return to the latest version view using the options provided in the ‘What Version’ box above.</resource>
+		<!-- Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the affected provisions when you open the content using the Table of Contents below. -->
+		<resource id="status_warning_revised_p7">Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the affected provisions when you open the content using the Table of Contents below.</resource>
+		<!-- Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the legislation in the affected provisions.	-->
+		<resource id="status_warning_revised_p8">Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the legislation in the affected provisions.</resource>
+		<!-- Use the ‘more’ link to open the changes and effects relevant to the provision you are viewing. -->
+		<resource id="status_warning_revised_p9">Use the ‘more’ link to open the changes and effects relevant to the provision you are viewing.</resource>
+		<!-- Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the legislation in the affected provisions.  -->
+		<resource id="status_warning_revised_p10">Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the legislation in the affected provisions. </resource>
+		<!-- The term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section. -->
+		<resource id="status_warning_revised_p11">The term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section.</resource>
+		<!-- A version of a provision is prospective either: -->
+		<resource id="status_warning_revised_p12">A version of a provision is prospective either:</resource>
+		<!-- where the provision (Part, Chapter or section) has never come into force or;  -->	
+		<resource id="status_warning_revised_p12i">where the provision (Part, Chapter or section) has never come into force or;</resource>
+		<!-- where the text of the provision is subject to change, but no date has yet been appointed by the appropriate person or body for those changes to come into force.  -->
+		<resource id="status_warning_revised_p12ii">where the text of the provision is subject to change, but no date has yet been appointed by the appropriate person or body for those changes to come into force.</resource>
+		<!-- Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring this prospective version into force. -->
+		<!-- Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring changes and effects in the prospective version into force. -->
+		<resource id="status_warning_revised_p13">Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring this prospective version into force.</resource>
+		<!--  The version on screen is currently in force, but there is a version available (prospective version) to show how it could change. -->
+		<resource id="status_warning_revised_p14">The version on screen is currently in force, but there is a version available (prospective version) to show how it could change.</resource>
+		<!-- The prosective version remains prospective until a date is appointed by an appropriate person or body to bring it into force. -->
+		<resource id="status_warning_revised_p15">The prosective version remains prospective until a date is appointed by an appropriate person or body to bring it into force.</resource>
+		<!-- To see the prospective version, use the Show Timeline of Changes feature under ‘Advanced Features’. -->
+		<resource id="status_warning_revised_p16">To see the prospective version, use the Show Timeline of Changes feature under ‘Advanced Features’.</resource>
+		<!-- Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring changes and effects in the prospective version into force. -->
+		<resource id="status_warning_revised_p17">Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring changes and effects in the prospective version into force.</resource>
+		<!-- You are viewing this legislation item as it stood at a particular point in time. -->
+		<resource id="status_warning_revised_p18">You are viewing this legislation item as it stood at a particular point in time.</resource>
+		<!--  A later version of this provision, including subsequent changes and effects, supersedes this version. -->
+		<resource id="status_warning_revised_p19">A later version of this provision, including subsequent changes and effects, supersedes this version.</resource>
+		<!-- Note the term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section. -->
+		<resource id="status_warning_revised_p20">Note the term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section.</resource>
+		<!-- A later version of this or provision, including subsequent changes and effects, supersedes this version. -->
+		<resource id="status_warning_revised_p21">A later version of this or provision, including subsequent changes and effects, supersedes this version.</resource>
+		<!--  iA later version of this provision including  subsequent changes and effects supersedes these versions. -->
+		<resource  id="status_warning_revised_p21i">A later version of this provision including  subsequent changes and effects supersedes these versions.</resource>
+		<!-- At this point in time multiple versions of this provision exist for differing geographical extents. -->
+		<resource id="status_warning_revised_p22">At this point in time multiple versions of this provision exist for differing geographical extents.</resource>
+		<!-- At this point in time multiple versions of this provision existed for differing geographical extents. -->
+		<resource id="status_warning_revised_p22i"></resource>
+		<!-- Sometimes the text of a provision is changed, but the change(s) only apply to a particular geographical area. -->
+		<resource id="status_warning_revised_p23">Sometimes the text of a provision is changed, but the change(s) only apply to a particular geographical area.</resource>
+		<!-- In some limited cases where this happens, the editorial team create a version for each different geographical area. -->
+		<resource id="status_warning_revised_p24">In some limited cases where this happens, the editorial team create a version for each different geographical area.</resource>
+		<!-- Multiple versions are only created in this way where the change in question is a substitution so that there are different versions of the text for the different extents. -->
+		<resource id="status_warning_revised_p25">Multiple versions are only created in this way where the change in question is a substitution so that there are different versions of the text for the different extents.</resource>
+		<!-- Multiple prospective provisions are most likely to occur where a provision that is not yet in force is subject to a change that is also not yet in force. -->
+		<resource id="status_warning_revised_p26">Multiple prospective provisions are most likely to occur where a provision that is not yet in force is subject to a change that is also not yet in force.</resource>
+		<!-- Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring these prospective versions into force. -->
+		<resource id="status_warning_revised_p27">Commencement Orders listed in the ‘Changes to Legislation’ box as not yet applied may bring these prospective versions into force.</resource>
+		<!-- Note: Point in time prospective is the latest available view of the legislation that includes by default all the prospective changes that might come into force. -->
+		<resource id="status_warning_revised_p28">Note: Point in time prospective is the latest available view of the legislation that includes by default all the prospective changes that might come into force.</resource>
+		<!-- In this case the multiple versions on screen are also prospective, meaning that those changes have not yet been brought into force. -->
+		<resource id="status_warning_revised_p29">In this case the multiple versions on screen are also prospective, meaning that those changes have not yet been brought into force.</resource>
+		<!-- 'No longer has effect', generally means that this provision has been repealed. -->
+		<resource id="status_warning_revised_p30">'No longer has effect', generally means that this provision has been repealed.</resource>
+		<!-- Take a look at the annotations at the end of the provision for further information. -->
+		<resource id="status_warning_revised_p31">Take a look at the annotations at the end of the provision for further information.</resource>
+		<!-- No subsequent versions of this provision exist. -->
+		<resource id="status_warning_revised_p32">No subsequent versions of this provision exist.</resource>
+		<!-- Not valid for this point in time generally means that a provision was not in force for the point in time you have selected to view it on. -->
+		<resource id="status_warning_revised_p33">Not valid for this point in time generally means that a provision was not in force for the point in time you have selected to view it on.</resource>
+		<!-- You are viewing this provision as it would have stood if it had come into force. It was repealed before it came into force. -->
+		<resource id="status_warning_revised_p34">You are viewing this provision as it would have stood if it had come into force. It was repealed before it came into force.</resource>
+		<!-- The prospective version will remain prospective until a date is appointed by an appropriate person or body to bring those changes into force. -->
+		<resource id="status_warning_revised_p35">The prospective version will remain prospective until a date is appointed by an appropriate person or body to bring those changes into force.</resource>
+		<!-- Insertions and repeals of text do not give rise to such multiple versions. -->
+		<resource id="status_warning_revised_p36">Insertions and repeals of text do not give rise to such multiple versions.</resource>
+		<!-- No longer has effect, generally means that this provision has been repealed. -->
+		<resource id="status_warning_revised_p37">No longer has effect, generally means that this provision has been repealed.</resource>
+		<!-- Where an 'has effect from' date is given, it generally means that the provision is not in force on today's date but will come into force with effect from the given date. -->
+		<resource id="status_warning_revised_p38">Where an 'has effect from' date is given, it generally means that the provision is not in force on today's date but will come into force with effect from the given date.</resource>
+		<!-- Where provisions have yet to come into effect, it generally means that the provisions are not in force on today's date but will come into force with effect from the given date. -->
+		<resource id="status_warning_revised_p39">Where provisions have yet to come into effect, it generally means that the provisions are not in force on today's date but will come into force with effect from the given date.</resource>
+		<!-- Where provisions never came into effect, it generally means that the provision was repealed before it came into force. -->
+		<resource id="status_warning_revised_p40">Where provisions never came into effect, it generally means that the provision was repealed before it came into force.</resource>
+		<!-- This version of this provision is not valid for this point in time. -->
+		<resource id="status_warning_revised_p41">This version of this provision is not valid for this point in time.</resource>
+		<!-- There are multiple prospective versions of this provision on screen. -->
+		<resource id="status_warning_revised_p42">There are multiple prospective versions of this provision on screen.</resource>
+		<!--  These apply to different geographical extents. -->
+		<resource id="status_warning_revised_p43">These apply to different geographical extents.</resource>
+		<!-- This version of this provision is prospective. -->
+		<resource id="status_warning_revised_p44">This version of this provision is prospective.</resource>
+		<!-- This version of this provision never came into effect. -->
+		<resource id="status_warning_revised_p45">This version of this provision never came into effect.</resource>
+		<!-- This version of this provision comes into effect on -->
+		<resource id="status_warning_revised_p46">This version of this provision comes into effect on</resource>
+		<!-- This version of this provision no longer has effect. -->
+		<resource id="status_warning_revised_p47">This version of this provision no longer has effect.</resource>
+		<!-- Prospective version(s) available. -->
+		<resource id="status_warning_revised_p48">Prospective version(s) available.</resource>
+		<!-- This version of this  -->
+		<resource id="status_warning_revised_p49">This version of this </resource>
+		<!-- provision has been superseded. -->
+		<resource id="status_warning_revised_p50">provision has been superseded.</resource>
+		<!-- contains provisions that are not valid for this point in time. -->
+		<resource id="status_warning_revised_p51">contains provisions that are not valid for this point in time.</resource>
+		<!-- contains provisions that are prospective. -->
+		<resource id="status_warning_revised_p52">contains provisions that are prospective.</resource>
+		<!-- contains provisions that have not yet come into effect. -->
+		<resource id="status_warning_revised_p53">contains provisions that have not yet come into effect.</resource>
 	</resources>
 </allResources>
 
