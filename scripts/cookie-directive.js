@@ -15,7 +15,7 @@ $(function () {
         en: $('<div class="cookie-preferences-banner">' +
             '<div class="content">' +
             '<h2>Cookies on Legislation.gov.uk</h2>' +
-            '<p>The cookies on legislation.gov.uk help do two things: they remember any settings you\'ve chosen so you ' +
+            '<p>The cookies on legislation.gov.uk do two things: they remember any settings you\'ve chosen so you ' +
             'don\'t have to choose them on every page, and they help us understand how people browse our website, so we ' +
             'can make improvements and fix problems. We need your consent to use some of these cookies.</p>' +
             '<ul class="cookie-actions">' +
@@ -23,12 +23,12 @@ $(function () {
             '<button class="btn accept-all-cookies">Yes, these cookies are OK</button>' +
             '</li>' +
             '<li>' +
-            '<a class="btn set-individual-cookies" href="/cookiepolicy#Setyourcookiepreferences">' +
-            'Set Cookie preferences' +
+            '<a class="btn set-individual-cookies" href="/cookiepolicy">' +
+            'Find out more or set individual cookie preferences' +
             '</a>' +
             '</li>' +
             '<li>' +
-            '<a class="cookie-policy-link" href="/cookiepolicy">About the cookies we use</a>' +
+            '<button class="btn reject-all-cookies">No, I want to reject all cookies</button>' +
             '</li>' +
             '</ul>' +
             '</div>' +
@@ -36,20 +36,20 @@ $(function () {
         cy: $('<div class="cookie-preferences-banner">' +
             '<div class="content">' +
             '<h2>Cwcis ar Ddeddfwriaeth.gov.uk</h2>' +
-            '<p>TMae\'r cwcis ar deddfwriaeth.gov.uk yn helpu i wneud dau beth: maent yn cofio unrhyw osodiadau rydych chi wedi\'u dewis ' +
+            '<p>Mae\'r cwcis ar deddfwriaeth.gov.uk yn gwneud dau beth: maent yn cofio unrhyw osodiadau rydych chi wedi\'u dewis ' +
             'felly does dim rhaid i chi eu dewis ar bob tudalen, ac maent yn ein helpu i ddeall sut mae pobl yn pori ein gwefan, ' +
             'er mwyn i ni allu gwneud gwelliannau a thrwsio problemau. Mae angen eich caniatâd arnom i ddefnyddio rhai o\'r cwcis hyn.</p>' +
             '<ul class="cookie-actions">' +
             '<li>' +
-            '<button class="btn accept-all-cookies">Ydyn, mae\'r cwcis hyn yn iawn</button>' +
+            '<button class="btn cy accept-all-cookies">Ydyn, mae\'r cwcis hyn yn IAWN</button>' +
             '</li>' +
             '<li>' +
-            '<a class="btn set-individual-cookies" href="/cy/cookiepolicy#Setyourcookiepreferences">' +
-            'Gosod dewisiadau Cwcis' +
+            '<a class="btn cy set-individual-cookies" href="/cy/cookiepolicy">' +
+            'Dysgu mwy neu osod dewisiadau unigol ar gyfer cwcis' +
             '</a>' +
             '</li>' +
             '<li>' +
-            '<a class="cookie-policy-link" href="/cy/cookiepolicy">Ynglŷn â\’r cwcis rydym yn eu defnyddio</a>' +
+            '<button class="btn cy reject-all-cookies">Nac ydyn, hoffwn wrthod yr holl gwcis</button>' +
             '</li>' +
             '</ul>' +
             '</div>' +
@@ -97,7 +97,7 @@ $(function () {
 
     // Event listeners are placed on the body (and use event bubbling) to prevent duplication of listeners on
     // different language banners.
-    $('body')
+        $('body')
         .click(function (event) {
             var $target = $(event.target);
 
@@ -106,21 +106,13 @@ $(function () {
                 window.legGlobals.cookiePolicy.setValues(true, true);
 
                 $('body').trigger('cookie.preferences.saved.banner');
+                bannerActions();
+            }
 
-                // Remove the cookie banner and replace with a success message.
-                $cookieBanner[LANG]
-                    .slideUp(function () {
-                        $(this).remove();
-
-                        $('#top')
-                            .after($cookieBannerSuccess[LANG]);
-
-                        $cookieBannerSuccess[LANG]
-                            .hide();
-
-                        $cookieBannerSuccess[LANG]
-                            .slideDown();
-                    });
+            // User has rejected all cookies
+            if ($target.hasClass('reject-all-cookies')) {
+                window.legGlobals.cookiePolicy.setValues(false, false);
+                bannerActions();
             }
 
             if ($target.hasClass('dismiss-banner')) {
@@ -128,24 +120,24 @@ $(function () {
                     .slideUp();
             }
 
-            if ($target.hasClass('set-individual-cookies')) {
-                if (isCookiePolicyPage) {
-                    $('html,body')
-                        .animate({
-                                scrollTop: $('#Setyourcookiepreferences').offset().top
-                            },
-                            'fast');
-
-                    $('#cookie-settings-accept')
-                        .focus();
-                } else {
-                    window.location = (LANG === 'cy') ?
-                        '/cy/cookiepolicy' :
-                        '/cookiepolicy';
-                }
-            }
-
         });
+
+    bannerActions = function() {
+        // Remove the cookie banner and replace with a success message.
+        $cookieBanner[LANG]
+            .slideUp(function () {
+                $(this).remove();
+
+                $('#top')
+                    .after($cookieBannerSuccess[LANG]);
+
+                $cookieBannerSuccess[LANG]
+                    .hide();
+
+                $cookieBannerSuccess[LANG]
+                    .slideDown();
+            });
+    }
 
     if (isCookiePolicyPage) {
         $cookieBanner[LANG]
