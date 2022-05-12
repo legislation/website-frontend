@@ -110,6 +110,28 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</fo:marker>
 					</xsl:when>
 					
+					<xsl:when test="$g_ndsLegMetadata/ukm:Number/@Value != '' and  $g_strDocType = 'WelshParliamentAct'">
+						<fo:marker marker-class-name="runninghead2">
+							<xsl:choose>
+								<xsl:when test="$g_ndsLegPrelims/leg:Title">
+									<xsl:apply-templates select="$g_ndsLegPrelims/leg:Title"  mode="header"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:apply-templates select="/leg:Legislation/ukm:Metadata/dc:title"  mode="header"/>
+								</xsl:otherwise>
+							</xsl:choose>
+							<xsl:choose>
+								<xsl:when test="$g_documentLanguage = 'cy'">
+									<xsl:text> dsc </xsl:text>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text> asc </xsl:text>
+								</xsl:otherwise>
+							</xsl:choose>
+							<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
+						</fo:marker>
+					</xsl:when>
+					
 					
 					<xsl:when test="$g_ndsLegMetadata/ukm:Number/@Value != ''">
 						<fo:marker marker-class-name="runninghead2">
@@ -140,6 +162,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<fo:external-graphic src="url({concat($g_strConstantImagesPath, 'mwa.tif')})" content-height="110pt" fox:alt-text="Royal arms"/>
 					</xsl:when>
 					<xsl:when test="$g_strDocType = 'WelshNationalAssemblyAct'">
+						<fo:external-graphic src="url({concat($g_strConstantImagesPath, 'mwa.tif')})" content-height="110pt" fox:alt-text="Royal arms"/>
+					</xsl:when>
+					<xsl:when test="$g_strDocType = 'WelshParliamentAct'">
 						<fo:external-graphic src="url({concat($g_strConstantImagesPath, 'mwa.tif')})" content-height="110pt" fox:alt-text="Royal arms"/>
 					</xsl:when>
 					<xsl:otherwise>
@@ -205,6 +230,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</xsl:when>
 								<xsl:otherwise>
 									<xsl:text> anaw </xsl:text>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:when>
+						<xsl:when test="$g_strDocType = 'WelshParliamentAct'">						
+							<xsl:choose>
+								<xsl:when test="$g_documentLanguage = 'cy'">
+									<xsl:text> dsc </xsl:text>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text> asc </xsl:text>
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:when>

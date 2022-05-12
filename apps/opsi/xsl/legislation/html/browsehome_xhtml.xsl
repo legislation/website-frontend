@@ -517,7 +517,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<li>
 										<a id="anaw" href="{$TranslateLangPrefix}/anaw">
 											<xsl:value-of
-													select="leg:TranslateText('Acts of the National Assembly for Wales')"/>
+												select="leg:TranslateText('Acts of the National Assembly for Wales')"/>
+											<span></span>
+										</a>
+									</li>
+									<li>
+										<a id="asc" href="{$TranslateLangPrefix}/asc">
+											<xsl:value-of
+												select="leg:TranslateText('Acts of Senedd Cymru')"/>
 											<span></span>
 										</a>
 									</li>
@@ -675,11 +682,24 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<h2>
 									<xsl:value-of select="leg:TranslateText('Browse_WalesApplies1')"/>
 								</h2>
-								<ul class="legTypes">
+								<ul class="legTypes">				
+									<li>
+										<a id="asc" href="{$TranslateLangPrefix}/asc">
+											<xsl:value-of
+												select="leg:TranslateText('Acts of Senedd Cymru')"/>
+											<span></span>
+										</a>
+									</li>
+									<li>
+										<a id="wsi" href="{$TranslateLangPrefix}/wsi">
+											<xsl:value-of select="leg:TranslateText('Wales Statutory Instruments')"/>
+											<span></span>
+										</a>
+									</li>
 									<li>
 										<a id="anaw" href="{$TranslateLangPrefix}/anaw">
 											<xsl:value-of
-													select="leg:TranslateText('Acts of the National Assembly for Wales')"/>
+												select="leg:TranslateText('Acts of the National Assembly for Wales')"/>
 											<span></span>
 										</a>
 									</li>
@@ -687,12 +707,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<a id="mwa" href="{$TranslateLangPrefix}/mwa">
 											<xsl:value-of
 													select="leg:TranslateText('Measures of the National Assembly for Wales')"/>
-											<span></span>
-										</a>
-									</li>
-									<li>
-										<a id="wsi" href="{$TranslateLangPrefix}/wsi">
-											<xsl:value-of select="leg:TranslateText('Wales Statutory Instruments')"/>
 											<span></span>
 										</a>
 									</li>

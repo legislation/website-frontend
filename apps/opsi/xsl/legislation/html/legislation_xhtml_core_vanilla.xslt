@@ -146,6 +146,13 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 					<xsl:otherwise>anaw</xsl:otherwise>
 				</xsl:choose>
 			</xsl:when>
+			<xsl:when test="$g_strDocumentMainType = 'WelshParliamentAct'">
+				<xsl:text> (</xsl:text>
+				<xsl:choose>
+					<xsl:when test="$g_ndsMetadata/dc:language = 'cy'">dsc</xsl:when>
+					<xsl:otherwise>asc</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
 			<xsl:otherwise> (c. </xsl:otherwise>
 		</xsl:choose>
 		<xsl:value-of select="$g_ndsMetadata/*/ukm:Number/@Value"/>
@@ -253,7 +260,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:when test="$g_strDocumentMainType = 'WelshAssemblyMeasure' ">
 				<xsl:apply-templates select="leg:Number" mode="welshnumber"/>
 			</xsl:when>
-			<xsl:when test="$g_strDocumentMainType = 'WelshNationalAssemblyAct' ">
+			<xsl:when test="$g_strDocumentMainType = ('WelshNationalAssemblyAct','WelshParliamentAct') ">
 				<xsl:apply-templates select="leg:Number" mode="welshnumber"/>
 			</xsl:when>
 			<!-- Convoluted approach to outputting the correct act number, but probably required for legacy data -->

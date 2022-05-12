@@ -1215,7 +1215,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 		<xsl:sequence select="$legislation/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata|ukm:SecondaryMetadata|ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value
 			= ('UnitedKingdomPublicGeneralAct', 'UnitedKingdomLocalAct', 'GreatBritainAct', 'EnglandAct', 'ScottishOldAct', 'ScottishAct',
 			'IrelandAct', 'NorthernIrelandParliamentAct', 'NorthernIrelandAssemblyMeasure', 'NorthernIrelandAct',
-			'UnitedKingdomChurchMeasure', 'WelshAssemblyMeasure', 'WelshNationalAssemblyAct','NorthernIrelandOrderInCouncil',
+			'UnitedKingdomChurchMeasure', 'WelshAssemblyMeasure', 'WelshNationalAssemblyAct','WelshParliamentAct','NorthernIrelandOrderInCouncil',
 			'UnitedKingdomStatutoryInstrument','ScottishStatutoryInstrument', 'WelshStatutoryInstrument', 'NorthernIrelandStatutoryRule', 'NorthernIrelandStatutoryRuleOrOrder', 'EuropeanUnionRegulation', 'EuropeanUnionRegulation', 'EuropeanUnionDecision', 'EuropeanUnionDirective', 'EuropeanUnionTreaty' )"/>
 	</xsl:function>
 

@@ -103,7 +103,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										</a>
 									</li>
 									<li>
-										<a href="http://www.scottish.parliament.uk">
+										<a href="http://www.scottish.parliament.uk"  target="_blank">
 											<xsl:value-of select="leg:TranslateText('Scottish Parliament website')"/>
 											<span class="pageLinkIcon"></span>
 										</a>
@@ -127,8 +127,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										</a>
 									</li>
 									<li>
-										<a href="{leg:TranslateText('http://www.assemblywales.org')}">
-											<xsl:value-of select="leg:TranslateText('National Assembly for Wales')"/>
+										<a href="{leg:TranslateText('http://www.senedd.wales')}" target="_blank">
+											<xsl:value-of select="leg:TranslateText('Welsh Parliament')"/>
 											<span class="pageLinkIcon"></span>
 										</a>
 									</li>
@@ -151,7 +151,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										</a>
 									</li>
 									<li>
-										<a href="http://www.niassembly.gov.uk">
+										<a href="http://www.niassembly.gov.uk" target="_blank">
 											<xsl:value-of select="leg:TranslateText('Northern Ireland Assembly')"/>
 											<span class="pageLinkIcon"></span>
 										</a>
@@ -176,7 +176,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											</a>
 										</li>
 										<li>
-											<a href="https://eur-lex.europa.eu/homepage.html?locale=en">
+											<a href="https://eur-lex.europa.eu/homepage.html?locale=en" target="_blank">
 												<xsl:value-of select="leg:TranslateText('EUR-Lex website')"/>
 												<span class="pageLinkIcon"></span>
 											</a>

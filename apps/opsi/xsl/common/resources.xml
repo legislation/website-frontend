@@ -84,6 +84,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="UK Local Acts">Deddfau Lleol y Deyrnas Unedig</resource>
 		<resource id="Acts of the Scottish Parliament">Deddfau Senedd yr Alban</resource>
 		<resource id="Acts of the National Assembly for Wales">Deddfau Cynulliad Cenedlaethol Cymru</resource>
+		<resource id="Act of the Senedd Cymru">Deddf Senedd Cymru</resource>
+		<resource id="Act of the Welsh Parliament">Deddf Senedd Cymru</resource>
+		<resource id="Welsh Parliament">Senedd Cymru</resource>
+		<resource id="http://www.senedd.wales">http://www.senedd.cymru</resource>
+		<resource id="http://senedd.wales/en">http://senedd.cymru/cy</resource>	
+		<resource id="Acts of the Senedd Cymru">Deddfau Senedd Cymru</resource>
+		<resource id="Acts of Senedd Cymru">Deddfau Senedd Cymru</resource>
+		<resource id="Acts of the Welsh Parliament">Deddfau Senedd Cymru</resource>		
 		<resource id="Measures of the National Assembly for Wales">Mesurau Cynulliad Cenedlaethol Cymru</resource>
 		<resource id="Mesurau Cynulliad Cenedlaethol Cymru">Mae Mesur Llywodraeth Leol (Cymru)</resource>
 		<resource id="Church Measures">Mesurau Eglwysig</resource>
@@ -284,6 +292,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Download">Lawr lwytho</resource>
 		<resource id="Download - English">Lawr lwytho - Saesneg</resource>
 		<resource id="Download - Welsh">Lawr lwytho - Cymraeg</resource>
+		<resource id="- Mixed Language">- Iaith Gymysg</resource>
+		<resource id="- English">- Saesneg</resource>
+		<resource id="- Welsh Language">- Cymraeg</resource>
+		<resource id="Welsh Language">- Cymraeg</resource>
 		<resource id="Download - Mixed Language">Lawr lwytho - Iaith Gymysg</resource>
 		<resource id="Explanatory Note - English">Nodyn Esboniadol - Saesneg</resource>
 		<resource id="Explanatory Note - Welsh">Nodyn Esboniadol - Cymraeg</resource>
@@ -318,6 +330,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="IA_tooltip_4" translated="false" stage2="true">How and to what extent new policies may impact on them; and,</resource>
 		<resource id="IA_tooltip_5" translated="false" stage2="true">The estimated costs and benefits of proposed measures.</resource>
 		<resource id="part" translated="false" stage2="true">part</resource>
+		<resource id="Part" translated="false" stage2="true">Rhan</resource>
 		<!--<resource id="More Measures of the National Assembly for Wale">Mesurau'r Cynulliad</resource><resource id="More Measures of the National Assembly for Wales from">Mesurau'r Cynulliad</resource><resource id="More Acts of the National Assembly for Wales">Deddfau'r Cynulliad</resource><resource id="More Acts of the National Assembly for Wales from">Deddfau'r Cynulliad</resource><resource id="More Welsh Statutory Instruments">Cymru Offerynnau Statudol</resource><resource id="More Welsh Statutory Instruments from">Cymru Offerynnau Statudol</resource>-->
 		<!-- Text on page - http://www.legislation.gov.uk/cy/secondary?text=dogs&lang=cy -->
 		<resource id="Search Results">Canlyniadau Chwilio</resource>
@@ -601,7 +614,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			Gellir dod o hyd i’r holl Fesurau sydd ar hyn o bryd ger bron 
 			<a href="http://www.scottish.parliament.uk/parliamentarybusiness/Bills.aspx" target="_blank">Senedd yr Alban</a>, 
 			<a href="http://www.niassembly.gov.uk/assembly-business/legislation/2016-2021-mandate/primary-legislation---current-bills/" target="_blank">Cynulliad Gogledd Iwerddon</a> 
-			a <a href="https://www.assemblywales.org/cy" target="_blank">Chynulliad Cenedlaethol Cymru</a> ar y gwefannau Seneddol a Chynulliad Cenedlaethol unigol.
+			a <a href="http://www.senedd.cymru" target="_blank">Senedd Cymru</a> ar y gwefannau Seneddol a Chynulliad Cenedlaethol unigol.
 		</resource>
 		<resource id="site_logo_legislation">legislation_logo_welsh</resource>
 		<resource id="New_tracking_1_1">Rhestrir yr holl Fesurau sydd ger bron Senedd y Deyrnas Unedig ar hyn o bryd ar wefan Senedd y Deyrnas Unedig</resource>
@@ -1109,6 +1122,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_effects_pt3">Mae newidiadau a wnaed yn ymddangos yn y cynnwys a chyfeirir atynt trwy anodiadau</resource>
 		<resource id="Expired: see Introduction.">Wedi dirwyn i ben: gweler y Cyflwyniad.</resource>
 		<resource id="Repealed: see Introduction.">Diddymwyd: gweler y Cyflwyniad.</resource>
+		<resource id="Introduction">Cyflwyniad</resource>
 		<resource id="in pt">yn rhannol</resource>
 		<resource id="cont.in pt">parh. yn rhannol</resource>
 		<resource id="excl.in pt">eith. yn rhannol</resource>
@@ -1407,14 +1421,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<a href="http://www.scottish.parliament.uk/parliamentarybusiness/Bills.aspx" target="_blank">Scottish Parliament</a>, 
 			<a href="http://www.niassembly.gov.uk/assembly-business/legislation/2016-2021-mandate/primary-legislation---current-bills/" target="_blank">Northern Ireland Assembly</a>
 			and the 
-			<a href="https://www.assemblywales.org" target="_blank">National Assembly for Wales</a> 
+			<a href="http://www.senedd.wales" target="_blank">Welsh Parliament</a> 
 			can be found on the individual national Parliamentary and Assembly websites. 
 		</resource>
 		<resource id="New_tracking_3_1">All Bills currently before the </resource>
 		<resource id="New_tracking_3_2">Scottish Parliament</resource>
 		<resource id="New_tracking_3_3">Northern Ireland Assembly  </resource>
 		<resource id="New_tracking_3_4">and the </resource>
-		<resource id="New_tracking_3_5">National Assembly for Wales  </resource>
+		<resource id="New_tracking_3_5">Welsh Parliament  </resource>
 		<resource id="New_tracking_3_6">can be found on the individual national Parliamentary and Assembly websites. </resource>
 		<resource id="New_tracking_4_1">Bills only become Acts once they have passed all stages of their applicable Parliamentary procedure and receive Royal Assent. Once an Act has received Royal Assent, it is published under the authority of the Queen's Printer to this website. </resource>
 		<resource id="New_tracking_4">Bills become Acts once they have passed all stages within both Houses of Parliament and receive Royal Assent. Once they have received Royal Assent, Acts are published under the authority of the Queen's Printer to this website.</resource>
@@ -1596,7 +1610,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="EN_Help_1">Text created by the government department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes were introduced in 1999 and accompany all Public Acts except Appropriation, Consolidated Fund, Finance and Consolidation Acts.</resource>
 		<resource id="EN_Help_2">Text created by the Northern Ireland Assembly department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes accompany all Acts of the Northern Ireland Assembly.</resource>
 		<resource id="EN_Help_3">Text created by the Scottish Government to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes were introduced in 1999 and accompany all Acts of the Scottish Parliament except those which result from Budget Bills.</resource>
-		<resource id="EN_Help_4">Text created by the Welsh Government department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes accompany all Acts of the National Assembly for Wales.</resource>
+		<resource id="EN_Help_4">Text created by the Welsh Government department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes accompany all Acts of the Welsh Parliament.</resource>
 		<resource id="EN_Help_5">Policy Note sets out a brief statement of the purpose of a Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2012 onwards. Prior to this date these type of notes existed as ‘Executive Notes’ and accompanied Scottish Statutory Instruments from July 2005 until July 2012.</resource>
 		<resource id="EN_Help_6">Draft Policy Note sets out a brief statement of the purpose of a Draft Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Draft Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2012 onwards. Prior to this date these type of notes existed as 'Executive Notes' and accompanied Draft Scottish Statutory Instruments from July 2005 until July 2012.</resource>
 		<resource id="EN_Help_7">Executive Note sets out a brief statement of the purpose of a Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2005 onwards.</resource>

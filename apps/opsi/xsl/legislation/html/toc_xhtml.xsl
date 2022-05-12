@@ -497,7 +497,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:text>@import "/styles/primarylegislation.css";&#xA;</xsl:text>
 				</xsl:when>
 				<xsl:when
-						test="$uriPrefix ='apgb' or  $uriPrefix ='aosp'  or  $uriPrefix ='aip'  or  $uriPrefix ='mnia'  or  $uriPrefix ='apni'  or  $uriPrefix ='mwa'  or  $uriPrefix ='anaw'">
+					test="$uriPrefix ='apgb' or  $uriPrefix ='aosp'  or  $uriPrefix ='aip'  or  $uriPrefix ='mnia'  or  $uriPrefix ='apni'  or  $uriPrefix ='mwa'  or  $uriPrefix ='anaw'  or  $uriPrefix ='asc'">
 					<xsl:text>@import "/styles/SPOprimarylegislation.css";&#xA;</xsl:text>
 					<xsl:text>@import "/styles/SPOlegislation.css";&#xA;</xsl:text>
 					<xsl:text>@import "/styles/legislation.css";&#xA;</xsl:text>
@@ -1229,7 +1229,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:if test=" $g_strIntroductionUri = $dcIdentifier or $g_strwholeActURI = $dcIdentifier">
 							<xsl:variable name="uriPrefix" as="xs:string"
 										  select="tso:GetUriPrefixFromType(leg:GetDocumentMainType(.), /leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata | ukm:BillMetadata)/ukm:Year/@Value)"/>
-							<xsl:if test="$uriPrefix = ('aep', 'aip', 'apgb' , 'apni' , 'asp' , 'mnia' , 'ukcm' , 'ukla' , 'ukpga' , 'mwa', 'aosp','anaw', 'nia') ">
+							<xsl:if test="$uriPrefix = ('aep', 'aip', 'apgb' , 'apni' , 'asp' , 'mnia' , 'ukcm' , 'ukla' , 'ukpga' , 'mwa', 'aosp','anaw', 'asc', 'nia') ">
 								<p class="crest">
 									<a href="{leg:FormatURL($g_strIntroductionUri)}">
 										<img alt="" src="/images/crests/{$uriPrefix}.gif"/>

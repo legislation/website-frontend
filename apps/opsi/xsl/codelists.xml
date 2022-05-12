@@ -27,8 +27,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<Code spo="20701" schema="NorthernIrelandAct" uri="nia" status="enacted" authority="gpni"/>
 		<Code spo="20702" schema="NorthernIrelandAct" uri="nia" status="revised"/>
 		<Code spo="20800" schema="UnitedKingdomChurchMeasure" uri="ukcm" status="revised" authority="kqpap"/>
-		<Code spo="20900" schema="WelshAssemblyMeasure" uri="mwa" status="revised" authority="kqpap"/>
+		<Code spo="20902" schema="WelshParliamentAct" uri="asc" status="revised" authority="kqpap"/>
 		<Code spo="20901" schema="WelshNationalAssemblyAct" uri="anaw" status="revised" authority="kqpap"/>
+		<Code spo="20900" schema="WelshAssemblyMeasure" uri="mwa" status="revised" authority="kqpap"/>
 		<Code spo="30100" schema="UnitedKingdomStatutoryInstrument" uri="uksi" status="made" authority="kqpap"/>
 		<Code spo="30111" schema="UnitedKingdomStatutoryInstrument" uri="uksi" status="revised" authority="kqpap"/>
 		<Code spo="30101" schema="ScottishStatutoryInstrument" uri="ssi" status="made" authority="kqps"/>

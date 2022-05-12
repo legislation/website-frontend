@@ -48,7 +48,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		select="exists($paramsDoc/parameters/version[. != ''])"/>
 
 	<xsl:variable name="isRevisedLegislation" as="xs:boolean"
-		select="exists($paramsDoc/parameters/type[. = ('', 'all', 'primary', 'ukpga', 'ukla', 'apgb', 'aep', 'aosp', 'asp', 'aip', 'apni', 'mnia', 'nia', 'ukcm', 'mwa', 'nisi','anaw', 'eudn', 'eur', 'eudr', 'eut')])"/>
+		select="exists($paramsDoc/parameters/type[. = ('', 'all', 'primary', 'ukpga', 'ukla', 'apgb', 'aep', 'aosp', 'asp', 'aip', 'apni', 'mnia', 'nia', 'ukcm', 'mwa', 'nisi','anaw', 'asc', 'eudn', 'eur', 'eudr', 'eut')])"/>
 
 	<xsl:variable name="generalSearch" as="xs:boolean" select="not($paramsDoc/parameters/search-type = ('extent', 'point-in-time','draft-legislation','impacts') ) and not($isVersionSpecified)" />
 	<xsl:variable name="extentSearch" as="xs:boolean" select="$paramsDoc/parameters/search-type = 'extent' " />	

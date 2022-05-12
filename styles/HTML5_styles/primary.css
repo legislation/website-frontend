@@ -1,11 +1,3 @@
-/*
-(c)  Crown copyright
- 
-You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
- 
-http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
-
-*/
 
 @import 'legislation.css';
 
@@ -23,6 +15,9 @@ article[data-name='UnitedKingdomLocalAct'] > .preface::before {
 }
 article[data-name='ScottishAct'] > .preface::before {
 	content: url('http://www.legislation.gov.uk/images/crests/asp.gif')
+}
+article[data-name='WelshParliamentAct'] > .preface::before {
+	content: url('http://www.legislation.gov.uk/images/crests/asc.gif')
 }
 article[data-name='WelshNationalAssemblyAct'] > .preface::before {
 	content: url('http://www.legislation.gov.uk/images/crests/anaw.gif')

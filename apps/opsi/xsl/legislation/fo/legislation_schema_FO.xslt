@@ -713,6 +713,17 @@ exclude-result-prefixes="tso atom">
 											</xsl:choose>
 											<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
 										</xsl:when>
+										<xsl:when test="$g_strDocType = 'WelshParliamentAct'">
+											<xsl:choose>
+												<xsl:when test="$g_documentLanguage = 'cy'">
+													<xsl:text> dsc </xsl:text>
+												</xsl:when>
+										<xsl:otherwise>
+													<xsl:text> asc </xsl:text>
+												</xsl:otherwise>
+											</xsl:choose>
+											<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
+										</xsl:when>
 										<xsl:otherwise>
 											<xsl:text> (c. </xsl:text>
 											<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
@@ -911,6 +922,17 @@ exclude-result-prefixes="tso atom">
 										</xsl:when>
 										<xsl:otherwise>
 											<xsl:text> anaw </xsl:text>
+										</xsl:otherwise>
+									</xsl:choose>
+									<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
+								</xsl:when>
+								<xsl:when test="$g_strDocType = 'WelshParliamentAct'">
+									<xsl:choose>
+										<xsl:when test="$g_documentLanguage = 'cy'">
+											<xsl:text> dsc </xsl:text>
+										</xsl:when>
+								<xsl:otherwise>
+											<xsl:text> asc </xsl:text>
 										</xsl:otherwise>
 									</xsl:choose>
 									<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>

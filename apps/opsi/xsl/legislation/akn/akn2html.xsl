@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- v2.0.2, written by Jim Mangiafico -->
+<!-- v2.0.3, written by Jim Mangiafico -->
 
 <xsl:stylesheet version="2.0"
 	xpath-default-namespace="http://docs.oasis-open.org/legaldocml/ns/akn/3.0"
@@ -490,7 +490,7 @@
 
 <!-- P2 -->
 
-<xsl:template match="subsection | subparagraph[ancestor::hcontainer[@name='schedule']][not(ancestor::subparagraph)]">
+<xsl:template match="subsection | hcontainer[@name='P2group'] | subparagraph[ancestor::hcontainer[@name='schedule']][not(ancestor::subparagraph)]">
 	<section>
 		<xsl:call-template name="attrs" />
 		<h2>
@@ -503,12 +503,13 @@
 </xsl:template>
 
 
-<xsl:template match="paragraph | subparagraph | clause | subclause | point">
+<xsl:template match="paragraph | hcontainer[@name='P3group'] | subparagraph | clause | subclause | point">
 	<div>
 		<xsl:call-template name="attrs" />
 		<xsl:variable name="h-num">
 			<xsl:choose>
 				<xsl:when test="self::paragraph">h3</xsl:when>
+				<xsl:when test="self::hcontainer[@name='P3group']">h3</xsl:when>
 				<xsl:when test="self::subparagraph">h4</xsl:when>
 				<xsl:when test="self::clause">h5</xsl:when>
 				<xsl:when test="self::subclause">h6</xsl:when>

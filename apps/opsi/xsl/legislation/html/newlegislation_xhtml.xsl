@@ -222,7 +222,8 @@ Added in welsh language support for UI.
 										<li><a href="{$TranslateLangPrefix}/new/nisr/data.feed"><xsl:value-of select="leg:TranslateText('Northern Ireland Statutory Rules')"/></a></li>
 										<li><a href="{$TranslateLangPrefix}/new/asp/data.feed"><xsl:value-of select="leg:TranslateText('Acts of the Scottish Parliament')"/></a></li>
 										<li><a href="{$TranslateLangPrefix}/new/ssi/data.feed"><xsl:value-of select="leg:TranslateText('Scottish Statutory Instruments')"/></a></li>
-										<li><a href="{$TranslateLangPrefix}/new/anaw/data.feed"><xsl:value-of select="leg:TranslateText('Acts of the National Assembly for Wales')"/></a></li>
+										<!-- <li><a href="{$TranslateLangPrefix}/new/anaw/data.feed"><xsl:value-of select="leg:TranslateText('Acts of the National Assembly for Wales')"/></a></li>-->
+										<li><a href="{$TranslateLangPrefix}/new/asc/data.feed"><xsl:value-of select="leg:TranslateText('Acts of Senedd Cymru')"/></a></li>
 										<!--<li><a href="/new/mwa/data.feed">Measures of the National Assembly for Wales</a></li>-->
 										<li><a href="{$TranslateLangPrefix}/new/wsi/data.feed"><xsl:value-of select="leg:TranslateText('Wales Statutory Instruments')"/></a></li>
 									</ul>

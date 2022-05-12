@@ -167,8 +167,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<div id="coronavirus-banner" class="scenario">
 					<div class="bannercontent">
 						<span class="main-cy"><strong>Coronafirws</strong></span>
-						<span class="legislation-cy"><strong><a href="/coronavirus" class="link">Gweler deddfwriaeth coronafirws</a></strong><br/>ar ddeddfwriaeth.gov.uk</span>
-						<span class="extents-cy">Sicrhewch ganllaw coronafirws gan <strong><a href="https://www.gov.uk/coronavirus" class="link" target="_blank">GOV.UK</a></strong><br/>Cyngor ychwanegol: <strong><a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Yr Alban</a> | <a href="https://gov.wales/coronavirus" class="link" target="_blank">Cymru</a> | <a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Gogledd Iwerddon</a></strong></span>
+						<span class="legislation-cy"><strong><a href="/cy/coronavirus" class="link">Gweler deddfwriaeth coronafirws</a></strong><br/>ar ddeddfwriaeth.gov.uk</span>
+						<span class="extents-cy">Sicrhewch ganllaw coronafirws gan <strong><a href="https://www.gov.uk/coronavirus" class="link" target="_blank">GOV.UK</a></strong><br/>Cyngor ychwanegol: <strong><a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Yr Alban</a> | <a href="https://llyw.cymru/coronavirus" class="link" target="_blank">Cymru</a> | <a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Gogledd Iwerddon</a></strong></span>
 					</div>
 				</div>
 			</xsl:when>

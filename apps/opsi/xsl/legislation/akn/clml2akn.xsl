@@ -279,7 +279,8 @@
 							<xsl:when test="$ukm-doctype = 'UnitedKingdomStatutoryInstrument'">government/uk</xsl:when>
 							<xsl:when test="$ukm-doctype = 'UnitedKingdomDraftStatutoryInstrument'">government/uk</xsl:when>
 							<xsl:when test="$ukm-doctype = 'WelshAssemblyMeasure'">legislature/NationalAssemblyForWales</xsl:when>
-							<xsl:when test="$ukm-doctype = 'WelshNationalAssemblyAct'">legislature/NationalAssemblyForWales</xsl:when>
+							<xsl:when test="$ukm-doctype = 'WelshNationalAssemblyAct'">legislature/NationalAssemblyForWales</xsl:when>					
+							<xsl:when test="$ukm-doctype = 'WelshParliamentAct'">legislature/NationalAssemblyForWales</xsl:when>
 							<xsl:when test="$ukm-doctype = 'WelshStatutoryInstrument'">government/wales</xsl:when>
 							<xsl:when test="$ukm-doctype = 'WelshDraftStatutoryInstrument'">government/wales</xsl:when>
 							<xsl:when test="$ukm-doctype = 'UnitedKingdomMinisterialDirection'">government/uk</xsl:when>
@@ -315,6 +316,7 @@
 							<xsl:when test="$ukm-doctype = 'UnitedKingdomDraftStatutoryInstrument'">GB-UKM</xsl:when>
 							<xsl:when test="$ukm-doctype = 'WelshAssemblyMeasure'">GB-WLS</xsl:when>
 							<xsl:when test="$ukm-doctype = 'WelshNationalAssemblyAct'">GB-WLS</xsl:when>
+							<xsl:when test="$ukm-doctype = 'WelshParliamentAct'">GB-WLS</xsl:when>
 							<xsl:when test="$ukm-doctype = 'WelshStatutoryInstrument'">GB-WLS</xsl:when>
 							<xsl:when test="$ukm-doctype = 'WelshDraftStatutoryInstrument'">GB-WLS</xsl:when>
 							<xsl:when test="$ukm-doctype = 'UnitedKingdomMinisterialDirection'">GB-UKM</xsl:when>
@@ -433,6 +435,9 @@
 							</xsl:when>
 							<xsl:when test="$ukm-doctype = 'WelshNationalAssemblyAct'">
 								<xsl:value-of select="concat($year, ' anaw ', $num)" />
+							</xsl:when>
+							<xsl:when test="$ukm-doctype = 'WelshParliamentAct'">
+								<xsl:value-of select="concat($year, ' asc ', $num)" />
 							</xsl:when>
 							<xsl:when test="$ukm-doctype = 'WelshStatutoryInstrument' or $ukm-doctype = 'WelshDraftStatutoryInstrument'">
 								<xsl:variable name="alt-num" select="ukm:SecondaryMetadata/ukm:AlternativeNumber[@Category='W' or @Category='Cy']/@Value" />

@@ -60,7 +60,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
         	<xsl:when test="$g_strDocumentMainType = 'WelshAssemblyMeasure'">
                     <img src="/images/crests/mwa.gif" alt="Welsh Royal arms" title="Welsh Royal arms" width="147" height="188"/>
         	</xsl:when>
-			<xsl:when test="$g_strDocumentMainType = 'WelshNationalAssemblyAct'">
+			<xsl:when test="$g_strDocumentMainType = ('WelshNationalAssemblyAct','WelshParliamentAct')">
                     <img src="/images/crests/mwa.gif" alt="Welsh Royal arms" title="Welsh Royal arms" width="147" height="188"/>
         	</xsl:when>
         	<xsl:otherwise>
@@ -83,7 +83,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
         	<xsl:when test="$g_strDocumentMainType = 'WelshAssemblyMeasure' ">
         		<xsl:value-of select="leg:Number"/>
         	</xsl:when>
-			<xsl:when test="$g_strDocumentMainType = 'WelshNationalAssemblyAct' ">
+        	<xsl:when test="$g_strDocumentMainType = ('WelshNationalAssemblyAct','WelshParliamentAct') ">
         		<xsl:value-of select="leg:Number"/>
         	</xsl:when>
         	<!-- Convoluted approach to outputting the correct act number, but probably required for legacy data -->

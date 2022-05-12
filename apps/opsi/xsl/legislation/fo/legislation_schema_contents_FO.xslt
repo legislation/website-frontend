@@ -29,6 +29,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:when test="$g_strDocType = 'WelshNationalAssemblyAct'">
 							<fo:external-graphic src="url({concat($g_strConstantImagesPath, 'mwa.tif')})" content-height="110pt" fox:alt-text="Royal arms"/>
 						</xsl:when>
+						<xsl:when test="$g_strDocType = ('WelshParliamentAct','ActSeneddCynru')">
+							<fo:external-graphic src="url({concat($g_strConstantImagesPath, 'mwa.tif')})" content-height="110pt" fox:alt-text="Royal arms"/>
+						</xsl:when>
 						<xsl:otherwise>
 							<fo:external-graphic src="url({concat($g_strConstantImagesPath, 'ukpga.tif')})" content-height="128pt" fox:alt-text="Royal arms"/>
 						</xsl:otherwise>
@@ -90,6 +93,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								</xsl:when>
 								<xsl:otherwise>
 									<xsl:text> anaw </xsl:text>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:when>
+						<xsl:when test="$g_strDocType = 'WelshParliamentAct'">
+							<xsl:value-of select="$year"/>
+							<xsl:choose >
+								<xsl:when test="$g_documentLanguage = 'cy'">
+									<xsl:text> dsc </xsl:text>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text> asc </xsl:text>
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:when>	
@@ -404,7 +418,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							</fo:table-row>
 						</fo:table-body>
 					</fo:table>
-				</xsl:when>				
+				</xsl:when>
 				<xsl:when test="$g_strDocType = 'WelshNationalAssemblyAct'">
 					<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt">
 						<fo:table-column column-width="20%"/>									
@@ -425,6 +439,37 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											</xsl:when>
 											<xsl:otherwise>
 												<xsl:text> anaw </xsl:text>
+											</xsl:otherwise>
+										</xsl:choose>
+										<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
+									</fo:block>
+									<xsl:call-template name="TSOdocDateTime"/>
+								</fo:table-cell>
+							</fo:table-row>
+							<xsl:call-template name="statusWarningHeader"/>
+						</fo:table-body>
+					</fo:table>
+				</xsl:when>	
+				<xsl:when test="$g_strDocType = 'WelshParliamentAct'">
+					<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt">
+						<fo:table-column column-width="20%"/>									
+						<fo:table-column column-width="80%"/>
+						<fo:table-body border-bottom="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
+							<fo:table-row margin-left="0pt" margin-right="0pt">
+								<fo:table-cell text-align="left" font-size="10pt" margin-left="0pt" margin-right="0pt">
+									<fo:block font-family="{$g_strMainFont}">
+										<fo:inline><fo:page-number/></fo:inline>
+									</fo:block>
+								</fo:table-cell>
+								<fo:table-cell text-align="right" margin-left="0pt" margin-right="0pt">
+									<fo:block font-size="{$g_strHeaderSize}" font-family="Times" font-style="italic">
+										<xsl:apply-templates select="leg:ContentsTitle"/>
+										<xsl:choose>
+											<xsl:when test="$g_documentLanguage = 'cy'">
+												<xsl:text> dsc </xsl:text>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:text> asc </xsl:text>
 											</xsl:otherwise>
 										</xsl:choose>
 										<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
@@ -584,8 +629,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</fo:table>
 				</xsl:when>
 				
-				
-				
 				<xsl:when test="$g_strDocType = 'WelshNationalAssemblyAct'">
 					<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt">
 						<fo:table-column column-width="80%"/>									
@@ -601,6 +644,38 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											</xsl:when>
 											<xsl:otherwise>
 												<xsl:text> anaw </xsl:text>
+											</xsl:otherwise>
+										</xsl:choose>
+										<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>
+									</fo:block>
+									<xsl:call-template name="TSOdocDateTime"/>
+								</fo:table-cell>
+								<fo:table-cell text-align="right" margin-left="0pt" margin-right="0pt">
+									<fo:block font-family="{$g_strMainFont}" font-size="10pt">
+										<fo:inline><fo:page-number/></fo:inline>
+									</fo:block>
+								</fo:table-cell>
+							</fo:table-row>
+							<xsl:call-template name="statusWarningHeader"/>
+						</fo:table-body>
+					</fo:table>
+				</xsl:when>
+				
+				<xsl:when test="$g_strDocType = 'WelshParliamentAct'">
+					<fo:table margin-left="90pt" margin-right="90pt" margin-top="36pt">
+						<fo:table-column column-width="80%"/>									
+						<fo:table-column column-width="20%"/>
+						<fo:table-body border-bottom="solid 0.5pt black" margin-left="0pt" margin-right="0pt">
+							<fo:table-row margin-left="0pt" margin-right="0pt">
+								<fo:table-cell text-align="left" margin-left="0pt" margin-right="0pt">
+									<fo:block font-size="{$g_strHeaderSize}" font-family="Times" font-style="italic">
+										<xsl:apply-templates select="leg:ContentsTitle"/>
+										<xsl:choose>
+											<xsl:when test="$g_documentLanguage = 'cy'">
+												<xsl:text> dsc </xsl:text>
+											</xsl:when>
+											<xsl:otherwise>
+												<xsl:text> asc </xsl:text>
 											</xsl:otherwise>
 										</xsl:choose>
 										<xsl:value-of select="$g_ndsLegMetadata/ukm:Number/@Value"/>

@@ -46,13 +46,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:variable name="language" select="if (/leg:EN/@xml:lang) then /leg:EN/@xml:lang else 'en'"/>
 	<xsl:variable name="isReferrerWelsh" as="xs:boolean" select="contains($requestInfoDoc/request/headers/header[name='referer']/value,'/enacted/welsh')  or $language='cy'"/>	
 	<xsl:variable name="legislationTitle"><xsl:call-template name="TSOOutputLegislationTitle"/></xsl:variable>
+	<xsl:variable name="welshActDocumentMainTypes" select="('WelshNationalAssemblyAct','WelshParliamentAct')"/>
+	<xsl:variable name="welshDocumentMainTypes" select="('WelshAssemblyMeasure','WelshStatutoryInstrument','WelshNationalAssemblyAct','ActSeneddCyrmu','WelshParlianmentAct')"/>
 	<!-- HA052620: updated to have switching from welsh EN tab to welsh version of TOC and Content page-->
 	<!--<xsl:variable name="introURI" as="xs:string?" select="leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href" />-->
 	<xsl:variable name="introURI" as="xs:string?">
 		<xsl:choose>
 			<!--  welsh en already contain welsh in the url  -->
 			<!-- this fixes the malformed URL -->
-			<xsl:when test=" $documentMainType = ('WelshNationalAssemblyAct') and $isReferrerWelsh">
+			<xsl:when test=" $documentMainType = $welshActDocumentMainTypes and $isReferrerWelsh">
 				<xsl:choose>
 					<xsl:when test="ends-with(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href,'/enacted')">
 						<xsl:value-of select="concat(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/introduction']/@href,'/welsh')"/>
@@ -93,7 +95,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:choose>
 			<!--  welsh en already contain welsh in the url  -->
 			<!-- this fixes the malformed URL -->
-			<xsl:when test=" $documentMainType = ('WelshNationalAssemblyAct') and $isReferrerWelsh">
+			<xsl:when test=" $documentMainType = $welshActDocumentMainTypes and $isReferrerWelsh">
 				<xsl:choose>
 					<xsl:when test="ends-with(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/toc']/@href,'/enacted')">
 						<xsl:value-of select="concat(leg:EN/ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/act/toc']/@href,'/welsh')"/>
@@ -268,8 +270,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 													<xsl:when test="$uriPrefix = 'uksi' and $IsEnAvailable and $IsEmAvailable">
 														<xsl:value-of select="leg:TranslateText('EN_Intro')" />
 													</xsl:when>
-													<xsl:when test="$uriPrefix = ('mwa','anaw') and exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Mixed Language')])">
-														<xsl:value-of select="leg:TranslateText('EN_Intro2')" />			
+													<xsl:when test="$uriPrefix = ('mwa','anaw', 'asc') and exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Mixed Language')])">
+														<xsl:value-of select="leg:TranslateText('EN_Intro2')" />
 													</xsl:when>
 													<xsl:when test="exists(/leg:EN/ukm:Metadata/ukm:Alternatives/ukm:Alternative[contains(@URI, concat($enType,'_')) and contains(@Title, 'Revised')])">
 														<xsl:value-of select="leg:TranslateText('EN_Intro3',(concat('type=',$enShortLabel),concat('legtype=',$translatedTitleType)))"/>
@@ -352,7 +354,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							</xsl:variable>		-->
 							<!-- HA052620: updated to display welsh pdf for welsh explanatory note and english pdf for english EN instead of Mixed PDF-->							
 							<xsl:variable name="pdfLinks"
-								select="if ($documentMainType = ('WelshAssemblyMeasure','WelshStatutoryInstrument','WelshNationalAssemblyAct')) then
+								select="if ($documentMainType = $welshDocumentMainTypes) then
 								if ($isReferrerWelsh) then
 								$pdfLinks[@Language = 'Welsh']
 								else 
@@ -443,7 +445,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:when test="starts-with($title, 'Mixed Language')"><xsl:value-of select="concat(substring-after($title, 'Mixed Language'), $dateSuffix, ' - ', 'Mixed Language')"/></xsl:when>
 				<xsl:when test="@Language = 'Mixed'"><xsl:value-of select="concat($title, $dateSuffix, ' - Mixed Language')" /></xsl:when>
 				<xsl:when test="exists(@Language)"><xsl:value-of select="concat($title, $dateSuffix, ' - ', @Language)" /></xsl:when>
-				<xsl:when test="matches(@URI, '_en(_[0-9]{3})?.pdf$') and $documentMainType = ('WelshAssemblyMeasure','WelshStatutoryInstrument','WelshNationalAssemblyAct')"><xsl:value-of select="concat($title, $dateSuffix, ' - English')"/></xsl:when>
+				<xsl:when test="matches(@URI, '_en(_[0-9]{3})?.pdf$') and $documentMainType = $welshDocumentMainTypes"><xsl:value-of select="concat($title, $dateSuffix, ' - English')"/></xsl:when>
 				<!-- There are sometimes Welsh-language versions of UKSIs, so don't restrict this to MWAs & WSIs -->
 				<xsl:when test="matches(@URI, '_we(_[0-9]{3})?.pdf$')"><xsl:value-of select="concat($title, $dateSuffix, ' - Welsh')"/></xsl:when>
 
@@ -585,6 +587,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</xsl:when>
 				<xsl:when test="$mainType = 'WelshNationalAssemblyAct'">
 					<xsl:value-of select="concat(' (anaw ', $number, ')')" />
+				</xsl:when>
+				<xsl:when test="$mainType = 'WelshParliamentAct'">
+					<xsl:value-of select="concat(' (asc ', $number, ')')" />
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:text> (</xsl:text>
@@ -1062,7 +1067,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						@import "/styles/primarylegislation.css";
 					</xsl:text>
 				</xsl:when>				
-				<xsl:when test="$uriPrefix ='apgb' or  $uriPrefix ='aosp'  or  $uriPrefix ='aip'  or  $uriPrefix ='mnia'  or  $uriPrefix ='apni'  or  $uriPrefix ='mwa'  or  $uriPrefix ='anaw'">
+				<xsl:when test="$uriPrefix ='apgb' or  $uriPrefix ='aosp'  or  $uriPrefix ='aip'  or  $uriPrefix ='mnia'  or  $uriPrefix ='apni'  or  $uriPrefix ='mwa'  or  $uriPrefix ='anaw'  or  $uriPrefix ='asc'">
 					<xsl:text>
 						@import "/styles/SPOprimarylegislation.css";
 						@import "/styles/SPOlegislation.css";

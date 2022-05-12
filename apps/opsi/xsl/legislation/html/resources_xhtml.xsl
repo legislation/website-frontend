@@ -214,13 +214,11 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 									<xsl:choose>
 										<xsl:when test="@Language = 'Mixed'">- Mixed Language</xsl:when>
 										<xsl:when test="exists(@Language)">
-											<xsl:text> - </xsl:text>
-											<xsl:value-of select="@Language"/>
+											<xsl:value-of select="string-join(('-', @Language),' ')"/>
 										</xsl:when>
 										<xsl:when test="matches(@URI, '_en(_[0-9]{3})?.pdf$')">- English</xsl:when>
 										<xsl:when test="matches(@URI, '_we(_[0-9]{3})?.pdf$')">- Welsh</xsl:when>
-										<xsl:when test="matches(@URI, '_mi(_[0-9]{3})?.pdf$')">- Mixed Language
-										</xsl:when>
+										<xsl:when test="matches(@URI, '_mi(_[0-9]{3})?.pdf$')">- Mixed Language</xsl:when>
 									</xsl:choose>
 								</xsl:if>
 							</xsl:variable>
@@ -612,7 +610,7 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 						<xsl:value-of select="leg:TranslateText(concat($title, $dateSuffix, ' - ', @Language))"/>
 					</xsl:when>
 					<xsl:when
-							test="matches(@URI, '_en(_[0-9]{3})?.pdf$') and $documentMainType = ('WelshAssemblyMeasure','WelshStatutoryInstrument','WelshNationalAssemblyAct')">
+						test="matches(@URI, '_en(_[0-9]{3})?.pdf$') and $documentMainType = ('WelshAssemblyMeasure','WelshStatutoryInstrument','WelshNationalAssemblyAct','WelshParliamentAct')">
 						<xsl:value-of select="leg:TranslateText(concat($title, $dateSuffix, ' - English'))"/>
 					</xsl:when>
 					<!-- There are sometimes Welsh-language versions of UKSIs, so don't restrict this to MWAs & WSIs -->
@@ -840,8 +838,8 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 					</xsl:if>
 					<xsl:if test="tso:countryType($documentMainType) = 'Wales'">
 						<li>
-							<a href="{leg:TranslateText('http://www.assemblywales.org')}" target="_blank">
-								<xsl:value-of select="leg:TranslateText('National Assembly for Wales')"/>
+							<a href="{leg:TranslateText('http://senedd.wales/en')}" target="_blank">
+								<xsl:value-of select="leg:TranslateText('Welsh Parliament')"/>
 								<img src="/images/chrome/newWindowIcon.gif" alt=" (opens in new window)"
 									 class="newWin"/>
 							</a>

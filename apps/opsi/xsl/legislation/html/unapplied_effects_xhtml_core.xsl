@@ -384,7 +384,7 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 		<xsl:when test="$strName = ('UnitedKingdomChurchMeasure')">
 			<xsl:number value="4"/>
 		</xsl:when>
-		<xsl:when test="$strName = ('WelshAssemblyMeasure','WelshNationalAssemblyAct')">
+		<xsl:when test="$strName = ('WelshAssemblyMeasure','WelshNationalAssemblyAct','WelshParliamentAct')">
 			<xsl:number value="5"/>
 		</xsl:when>
 		<xsl:when test="$strName = ('UnitedKingdomStatutoryInstrument','WelshStatutoryInstrument')">
@@ -409,7 +409,7 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 <xsl:function name="tso:type" as="xs:string">
 	<xsl:param name="strName" as="xs:string" />
 	<xsl:choose>
-		<xsl:when test="$strName = ('UnitedKingdomPublicGeneralAct','UnitedKingdomLocalAct','GreatBritainAct','EnglandAct','UnitedKingdomLocalActRevised','ScottishAct','IrelandAct','NorthernIrelandParliamentAct','NorthernIrelandAct','WelshNationalAssemblyAct')">
+		<xsl:when test="$strName = ('UnitedKingdomPublicGeneralAct','UnitedKingdomLocalAct','GreatBritainAct','EnglandAct','UnitedKingdomLocalActRevised','ScottishAct','IrelandAct','NorthernIrelandParliamentAct','NorthernIrelandAct','WelshNationalAssemblyAct','WelshParliamentAct')">
 			<xsl:value-of select="'Act'"/>
 		</xsl:when>
 		<xsl:when test="$strName = ('NorthernIrelandAssemblyMeasure', 'UnitedKingdomChurchMeasure','WelshAssemblyMeasure')">
@@ -462,6 +462,9 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 		</xsl:when>
 		<xsl:when test="$strName = ('WelshNationalAssemblyAct')">
 			<xsl:value-of select="concat($strYear,' anaw ',$strNumber)"/>
+		</xsl:when>
+		<xsl:when test="$strName = 'WelshParliamentAct'">
+			<xsl:value-of select="concat($strYear,' asc ',$strNumber)"/>
 		</xsl:when>
 		<xsl:when test="$strName = ('UnitedKingdomChurchInstrument')">
 			<xsl:value-of select="concat($strYear,' No. ',$strNumber)"/>

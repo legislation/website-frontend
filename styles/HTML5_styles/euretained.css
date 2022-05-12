@@ -215,19 +215,55 @@ h2, h3, h4, h5, h6 {
   position: relative;
 }
 
-.paragraph > * > span.num {
+.paragraph > *:first-child > span.num {
   display: inline-block;
   position: absolute;
   left: 0;
 }
 
-.paragraph > * > span.num > ins.first::before {
+.paragraph > *:first-child > span.num > ins.first::before {
   position: absolute;
   left: -1ch;
 }
 
+.paragraph > *:first-child > span.num + span.heading {
+  margin-left: 2.5em;
+}
+
 .paragraph > .content > p:first-child {
   text-indent: 2.5em;
+}
+
+*[data-name=P3group] {
+  margin-top: 1em;
+}
+
+.subparagraph {
+  position: relative;
+  margin-top: 1em;
+  margin-left: 2.5em;
+}
+
+.subparagraph > *:first-child > span.num {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+}
+
+.subparagraph > *:first-child > span.num:before {
+  content: "(";
+}
+
+.subparagraph > *:first-child > span.num:after {
+  content: ")";
+}
+
+.subparagraph > .content > p:first-child {
+  text-indent: 2.5em;
+}
+
+.subparagraph > *:first-child > span.num + span.heading {
+  margin-left: 2.5em;
 }
 
 .level > h2 > .num {

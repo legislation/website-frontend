@@ -54,9 +54,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
   <tso:legType schemaType="ScottishAct" abbrev="asp" class="primary" category="Act" 
   	en="Explanatory Notes" pn="Policy Note" singular="Act of the Scottish Parliament" plural="{leg:TranslateText('Acts of the Scottish Parliament')}"
   	start="1999" complete="1999" revised="true" />
+	<tso:legType schemaType="WelshParliamentAct" class="primary" category="Act" abbrev="asc" 
+		en="Explanatory Notes" pn="Policy Note" singular="Act of the Senedd Cymru" plural="{leg:TranslateText('Acts of Senedd Cymru')}"
+		start="2020" complete="2020" revised="true" />
   <tso:legType schemaType="WelshNationalAssemblyAct" class="primary" category="Act" abbrev="anaw" 
   	en="Explanatory Notes" pn="Policy Note" singular="Act of the National Assembly for Wales" plural="{leg:TranslateText('Acts of the National Assembly for Wales')}"
-  	start="2012" complete="2012" revised="true" />
+      start="2012"  end="2020" complete="2012" revised="true" />
   <tso:legType schemaType="WelshAssemblyMeasure" class="primary" category="Measure" abbrev="mwa" 
   	en="Explanatory Notes" pn="Policy Note" singular="Measure of the National Assembly for Wales" plural="{leg:TranslateText('Measures of the National Assembly for Wales')}"
   	start="2008" complete="2008" revised="true" />
@@ -688,6 +691,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:when test="$type = ('NorthernIrelandParliamentAct', 'NorthernIrelandAssemblyMeasure')">Chapter <xsl:value-of select="$number" /></xsl:when>
 			<xsl:when test="$type = 'WelshAssemblyMeasure'">nawm <xsl:value-of select="$number" /></xsl:when>
 			<xsl:when test="$type = 'WelshNationalAssemblyAct'">anaw <xsl:value-of select="$number" /></xsl:when>
+			<xsl:when test="$type = 'WelshParliamentAct'">asc <xsl:value-of select="$number" /></xsl:when>
 			<xsl:otherwise>No. <xsl:value-of select="$number" /></xsl:otherwise>
 		</xsl:choose>
 	</xsl:value-of>
@@ -844,7 +848,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:when test="contains($legType, 'UnitedKingdom')">United Kingdom</xsl:when>
 		<xsl:when test="contains($legType, 'Scottish')">Scotland</xsl:when>
 		<xsl:when test="contains($legType, 'NorthernIreland') or contains($legType, 'Ireland')">Northern Ireland</xsl:when>
-		<xsl:when test="contains($legType, 'Welsh')">Wales</xsl:when>
+		<xsl:when test="matches($legType, 'Welsh|Cymru')">Wales</xsl:when>
 		<xsl:otherwise>()</xsl:otherwise>
 	</xsl:choose>
 </xsl:function>	
