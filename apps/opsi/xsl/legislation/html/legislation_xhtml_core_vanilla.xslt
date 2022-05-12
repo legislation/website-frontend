@@ -4099,104 +4099,122 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <!-- ========== Internal Link ========== -->
 
 <xsl:template match="leg:InternalLink">
-	<!-- First calculate the title that is to be displayed in the tool tip of this link. -->
-	<xsl:variable name="strLinkRef" select="@Ref"/>
-	<xsl:variable name="ndsTargetElement" select="(//*[@id = $strLinkRef])[1]"/>
-	<xsl:variable name="strTargetElementName" select="name($ndsTargetElement)"/>
-	<xsl:variable name="strTitlePrefix">
-		<xsl:text>Go to </xsl:text>
-	</xsl:variable>
-	<!-- If the target link is a heading element itself, then get the text nodes for the Number (the heading itself) - not any formatting which may exist in that element. -->
-	<xsl:variable name="strHeadingSectionFormat">
-		<xsl:choose>
-			<xsl:when test="$strTargetElementName = 'Schedule' or $strTargetElementName = 'Group' or $strTargetElementName = 'Part' or $strTargetElementName = 'Chapter'">
-				<xsl:value-of select="$ndsTargetElement/leg:Number/descendant::text()"/>
-			</xsl:when>
-			<xsl:otherwise>
-				<!-- The target link is NOT a heading element, so this needs formatting. -->
-				<xsl:if test="name($ndsTargetElement) = 'P1'">
-					<xsl:call-template name="FuncFormatParagraphNumberForInternalLink">
-						<xsl:with-param name="ndsNumberNode" select="$ndsTargetElement/leg:Pnumber"/>
+	<xsl:choose>
+		<xsl:when test="not(starts-with(@Ref, 'p00')) or key('g_keyNodeIDs', @Ref)">
+			<!-- First calculate the title that is to be displayed in the tool tip of this link. -->
+			<xsl:variable name="strLinkRef" select="@Ref"/>
+			<xsl:variable name="ndsTargetElement" select="(//*[@id = $strLinkRef])[1]"/>
+			<xsl:variable name="strTargetElementName" select="name($ndsTargetElement)"/>
+			<xsl:variable name="strTitlePrefix">
+				<xsl:text>Go to </xsl:text>
+			</xsl:variable>
+			<!-- If the target link is a heading element itself, then get the text nodes for the Number (the heading itself) - not any formatting which may exist in that element. -->
+			<xsl:variable name="strHeadingSectionFormat">
+				<xsl:choose>
+					<xsl:when test="$strTargetElementName = 'Schedule' or $strTargetElementName = 'Group' or $strTargetElementName = 'Part' or $strTargetElementName = 'Chapter'">
+						<xsl:value-of select="$ndsTargetElement/leg:Number/descendant::text()"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<!-- The target link is NOT a heading element, so this needs formatting. -->
+						<xsl:if test="name($ndsTargetElement) = 'P1'">
+							<xsl:call-template name="FuncFormatParagraphNumberForInternalLink">
+								<xsl:with-param name="ndsNumberNode" select="$ndsTargetElement/leg:Pnumber"/>
+							</xsl:call-template>
+							<xsl:if test="$g_strDocumentType = ($g_strPrimary, $g_strEUretained)">
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="$ndsTargetElement/parent::leg:P1group/leg:Title"/>
+								<xsl:text> </xsl:text>
+							</xsl:if>
+						</xsl:if>
+						<xsl:if test="$ndsTargetElement/ancestor::*[self::leg:P1 or self::leg:BlockAmendment or self::leg:ListItem][last()][self::leg:P1]">
+							<xsl:call-template name="FuncFormatParagraphNumberForInternalLink">
+								<xsl:with-param name="ndsNumberNode" select="$ndsTargetElement/ancestor::leg:P1[last()]/leg:Pnumber"/>
+							</xsl:call-template>
+							<xsl:if test="$g_strDocumentType = ($g_strPrimary, $g_strEUretained)">
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="$ndsTargetElement/ancestor::leg:P1group/leg:Title"/>
+								<xsl:text> </xsl:text>
+							</xsl:if>
+						</xsl:if>
+						<xsl:if test="$ndsTargetElement/ancestor::*[self::leg:P2 or self::leg:BlockAmendment or self::leg:ListItem][last()][self::leg:P2]">
+							<xsl:call-template name="FuncFormatParagraphNumberForInternalLink">
+								<xsl:with-param name="ndsNumberNode" select="$ndsTargetElement/ancestor::leg:P2[last()]/leg:Pnumber"/>
+							</xsl:call-template>
+						</xsl:if>
+						<xsl:if test="$ndsTargetElement[self::leg:P4 or self::leg:P5 or self::leg:P6] and $ndsTargetElement/ancestor::*[self::leg:P3 or self::leg:BlockAmendment or self::leg:ListItem][last()][self::leg:P3]">
+							<xsl:call-template name="FuncFormatParagraphNumberForInternalLink">
+								<xsl:with-param name="ndsNumberNode" select="$ndsTargetElement/ancestor::leg:P3[last()]/leg:Pnumber"/>
+							</xsl:call-template>
+						</xsl:if>
+						<xsl:if test="$ndsTargetElement[self::leg:P5 or self::leg:P6] and $ndsTargetElement/ancestor::*[self::leg:P4 or self::leg:BlockAmendment or self::leg:ListItem][last()][self::leg:P4]">
+							<xsl:call-template name="FuncFormatParagraphNumberForInternalLink">
+								<xsl:with-param name="ndsNumberNode" select="$ndsTargetElement/ancestor::leg:P4[last()]/leg:Pnumber"/>
+							</xsl:call-template>
+						</xsl:if>
+						<xsl:if test="$ndsTargetElement[self::leg:P6] and $ndsTargetElement/ancestor::*[self::leg:P5 or self::leg:BlockAmendment or self::leg:ListItem][last()][self::leg:P5]">
+							<xsl:call-template name="FuncFormatParagraphNumberForInternalLink">
+								<xsl:with-param name="ndsNumberNode" select="$ndsTargetElement/ancestor::leg:P5[last()]/leg:Pnumber"/>
+							</xsl:call-template>
+						</xsl:if>
+						<xsl:if test="$ndsTargetElement[not(self::leg:P1)]">
+							<xsl:call-template name="FuncFormatParagraphNumberForInternalLink">
+								<xsl:with-param name="ndsNumberNode" select="$ndsTargetElement/leg:Pnumber"/>
+							</xsl:call-template>
+						</xsl:if>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+			
+			<!-- Check if the target link sits in a major structure, i.e. there is a Schedule, Chapter or Part. If there is a BlockAmendment in the XPath, then only take the path before it.
+					In the case that there is a BlockAmendment, concatenate a string to indicate this to the end of the title. -->
+			<!-- 	If the target link is in major structure, then the ancestor trail needs to be determined. -->
+			<xsl:variable name="strMajorStructureSuffix">
+				<xsl:if test="$ndsTargetElement/ancestor::*[self::leg:Schedule or self::leg:Chapter or self::leg:Part or self::leg:Group]">
+					<xsl:text> in </xsl:text>
+					<xsl:call-template name="GenerateAncestorTrail">
+						<xsl:with-param name="ndsCurrentNode" select="$ndsTargetElement"/>
+						<xsl:with-param name="strSeparator" select="', '"/>
 					</xsl:call-template>
-					<xsl:if test="$g_strDocumentType = ($g_strPrimary, $g_strEUretained)">
-						<xsl:text> </xsl:text>
-						<xsl:value-of select="$ndsTargetElement/parent::leg:P1group/leg:Title"/>
-						<xsl:text> </xsl:text>
-					</xsl:if>
 				</xsl:if>
-				<xsl:if test="$ndsTargetElement/ancestor::*[self::leg:P1 or self::leg:BlockAmendment or self::leg:ListItem][last()][self::leg:P1]">
-					<xsl:call-template name="FuncFormatParagraphNumberForInternalLink">
-						<xsl:with-param name="ndsNumberNode" select="$ndsTargetElement/ancestor::leg:P1[last()]/leg:Pnumber"/>
-					</xsl:call-template>
-					<xsl:if test="$g_strDocumentType = ($g_strPrimary, $g_strEUretained)">
-						<xsl:text> </xsl:text>
-						<xsl:value-of select="$ndsTargetElement/ancestor::leg:P1group/leg:Title"/>
-						<xsl:text> </xsl:text>
-					</xsl:if>
+			</xsl:variable>
+			<xsl:variable name="strBlockAmendmentSuffix">
+				<xsl:if test="$ndsTargetElement/ancestor::leg:BlockAmendment">
+					<xsl:text> (as part of an amendment)</xsl:text>
 				</xsl:if>
-				<xsl:if test="$ndsTargetElement/ancestor::*[self::leg:P2 or self::leg:BlockAmendment or self::leg:ListItem][last()][self::leg:P2]">
-					<xsl:call-template name="FuncFormatParagraphNumberForInternalLink">
-						<xsl:with-param name="ndsNumberNode" select="$ndsTargetElement/ancestor::leg:P2[last()]/leg:Pnumber"/>
-					</xsl:call-template>
-				</xsl:if>
-				<xsl:if test="$ndsTargetElement[self::leg:P4 or self::leg:P5 or self::leg:P6] and $ndsTargetElement/ancestor::*[self::leg:P3 or self::leg:BlockAmendment or self::leg:ListItem][last()][self::leg:P3]">
-					<xsl:call-template name="FuncFormatParagraphNumberForInternalLink">
-						<xsl:with-param name="ndsNumberNode" select="$ndsTargetElement/ancestor::leg:P3[last()]/leg:Pnumber"/>
-					</xsl:call-template>
-				</xsl:if>
-				<xsl:if test="$ndsTargetElement[self::leg:P5 or self::leg:P6] and $ndsTargetElement/ancestor::*[self::leg:P4 or self::leg:BlockAmendment or self::leg:ListItem][last()][self::leg:P4]">
-					<xsl:call-template name="FuncFormatParagraphNumberForInternalLink">
-						<xsl:with-param name="ndsNumberNode" select="$ndsTargetElement/ancestor::leg:P4[last()]/leg:Pnumber"/>
-					</xsl:call-template>
-				</xsl:if>
-				<xsl:if test="$ndsTargetElement[self::leg:P6] and $ndsTargetElement/ancestor::*[self::leg:P5 or self::leg:BlockAmendment or self::leg:ListItem][last()][self::leg:P5]">
-					<xsl:call-template name="FuncFormatParagraphNumberForInternalLink">
-						<xsl:with-param name="ndsNumberNode" select="$ndsTargetElement/ancestor::leg:P5[last()]/leg:Pnumber"/>
-					</xsl:call-template>
-				</xsl:if>
-				<xsl:if test="$ndsTargetElement[not(self::leg:P1)]">
-					<xsl:call-template name="FuncFormatParagraphNumberForInternalLink">
-						<xsl:with-param name="ndsNumberNode" select="$ndsTargetElement/leg:Pnumber"/>
-					</xsl:call-template>
-				</xsl:if>
-			</xsl:otherwise>
-		</xsl:choose>
-	</xsl:variable>
-	
-	<!-- Check if the target link sits in a major structure, i.e. there is a Schedule, Chapter or Part. If there is a BlockAmendment in the XPath, then only take the path before it.
-			In the case that there is a BlockAmendment, concatenate a string to indicate this to the end of the title. -->
-	<!-- 	If the target link is in major structure, then the ancestor trail needs to be determined. -->
-	<xsl:variable name="strMajorStructureSuffix">
-		<xsl:if test="$ndsTargetElement/ancestor::*[self::leg:Schedule or self::leg:Chapter or self::leg:Part or self::leg:Group]">
-			<xsl:text> in </xsl:text>
-			<xsl:call-template name="GenerateAncestorTrail">
-				<xsl:with-param name="ndsCurrentNode" select="$ndsTargetElement"/>
-				<xsl:with-param name="strSeparator" select="', '"/>
-			</xsl:call-template>
-		</xsl:if>
-	</xsl:variable>
-	<xsl:variable name="strBlockAmendmentSuffix">
-		<xsl:if test="$ndsTargetElement/ancestor::BlockAmendment">
-			<xsl:text> (as part of an amendment)</xsl:text>
-		</xsl:if>
-	</xsl:variable>
-	<xsl:variable name="strTitleText">
-		<!-- If the target link is a heading, then it won't be in a P1, P2, etc.. element, so that does not need to be processed. -->
-		<xsl:value-of select="concat($strTitlePrefix, $strHeadingSectionFormat, $strMajorStructureSuffix, $strBlockAmendmentSuffix)"/>
-	</xsl:variable>
-	<a>
-		<xsl:attribute name="href">
-			<xsl:text>#</xsl:text>
-			<xsl:variable name="strIDref" select="@Ref"/>
-			<xsl:for-each select="key('g_keyNodeIDs', $strIDref)">
-				<xsl:call-template name="FuncGenerateAnchorID"/>
-			</xsl:for-each>
-		</xsl:attribute>
-		<xsl:if test="normalize-space($strTitleText)">
-			<xsl:attribute name="title"><xsl:value-of select="$strTitleText"/></xsl:attribute>
-		</xsl:if>
-		<xsl:apply-templates/>
-	</a>
+			</xsl:variable>
+			<xsl:variable name="strTitleText">
+				<!-- If the target link is a heading, then it won't be in a P1, P2, etc.. element, so that does not need to be processed. -->
+				<xsl:value-of select="concat($strTitlePrefix, $strHeadingSectionFormat, $strMajorStructureSuffix, $strBlockAmendmentSuffix)"/>
+			</xsl:variable>
+			<a>
+				<xsl:attribute name="href">
+					<xsl:choose>						
+						<xsl:when test="normalize-space($strTitleText) != 'Go to'">
+							<xsl:value-of select="concat('#', @Ref)"/>
+						</xsl:when>
+						<xsl:when test="@DocumentURI">
+							<xsl:value-of select="@DocumentURI"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="@IdURI"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:attribute>
+				<xsl:choose>
+					<xsl:when test="@DocumentURI">
+						<xsl:attribute name="title"><xsl:value-of select="concat($strTitlePrefix, tso:formatSection(@Ref, '-'))"/></xsl:attribute>
+					</xsl:when>
+					<xsl:when test="normalize-space($strTitleText) != 'Go to'">
+						<xsl:attribute name="title"><xsl:value-of select="$strTitleText"/></xsl:attribute>
+					</xsl:when>
+				</xsl:choose>
+				<xsl:apply-templates/>
+			</a>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:apply-templates select="node()"/>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 

@@ -2170,7 +2170,8 @@ exclude-result-prefixes="tso atom">
 		<xsl:call-template name="FuncApplyVersions"/>
 	</xsl:template>
 	
-	<!--HA055410: added to capture N1-N2-N3 paragraphs ie. P3 is the first thing in a P2para block-->
+	<!-- 22-02-2-22 Removing this legacy fix as causing error https://tsoltd.atlassian.net/browse/LEGDEV-2978
+		HA055410: added to capture N1-N2-N3 paragraphs ie. P3 is the first thing in a P2para block 
 	<xsl:template match="leg:P3[parent::leg:P2para and not(preceding-sibling::*)]">
 		<xsl:choose>
 			<xsl:when test="$g_strDocClass = $g_strConstantSecondary">
@@ -2183,7 +2184,7 @@ exclude-result-prefixes="tso atom">
 			</xsl:otherwise>
 		</xsl:choose>
 		<xsl:call-template name="FuncApplyVersions"/>
-	</xsl:template>
+	</xsl:template>-->
 	
 
 	<xsl:template match="leg:BlockAmendment/leg:P3">
@@ -4704,11 +4705,8 @@ exclude-result-prefixes="tso atom">
 	<xsl:template match="leg:P" mode="numberedpara">
 		<xsl:variable name="element" select="if (parent::*/@Type) then parent::*/ @Type else parent::*/local-name()"/>
 		<fo:block>
-			<xsl:apply-templates select="leg:Text/node()"/>
+			<xsl:apply-templates select="*"/>
 		</fo:block>
-		<xsl:if test="not(@AltVersionRefs) and not(parent::leg:BlockAmendment)">
-			<xsl:apply-templates select="." mode="ProcessAnnotations"/>
-		</xsl:if>
 	</xsl:template>
 
 	<xsl:template match="leg:P1[not(parent::leg:P1group)][$g_strDocClass = $g_strConstantEuretained]" priority="70">
