@@ -37,7 +37,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 	<!-- ========== Standard code for outputting legislation ========= -->
 
-	<xsl:template match="leg:Appendix | leg:Attachment | leg:Primary | leg:Secondary | leg:EURetained | leg:Body | leg:EUBody | leg:Schedules | leg:SignedSection | leg:ExplanatoryNotes | leg:P1group | leg:Title | leg:Group | leg:Part | leg:Chapter | leg:Pblock | leg:PsubBlock | leg:P1 | leg:P |leg:PrimaryPrelims | leg:SecondaryPrelims | leg:EUPrelims | leg:Schedule | leg:Form | leg:Schedule/leg:ScheduleBody//leg:Tabular | leg:EUTitle | leg:EUPart | leg:EUChapter | leg:EUSection | leg:Division | leg:Footnotes | leg:ScheduleBody/leg:BlockAmendment" mode="ProcessAnnotations">
+	<xsl:template match="leg:Appendix | leg:Attachment | leg:Primary | leg:Secondary | leg:EURetained | leg:Body | leg:EUBody | leg:Schedules | leg:SignedSection | leg:ExplanatoryNotes | leg:P1group | leg:Title | leg:Group | leg:Part | leg:Chapter | leg:Pblock | leg:PsubBlock | leg:P1 | leg:P |leg:PrimaryPrelims | leg:SecondaryPrelims | leg:EUPrelims | leg:Schedule | leg:Form | leg:Schedule/leg:ScheduleBody//leg:Tabular | leg:EUTitle | leg:EUPart | leg:EUChapter | leg:EUSection | leg:Division | leg:Footnotes | leg:ScheduleBody/leg:BlockAmendment | *[self::leg:Part or self::leg:Chapter or self::leg:EUPart or self::leg:EUChapter or self::leg:EUTitle or self::leg:EUSection or self::leg:EUSubsection or self::leg:Pblock]/leg:Tabular" mode="ProcessAnnotations">
 		<xsl:param name="showSection" as="element()*" tunnel="yes" select="()" />
 		<xsl:param name="showingHigherLevel" as="xs:boolean" tunnel="yes" select="false()"/>
 		<xsl:param name="includeTooltip" as="xs:boolean" tunnel="yes" select="false()"/>

@@ -663,6 +663,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<xsl:call-template name="tso:TypeChoice">
 										<xsl:with-param name="showPrimary" select="false()" />
 										<xsl:with-param name="showSecondary" select="false()" />
+										<xsl:with-param name="showEUretained" select="false()" />
 										<xsl:with-param name="showImpacts" select="false()" />
 										<xsl:with-param name="showDraft" select="$draftLegislationSearch" />
 										<xsl:with-param name="selected" select="$paramsDoc/parameters/type" />
