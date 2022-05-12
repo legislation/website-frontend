@@ -1753,69 +1753,15 @@ p .expandCollapseLink{
  width:14em;
 }
 
-
-
 #brexit-scenario-banner .scenario {
   display: flex;
   height: 30px;
   color: whitesmoke;
   background: #424240;
   justify-content: center;
- 
+  align-items: center;
   font-size: 20px;
   text-transform: uppercase;
-}
-
-
-#survey-banner {
-  min-height: 60px;
-  color: rgba(255, 255, 255, 0.85);
-  background-color: rgba(43, 115, 172, 1);;
-  justify-content: center;
-  align-items: center;
-  font-size: 14px;
-  border-top: 0px;
-  padding: 0.3em;
-  text-align: left;
-  vertical-align: middle;
-}
-
-#survey-banner .main {
-	display: block;
-    width: 760px;
-    text-align: left;
-     margin: 20px 0px 7px 0px;
-	color:#fff;
-	border: none;
-	float:left;	
-
-}
-
-#survey-banner .link {
-	display: block;
-    width: 190px;
-    text-align: left;
-    margin: 10px 0px 7px 0px;
-	color:#fff;
-	float:left;	
-	border: 1px solid rgba(255, 255, 255, 1);
-	text-align:center;
-	padding:10px 0px;
-	background-color: rgba(255, 255, 255, 0.149019607843137);
-	text-rendering: optimizeLegibility;
-	font-kerning: normal;
-}
-#survey-banner .link a{
-	text-decoration: none;
-}
-
-#survey-banner .close {
-	position: absolute;
-    margin: 10px;
-    right: 10px;
-}
-#survey-banner .close a {
-	text-decoration: none;
 }
 
 
@@ -1831,7 +1777,7 @@ p .expandCollapseLink{
   
 }
 
-#coronavirus-banner .bannercontent, #survey-banner .bannercontent {
+#coronavirus-banner .bannercontent {
   width: 967px;
   margin:auto;  
 }

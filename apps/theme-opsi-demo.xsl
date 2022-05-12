@@ -162,7 +162,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
           </div>-->
 		  
 		  <!--  CORONAVIRUS BANNER  -->
-		<!--<xsl:choose>
+		<xsl:choose>
 			<xsl:when test="$TranslateLang = 'cy'">
 				<div id="coronavirus-banner" class="scenario">
 					<div class="bannercontent">
@@ -181,7 +181,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</div>
 				</div>
 			</xsl:otherwise>
-		</xsl:choose>-->
+		</xsl:choose>
 		  
 		  
 		  
