@@ -904,6 +904,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<a class="pdfLink" href="{@URI}">
 									<xsl:choose>
 										<!--added revised version-->
+										<xsl:when test="@Title/starts-with(., 'Reprint')">
+											<xsl:value-of select="@Title"/>
+										</xsl:when>
+										<!--added revised version-->
 										<xsl:when test="exists(@Revised)">
 											<xsl:value-of select="leg:TranslateText('Revised Version')"/>
 											<xsl:text> </xsl:text>
@@ -1073,6 +1077,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<li>
 										<a class="pdfLink" href="{@URI}">
 											<xsl:choose>
+												<!--added revised version-->
+												<xsl:when test="@Title/starts-with(., 'Reprint')">
+													<xsl:value-of select="@Title"/>
+												</xsl:when>
 												<!--added revised version-->
 												<xsl:when test="exists(@Revised)">
 													<xsl:value-of select="leg:TranslateText('PDF_Revised_Version')"/>

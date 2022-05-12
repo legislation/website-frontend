@@ -598,6 +598,9 @@ Chunyu 23/11/2012 Changed the display for accociated documents according to the 
 		<li>
 			<a href="{@URI}" class="pdfLink">
 				<xsl:choose>
+					<xsl:when test="@Title/starts-with(., 'Reprint')">
+						<xsl:value-of select="@Title"/>
+					</xsl:when>
 					<xsl:when test="starts-with($title, 'Mixed Language')">
 						<xsl:value-of
 								select="leg:TranslateText(concat(substring-after($title, 'Mixed Language'), $dateSuffix, ' - ', 'Mixed Language'))"/>

@@ -263,7 +263,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 .LegSnippet .LegRHS {float: right; text-align: justify}
 .LegSnippet .LegLHS {float: left; text-align: right}
 
+.LegSnippet .LegTextAmend,
 .LegSnippet .LegTextC1Amend {clear: both; text-indent: 0em; text-align: justify; font-size: 0.8em; margin-left: 20%}
+.LegSnippet .LegTextC1Amend2,
 .LegSnippet .LegTextC1C1Amend2 {clear: both; text-indent: 0em; text-align: justify; font-size: 0.8em; margin-left: 30%}
 .LegSnippet .LegTextC1C1C1Amend3 {clear: both; text-indent: 0em; text-align: justify; font-size: 0.8em; margin-left: 40%}
 .LegSnippet .LegTextC3Amend {clear: both; text-indent: 0em; text-align: justify; font-size: 0.8em; margin-left: 27%}
@@ -549,6 +551,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 /* ========== Lists ========== */
 
+.LegSnippet .LegUnorderedListC1Amend2,
 .LegSnippet ul {margin: 0em; padding: 0em; font-size: 1em}
 .LegSnippet li {clear: both; margin: 0em; padding: 0em}
 
@@ -641,7 +644,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 .LegSnippet .LegLevel6C4Amend {float: right; width: 46%; text-align: justify}
 .LegSnippet .LegLevel7C4Amend {float: right; width: 39%; text-align: justify}
 .LegSnippet .LegLevel8C4Amend {float: right; width: 32%; text-align: justify}
-
+/* LegDashedC1Amend2 LegUnorderedListC1Amend2 */
+.LegSnippet .LegDashedC1Amend2 li::before { content: "\2014\a0"; }
+.LegSnippet .LegDashedC1Amend2 li,
 .LegSnippet .LegLevel3C1C1Amend2 {float: right; width: 64%; text-align: justify}
 .LegSnippet .LegLevel4C1C1Amend2 {float: right; width: 57%; text-align: justify}
 .LegSnippet .LegLevel5C1C1Amend2 {float: right; width: 50%; text-align: justify}
@@ -735,6 +740,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 /* Standard entry for list item text */
 .LegSnippet .LegListTextStandard {text-align: justify; margin-top: 0em; padding: 0em; font-size: 0.8em}
 .LegSnippet td.LegTDplain .LegListTextStandard {font-size: 1em}
+.LegSnippet .LegDashedC1Amend2 {list-style-type: none;}
+.LegSnippet .LegDashedC1Amend2 .LegListTextStandard {display: inline;}
 
 
 /* ========== Table ========== */
