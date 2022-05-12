@@ -130,12 +130,13 @@ exclude-result-prefixes="tso">
 	<!-- If part of a long quote and last text node output quote and any run-on text -->
 	<xsl:variable name="processAppendText" as="xs:boolean" select="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/following-sibling::*[1][self::leg:AppendText] and not(parent::*[self::leg:Substitution or self::leg:Addition or self::leg:Repeal])"/>
 	<xsl:if test="$seqLastTextNodes = generate-id()">
-		<xsl:for-each select="ancestor::leg:BlockAmendment[generate-id(current()) = generate-id(descendant::text()[normalize-space(.) != ''][last()])]">
+		<xsl:for-each select="ancestor::leg:BlockAmendment[generate-id(current()) = generate-id(descendant::text()[normalize-space(.) != ''][last()])],
+			                  ancestor::leg:BlockExtract[generate-id(current()) = generate-id(descendant::text()[normalize-space(.) != ''][last()])]">
 			<xsl:if test="not($g_strDocClass =  $g_strConstantEuretained)"><xsl:text>&#x201d;</xsl:text></xsl:if>
 			<xsl:if test="$processAppendText">
 				<xsl:apply-templates select="following-sibling::*[1][self::leg:AppendText]/node()"/>
 			</xsl:if>
-		</xsl:for-each>		
+		</xsl:for-each>
 	</xsl:if>
 
 
@@ -152,22 +153,47 @@ exclude-result-prefixes="tso">
 	</xsl:template>
 
 <xsl:template name="TSOcheckStartOfAmendment">
-	<!-- If part of a long quote and first text node output quote -->
-	<!-- EU retained has the quote int he textual content   -->
-	<xsl:if test="ancestor::leg:BlockAmendment and not($g_strDocClass =  $g_strConstantEuretained)">
+	<xsl:param name="provenance" tunnel="yes" as="node()?"/>
 	
-		<xsl:variable name="firsttextnode" select="generate-id(ancestor::leg:BlockAmendment[1]/descendant::text()[normalize-space(.) != ''][1])"/>
-		<xsl:if test="generate-id(.) = $firsttextnode and ($g_strDocClass = $g_strConstantSecondary or not(parent::leg:Title/parent::leg:P1group) or parent::leg:Title/parent::leg:P1group/parent::leg:BlockAmendment[@TargetClass = 'primary' and @Context = 'schedule'])">
-			<fo:inline font-weight="normal">&#x201c;</fo:inline>
+	<xsl:for-each select="($provenance, self::node())[1]">
+		
+		<xsl:variable name="strIsMathAtStart"><xsl:if test="self::math:math and ancestor::leg:BlockAmendment and generate-id(ancestor::leg:BlockAmendment[1]/descendant::text()[not(normalize-space() = '')][1]) = generate-id(descendant::text()[not(normalize-space() = '')][1])">true</xsl:if></xsl:variable>
+		
+		<!-- If part of a long quote and first text node output quote -->
+		<!-- EU retained has the quote int he textual content   -->
+		<xsl:if test="ancestor::leg:BlockAmendment and not($g_strDocClass =  $g_strConstantEuretained)">
+		
+			<xsl:variable name="firsttextnode" select="generate-id(ancestor::leg:BlockAmendment[1]/descendant::text()[normalize-space(.) != ''][1])"/>
+			<xsl:if test="generate-id(.) = $firsttextnode and ($g_strDocClass = $g_strConstantSecondary or not(parent::leg:Title/parent::leg:P1group) or parent::leg:Title/parent::leg:P1group/parent::leg:BlockAmendment[@TargetClass = 'primary' and @Context = 'schedule']) or $strIsMathAtStart = 'true'">
+				<fo:inline font-weight="normal">&#x201c;</fo:inline>
+			</xsl:if>
+			
+			<xsl:if test="not($g_strDocClass = $g_strConstantSecondary) and not(parent::leg:Pnumber/parent::leg:P1/parent::leg:P1group/parent::leg:BlockAmendment[@TargetClass = 'primary' and @Context = 'schedule']) and parent::leg:Pnumber/parent::leg:P1/parent::leg:P1group and generate-id(parent::leg:Pnumber/parent::leg:P1/parent::leg:P1group/leg:Title/text()[1]) = $firsttextnode">
+				<fo:inline font-weight="normal">&#x201c;</fo:inline>
+			</xsl:if>
+			
+			<!-- Check that there aren't two amdts starting on same text node - very unlikely! -->
+			<xsl:if test="ancestor::leg:BlockAmendment/ancestor::leg:BlockAmendment">
+				<xsl:variable name="ndsFirstTextNode2" select="generate-id(ancestor::leg:BlockAmendment[2]/descendant::text()[normalize-space() != ''][1])"/>
+				<xsl:if test="generate-id() = $ndsFirstTextNode2">
+					<fo:inline font-weight="normal">&#x201c;</fo:inline>
+				</xsl:if>
+			</xsl:if>
 		</xsl:if>
 		
-		<xsl:if test="not($g_strDocClass = $g_strConstantSecondary) and not(parent::leg:Pnumber/parent::leg:P1/parent::leg:P1group/parent::leg:BlockAmendment[@TargetClass = 'primary' and @Context = 'schedule']) and parent::leg:Pnumber/parent::leg:P1/parent::leg:P1group and generate-id(parent::leg:Pnumber/parent::leg:P1/parent::leg:P1group/leg:Title/text()[1]) = $firsttextnode">
+	</xsl:for-each>
+	<!--  HA096709 - BlockExtract needs to have quote, similar to BlockAmendment-->
+	<xsl:if test="ancestor::leg:BlockExtract and not($g_strDocClass =  $g_strConstantEuretained)">		
+		<xsl:variable name="firsttextnode" select="generate-id(ancestor::leg:BlockExtract[1]/descendant::text()[normalize-space(.) != ''][1])"/>
+		<xsl:if test="generate-id(.) = $firsttextnode and ($g_strDocClass = $g_strConstantSecondary or not(parent::leg:Title/parent::leg:P1group) or parent::leg:Title/parent::leg:P1group/parent::leg:BlockExtract[@TargetClass = 'primary' and @Context = 'schedule'])">
 			<fo:inline font-weight="normal">&#x201c;</fo:inline>
-		</xsl:if>
-		
+		</xsl:if>		
+		<xsl:if test="not($g_strDocClass = $g_strConstantSecondary) and not(parent::leg:Pnumber/parent::leg:P1/parent::leg:P1group/parent::leg:BlockExtract[@TargetClass = 'primary' and @Context = 'schedule']) and parent::leg:Pnumber/parent::leg:P1/parent::leg:P1group and generate-id(parent::leg:Pnumber/parent::leg:P1/parent::leg:P1group/leg:Title/text()[1]) = $firsttextnode">
+			<fo:inline font-weight="normal">&#x201c;</fo:inline>
+		</xsl:if>		
 		<!-- Check that there aren't two amdts starting on same text node - very unlikely! -->
-		<xsl:if test="ancestor::leg:BlockAmendment/ancestor::leg:BlockAmendment">
-			<xsl:variable name="ndsFirstTextNode2" select="generate-id(ancestor::leg:BlockAmendment[2]/descendant::text()[normalize-space() != ''][1])"/>
+		<xsl:if test="ancestor::leg:BlockExtract/ancestor::leg:BlockExtract">
+			<xsl:variable name="ndsFirstTextNode2" select="generate-id(ancestor::leg:BlockExtract[2]/descendant::text()[normalize-space() != ''][1])"/>
 			<xsl:if test="generate-id() = $ndsFirstTextNode2">
 				<fo:inline font-weight="normal">&#x201c;</fo:inline>
 			</xsl:if>
@@ -175,6 +201,22 @@ exclude-result-prefixes="tso">
 	</xsl:if>
 	
 </xsl:template>
+	
+	<xsl:template name="TSOcheckEndOfAmendment">
+		<xsl:param name="provenance" tunnel="yes" as="node()?"/>
+		
+		<xsl:for-each select="($provenance, self::node())[1]">
+			
+			<xsl:variable name="strIsMathAtEnd"><xsl:if test="self::math:math and ancestor::leg:BlockAmendment and generate-id(ancestor::leg:BlockAmendment[1]/descendant::text()[not(normalize-space() = '')][last()]) = generate-id(descendant::text()[not(normalize-space() = '')][last()])">true</xsl:if></xsl:variable>
+			
+				<xsl:if test="$strIsMathAtEnd = 'true'">
+					<xsl:value-of select="ancestor::leg:BlockAmendment[1]/following-sibling::*[1]/self::leg:AppendText"/>
+					<fo:inline font-weight="normal">&#x201d;</fo:inline>
+				</xsl:if>
+				
+		</xsl:for-each>
+		
+	</xsl:template>
 
 <!-- This list maps strings to new strings - basically inserting non-breaking spaces where desirable -->
 <xsl:variable name="g_ndsEntityData">

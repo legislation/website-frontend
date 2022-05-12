@@ -137,7 +137,9 @@ exclude-result-prefixes="leg ukm math xhtml dc ukm fo xsl">
 				<xsl:choose>
 					<xsl:when test="parent::leg:Span/@AltVersionRefs != ''">
 						<!-- We'll assume here that there is only one version -->
-						<xsl:apply-templates select="//leg:Version[@id = current()/parent::*/@AltVersionRefs]/*"/>
+						<xsl:apply-templates select="//leg:Version[@id = current()/parent::*/@AltVersionRefs]/*">
+							<xsl:with-param name="provenance" select="." tunnel="yes"/>
+						</xsl:apply-templates>
 						<xsl:apply-templates select=".//(leg:Substitution|leg:Addition|leg:Repeal)" mode="mathrevisions"/>
 					</xsl:when>
 					<xsl:otherwise>

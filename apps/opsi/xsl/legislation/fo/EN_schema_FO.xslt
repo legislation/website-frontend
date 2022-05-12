@@ -212,8 +212,7 @@ exclude-result-prefixes="tso atom">
 									<fo:table-cell text-align="center" margin-left="0pt" margin-right="0pt">
 										<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
 											<fo:retrieve-marker retrieve-class-name="runninghead1"/>
-										</fo:block>
-										<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
+											<xsl:text> </xsl:text>
 											<fo:retrieve-marker retrieve-class-name="runninghead2"/>
 										</fo:block>
 									</fo:table-cell>
@@ -248,8 +247,7 @@ exclude-result-prefixes="tso atom">
 									<fo:table-cell text-align="center" margin-left="0pt" margin-right="0pt">
 										<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
 											<fo:retrieve-marker retrieve-class-name="runninghead1"/>
-										</fo:block>
-										<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
+											<xsl:text> </xsl:text>
 											<fo:retrieve-marker retrieve-class-name="runninghead2"/>
 										</fo:block>
 									</fo:table-cell>
@@ -314,8 +312,7 @@ exclude-result-prefixes="tso atom">
 									<fo:table-cell text-align="center" margin-left="0pt" margin-right="0pt">
 										<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
 											<fo:retrieve-marker retrieve-class-name="runninghead1"/>
-										</fo:block>
-										<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
+											<xsl:text> </xsl:text>
 											<fo:retrieve-marker retrieve-class-name="runninghead2"/>
 										</fo:block>
 									</fo:table-cell>
@@ -338,8 +335,7 @@ exclude-result-prefixes="tso atom">
 									<fo:table-cell text-align="center" margin-left="0pt" margin-right="0pt">
 										<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
 											<fo:retrieve-marker retrieve-class-name="runninghead1"/>
-										</fo:block>
-										<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
+											<xsl:text> </xsl:text>
 											<fo:retrieve-marker retrieve-class-name="runninghead2"/>
 										</fo:block>
 									</fo:table-cell>
@@ -413,8 +409,7 @@ exclude-result-prefixes="tso atom">
 											<fo:table-cell text-align="center" margin-left="0pt" margin-right="0pt">
 												<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
 													<fo:retrieve-marker retrieve-class-name="runninghead1"/>
-												</fo:block>
-												<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
+													<xsl:text> </xsl:text>
 													<fo:retrieve-marker retrieve-class-name="runninghead2"/>
 												</fo:block>
 											</fo:table-cell>
@@ -449,8 +444,7 @@ exclude-result-prefixes="tso atom">
 											<fo:table-cell text-align="center" margin-left="0pt" margin-right="0pt">
 												<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
 													<fo:retrieve-marker retrieve-class-name="runninghead1"/>
-												</fo:block>
-												<fo:block font-size="{$g_strFooterSize}" font-family="{$g_strMainFont}" font-style="italic">
+													<xsl:text> </xsl:text>
 													<fo:retrieve-marker retrieve-class-name="runninghead2"/>
 												</fo:block>
 											</fo:table-cell>

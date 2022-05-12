@@ -7,7 +7,7 @@ You may use and re-use this code free of charge under the terms of the Open Gove
 http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 -->
-<xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0" xmlns:ukm="http://www.legislation.gov.uk/namespaces/metadata" xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:rx="http://www.renderx.com/XSL/Extensions" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xsl:stylesheet xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0" xmlns:ukm="http://www.legislation.gov.uk/namespaces/metadata" xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:rx="http://www.renderx.com/XSL/Extensions" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:svg="http://www.w3.org/2000/svg">
 
 <xsl:template match="leg:UnorderedList">
 	<fo:block>
@@ -32,12 +32,26 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</xsl:if>
 					<xsl:call-template name="TSOgetID"/>
 					<fo:list-item-label end-indent="label-end()">
-						<fo:block font-size="{$g_strBodySize}" text-align="left" font-weight="bold">
+						<fo:block font-size="{$g_strBodySize}" text-align="left" font-weight="bold" font-family="Times New Roman">
 							<xsl:choose>
 								<xsl:when test="parent::*/@Decoration = 'dash'">&#8212;</xsl:when>
+								<xsl:when test="parent::*/@Decoration = 'bullet' and count(ancestor-or-self::*[@Decoration = 'bullet']) = 2">
+									<fo:instream-foreign-object content-height="6pt">
+										<svg:svg height="100" width="100">
+											<svg:circle cx="50" cy="50" r="40" stroke="black" stroke-width="8" fill="white" />
+										</svg:svg>
+									</fo:instream-foreign-object>
+								</xsl:when>
+								<xsl:when test="parent::*/@Decoration = 'bullet' and count(ancestor-or-self::*[@Decoration = 'bullet']) = 3">
+									<fo:instream-foreign-object content-height="6pt">
+										<svg:svg height="100" width="100">
+											<svg:rect width="50" height="50" x="25" y="25" stroke="black" stroke-width="3" fill="black" />
+										</svg:svg>
+									</fo:instream-foreign-object>
+								</xsl:when>
 								<!-- Chunyu: Changed '-' into 'endash' for fop1.0 which can not handle a single '-' -->
-								<xsl:when test="parent::*/@Decoration = 'bullet' and parent::*/ancestor::*/@Decoration = 'bullet'">&#8211;</xsl:when>
-								<xsl:when test="parent::*/@Decoration = 'bullet'">&#8226;</xsl:when>
+								<xsl:when test="parent::*/@Decoration = 'bullet' and parent::*/ancestor::*/@Decoration = 'bullet'">&#8211;</xsl:when><!--ndash-->
+								<xsl:when test="parent::*/@Decoration = 'bullet'">&#8226;</xsl:when><!--filled circle-->
 								<!-- Put other values here -->
 							</xsl:choose>
 						</fo:block>						

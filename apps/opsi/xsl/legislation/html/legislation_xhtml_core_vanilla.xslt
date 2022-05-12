@@ -1073,7 +1073,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:call-template name="FuncApplyVersions"/>
 </xsl:template>
 
-	<xsl:template match="leg:Text" name="leg:Text">
+<xsl:template match="leg:Text" name="leg:Text">
+	<xsl:param name="context" as="element(leg:Tabular)?"/>
 	<!-- Generate suffix to be added for CSS classes for amendments -->
 	<xsl:variable name="strAmendmentSuffix">
 		<xsl:call-template name="FuncCalcAmendmentNo"/>
@@ -1452,7 +1453,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 							<xsl:call-template name="FuncGetTextClass">
 								<xsl:with-param name="flMode" select="'Block'"/>
 							</xsl:call-template>
-							<xsl:apply-templates select="node()[not(position() = 1 and self::text() and normalize-space() = '')] | processing-instruction()"/>
+							<xsl:apply-templates select="node()[not(position() = 1 and self::text() and normalize-space() = '') and not($context/self::leg:Tabular)] | processing-instruction()"/>
 							<xsl:text>&#13;</xsl:text>
 						</p>
 					</xsl:otherwise>
@@ -2936,6 +2937,11 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 <!-- ========== Tables ========== -->
 
 <xsl:template match="leg:Tabular">
+	<xsl:if test="parent::leg:P1para/preceding-sibling::*[1]/self::leg:Pnumber and not(preceding-sibling::*)">
+		<xsl:call-template name="leg:Text">
+			<xsl:with-param name="context" select="."/>
+		</xsl:call-template>
+	</xsl:if>
 	<div class="LegTabular">
 		<xsl:attribute name="id">
 			<xsl:call-template name="FuncGenerateAnchorID"/>
@@ -4365,11 +4371,13 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 <!-- Check if  first node in an amendment in which case output quotes -->
 <xsl:template name="FuncCheckForStartOfQuote">
+	<xsl:param name="provenance" tunnel="yes" as="node()?"/>
+	<xsl:for-each select="($provenance, self::node())[1]">
 	<xsl:variable name="strContext">
 		<xsl:call-template name="FuncGetContext"/>
 	</xsl:variable>
 	<!-- This gets the ID of the first text node or applicable element in an amendment -->
-	<xsl:variable name="strFirstAmendmentID" select="generate-id(ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/descendant::node()[self::text()[not(normalize-space() = '' or parent::leg:IncludedDocument or ancestor::xhtml:tfoot)] or self::leg:IncludedDocument or self::leg:FootnoteRef or self::leg:Image][1])"/>
+	<xsl:variable name="strFirstAmendmentID" select="generate-id(ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/descendant::node()[self::text()[not(normalize-space() = '' or parent::leg:IncludedDocument or ancestor::xhtml:tfoot)] or self::leg:IncludedDocument or self::leg:FootnoteRef or self::leg:Image or self::math:math][1])"/>
 	<xsl:choose>
 		<xsl:when test="$strFirstAmendmentID = generate-id() and not(ancestor::*[self::leg:BlockAmendment or self::leg:OrderedList][1][self::leg:OrderedList]) and not(parent::leg:Title[following-sibling::*[1][self::leg:P1]]/parent::leg:P1group/@Layout = 'side') and not(parent::leg:Title[following-sibling::*[1][self::leg:P1]] and $g_strDocumentType = ($g_strPrimary, $g_strEUretained) and parent::leg:Title/parent::leg:P1group/parent::leg:BlockAmendment[1][@Context != 'schedule']) and not(parent::leg:Title[following-sibling::*[1][self::leg:P1]] and $g_strDocumentType = $g_strSecondary and ancestor::*[self::leg:Body or self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:BlockAmendment[(@Context = 'main' or @Context = 'unknown') and @TargetClass = 'primary']])">
 			<xsl:choose>
@@ -4393,26 +4401,30 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			</span>
 		</xsl:when>
 	</xsl:choose>
+	</xsl:for-each>
 </xsl:template>
 
 <!-- Check if last node in an amendment in which case output quotes -->
 <xsl:template name="FuncCheckForEndOfQuote">
 		<xsl:param name="seqLastTextNodes" tunnel="yes" as="xs:string*"/>
+		<xsl:param name="provenance" tunnel="yes" as="node()?"/>
+		<xsl:for-each select="($provenance, self::node())[1]">
 		<xsl:variable name="strIsTableFootnoteAtEnd">
 			<!-- Is this node in table footnotes? -->
 			<xsl:if test="ancestor::xhtml:tfoot">
 				<!-- Is this the last node in the footnotes? -->
-				<xsl:if test="generate-id(ancestor::xhtml:tfoot[1]/descendant::node()[self::text()[not(normalize-space() = '' or parent::leg:IncludedDocument)] or self::leg:IncludedDocument or self::leg:FootnoteRef or self::leg:Character or self::leg:Image][last()]) = generate-id()">
+				<xsl:if test="generate-id(ancestor::xhtml:tfoot[1]/descendant::node()[self::text()[not(normalize-space() = '' or parent::leg:IncludedDocument)] or self::leg:IncludedDocument or self::leg:FootnoteRef or self::leg:Character or self::leg:Image or self::math:math][last()]) = generate-id()">
 					<!-- Is the last node in the amendment in the same table as this footnote node in which case this is the node we want to output the quote on -->
 					<!--chunyu: call for Call HA047974 of http://www.legislation.gov.uk/uksi/2000/3184/schedule/4/made. added '[1]' for generate-id(ancestor::xhtml:table) -->
-					<xsl:if test="generate-id(ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/descendant::node()[self::text()[not(normalize-space() = '' or parent::leg:IncludedDocument)] or self::leg:IncludedDocument or self::leg:FootnoteRef or self::leg:Character or self::leg:Image][last()]/ancestor::xhtml:table) = generate-id(ancestor::xhtml:table[1])">
+					<xsl:if test="generate-id(ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/descendant::node()[self::text()[not(normalize-space() = '' or parent::leg:IncludedDocument)] or self::leg:IncludedDocument or self::leg:FootnoteRef or self::leg:Character or self::leg:Image or self::leg:math][last()]/ancestor::xhtml:table) = generate-id(ancestor::xhtml:table[1])">
 						<xsl:text>true</xsl:text>
 					</xsl:if>
 				</xsl:if>
 			</xsl:if>
 		</xsl:variable>
+		<xsl:variable name="strIsMathAtEnd"><xsl:if test="self::math:math and ancestor::leg:BlockAmendment and generate-id(ancestor::leg:BlockAmendment[1]/descendant::text()[not(normalize-space() = '')][last()]) = generate-id(descendant::text()[not(normalize-space() = '')][last()])">true</xsl:if></xsl:variable>
 		<xsl:variable name="processAppendText" as="xs:boolean" select="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/following-sibling::*[1][self::leg:AppendText] and not(parent::*[self::leg:Substitution or self::leg:Addition or self::leg:Repeal])"/>
-	<xsl:if test="$strIsTableFootnoteAtEnd = 'true' or $seqLastTextNodes = generate-id()">
+	<xsl:if test="$strIsTableFootnoteAtEnd = 'true' or $strIsMathAtEnd = 'true' or $seqLastTextNodes = generate-id()">
 		<xsl:choose>
 			<!-- JDC HA056626 http://www.legislation.gov.uk/uksi/2013/2005/regulation/2/made - paragraphs 8 and 9 -->			
 			<!-- If we are in a leg:BlockAmendment//leg:OrderedList and there is an empty List Item/Paragraph/Text following this text node, the quote needs to go after that, not here. -->
@@ -4438,13 +4450,21 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:if test="$processAppendText">
 					<xsl:for-each select="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/following-sibling::*[1]">
 						<xsl:call-template name="FuncCheckForIDnoElement"/>
-						<xsl:apply-templates/>
+						<xsl:choose>
+							<xsl:when test="$strIsMathAtEnd = 'true'">
+								<xsl:value-of select="self::leg:AppendText"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:apply-templates/>
+							</xsl:otherwise>
+						</xsl:choose>
 					</xsl:for-each>
 				</xsl:if>
 				<xsl:call-template name="FuncCheckForEndOfNestedQuote"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:if>
+	</xsl:for-each>
 </xsl:template>
 
 <!-- Check if last node in a nested amendment in which case output quotes -->

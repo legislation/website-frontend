@@ -11,6 +11,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 <xsl:template match="leg:Tabular">
 	<!-- count the ancestor depth as we do not want the table to stick out of the page margins -->
+	<xsl:if test="parent::leg:P1para/preceding-sibling::*[1]/self::leg:Pnumber and not(preceding-sibling::*)">
+		<xsl:call-template name="leg:P1para-legText">
+			<xsl:with-param name="context" select="."/>
+		</xsl:call-template>
+	</xsl:if>
+	<!-- count the ancestor depth as we do not want the table to stick out of the page margins -->
 	<xsl:variable name="intAncestorDepth" select="count(ancestor::*)"/>
 	<fo:block space-before="12pt" space-after="12pt" margin-left="-36pt">
 		<!-- give the table more horiozontal space when in higher list levels-->

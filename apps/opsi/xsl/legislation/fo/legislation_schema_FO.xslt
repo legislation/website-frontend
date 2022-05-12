@@ -1207,7 +1207,7 @@ exclude-result-prefixes="tso atom">
 	
 	<xsl:template match="leg:Footnote" mode="EU-EndNotes">
 		<fo:block space-before="6pt" id="{@id}">
-			<xsl:variable name="strFootnoteRef" select="@Ref" as="xs:string"/>
+			<xsl:variable name="strFootnoteRef" select="@id" as="xs:string"/>
 		<!--<xsl:variable name="intFootnoteNumber" select="count($g_ndsFootnotes[@id = $strFootnoteRef]/preceding-sibling::*) + 1" as="xs:integer"/>-->
 		<xsl:variable name="intFootnoteNumber" select="index-of($g_ndsFootnotes/@id, $strFootnoteRef)" as="xs:integer?"/>
 		<xsl:variable name="booTableRef" select="ancestor::xhtml:table and $strFootnoteRef = ancestor::xhtml:table/xhtml:tfoot//leg:Footnote/@id" as="xs:boolean"/>
@@ -2051,7 +2051,7 @@ exclude-result-prefixes="tso atom">
 	<xsl:template name="TSO_EU_p2_amend">
 		<fo:list-item text-indent="0pt">
 			<xsl:call-template name="TSOgetID"/>
-			<fo:list-item-label start-indent="42pt">
+			<fo:list-item-label start-indent="0pt">
 			<xsl:if test="ancestor::leg:ListItem/ancestor::leg:ListItem">
 				<xsl:attribute name="start-indent">
 					<xsl:value-of select="'84pt'"/>
@@ -2592,7 +2592,7 @@ exclude-result-prefixes="tso atom">
 
 						<fo:block text-align="justify" text-indent="12pt" space-before="{$g_strLargeStandardParaGap}">
 							<xsl:for-each select="parent::leg:P2para/parent::leg:P2">
-							  <xsl:if test="(not(preceding-sibling::*) and parent::leg:P1para) or (preceding-sibling::*[1][self::leg:Title] and parent::leg:P2group[not(preceding-sibling::*)] and parent::leg:P2group[not(parent::leg:BlockAmendment)])">
+								<xsl:if test="(not(preceding-sibling::*) and parent::leg:P1para[not(parent::leg:BlockAmendment)]) or (preceding-sibling::*[1][self::leg:Title] and parent::leg:P2group[not(preceding-sibling::*)] and parent::leg:P2group[not(parent::leg:BlockAmendment)])">
 									<xsl:if test="parent::*/parent::leg:P1[not(parent::leg:P1group) or preceding-sibling::leg:P1]">
 										<xsl:attribute name="space-before">12pt</xsl:attribute>
 									</xsl:if>
@@ -2795,7 +2795,8 @@ exclude-result-prefixes="tso atom">
 		</xsl:choose>
 	</xsl:template>
 
-	<xsl:template match="leg:P1para/leg:Text">
+	<xsl:template match="leg:P1para/leg:Text" name="leg:P1para-legText">
+		<xsl:param name="context" as="element(leg:Tabular)?"/>
 		<xsl:choose>
 			<xsl:when test="$g_strDocClass = $g_strConstantSecondary">
 				<xsl:if test="not(preceding-sibling::*[1][self::leg:BlockAmendment])">
@@ -2811,7 +2812,9 @@ exclude-result-prefixes="tso atom">
 									<xsl:text>.</xsl:text>
 								</fo:inline>
 								<fo:leader leader-pattern="space" leader-length="0.5em"/>
-								<xsl:apply-templates/>
+								<xsl:if test="not($context/self::leg:Tabular)">
+									<xsl:apply-templates/>
+								</xsl:if>
 							</fo:block>										
 						</xsl:when>
 						<xsl:otherwise>
@@ -2885,7 +2888,7 @@ exclude-result-prefixes="tso atom">
 		</xsl:choose>
 	</xsl:template>
 
-	<xsl:template match="leg:BlockAmendment">
+	<xsl:template match="leg:BlockAmendment | leg:BlockExtract">
 		<xsl:param name="seqLastTextNodes" tunnel="yes" as="xs:string*"/>
 		<xsl:variable name="strTextNode" as="xs:string" select="generate-id(descendant::node()[self::text()[not(normalize-space() = '' or parent::leg:IncludedDocument)] or self::leg:IncludedDocument or self::leg:FootnoteRef or self::leg:Character or self::leg:Image][last()])"/>
 		<fo:block text-align="justify" font-size="{$g_strBodySize}">
@@ -3108,6 +3111,7 @@ exclude-result-prefixes="tso atom">
 
 	<xsl:template match="leg:SignedSection">
 		<fo:block font-size="{$g_strBodySize}" space-before="24pt">
+			<xsl:apply-templates select="leg:Para"/>
 			<xsl:for-each select="leg:Signatory">
 				<xsl:if test="preceding-sibling::leg:Signatory">
 					<fo:block space-before="24pt"/>
@@ -3509,12 +3513,13 @@ exclude-result-prefixes="tso atom">
 	<xsl:template match="math:math">
 		<xsl:choose>
 			<xsl:when test="parent::*/@AltVersionRefs">
-				<fo:block space-before="6pt" space-after="6pt" text-align="left">
-					<!-- old comment said "We'll assume here that there is only one version"
-						This SHOULD be the case but bugs in augment.xsl caused duplciation if the version with 
-						same ID if the same image was referrenced twice as is the case with HA052048 -->
-					<xsl:apply-templates select="(//leg:Version[@id = current()/parent::*/@AltVersionRefs])[1]/*"/>
-				</fo:block>
+				<fo:inline><xsl:for-each select="1 to count(ancestor::*[matches(name(), '^(P\d+|ListItem$)')]) * 2">&#160;</xsl:for-each></fo:inline>
+				<xsl:call-template name="TSOcheckStartOfAmendment"/>
+				<!-- old comment said "We'll assume here that there is only one version"
+					This SHOULD be the case but bugs in augment.xsl caused duplciation if the version with 
+					same ID if the same image was referrenced twice as is the case with HA052048 -->
+				<xsl:apply-templates select="(//leg:Version[@id = current()/parent::*/@AltVersionRefs])[1]/*"/>
+				<xsl:call-template name="TSOcheckEndOfAmendment"/>
 			</xsl:when>
 			<xsl:otherwise>
 				<fo:block space-before="6pt" space-after="6pt">
@@ -3524,11 +3529,12 @@ exclude-result-prefixes="tso atom">
 					<xsl:if test="contains(@style, 'text-align: center')">
 						<xsl:attribute name="text-align">center</xsl:attribute>
 					</xsl:if>
+					<xsl:call-template name="TSOcheckStartOfAmendment"/>
 					<xsl:apply-templates/>
+					<xsl:call-template name="TSOcheckEndOfAmendment"/>
 				</fo:block>
 			</xsl:otherwise>
 		</xsl:choose>
-	
 	</xsl:template>
 
 	<xsl:template match="math:mo">
@@ -3558,7 +3564,7 @@ exclude-result-prefixes="tso atom">
 			<xsl:apply-templates/>
 		</fo:block>
 	</xsl:template>
-
+	
 	<!-- Chunyu:HA049511 Added a condtion for the xmlcontent in the resource see uksi/1999/1892 -->
 	<xsl:template match="leg:IncludedDocument">
 		<xsl:choose>

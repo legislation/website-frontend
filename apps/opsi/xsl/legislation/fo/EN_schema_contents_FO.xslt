@@ -188,11 +188,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>
 
 	<xsl:template name="TSOContentsTitle">
-		<xsl:if test="count(parent::*/preceding-sibling::*) = 1">
-			<xsl:attribute name="keep-with-previous">
-				<xsl:text>always</xsl:text>
-			</xsl:attribute>
-		</xsl:if>
 		<xsl:choose>
 			<xsl:when test="parent::*/@DocumentURI">
 				<fo:basic-link color="{$g_strLinkColor}">

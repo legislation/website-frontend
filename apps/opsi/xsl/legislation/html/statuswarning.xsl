@@ -1104,17 +1104,19 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 	<!-- ========== Getting the current section name ==== -->
 	<xsl:template match="*" mode="CurrentSectionName"/>
 	<xsl:template match="*[leg:Pnumber]" mode="CurrentSectionName" priority="5">
-		<!-- Create the relevant 'Section' or 'Subsection' or 'Subsubsection' -->
-		<xsl:if test="not($g_isEURetainedOrEUTreaty)">
-			<xsl:text>S</xsl:text>
-			<xsl:for-each select="ancestor-or-self::*[leg:Pnumber]">
-				<xsl:choose>
-					<xsl:when test="position() = last()">ection </xsl:when>
-					<xsl:otherwise>ubs</xsl:otherwise>
-				</xsl:choose>
-			</xsl:for-each>
-		</xsl:if>
-		<xsl:value-of select="leg:Pnumber" />
+		<!-- if ancestor had 'schedule' then it is 'Paragraph', else relevant 'Section', both with 'SubX', 'SubsubX' etc options -->
+		<xsl:variable name="sectionType">
+			<xsl:if test="not($g_isEURetainedOrEUTreaty)">
+				<xsl:for-each select="ancestor-or-self::*[leg:Pnumber]">
+					<xsl:choose>
+						<xsl:when test="position() != last()">sub</xsl:when>
+						<xsl:when test="ancestor::*[leg:Schedule]">paragraph </xsl:when>
+						<xsl:otherwise>section </xsl:otherwise>
+					</xsl:choose>
+				</xsl:for-each>
+			</xsl:if>
+		</xsl:variable>
+		<xsl:value-of select="concat(upper-case(substring($sectionType, 1, 1)), substring($sectionType, 2),leg:Pnumber)" />
 	</xsl:template>
 
 	<xsl:template match="leg:Division[leg:Number]" mode="CurrentSectionName" priority="13">
