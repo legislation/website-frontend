@@ -715,10 +715,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:when test="$node/ancestor::xhtml:table and not($allChanges[1] is $firstChange)">
 			<xsl:sequence select="false()" />
 		</xsl:when>
-		<xsl:when test="$g_strDocumentType = $g_strPrimary and $node/ancestor::leg:Pnumber/parent::leg:P1/parent::leg:P1group">
+		<xsl:when test="$g_strDocumentType = ($g_strPrimary, $g_strEUretained) and $node/ancestor::leg:Pnumber/parent::leg:P1/parent::leg:P1group">
 			<xsl:sequence select="$firstChange is ($node/ancestor::leg:Pnumber/parent::leg:P1/parent::leg:P1group//(leg:Addition|leg:Repeal|leg:Substitution))[@ChangeId = $changeId][1]" />
 		</xsl:when>
-		<xsl:when test="$g_strDocumentType = $g_strPrimary and $node/ancestor::leg:Title/parent::leg:P1group">
+		<xsl:when test="$g_strDocumentType = ($g_strPrimary, $g_strEUretained) and $node/ancestor::leg:Title/parent::leg:P1group">
 			<xsl:sequence select="$firstChange is $node and
 				empty($node/ancestor::leg:Title/parent::leg:P1group/leg:P1[1]/leg:Pnumber//(leg:Addition|leg:Repeal|leg:Substitution)[@ChangeId = $changeId])" />
 		</xsl:when>
@@ -1755,7 +1755,9 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 						</xsl:for-each>
 						<xsl:apply-templates select="."/>
 					</xsl:for-each>
-				</span>		
+				</span>
+				<!--EXTENT MARKER - HA095991-->
+				<xsl:sequence select="$nstExtentMarker" />
 				<span class="Text">
 					<xsl:call-template name="FuncGetLocalTextStyle"/>
 					<xsl:call-template name="FuncGetTextClass"/>

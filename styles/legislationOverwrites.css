@@ -205,7 +205,7 @@ ol li ol li ol li ol li p.ENContentsTitle a {font-weight:normal;}
 .LegSnippet a.previewImg .zoomIcon {background: #069 url(../images/chrome/imgPreviewCorner.png) no-repeat bottom left; color: #fff; display: block; position: absolute; font-weight: bold; padding: 5px 10px 5px 25px; right: 15px;}
 */
 
-.LegExtentContainer .LegExtentRestriction {display:none;margin-left:0; right: 4px;position:absolute !important; max-width: 6%}
+.LegExtentContainer .LegExtentRestriction {display:none;margin-left:0; right: 12px;position:absolute !important; max-width: 6%}
 .LegExtentContainer .LegRHS {padding-right: 12% !important; max-width: 78% !important;}
 
 .eniw {display: none}

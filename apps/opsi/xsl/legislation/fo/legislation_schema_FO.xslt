@@ -2641,7 +2641,7 @@ exclude-result-prefixes="tso atom">
 							<xsl:apply-templates/>
 						</fo:block>
 					</xsl:when>
-					<xsl:when test="preceding-sibling::*[1][self::leg:BlockAmendment]"/>
+					<xsl:when test="preceding-sibling::*[1][self::leg:BlockAmendment] and not(following-sibling::*[1][self::leg:BlockAmendment])"/>
 					<xsl:when test="parent::leg:P or parent::leg:P3para or parent::leg:P4para or parent::leg:P5para or preceding-sibling::* or parent::*/parent::*[self::xhtml:td or self::xhtml:th or self::leg:ListItem or self::leg:GroupItem or self::leg:Where or self::leg:EnactingText or self::leg:ExplanatoryNotes or self::leg:RoyalPresence or self::leg:TableText] or parent::*/preceding-sibling::*[self::leg:P2para]">
 
 						<xsl:variable name="strAlignment" as="xs:string">
@@ -3239,6 +3239,13 @@ exclude-result-prefixes="tso atom">
 					<xsl:with-param name="intFootnoteNumber" select="$intFootnoteNumber"/>
 				</xsl:call-template>
 			</xsl:when>
+			<xsl:when test="$booTableRef">
+				<xsl:call-template name="processFootnoteRef">
+					<xsl:with-param name="booTableRef" select="$booTableRef"/>
+					<xsl:with-param name="strFootnoteRef" select="$strFootnoteRef"/>
+					<xsl:with-param name="intFootnoteNumber" select="$intFootnoteNumber"/>
+				</xsl:call-template>
+			</xsl:when>
 			<xsl:otherwise>
 				<fo:footnote>
 					<xsl:call-template name="processFootnoteRef">
@@ -3751,10 +3758,10 @@ exclude-result-prefixes="tso atom">
 			<xsl:when test="$node/ancestor::xhtml:table and not($allChanges[1] is $firstChange)">
 				<xsl:sequence select="false()" />
 			</xsl:when>
-			<xsl:when test="$g_strDocClass = $g_strConstantPrimary and $node/ancestor::leg:Pnumber/parent::leg:P1/parent::leg:P1group">
+			<xsl:when test="$g_strDocClass = ($g_strConstantPrimary, $g_strConstantEuretained) and $node/ancestor::leg:Pnumber/parent::leg:P1/parent::leg:P1group">
 				<xsl:sequence select="$firstChange is ($node/ancestor::leg:Pnumber/parent::leg:P1/parent::leg:P1group//(leg:Addition|leg:Repeal|leg:Substitution))[@ChangeId = $changeId][1]" />
 			</xsl:when>
-			<xsl:when test="$g_strDocClass = $g_strConstantPrimary and $node/ancestor::leg:Title/parent::leg:P1group">
+			<xsl:when test="$g_strDocClass = ($g_strConstantPrimary, $g_strConstantEuretained) and $node/ancestor::leg:Title/parent::leg:P1group">
 				<xsl:sequence select="$firstChange is $node and
 					empty($node/ancestor::leg:Title/parent::leg:P1group/leg:P1[1]/leg:Pnumber//(leg:Addition|leg:Repeal|leg:Substitution)[@ChangeId = $changeId])" />
 			</xsl:when>
