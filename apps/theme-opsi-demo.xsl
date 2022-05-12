@@ -105,7 +105,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<script type="text/javascript" src="/scripts/jquery-cookie-directive/jquery.cookie.js"></script>
 				<script type="text/javascript" src="/scripts/jquery-cookie-directive/jquery-cookie-functions.js"></script>
 				<script type="text/javascript" src="/scripts/cookie-directive.js"></script>
-				<xsl:call-template name="GTMHead"/>
 			</head>
 			<body>
 				<xsl:copy-of select="xhtml:body/@*"/>
@@ -202,6 +201,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 					<!-- footer -->
 					<xsl:call-template name="footer"/>
+					<xsl:call-template name="GoogleTagManager"/>
 				</div>
 				<!--/#layout1-->
 
@@ -755,7 +755,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:value-of select="concat(encode-for-uri(string-join($url, '.')), '&amp;', string-join($queryParams, '&amp;'))"/>
 	</xsl:function>
 	 -->
-	<xsl:template name="GTMHead">
+	<xsl:template name="GoogleTagManager">
 		<!--
 			GTM code should be managed by a front-end developer.
 			Due to XHTML being presented with the correct MIME-type of application/xhtml+xml a <noscript>
