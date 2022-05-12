@@ -680,10 +680,10 @@ a.expandCollapseLink.pageTitleAltLink { position: absolute;top: 30px;right: 15px
 /* End of Status warning box */
 
 /* Info section box */
-#infoSection {background: #E6EAF5; border-left: 2px solid #333; border-bottom: 2px solid #fff; padding: 10px;}
-#infoSection p.intro, #infoSection h2 {display: inline; padding-right: 0.25em; font-size: 1em;}
-#infoSection p.c2a { text-align: right; background: url(/images/chrome/iconSprites.gif) no-repeat 100% -201px; padding-right: 15px; }
-#infoSection p.c2a a { color: inherit; font-weight: bold; }
+#infoSection, #infoSection-status, #infoSection-note {background: #E6EAF5; border-left: 2px solid #333; border-bottom: 2px solid #fff; padding: 10px;}
+#infoSection p.intro, #infoSection h2, #infoSection-status p.intro, #infoSection-status h2, #infoSection-note p.intro, #infoSection-note h2 {display: inline; padding-right: 0.25em; font-size: 1em;}
+#infoSection p.c2a, #infoSection-status p.c2a, #nfoSection-note p.c2a { text-align: right; background: url(/images/chrome/iconSprites.gif) no-repeat 100% -201px; padding-right: 15px; }
+#infoSection p.c2a a, #infoSection-status p.c2a a, #infoSection-note p.c2a a { color: inherit; font-weight: bold; }
 /* End of Brexit box */
 /* End of Info section box */
 
