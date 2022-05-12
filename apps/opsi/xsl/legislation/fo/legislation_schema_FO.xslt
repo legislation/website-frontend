@@ -933,7 +933,7 @@ exclude-result-prefixes="tso atom">
 										<xsl:when test="$g_documentLanguage = 'cy'">
 											<xsl:text> dsc </xsl:text>
 										</xsl:when>
-								<xsl:otherwise>
+										<xsl:otherwise>
 											<xsl:text> asc </xsl:text>
 										</xsl:otherwise>
 									</xsl:choose>
@@ -1399,7 +1399,7 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 
 	<!-- this needs the highest priority so that the annotations get processed  -->
-<xsl:template match="leg:Schedule//leg:P1 | leg:PrimaryPrelims | leg:SecondaryPrelims | leg:EUPrelims | leg:P1group | leg:Schedule/leg:ScheduleBody/leg:Tabular | leg:P1[not(parent::leg:P1group)] | leg:ScheduleBody//*[self::leg:Part or self::leg:Chapter or self::leg:EUPart or self::leg:EUChapter or self::leg:EUTitle or self::leg:EUSection or self::leg:EUSubsection or self::leg:Pblock]/leg:Tabular | leg:ScheduleBody/leg:BlockAmendment" priority="400">
+	<xsl:template match="leg:Schedule//leg:P1 | leg:PrimaryPrelims | leg:SecondaryPrelims | leg:EUPrelims | leg:P1group | leg:Schedule/leg:ScheduleBody/leg:Tabular | leg:P1[not(parent::leg:P1group)] | leg:ScheduleBody//*[self::leg:Part or self::leg:Chapter or self::leg:EUPart or self::leg:EUChapter or self::leg:EUTitle or self::leg:EUSection or self::leg:EUSubsection or self::leg:Pblock]/leg:Tabular | leg:ScheduleBody/leg:BlockAmendment" priority="400">
 		<xsl:next-match>
 			<xsl:with-param name="showRepeals" select="$showRepeals" tunnel="yes"/>
 		</xsl:next-match>
@@ -3180,9 +3180,9 @@ exclude-result-prefixes="tso atom">
 							<xsl:if test="leg:LSseal">
 								<fo:table-row>
 									<fo:table-cell display-align="before"  number-columns-spanned="2">
-										<xsl:variable name="strURL" select="//leg:Resource[@id = current()/leg:LSseal/@ResourceRef]/leg:ExternalVersion/@URI" as="xs:string"/>
+										<xsl:variable name="strURL" select="//leg:Resource[@id = current()/leg:LSseal/@ResourceRef]/leg:ExternalVersion/@URI" as="xs:string?"/>
 										<xsl:choose>
-											<xsl:when test="$strURL">
+											<xsl:when test="exists($strURL[normalize-space()])">
 												<fo:block keep-with-next="always">
 													<fo:external-graphic src='url("{leg:graphic-url($strURL)}")' fox:alt-text="Legal seal"/>
 												</fo:block>
@@ -3492,6 +3492,7 @@ exclude-result-prefixes="tso atom">
 		<xsl:variable name="maxWidth" select="414" as="xs:double"/>
 		<xsl:variable name="imageHeight" select="number(translate(@Height, 'pt', ''))" as="xs:double"/>
 		<xsl:variable name="imageWidth" select="number(translate(@Width, 'pt', ''))" as="xs:double"/>
+		<!-- Check whether this image is for maths, if so then the alttext attribute needs to be used for the image alt attribute, otherwise use the image Description attribute -->
 		<xsl:variable name="strAltAttributeDesc">
 			<xsl:variable name="ndsFormulaNode" select="//leg:Formula[@AltVersionRefs = current()/ancestor::leg:Version/@id]"/>
 			<xsl:choose>
@@ -3660,7 +3661,7 @@ exclude-result-prefixes="tso atom">
 			<xsl:otherwise>
 				<fo:block><!--GC 2011-03-23 remove keep-with-next=always - issue D501  -->
 					<xsl:variable name="strURL" select="//leg:Resource[@id = current()/@ResourceRef]/leg:ExternalVersion/@URI" as="xs:string"/>
-				<fo:external-graphic src='url("{leg:graphic-url($strURL)}")' fox:alt-text="{.}"/>
+					<fo:external-graphic src='url("{leg:graphic-url($strURL)}")' fox:alt-text="{.}"/>
 				</fo:block>
 			</xsl:otherwise>
 		</xsl:choose>
