@@ -321,6 +321,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 .LegSnippet .LegSP3Container .LegP1No {font-weight: normal; float: left; width: 6%}
 
 .LegSnippet .LegP1NoC1Amend {float: left; width: 12%; text-align: right}
+.LegSnippet .LegP1GroupTitleFirstC1Amend2, .LegSnippet .LegP1GroupTitleC1Amend2 {float: right; width: 87%;}
+             
 .LegSnippet .LegSP1Container .LegP1NoC1Amend {font-weight: normal; float: left; width: 13%; text-align: right}
 .LegSnippet .LegP1NoC3Amend {float: left; width: 19%; text-align: right}
 .LegSnippet .LegSP1Container .LegP1NoC3Amend {float: left; width: 20%; text-align: right}
