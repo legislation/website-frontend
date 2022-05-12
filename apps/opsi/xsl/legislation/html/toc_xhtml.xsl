@@ -2053,9 +2053,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<div id="advFeaturesContent" class="content">
 					<ul class="toolList">
 						<xsl:if test="leg:IsCurrentRevised(.)">
-							<!-- for now we will supress the ability to display extent on EU items
-							until we can get the extent data correctly configured after Brexit  -->
-							<xsl:if test="not($g_isEURetainedOrEUTreaty)">
+							
 								<li class="concVers geoExtent first">
 									<xsl:choose>
 										<xsl:when test="$forceShowExtent">
@@ -2124,7 +2122,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<xsl:text>)</xsl:text>
 									</span>
 								</li>
-							</xsl:if>
+							
 							<!--
 							The checkbox for "Show Timeline of Changes" should be checked if $showTimeline is true and unchecked if $showTimeline is false.
 							 The link, when you click on that, should take you to the same URI as the page you are on but with ?timeline=true (if $showTimeline is false) or without the timeline parameter in the URI (if $showTimeline is true).
