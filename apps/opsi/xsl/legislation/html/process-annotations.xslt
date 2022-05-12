@@ -37,7 +37,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 
 	<!-- ========== Standard code for outputting legislation ========= -->
 
-	<xsl:template match="leg:Attachment | leg:Primary | leg:Secondary | leg:EURetained | leg:Body | leg:EUBody | leg:Schedules | leg:SignedSection | leg:ExplanatoryNotes | leg:P1group | leg:Title | leg:Group | leg:Part | leg:Chapter | leg:Pblock | leg:PsubBlock | leg:P1 | leg:P |leg:PrimaryPrelims | leg:SecondaryPrelims | leg:EUPrelims | leg:Schedule | leg:Form | leg:Schedule/leg:ScheduleBody//leg:Tabular | leg:EUPart | leg:EUChapter | leg:EUSection | leg:Division | leg:Footnotes | leg:ScheduleBody/leg:BlockAmendment" mode="ProcessAnnotations">
+	<xsl:template match="leg:Appendix | leg:Attachment | leg:Primary | leg:Secondary | leg:EURetained | leg:Body | leg:EUBody | leg:Schedules | leg:SignedSection | leg:ExplanatoryNotes | leg:P1group | leg:Title | leg:Group | leg:Part | leg:Chapter | leg:Pblock | leg:PsubBlock | leg:P1 | leg:P |leg:PrimaryPrelims | leg:SecondaryPrelims | leg:EUPrelims | leg:Schedule | leg:Form | leg:Schedule/leg:ScheduleBody//leg:Tabular | leg:EUTitle | leg:EUPart | leg:EUChapter | leg:EUSection | leg:Division | leg:Footnotes | leg:ScheduleBody/leg:BlockAmendment" mode="ProcessAnnotations">
 		<xsl:param name="showSection" as="element()*" tunnel="yes" select="()" />
 		<xsl:param name="showingHigherLevel" as="xs:boolean" tunnel="yes" select="false()"/>
 		<xsl:param name="includeTooltip" as="xs:boolean" tunnel="yes" select="false()"/>
@@ -75,7 +75,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:when test="ancestor::leg:BlockAmendment">
 					<!--Block amendment annotations handled at end of provision-->
 				</xsl:when>
-				<xsl:when test="self::leg:Part[not(ancestor::leg:BlockAmendment)] | self::leg:Chapter[not(ancestor::leg:BlockAmendment)] | self::leg:Pblock[not(ancestor::leg:BlockAmendment)] | self::leg:PsubBlock[not(ancestor::leg:BlockAmendment)] | self::leg:EUPart[not(ancestor::leg:BlockAmendment)] | self::leg:EUChapter[not(ancestor::leg:BlockAmendment)] | self::leg:EUSection[not(ancestor::leg:BlockAmendment)] | self::leg:Division[not(ancestor::leg:BlockAmendment)]">
+				<xsl:when test="self::leg:Part[not(ancestor::leg:BlockAmendment)] | self::leg:Chapter[not(ancestor::leg:BlockAmendment)] | self::leg:Pblock[not(ancestor::leg:BlockAmendment)] | self::leg:PsubBlock[not(ancestor::leg:BlockAmendment)] | self::leg:EUTitle[not(ancestor::leg:BlockAmendment)] | self::leg:EUPart[not(ancestor::leg:BlockAmendment)] | self::leg:EUChapter[not(ancestor::leg:BlockAmendment)] | self::leg:EUSection[not(ancestor::leg:BlockAmendment)] |
+				self::leg:EUSubsection[not(ancestor::leg:BlockAmendment)] |
+				self::leg:Division[not(ancestor::leg:BlockAmendment)]">
 					<xsl:sequence select="(leg:Number | leg:Title)/descendant::leg:CommentaryRef" />
 				</xsl:when>
 				<xsl:when test="self::leg:Attachment[not(ancestor::leg:BlockAmendment)] | self::leg:P1group[not(ancestor::leg:BlockAmendment)] | self::leg:P1[not(parent::leg:P1group)][not(ancestor::leg:BlockAmendment)][not(ancestor::leg:Tabular)] | self::leg:PrimaryPrelims | self::leg:SecondaryPrelims | self::leg:EUPrelims |self::leg:Tabular[not(parent::leg:P1)][not(parent::leg:P)] | self::leg:SignedSection[not(ancestor::leg:BlockAmendment)] ">
@@ -109,7 +111,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:when test="ancestor::leg:BlockAmendment">
 					<!--Block amendment annotations handled at end of provision-->
 				</xsl:when>
-				<xsl:when test="self::leg:Part[not(ancestor::leg:BlockAmendment)] | self::leg:Chapter[not(ancestor::leg:BlockAmendment)] | self::leg:Pblock[not(ancestor::leg:BlockAmendment)] | self::leg:PsubBlock[not(ancestor::leg:BlockAmendment)] | self::leg:EUPart[not(ancestor::leg:BlockAmendment)] | self::leg:EUChapter[not(ancestor::leg:BlockAmendment)] | self::leg:EUSection[not(ancestor::leg:BlockAmendment)] | self::leg:Division[not(ancestor::leg:BlockAmendment)]">
+				<xsl:when test="self::leg:Part[not(ancestor::leg:BlockAmendment)] | self::leg:Chapter[not(ancestor::leg:BlockAmendment)] | self::leg:Pblock[not(ancestor::leg:BlockAmendment)] | self::leg:PsubBlock[not(ancestor::leg:BlockAmendment)] | self::leg:EUTitle[not(ancestor::leg:BlockAmendment)] | self::leg:EUPart[not(ancestor::leg:BlockAmendment)] | self::leg:EUChapter[not(ancestor::leg:BlockAmendment)] | self::leg:EUSection[not(ancestor::leg:BlockAmendment)] | 
+				self::leg:EUSubsection[not(ancestor::leg:BlockAmendment)] | 
+				self::leg:Division[not(ancestor::leg:BlockAmendment)]">
 					<xsl:sequence select="(leg:Number | leg:Title)/(descendant::leg:Addition | descendant::leg:Repeal | descendant::leg:Substitution)" />
 				</xsl:when>
 				<!-- for prelims we need to take all descendent amendments -->
@@ -150,7 +154,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:variable name="showComments" as="element(leg:Commentary)*">
 			<xsl:variable name="localname" select="local-name()"/>
 			<xsl:variable name="thisSection" select="."/>
-			<xsl:variable name="ancestorRefs" select="ancestor::*[self::leg:Schedule or self::leg:Part or self::leg:Chapter or self::leg:Pblock or self::leg:Group or self::leg:EUPart or self::leg:EUChapter or self::leg:EUTitle or self::leg:EUSection or self::leg:EUSubsection or leg:Division[@Type = ('EUPart','EUTitle','EUChapter','EUSection','EUSubsection')]]/(leg:TitleBlock | leg:Title | leg:Number)/(descendant::leg:CommentaryRef/@Ref | descendant::leg:Repeal/@CommentaryRef | descendant::leg:Substitution/@CommentaryRef | descendant::leg:Addition/@CommentaryRef)"/>
+			<xsl:variable name="ancestorRefs" select="ancestor::*[self::leg:Appendix or self::leg:Schedule or self::leg:Part or self::leg:Chapter or self::leg:Pblock or self::leg:Group or self::leg:EUPart or self::leg:EUChapter or self::leg:EUTitle or self::leg:EUSection or self::leg:EUSubsection or leg:Division[@Type = ('EUPart','EUTitle','EUChapter','EUSection','EUSubsection')]]/(leg:TitleBlock | leg:Title | leg:Number)/(descendant::leg:CommentaryRef/@Ref | descendant::leg:Repeal/@CommentaryRef | descendant::leg:Substitution/@CommentaryRef | descendant::leg:Addition/@CommentaryRef)"/>
 			
 			<xsl:for-each select="$commentaryItem">
 				

@@ -964,6 +964,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<token token="schedule" text="Sch." />
 	<token token="section" text="s." />
 	<token token="contents" text="contents" />
+	<token token="annex" text="Annex" plural="Annexes" />
+	<token token="title" text="Title" plural="Titles" />
+	<token token="signature" text="Signature" plural="Signatures" />
 </xsl:variable>
 
 <xsl:function name="tso:formatSection" as="xs:string">

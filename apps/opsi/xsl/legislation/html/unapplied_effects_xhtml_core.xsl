@@ -545,6 +545,9 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 	<token token="rule" text="rule" />
 	<token token="schedule" text="Sch." />
 	<token token="section" text="s." />
+	<token token="annex" text="Annex"  />
+	<token token="title" text="Title" />
+	<token token="signature" text="Signature" />
 </xsl:variable>
 
 <!-- Produce readable text of a section reference. -->
