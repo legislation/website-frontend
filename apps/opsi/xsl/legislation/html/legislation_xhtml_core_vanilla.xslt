@@ -1189,7 +1189,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<!--<xsl:variable name="strScheduleNestedContext">
 				<xsl:call-template name="FuncGetScheduleNestedAmendmentContext"/>
 			</xsl:variable>-->
-			<p class="LegClearFix {concat('Leg', $strScheduleContext, name(parent::*/parent::*), 'Container')}">
+			<p class="LegClearFix{if (ancestor::xhtml:tfoot) then '' else concat(' Leg', $strScheduleContext, name(parent::*/parent::*), 'Container')}{if(ancestor::leg:BlockAmendment) then ' LegAmend' else ''}">
 				<xsl:call-template name="FuncCheckForID"/>				
 				<xsl:choose>
 					<!-- Combined N1-N2 paragraph
@@ -2037,11 +2037,13 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<span>
 				<xsl:attribute name="class">
 					<xsl:text>LegP1No</xsl:text>
-					<xsl:if test="$strAmendmentSuffix != ''">
-						<xsl:if test="$strContext = $g_strSecondary and $g_strDocumentType = $g_strSecondary">
-							<xsl:text> Leg</xsl:text>
-						</xsl:if>
-						<xsl:value-of select="$strAmendmentSuffix"/>
+					<xsl:if test="not(ancestor::xhtml:tfoot)">
+						<xsl:if test="$strAmendmentSuffix != ''">
+							<xsl:if test="$strContext = $g_strSecondary and $g_strDocumentType = $g_strSecondary">
+								<xsl:text> Leg</xsl:text>
+							</xsl:if>
+							<xsl:value-of select="$strAmendmentSuffix"/>
+						</xsl:if>						
 					</xsl:if>
 				</xsl:attribute>
 				<xsl:call-template name="FuncGetPnumberID"/>
@@ -3970,6 +3972,10 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:call-template name="FuncCheckForID"/>
 		<xsl:apply-templates/>	
 		</xsl:when>
+		<xsl:when test="parent::xhtml:th/parent::xhtml:tr/parent::xhtml:thead">
+			<xsl:call-template name="FuncCheckForID"/>
+			<xsl:apply-templates/>	
+		</xsl:when>
 		<xsl:otherwise>
 			<em>
 				<xsl:call-template name="FuncCheckForID"/>
@@ -4400,6 +4406,11 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:call-template name="FuncOutputAmendmentOpenQuote"/>
 			</span>
 		</xsl:when>
+		<xsl:when test="ancestor::xhtml:tfoot and ancestor::leg:BlockAmendment/descendant::text()[normalize-space()][1]/generate-id() = current()/generate-id()">
+			<span class="LegAmendQuote">
+				<xsl:call-template name="FuncOutputAmendmentOpenQuote"/>
+			</span>
+		</xsl:when>
 	</xsl:choose>
 	</xsl:for-each>
 </xsl:template>
@@ -4553,7 +4564,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:text>Amend</xsl:text>
 			</xsl:when>
 			<!-- If we have nested amendments in a table that is itself in an amendment we need to drop the amendment level to 2 -->
-			<xsl:when test="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][2]/ancestor::*[self::xhtml:table or self::leg:BlockAmendment or self::leg:BlockExtract][1][self::xhtml:table]">
+			<xsl:when test="(ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][2]/ancestor::*[self::xhtml:table or self::leg:BlockAmendment or self::leg:BlockExtract][1][self::xhtml:table])
+				or ((self::leg:Title or parent::leg:P) and ancestor::leg:BlockAmendment and (count(ancestor::leg:BlockAmendment) + count(ancestor::leg:BlockExtract) = 1) )">
 				<xsl:text>Amend2</xsl:text>
 			</xsl:when>
 			<xsl:when test="count(ancestor::leg:BlockAmendment) + count(ancestor::leg:BlockExtract) = 1">

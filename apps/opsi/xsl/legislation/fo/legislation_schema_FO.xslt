@@ -2596,14 +2596,17 @@ exclude-result-prefixes="tso atom">
 									<xsl:if test="parent::*/parent::leg:P1[not(parent::leg:P1group) or preceding-sibling::leg:P1]">
 										<xsl:attribute name="space-before">12pt</xsl:attribute>
 									</xsl:if>
-									<fo:inline>
-										<xsl:if test="not(ancestor::leg:Schedule and $g_strDocType = 'NorthernIrelandStatutoryRule')">
-											<xsl:attribute name="font-weight">bold</xsl:attribute>
-										</xsl:if>
-										<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
-									 	<xsl:text>.</xsl:text>
-									</fo:inline>
-									<xsl:text>&#8212;</xsl:text>
+							  		<!-- HA098003- only if Title is a child of BlockAmendment and not inside Schedule-->
+							  		<xsl:if test="not(ancestor::*[self::leg:BlockAmendment][1][self::leg:BlockAmendment[(@Context = 'main' or @Context = 'unknown') and @TargetClass = 'primary']])">	
+								  		<fo:inline>
+											<xsl:if test="not(ancestor::leg:Schedule and $g_strDocType = 'NorthernIrelandStatutoryRule')">
+												<xsl:attribute name="font-weight">bold</xsl:attribute>
+											</xsl:if>
+											<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
+										 	<xsl:text>.</xsl:text>
+										</fo:inline>
+										<xsl:text>&#8212;</xsl:text>
+							  		</xsl:if>
 								</xsl:if>
 								<xsl:apply-templates select="leg:Pnumber"/>
 								<!-- FOP doesn't handle 2003 well - look for alternative -->

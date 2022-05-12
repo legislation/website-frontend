@@ -106,6 +106,15 @@ exclude-result-prefixes="tso">
 				<!-- Chunyu HA049446 21/05/12 Fop1.0 cant handle the text has only one single '-' -->
 				<xsl:when test=".='-'"/>
 				<xsl:otherwise>
+					<!-- HA098003- only if Title is a child of BlockAmendment and not inside Schedule-->
+					<xsl:if test="name(parent::node())='Title' and name(../..)='P1group' and (ancestor::*[self::leg:BlockAmendment][1][self::leg:BlockAmendment[(@Context = 'main' or @Context = 'unknown') and @TargetClass = 'primary']]) or parent::leg:P1group/@Layout = 'side'">
+						<!-- Title can have multiple elements, the Pnumber should only appear infront of the first text() -->
+						<xsl:if test="normalize-space(preceding-sibling::*) = ''">
+							<xsl:apply-templates select="../../leg:P1[1]/leg:Pnumber/text()"/>
+							<xsl:if test="not(../../leg:P1[1]/leg:Pnumber/@PuncAfter)">.</xsl:if>
+							<xsl:text>&#160;</xsl:text>
+						</xsl:if>						
+					</xsl:if>
 					<xsl:analyze-string select="$ndsText" regex="\w+—$">
 						<xsl:matching-substring>
 							<fo:inline keep-together.within-line="always">
