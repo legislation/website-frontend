@@ -896,17 +896,23 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<td class="centralCol">
 			<xsl:variable name="link" select="if (@AffectingClass = 'EuropeanUnionOther') then () else concat($langPrefix,'/id/', tso:GetUriPrefixFromType(@AffectingClass, @AffectingYear), '/', @AffectingYear, '/', @AffectingNumber)"/>
 			<xsl:variable name="value">
-				<xsl:if test="@AffectingClass = 'EuropeanUnionOther'">
-					<xsl:text>EU Other </xsl:text>
-				</xsl:if>
-				<xsl:value-of select="@AffectingYear"/>
-				<xsl:text>&#160;</xsl:text>
-				<xsl:value-of select="if (exists(@AffectingNumber) and not(@AffectingNumber = '')) then tso:GetNumberForLegislation(@AffectingClass, @AffectingYear, @AffectingNumber) else ()" />
+				<xsl:choose>
+					<xsl:when test="@AffectingClass = 'EuropeanUnionOther'">
+						<xsl:value-of select="substring-after(@AffectingURI, 'CELEX:')" />
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="@AffectingYear"/>
+						<xsl:text>&#160;</xsl:text>
+						<xsl:value-of select="if (exists(@AffectingNumber) and not(@AffectingNumber = '')) then tso:GetNumberForLegislation(@AffectingClass, @AffectingYear, @AffectingNumber) else ()" />
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:variable>
-			<xsl:sequence
-				select="if (@AffectingClass = 'EuropeanUnionOther' and matches(@AffectingURI, '^https://eur-lex\.europa\.eu')) then
-							(leg:makeLink(@AffectingClass,tso:generateWebArchiveURI(@AffectingURI), $value))
-						else  leg:makeLink(@AffectingClass, $link, $value)"/>
+			<xsl:sequence 
+				select="if (@AffectingClass = 'EuropeanUnionOther' and matches(@AffectingURI, '^https://eur-lex\.europa\.eu')) then 
+				(leg:makeLink(@AffectingClass,tso:generateWebArchiveURI(@AffectingURI), $value)) else 
+				if (@AffectingClass = 'EuropeanUnionOther' and matches(@AffectingURI, '^https://webarchive.nationalarchives.gov.uk/eu-exit/')) then 
+				(leg:makeLink(@AffectingClass,@AffectingURI, $value)) 
+				else  leg:makeLink(@AffectingClass, $link, $value)"/>
 		</td>
 	</xsl:template>
 
