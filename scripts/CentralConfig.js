@@ -426,7 +426,7 @@ $(document).ready(function() {
     function cli_show_cookiebar(html, json_payload) {
         var ACCEPT_COOKIE_NAME = 'close_banner_cookie_2019_07_110900'; //close_banner_cookie_{yyyy_mm_ddHHMM}
         var ACCEPT_COOKIE_EXPIRE = 365;
-        var settings = eval('(' + json_payload + ')');
+        var settings = json_payload;
 
         $('body').prepend(html);
         var cached_header = $(settings.notify_div_id);
@@ -581,12 +581,25 @@ $(document).ready(function() {
      * Inject message in English site and normal view
      * renmoved target=\"_blank\" for DEFRALEX link
      */
-/* 
+
     if ((LANG != "cy") && (!$("body").hasClass("plainview"))) {
-		var a = '<div id="cookie-law-info-bar" class="cookie-law-info-survey-bar"><span>We are making changes to legislation.gov.uk. Please <a href="https://www.smartsurvey.co.uk/s/PUA3T/" id=\"CONSTANT_OPEN_URL\" target=\"_blank\" class=\"cli-plugin-main-survey-link\"> take our survey</a> and let us know your feedback. <a href=\"#\" id=\"cookie_action_close_header\"  class=\"medium cli-plugin-survey-button cli-plugin-main-survey-button\" >[ Close ]</a></span></div>',
-                b = '{"animate_speed_hide":"500","animate_speed_show":"500","background":"","border":"","border_on":"false","button_1_button_colour":"","button_1_button_hover":"","button_1_link_colour":"","button_1_as_button":false,"button_2_button_colour":"","button_2_button_hover":"","button_2_link_colour":"","button_2_as_button":false,"font_family":"","notify_animate_hide":true,"notify_animate_show":false,"notify_div_id":"#cookie-law-info-bar","notify_position_horizontal":"right","notify_position_vertical":"top","showagain_tab":false,"showagain_background":"","showagain_border":"","showagain_div_id":"#cookie-law-info-again","showagain_x_position":"100px","text":""}';
+		var a = '<div id="cookie-law-info-bar2" class="cookie-law-info-survey-bar"><div id="survey-banner" class="scenario"><div class="bannercontent"><span class="main">We\'re continuing to make changes to legislation.gov.uk. Please tell us what you think by taking our survey. </span><span class="link"><a href="https://www.smartsurvey.co.uk/s/M24EQW/" id=\"CONSTANT_OPEN_URL\" target=\"_blank\" class=\"cli-plugin-main-survey-link\">Tell us what you think</a></span><span class="close"><a href=\"#\" id=\"cookie_action_close_header\"  class=\"medium cli-plugin-survey-button cli-plugin-main-survey-button\" >X</a></span></div></div></div>',
+                b = {"animate_speed_hide":"500","animate_speed_show":"500","background":"","border":"","border_on":"false","button_1_button_colour":"","button_1_button_hover":"","button_1_link_colour":"","button_1_as_button":false,"button_2_button_colour":"","button_2_button_hover":"","button_2_link_colour":"","button_2_as_button":false,"font_family":"","notify_animate_hide":true,"notify_animate_show":false,"notify_div_id":"#cookie-law-info-bar2","notify_position_horizontal":"right","notify_position_vertical":"top","showagain_tab":false,"showagain_background":"","showagain_border":"","showagain_div_id":"#cookie-law-info-again","showagain_x_position":"100px","text":""};
         cli_show_cookiebar(a, b);
     }
-    */
+	
+	
+	if ((LANG != "cy") && (!$("body").hasClass("plainview"))) {
+		var a = '<div id="cookie-law-info-bar1" class="cookie-law-info-survey-bar"><div id="coronavirus-banner" class="scenario"><div class="bannercontent"><span class="main"><strong>Coronavirus</strong></span><span class="legislation"><strong><a href="/coronavirus" class="link">See Coronavirus legislation</a></strong><br/>on legislation.gov.uk</span><span class="extents">Get Coronavirus guidance from <strong><a href="https://www.gov.uk/coronavirus" class="link" target="_blank">GOV.UK</a></strong><br/>Additional advice for <strong><a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Scotland</a> | <a href="https://gov.wales/coronavirus" class="link" target="_blank">Wales</a> | <a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Northern Ireland</a></strong></span> </div></div></div>',
+                b = {"animate_speed_hide":"500","animate_speed_show":"500","background":"","border":"","border_on":"false","button_1_button_colour":"","button_1_button_hover":"","button_1_link_colour":"","button_1_as_button":false,"button_2_button_colour":"","button_2_button_hover":"","button_2_link_colour":"","button_2_as_button":false,"font_family":"","notify_animate_hide":true,"notify_animate_show":false,"notify_div_id":"#cookie-law-info-bar1","notify_position_horizontal":"right","notify_position_vertical":"top","showagain_tab":false,"showagain_background":"","showagain_border":"","showagain_div_id":"#cookie-law-info-again","showagain_x_position":"100px","text":""};
+        $('body').prepend(a);
+    }
+	
+	if ((LANG == "cy") && (!$("body").hasClass("plainview"))) {
+		var a = '<div id="cookie-law-info-bar1" class="cookie-law-info-survey-bar"><div id="coronavirus-banner" class="scenario"><div class="bannercontent"><span class="main-cy"><strong>Coronafirws</strong></span><span class="legislation-cy"><strong><a href="/coronavirus" class="link">Gweler deddfwriaeth coronafirws</a></strong><br/>ar ddeddfwriaeth.gov.uk</span><span class="extents-cy">Sicrhewch ganllaw coronafirws gan <strong><a href="https://www.gov.uk/coronavirus" class="link" target="_blank">GOV.UK</a></strong><br/>Cyngor ychwanegol: <strong><a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Yr Alban</a> | <a href="https://llyw.cymru/coronavirus" class="link" target="_blank">Cymru</a> | <a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Gogledd Iwerddon</a></strong></span> </div></div></div>',
+                b = {"animate_speed_hide":"500","animate_speed_show":"500","background":"","border":"","border_on":"false","button_1_button_colour":"","button_1_button_hover":"","button_1_link_colour":"","button_1_as_button":false,"button_2_button_colour":"","button_2_button_hover":"","button_2_link_colour":"","button_2_as_button":false,"font_family":"","notify_animate_hide":true,"notify_animate_show":false,"notify_div_id":"#cookie-law-info-bar1","notify_position_horizontal":"right","notify_position_vertical":"top","showagain_tab":false,"showagain_background":"","showagain_border":"","showagain_div_id":"#cookie-law-info-again","showagain_x_position":"100px","text":""};
+         $('body').prepend(a);
+    }
+    
 		
 });
