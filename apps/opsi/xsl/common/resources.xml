@@ -9,6 +9,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 -->
 <allResources>
 	<resources lang="cy">
+		<resource id="Sort by">Didoli yn ôl</resource>
 		<resource id="Chronological Tables of the Private and Personal Acts">Tablau Cronolegol o Deddfau Preifat a Phersonol</resource>
 		<resource id="Chronological Tables of Local Acts">Tablau Cronolegol o Ddeddfau Lleol</resource>
 		<resource id="Acts of the Parliaments of Great Britain">Deddfau Seneddau Prydain Fawr</resource>

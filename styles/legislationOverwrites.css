@@ -157,12 +157,14 @@ of LegTDPlain which has a default font size of 1em. Reset here to 0.8em to bring
 .LegSnippet .LegTD {
     font-size: 0.8em;	
 }
-/*HA094869: F-notes and Brackets overlapping text 
-*/
+/*HA094869: F-notes and Brackets overlapping text */
 .LegSnippet .LegAddition {
     overflow-wrap: break-word;	
 }
-
+/* HA093409: fixes display issue for links in EU Legislation linked to above change. Have checked original issue from HA052641 and this works fine there too when I add link via browser inspector */
+.LegSnippet .LegTD .LegCitation {
+    font-size: 1em;
+}
 li.ENContentsCommentaryChapter>p.ENContentsTitle>a {font-weight:bold !important; }
 
 ol li p.ENContentsTitle a {font-weight:bold; padding-top: 0.25em; display: block;}

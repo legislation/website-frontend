@@ -207,7 +207,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<strong><xsl:value-of select="$tso:legTypeMap[@abbrev=$type]/@plural"/></strong>
 			</xsl:when>		
 			<xsl:otherwise>
-				<xsl:text> all legislation</xsl:text>
+				<xsl:value-of select="concat(' ',leg:TranslateText('all legislation'))"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -228,7 +228,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:template>	
 	<xsl:template match="affected-number | affecting-number" mode="summary">
 		<xsl:if test="string-length(.) > 0">
-			<xsl:text> numbered </xsl:text>
+			<xsl:value-of select="concat(' ',leg:TranslateText('numbered'),' ')"/>
 			<strong><xsl:value-of select="."/></strong>
 		</xsl:if>
 	</xsl:template>	
@@ -236,16 +236,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:choose>
 			<xsl:when test=". = 'applied' ">
 				<strong>
-					<xsl:text> applied</xsl:text>
+					<xsl:value-of select="concat(' ',leg:TranslateText('applied'))"/>
 				</strong>
 			</xsl:when>	
 			<xsl:when test=". = 'unapplied' ">
 				<strong>
-					<xsl:text> unapplied</xsl:text>
+					<xsl:value-of select="concat(' ',leg:TranslateText('unapplied'))"/>
 				</strong>
 			</xsl:when>	
-		</xsl:choose>	
-		<xsl:text> changes</xsl:text>
+		</xsl:choose>
+		<xsl:value-of select="concat(' ',leg:TranslateText('changes'))"/>
 	</xsl:template>
 
 
@@ -1185,8 +1185,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		
 		<!--<xsl:variable name="link" select="if (string-length($requestInfoDoc/request/query-string) >0) then concat($link,'?', $requestInfoDoc/request/query-string) else $link"/>-->
 		<!--[<xsl:value-of select="$link"/>][<xsl:value-of select="$order"/>][<xsl:value-of select="$fieldName"/>][<xsl:value-of select="$sort"/>]-->
-		
-		<a title="Sort {$order} by {$fieldTitle}">
+		<xsl:variable name="sortby" select="tokenize(leg:TranslateText('Sort by'),' ')" />
+		<a title="{string-join(($sortby[1],if($order != '') then $order else (),$sortby[2],$fieldTitle),' ')}">
 			<xsl:variable name="fieldLink"
 				select="if (contains($link, 'sort=')) then replace($link, 'sort=[-a-z]+', concat('sort=', $fieldName) ) 
 							else concat($link, if (contains($link, '?')) then '&amp;' else '?', 'sort=', $fieldName)"/>
