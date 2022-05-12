@@ -170,6 +170,18 @@ $(document).ready(function(){
 	.addClass("expandCollapseLink")
 	.legExpandCollapse([config.statusEffectsAppliedSection.expandCollapseLink.message1[LANG] + '<span class="accessibleText">' + config.statusEffectsAppliedSection.expandCollapseLink.message2[LANG] + '</span>', config.statusEffectsAppliedSection.expandCollapseLink.message3[LANG] + '<span class="accessibleText">' +  config.statusEffectsAppliedSection.expandCollapseLink.message2[LANG] + '</span>']);
 
+	// EU outstanding references
+	$("<a/>")
+		.attr('href', '#outstandingRefsContent')
+		.addClass("expandCollapseLink")
+		.appendTo("#outstandingRefs .title")
+		.legExpandCollapse([
+			config.outstandingRefsContent.expandCollapseLink.show[LANG],
+			config.outstandingRefsContent.expandCollapseLink.hide[LANG]
+		], {
+			open: true
+		});
+
 	$("<a/>")
 		.attr('href', '#outstandingRefs')
 		.insertBefore("#outstandingRefs")

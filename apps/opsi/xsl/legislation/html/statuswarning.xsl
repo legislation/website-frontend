@@ -153,46 +153,61 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 			</xsl:choose>
 		</xsl:variable>
 
+		<!-- EU weather warning -->
 		<xsl:if test="not($g_strDocumentMainType = ('EuropeanUnionDirective', 'EuropeanUnionTreaty', 'UnitedKingdomChurchInstrument', 'UnitedKingdomMinisterialDirection', 'UnitedKingdomMinisterialOrder', 'UnitedKingdomStatutoryRuleOrOrder', 'NorthernIrelandStatutoryRuleOrOrder')) ">
 			<!-- (Temp) message for all revised versions (UK and EU) -->
 			<xsl:variable name="unappliedURIs" select="leg:unappliedAffectingURIs(.)"/>
 			<xsl:variable name="outstandingRefs" select="$g_euExitRefs[not(. = $unappliedURIs)]"/>
-			<!-- disable this for inital release -->
-			<xsl:if test="false()">
+			<!-- disable this for initial release -->
+			<xsl:if test="$g_strDocumentStatus = 'revised' and (empty($g_strReplaceBy) or matches($g_strReplaceBy, 'propsective', 'i'))">
 				<div>
 					<xsl:attribute name="id">brexitInfo</xsl:attribute>
 					<h2>
-					  <xsl:value-of select="leg:TranslateText('brexitInfo_head')"/> 
+					  <xsl:value-of select="leg:TranslateText('brexitInfo_head')"/>
 					</h2>
-
 					<p class="intro">
-						<xsl:value-of select="leg:TranslateText('brexitInfo_content')"/>
+						<xsl:value-of select="leg:TranslateText('brexitInfo_head_content')"/>
 					</p>
 
-					<div id="outstandingRefs">
-						<xsl:choose>
-							<xsl:when test="exists($outstandingRefs)">
-								<ul>
-
-									<xsl:for-each select="$outstandingRefs">
-										<xsl:sort select="."/>
-										<xsl:variable name="tokens" select="tokenize(substring-after(., 'id/'), '/')"/>
-										<xsl:variable name="class" select="$tso:legTypeMap[@abbrev = $tokens[1]]/@schemaType"/>
-
-										<li class="uk-effect">
-											<a href="{.}">
-												<xsl:value-of select="tso:abbreviation($class, $tokens[2], $tokens[3])"/>
-											</a>
-										</li>
-									</xsl:for-each>
-
-								</ul>
-							</xsl:when>
-							<xsl:otherwise>
-								<p><xsl:value-of select="leg:TranslateText('No results found')"/>.</p>
-							</xsl:otherwise>
-						</xsl:choose>
-					</div>
+                    <div id="outstandingRefs">
+						<div class="title">
+							<h3>
+								<xsl:value-of select="leg:TranslateText('brexitInfo_references_title')"/>
+							</h3>
+						</div>
+						<div class="content" id="outstandingRefsContent">
+							<p>
+								<xsl:copy-of select="leg:TranslateNode('brexitInfo_references_content')"/>
+							</p>
+							<xsl:choose>
+								<xsl:when test="exists($outstandingRefs)">
+									<ul class="effectsList">
+										<xsl:for-each select="$outstandingRefs">
+											<xsl:sort select="."/>
+											<xsl:variable name="tokens" select="tokenize(substring-after(., 'id/'), '/')"/>
+											<xsl:variable name="class" select="$tso:legTypeMap[@abbrev = $tokens[1]]/@schemaType"/>
+											<li>
+												<xsl:choose>
+													<xsl:when test="$class = ('EuropeanUnionRegulation', 'EuropeanUnionDecision', 'EuropeanUnionDirective', 'EuropeanUnionTreaty')">
+														<xsl:attribute name="class">eu-effect</xsl:attribute>
+													</xsl:when>
+													<xsl:otherwise>
+														<xsl:attribute name="class">uk-effect</xsl:attribute>
+													</xsl:otherwise>
+												</xsl:choose>
+												<a href="{.}">
+													<xsl:value-of select="tso:abbreviation($class, $tokens[2], $tokens[3])"/>
+												</a>
+											</li>
+										</xsl:for-each>
+									</ul>
+								</xsl:when>
+								<xsl:otherwise>
+									<p><xsl:value-of select="leg:TranslateText('There are currently no additional references that you need to check')"/>.</p>
+								</xsl:otherwise>
+							</xsl:choose>
+						</div>
+                    </div>
 
 				</div>
 			</xsl:if>
@@ -207,7 +222,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				<xsl:when test="$g_isEUtreaty and not(leg:IsEUPDFOnlyNotRevised(.))">
 					<xsl:attribute name="id">infoSection</xsl:attribute>
 					<h2>
-            <xsl:value-of select="leg:TranslateText('swhead_status')"/> 
+            <xsl:value-of select="leg:TranslateText('swhead_status')"/>
           </h2>
 					<p class="intro">
 						<xsl:choose>
@@ -227,7 +242,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
             			<xsl:value-of select="leg:TranslateText('statuswarning_revised_eudirective_head')"/>
           			</h2>
 					<p class="intro">
-						<xsl:value-of select="leg:TranslateText('statuswarning_revised_eudirective_body')"/>  
+						<xsl:value-of select="leg:TranslateText('statuswarning_revised_eudirective_body')"/>
 					</p>
 				</xsl:when>
 				<!-- EU PDF only data that has unapplied effects should allow these to be shown -->
@@ -272,7 +287,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 					<div class="title">
 						<h2><xsl:value-of select="leg:TranslateText('infoSection_head')"/> </h2>
 						<p class="intro">
-							<xsl:value-of select="leg:TranslateText('infoSection_content')"/> 
+							<xsl:value-of select="leg:TranslateText('infoSection_content')"/>
 							<xsl:text> </xsl:text>
 							<xsl:value-of select="$status-legtitle"/>
 							<xsl:text>.</xsl:text>
@@ -287,7 +302,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				<xsl:when test="leg:IsEUPDFOnlyNotRevised(.)">
 					<xsl:attribute name="id">infoSection</xsl:attribute>
 					<h2>
-						<xsl:value-of select="leg:TranslateText('swhead_status')"/> 
+						<xsl:value-of select="leg:TranslateText('swhead_status')"/>
 					</h2>
 					<p class="intro">
 						 <xsl:value-of select="leg:TranslateText('swcontent_revisedpdf')"/>
@@ -296,7 +311,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				<xsl:when test="(not(leg:IsPDFOnlyNotRevised(.)) and ($Scenario = '1' or  $Scenario = '5' or leg:IsCurrentRevised(.)) )">
 					<xsl:attribute name="id">statusWarning</xsl:attribute>
 					<xsl:attribute name="class"><xsl:if test="($Scenario = '1' or ($Scenario = '5' and $IsEditedByEPP and leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate(.))) and empty($g_powerToAmend)">uptoDate</xsl:if></xsl:attribute>
-					
+
 					<xsl:if test="leg:isFromWestlaw(.)">
 						<div class="title">
 						<h2>
@@ -308,13 +323,13 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 						</p>
 						</div>
 					</xsl:if>
-					
+
 					<div class="title">
 						<h2>
 						  <xsl:value-of select="leg:TranslateText('swhead_changes_to_legislation')"/>
 						</h2>
 						<p class="intro">
-							
+
 							<xsl:choose>
 								<!--<xsl:when test="leg:IsRevisedEUPDFOnly(.)">
 										<xsl:variable name="reviseddate" as="xs:date" select="max(for $d in ($ndsLegislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@Revised castable as xs:date]/@Revised) return xs:date($d))"/>
@@ -369,7 +384,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 											</xsl:choose>
 										</xsl:when>
 										<xsl:when test="leg:IsEURetained(.)">
-											<xsl:value-of select="leg:TranslateText('statuswarning_euretained_p1')"/> 
+											<xsl:value-of select="leg:TranslateText('statuswarning_euretained_p1')"/>
 											<xsl:text> </xsl:text>
 											<xsl:value-of select="$status-legtitle"/>
 											<xsl:text>.</xsl:text>
@@ -378,10 +393,10 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 												<xsl:value-of select="leg:TranslateText('status_warning_eu_retained_p_toc')"/>
 											</xsl:if>
 											<xsl:text> </xsl:text>
-											<xsl:value-of select="leg:TranslateText('statuswarning_euretained_p2')"/> 
+											<xsl:value-of select="leg:TranslateText('statuswarning_euretained_p2')"/>
 										</xsl:when>
 										<xsl:otherwise>
-											<xsl:value-of select="leg:TranslateText('swcontent_tocmsg_p1')"/> 
+											<xsl:value-of select="leg:TranslateText('swcontent_tocmsg_p1')"/>
 											<xsl:text> </xsl:text>
 											<xsl:value-of select="$status-legtitle"/>
 											<xsl:text>.</xsl:text>
@@ -404,9 +419,9 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 								</a>
 							</xsl:if>
 						</p>
-						
+
 						<xsl:sequence select="leg:formatPowerToAmendText($g_powerToAmend)"/>
-						
+
 							<xsl:if test="$includeTooltip">
 								<!-- adding the help tooltip-->
 								<xsl:call-template name="TSOOutputStatusHelpTip">
@@ -442,7 +457,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 						<xsl:otherwise>
 							<xsl:attribute name="id">infoSection</xsl:attribute>
 							<h2>
-								<xsl:value-of select="leg:TranslateText('swhead_status')"/> 
+								<xsl:value-of select="leg:TranslateText('swhead_status')"/>
 							 </h2>
 						</xsl:otherwise>
 					</xsl:choose>
@@ -495,7 +510,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 								<xsl:text> </xsl:text>
 								<xsl:value-of select="leg:TranslateText('status_warning_original_version',(concat('type=',leg:GetCodeSchemaStatus(.))))" />
 								<xsl:if test="$Scenario = '2' or $Scenario = '3'">
-									<xsl:value-of select="leg:TranslateText(concat('status_warning_original_version',$Scenario))" />									
+									<xsl:value-of select="leg:TranslateText(concat('status_warning_original_version',$Scenario))" />
 								</xsl:if>
 								<xsl:text>.</xsl:text>
 							</xsl:otherwise>
@@ -614,13 +629,13 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				<!-- displaying the Status message -->
 				<div id="infoSection">
 					<h2>
-            <xsl:value-of select="leg:TranslateText('swhead_status')"/> 
+            <xsl:value-of select="leg:TranslateText('swhead_status')"/>
           </h2>
 					<p class="intro">
 						<xsl:value-of select="$pointInTimeText"/>
 						<xsl:sequence select="$status/node()[not(self::tso:extent)]" />
 						<xsl:if test="$includeTimeline">
-							<xsl:choose>								
+							<xsl:choose>
 								<xsl:when test="$status/@scenarioId = 'S2' ">
 									<xsl:text> </xsl:text>
 									<a href="?timeline=true"><xsl:value-of select="leg:TranslateText('status_warning_PiT_timeline_changes_p1')"/></a>
@@ -740,7 +755,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 							<xsl:when test="$scenarioId = '5'  and leg:IsTOC() and not(leg:IsRevisedEUPDFOnly(.))">
 								<p>
 									<xsl:value-of select="leg:TranslateText('status_warning_revised_p1')"/><xsl:text> </xsl:text>
-									<xsl:value-of select="leg:TranslateText('status_warning_revised_p2')"/><xsl:text> </xsl:text> 
+									<xsl:value-of select="leg:TranslateText('status_warning_revised_p2')"/><xsl:text> </xsl:text>
 									<xsl:value-of select="leg:TranslateText('status_warning_revised_p7')"/>
 								</p>
 							</xsl:when>
@@ -757,7 +772,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 									<xsl:when test="$scenarioId = 'S1' ">
 										<p>
 											<xsl:value-of select="leg:TranslateText('status_warning_revised_p11')"/><xsl:text> </xsl:text>
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p12')"/>  
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p12')"/>
 										</p>
 										<ol>
 											<li><xsl:value-of select="leg:TranslateText('status_warning_revised_p12i')"/></li>
@@ -768,44 +783,44 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 									<xsl:when test="$scenarioId = 'S2' ">
 										<p>
 											<xsl:value-of select="leg:TranslateText('status_warning_revised_p14')"/><xsl:text> </xsl:text>
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p15')"/><xsl:text> </xsl:text> 
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p16')"/> 
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p15')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p16')"/>
 										</p>
 										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p17')"/></p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S3' ">
 										<p>
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p18')"/><xsl:text> </xsl:text> 
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p19')"/><xsl:text> </xsl:text>  
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p18')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p19')"/><xsl:text> </xsl:text>
 											<xsl:value-of select="leg:TranslateText('status_warning_revised_p20')"/>
 										</p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S4' ">
 										<p>
 											<xsl:value-of select="leg:TranslateText('status_warning_revised_p18')"/><xsl:text> </xsl:text>
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p21')"/>    
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p21')"/>
 										</p>
 										<p>
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p20')"/>  
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p20')"/>
 										</p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S5' ">
 										<p>
 											<xsl:value-of select="leg:TranslateText('status_warning_revised_p18')"/><xsl:text> </xsl:text>
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p22')"/><xsl:text> </xsl:text> 
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p22')"/><xsl:text> </xsl:text>
 											<xsl:value-of select="leg:TranslateText('status_warning_revised_p23')"/><xsl:text> </xsl:text>
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p24')"/><xsl:text> </xsl:text> 
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p25')"/> 
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p24')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p25')"/>
 										</p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S6' ">
 										<p>
 											<xsl:value-of select="leg:TranslateText('status_warning_revised_p18')"/><xsl:text> </xsl:text>
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p22i')"/><xsl:text> </xsl:text>  
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p23')"/><xsl:text> </xsl:text>  
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p22i')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p23')"/><xsl:text> </xsl:text>
 											<xsl:value-of select="leg:TranslateText('status_warning_revised_p24')"/><xsl:text> </xsl:text>
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p25')"/><xsl:text> </xsl:text> 
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p21i')"/>  
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p25')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p21i')"/>
 										</p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S7' ">
@@ -824,11 +839,11 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 									<xsl:when test="$scenarioId = 'S8' ">
 										<p>
 											<xsl:value-of select="leg:TranslateText('status_warning_revised_p11')"/><xsl:text> </xsl:text>
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p23')"/><xsl:text> </xsl:text> 
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p24')"/><xsl:text> </xsl:text>  
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p25')"/><xsl:text> </xsl:text>   
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p29')"/><xsl:text> </xsl:text>  
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p17')"/> 
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p23')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p24')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p25')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p29')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p17')"/>
 										</p>
 										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p28')"/></p>
 									</xsl:when>
@@ -836,13 +851,13 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 										<p>
 											<xsl:value-of select="leg:TranslateText('status_warning_revised_p18')"/><xsl:text> </xsl:text>
 											<xsl:value-of select="leg:TranslateText('status_warning_revised_p30')"/><xsl:text> </xsl:text>
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p31')"/><xsl:text> </xsl:text>  
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p32')"/> 
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p31')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p32')"/>
 										</p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S10' ">
 										<p>
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p11')"/><xsl:text> </xsl:text>	
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p11')"/><xsl:text> </xsl:text>
 											<xsl:value-of select="leg:TranslateText('status_warning_revised_p12')"/>
 										</p>
 										<ol>
@@ -864,8 +879,8 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 								<xsl:choose>
 									<xsl:when test="$scenarioId = 'S1' ">
 										<p>
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p11')"/><xsl:text> </xsl:text> 
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p12')"/> 
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p11')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p12')"/>
 										</p>
 										<ol>
 											<li><xsl:value-of select="leg:TranslateText('status_warning_revised_p12i')"/></li>
@@ -883,15 +898,15 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 										<p><xsl:value-of select="leg:TranslateText('status_warning_revised_p11')"/></p>
 										<p>
 											<xsl:value-of select="leg:TranslateText('status_warning_revised_p23')"/><xsl:text> </xsl:text>
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p24')"/><xsl:text> </xsl:text>  
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p25')"/><xsl:text> </xsl:text>  
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p24')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p25')"/><xsl:text> </xsl:text>
 											<xsl:value-of select="leg:TranslateText('status_warning_revised_p36')"/>
 										</p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S4' ">
 										<p>
 											<xsl:value-of select="leg:TranslateText('status_warning_revised_p11')"/><xsl:text> </xsl:text>
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p12')"/>  
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p12')"/>
 										</p>
 										<ol>
 											<li><xsl:value-of select="leg:TranslateText('status_warning_revised_p12i')"/></li>
@@ -902,17 +917,17 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S5' ">
 										<p>
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p11')"/><xsl:text> </xsl:text> 
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p23')"/><xsl:text> </xsl:text> 
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p24')"/><xsl:text> </xsl:text> 
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p25')"/><xsl:text> </xsl:text>  
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p29')"/><xsl:text> </xsl:text>  
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p17')"/>  
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p11')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p23')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p24')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p25')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p29')"/><xsl:text> </xsl:text>
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p17')"/>
 										</p>
 									</xsl:when>
 									<xsl:when test="$scenarioId = 'S6' ">
 										<p>
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p37')"/><xsl:text> </xsl:text> 
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p37')"/><xsl:text> </xsl:text>
 											<xsl:value-of select="leg:TranslateText('status_warning_revised_p31')"/>
 										</p>
 									</xsl:when>
@@ -925,7 +940,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 									<xsl:when test="$scenarioId = 'S9' ">
 										<p>
 											<xsl:value-of select="leg:TranslateText('status_warning_revised_p40')"/><xsl:text> </xsl:text>
-											<xsl:value-of select="leg:TranslateText('status_warning_revised_p31')"/> 
+											<xsl:value-of select="leg:TranslateText('status_warning_revised_p31')"/>
 										</p>
 									</xsl:when>
 								</xsl:choose>
@@ -986,14 +1001,14 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 					<xsl:attribute name="scenarioId"><xsl:choose><xsl:when test="$pointInTimeView"><xsl:choose><xsl:when test="@Concurrent = 'true' and @AltVersionRefs">S6</xsl:when><xsl:when test="/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasVersion' and @title = 'prospective']">S3</xsl:when><xsl:otherwise>S4</xsl:otherwise></xsl:choose></xsl:when><xsl:otherwise>S3</xsl:otherwise></xsl:choose></xsl:attribute>
 					<xsl:if test="@Concurrent = 'true' and @AltVersionRefs">
 						<xsl:value-of select="leg:TranslateText('status_warning_revised_p42')"/>
-						<xsl:value-of select="leg:TranslateText('status_warning_revised_p43')"/> 
+						<xsl:value-of select="leg:TranslateText('status_warning_revised_p43')"/>
 					</xsl:if>
 					<xsl:value-of select="leg:TranslateText('status_warning_revised_p49')"/> <xsl:value-of select="leg:TranslateText('status_warning_revised_p50')"/>
 				</tso:status>
 			</xsl:when>
 			<xsl:when test="@Concurrent = 'true'">
 				<tso:status scenarioId="{if ($pointInTimeView) then 'S5' else 'S3' }">
-					<xsl:value-of select="leg:TranslateText('status_warning_revised_p42')"/>  
+					<xsl:value-of select="leg:TranslateText('status_warning_revised_p42')"/>
 					<xsl:value-of select="leg:TranslateText('status_warning_revised_p43')"/>
 					<tso:extent><xsl:apply-templates select="." mode="TSOExtentLinks" /></tso:extent>
 				</tso:status>
@@ -1379,7 +1394,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 			</xsl:choose>
 		</xsl:value-of>
 	</xsl:function>
-	
+
 	<xsl:variable name="powerToAmendLinks" as="element()">
 		<links>
 			<link string="Payment Systems Regulator" link="https://www.psr.org.uk/psr-publications/policy-statements/onshoring-eu-regulatory-technical-standards-under-ifr" scenario="deal nodeal extension"/>
@@ -1389,7 +1404,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 			<link string="Prudential Regulation Authority" link="https://www.bankofengland.co.uk/paper/2019/the-boes-amendments-to-financial-services-legislation-under-the-eu-withdrawal-act-2018" scenario="deal nodeal extension"/>
 		</links>
 	</xsl:variable>
-	
+
 	<xsl:function name="leg:formatPowerToAmendText">
 		<xsl:param name="atomLinks"/>
 		<xsl:for-each select="$atomLinks">
@@ -1399,14 +1414,14 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				<xsl:sequence select="leg:replaceStringWithElement(replace(@title, 'XXXX', '', 'i'), (distinct-values($powerToAmendLinks//@string), '(S\.I\.\s[0-9]{4}/[0-9]+)'), 'a', $affectingURI)"/>
 			</p>
 		</xsl:for-each>
-	</xsl:function>	
-	
+	</xsl:function>
+
 	<xsl:function name="leg:replaceStringWithElement">
 		<xsl:param name="string" as="xs:string+"/>
 		<xsl:param name="words" as="xs:string+"/>
 		<xsl:param name="wrapper-name" as="xs:string"/>
 		<xsl:param name="link" as="xs:string?"/>
-		
+
 		<xsl:analyze-string select="$string" regex="{string-join($words, '|')}">
 			<xsl:matching-substring>
 				<xsl:variable name="current" select="."/>
@@ -1431,6 +1446,6 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 			</xsl:non-matching-substring>
 		</xsl:analyze-string>
 	</xsl:function>
-	
-	
+
+
 </xsl:stylesheet>

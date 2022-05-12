@@ -49,7 +49,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	
 	<xsl:variable 	name="g_strSchemaDefinitions" select="$tso:legTypeMap[@schemaType = $g_strDocumentMainType]"/>
 	<xsl:variable 	name="g_strShortType" select="$g_strSchemaDefinitions/@abbrev"/>
-	
+	<xsl:variable 	name="g_strReplaceBy"  as="xs:string?"
+					select="$g_ndsMetadata/atom:link[@rel = 'http://purl.org/dc/terms/isReplacedBy']/@title"/>
 	
 	<xsl:variable 	name="g_euTypes" select="('EuropeanUnionRegulation', 'EuropeanUnionDecision', 'EuropeanUnionDirective')"/>
 	<xsl:variable 	name="g_isEUretained" select="$g_strDocumentMainType = $g_euTypes"/>
@@ -60,6 +61,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	
 	<xsl:variable 	name="g_pdfVersions" as="element()*" select="$g_ndsMetadata/ukm:Alternatives/ukm:Alternative"/>
 	<xsl:variable 	name="g_correctionSlips" as="element()*" select="$g_ndsMetadata/ukm:CorrectionSlips/ukm:CorrectionSlip"/>
+	
 	
 	<xsl:variable 	name="g_euExitDay"  as="xs:string?"
 					select="$g_ndsMetadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/date/euexitday']/@title"/>

@@ -207,8 +207,21 @@ var config = {
     outstandingRefs: {
         expandCollapseLink: {
             show: {
-                en: "See legislation that may make changes to this Regulation",
-                cy: "Gweler deddfwriaeth a all wneud newidiadau i’r Rheoliad hwn"
+                en: "View results",
+                cy: "Gweld canlyniadau"
+            },
+            hide: {
+                en: "Close",
+                cy: "Cau"
+            }
+
+        }
+    },
+    outstandingRefsContent: {
+        expandCollapseLink: {
+            show: {
+                en: "Expand", // toc ChromeInit.js line no 173
+                cy: "Ehangu"
             },
             hide: {
                 en: "Close",

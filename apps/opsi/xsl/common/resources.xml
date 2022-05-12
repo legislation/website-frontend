@@ -11,7 +11,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<resources lang="cy">
 		<resource id="Sort by">Didoli yn ôl</resource>
 		<resource id="to end">hyd ddiwedd</resource>
-		<resource id="end">ddiwedd</resource>		
+		<resource id="end">ddiwedd</resource>
 		<resource id="monarchs">teyrnasiadau</resource>
 		<resource id="session">ddiwedd</resource>
 		<resource id="inclusive">yn gynhwysol</resource>
@@ -49,7 +49,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="All Primary Legislation">Pob deddfwriaeth sylfaenol</resource>
 		<resource id="All Secondary Legislation">Pob is-ddeddfwriaeth</resource>
 		<resource id="Browse Legislation">Pori trwy Ddeddfwriaeth</resource>
-		<resource id="Browse Legislation: UK">Pori trwy Ddeddfwriaeth: DU</resource>		
+		<resource id="Browse Legislation: UK">Pori trwy Ddeddfwriaeth: DU</resource>
 		<resource id="Changes To Legislation">Newidiadau i Ddeddfwriaeth</resource>
 		<resource id="Contact Us">Cysylltu â Ni</resource>
 		<resource id="Crown copyright">Hawl y goron a chronfa ddata</resource>
@@ -89,10 +89,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Act of the Welsh Parliament">Deddf Senedd Cymru</resource>
 		<resource id="Welsh Parliament">Senedd Cymru</resource>
 		<resource id="http://www.senedd.wales">http://www.senedd.cymru</resource>
-		<resource id="http://senedd.wales/en">http://senedd.cymru/cy</resource>	
+		<resource id="http://senedd.wales/en">http://senedd.cymru/cy</resource>
 		<resource id="Acts of the Senedd Cymru">Deddfau Senedd Cymru</resource>
 		<resource id="Acts of Senedd Cymru">Deddfau Senedd Cymru</resource>
-		<resource id="Acts of the Welsh Parliament">Deddfau Senedd Cymru</resource>		
+		<resource id="Acts of the Welsh Parliament">Deddfau Senedd Cymru</resource>
 		<resource id="Measures of the National Assembly for Wales">Mesurau Cynulliad Cenedlaethol Cymru</resource>
 		<resource id="Mesurau Cynulliad Cenedlaethol Cymru">Mae Mesur Llywodraeth Leol (Cymru)</resource>
 		<resource id="Church Measures">Mesurau Eglwysig</resource>
@@ -601,21 +601,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="New_intro_2_2_2"> felly yn ôl dyddiad cyhoeddi yn hytrach </resource>
 		<resource id="New_intro_2_2_3"> na’r dyddiad y cafodd ei deddfu. </resource>
 		<resource id="New_tracking_1">
-			Rhestrir yr holl Fesurau sydd ger bron Senedd y Deyrnas Unedig ar hyn o bryd ar wefan 
-			<a href="http://www.parliament.uk/" target="_blank">Senedd y Deyrnas Unedig</a> 
-			yn yr adran 
-			<a href="http://services.parliament.uk/bills/" target="_blank">Busnes, Mesurau a Deddfwriaeth Seneddol</a> 
+			Rhestrir yr holl Fesurau sydd ger bron Senedd y Deyrnas Unedig ar hyn o bryd ar wefan
+			<a href="http://www.parliament.uk/" target="_blank">Senedd y Deyrnas Unedig</a>
+			yn yr adran
+			<a href="http://services.parliament.uk/bills/" target="_blank">Busnes, Mesurau a Deddfwriaeth Seneddol</a>
 			sydd hefyd yn dangos pa gam y mae’r Mesur wedi ei gyrraedd ar ei daith trwy’r Senedd.
 		</resource>
 		<resource id="New_tracking_2">
-			Gellir gweld hanes y trafodaethau seneddol sy’n ymwneud â Mesurau yn Senedd y Deyrnas Unedig yn 
-			<a href="http://www.parliament.uk/business/publications/" target="_blank">Hansard</a>, 
+			Gellir gweld hanes y trafodaethau seneddol sy’n ymwneud â Mesurau yn Senedd y Deyrnas Unedig yn
+			<a href="http://www.parliament.uk/business/publications/" target="_blank">Hansard</a>,
 			yr adroddiad air am air sydd wedi ei olygu o weithrediadau Tŷ’r Cyffredin a Thŷ’r Arglwyddi.
 		</resource>
 		<resource id="New_tracking_3">
-			Gellir dod o hyd i’r holl Fesurau sydd ar hyn o bryd ger bron 
-			<a href="http://www.scottish.parliament.uk/parliamentarybusiness/Bills.aspx" target="_blank">Senedd yr Alban</a>, 
-			<a href="http://www.niassembly.gov.uk/assembly-business/legislation/2016-2021-mandate/primary-legislation---current-bills/" target="_blank">Cynulliad Gogledd Iwerddon</a> 
+			Gellir dod o hyd i’r holl Fesurau sydd ar hyn o bryd ger bron
+			<a href="http://www.scottish.parliament.uk/parliamentarybusiness/Bills.aspx" target="_blank">Senedd yr Alban</a>,
+			<a href="http://www.niassembly.gov.uk/assembly-business/legislation/2016-2021-mandate/primary-legislation---current-bills/" target="_blank">Cynulliad Gogledd Iwerddon</a>
 			a <a href="http://www.senedd.cymru" target="_blank">Senedd Cymru</a> ar y gwefannau Seneddol a Chynulliad Cenedlaethol unigol.
 		</resource>
 		<resource id="site_logo_legislation">legislation_logo_welsh</resource>
@@ -701,7 +701,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="browse_explanation_uk">Mae’r cyfrifon isod yn adlewyrchu’r nifer o ddogfennau ar deddfwriaeth.gov.uk sy’n cyfateb i’r chwiliad am eitemau o’r math hwn o ddeddfwriaeth ac nid yw’n fwriad iddynt ddynodi cyfanswm y ddeddfwriaeth a wnaed, a weithredwyd nac a fabwysiadwyd mewn blwyddyn benodol.</resource>
 		<resource id="browse_explanation_eu">Mae’r cyfrif isod yn dangos y nifer o ddogfennau ar legislation.gov.uk a gymerwyd o EUR-lex ar gyfer y math hwn o ddeddfwriaeth ac ni fwriadwyd iddynt ddangos cyfanswm y ddeddfwriaeth a wnaed mewn blwyddyn benodol.</resource>
 		<resource id="eu_exit_web_archive">Mae’r casgliad archif y we Ymadael â’r UE yn rhoi pwynt cyfeiriol cynhwysfawr a swyddogol y DU ar gyfer cyfraith yr UE fel ag yr oedd pan ymadawyd o’r UE.</resource>
-		
+
 		<!-- Tooltip-->
 		<resource id="whatStageIaHelp_para1">Cyhoeddir Asesiadau Effaith ar gyfnodau gwahanol o’r broses o lunio deddfwriaeth. Gellir gweld y fersiynau gwahanol yma ar deddfwriaeth.gov.uk pan fyddant ar gael</resource>
 		<resource id="whatStageIaHelp_para2">Mae’r fersiwn/cyfnod hwn yn cyfeirio at yr adeg pan fydd ymgynghoriad cyhoeddus yn cael ei gyhoeddi ac yn canolbwyntio ar gostau a manteision pob dewis sy’n cael ei ystyried.</resource>
@@ -782,12 +782,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="October_short">Hyd</resource>
 		<resource id="November_short">Tach</resource>
 		<resource id="December_short">Rhag</resource>
-		
+
 		<!-- eu changes -->
 		<resource id="New_changes_p3_old">Mae’r rhestrau yn cael eu diweddaru gyda newidiadau a wneir gan ddeddfwriaeth newydd cyn gynted ag sy’n bosibl ar ôl i’r ddeddfwriaeth gael ei derbyn gan dîm golygyddol legislation.gov.uk. Yn y rhan fwyaf o achosion bydd y newidiadau ar gael cyn pen pythefnos o gyhoeddi’r ddeddfwriaeth newydd, ond yn ystod cyfnodau prysur iawn o ran deddfwriaeth newydd, gall gymryd mwy o amser. Casglwyd newidiadau i ddeddfwriaeth yr UE a wnaed gan ddeddfwriaeth yr UE cyn i’r DU adael yr UE o EUR-Lex a’u cyhoeddi ar y tudalennau Newidiadau i Ddeddfwriaeth.</resource>
 		<resource id="New_changes_p1">
       <span xmlns="http://www.w3.org/1999/xhtml" rel="deal nodeal">Mae’r rhestrau hyn yn darparu manylion o’r newidiadau i ddeddfwriaeth yn cynnwys diddymiadau, addasiadau ac effeithiau eraill (e.e. addasiadau a gwybodaeth gychwyn) a wneir gan ddeddfwriaeth wedi hynny.</span>
-    </resource>		
+    </resource>
     <resource id="New_changes_p2">
       <span xmlns="http://www.w3.org/1999/xhtml" rel="deal nodeal">Mae’r ffurflen chwilio isod yn rhoi mynediad i restrau sy’n cynnwys manylion a wneir gan holl ddeddfwriaethau’r DU sydd wedi’u deddfu o 2002 hyd heddiw i’r ddeddfwriaeth sylfaenol sydd ar legislation.gov.uk. Mae newidiadau a wnaed gan ddeddfwriaethau sydd wedi’u deddfu cyn 2002 eisoes wedi’u hymgorffori yng nghynnwys y ddeddfwriaeth sylfaenol ac nid ydynt ar gael fel rhestrau chwiliadwy. Mae newidiadau a wnaed gan y ddeddfwriaeth eilaidd sydd wedi’u deddfu o 2000 ymlaen ar gael. Mae newidiadau i Reoliadau a Phenderfyniadau’r UE sy’n deillio o’r UE gan ddeddfwriaeth y DU hefyd wedi’u cynnwys yn y rhestrau hyn.</span>
     </resource>
@@ -797,7 +797,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="New_changes_p4">
       <span xmlns="http://www.w3.org/1999/xhtml" rel="deal nodeal">Sylwer: Lle bo newidiadau ac effeithiau sydd eisoes i’w cymhwyso i ddeddfwriaeth y DU neu’r UE yr ydych yn edrych arni ar y safle hwn, yna mae unrhyw ‘Newidiadau i Ddeddfwriaeth’ hefyd wedi’u harddangos ochr yn ochr â chynnwys y ddeddfwriaeth ar lefel darparu.</span>
     </resource>
-		
+
 		<!-- The print options -->
 		<resource id="The Whole Act">Y Ddeddf Gyfan</resource>
 		<resource id="The Whole Instrument">Yr Offeryn Cyfan</resource>
@@ -829,7 +829,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Refine Results" translated="false" stage2="true">Adfer Canlyniadau</resource>
 		<resource id="Partial dataset" translated="false" stage2="true">Set ddata rannol</resource>
 		<resource id="Complete dataset" translated="false" stage2="true">Set ddata gyflawn</resource>
-		<resource id="View Refined Results" translated="false" stage2="true">Gweld Canlyniadau a Adferwyd</resource>		
+		<resource id="View Refined Results" translated="false" stage2="true">Gweld Canlyniadau a Adferwyd</resource>
 		<resource id="Present" translated="false" stage2="true">Presennol</resource>
 		<resource id="periods" translated="false" stage2="true">periods</resource>
 		<!-- Impact Assessment-->
@@ -849,9 +849,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!-- There are changes that may be brought into force at a future date. -->
 		<resource id="status_warning_outstanding_p1_1">Mae newidiadau a all ddod i rym yn y dyfodol.</resource>
 		<!-- Changes that have been made appear in the content and are referenced with annotations -->
-		<resource id="status_warning_outstanding_p1_2">Mae newidiadau a wnaed yn ymddangos yn y cynnwys a chyfeirir atynt trwy anodiadau</resource>	
+		<resource id="status_warning_outstanding_p1_2">Mae newidiadau a wnaed yn ymddangos yn y cynnwys a chyfeirir atynt trwy anodiadau</resource>
 		<resource id="status_warning_eu_retained_p_toc">Bydd y newidiadau hynny yn cael eu rhestru pan fyddwch yn agor y cynnwys trwy ddefnyddio’r Rhestr Cynnwys isod.</resource>
-		
+
 		<resource id="Impact Assessment">Asesiad Effaith</resource>
 		<resource id="Draft Impact Assessment">Asesiad Effaith Ddrafft</resource>
 		<resource id="No." translated="false" stage2="true">No.</resource>
@@ -945,11 +945,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
     <resource id="swhead_status">Statws</resource>
     <resource id="swhead_brexit">Ymadael â’r UE:</resource>
 
-    <resource id="brexitInfo_head">Ymadael â’r UE:</resource>
-    <resource id="brexitInfo_content">Oherwydd y nifer fawr o newidiadau i ddeddfwriaeth a wnaed ym Mawrth 2019, nid yw rhai newidiadau ac effeithiau wedi cael eu cofnodi eto gan dîm golygyddol legislation.gov.uk. Mae’r holl newidiadau ac effeithiau hyd at ddiwedd Chwefror 2019 wedi cael eu cofnodi.</resource>
-    <resource id="statuswarning_changes_with_effects_head">Newidiadau i ddeddfwriaeth:</resource>
+    <resource id="brexitInfo_head">Gadael yr UE:</resource>
+	<resource id="brexitInfo_head_content">Efallai y bydd newidiadau ac effeithiau i’r Ddeddfwriaeth hon nad ydynt wedi eu cofnodi neu eu gweithredu ar y testun</resource>
+	<resource id="brexitInfo_references_title">Deddfwriaeth newydd gyda ‘Gadael yr UE’ yn y teitl sy’n cyfeirio at yr eitem hon o ddeddfwriaeth (a all felly ei newid):</resource>
+	<resource id="brexitInfo_references_content">Oherwydd y nifer fawr o newidiadau sy’n cael eu gwneud i ddeddfwriaeth ar gyfer gadael yr UE, nid ydym wedi gallu ymchwilio iddynt a’u cofnodi i gyd. Mae rhagor o wybodaeth ar gael am <a href="/cy/eu-legislation-and-uk-law">Ddeddfwriaeth UE a Chyfraith y Deyrnas Unedig</a>. Mae’r canlyniadau canlynol yn eitemau o ddeddfwriaeth gyda ‘Gadael yr UE’ yn eu teitl sy’n cyfeirio yn uniongyrchol at yr eitem hon o ddeddfwriaeth ac felly a all ei newid. Er mwyn deall a yw testun y ddeddfwriaeth hon yn gyfredol, gwiriwch y cyfeiriadau hynny yn y darnau canlynol o ddeddfwriaeth.</resource>
+	<resource id="statuswarning_changes_with_effects_head">Newidiadau i ddeddfwriaeth:</resource>
     <resource id="statuswarning_changes_with_effects_content_p1">Mae newidiadau sydd heb eu hymgorffori yn nhestun y</resource>
     <resource id="statuswarning_changes_with_effects_content_p2">Yn hytrach, fe’u rhestrir isod i gyfeirio atynt ac mae’r fersiynau blaenorol diwygiedig dyddiedig ar gael ar Rhagor o Adnoddau</resource>
+	<resource id="There are currently no additional references that you need to check">Nid oes unrhyw gyfeiriadau ychwanegol y mae angen i chi eu gwirio ar hyn o bryd</resource>
 
     <resource id="infoSection_head">Statws:</resource>
     <resource id="infoSection_content">Dim ond y fersiwn wreiddiol (fel y’i mabwysiadwyd gan yr UE) mewn PDF o’r eitem hon o ddeddfwriaeth sydd ar gael. Ond mae rhai newidiadau dilynol hysbys i Reoliad Rhif 129/63CEE y Cyngor (a ddiddymwyd).</resource>
@@ -963,8 +966,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
     <resource id="treaty_eea">yw hon. Nid oes amserlen o newidiadau ar gael ar gyfer cytuniadau, yn hytrach gellir mynd i fersiynau blaenorol dyddiedig o EUR-Lex (fel pdf) trwy’r ddewislen Rhagor o Adnoddau.</resource>
 
 	<resource id="statuswarning_revised_eudirective_head">Statws:</resource>
-    <resource id="statuswarning_revised_eudirective_body">Mae Cyfarwyddebau yr UE yn cael eu cyhoeddi ar y safle hwn i gynorthwyo trawsgyfeirio o ddeddfwriaeth y DU. Ar ôl y diwrnod gadael ni fydd unrhyw newidiadau pellach yn cael eu gwneud i’r fersiwn hon.</resource> 
-    
+    <resource id="statuswarning_revised_eudirective_body">Mae Cyfarwyddebau’r Undeb Ewropeaidd yn cael eu cyhoeddi ar y safle hwn i gynorthwyo croes gyfeirio o ddeddfwriaeth y Deyrnas Unedig. Ar ôl diwrnod cwblhau cyfnod gweithredu (31 Rhagfyr 2020 11pm) ni fydd unrhyw ddiwygiadau pellach yn cael eu gweithredu o ran y fersiwn hon.</resource>
+
     <resource id="statuswarning_euretained_p1">Mae newidiadau heb eu gwneud eto i</resource>
     <resource id="statuswarning_euretained_p2">y Senedd Ewropeaidd a’r Cyngor. Mae unrhyw newidiadau sydd wedi cael eu gwneud yn barod i’r ddeddfwriaeth yn ymddangos yn y cynnwys a chyfeirir atynt gydag anodiadau.</resource>
 
@@ -976,7 +979,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
     <resource id="swcontent_tocmsg_eupdf_p2">Mae fersiynau blaenorol dyddiedig a diwygiedig ar gael mewn PDF ar Rhagor o Adnoddau.</resource>
 
     <resource id="swcontent_revisedpdf">Dim ond fel PDF y mae’r eitem hon o ddeddfwriaeth ar gael i’w lawrlwytho a’i gweld.</resource>
-   
+
 
 		<!--EU Front Page updates-->
 			<resource id="Understanding Legislation">Deall Deddfwriaeth</resource>
@@ -988,9 +991,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
       <resource id="editorialpractice">Ein harferion golygyddol ac amserlenni ar gyfer ymgorffori newidiadau</resource>
 	  <resource id="Legislation originating from the EU">Deddfwriaeth yn deillio o’r UE</resource>
 	  <resource id="LegislationoriginatingfromtheEU">Deddfwriaeth yn deillio o’r UE</resource>
-		
+
       <resource id="morehelp">Rhagor o help</resource>
-      <resource id="faqs">Cwestiynau Cyffredin</resource>    
+      <resource id="faqs">Cwestiynau Cyffredin</resource>
       <resource id="aboutNewLeg">Geirfa</resource>
       <resource id="editorialPracticeGuide">Canllaw i Ddeddfwriaeth Ddiwygiedig</resource>
       <resource id="sip">Arfer Offeryn Statudol</resource>
@@ -1001,7 +1004,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<resource id="Legislation and UK Law">Deddfwriaeth a Chyfraith y Deyrnas Unedig</resource>
 			<resource id="New_and_amended_title">Deddfwriaeth Newydd</resource>
 			<resource id="New_and_amended_para_1">Mynnwch y wybodaeth ddiweddaraf am ddeddfwriaeth newydd ei deddfu ar gyfer y Deyrnas Unedig, Yr Alban, Cymru a Gogledd Iwerddon fel maent yn cael eu cyhoeddi ar y safle hwn gan ddefnyddio’r porthiant tanysgrifio rhad ac am ddim, neu trwy bori trwy ddeddfwriaeth newydd yn ôl dyddiad cyhoeddi. Rhestrir pob Mesur sydd ger bron Senedd y Deyrnas Unedig ar hyn o bryd ar wefan
-				<a href="http://www.parliament.uk/" target="_blank">Senedd y Deyrnas Unedig</a> yn yr adran 
+				<a href="http://www.parliament.uk/" target="_blank">Senedd y Deyrnas Unedig</a> yn yr adran
 				<a href="http://services.parliament.uk/bills/" target="_blank">Mesurau, Deddfwriaeth a Busnes Seneddol</a>. Maent yn cael eu cyhoeddi ar y safle hwn ar ôl derbyn y Cydsyniad Brenhinol.
 			</resource>
 			<resource id="Draft Bills">Mesurau Arfaethedig</resource>
@@ -1061,7 +1064,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<resource id="explore_defra_summary">Deddfwriaeth mewn grym a reolir ac a drefnir gan Defra</resource>
 		<!--End Browse (Cards) -->
 		<!--Browse EU-->
-    
+
 			<resource id="Browse_EUIntro">
       <span xmlns="http://www.w3.org/1999/xhtml" rel="nodeal">Cyhoeddi deddfwriaeth yr UE a nodir yn <a href="/cy/ukpga/2018/16/schedule/5">Atodlen 5 Deddf yr Undeb Ewropeaidd (Ymadawiad) 2018</a> ynghyd â Chyfarwyddebau’r UE a gyhoeddir cyn ymadawiad yr UE ar 31 Hydref 2019, yn cynnwys deddfwriaeth a all fod yn berthnasol i’r DU ar ôl ymadawiad yr UE. Am ragor o wybodaeth, gweler <a href="/cy/understanding-legislation#WhatLegislationFromEUR-Lex">Deall Deddfwriaeth</a></span>
       <span xmlns="http://www.w3.org/1999/xhtml" rel="deal">Cyhoeddi deddfwriaeth yr UE a nodir yn <a href="/cy/ukpga/2018/16/schedule/5">Atodlen 5 Deddf yr Undeb Ewropeaidd (Ymadawiad) 2018</a> ynghyd â chywiriadau (Slipiau cywiro i Ddeddfwriaeth yr UE) a Chyfarwyddebau’r UE a gyhoeddir hyd at ymadawiad yr UE ar 31 Hydref 2019, yn cynnwys deddfwriaeth a all fod yn berthnasol i’r DU ar ôl ymadawiad yr UE. Am ragor o wybodaeth, gweler <a href="/cy/understanding-legislation#WhatLegislationFromEUR-Lex">Deall Deddfwriaeth</a></span>
@@ -1109,14 +1112,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Date of effect">Dyddiad y daw i rym</resource>
 		<resource id="N/A">Amherthnasol</resource>
 		<resource id="EUR-Lex differing terminology">Cymerwyd y data hwn o’r dudalen Gwybodaeth am Ddogfennau ar EUR-Lex. Gall peth o’r derminoleg yma fod yn wahanol i’r hyn a ddefnyddir yn neddfwriaeth y Deyrnas Unedig.</resource>
-	
+
 		<resource id="legislation_originated_from_EU_1">Mae hon yn eitem o ddeddfwriaeth sy’n deillio o’r UE</resource>
 		<resource id="legislation_originated_from_EU_p1">Mae unrhyw newidiadau sydd wedi cael eu gwneud yn barod gan y tîm yn ymddangos yn y cynnwys a chyfeirir atynt gydag anodiadau.Ar ôl y diwrnod ymadael bydd tair fersiwn o’r ddeddfwriaeth yma i’w gwirio at ddibenion gwahanol. Y fersiwn legislation.gov.uk yw’r fersiwn sy’n weithredol yn y Deyrnas Unedig. Y Fersiwn UE sydd ar EUR-lex ar hyn o bryd yw’r fersiwn sy’n weithredol yn yr UE h.y. efallai y bydd arnoch angen y fersiwn hon os byddwch yn gweithredu busnes yn yr UE.</resource>
 		<resource id="legislation_originated_from_EU_p2">Y fersiwn yn yr archif ar y we yw’r fersiwn swyddogol o’r ddeddfwriaeth fel yr oedd ar y diwrnod ymadael cyn cael ei chyhoeddi ar legislation.gov.uk ac unrhyw newidiadau ac effeithiau a weithredwyd yn y Deyrnas Unedig wedyn. Mae’r archif ar y we hefyd yn cynnwys cyfraith achos a ffurfiau mewn ieithoedd eraill o EUR-Lex.</resource>
-		
+
 		<resource id="status_warning_changes_eu_revised_pdf_only">Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area. Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the legislation in the affected provisions. Use the ‘more’ link to open the changes and effects relevant to the provision you are viewing.</resource>
 		<resource id="status_warning_changes_revised_pdf_only">Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area.</resource>
-		<resource id="status_warning_changes_scenario_1">Revised legislation carried on this site may not be fully up to date. At the current time any known changes or effects made by subsequent legislation have been applied to the text of the legislation you are viewing by the editorial team.  Please see ‘Frequently Asked Questions’ for details regarding the timescales for which new effects are identified and recorded on this site.</resource>									
+		<resource id="status_warning_changes_scenario_1">Revised legislation carried on this site may not be fully up to date. At the current time any known changes or effects made by subsequent legislation have been applied to the text of the legislation you are viewing by the editorial team.  Please see ‘Frequently Asked Questions’ for details regarding the timescales for which new effects are identified and recorded on this site.</resource>
 		<resource id="status_warning_changes_point_in_time">Changes and effects yet to be applied by the editorial team are only applicable when viewing the latest version or prospective version of legislation. They are therefore not accessible when viewing legislation as at a specific point in time. To view the ‘Changes to Legislation’ information for this provision return to the latest version view using the options provided in the ‘What Version’ box above.</resource>
 		<resource id="status_warning_changes_eu_revised_pdf_only">Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area.  Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the affected provisions when you open the content using the Table of Contents below.</resource>
 		<resource id="status_warning_effects_pt1">yn gyfredol gyda’r holl newidiadau y gwyddys eu bod mewn grym ar neu cyn</resource>
@@ -1132,12 +1135,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="saved">arbed</resource>
 		<resource id="see:">gweler:</resource>
 		<resource id="excl">eith</resource>
-		<resource id="ext">est</resource> 
+		<resource id="ext">est</resource>
 		<resource id="excl.">eith.</resource>
 		<resource id="exp.in pt">wedi dod i ben yn rhannol</resource>
 		<resource id="cont.in pt.and incorp">parh. yn rhannol ac ymgorff</resource>
 		<resource id="ext.in pt">est. yn rhannol</resource>
-		<resource id="incorp.in pt">ymgorff. yn rhannol</resource> 
+		<resource id="incorp.in pt">ymgorff. yn rhannol</resource>
 		<resource id="residue exp">gweddill wedi dod i ben</resource>
 		<resource id="exp">wedi dirwyn i ben</resource>
 		<resource id="subst">disodlwyd</resource>
@@ -1157,13 +1160,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id=" r."> d.</resource>
 		<resource id="in pt.(saving)">yn rhannol (arbed)</resource>
 		<!-- This is a draft bill. It has no official status -->
-		<resource id="status_warning_intro_draft_bill_item">Mesur drafft yw hon. Nid oes ganddi statws swyddogol.</resource> 
-		<resource id="status_warning_intro_proposed_version">Mae’r fersiwn hon yn dangos newidiadau arfaethedig i’r eitem hon o ddeddfwriaeth. Nid oes ganddi statws swyddogol.</resource> 
+		<resource id="status_warning_intro_draft_bill_item">Mesur drafft yw hon. Nid oes ganddi statws swyddogol.</resource>
+		<resource id="status_warning_intro_proposed_version">Mae’r fersiwn hon yn dangos newidiadau arfaethedig i’r eitem hon o ddeddfwriaeth. Nid oes ganddi statws swyddogol.</resource>
 		<!-- This version shows proposed changes to this item of legislation. -->
-		<resource id="status_warning_intro_proposed_version_pt1">Mae’r fersiwn hon yn dangos newidiadau arfaethedig i’r eitem hon o ddeddfwriaeth.</resource> 
+		<resource id="status_warning_intro_proposed_version_pt1">Mae’r fersiwn hon yn dangos newidiadau arfaethedig i’r eitem hon o ddeddfwriaeth.</resource>
 		<!-- It has no official standing. -->
-		<resource id="status_warning_intro_proposed_version_pt2">Nid oes ganddi statws swyddogol.</resource> 	
-		<resource id="status_warning_intro_draft_legislation">Mae hwn yn eitem o ddeddfwriaeth ddrafft</resource> 
+		<resource id="status_warning_intro_proposed_version_pt2">Nid oes ganddi statws swyddogol.</resource>
+		<resource id="status_warning_intro_draft_legislation">Mae hwn yn eitem o ddeddfwriaeth ddrafft</resource>
 		<resource id="No results found">Ni ddarganfwyd canlyniadau</resource>
 		<resource id="Read more">Darllen mwy</resource>
 		<!-- This draft has since been made as a -->
@@ -1187,7 +1190,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!-- has been contributed by Westlaw and is taken from the printed publication -->
 		<resource id="status_warning_is_from_westlaw_pt2">wedi cael ei gyfrannu gan Westlaw ac fe’i cymerwyd o’r cyhoeddiad printiedig</resource>
 		<resource id="status_warning_revised_is_from_westlaw_pt1" translated="false">This revised version has been created from an electronic version contributed by Westlaw which was originally derived from the printed publication. </resource>
-		
+
 		<resource id="Skip to">Neidiwch i</resource>
 		<!-- Revised legislation carried on this site may not be fully up to date. -->
 		<resource id="status_warning_revised_p1">Revised legislation carried on this site may not be fully up to date.</resource>
@@ -1213,7 +1216,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_revised_p11">The term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section.</resource>
 		<!-- A version of a provision is prospective either: -->
 		<resource id="status_warning_revised_p12">A version of a provision is prospective either:</resource>
-		<!-- where the provision (Part, Chapter or section) has never come into force or;  -->	
+		<!-- where the provision (Part, Chapter or section) has never come into force or;  -->
 		<resource id="status_warning_revised_p12i">where the provision (Part, Chapter or section) has never come into force or;</resource>
 		<!-- where the text of the provision is subject to change, but no date has yet been appointed by the appropriate person or body for those changes to come into force.  -->
 		<resource id="status_warning_revised_p12ii">where the text of the provision is subject to change, but no date has yet been appointed by the appropriate person or body for those changes to come into force.</resource>
@@ -1400,9 +1403,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="New_intro_2_2_1">New legislation is therefore </resource>
 		<resource id="New_intro_2_2_2">listed by publication date</resource>
 		<resource id="New_intro_2_2_3"> rather than the date on which it was enacted.</resource>
-		<resource id="New_tracking_1">All Bills currently before the UK Parliament are listed on the 
-			<a href="http://www.parliament.uk/" target="_blank">UK Parliament</a> website in the 
-			<a href="http://services.parliament.uk/bills/" target="_blank">Parliamentary Business, Bills &amp; Legislation</a>  
+		<resource id="New_tracking_1">All Bills currently before the UK Parliament are listed on the
+			<a href="http://www.parliament.uk/" target="_blank">UK Parliament</a> website in the
+			<a href="http://services.parliament.uk/bills/" target="_blank">Parliamentary Business, Bills &amp; Legislation</a>
 			section which also shows what stage a Bill has reached on its passage through Parliament.
 		</resource>
 		<resource id="New_tracking_1_1">All Bills currently before the UK Parliament are listed on the </resource>
@@ -1411,20 +1414,20 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="New_tracking_1_4"> Parliamentary Business, Bills &#x0026; Legislation </resource>
 		<resource id="New_tracking_1_5" > section which also shows what stage a Bill has reached on its passage through Parliament. </resource>
 		<resource id="New_tracking_2">
-			The history of the parliamentary debates relating to Bills in the UK Parliament can be found in 
-			<a href="http://www.parliament.uk/business/publications/" target="_blank">Hansard</a> 
+			The history of the parliamentary debates relating to Bills in the UK Parliament can be found in
+			<a href="http://www.parliament.uk/business/publications/" target="_blank">Hansard</a>
 			the edited verbatim report of proceedings of both the House of Commons and the House of Lords.
 		</resource>
 		<resource id="New_tracking_2_1">The history of the parliamentary debates relating to Bills in the UK Parliament can be found in </resource>
 		<resource id="New_tracking_2_2">Hansard</resource>
 		<resource id="New_tracking_2_3">the edited verbatim report of proceedings of both the House of Commons and the House of Lords. </resource>
 		<resource id="New_tracking_3">
-			All Bills currently before the 
-			<a href="http://www.scottish.parliament.uk/parliamentarybusiness/Bills.aspx" target="_blank">Scottish Parliament</a>, 
+			All Bills currently before the
+			<a href="http://www.scottish.parliament.uk/parliamentarybusiness/Bills.aspx" target="_blank">Scottish Parliament</a>,
 			<a href="http://www.niassembly.gov.uk/assembly-business/legislation/2016-2021-mandate/primary-legislation---current-bills/" target="_blank">Northern Ireland Assembly</a>
-			and the 
-			<a href="http://www.senedd.wales" target="_blank">Welsh Parliament</a> 
-			can be found on the individual national Parliamentary and Assembly websites. 
+			and the
+			<a href="http://www.senedd.wales" target="_blank">Welsh Parliament</a>
+			can be found on the individual national Parliamentary and Assembly websites.
 		</resource>
 		<resource id="New_tracking_3_1">All Bills currently before the </resource>
 		<resource id="New_tracking_3_2">Scottish Parliament</resource>
@@ -1434,7 +1437,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="New_tracking_3_6">can be found on the individual national Parliamentary and Assembly websites. </resource>
 		<resource id="New_tracking_4_1">Bills only become Acts once they have passed all stages of their applicable Parliamentary procedure and receive Royal Assent. Once an Act has received Royal Assent, it is published under the authority of the Queen's Printer to this website. </resource>
 		<resource id="New_tracking_4">Bills become Acts once they have passed all stages within both Houses of Parliament and receive Royal Assent. Once they have received Royal Assent, Acts are published under the authority of the Queen's Printer to this website.</resource>
-		
+
 		<!-- Tooltip-->
 		<resource id="whatStageIaHelp_para1">Impact Assessments are published at different stages of the legislation making process. These different versions can be viewed on legislation.gov.uk where available</resource>
 		<resource id="whatStageIaHelp_para2">This version/stage refers to when a formal public consultation is published and focuses on the cost and benefits of each option under consideration.</resource>
@@ -1528,7 +1531,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_outstanding_p1_1">There are changes that may be brought into force at a future date.</resource>
 		<resource id="status_warning_outstanding_p1_2">Changes that have been made appear in the content and are referenced with annotations.</resource>
 		<resource id="status_warning_eu_retained_p_toc">Those changes will be listed when you open the content using the Table of Contents below.</resource>
-		
+
 		<!-- new -->
 		<resource id="New_subtitle">Changes made by legislation enacted from 2002 – present</resource>
 		<resource id="New_p1">The search form below provides access to lists detailing changes made by all legislation enacted from 2002 – present to the revised legislation held on legislation.gov.uk. Changes made by legislation enacted prior to 2002 have already been incorporated into the content and are not available as searchable lists. These lists provide details of changes including repeals, amendments and other effects (e.g. modifications and commencement information).</resource>
@@ -1674,9 +1677,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
     <resource id="swhead_changes_to_legislation">Changes to legislation:</resource>
     <resource id="swhead_status">Status:</resource>
     <resource id="swhead_brexit">Exit from the EU:</resource>
-    
+
     <resource id="brexitInfo_head">Exit from the EU:</resource>
-    <resource id="brexitInfo_content">Due to the high volume of changes to legislation made in March 2019, some changes and effects have not yet been recorded by the legislation.gov.uk editorial team. All changes and effects up to end of February 2019 have been recorded.</resource>
+    <resource id="brexitInfo_head_content">There may be changes and effects to this Legislation not yet recorded or applied to the text</resource>
+	<resource id="brexitInfo_references_title">New legislation with 'EU Exit' in the title that references (and therefore may change) this legislation item:</resource>
+    <resource id="brexitInfo_references_content">Due to a high volume of changes being made to legislation for EU exit, we have not been able to research and record them all. More information is available about <a href="/eu-legislation-and-uk-law">EU Legislation and UK Law</a>.  The following results are legislation items with 'EU Exit' in their title that directly reference and therefore may change this item of legislation. To understand whether or not the text of this legislation is up to date, please check those references in the following pieces of legislation.</resource>
     <resource id="statuswarning_changes_with_effects_head">Changes to legislation:</resource>
     <resource id="statuswarning_changes_with_effects_content_p1">There are changes that haven't been incorporated into the text of this</resource>
     <resource id="statuswarning_changes_with_effects_content_p2">Instead, they are listed below for reference and previous revised dated versions are available on More Resources.</resource>
@@ -1693,8 +1698,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
     <resource id="treaty_eea">There are no timeline of changes available for treaties, instead, previous dated versions from EUR-Lex (as pdf) can be accessed via the More Resources menu.</resource>
 
 	<resource id="statuswarning_revised_eudirective_head">Status:</resource>
-    <resource id="statuswarning_revised_eudirective_body">EU Directives are being published on this site to aid cross referencing from UK legislation. After exit day no further amendments will be applied to this version.</resource> 
-    
+    <resource id="statuswarning_revised_eudirective_body">EU Directives are being published on this site to aid cross referencing from UK legislation. After IP completion day (31 December 2020 11pm) no further amendments will be applied to this version.</resource>
+
     <resource id="statuswarning_euretained_p1">There are outstanding changes not yet made to</resource>
     <resource id="statuswarning_euretained_p2">Any changes that have already been made to the legislation appear in the content and are referenced with annotations.</resource>
 
@@ -1704,7 +1709,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
     <resource id="swcontent_tocmsg_eupdf_p1">There are currently no known outstanding effects for</resource>
     <resource id="swcontent_tocmsg_eupdf_p2">Previous dated revised versions are available in PDF on More Resources.</resource>
-    
+
     <resource id="swcontent_revisedpdf">This item of legislation is only available to download and view as PDF.</resource>
 
 
@@ -1719,7 +1724,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
     <resource id="LegislationoriginatingfromtheEU">Legislation originating from the EU</resource>
 
     <resource id="morehelp">More help</resource>
-    <resource id="faqs">FAQs</resource>    
+    <resource id="faqs">FAQs</resource>
     <resource id="aboutNewLeg">Glossary of Terms</resource>
     <resource id="editorialPracticeGuide">Guide to Revised Legislation</resource>
     <resource id="sip">Statutory Instrument Practice</resource>
@@ -1730,11 +1735,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Legislation and UK Law">Legislation and UK Law</resource>
 		<resource id="New_and_amended_title">New Legislation</resource>
 		<resource id="New_and_amended_para_1">
-			Stay up to date with newly enacted legislation for the UK, Scotland, Wales and Northern Ireland as it is published 
-			to this site using our free subscription feeds, or by browsing new legislation by publication date. 
-			All Bills currently before the UK Parliament are listed on the 
-			<a href="http://www.parliament.uk/" target="_blank">UK Parliament</a> website in the 
-			<a href="http://services.parliament.uk/bills/" target="_blank">Parliamentary Business, Bills &amp; Legislation</a> section. 
+			Stay up to date with newly enacted legislation for the UK, Scotland, Wales and Northern Ireland as it is published
+			to this site using our free subscription feeds, or by browsing new legislation by publication date.
+			All Bills currently before the UK Parliament are listed on the
+			<a href="http://www.parliament.uk/" target="_blank">UK Parliament</a> website in the
+			<a href="http://services.parliament.uk/bills/" target="_blank">Parliamentary Business, Bills &amp; Legislation</a> section.
 			They are published on this site once they receive Royal Assent.
 		</resource>
 		<resource id="New_and_amended_link">Browse new legislation</resource>
@@ -1834,7 +1839,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="legislation_originated_from_EU_1">This is a legislation item that originated from the EU</resource>
 		<resource id="legislation_originated_from_EU_p1">After exit day there will be three versions of this legislation to consult for different purposes. The legislation.gov.uk version is the version that applies in the UK. The EU Version currently on EUR-lex is the version that currently applies in the EU i.e you may need this if you operate a business in the EU.</resource>
 		<resource id="legislation_originated_from_EU_p2">The web archive version is the official version of this legislation item as it stood on exit day before being published to legislation.gov.uk and any subsequent UK changes and effects applied. The web archive also captured associated case law and other language formats from EUR-Lex.</resource>
-		
+
 		<!-- PDF Version -->
 		<resource id="PDF_Versions">PDF Versions</resource>
 		<resource id="PDF_Versions_EU">Revised version PDFs</resource>
@@ -1863,12 +1868,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="EUR-Lex differing terminology">This data is taken from the Document Information page on EUR-Lex. Some of the terminology may differ from that used for UK legislation.</resource>
 		<resource id="status_warning_changes_eu_revised_pdf_only">Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area. Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the legislation in the affected provisions. Use the ‘more’ link to open the changes and effects relevant to the provision you are viewing.</resource>
 		<resource id="status_warning_changes_revised_pdf_only">Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area.</resource>
-		<resource id="status_warning_changes_scenario_1">Revised legislation carried on this site may not be fully up to date. At the current time any known changes or effects made by subsequent legislation have been applied to the text of the legislation you are viewing by the editorial team.  Please see ‘Frequently Asked Questions’ for details regarding the timescales for which new effects are identified and recorded on this site.</resource>									
+		<resource id="status_warning_changes_scenario_1">Revised legislation carried on this site may not be fully up to date. At the current time any known changes or effects made by subsequent legislation have been applied to the text of the legislation you are viewing by the editorial team.  Please see ‘Frequently Asked Questions’ for details regarding the timescales for which new effects are identified and recorded on this site.</resource>
 		<resource id="status_warning_changes_point_in_time">Changes and effects yet to be applied by the editorial team are only applicable when viewing the latest version or prospective version of legislation. They are therefore not accessible when viewing legislation as at a specific point in time. To view the ‘Changes to Legislation’ information for this provision return to the latest version view using the options provided in the ‘What Version’ box above.</resource>
-		<resource id="status_warning_changes_eu_revised_pdf_only">Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area.  Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the affected provisions when you open the content using the Table of Contents below.</resource>	
-		<resource id="status_warning_intro_draft_bill_item">This is a draft Bill item. It has no official standing.</resource> 
-		<resource id="status_warning_intro_proposed_version">This version shows proposed changes to this legislation item. It has no official standing.</resource> 
-		<resource id="status_warning_intro_draft_legislation">This is a draft item of legislation</resource> 
+		<resource id="status_warning_changes_eu_revised_pdf_only">Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area.  Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the affected provisions when you open the content using the Table of Contents below.</resource>
+		<resource id="status_warning_intro_draft_bill_item">This is a draft Bill item. It has no official standing.</resource>
+		<resource id="status_warning_intro_proposed_version">This version shows proposed changes to this legislation item. It has no official standing.</resource>
+		<resource id="status_warning_intro_draft_legislation">This is a draft item of legislation</resource>
 		<resource id="status_waring_original_version">This is the original version (as it was originally adopted)</resource>
 		<resource id="status_warning_PiT_ prospective">Point in time view latest with prospective</resource>
 		<resource id="status_warning_PiT_at">Point in time view as at</resource>
@@ -1905,7 +1910,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_revised_p11">The term provision is used to describe a definable element in a piece of legislation that has legislative effect – such as a Part, Chapter or section.</resource>
 		<!-- A version of a provision is prospective either: -->
 		<resource id="status_warning_revised_p12">A version of a provision is prospective either:</resource>
-		<!-- where the provision (Part, Chapter or section) has never come into force or;  -->	
+		<!-- where the provision (Part, Chapter or section) has never come into force or;  -->
 		<resource id="status_warning_revised_p12i">where the provision (Part, Chapter or section) has never come into force or;</resource>
 		<!-- where the text of the provision is subject to change, but no date has yet been appointed by the appropriate person or body for those changes to come into force.  -->
 		<resource id="status_warning_revised_p12ii">where the text of the provision is subject to change, but no date has yet been appointed by the appropriate person or body for those changes to come into force.</resource>

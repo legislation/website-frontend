@@ -717,15 +717,21 @@ h1.proposed {background: #FFF9EE;margin-bottom:10px !important;}
 /* End of Info section box */
 
 /* Brexit box */
-#brexitInfo {background: #E5E5E5; border-left: 2px solid #333; border-bottom: 2px solid #fff; padding: 10px;}
+#brexitInfo {background: #f5d76b ; border-left: 2px solid #333; border-bottom: 2px solid #fff; padding: 10px;}
 #brexitInfo p.intro, #brexitInfo h2 {display: inline; padding-right: 0.25em; font-size: 1em;}
-#brexitInfo p.c2a { text-align: right; background: url(/images/chrome/iconSprites.gif) no-repeat 100% -201px; padding-right: 15px; margin: 0; }
-#brexitInfo p.c2a a { color: inherit; font-weight: bold; }
-#brexitInfo ul {margin: 0.25em 0; list-style: none; line-height: 1.8em; display: block;}
-#brexitInfo ul li {list-style: none; display: block;}
-#brexitInfo ul li.uk-effect, #brexitInfo ul li.eu-effect { padding-left: 25px; }
-#brexitInfo ul li.uk-effect { background: url(/images/chrome/icon--uk-effect.png) 0% 25% no-repeat; }
-#brexitInfo ul li.eu-effect { background: url(/images/chrome/icon--eu-effect.png) 0% 25% no-repeat; }
+#brexitInfo .expandCollapseLink {color: #333333}
+
+#brexitInfo #outstandingRefs {display: block; width: 737px; border: 1px solid #424240;}
+#brexitInfo #outstandingRefs .title {font-size: 1em; font-weight: bold; border: 1px solid #F9F7F8; padding: 0.3em 10px 0.4em; background: #DEDEDE; overflow: auto;}
+#brexitInfo #outstandingRefs h3 {color: #333333; line-height: 1.4em; float: left; }
+#brexitInfo #outstandingRefs .content {display: block; padding: 0 10px 10px; background: #F9F7F8; overflow: auto; }
+#brexitInfo #outstandingRefs .expandCollapseLink {float: right; }
+
+#brexitInfo ul {margin: 1em 0; list-style: none; line-height: 1.8em; display: block; padding-left: 0;}
+#brexitInfo li {list-style: none; display: block; margin-left: 0; padding-left: 0}
+#brexitInfo .uk-effect, #brexitInfo .eu-effect { padding-left: 25px; }
+#brexitInfo .uk-effect { background: url(/images/chrome/icon--uk-effect.png) 0 25% no-repeat;}
+#brexitInfo .eu-effect { background: url(/images/chrome/icon--eu-effect.png) 0 25% no-repeat;}
 /* End of Brexit box */
 
 /* Back to top */
