@@ -31,7 +31,7 @@ exclude-result-prefixes="tso atom">
 	<xsl:import href="../html/process-annotations.xslt"/>
 
 		
-	<xsl:output method="xml" version="1.0" omit-xml-declaration="no"  indent="no" standalone="no" use-character-maps="FOcharacters"/>
+	<xsl:output method="xml" version="1.0" omit-xml-declaration="no" indent="no" standalone="no" use-character-maps="FOcharacters"/>
 
 	
 	<!-- params to take value from uri query -->
@@ -3563,7 +3563,7 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 
 	<xsl:template match="leg:Form">
-		<fo:block keep-with-previous="always">
+		<fo:block><!-- keep-with-previous="always" removed - HA099195: PDF of SSI 2020/27 is missing images-->
 			<xsl:apply-templates/>
 		</fo:block>
 	</xsl:template>
@@ -3601,6 +3601,19 @@ exclude-result-prefixes="tso atom">
 						</fo:table-row>
 					</fo:table-body>
 				</fo:table>
+			</xsl:when>
+			<!-- HA099195: PDF of SSI 2020/27 is missing images.  Missing dimensions causes it -->
+			<xsl:when test="parent::leg:Form[not(parent::leg:BlockAmendment)] and ancestor::leg:ScheduleBody">				
+				<fo:block>
+					<fo:external-graphic 
+						src='url("{//leg:Resource[@id = current()/@ResourceRef]/leg:ExternalVersion/@URI}")' 
+						fox:alt-text="{.}"
+						content-width="scale-to-fit"
+						content-height="100%"
+						width="100%"
+						scaling="uniform"
+					/>
+				</fo:block>
 			</xsl:when>
 			<xsl:otherwise>
 				<fo:block><!--GC 2011-03-23 remove keep-with-next=always - issue D501  -->

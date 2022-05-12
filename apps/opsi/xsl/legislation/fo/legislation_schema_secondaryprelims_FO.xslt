@@ -14,6 +14,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 		<!--<xsl:apply-templates select="$statusWarningHTML" mode="statuswarning"/>-->
 		
+        <xsl:apply-templates select="$g_ndsLegPrelims/leg:Correction"/>
 		<xsl:apply-templates select="$g_ndsLegPrelims/leg:Draft"/>
 
 		<fo:block font-size="12pt" line-height="12pt" text-align="center" padding-top="9pt" padding-bottom="6pt" border-top="solid 1pt black" border-bottom="solid 1pt black" letter-spacing="3pt" space-after="24pt">
@@ -242,7 +243,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:apply-templates/>
 	</fo:block>
 </xsl:template>
-
+	
+<xsl:template match="leg:SecondaryPrelims/leg:Correction">
+	<fo:block font-style="italic" text-align="justify" space-after="10pt">
+		<xsl:apply-templates/>
+	</fo:block>
+</xsl:template>
+	
 <xsl:template match="leg:SecondaryPrelims/leg:Draft">
 	<fo:block font-style="italic" text-align="justify" space-after="6pt">
 		<xsl:apply-templates/>
