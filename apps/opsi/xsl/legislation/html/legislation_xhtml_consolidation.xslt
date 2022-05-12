@@ -1154,7 +1154,7 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 
 <!--Every child that's repealed has @Match = 'false' and @RestrictEndDate not @Status = 'Prospective': -->
 <!--Chunyu HA049670 Changed priority from 50 to 51 since it conflicts with the template of line 955 see nisi/2007/1351 part -->
-<xsl:template match="leg:Division | leg:Part | leg:Body | leg:EUBody | leg:Schedules | leg:Pblock | leg:PsubBlock | leg:ExplanatoryNotes | leg:SignedSection | leg:EUChapter | leg:EUPart | leg:EUTitle | leg:EUSection | leg:EUSubsection" priority="51">
+<xsl:template match="leg:Division | leg:Part | leg:Chapter | leg:Body | leg:EUBody | leg:Schedules | leg:Pblock | leg:PsubBlock | leg:ExplanatoryNotes | leg:SignedSection | leg:EUChapter | leg:EUPart | leg:EUTitle | leg:EUSection | leg:EUSubsection" priority="51">
 	<xsl:variable name="isWholeActView" select="./root()/leg:Legislation/@DocumentURI = $dcIdentifier"/>
 	<xsl:variable name="isBodyView" select="matches($dcIdentifier, '/body')"/>
 	<xsl:variable name="isSchedulesView" select="matches($dcIdentifier, '/schedules|/annexes')"/>
@@ -2266,6 +2266,12 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	<h2 class="LegAttachmentsTitle{$strAmendmentSuffix}">
 		<xsl:apply-templates/>
 	</h2>
+</xsl:template>
+
+<xsl:template match="leg:Subject/leg:Subtitle">
+	<p class="LegSubsubject">
+		<xsl:apply-templates/>
+	</p>
 </xsl:template>
 
 <xsl:template match="leg:Subtitle">

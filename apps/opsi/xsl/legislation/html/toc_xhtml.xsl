@@ -1185,7 +1185,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 	<xsl:template name="TSOOutputLegislationContent">
 		<div id="viewLegContents" xml:lang="{if(contains((/leg:Legislation/ukm:Metadata/dc:identifier)[1],'/cy/')) then 'cy' else 'en'}">
-			<div class="LegSnippet" id="viewLegSnippet">
+			<xsl:variable name="hasBlockAmends" select="exists(/leg:Legislation/(leg:Primary|leg:Secondary|leg:EURetained)//leg:BlockAmendment)"/>
+			<div class="LegSnippet{if ($hasBlockAmends) then ' hasBlockAmends' else ()}" id="viewLegSnippet">
 
 				<!-- adding the tocControlsAddress to the table of contents when it is not PDFOnly-->
 				<xsl:if test="count(//leg:ContentsPart[* except (leg:ContentsNumber, leg:ContentsTitle)]) > 0 or count(//leg:ContentsSchedule[* except (leg:ContentsNumber, leg:ContentsTitle)]) >0">

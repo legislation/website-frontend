@@ -3088,7 +3088,7 @@ TODO: need to add semantic id based on EN structure
 		</xsl:choose>
 	</xsl:template>
 
-	<xsl:template match="leg:Text">
+	<xsl:template match="leg:Text" name="leg:Text">
 		<xsl:choose>
 
 

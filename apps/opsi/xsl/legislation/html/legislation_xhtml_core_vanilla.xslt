@@ -1073,7 +1073,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:call-template name="FuncApplyVersions"/>
 </xsl:template>
 
-<xsl:template match="leg:Text">
+	<xsl:template match="leg:Text" name="leg:Text">
 	<!-- Generate suffix to be added for CSS classes for amendments -->
 	<xsl:variable name="strAmendmentSuffix">
 		<xsl:call-template name="FuncCalcAmendmentNo"/>
@@ -1433,6 +1433,17 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:for-each>
+					</xsl:when>
+					<!-- HA097044 -->
+					<xsl:when test="count(node())=1 and leg:Emphasis and parent::leg:P[count(*)=1]/parent::leg:ExplanatoryNotes">
+						<p class="LegCommentText">
+							<xsl:call-template name="FuncCheckForID"/>
+							<xsl:call-template name="FuncGetLocalTextStyle"/>
+							<xsl:for-each select="leg:Emphasis">
+								<xsl:apply-templates select="node()[not(position() = 1 and self::text() and normalize-space() = '')] | processing-instruction()"/>								
+							</xsl:for-each>
+							<xsl:text>&#13;</xsl:text>
+						</p>
 					</xsl:when>
 					<xsl:otherwise>
 						<p class="{concat('LegText', $strAmendmentSuffix)}">
@@ -2765,9 +2776,11 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:variable name="intHeadingLevel">
 			<xsl:call-template name="FuncCalcHeadingLevel"/>
 		</xsl:variable>
+		<!-- HA097044 -->
+		<xsl:variable name="doesHaveComment" as="xs:boolean" select="exists(*[1]/self::leg:P[count(*)=1]/leg:Text[count(node())=1]/leg:Emphasis)"/>
 		<xsl:element name="h{$intHeadingLevel}">
 			<xsl:attribute name="class">LegExpNoteTitle</xsl:attribute>
-			<xsl:if test="not(leg:Comment)">
+			<xsl:if test="not(leg:Comment) and not($doesHaveComment)">
 				<xsl:attribute name="class">LegExpNoteTitleNoComment</xsl:attribute>
 			</xsl:if>
 			<xsl:choose>

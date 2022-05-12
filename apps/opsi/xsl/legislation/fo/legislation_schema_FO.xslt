@@ -2704,7 +2704,9 @@ exclude-result-prefixes="tso atom">
 				</xsl:choose>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:if test="not(preceding-sibling::*[1][self::leg:BlockAmendment])">
+				<xsl:choose>
+				<xsl:when test=" parent::leg:P2para[preceding-sibling::*[1][self::leg:Pnumber]] and not(preceding-sibling::leg:Text) and $g_strDocClass = $g_strConstantEuretained "/>
+				<xsl:when test="not(preceding-sibling::*[1][self::leg:BlockAmendment])">
 					<fo:block>
 						<xsl:if test="not(ancestor::leg:Footnote)">
 							<xsl:choose>
@@ -2787,7 +2789,8 @@ exclude-result-prefixes="tso atom">
 						</xsl:if>
 						<xsl:apply-templates/>
 					</fo:block>
-				</xsl:if>		
+				</xsl:when>		
+				</xsl:choose>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>

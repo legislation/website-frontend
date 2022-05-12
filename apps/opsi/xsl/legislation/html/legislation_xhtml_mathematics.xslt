@@ -56,7 +56,14 @@ exclude-result-prefixes="leg ukm math xhtml dc ukm fo xsl">
 	<xsl:variable name="strAmendmentSuffix">
 		<xsl:call-template name="FuncCalcAmendmentNo"/>
 	</xsl:variable>
-  
+	
+	<!-- HA096864 -->
+	<xsl:if test="parent::*[count(*)=1][preceding-sibling::*[1]/self::leg:Pnumber] and exists(/leg:Legislation)">
+		<xsl:call-template name="leg:Text">
+			<xsl:with-param name="processFormula" select="false()" tunnel="yes"/>
+		</xsl:call-template>
+	</xsl:if>
+	
 	<div>
 	 	<xsl:attribute name="class">
 			<xsl:text>LegFormula</xsl:text>
@@ -113,6 +120,8 @@ exclude-result-prefixes="leg ukm math xhtml dc ukm fo xsl">
 </xsl:template>
 
 <xsl:template match="math:math">		
+	<xsl:param name="processFormula" select="true()" tunnel="yes"/>
+	<xsl:if test="$processFormula">
 	<span class="LegInlineFormula">
 		<xsl:variable name="strCheckMathsForRendering">
 			<xsl:call-template name="FuncCheckDisplayImageOrRenderMaths">
@@ -138,6 +147,7 @@ exclude-result-prefixes="leg ukm math xhtml dc ukm fo xsl">
 			</xsl:otherwise>
 		</xsl:choose>
 	</span>
+	</xsl:if>
 </xsl:template>
 
 <xsl:template name="FuncOutputError">

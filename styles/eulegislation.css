@@ -1048,3 +1048,52 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 .LegSnippet .LegSmallcaps {font-variant: small-caps}
 .uppercase{text-transform:uppercase}
+
+
+/* LegSnippet hasBlockAmends | .LegSnippet.hasBlockAmends */
+.LegSnippet.hasBlockAmends .LegEUSectionTitleC3Amend,
+.LegSnippet.hasBlockAmends .LegP1NoC3Amend,
+.LegSnippet.hasBlockAmends .LegEUSubsectionTitleC3Amend,
+.LegSnippet.hasBlockAmends .LegEUSectionTitleC4Amend,
+.LegSnippet.hasBlockAmends .LegP1NoC4Amend,
+.LegSnippet.hasBlockAmends .LegEUSubsectionTitleC4Amend {
+    display: block;
+}
+
+.LegSnippet.hasBlockAmends .LegEUSectionTitleC3Amend,
+.LegSnippet.hasBlockAmends .LegP1NoC3Amend,
+.LegSnippet.hasBlockAmends  .LegEUSubsectionTitleC3Amend,
+.LegSnippet.hasBlockAmends  .LegC3Amend,
+.LegSnippet.hasBlockAmends .LegEUSectionTitleC4Amend,
+.LegSnippet.hasBlockAmends .LegP1NoC4Amend,
+.LegSnippet.hasBlockAmends  .LegEUSubsectionTitleC4Amend,
+.LegSnippet.hasBlockAmends  .LegC4Amend {
+    text-align: center;
+}
+.LegSnippet.hasBlockAmends .LegP1TextC3Amend,
+.LegSnippet.hasBlockAmends .LegP1NoC3Amend,
+.LegSnippet.hasBlockAmends .LegP1TextC4Amend,
+.LegSnippet.hasBlockAmends .LegP1NoC4Amend {
+    width: auto;
+    float: none;
+}
+
+.LegSnippet.hasBlockAmends .LegEUSectionTitleC4Amend,
+.LegSnippet.hasBlockAmends .LegP1NoC4Amend,
+.LegSnippet.hasBlockAmends .LegP1TextC4Amend,
+.LegSnippet.hasBlockAmends  .LegEUSubsectionTitleC4Amend,
+.LegSnippet.hasBlockAmends  .LegC4Amend {
+    margin-left: 16%;
+}
+
+.LegSnippet.hasBlockAmends .LegEUSectionTitleC3Amend,
+.LegSnippet.hasBlockAmends .LegP1NoC3Amend,
+.LegSnippet.hasBlockAmends .LegP1TextC3Amend,
+.LegSnippet.hasBlockAmends  .LegEUSubsectionTitleC3Amend,
+.LegSnippet.hasBlockAmends  .LegC3Amend {
+    margin-left: 8%;
+}
+
+.LegSnippet.hasBlockAmends .LegP1Container {
+  font-weight: normal;
+}

@@ -182,16 +182,16 @@ h2, h3, h4, h5, h6 {
   font-weight: normal;
 }
 
-*[data-name=schedule] > h2 > .heading, *[data-name=schedules] > h2 > .heading, .article > h2 > .heading, .section > h2 > .heading, .chapter > h2 > .heading, .title > h2 > .heading, *[data-name=schedule] > h2 > .num, .article > h2 > .num, .section > h2 > .num, .chapter > h2 > .num, .title > h2 > .num {
+*[data-name=schedule] > h2 > .heading, *[data-name=schedules] > h2 > .heading, .article > h2 > .heading, .subsection > h2 > .heading, .section > h2 > .heading, .chapter > h2 > .heading, .title > h2 > .heading, .part > h2 > .heading, *[data-name=schedule] > h2 > .num, .article > h2 > .num, .subsection > h2 > .num, .section > h2 > .num, .chapter > h2 > .num, .title > h2 > .num, .part > h2 > .num {
   display: block;
   text-align: center;
 }
 
-*[data-name=schedule] > h2 > .num, .article > h2 > .num, .section > h2 > .num, .chapter > h2 > .num, .title > h2 > .num {
+*[data-name=schedule] > h2 > .num, .article > h2 > .num, .subsection > h2 > .num, .section > h2 > .num, .chapter > h2 > .num, .title > h2 > .num, .part > h2 > .num {
   margin-top: 2em;
 }
 
-*[data-name=schedule] > h2 > .heading, *[data-name=schedules] > h2 > .heading, .article > h2 > .heading, .section > h2 > .heading, .chapter > h2 > .heading, .title > h2 > .heading {
+*[data-name=schedule] > h2 > .heading, *[data-name=schedules] > h2 > .heading, .article > h2 > .heading, .subsection > h2 > .heading, .section > h2 > .heading, .chapter > h2 > .heading, .title > h2 > .heading, .part > h2 > .heading {
   margin-top: 1em;
 }
 

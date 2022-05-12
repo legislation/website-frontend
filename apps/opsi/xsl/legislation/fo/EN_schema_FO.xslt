@@ -1788,6 +1788,12 @@ exclude-result-prefixes="tso atom">
 		</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
+	
+<xsl:template match="leg:Division/leg:Number">
+	<fo:block font-weight="bold" font-style="italic" space-before="12pt" text-align="left" keep-with-next="always">
+		<xsl:apply-templates/>
+	</fo:block>
+</xsl:template>
 
 <xsl:template match="leg:Division/leg:Number/leg:Strong">
 	<fo:block space-before="12pt">
