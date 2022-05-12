@@ -55,7 +55,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
   	en="Explanatory Notes" pn="Policy Note" singular="Act of the Scottish Parliament" plural="{leg:TranslateText('Acts of the Scottish Parliament')}"
   	start="1999" complete="1999" revised="true" />
 	<tso:legType schemaType="WelshParliamentAct" class="primary" category="Act" abbrev="asc" 
-		en="Explanatory Notes" pn="Policy Note" singular="Act of the Senedd Cymru" plural="{leg:TranslateText('Acts of Senedd Cymru')}"
+		en="Explanatory Notes" pn="Policy Note" singular="Act of Senedd Cymru" plural="{leg:TranslateText('Acts of Senedd Cymru')}"
 		start="2020" complete="2020" revised="true" />
   <tso:legType schemaType="WelshNationalAssemblyAct" class="primary" category="Act" abbrev="anaw" 
   	en="Explanatory Notes" pn="Policy Note" singular="Act of the National Assembly for Wales" plural="{leg:TranslateText('Acts of the National Assembly for Wales')}"
