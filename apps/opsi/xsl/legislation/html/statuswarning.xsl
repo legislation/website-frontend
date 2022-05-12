@@ -190,7 +190,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 								</ul>
 							</xsl:when>
 							<xsl:otherwise>
-								<p>No results found.</p>
+								<p><xsl:value-of select="leg:TranslateText('No results found')"/>.</p>
 							</xsl:otherwise>
 						</xsl:choose>
 					</div>
@@ -216,7 +216,7 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 								<xsl:sequence select="leg:revisedTreatyText($g_strDocumentName, leg:FormatDate(leg:legislationStartDate(.)))"/>
 							</xsl:when>
 							<xsl:otherwise>
-								<xsl:text>This is the original version (as it was originally adopted).</xsl:text>
+								<xsl:value-of select="concat(leg:TranslateText('status_waring_original_version'),'.')"/>
 							</xsl:otherwise>
 						</xsl:choose>
 					</p>
@@ -332,24 +332,26 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 									<xsl:choose>
 										<xsl:when test="$IsEditedByEPP and leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate(.)">
 											<xsl:choose>
+												<!-- status_warning_effects_pt1 -->
 												<xsl:when test="leg:IsTOC()">
 													<xsl:value-of select="$status-legtitle"/>
-													<xsl:text> is up to date with all changes known to be in force on or before </xsl:text>
-													<xsl:call-template name="FormatLongDate">
+													<xsl:value-of select="concat(' ',leg:TranslateText('status_warning_effects_pt1'),' ')"/>
+													<xsl:call-template name="TranslateLongDate">
 														<xsl:with-param name="strInputDate" select="xs:string(current-date())" as="xs:string"/>
 													</xsl:call-template>
-													<xsl:text>. There are changes that may be brought into force at a future date.</xsl:text>
+													<xsl:value-of select="concat('. ',leg:TranslateText('status_warning_effects_pt2'),'.')"/>
 												</xsl:when>
 												<xsl:otherwise>
 													<xsl:value-of select="$status-legtitle"/>
 													<xsl:if test="string-length($sectionTitle) ne 0">
 														<xsl:value-of select="concat(', ', $sectionTitle)"/>
 													</xsl:if>
-													<xsl:text> is up to date with all changes known to be in force on or before </xsl:text>
-													<xsl:call-template name="FormatLongDate">
+													<xsl:value-of select="concat(' ',leg:TranslateText('status_warning_effects_pt1'),' ')"/>
+													<xsl:call-template name="TranslateLongDate">
 														<xsl:with-param name="strInputDate" select="xs:string(current-date())" as="xs:string"/>
 													</xsl:call-template>
-													<xsl:text>. There are changes that may be brought into force at a future date. Changes that have been made appear in the content and are referenced with annotations.</xsl:text>
+													<xsl:value-of select="concat('. ',leg:TranslateText('status_warning_effects_pt2'),'.')"/>
+													<xsl:value-of select="concat(' ',leg:TranslateText('status_warning_effects_pt3'),'.')"/>
 												</xsl:otherwise>
 											</xsl:choose>
 										</xsl:when>
@@ -359,7 +361,8 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 											<xsl:value-of select="$status-legtitle"/>
 											<xsl:text>.</xsl:text>
 											<xsl:if test="leg:IsTOC()">
-												<xsl:text> Those changes will be listed when you open the content using the Table of Contents below.</xsl:text>
+												<xsl:text> </xsl:text>
+												<xsl:value-of select="leg:TranslateText('status_warning_eu_retained_p_toc')"/>
 											</xsl:if>
 											<xsl:text> </xsl:text>
 											<xsl:value-of select="leg:TranslateText('statuswarning_euretained_p2')"/> 
@@ -409,15 +412,15 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 					<xsl:choose>
 						<xsl:when test="leg:IsDraft(.) and /leg:Legislation/ukm:Metadata/ukm:BillMetadata">
 							<xsl:attribute name="id">infoDraft</xsl:attribute>
-							<h2>Draft Bill:</h2>
+							<h2><xsl:value-of select="leg:TranslateText('Draft Bill')" />:</h2>
 						</xsl:when>
 						<xsl:when test="leg:IsDraft(.)">
 							<xsl:attribute name="id">infoDraft</xsl:attribute>
-							<h2>Draft Legislation:</h2>
+							<h2><xsl:value-of select="leg:TranslateText('Draft Legislation')" />:</h2>
 						</xsl:when>
 						<xsl:when test="leg:IsProposedVersion(.)">
 							<xsl:attribute name="id">infoProposed</xsl:attribute>
-							<h2>Proposed Legislation:</h2>
+							<h2><xsl:value-of select="leg:TranslateText('Proposed Legislation')" />:</h2>
 						</xsl:when>
 
 						<xsl:otherwise>
@@ -431,14 +434,16 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 						<xsl:variable name="maintype" as="xs:string" select="/leg:Legislation/ukm:Metadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:BillMetadata | ukm:EUMetadata)/ukm:DocumentClassification/ukm:DocumentMainType/@Value"/>
 						<xsl:choose>
 							<xsl:when test="(leg:IsDraft(.) or leg:IsProposedVersion(.)) and $maintype = 'UnitedKingdomDraftPublicBill'" >
-								<xsl:text> This is a draft Bill item. It has no official standing.</xsl:text>
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="leg:TranslateText('status_warning_intro_draft_bill_item') " />
 							</xsl:when>
 							<xsl:when test="leg:IsProposedVersion(.)">
 								<strong><xsl:value-of select="/leg:Legislation/ukm:Metadata/dct:alternative" /></strong>
-								<xsl:text> This version shows proposed changes to this legislation item. It has no official standing.</xsl:text>
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="leg:TranslateText('status_warning_intro_proposed_version')"/>
 							</xsl:when>
 							<xsl:when test="leg:IsDraft(.)">
-								<xsl:text>This is a draft item of legislation</xsl:text>
+								<xsl:value-of select="leg:TranslateText('status_warning_intro_draft_legislation')"/>
 								<!--
 								For a draft legislation item with a 'superseded' version:
 									Draft Legislation: This is a draft legislation item. This draft has since been made as {legislation type}: {legislation title + number}.
@@ -449,16 +454,16 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 								-->
 								<xsl:choose>
 									<xsl:when test="exists(/leg:Legislation/ukm:Metadata/ukm:SupersededBy/ukm:Number)">
-										<xsl:text>. This draft has since been made as a </xsl:text>
+										<xsl:value-of select="concat('. ',leg:TranslateText('This draft has since been made as a'),' ')"/>
 										<xsl:value-of select="tso:GetSingularTitleFromType(tso:GetTypeFromDraftType($maintype,''),'')"/>
 										<xsl:text>: </xsl:text>
 									</xsl:when>
 									<xsl:otherwise>
-										<xsl:text> and has not yet been made as a </xsl:text>
+										<xsl:value-of select="concat(' ',leg:TranslateText('and has not yet been made as a'),' ')"/>
 										<xsl:value-of select="tso:GetSingularTitleFromType(tso:GetTypeFromDraftType($maintype,''),'')"/>
 										<xsl:text>. </xsl:text>
 										<xsl:if test="exists(/leg:Legislation/ukm:Metadata/ukm:SupersededBy)">
-											<xsl:text>This draft has been replaced by a new draft, </xsl:text>
+											<xsl:value-of select="concat(leg:TranslateText('This draft has been replaced by a new draft'),', ')"/>
 										</xsl:if>
 									</xsl:otherwise>
 								</xsl:choose>
@@ -481,16 +486,26 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 							</xsl:otherwise>
 						</xsl:choose>
 						<xsl:if test="leg:isFromWestlaw(.)">
-							<xsl:text> The electronic version of this </xsl:text>
-							<xsl:value-of select="tso:GetSingularTitleFromType($maintype,'')" />
-							<xsl:text> has been contributed by Westlaw and is taken from the printed publication. </xsl:text>
-							<a href="/contributors#westlaw" class="more"><strong>Read more</strong></a>
+							<xsl:value-of select="concat(' ',leg:TranslateText('status_warning_is_from_westlaw_pt1'))"/>
+							<xsl:value-of select="concat(' ',tso:GetSingularTitleFromType($maintype,''),' ')" />
+							<xsl:value-of select="concat(leg:TranslateText('status_warning_is_from_westlaw_pt2'),'. ')"/>
+							<a href="/contributors#westlaw" class="more"><strong><xsl:value-of select="leg:TranslateText('Read more')"/></strong></a>
 						</xsl:if>
-
 					</p>
 				</xsl:otherwise>
 			</xsl:choose>
 		</div>
+	</xsl:template>
+
+	<xsl:template name="TranslateLongDate">
+		<xsl:param name="strInputDate" select="''"/>
+		<xsl:variable name="longDateString">
+			<xsl:call-template name="FormatLongDate">
+				<xsl:with-param name="strInputDate" select="$strInputDate" as="xs:string"/>
+			</xsl:call-template>
+		</xsl:variable>
+		<xsl:variable name="tokenizedDate" select="tokenize($longDateString,' ')"/>
+		<xsl:value-of select="string-join(($tokenizedDate[1],leg:TranslateText($tokenizedDate[2]),$tokenizedDate[3]),' ')"/>
 	</xsl:template>
 
 	<xsl:template name="processEffects">
@@ -576,8 +591,8 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 			<!-- point in time text -->
 			<xsl:variable name="pointInTimeText">
 				<xsl:choose>
-					<xsl:when test="$version = 'prospective'">Point in time view latest with prospective.</xsl:when>
-					<xsl:when test="$version castable as xs:date">Point in time view as at <xsl:value-of select="leg:FormatDate($version)"/>. </xsl:when>
+					<xsl:when test="$version = 'prospective'"><xsl:value-of select="leg:TranslateText('status_warning_PiT_ prospective')"/>.</xsl:when>
+					<xsl:when test="$version castable as xs:date"><xsl:value-of select="concat(leg:TranslateText('status_warning_PiT_at'),' ')"/><xsl:value-of select="leg:FormatDate($version)"/>. </xsl:when>
 				</xsl:choose>
 			</xsl:variable>
 			<xsl:if test="exists($status) or string-length($pointInTimeText) > 0">
@@ -590,20 +605,20 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 						<xsl:value-of select="$pointInTimeText"/>
 						<xsl:sequence select="$status/node()[not(self::tso:extent)]" />
 						<xsl:if test="$includeTimeline">
-							<xsl:choose>
+							<xsl:choose>								
 								<xsl:when test="$status/@scenarioId = 'S2' ">
 									<xsl:text> </xsl:text>
-									<a href="?timeline=true">Show Timeline of Changes</a>
+									<a href="?timeline=true"><xsl:value-of select="leg:TranslateText('status_warning_PiT_timeline_changes_p1')"/></a>
 								</xsl:when>
 								<xsl:when test="$status/@scenarioId = xs:string( if ($pointInTimeView) then ('S9') else ('S6') )">
 									<xsl:text> </xsl:text>
-									<a href="?timeline=true">Show Timeline of Changes</a>
-									<xsl:text> to view this provision at an earlier point in time.</xsl:text>
+									<a href="?timeline=true"><xsl:value-of select="leg:TranslateText('status_warning_PiT_timeline_changes_p1')"/></a>
+									<xsl:value-of select="concat(' ',leg:TranslateText('status_warning_PiT_timeline_changes_p1_1'))"/>
 								</xsl:when>
 								<xsl:when test="$status/@scenarioId = (if ($pointInTimeView) then 'S12' else 'S9')">
 									<xsl:text> </xsl:text>
-									<a href="?timeline=true">Show Timeline of Changes</a>
-									<xsl:text> to view this provision as it would have been.</xsl:text>
+									<a href="?timeline=true"><xsl:value-of select="leg:TranslateText('status_warning_PiT_timeline_changes_p1')"/></a>
+									<xsl:value-of select="concat(' ',leg:TranslateText('status_warning_PiT_timeline_changes_p1_2'))"/>
 								</xsl:when>
 							</xsl:choose>
 						</xsl:if>
@@ -618,12 +633,12 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 						<!-- displaying the help tool tip-->
 						<xsl:call-template name="TSOOutputStatusHelpTip">
 							<xsl:with-param name="scenarioId" select="$status/@scenarioId"/>
-							<xsl:with-param name="helpTitle">Status</xsl:with-param>
+							<xsl:with-param name="helpTitle"><xsl:value-of select="leg:TranslateText('Status')"/></xsl:with-param>
 						</xsl:call-template>
 					</xsl:if>
 					<xsl:if test="$status/tso:extent">
 						<div class="extentMarkerInfo">
-							<h2>Skip to: </h2>
+							<h2><xsl:value-of select="leg:TranslateText('Skip to')"/>:</h2>
 							<ul>
 								<xsl:for-each select="$status/tso:extent/*">
 									<li>

@@ -259,18 +259,37 @@ Added in welsh language support for UI.
 								
 								<p><xsl:value-of select="leg:TranslateText('Feed3')"/></p>					
 
-								<p><strong><xsl:value-of select="leg:TranslateText('Feed4')"/></strong>					
-								<xsl:value-of select="leg:TranslateText('Feed5')"/>					
-								<a>
+								<p> 
+									<xsl:value-of select="leg:TranslateText('Feed4')"/>
+									<a>
 										<xsl:attribute name="href">
-											<xsl:value-of select="leg:TranslateText('FeedLink')"/>
+											<xsl:value-of select="leg:TranslateText('FeedLink1')"/>
+										</xsl:attribute>
+										<xsl:attribute name="target">
+											<xsl:text>_blank</xsl:text>
+										</xsl:attribute>
+										<xsl:value-of select="leg:TranslateText('Feed5')"/>
+									</a>
+									<a>
+										<xsl:attribute name="href">
+											<xsl:value-of select="leg:TranslateText('FeedLink2')"/>
 										</xsl:attribute>
 										<xsl:attribute name="target">
 											<xsl:text>_blank</xsl:text>
 										</xsl:attribute>
 										<xsl:value-of select="leg:TranslateText('Feed6')"/>
 									</a>
-								</p>					
+									<xsl:value-of select="leg:TranslateText('Feed7')"/>
+									<a>
+										<xsl:attribute name="href">
+											<xsl:value-of select="leg:TranslateText('FeedLink3')"/>
+										</xsl:attribute>
+										<xsl:attribute name="target">
+											<xsl:text>_blank</xsl:text>
+										</xsl:attribute>
+										<xsl:value-of select="leg:TranslateText('Feed8')"/>
+									</a>								
+								</p>
 							</div>
 						</div>			
 					</div>					

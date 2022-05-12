@@ -85,7 +85,7 @@ table th a {color: #494949;}
 ---------------*/
 
 /* Setting page furniture */
-#header {background: #FFF; /* this needs to be set for IE*/ min-height:7.5em; display: block; width:958px; margin: 0 auto;}
+#header {background: #FFF; /* this needs to be set for IE*/ min-height:7.5em; display: block; width:972px; margin: 0 auto;}
 #background {background: #424240; height: 22em; display: block; clear: left;}
 #footer {clear: both; padding: 10px 0; width: 970px; margin: 0 auto; background: #F6FAFD; border-top: 1px solid #CCC}
 #layout1 { background: #fff; display: block;}
@@ -206,7 +206,7 @@ ul#secondaryNav li a.langaugeSwitch {font-weight: bold; color: red;}
 /* Footer begin */
 #footer div {padding-right:1.5em; display: flex;  font-size: 0.95em; }
 #footer .copyright { text-align:right; flex-basis: 420px; margin-left: auto; }
-#footer .copyrightstatement { font-size: 0.9em; /* padding-left:55px;background: url("/images/chrome/ogl-symbol.gif") no-repeat scroll 0 0; */ }
+#footer .copyrightstatement { /* padding-left:55px;background: url("/images/chrome/ogl-symbol.gif") no-repeat scroll 0 0; */ }
 #footer .copyrightstatement img { float: left; margin-right: 15px; }
 #footer div p {margin: 0 ; padding: 0 1% 0 1%; color: #66677C;}
 #footer div p a {color: #66677C; text-decoration: underline;}
@@ -1008,7 +1008,7 @@ p.viewMoreLink {clear: left;padding-bottom:0.75em;padding-top:0;}
 #doc .subNavPage #content
 {padding: 10px 14px 10px 10px;}
 #doc .subNavPage #pageTitle {padding-left: 245px;}
-#subNav .section {border: 0; max-height: 100vh; margin-bottom: 15px; }
+#subNav .section {border: 0; max-height: 100vh; overflow-y: scroll; margin-bottom: 15px; }
 #subNav .section li,
 #subNav .section h3
 {padding: 10px 8px;}

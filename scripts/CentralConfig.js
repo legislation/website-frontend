@@ -581,11 +581,12 @@ $(document).ready(function() {
      * Inject message in English site and normal view
      * renmoved target=\"_blank\" for DEFRALEX link
      */
-/* */
+/* 
     if ((LANG != "cy") && (!$("body").hasClass("plainview"))) {
 		var a = '<div id="cookie-law-info-bar" class="cookie-law-info-survey-bar"><span>We are making changes to legislation.gov.uk. Please <a href="https://www.smartsurvey.co.uk/s/PUA3T/" id=\"CONSTANT_OPEN_URL\" target=\"_blank\" class=\"cli-plugin-main-survey-link\"> take our survey</a> and let us know your feedback. <a href=\"#\" id=\"cookie_action_close_header\"  class=\"medium cli-plugin-survey-button cli-plugin-main-survey-button\" >[ Close ]</a></span></div>',
                 b = '{"animate_speed_hide":"500","animate_speed_show":"500","background":"","border":"","border_on":"false","button_1_button_colour":"","button_1_button_hover":"","button_1_link_colour":"","button_1_as_button":false,"button_2_button_colour":"","button_2_button_hover":"","button_2_link_colour":"","button_2_as_button":false,"font_family":"","notify_animate_hide":true,"notify_animate_show":false,"notify_div_id":"#cookie-law-info-bar","notify_position_horizontal":"right","notify_position_vertical":"top","showagain_tab":false,"showagain_background":"","showagain_border":"","showagain_div_id":"#cookie-law-info-again","showagain_x_position":"100px","text":""}';
         cli_show_cookiebar(a, b);
     }
+    */
 		
 });

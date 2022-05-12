@@ -77,6 +77,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Acts of the Scottish Parliament">Deddfau Senedd yr Alban</resource>
 		<resource id="Acts of the National Assembly for Wales">Deddfau Cynulliad Cenedlaethol Cymru</resource>
 		<resource id="Measures of the National Assembly for Wales">Mesurau Cynulliad Cenedlaethol Cymru</resource>
+		<resource id="Mesurau Cynulliad Cenedlaethol Cymru">Mae Mesur Llywodraeth Leol (Cymru)</resource>
 		<resource id="Church Measures">Mesurau Eglwysig</resource>
 		<resource id="Acts of the Northern Ireland Assembly">Deddfau Cynulliad Gogledd Iwerddon</resource>
 		<resource id="Acts of the Old Scottish Parliament">Deddfau Hen Senedd yr Alban</resource>
@@ -228,7 +229,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Browser_warning" translated="false" stage2="true"> You may also experience some issues with your browser, such as an alert box that a script is taking a long time to run.</resource>
 		<resource id="EN_Help_1" translated="false" stage2="true">Testun a grëwyd gan yr adran o’r llywodraeth oedd yn gyfrifol am destun y Ddeddf i esbonio beth mae’r Ddeddf yn ceisio ei wneud ac i wneud y Ddeddf yn hygyrch i ddarllenwyr nad oes ganddynt gymhwyster cyfreithiol. Cyflwynwyd Nodiadau Esboniadol ym 1999 ac maent yn cyd-fynd â phob Deddf Gyhoeddus ac eithrio Deddfau Adfeddiannu, Cronfa Gyfunol, Cyllid a Chyfnerthiad.</resource>
 		<resource id="EN_Help_2" translated="false" stage2="true">Text created by the Northern Ireland Assembly department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes accompany all Acts of the Northern Ireland Assembly.</resource>
-		<resource id="EN_Help_3" translated="false" stage2="true">Text created by the Scottish Executive department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes were introduced in 1999 and accompany all Acts of the Scottish Parliament except those which result from Budget Bills</resource>
+		<resource id="EN_Help_3" translated="false" stage2="true">Text created by the Scottish Government to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes were introduced in 1999 and accompany all Acts of the Scottish Parliament except those which result from Budget Bills.</resource>
 		<resource id="EN_Help_4" translated="false" stage2="true">Text created by the Welsh Government department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes accompany all Acts of the National Assembly for Wales.</resource>
 		<resource id="EN_Help_5" translated="false" stage2="true">Policy Note sets out a brief statement of the purpose of a Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2012 onwards. Prior to this date these type of notes existed as ‘Executive Notes’ and accompanied Scottish Statutory Instruments from July 2005 until July 2012.</resource>
 		<resource id="EN_Help_6" translated="false" stage2="true">Draft Policy Note sets out a brief statement of the purpose of a Draft Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Draft Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2012 onwards. Prior to this date these type of notes existed as 'Executive Notes' and accompanied Draft Scottish Statutory Instruments from July 2005 until July 2012.</resource>
@@ -623,10 +624,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Feed1" translated="false" stage2="true">Feeds enable you to see when websites have added new content. By using the legislation feeds you can get details of the latest legislation as soon as it is published without having to check the new legislation page each day.</resource>
 		<resource id="Feed2" translated="false" stage2="true">There are many types of feed (such as RSS and Atom). This site provides Atom feeds which can be used in most news readers. To use the feeds you will need a newsreader or a browser enabled device.</resource>
 		<resource id="Feed3" translated="false" stage2="true">To receive the feed to your newsreader either drag the orange feed button or cut and paste the link of the feed into your news reader.</resource>
-		<resource id="Feed4">Chrome users: </resource>
-		<resource id="Feed5">Google Chrome doesn’t have any in-built support for RSS feeds. To view an RSS feed using this browser you will need to download a free extension to Google Chrome from the</resource>
-		<resource id="Feed6">Google Chrome Store.</resource>
-		<resource id="FeedLink">https://chrome.google.com/webstore/search/rss%20feed%20reader?hl=en</resource>
+		<resource id="Feed4" translated="false" stage2="true">Some browsers, for example Google Chrome, Mozilla Firefox and Microsoft Edge don't have any inbuilt support for RSS feeds. To view an RSS feed using these browsers you will need to download a free extension from the</resource>
+		<resource id="Feed5" translated="false" stage2="true">Chrome Web Store,</resource>
+		<resource id="FeedLink1">https://chrome.google.com/webstore/search/rss%20reader</resource>
+		<resource id="Feed6" translated="false" stage2="true">Firefox Add-ons,</resource>
+		<resource id="FeedLink2">https://addons.mozilla.org/en-GB/firefox/search/?platform=windows&amp;q=rss%20reader</resource>
+		<resource id="Feed7" translated="false" stage2="true"> or</resource>
+		<resource id="Feed8" translated="false" stage2="true">the Microsoft Store.</resource>
+		<resource id="FeedLink3">https://www.microsoft.com/en-gb/search/shop/apps?q=rss+reader&amp;Price=0</resource>
 		<!-- Text on Page -http://www.legislation.gov.uk/cy/browse-->
 		<resource id="Acts of the Old Scottish Parliament 1424-1707">Deddfau Hen Senedd yr Alban 1424 – 1707</resource>
 		<resource id="Acts of the English Parliament 1267-1706">Deddfau Senedd Lloegr 1267 – 1706</resource>
@@ -776,12 +781,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="This Section only">Yr Adran Hon yn unig</resource>
 		<resource id="This Division only">Yr Is-adran hon yn unig</resource>
 		<resource id="Web page">Tudalen we</resource>
-		<resource id="Proposed legislation" translated="false" stage2="true">Proposed legislation</resource>
+		<resource id="Proposed legislation" translated="true" stage2="true">Deddfwriaeth Arfaethedig</resource>
 		<resource id="Show Explanatory Notes for Sections" translated="false" stage2="true">Dangos Nodiadau Eglurhaol ar gyfer Adrannau</resource>
 		<resource id="Show Repeals" translated="false" stage2="true">Show Repeals</resource>
 		<resource id="over" translated="false" stage2="true">over</resource>
-		<resource id="Legislation by Subject Heading" translated="false" stage2="true">Deddfwriaeth yn ôl Pennawd Pwnc</resource>
-		<resource id="Select First Letter of Heading" translated="false" stage2="true">Select First Letter of Heading</resource>
+		<resource id="Legislation by Subject Heading" translated="true" stage2="true">Deddfwriaeth yn ôl Pennawd Pwnc</resource>
+		<resource id="Select First Letter of Heading" translated="true" stage2="true">Dewiswch Lythyr Cyntaf Pennawd</resource>
 		<resource id="all headings" translated="false" stage2="true">all headings</resource>
 		<resource id="Refine Results" translated="false" stage2="true">Adfer Canlyniadau</resource>
 		<resource id="Partial dataset" translated="false" stage2="true">Set ddata rannol</resource>
@@ -797,10 +802,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</resource>
 		<resource id="the">the</resource>
 		<resource id="version of the" translated="false" stage2="true">version of the</resource>
-		<resource id="Status">Status</resource>
+		<resource id="Status">Statws</resource>
 		<resource id="status_warning_original_version">Dyma’r fersiwn wreiddiol (fel y’i gwnaed yn wreiddiol)</resource>
 		<resource id="status_warning_original_version2">. Dim ond ar ei ffurf wreiddiol y mae’r eitem hon o ddeddfwriaeth ar gael ar hyn o bryd</resource>
 		<resource id="status_warning_original_version3"> are not carried in their revised form on this site</resource>
+		
+		<resource id="status_warning_outstanding_p1"> is up to date with all changes known to be in force on or before </resource>
+		<resource id="status_warning_outstanding_p1_1">There are changes that may be brought into force at a future date.</resource>
+		<resource id="status_warning_outstanding_p1_2">Changes that have been made appear in the content and are referenced with annotations.</resource>	
+		<resource id="status_warning_eu_retained_p_toc">Those changes will be listed when you open the content using the Table of Contents below.</resource>
+		
 		<resource id="Impact Assessment">Asesiad Effaith</resource>
 		<resource id="Draft Impact Assessment">Asesiad Effaith Ddrafft</resource>
 		<resource id="No." translated="false" stage2="true">No.</resource>
@@ -891,7 +902,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
     <!-- Status Warning -->
     <resource id="swhead_changes_to_legislation">Newidiadau i ddeddfwriaeth:</resource>
-    <resource id="swhead_status">Statws:</resource>
+    <resource id="swhead_status">Statws</resource>
     <resource id="swhead_brexit">Ymadael â’r UE:</resource>
 
     <resource id="brexitInfo_head">Ymadael â’r UE:</resource>
@@ -953,6 +964,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<a href="http://www.parliament.uk/" target="_blank">Senedd y Deyrnas Unedig</a> yn yr adran 
 				<a href="http://services.parliament.uk/bills/" target="_blank">Mesurau, Deddfwriaeth a Busnes Seneddol</a>. Maent yn cael eu cyhoeddi ar y safle hwn ar ôl derbyn y Cydsyniad Brenhinol.
 			</resource>
+			<resource id="Draft Bills">Mesurau Arfaethedig</resource>
 			<resource id="New_and_amended_link">Pori deddfwriaeth newydd</resource>
 			<resource id="Legislation_published_today">Deddfwriaeth a gyhoeddwyd heddiw</resource>
 			<resource id="Finding_your_way_title">Canfod eich ffordd o deddfwriaeth.gov.uk</resource>
@@ -1062,6 +1074,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_changes_scenario_1">Revised legislation carried on this site may not be fully up to date. At the current time any known changes or effects made by subsequent legislation have been applied to the text of the legislation you are viewing by the editorial team.  Please see ‘Frequently Asked Questions’ for details regarding the timescales for which new effects are identified and recorded on this site.</resource>									
 		<resource id="status_warning_changes_point_in_time">Changes and effects yet to be applied by the editorial team are only applicable when viewing the latest version or prospective version of legislation. They are therefore not accessible when viewing legislation as at a specific point in time. To view the ‘Changes to Legislation’ information for this provision return to the latest version view using the options provided in the ‘What Version’ box above.</resource>
 		<resource id="status_warning_changes_eu_revised_pdf_only">Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area.  Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the affected provisions when you open the content using the Table of Contents below.</resource>
+		<resource id="status_warning_effects_pt1">yn gyfredol gyda’r holl newidiadau y gwyddys eu bod mewn grym ar neu cyn</resource>
+		<resource id="status_warning_effects_pt2">Mae newidiadau a all gael eu dwyn i rym yn y dyfodol</resource>
+		<resource id="status_warning_effects_pt3">Changes that have been made appear in the content and are referenced with annotations</resource>
 		<resource id="Expired: see Introduction.">Wedi dirwyn i ben: gweler y Cyflwyniad.</resource>
 		<resource id="Repealed: see Introduction.">Diddymwyd: gweler y Cyflwyniad.</resource>
 		<resource id="in pt">yn rhannol</resource>
@@ -1095,6 +1110,24 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="r.">d.</resource>
 		<resource id=" r."> d.</resource>
 		<resource id="in pt.(saving)">yn rhannol (arbed)</resource>
+		<resource id="status_warning_intro_draft_bill_item">This is a draft Bill item. It has no official standing.</resource> 
+		<resource id="status_warning_intro_proposed_version">This version shows proposed changes to this legislation item. It has no official standing.</resource> 
+		<resource id="status_warning_intro_draft_legislation">Mae hwn yn eitem o ddeddfwriaeth ddrafft</resource> 
+		<resource id="No results found">Ni ddarganfwyd canlyniadau</resource>
+		<resource id="Read more">Darllen mwy</resource>
+		<resource id="This draft has since been made as a">This draft has since been made as a</resource>
+		<resource id="and has not yet been made as a">and has not yet been made as a</resource>
+		<resource id="This draft has been replaced by a new draft">This draft has been replaced by a new draft</resource>
+		<resource id="status_waring_original_version">This is the original version (as it was originally adopted)</resource>
+		<resource id="status_warning_PiT_ prospective">Point in time view latest with prospective.</resource>
+		<resource id="status_warning_PiT_at">Point in time view as at</resource>
+		<resource id="status_warning_PiT__timeline_changes_p1">Show Timeline of Changes</resource>
+		<resource id="status_warning_PiT_timeline_changes_p1_1">to view this provision at an earlier point in time.</resource>
+		<resource id="status_warning_PiT_timeline_changes_p1_2">to view this provision as it would have been.</resource>
+		<resource id="status_warning_is_from_westlaw_pt1">The electronic version of this</resource>
+		<resource id="status_warning_is_from_westlaw_pt2">has been contributed by Westlaw and is taken from the printed publication</resource>
+		
+		<resource id="Skip to">Skip to</resource>
 	</resources>
 
 	<resources lang="en">
@@ -1142,10 +1175,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Feed1">Feeds enable you to see when websites have added new content. By using the legislation feeds you can get details of the latest legislation as soon as it is published without having to check the new legislation page each day.</resource>
 		<resource id="Feed2">There are many types of feed (such as RSS and Atom). This site provides Atom feeds which can be used in most news readers. To use the feeds you will need a newsreader or a browser enabled device.</resource>
 		<resource id="Feed3">To receive the feed to your newsreader either drag the orange feed button or cut and paste the link of the feed into your news reader.</resource>
-		<resource id="Feed4">Chrome users: </resource>
-		<resource id="Feed5">Google Chrome doesn’t have any in-built support for RSS feeds. To view an RSS feed using this browser you will need to download a free extension to Google Chrome from the</resource>
-		<resource id="Feed6">Google Chrome Store.</resource>
-		<resource id="FeedLink">https://chrome.google.com/webstore/search/rss%20feed%20reader?hl=en</resource>
+		<resource id="Feed4">Some browsers, for example Google Chrome, Mozilla Firefox and Microsoft Edge don't have any inbuilt support for RSS feeds. To view an RSS feed using these browsers you will need to download a free extension from the</resource>
+		<resource id="Feed5">Chrome Web Store,</resource>
+		<resource id="FeedLink1">https://chrome.google.com/webstore/search/rss%20reader</resource>
+		<resource id="Feed6">Firefox Add-ons,</resource>
+		<resource id="FeedLink2">https://addons.mozilla.org/en-GB/firefox/search/?platform=windows&amp;q=rss%20reader</resource>
+		<resource id="Feed7"> or</resource>
+		<resource id="Feed8">the Microsoft Store.</resource>
+		<resource id="FeedLink3">https://www.microsoft.com/en-gb/search/shop/apps?q=rss+reader&amp;Price=0</resource>
 
 		<!-- Browse -->
 		<resource id="Browse_Back">Back to all legislation</resource>
@@ -1311,8 +1348,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_original_version">This is the original version (as it was originally <param ref-id="type"/>)</resource>
 		<resource id="status_warning_original_version2">. This item of legislation is currently only available in its original format</resource>
 		<resource id="status_warning_original_version3"> are not carried in their revised form on this site</resource>
+		<resource id="status_warning_outstanding_p1"> is up to date with all changes known to be in force on or before </resource>
+		<resource id="status_warning_outstanding_p1_1">There are changes that may be brought into force at a future date.</resource>
+		<resource id="status_warning_outstanding_p1_2">Changes that have been made appear in the content and are referenced with annotations.</resource>
+		<resource id="status_warning_eu_retained_p_toc">Those changes will be listed when you open the content using the Table of Contents below.</resource>
 		
-
 		<!-- new -->
 		<resource id="New_subtitle">Changes made by legislation enacted from 2002 – present</resource>
 		<resource id="New_p1">The search form below provides access to lists detailing changes made by all legislation enacted from 2002 – present to the revised legislation held on legislation.gov.uk. Changes made by legislation enacted prior to 2002 have already been incorporated into the content and are not available as searchable lists. These lists provide details of changes including repeals, amendments and other effects (e.g. modifications and commencement information).</resource>
@@ -1381,7 +1421,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="by">by</resource>
 		<resource id="EN_Help_1">Text created by the government department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes were introduced in 1999 and accompany all Public Acts except Appropriation, Consolidated Fund, Finance and Consolidation Acts.</resource>
 		<resource id="EN_Help_2">Text created by the Northern Ireland Assembly department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes accompany all Acts of the Northern Ireland Assembly.</resource>
-		<resource id="EN_Help_3">Text created by the Scottish Executive department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes were introduced in 1999 and accompany all Acts of the Scottish Parliament except those which result from Budget Bills</resource>
+		<resource id="EN_Help_3">Text created by the Scottish Government to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes were introduced in 1999 and accompany all Acts of the Scottish Parliament except those which result from Budget Bills.</resource>
 		<resource id="EN_Help_4">Text created by the Welsh Government department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes accompany all Acts of the National Assembly for Wales.</resource>
 		<resource id="EN_Help_5">Policy Note sets out a brief statement of the purpose of a Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2012 onwards. Prior to this date these type of notes existed as ‘Executive Notes’ and accompanied Scottish Statutory Instruments from July 2005 until July 2012.</resource>
 		<resource id="EN_Help_6">Draft Policy Note sets out a brief statement of the purpose of a Draft Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Draft Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2012 onwards. Prior to this date these type of notes existed as 'Executive Notes' and accompanied Draft Scottish Statutory Instruments from July 2005 until July 2012.</resource>
@@ -1613,6 +1653,22 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="status_warning_changes_scenario_1">Revised legislation carried on this site may not be fully up to date. At the current time any known changes or effects made by subsequent legislation have been applied to the text of the legislation you are viewing by the editorial team.  Please see ‘Frequently Asked Questions’ for details regarding the timescales for which new effects are identified and recorded on this site.</resource>									
 		<resource id="status_warning_changes_point_in_time">Changes and effects yet to be applied by the editorial team are only applicable when viewing the latest version or prospective version of legislation. They are therefore not accessible when viewing legislation as at a specific point in time. To view the ‘Changes to Legislation’ information for this provision return to the latest version view using the options provided in the ‘What Version’ box above.</resource>
 		<resource id="status_warning_changes_eu_revised_pdf_only">Revised legislation carried on this site may not be fully up to date. Changes and effects are recorded by our editorial team in lists which can be found in the ‘Changes to Legislation’ area.  Where those effects have yet to be applied to the text of the legislation by the editorial team they are also listed alongside the affected provisions when you open the content using the Table of Contents below.</resource>	
+		<resource id="status_warning_intro_draft_bill_item">This is a draft Bill item. It has no official standing.</resource> 
+		<resource id="status_warning_intro_proposed_version">This version shows proposed changes to this legislation item. It has no official standing.</resource> 
+		<resource id="status_warning_intro_draft_legislation">This is a draft item of legislation</resource> 
+		<resource id="status_waring_original_version">This is the original version (as it was originally adopted)</resource>
+		<resource id="status_warning_PiT_ prospective">Point in time view latest with prospective</resource>
+		<resource id="status_warning_PiT_at">Point in time view as at</resource>
+		<resource id="status_warning_PiT__timeline_changes_p1">Show Timeline of Changes</resource>
+		<resource id="status_warning_PiT_timeline_changes_p1_1">to view this provision at an earlier point in time.</resource>
+		<resource id="status_warning_PiT_timeline_changes_p1_2">to view this provision as it would have been.</resource>
+		<resource id="status_warning_is_from_westlaw_pt1">The electronic version of this</resource>
+		<resource id="status_warning_is_from_westlaw_pt2">has been contributed by Westlaw and is taken from the printed publication</resource>
+		<resource id="status_warning_effects_pt1">is up to date with all changes known to be in force on or before</resource>
+		<resource id="status_warning_effects_pt2">There are changes that may be brought into force at a future date</resource>
+		<resource id="status_warning_effects_pt3">Changes that have been made appear in the content and are referenced with annotations</resource>
+
+		
 	</resources>
 </allResources>
 

@@ -900,7 +900,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<!-- Affecting Year and Number-->
 	<xsl:template match="ukm:Effect" mode="resultsAffectingYearNumber">
 		<td class="centralCol">
-			<xsl:variable name="link" select="if (@AffectingClass = 'EuropeanUnionOther') then () else concat($langPrefix,'/', tso:GetUriPrefixFromType(@AffectingClass, @AffectingYear), '/', @AffectingYear, '/', @AffectingNumber)"/>
+			<xsl:variable name="link" select="if (@AffectingClass = 'EuropeanUnionOther') then () else concat($langPrefix,'/id/', tso:GetUriPrefixFromType(@AffectingClass, @AffectingYear), '/', @AffectingYear, '/', @AffectingNumber)"/>
 			<xsl:variable name="value">
 				<xsl:if test="@AffectingClass = 'EuropeanUnionOther'">
 					<xsl:text>EU Other </xsl:text>

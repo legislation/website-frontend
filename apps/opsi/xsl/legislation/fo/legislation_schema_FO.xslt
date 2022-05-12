@@ -3659,6 +3659,9 @@ exclude-result-prefixes="tso atom">
 		</xsl:variable>
 		<xsl:if test="$showCommentary">
 			<xsl:if test="$isFirstChange = true()">
+				<xsl:if test="self::leg:Addition and parent::leg:Addition and ancestor::leg:Pnumber">
+					<fo:block/>
+				</xsl:if>
 				<fo:inline font-weight="bold">[</fo:inline>
 			</xsl:if>
 			<xsl:apply-templates select="." mode="AdditionRepealRefs"/>
@@ -3760,11 +3763,6 @@ exclude-result-prefixes="tso atom">
 		</xsl:if>
 	</xsl:template>
 	
-	
-	
-	
-
-
 
 	<xsl:template match="leg:CommentaryRef" priority="50">
 		<xsl:choose>
@@ -3819,7 +3817,7 @@ exclude-result-prefixes="tso atom">
 		<xsl:param name="commentaryItem" as="element(leg:Commentary)"/>
 		<xsl:param name="versionRef" as="xs:string"/>
 		<fo:basic-link baseline-shift="super"  color="black" font-size="60%" font-weight="bold" 
-    internal-destination="commentary-{$commentaryItem/@id}{$versionRef}">
+			internal-destination="commentary-{$commentaryItem/@id}{$versionRef}">
 			<!-- There may be multiple references to the commentary. Only output back id on first one -->
 			<xsl:if test="$isFirstReference">
 				<xsl:attribute name="id" select="concat('reference-', $commentaryItem/@id, translate($versionRef,' ',''))"/>

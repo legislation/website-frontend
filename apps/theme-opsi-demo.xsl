@@ -112,12 +112,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<script type="text/javascript" src="/scripts/jquery-cookie-directive/jquery.cookie.js"></script>
 				<script type="text/javascript" src="/scripts/jquery-cookie-directive/jquery-cookie-functions.js"></script>
 				<script type="text/javascript" src="/scripts/cookie-directive.js"></script>
+				<xsl:call-template name="GTMHead"/>
 			</head>
 			<body>
 				<xsl:copy-of select="xhtml:body/@*"/>
 				<xsl:if test="/error">
 					<xsl:attribute name="id" select="'error'" />
 				</xsl:if>
+				<xsl:call-template name="GTMBody"/>
 				<div id="preloadBg">
 					<script type="text/javascript">
 						$("body").addClass("js");
@@ -716,5 +718,28 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<xsl:value-of select="concat(encode-for-uri(string-join($url, '.')), '&amp;', string-join($queryParams, '&amp;'))"/>
 	</xsl:function>
 	 -->
+	<xsl:template name="GTMHead">
+		<xsl:comment>Google Tag Manager</xsl:comment>
+		<script type="text/javascript">
+			(function (w, d, s, l, i) {
+				w[l] = w[l] || [];
+				w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+				var and = '&amp;';
+				and = and.charAt(0);
+				var f = d.getElementsByTagName(s)[0], j = d.createElement(s),
+						dl = l != 'dataLayer' ? (and + 'l=' + l) : '';
+				j.async = true;
+				j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+				f.parentNode.insertBefore(j, f);
+			})(window, document, 'script', 'dataLayer', 'GTM-TWB7339');
+		</script>
+		<xsl:comment>End Google Tag Manager</xsl:comment>
+	</xsl:template>
+	<xsl:template name="GTMBody">
+		<xsl:comment>Google Tag Manager (noscript)</xsl:comment>
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWB7339"
+						  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<xsl:comment>End Google Tag Manager (noscript)</xsl:comment>
+	</xsl:template>
 
 </xsl:stylesheet>
