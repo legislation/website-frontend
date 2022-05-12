@@ -2385,6 +2385,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<!-- Lists cannot be used because not enough numbering flexibility or compatibility with regard to CSS formatting -->
 	<div>
 		<xsl:if test="$g_strDocumentType = $g_strEUretained">
+			<!-- This attribute gets overwritten in FuncGetListAncestry next step for For P3para to P7para ListItem-->
 			<xsl:attribute name="class">
 				<xsl:text>LegClearFix</xsl:text>
 			</xsl:attribute>
@@ -2410,6 +2411,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<xsl:for-each select="ancestor::*[self::leg:P3para or self::leg:P4para or self::leg:P5para or self::leg:P6para or self::leg:P7para or self::leg:BlockAmendment][1]">
 		<xsl:if test="not(self::leg:BlockAmendment)">
 			<xsl:attribute name="class">
+				<xsl:if test="$g_strDocumentType = $g_strEUretained">
+					<xsl:text>LegClearFix </xsl:text>
+				</xsl:if>
 				<xsl:choose>
 					<xsl:when test="self::leg:P3para">LegP3list</xsl:when>
 					<xsl:when test="self::leg:P4para">LegP4list</xsl:when>
