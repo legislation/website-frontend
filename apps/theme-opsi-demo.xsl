@@ -13,6 +13,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				xmlns:xs="http://www.w3.org/2001/XMLSchema"
 				xmlns="http://www.w3.org/1999/xhtml"
 				xmlns:leg="http://www.legislation.gov.uk/namespaces/legislation"
+				xmlns:tso="http://www.tso.co.uk/assets/namespaces/functions"
 				exclude-result-prefixes="#all">
 
 	<xsl:import href="../apps/opsi/xsl/legislation/html/quicksearch.xsl" />
@@ -289,6 +290,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<h1 id="pageTitle">
 					<xsl:choose>
 						<xsl:when test="status-code = 503"><xsl:value-of select="leg:TranslateText('Temporarily Unavailable')"/></xsl:when>
+						<xsl:when test="status-code = 404 and matches(message, 'found references', 'i')"><xsl:value-of select="leg:TranslateText('Found References')"/></xsl:when>
 						<xsl:when test="status-code = 404"><xsl:value-of select="leg:TranslateText('Page Not Found')"/></xsl:when>
 						<xsl:when test="status-code = 300"><xsl:value-of select="leg:TranslateText('Multiple Choices')"/></xsl:when>
 						<xsl:when test="status-code = 200"><xsl:value-of select="leg:TranslateText('Found References')"/></xsl:when>
@@ -300,6 +302,51 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</div>
 			<div id="content">
 				<xsl:choose>
+					<xsl:when test="status-code = 404 and matches(message, 'found references', 'i')">
+						
+						<xsl:variable name="request" as="document-node()?"
+				  select="if (doc-available('input:request')) then doc('input:request') else ()"/>
+						<xsl:variable name="requestpath" as="xs:string?" select="$request//request-path"/>
+						<xsl:variable name="makeCitation" 
+											select="if (exists($requestpath)) then 
+														leg:extract-type-year-number($requestpath) 
+													else ()"/>
+						<xsl:variable name="type" as="xs:string?" 
+											select="if ($makeCitation/@type) then  
+												tso:getLongType($makeCitation/@type) 
+											else ''"/>
+						<xsl:variable name="year" as="xs:string?" select="$makeCitation/@year"/>
+						<xsl:variable name="number" as="xs:string?" select="$makeCitation/@number"/>
+						<xsl:variable name="shortCitation" 
+											select="if (exists($type) and exists($year) and exists($number)) then 
+													tso:GetShortCitation($type, $year, $number, ()) 
+												else $requestpath" />
+						<xsl:variable name="reference">
+							<xsl:choose>
+								<xsl:when test="exists($type) and exists($year) and exists($number)">
+									<xsl:value-of select="tso:GetSingularTitleFromType($type, $year)" />
+									<xsl:text> </xsl:text>
+									<xsl:value-of select="$year" />
+									<xsl:text> </xsl:text>
+									<xsl:value-of select="tso:GetNumberForLegislation($type, $year, $number)" />
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="$requestpath" />
+								</xsl:otherwise>
+							</xsl:choose>							
+						</xsl:variable>
+						
+						<h2 class="errorIntro"><xsl:value-of select="$reference" /></h2>
+						<p>
+							<xsl:value-of select="leg:TranslateText('Foundref_p_1')"/>
+							<xsl:text> </xsl:text>
+							<a href="mailto: legislation@nationalarchives.gov.uk?subject=Legislation%20Enquiry?subject={$reference}">legislation@nationalarchives.gov.uk</a>
+							<xsl:text>.</xsl:text>
+						</p>
+						<p>
+							<xsl:value-of select="leg:TranslateText('Foundref_p_2', concat('citation=', string-join($shortCitation,'')))"/>
+						</p>
+					</xsl:when>
 					<xsl:when test="status-code = 404">
 						<p class="first"><xsl:value-of select="leg:TranslateText('Error404_1')"/>.</p>
 
@@ -327,6 +374,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:when test="status-code = 200">
 							<p><xsl:value-of select="leg:TranslateText('Error200')"/>:</p>
 						</xsl:when>
+						<xsl:when test="status-code = 404 and matches(message, 'found references', 'i')"/>
 						<xsl:otherwise>
 							<p><xsl:value-of select="leg:TranslateText('Error_Alt')"/>:</p>
 						</xsl:otherwise>

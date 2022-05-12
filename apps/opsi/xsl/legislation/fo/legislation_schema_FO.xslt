@@ -2049,11 +2049,11 @@ exclude-result-prefixes="tso atom">
 	</xsl:template>
 
 	<xsl:template match="leg:P2group">
-		<xsl:if test="preceding-sibling::* or not(parent::leg:P1para)">
+		<!-- LEGDEV-3182 <xsl:if test="preceding-sibling::* or not(parent::leg:P1para)">-->
 			<fo:block font-style="italic" space-before="12pt">
 				<xsl:apply-templates select="leg:Title"/>
 			</fo:block>
-		</xsl:if>
+		<!--</xsl:if>-->
 		<!-- HA048775 nisi1991/2628 failing to generate because no block element around P2para  -->
 		<fo:block><xsl:apply-templates select="*[not(self::leg:Title)]"/></fo:block>
 		<xsl:call-template name="FuncApplyVersions"/>
@@ -4707,6 +4707,9 @@ exclude-result-prefixes="tso atom">
 		<fo:block>
 			<xsl:apply-templates select="*"/>
 		</fo:block>
+		<xsl:if test="not(@AltVersionRefs) and not(parent::leg:BlockAmendment)">
+			<xsl:apply-templates select="." mode="ProcessAnnotations"/>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template match="leg:P1[not(parent::leg:P1group)][$g_strDocClass = $g_strConstantEuretained]" priority="70">

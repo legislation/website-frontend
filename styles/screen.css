@@ -54,6 +54,7 @@ img {border: 0;}
 ul {margin:0.5em 0;}
 h1 {font-size: 2.1em; color: #000; line-height: 1.2em; margin:0 0 0.5em 0;}
 h2, h3, h4, h5, h6, p, ul, ol, dl, table, div.contentItem, address {margin-bottom: 0.25em; color:#494949;}
+h2.errorIntro {color: #494949; font-size:1.6em; line-height: 1.6em; font-weight: normal;}
 h2 {font-size: 1.3em; font-weight: bold; margin: 0.5em 0 0.25em 0; line-height: 1.4em; color: #333333; font-weight: 900}
 article h2 {font-weight:normal}
 h3, h4, h5 {font-weight: 600; margin: 0; color:#494949; line-height: 1.2em;}
@@ -1011,7 +1012,7 @@ p.viewMoreLink {clear: left;padding-bottom:0.75em;padding-top:0;}
 /* end of special case content item */
 
 /* periphery page styles */
-#doc h2,
+#doc h2, 
 #doc legend {color: #494949; font-size:1.6em; line-height: 1.6em; font-weight: normal;}
 #doc h3 {margin-bottom: 0.5em; font-size:1.2em; font-weight:bold;}
 #doc h4 {margin-bottom: 0.5em; font-size: 1em; color: #292929; font-weight: bold;}

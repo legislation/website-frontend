@@ -19,9 +19,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	exclude-result-prefixes="xs err tso"
 	version="2.0">
 
+<xsl:param name="hideEUdataParam" select="@HIDEEUDATA@"/>
+
 <xsl:variable name="brexitType" as="xs:string" select="'@BREXIT@'"/>
 
-<xsl:variable name="hideEUdata"	as="xs:boolean" select="@HIDEEUDATA@"/>
+<xsl:variable name="hideEUdata"	as="xs:boolean" 
+		select="if ($hideEUdataParam castable as xs:boolean) then xs:boolean($hideEUdataParam) else false()"/>
 
 <xsl:variable name="strCurrentURIs" select="/leg:Legislation/ukm:Metadata/dc:identifier,
 	/leg:Legislation/ukm:Metadata/atom:link[@rel = 'http://purl.org/dc/terms/hasPart']/@href" />
@@ -1234,4 +1237,32 @@ It will get correct language string for the current language -->
 		<xsl:sequence
 			select="('', 'all', 'primary', 'secondary','primary+secondary', 'ukpga', 'ukla', 'apgb', 'aep', 'aosp', 'asp', 'aip', 'apni', 'mnia', 'nia', 'ukcm', 'mwa', 'nisi','anaw', 'asc', 'eudn', 'eur', 'eudr', 'eut', 'uksi', 'ssi', 'wsi', 'nisr', 'eur', 'eudn', 'eudr', 'eut')"/>
 	</xsl:function>
+	
+	<xsl:function name="leg:extract-type-year-number" as="element()?">
+		<xsl:param name="string"/>
+		<xsl:variable name="regex" select="'((/en|/cy)?/([a-z]+)/([0-9]{4})/([0-9]+))'"/>
+		<xsl:variable name="regnalRegex" select="'((/en|/cy)?/([^/]+)/([^/]+)/([^/]+)/([0-9]+))'"/>
+		<xsl:choose>
+			<xsl:when test="matches($string, $regex)">
+					<xsl:analyze-string select="$string" regex="{$regex}" flags="x">
+					<xsl:matching-substring>
+						<leg:Citation type="{regex-group(3)}" year="{regex-group(4)}" number="{regex-group(5)}"><xsl:value-of select="$string"/></leg:Citation>
+					</xsl:matching-substring>
+					<xsl:non-matching-substring>
+						
+					</xsl:non-matching-substring>
+				</xsl:analyze-string>
+			</xsl:when>
+			<xsl:when test="matches($string, $regnalRegex)">
+					<xsl:analyze-string select="$string" regex="{$regnalRegex}" flags="x">
+					<xsl:matching-substring>
+						<leg:Citation type="{regex-group(3)}" year="{regex-group(5)} {regex-group(4)}" number="{regex-group(6)}"><xsl:value-of select="$string"/></leg:Citation>
+					</xsl:matching-substring>
+					<xsl:non-matching-substring>
+						
+					</xsl:non-matching-substring>
+				</xsl:analyze-string>
+			</xsl:when>
+		</xsl:choose>
+	</xsl:function>	
 </xsl:stylesheet>
