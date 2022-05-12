@@ -4487,7 +4487,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:if test="generate-id(ancestor::xhtml:tfoot[1]/descendant::node()[self::text()[not(normalize-space() = '' or parent::leg:IncludedDocument)] or self::leg:IncludedDocument or self::leg:FootnoteRef or self::leg:Character or self::leg:Image or self::math:math][last()]) = generate-id()">
 					<!-- Is the last node in the amendment in the same table as this footnote node in which case this is the node we want to output the quote on -->
 					<!--chunyu: call for Call HA047974 of http://www.legislation.gov.uk/uksi/2000/3184/schedule/4/made. added '[1]' for generate-id(ancestor::xhtml:table) -->
-					<xsl:if test="generate-id(ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/descendant::node()[self::text()[not(normalize-space() = '' or parent::leg:IncludedDocument)] or self::leg:IncludedDocument or self::leg:FootnoteRef or self::leg:Character or self::leg:Image or self::leg:math][last()]/ancestor::xhtml:table) = generate-id(ancestor::xhtml:table[1])">
+					<xsl:if test="generate-id(ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/descendant::node()[self::text()[not(normalize-space() = '' or parent::leg:IncludedDocument)] or self::leg:IncludedDocument or self::leg:FootnoteRef or self::leg:Character or self::leg:Image or self::leg:math][last()]/ancestor::xhtml:table[1]) = generate-id(ancestor::xhtml:table[1])">
 						<xsl:text>true</xsl:text>
 					</xsl:if>
 				</xsl:if>
@@ -4547,7 +4547,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<!-- Is this the last node in the footnotes? -->
 			<xsl:if test="generate-id(ancestor::xhtml:tfoot[1]/descendant::node()[self::text()[not(normalize-space() = '' or parent::leg:IncludedDocument)] or self::leg:IncludedDocument or self::leg:FootnoteRef or self::leg:Character or self::leg:Image][last()]) = generate-id()">
 				<!-- Is the last node in the amendment in the same table as this footnote node in which case this is the node we want to output the quote on -->
-				<xsl:if test="generate-id(ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][2]/descendant::node()[self::text()[not(normalize-space() = '' or parent::leg:IncludedDocument)] or self::leg:IncludedDocument or self::leg:FootnoteRef or self::leg:Character or self::leg:Image][last()]/ancestor::xhtml:table) = generate-id(ancestor::xhtml:table)">
+				<xsl:if test="generate-id(ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][2]/descendant::node()[self::text()[not(normalize-space() = '' or parent::leg:IncludedDocument)] or self::leg:IncludedDocument or self::leg:FootnoteRef or self::leg:Character or self::leg:Image][last()]/ancestor::xhtml:table[1]) = generate-id(ancestor::xhtml:table[1])">
 					<xsl:text>true</xsl:text>
 				</xsl:if>
 			</xsl:if>
