@@ -70,7 +70,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<head>
 				<link rel="stylesheet" href="/styles/advancedsearch/search.css" type="text/css"/>
                 <script type="text/javascript" src="/scripts/formFunctions/common.js"></script>
-                <script type="text/javascript" src="/scripts/advancedsearch/{if ($hideEUdata) then 'search.js' else 'search-eu.js'}"></script>
+                <script type="text/javascript" src="/scripts/advancedsearch/search-eu.js"></script>
 				<link type="text/css" href="/styles/legBrowse.css" rel="stylesheet"/>
 
 				<xsl:if test="$pointInTimeSearch or $impactAssessmentSearch">
@@ -243,13 +243,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<label for="ni">
 									<input type="checkbox" name="extent" checked="checked" value="ni" id="ni" class="checkbox" />
 									<xsl:value-of select="leg:TranslateText('Northern Ireland')"/>
-								</label>
-								<xsl:if test="not($hideEUdata)">
-									<label for="eu">
-										<input type="checkbox" name="extent" checked="checked" value="eu" id="eu" class="checkbox" />
-										<xsl:value-of select="leg:TranslateText('European Union')"/>
-									</label>
-								</xsl:if>
+								</label>								
 							</div>
 						</div>
 					</div>
@@ -638,10 +632,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<xsl:when test="$pointInTimeSearch or $extentSearch">
 										<xsl:call-template name="tso:TypeSelect">
 											<xsl:with-param name="showPrimary" select="true()" />
-											<xsl:with-param name="showSecondary" select="true()" />
+											<xsl:with-param name="showSecondary" select="false()" />
 											<xsl:with-param name="showEUretained" select="true()" />
 											<xsl:with-param name="showDraft" select="false()" />
-											<xsl:with-param name="showUnrevised" select="false()" />
+											<xsl:with-param name="showUnrevised" select="true()" />
 											<xsl:with-param name="showImpacts" select="false()" />
 											<xsl:with-param name="selected" select="$paramsDoc/parameters/type" />
 											<xsl:with-param name="error" select="not($isRevisedLegislation)" />

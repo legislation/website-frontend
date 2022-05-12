@@ -153,68 +153,8 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 			</xsl:choose>
 		</xsl:variable>
 
-		<!-- EU weather warning -->
+		
 		<xsl:if test="not($g_strDocumentMainType = ('EuropeanUnionDirective', 'EuropeanUnionTreaty', 'UnitedKingdomChurchInstrument', 'UnitedKingdomMinisterialDirection', 'UnitedKingdomMinisterialOrder', 'UnitedKingdomStatutoryRuleOrOrder', 'NorthernIrelandStatutoryRuleOrOrder')) ">
-			<!-- (Temp) message for all revised versions (UK and EU) -->
-			<xsl:variable name="unappliedURIs" select="leg:unappliedAffectingURIs(.)"/>
-			<xsl:variable name="outstandingRefs" select="$g_euExitRefs[not(. = $unappliedURIs)]"/>
-			<!-- disable this for initial release -->
-			<xsl:if test="$g_strDocumentStatus = 'revised' and 
-							(	empty($g_strReplaceBy) or 
-								($g_strReplaceBy castable as xs:date and xs:date($g_strReplaceBy) gt current-date()) or
-								matches($g_strReplaceBy, 'prospective', 'i')
-							)">
-				<div>
-					<xsl:attribute name="id">brexitInfo</xsl:attribute>
-					<h2>
-					  <xsl:value-of select="leg:TranslateText('brexitInfo_head')"/>
-					</h2>
-					<p class="intro">
-						<xsl:value-of select="leg:TranslateText('brexitInfo_head_content')"/>
-					</p>
-
-                    <div id="outstandingRefs">
-						<div class="title">
-							<h3>
-								<xsl:value-of select="leg:TranslateText('brexitInfo_references_title')"/>
-							</h3>
-						</div>
-						<div class="content" id="outstandingRefsContent">
-							<p>
-								<xsl:copy-of select="leg:TranslateNode('brexitInfo_references_content')"/>
-							</p>
-							<xsl:choose>
-								<xsl:when test="exists($outstandingRefs)">
-									<ul class="effectsList">
-										<xsl:for-each select="$outstandingRefs">
-											<xsl:sort select="."/>
-											<xsl:variable name="tokens" select="tokenize(substring-after(., 'id/'), '/')"/>
-											<xsl:variable name="class" select="$tso:legTypeMap[@abbrev = $tokens[1]]/@schemaType"/>
-											<li>
-												<xsl:choose>
-													<xsl:when test="$class = ('EuropeanUnionRegulation', 'EuropeanUnionDecision', 'EuropeanUnionDirective', 'EuropeanUnionTreaty')">
-														<xsl:attribute name="class">eu-effect</xsl:attribute>
-													</xsl:when>
-													<xsl:otherwise>
-														<xsl:attribute name="class">uk-effect</xsl:attribute>
-													</xsl:otherwise>
-												</xsl:choose>
-												<a href="{.}">
-													<xsl:value-of select="tso:abbreviation($class, $tokens[2], $tokens[3])"/>
-												</a>
-											</li>
-										</xsl:for-each>
-									</ul>
-								</xsl:when>
-								<xsl:otherwise>
-									<p><strong><xsl:value-of select="leg:TranslateText('There are currently no additional references that you need to check')"/>.</strong></p>
-								</xsl:otherwise>
-							</xsl:choose>
-						</div>
-                    </div>
-
-				</div>
-			</xsl:if>
 			<xsl:call-template name="TSOOutputStatusMessage">
 				<xsl:with-param name="includeTooltip" select="$includeTooltip"/>
 			</xsl:call-template>

@@ -316,7 +316,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 		<xsl:if test="$showPrimary">
 			<option disabled="disabled">--------------------------------------------</option>
-			<xsl:if test="$showSecondary and $showUnrevised">
+			<xsl:if test="$showUnrevised">
 				<option value="primary">
 					<xsl:if test="$selected = 'primary'">
 						<xsl:attribute name="selected" select="'selected'" />
@@ -353,7 +353,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 		<xsl:if test="$showEUretained and not($hideEUdata)">
 			<option disabled="disabled">--------------------------------------------</option>
-			<xsl:if test="$showSecondary and $showUnrevised">
+			<xsl:if test="$showUnrevised">
 				<option value="eu-origin">
 					<xsl:if test="$selected = 'eu-origin'">
 						<xsl:attribute name="selected" select="'selected'" />
