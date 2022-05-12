@@ -1763,3 +1763,66 @@ p .expandCollapseLink{
   font-size: 20px;
   text-transform: uppercase;
 }
+
+
+#coronavirus-banner {
+  min-height: 70px;
+  color: rgba(255, 255, 255, 0.85);
+  background-color: #333;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  border-top: 5px solid #32ffff;
+  padding: 0.3em;
+  
+}
+
+#coronavirus-banner .bannercontent {
+  width: 967px;
+  margin:auto;  
+}
+
+#coronavirus-banner .main {
+  display: block;
+    width: 230px;
+    font-size: 1.2em;
+    text-align: left;
+    margin: 1em 1.7em 1em 0.5em;
+	color:#fff;
+	border: none;
+	float:left;	
+}
+
+#coronavirus-banner .legislation {
+  display: block;
+    width: 230px;
+    font-size: 0.6em;
+    text-align: center;
+    border: 1px solid #32ffff;
+	border-radius: 3px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    margin: 1em;
+	padding: 0.3em;
+	float:left;
+	height: 42px;	
+}
+
+#coronavirus-banner .extents {
+  display: block;
+    width: 380px;
+    font-size: 0.6em;
+    text-align: center;
+    border: 1px solid #32ffff;
+	border-radius: 3px;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    margin: 1em;
+	padding: 0.3em;
+	float:left;
+	height: 42px;
+}
+
+#coronavirus-banner a.link {
+  color:#fff;
+}

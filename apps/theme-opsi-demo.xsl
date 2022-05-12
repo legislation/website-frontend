@@ -160,6 +160,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
               <span class="scenario">holding</span>
             </xsl:if>
           </div>-->
+		  
+		  <div id="coronavirus-banner" class="scenario">
+            <div class="bannercontent">
+				<span class="main"><strong>Coronavirus</strong></span>
+				<span class="legislation"><strong><a href="/coronavirus" class="link">See Coronavirus legislation</a></strong><br/>on legislation.gov.uk</span>
+				<span class="extents">Get Coronavirus guidance from <strong><a href="https://www.gov.uk/coronavirus" class="link" target="_blank">GOV.UK</a></strong><br/>Additional advice for <strong><a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Scotland</a> | <a href="https://gov.wales/coronavirus" class="link" target="_blank">Wales</a> | <a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Northern Ireland</a></strong></span>
+			  </div>
+		  </div>
 					<!-- header -->
 					<xsl:call-template name="header"/>
 
