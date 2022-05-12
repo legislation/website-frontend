@@ -4498,6 +4498,13 @@ exclude-result-prefixes="tso atom">
 		</fo:inline>
 	</xsl:template>
 
+	<xsl:template match="leg:Strike">
+		<fo:inline text-decoration="line-through">
+			<xsl:apply-templates/>
+		</fo:inline>
+	</xsl:template>
+	
+	
 	<xsl:template match="leg:P1group | leg:Division[not(@Type)]"  priority="100">
 		<!-- we need to have a marker on every page to replicate the breadcrumb in a consistent fashion -->
 		<!-- if this is marked at the high level a page which has no marker will refer to the highest level  -->

@@ -21,6 +21,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:import href="quicksearch.xsl" />
 	<xsl:import href="../../common/utils.xsl" />
 	
+	<xsl:character-map name="specialchar">
+		<xsl:output-character character="&apos;" string="&amp;apos;" />
+		<xsl:output-character character="&quot;" string="&amp;quot;" />
+		<xsl:output-character character="&gt;" string="tt" />
+		<xsl:output-character character="&lt;" string="tt" />
+	</xsl:character-map>
+	
+	<xsl:output use-character-maps="specialchar" />
+	
 	<xsl:variable name="paramsDoc" as="document-node()">
 		<xsl:choose>
 			<xsl:when test="doc-available('input:request')">
@@ -251,7 +260,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</div>
 				<div class="searchCol2">
 					<div class="searchFieldGroup">
-						<input type="text" id="searchTitle" name="title" value="{$paramsDoc/parameters/title}"/>
+						<input type="text" id="searchTitle" name="title" value="{leg:resolve-request-data($paramsDoc/parameters/title)}"/>
 						<span><xsl:value-of select="leg:TranslateText('Key_title_text')"/></span>
 					</div>
 				</div>
@@ -270,7 +279,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</div>
 					<div class="searchCol2">
 						<div class="searchFieldGroup">
-							<input type="text" id="searchText" name="text" value="{$paramsDoc/parameters/text}" />
+							<input type="text" id="searchText" name="text" value="{leg:resolve-request-data($paramsDoc/parameters/text)}" />
 							<span><xsl:value-of select="leg:TranslateText('Use_double_quote_text')"/></span>
 						</div>
 					</div>
@@ -293,7 +302,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</div>
 					<div class="searchCol2">
 						<div class="searchFieldGroup">
-							<input type="text" id="stageText" name="stage" value="{$paramsDoc/parameters/stage}" />
+							<input type="text" id="stageText" name="stage" value="{leg:resolve-request-data($paramsDoc/parameters/stage)}" />
 							<span>(<xsl:value-of select="leg:TranslateText('whole name of the stage required')"/>)</span>
 						</div>
 					</div>
@@ -312,7 +321,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</div>
 					<div class="searchCol2">
 						<div class="searchFieldGroup">
-							<input type="text" id="departmentText" name="department" value="{$paramsDoc/parameters/department}" />
+							<input type="text" id="departmentText" name="department" value="{leg:resolve-request-data($paramsDoc/parameters/department)}" />
 							<span>(<xsl:value-of select="leg:TranslateText('whole name of the department required')"/>)</span>
 						</div>
 					</div>
@@ -366,7 +375,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<label for="specificRadio"><xsl:value-of select="leg:TranslateText('Specific Year')"/></label>
 								<div>
 									<input type="text" id="specificYear" name="year" maxlength="4"
-										value="{$paramsDoc/parameters/year}">
+										value="{leg:resolve-request-data($paramsDoc/parameters/year)}">
 										<xsl:if test="$invalidYear">
 											<xsl:attribute name="class">error</xsl:attribute>
 										</xsl:if>
@@ -383,7 +392,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<div>
 										<label for="yearStart"><xsl:value-of select="leg:TranslateText('From')"/></label>
 										<input type="text" id="yearStart" name="start-year" maxlength="4"
-											value="{$paramsDoc/parameters/start-year}">
+											value="{leg:resolve-request-data($paramsDoc/parameters/start-year)}">
 											<xsl:if test="$invalidYearRange">
 												<xsl:attribute name="class">error</xsl:attribute>
 											</xsl:if>
@@ -392,7 +401,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<div>
 										<label for="yearEnd"><xsl:value-of select="leg:TranslateText('To')"/></label>
 										<input type="text" id="yearEnd" name="end-year" maxlength="4"
-											value="{$paramsDoc/parameters/end-year}">
+											value="{leg:resolve-request-data($paramsDoc/parameters/end-year)}">
 											<xsl:if test="$invalidYearRange">
 												<xsl:attribute name="class">error</xsl:attribute>
 											</xsl:if>
@@ -408,7 +417,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<div>
 										<label for="yearStart"><xsl:value-of select="leg:TranslateText('From')"/></label>
 										<input id="start" type="text" name="start" 
-							value="{if ($paramsDoc/parameters/start[matches(., '[0-9]{2}/[0-9]{2}/[0-9]{4}')]) then $paramsDoc/parameters/start	
+							value="{if ($paramsDoc/parameters/start[matches(., '[0-9]{2}/[0-9]{2}/[0-9]{4}')]) then leg:resolve-request-data($paramsDoc/parameters/start)	
 										else if ($paramsDoc/parameters/start[. castable as xs:date]) then format-date($paramsDoc/parameters/start, '[D01]/[M01]/[Y0001]')
 										else ''}">
 											<xsl:if test="$invalidStartDate">
@@ -419,7 +428,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<div>
 										<label for="yearEnd"><xsl:value-of select="leg:TranslateText('To')"/></label>
 										<input id="end" type="text" name="end" 
-										value="{if ($paramsDoc/parameters/start[matches(., '[0-9]{2}/[0-9]{2}/[0-9]{4}')]) then $paramsDoc/parameters/start	
+										value="{if ($paramsDoc/parameters/start[matches(., '[0-9]{2}/[0-9]{2}/[0-9]{4}')]) then leg:resolve-request-data($paramsDoc/parameters/start)	
 													else if ($paramsDoc/parameters/start[. castable as xs:date]) then format-date($paramsDoc/parameters/start, '[D01]/[M01]/[Y0001]')
 													else ''}">
 											<xsl:if test="$invalidEndDate">
@@ -498,7 +507,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</div>
 						<div class="searchCol2">
 							<div class="specificYear PIT">
-								<input type="text" id="specificYear" name="year" maxlength="4" value="{$paramsDoc/parameters/year}">
+								<input type="text" id="specificYear" name="year" maxlength="4" value="{leg:resolve-request-data($paramsDoc/parameters/year)}">
 									<xsl:if test="$invalidYear">
 										<xsl:attribute name="class">error</xsl:attribute>
 									</xsl:if>								
@@ -543,7 +552,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<label for="specificRadio"><xsl:value-of select="leg:TranslateText('Specific Year')"/></label>
 								<div>
 									<input type="text" id="specificYear" name="year" maxlength="4"
-										value="{$paramsDoc/parameters/year}">
+										value="{leg:resolve-request-data($paramsDoc/parameters/year)}">
 										<xsl:if test="$invalidYear">
 											<xsl:attribute name="class">error</xsl:attribute>
 										</xsl:if>
@@ -557,7 +566,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<div>
 										<label for="yearStart"><xsl:value-of select="leg:TranslateText('From')"/></label>
 										<input type="text" id="yearStart" name="start-year" maxlength="4"
-											value="{$paramsDoc/parameters/start-year}">
+											value="{leg:resolve-request-data($paramsDoc/parameters/start-year)}">
 											<xsl:if test="$invalidYearRange">
 												<xsl:attribute name="class">error</xsl:attribute>
 											</xsl:if>
@@ -566,7 +575,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<div>
 										<label for="yearEnd"><xsl:value-of select="leg:TranslateText('To')"/></label>
 										<input type="text" id="yearEnd" name="end-year" maxlength="4"
-											value="{$paramsDoc/parameters/end-year}">
+											value="{leg:resolve-request-data($paramsDoc/parameters/end-year)}">
 											<xsl:if test="$invalidYearRange">
 												<xsl:attribute name="class">error</xsl:attribute>
 											</xsl:if>
@@ -713,7 +722,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<!--<input id="pitDay" type="text" name="pitDay" value=""/>
 						<input id="pitMonth" type="text" name="pitMonth" value=""/>-->
 						<input id="PIT" type="text" name="version" 
-							value="{if ($paramsDoc/parameters/version[matches(., '[0-9]{2}/[0-9]{2}/[0-9]{4}')]) then $paramsDoc/parameters/version	
+							value="{if ($paramsDoc/parameters/version[matches(., '[0-9]{2}/[0-9]{2}/[0-9]{4}')]) then leg:resolve-request-data($paramsDoc/parameters/version)	
 										else if ($paramsDoc/parameters/version[. castable as xs:date]) then format-date($paramsDoc/parameters/version, '[D01]/[M01]/[Y0001]')
 										else ''}">
 								<xsl:if test="$invalidPointInTime">
@@ -865,7 +874,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</label>
 				</div>
 			<div class="searchCol2 numberSearch">
-				<input type="text" id="searchNumber" name="number" value="{$paramsDoc/parameters/number}">
+				<input type="text" id="searchNumber" name="number" value="{leg:resolve-request-data($paramsDoc/parameters/number)}">
 					<xsl:if test="$invalidNumber">
 						<xsl:attribute name="class">error</xsl:attribute>
 					</xsl:if>										
@@ -900,5 +909,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			</div>						
 		</div>	
 	</xsl:template>
-			
+	
+	<xsl:function name="leg:resolve-request-data" as="xs:string">	
+		<xsl:param name="string" as="xs:string"/>
+		
+		<xsl:variable name="removechars" select="replace($string, '&#8221;|&lt;|&gt;', '')"/>
+		<xsl:variable name="removedoublequotes" select='translate($removechars, """", "")'/>
+		<xsl:value-of select="$removedoublequotes"/>
+	</xsl:function>
+	
 </xsl:stylesheet>

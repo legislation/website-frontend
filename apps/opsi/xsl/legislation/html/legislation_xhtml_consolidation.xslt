@@ -2596,6 +2596,12 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 	<xsl:call-template name="FuncApplyVersions"/>
 </xsl:template>
 
+<xsl:template match="leg:Strike">
+	<del>
+		<xsl:apply-templates/>
+	</del>
+</xsl:template>
+
 
 <xsl:function name="tso:showCommentary" as="xs:boolean">
 	<xsl:param name="commentaryRef" as="element()" />

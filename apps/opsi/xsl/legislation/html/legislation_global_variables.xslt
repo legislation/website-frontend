@@ -127,7 +127,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:variable name="prefix" select="'CELEX:'"/>
 		<xsl:variable name="CELEXtype" select="leg:celex-type($shortype)"/>
 		<xsl:variable name="CELEXsector" select="'3'"/>
-		<xsl:value-of select="if ($g_EUcelex) then concat($prefix, $g_EUcelex)
+		<xsl:value-of select="if ($g_EUcelex) then concat($prefix, $g_EUcelex[1])
 								else 
 							concat($prefix, $CELEXsector, $year, $CELEXtype, format-number(xs:integer($number), '0000'))"/>
 	</xsl:function>
