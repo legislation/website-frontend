@@ -1092,12 +1092,13 @@ leg:Division[not(@Type = ('EUPart','EUChapter','EUSection','EUSubsection', 'ANNE
 <xsl:function name="tso:generateExtentInfo" as="element()?">
 	<xsl:param name="element" as="node()" />
 	<xsl:variable name="extent" as="xs:string" select="tso:resolveExtentFormatting(($element/ancestor-or-self::*[@RestrictExtent][1]/@RestrictExtent, 'E+W+S+N.I.')[1])" />
-	<!--<xsl:variable name="element-id" as="xs:string" select="generate-id($element)"/>-->
 	<xsl:if test="not($element/ancestor::xhtml:table)">
 		<span class="LegExtentRestriction">
-			<!--<xsl:if test="$nstSelectedSection is $element">-->
-				<!--<xsl:attribute name="id" select="concat('extent-', translate($extent, '+', '-'), '_', $element-id)" />-->
-			<!--</xsl:if>-->
+			<!-- to keep validity of the html we only add in the identifier if the requested view is a provison view  -->
+			<!-- This is required to allow the uri fragment links to extent versions to work -->
+			<xsl:if test="$nstSelectedSection/local-name() = ('P1', 'P', 'P1group')">
+				<xsl:attribute name="id" select="concat('extent-', translate($extent, '+', '-'))" />
+			</xsl:if>
 			<xsl:attribute name="title">
 				<xsl:variable name="extentsToken" select="tokenize($extent, '\+')" />
 				<xsl:value-of select="leg:TranslateText('Applies to')"/>

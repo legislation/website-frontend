@@ -157,7 +157,7 @@ exclude-result-prefixes="tso atom">
 	<xsl:variable name="g_strConstantOutputTypePrimary" select="'PrimaryStyle'" as="xs:string"/>
 	<xsl:variable name="g_strConstantOutputTypeSecondary" select="'SecondaryStyle'" as="xs:string"/>
 	<xsl:variable name="g_strConstantOutputTypeEURetained" select="'euretainedStyle'" as="xs:string"/>
-	<xsl:variable name="g_strConstantImagesPath" select="'http://www.legislation.gov.uk/images/crests/'" as="xs:string"/>
+	<xsl:variable name="g_strConstantImagesPath" select="'https://www.legislation.gov.uk/images/crests/'" as="xs:string"/>
 	
 	
 	<xsl:variable name="g_documentLanguage" select="if (/leg:Legislation/@xml:lang) then /leg:Legislation/@xml:lang else 'en'"  as="xs:string"/>
