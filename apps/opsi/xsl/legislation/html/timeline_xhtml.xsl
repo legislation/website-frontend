@@ -561,7 +561,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											  
 								<xsl:variable name="exitDayText">
 									<xsl:choose>
-										<xsl:when test="$brexitType =('nodeal', 'extension')">
+										<xsl:when test="$brexitType =('nodeal', 'extension') or ($brexitType =('deal') and empty($g_euExitTransitonEndDay))">
 											<xsl:value-of select="leg:TranslateText('EU exit day')"/>
 										</xsl:when>
 										<xsl:when test="$brexitType =('deal') and (@rel = 'http://www.legislation.gov.uk/def/date/euexitTransitionEnd' or @euendTransitionDay = 'true')">

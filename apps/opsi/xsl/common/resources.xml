@@ -1775,7 +1775,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 		<resource id="explore_primary_summary">Public General Acts, Local Acts and more</resource>
 		<resource id="explore_secondary_summary">Statutory Instruments, Ministerial Orders, Church Measures and more</resource>
-		<resource id="explore_ukmd_summary">Created by ministers to detail legislation originating from the EU that is exempt from the duty to publish on legislation.gov.uk. These exemptions are in addition to those stated in the EU (Withdrawal) Act 2018 (c.16).</resource>
+		<resource id="explore_ukmd_summary">Created by ministers to detail legislation originating from the EU that is exempt from the duty to publish on legislation.gov.uk. These exemptions are in addition to those stated in the EU (Withdrawal) Act 2018 (c. 16).</resource>
 		<resource id="explore_draft_summary">Draft Statutory Instruments that are awaiting approval. Draft legislation can either become law, be withdrawn or replaced by another draft.</resource>
 		<resource id="explore_defra_summary">In force legislation managed and organised by Defra</resource>
 		<!--End Browse (Cards) -->
@@ -1784,16 +1784,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Legislation originating from the EU"/>
     <resource id="Browse_EUIntro">
       <span rel="deal">
-          Publishing the EU legislation set out in <a href="/ukpga/2018/16/schedule/5">Schedule 5</a> of the European Union (Withdrawal) Act 2018, as amended by the <a href="/ukpga/2020/1/contents/enacted">European Union (Withdrawal Agreement) Act 2020</a>, along with Corrigenda (Correction slips for EU Legislation) and EU Directives published before IP completion day (31 December 2020), including legislation that may be relevant to the UK after IP completion day. For more information see <a href="/understanding-legislation">Understanding Legislation</a>.
+          Publishing the EU legislation set out in <a href="/ukpga/2018/16/schedule/5" target="_blank">Schedule 5</a> to the European Union (Withdrawal) Act 2018 (c. 16), as amended by the <a href="/ukpga/2020/1/contents/enacted" target="_blank">European Union (Withdrawal Agreement) Act 2020</a> (c. 1), along with Corrigenda (Correction slips for EU Legislation) and EU Directives published before IP completion day (31 December 2020), including legislation that may be relevant in the UK after IP completion day. For more information see <a href="/understanding-legislation" target="_blank">Understanding Legislation</a>.
       </span>
       <span rel="holding">
-          Publishing the EU legislation set out in <a href="/ukpga/2018/16/schedule/5">Schedule 5</a> of the European Union (Withdrawal) Act 2018 along with Corrigenda (Correction slips for EU Legislation) and EU Directives. For more information see <a href="/understanding-legislation#WhatLegislationFromEUR-Lex">Understanding Legislation</a>.
+          Publishing the EU legislation set out in <a href="/ukpga/2018/16/schedule/5" target="_blank">Schedule 5</a> to the European Union (Withdrawal) Act 2018 (c. 16) along with Corrigenda (Correction slips for EU Legislation) and EU Directives. For more information see <a href="/understanding-legislation#WhatLegislationFromEUR-Lex">Understanding Legislation</a>.
       </span>
       <span rel="nodeal">
-          Publishing the EU legislation set out in <a href="/ukpga/2018/16/schedule/5">Schedule 5</a> of the European Union (Withdrawal) Act 2018 along with EU Directives published before EU exit on 31 October 2019, including Corrigenda (correction slips for EU legislation) and legislation that may be relevant to the UK after EU exit. For more information see <a href="/understanding-legislation#WhatLegislationFromEUR-Lex">Understanding Legislation</a>
+          Publishing the EU legislation set out in <a href="/ukpga/2018/16/schedule/5" target="_blank">Schedule 5</a> to the European Union (Withdrawal) Act 2018 (c. 16) along with EU Directives published before EU exit on 31 October 2019, including Corrigenda (correction slips for EU legislation) and legislation that may be relevant to the UK after EU exit. For more information see <a href="/understanding-legislation#WhatLegislationFromEUR-Lex">Understanding Legislation</a>
       </span>
       <span rel="extension">
-        Legislation.gov.uk carries EU legislation as set out in <a href="/ukpga/2018/16/schedule/5">Schedule 5</a> of the European Union (Withdrawal) Act 2018 along with Corrigenda (Correction slips for EU Legislation) and EU Directives published before Exit Day, including legislation that will be relevant to the UK after Exit Day. For more information see <a href="/understanding-legislation#WhatLegislationFromEUR-Lex">Understanding Legislation</a>
+        Legislation.gov.uk carries EU legislation as set out in <a href="/ukpga/2018/16/schedule/5" target="_blank">Schedule 5</a> to the European Union (Withdrawal) Act 2018 (c. 16) along with Corrigenda (Correction slips for EU Legislation) and EU Directives published before Exit Day, including legislation that will be relevant to the UK after Exit Day. For more information see <a href="/understanding-legislation#WhatLegislationFromEUR-Lex">Understanding Legislation</a>
       </span>
     </resource>
     <resource id="European_Union_All">All Legislation originating from the EU</resource>
