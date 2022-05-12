@@ -1178,8 +1178,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 		<xsl:when test="not(preceding-sibling::*)
 			 and parent::*[(self::leg:P2para and $g_strDocumentType = ($g_strPrimary, $g_strEUretained)) 
 			 or (self::leg:P1para and ancestor::*[self::leg:Schedule or self::leg:BlockAmendment][1][self::leg:Schedule or self::leg:BlockAmendment[@Context = 'schedule' or (@Context = 'unknown' and not(descendant::leg:P1group))]] and $g_strDocumentType = ($g_strPrimary))
-			or self::leg:P3para[not($g_strDocumentType = $g_strSecondary and preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P3[not(preceding-sibling::*)]/parent::leg:P1para/preceding-sibling::*[1][self::leg:Pnumber])]
-			or self::leg:P4para[not($g_strDocumentType = $g_strSecondary and preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P4[not(preceding-sibling::*)]/parent::leg:P3para/preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P3[not(preceding-sibling::*)]/parent::leg:P1para/preceding-sibling::*[1][self::leg:Pnumber])]
+			 or self::leg:P3para[not($g_strDocumentType = $g_strSecondary and preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P3[not(preceding-sibling::*)]/parent::leg:P1para/preceding-sibling::*[1][self::leg:Pnumber][not(parent::leg:P1[parent::leg:P1group/@Layout='side']/preceding-sibling::*[1][self::leg:Title])])]
+			 or self::leg:P4para[not($g_strDocumentType = $g_strSecondary and preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P4[not(preceding-sibling::*)]/parent::leg:P3para/preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P3[not(preceding-sibling::*)]/parent::leg:P1para/preceding-sibling::*[1][self::leg:Pnumber][not(parent::leg:P1[parent::leg:P1group/@Layout='side']/preceding-sibling::*[1][self::leg:Title])])]
 			 or self::leg:P5para or self::leg:P6para or self::leg:P7para]/preceding-sibling::*[1][self::leg:Pnumber]">
 			 
 			<!-- Calculate if in a primary schedule -->
@@ -1190,7 +1190,7 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 				<xsl:call-template name="FuncGetScheduleNestedAmendmentContext"/>
 			</xsl:variable>-->
 			<p class="LegClearFix{if (ancestor::xhtml:tfoot) then '' else concat(' Leg', $strScheduleContext, name(parent::*/parent::*), 'Container')}{if(ancestor::leg:BlockAmendment) then ' LegAmend' else ''}">
-				<xsl:call-template name="FuncCheckForID"/>				
+				<xsl:call-template name="FuncCheckForID"/>
 				<xsl:choose>
 					<!-- Combined N1-N2 paragraph
 					<xsl:when test="parent::leg:P2para/preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P2[not(preceding-sibling::*)]/parent::leg:P1para/preceding-sibling::*[1][self::leg:Pnumber][not(parent::leg:P1/parent::leg:P1group)]">
