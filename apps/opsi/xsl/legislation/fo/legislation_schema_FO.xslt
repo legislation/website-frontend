@@ -1857,10 +1857,14 @@ exclude-result-prefixes="tso atom">
 								<xsl:if test="leg:Pnumber/@PuncBefore!= ''">
 									<xsl:value-of select="leg:Pnumber/@PuncBefore"/>
 								</xsl:if>
-								<xsl:apply-templates select="leg:Pnumber"/>
-								<xsl:if test="leg:Pnumber/@PuncAfter != ''">
-									<xsl:value-of select="leg:Pnumber/@PuncAfter"/>
-								</xsl:if>							
+								
+								<!-- HA099271,HA098003- only if Title is a child of BlockAmendment and TargetClass="primary", or P1group/@Layout = 'side'-->
+								<xsl:if test="not(ancestor::*[self::leg:BlockAmendment][1][self::leg:BlockAmendment[@TargetClass = 'primary'] and ancestor::leg:P1group/leg:Title] or ancestor::leg:P1group/@Layout = 'side')">
+									<xsl:apply-templates select="leg:Pnumber"/>
+									<xsl:if test="leg:Pnumber/@PuncAfter != ''">
+										<xsl:value-of select="leg:Pnumber/@PuncAfter"/>
+									</xsl:if>							
+								</xsl:if>								
 							</fo:block>						
 						</fo:list-item-label>
 						<fo:list-item-body start-indent="body-start()">
@@ -2596,14 +2600,14 @@ exclude-result-prefixes="tso atom">
 									<xsl:if test="parent::*/parent::leg:P1[not(parent::leg:P1group) or preceding-sibling::leg:P1]">
 										<xsl:attribute name="space-before">12pt</xsl:attribute>
 									</xsl:if>
-							  		<!-- HA098003- only if Title is a child of BlockAmendment and not inside Schedule-->
-							  		<xsl:if test="not(ancestor::*[self::leg:BlockAmendment][1][self::leg:BlockAmendment[(@Context = 'main' or @Context = 'unknown') and @TargetClass = 'primary']])">	
+									<!-- HA098003- only if Title is a child of BlockAmendment and TargetClass="primary", or P1group/@Layout = 'side'-->
+									<xsl:if test="not(ancestor::*[self::leg:BlockAmendment][1][self::leg:BlockAmendment[@TargetClass = 'primary']] or ancestor::leg:P1group/@Layout = 'side')">
 								  		<fo:inline>
 											<xsl:if test="not(ancestor::leg:Schedule and $g_strDocType = 'NorthernIrelandStatutoryRule')">
 												<xsl:attribute name="font-weight">bold</xsl:attribute>
 											</xsl:if>
 											<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
-										 	<xsl:text>.</xsl:text>
+								  			<xsl:text>.</xsl:text>
 										</fo:inline>
 										<xsl:text>&#8212;</xsl:text>
 							  		</xsl:if>
@@ -2807,13 +2811,18 @@ exclude-result-prefixes="tso atom">
 						<xsl:when test="not(parent::*/preceding-sibling::*[not(self::leg:Pnumber)]) and not(preceding-sibling::*) and not(parent::*/parent::leg:BlockAmendment)">
 							<fo:block text-align="justify" space-before="6pt">
 								<xsl:attribute name="text-indent">12pt</xsl:attribute>
-								<fo:inline>
-									<xsl:if test="not(ancestor::leg:Schedule and $g_strDocType = 'NorthernIrelandStatutoryRule')">
-										<xsl:attribute name="font-weight">bold</xsl:attribute>
-									</xsl:if>
-									<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
-									<xsl:text>.</xsl:text>
-								</fo:inline>
+								
+								<!-- HA098003, HA099271 -  Inside BlockAmendment/@TargetClass="primary" or P1group/@Layout = 'side'- the first P1/Pnumber moved before Title()-->
+								<xsl:if test="not((ancestor::leg:BlockAmendment[1][self::leg:BlockAmendment[@Context = 'unknown' and @TargetClass = 'primary']] or ancestor::leg:P1group/@Layout = 'side') and ancestor::leg:P1group/leg:Title 
+									and generate-id(ancestor::leg:P1[1]/leg:Pnumber) = generate-id(ancestor::leg:BlockAmendment[1]/descendant::leg:P1[1]/leg:Pnumber))">
+									<fo:inline>
+										<xsl:if test="not(ancestor::leg:Schedule and $g_strDocType = 'NorthernIrelandStatutoryRule')">
+											<xsl:attribute name="font-weight">bold</xsl:attribute>
+										</xsl:if>
+										<xsl:apply-templates select="ancestor::leg:P1[1]/leg:Pnumber"/>
+										<xsl:text>.</xsl:text>
+									</fo:inline>
+								</xsl:if>
 								<fo:leader leader-pattern="space" leader-length="0.5em"/>
 								<xsl:if test="not($context/self::leg:Tabular)">
 									<xsl:apply-templates/>
