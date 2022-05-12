@@ -31,6 +31,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 
 	<xsl:variable name="showTimeline" select="true()"/>
+	
+	<!-- use a variable for the current date so we can easily test and debug future views  -->
+	<xsl:variable name="currentdate" as="xs:date" select="current-date()"/>
+	<!--<xsl:variable name="currentdate" as="xs:date" select="xs:date('2021-10-31')"/>-->
 
 	<xsl:template name="TSOOutputChangesOverTime">
 
@@ -42,27 +46,38 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<!-- default link of the item-->
 			<xsl:variable name="linkHRef" as="xs:string?"
 						  select="(/leg:Legislation/ukm:Metadata/atom:link[@rel='http://purl.org/dc/terms/hasVersion' and @title = 'current']/@href, /leg:Legislation/ukm:Metadata/dc:identifier)[1]"/>
-
+						  
+			<!-- this is for debugging purposes and adds in dummy atom links 
+				add the variable into the for-each in $otherVersions -->			  
+			<xsl:variable name="dummyEnd" as="element()*">
+				<!--<atom:link rel="http://www.legislation.gov.uk/def/date/euexitTransitionEnd" href="http://www.legislation.gov.uk/eur/2015/2456/contents/2020-12-31" title="2020-12-31"/>-->
+				<!--<atom:link rel="http://purl.org/dc/terms/hasVersion" href="http://www.legislation.gov.uk/eur/2013/1303/annex/vi/2019-12-31" title="2019-12-31"/>
+				<atom:link rel="http://purl.org/dc/terms/hasVersion" href="http://www.legislation.gov.uk/eur/2013/1303/annex/vi/2020-12-31" title="2020-12-31"/>-->
+				</xsl:variable>
 
 			<!-- let $otherVersions be a list of versions that are available for the section -->
 			<xsl:variable name="otherVersions" as="element()*">
 				<xsl:variable name="links" as="element(atom:link)*">
-					<xsl:for-each select="/leg:Legislation/ukm:Metadata/atom:link[@rel= ('http://purl.org/dc/terms/hasVersion', 'http://www.legislation.gov.uk/def/date/euexitday') and tokenize(@title, ' ')[. castable as xs:date or . = 'prospective']]">
+					<xsl:for-each select="$dummyEnd, /leg:Legislation/ukm:Metadata/atom:link[@rel= ('http://purl.org/dc/terms/hasVersion', 'http://www.legislation.gov.uk/def/date/euexitday', 'http://www.legislation.gov.uk/def/date/euexitTransitionEnd') and tokenize(@title, ' ')[. castable as xs:date or . = 'prospective']]">
 						<xsl:sort select="@title[not(. castable as xs:date)]"/>
 						<xsl:sort select="@title[. castable as xs:date]"/>
 						<xsl:copy-of select="."/>
 					</xsl:for-each>
 
 				</xsl:variable>
-
+				
 				<xsl:variable name="links" as="element(atom:link)*">
 
 					<xsl:variable name="euexitday" select="$links[@rel= 'http://www.legislation.gov.uk/def/date/euexitday']"/>
+					<xsl:variable name="euendTransitionDay" select="$links[@rel= 'http://www.legislation.gov.uk/def/date/euexitTransitionEnd']"/>
+					
+					<xsl:variable name="dates" as="xs:date*" select="(for $date in $links[not(@rel = ('http://www.legislation.gov.uk/def/date/euexitday', 'http://www.legislation.gov.uk/def/date/euexitTransitionEnd'))][@title castable as xs:date]/@title return xs:date($date))"/>
 					
 					<xsl:for-each select="$links">
 
 						<xsl:variable name="currentPos" select="position()" as="xs:integer"/>
 						<xsl:variable name="isExitDay" select="@rel = 'http://www.legislation.gov.uk/def/date/euexitday'"/>
+						<xsl:variable name="isEndTransitionDay" select="@rel = 'http://www.legislation.gov.uk/def/date/euexitTransitionEnd'"/>
 						<xsl:variable name="linkVersion"
 									  select="tokenize(@title, ' ')[. castable as xs:date or . = 'prospective']"/>
 						<xsl:variable name="repealedVersion" as="xs:boolean"
@@ -71,7 +86,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:variable name="hasPitExitDate" select="$euexitday/@title = ($links[not($euexitday)]/@title, $startDate)"/>
 						<xsl:variable name="previousVersion"
 									  select="tokenize($previousLink/@title, ' ')[. castable as xs:date or . = 'prospective']"/>
-
+						<xsl:variable name="thisversion" as="xs:string"
+									  select="if ($version = '') then xs:string($currentdate) else $version"/>
 
 						<!-- add $startDate if the current title is valid and and greater than $startDate and preceding date is less than $startDate -->
 						<xsl:if test="
@@ -87,7 +103,10 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									   iscurrent="true">
 								<xsl:if test="$startDate = $euexitday/@title">
 									<xsl:attribute name="euexitday" select="'true'"/>
-								</xsl:if>		   
+								</xsl:if>
+								<xsl:if test="$startDate = $euendTransitionDay/@title">
+									<xsl:attribute name="euendTransitionDay" select="'true'"/>
+								</xsl:if>
 							</atom:link>
 						</xsl:if>
 
@@ -104,18 +123,25 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</xsl:if>
 
 						<xsl:choose>
-							
-							<xsl:when test="$isExitDay 
+							<!-- prosps do not occur in eu retained data so treat this as per the old methods -->
+							<xsl:when test="$linkVersion = 'prospective' or $thisversion = 'prospective'">
+								<atom:link rel="http://purl.org/dc/terms/hasVersion" href="{@href}" title="{$linkVersion}">
+									<xsl:if test="$repealedVersion">
+										<xsl:attribute name="repealed" select="'true'"/>
+									</xsl:if>
+								</atom:link>
+							</xsl:when>
+							<xsl:when test="($isExitDay or $isEndTransitionDay)
 								and ($startDate castable as xs:date)
 								and ($linkVersion castable as xs:date)
 								and ((xs:date($linkVersion) = xs:date($startDate)
 									and not($linkVersion = ($links[@rel = 'http://purl.org/dc/terms/hasVersion']/@title)))
 								)">
 							<atom:link rel="http://purl.org/dc/terms/hasVersion" href="{@href}" title="{$linkVersion}" iscurrent="true">
-									<xsl:attribute name="euexitday" select="'true'"/>
+									<xsl:attribute name="{if ($isExitDay) then 'euexitday' else 'euendTransitionDay'}" select="'true'"/>
 								</atom:link>
 							</xsl:when>
-							<xsl:when test="$isExitDay 
+							<xsl:when test="($isExitDay or $isEndTransitionDay) 
 								and ($startDate castable as xs:date)
 								and ($linkVersion castable as xs:date)
 								and ((xs:date($linkVersion) = xs:date($startDate)
@@ -123,13 +149,22 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								or @title = ($links[@rel = 'http://purl.org/dc/terms/hasVersion']/@title))">
 							</xsl:when>
 							<xsl:otherwise>
-								<atom:link rel="{@rel}" href="{@href}" title="{$linkVersion}">
+								<atom:link rel="{@rel}" href="{@href}" title="{$linkVersion}" min="{($links/@title)}"  max="{min($dates[. gt xs:date($thisversion)])}" endtrans="{$isEndTransitionDay}" >
 									<xsl:if test="$repealedVersion">
 										<xsl:attribute name="repealed" select="'true'"/>
+									</xsl:if>
+									<xsl:if test="(($isEndTransitionDay or $isExitDay) and max($dates) lt xs:date($euexitday/@title) and max($dates) lt xs:date($euendTransitionDay/@title) and xs:date($thisversion) ge max($dates)) or
+										($thisversion = $links/@title and xs:date($thisversion) ge max($dates) and xs:date(@title) ge max($dates))
+										">
+										<xsl:attribute name="iscurrent" select="'true'"/>
 									</xsl:if>
 									<xsl:if test="@rel = 'http://purl.org/dc/terms/hasVersion' and 
 										@title = $euexitday/@title">
 										<xsl:attribute name="euexitday" select="'true'"/>
+									</xsl:if>
+									<xsl:if test="@rel = 'http://purl.org/dc/terms/hasVersion' and 
+										@title = $euendTransitionDay/@title">
+										<xsl:attribute name="euendTransitionDay" select="'true'"/>
 									</xsl:if>
 								</atom:link>
 							</xsl:otherwise>
@@ -279,6 +314,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<xsl:for-each select="$otherVersions">
 								<li>
 									<xsl:value-of select="concat('        ', @title)"/>
+									<xsl:value-of select="if (@iscurrent) then ' current' else ()"/>
 								</li>
 							</xsl:for-each>
 						</ul>
@@ -439,6 +475,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:if>
+				
+				
+				<xsl:variable name="futurepointers" as="xs:string*">
+					<xsl:for-each select="$pointers/*[@title castable as xs:date and xs:date(@title) &gt; $currentdate]">
+						<xsl:value-of select="@title"/>
+					</xsl:for-each>
+				</xsl:variable>
 
 				<!-- total width of the timeline -->
 				<xsl:variable name="totalWidth" as="xs:integer+">
@@ -447,12 +490,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</xsl:if>
 
 					<xsl:for-each select="$pointers/*">
-						<xsl:if test="@title castable as xs:date and xs:date(@title) &gt; current-date()">
+						<xsl:if test="@title castable as xs:date and xs:date(@title) &gt; $currentdate and @title = $futurepointers[1]">
 							<xsl:sequence select="$minWidth"/>
 						</xsl:if>
 						<xsl:choose>
 							<xsl:when test="count($pointers/*) &lt;= 4">
-								<xsl:sequence select="xs:integer( (minWidth * 4) div count(pointers/*) )"/>
+								<xsl:sequence select="xs:integer( ($minWidth * 4) div count($pointers/*) )"/>
 							</xsl:when>
 							<xsl:otherwise>
 								<xsl:sequence select="leg:GetWidthInPixels(@numberOfDays, $minWidth)"/>
@@ -463,6 +506,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<!-- default width for the <ul>-->
 					<xsl:sequence select="50"/>
 				</xsl:variable>
+				
 
 				<!-- total content width of the timeline -->
 				<xsl:variable name="contentWidth" as="xs:integer+">
@@ -474,16 +518,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</xsl:if>
 
 					<xsl:for-each select="$pointers/*">
-						<xsl:if test="@title castable as xs:date and xs:date(@title) &gt; current-date()">
+						<xsl:if test="@title castable as xs:date and xs:date(@title) &gt; $currentdate">
 							<xsl:sequence select="- $minWidth"/>
 						</xsl:if>
 					</xsl:for-each>
 				</xsl:variable>
+				
+				<!-- this prevents the arrow from getting cut off by the end of the display box 
+				increasae the integer value if this happens 
+				wwe need to use $g_euExitDay as the $pointers will not have this ref if there is 
+				a coinciding change pit -->
+				<xsl:variable name="arrowAllowance" select="if ($pointers/*/@rel = ('http://www.legislation.gov.uk/def/date/euexitday') or exists($g_euExitDay))  then 90 else 40"/>
 
 				<div id="timeline">
-					<!-- add 40 to the value to accommodate the end arrow -->
 					<div id="timelineData"
-						 style="width:{(if (sum($totalWidth) &lt; 677) then 677 else sum($totalWidth)) + 40}px">
+						 style="width:{(if (sum($totalWidth) &lt; 677) then 677 else sum($totalWidth)) + $arrowAllowance}px">
 
 						<h3 class="accessibleText">Alternative versions:</h3>
 
@@ -497,18 +546,37 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								<li style="width: {$minWidth}px"/>
 							</xsl:if>
 
-							
+												
 							<xsl:for-each select="$pointers/*">
 
 								<!-- if any $versions are after the current date, a dashed bar before the pointers for those versions -->
-								<xsl:if test="@title castable as xs:date and xs:date(@title) &gt; current-date()">
+								<xsl:if test="(@title castable as xs:date and xs:date(@title) &gt; $currentdate and @title = $futurepointers[1])">
 									<li style="width: {$minWidth}px" class="dash"/>
 								</xsl:if>
 
 								<!-- width of the bar -->
 								<xsl:variable name="liWidth"
-											  select="xs:integer( sum($contentWidth) div count($pointers/*) )"
+											  select="xs:integer( sum($contentWidth) div count($pointers/*))"
 											  as="xs:integer"/>
+											  
+								<xsl:variable name="exitDayText">
+									<xsl:choose>
+										<xsl:when test="$brexitType =('nodeal', 'extension')">
+											<xsl:value-of select="leg:TranslateText('EU exit day')"/>
+										</xsl:when>
+										<xsl:when test="$brexitType =('deal') and (@rel = 'http://www.legislation.gov.uk/def/date/euexitTransitionEnd' or @euendTransitionDay = 'true')">
+											<xsl:value-of select="leg:TranslateText('End of implementation period')"/>
+										</xsl:when>
+										<xsl:when test="$brexitType =('deal')">
+											<xsl:value-of select="leg:TranslateText('Exit day: start of implementation period')"/>
+										</xsl:when>
+									</xsl:choose>
+								</xsl:variable>
+
+								<xsl:variable name="exitDayDate">
+									<xsl:value-of select="leg:FormatDate(@title)"/>
+									<xsl:if test="(@euexitday = 'true' or @rel = 'http://www.legislation.gov.uk/def/date/euexitday') and $brexitType =('deal')"> 11pm</xsl:if>
+								</xsl:variable>
 
 								<!--
 								  one of these pointers (and the timeline bar to the right of it) will be highlighted as indicating the current version of the provision:
@@ -563,8 +631,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 												}
 											-->
 											<xsl:choose>
+												<!--<xsl:when test="((@rel = 'http://www.legislation.gov.uk/def/date/euexitTransitionEnd') or (@rel = 'http://www.legislation.gov.uk/def/date/euexitday')) and xs:date(@title) &gt; leg:GetVersionDate($version) ">
+													<xsl:sequence select="true()"/>
+												</xsl:when>-->
+												
 												<xsl:when
-														test="(@title castable as xs:date) and (@rel = 'http://www.legislation.gov.uk/def/date/euexitday') and xs:date(following-sibling::*[1]/@title) &gt; leg:GetVersionDate($version)
+														test="(@title castable as xs:date) and (@rel = 'http://www.legislation.gov.uk/def/date/euexitday') and xs:date(following-sibling::*[1][not(@rel = 'http://www.legislation.gov.uk/def/date/euexitTransitionEnd')]/@title) &gt; leg:GetVersionDate($version)
 														and xs:date(preceding-sibling::*[1]/@title) &lt;= leg:GetVersionDate($version)">
 													<xsl:sequence select="true()"/>
 												</xsl:when>
@@ -604,8 +676,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 								- if $version is 'prospective' and $prospective is false, a trailing dashed bar with no arrow at the end
 									otherwise it is last then add an error
 							-->
+								<xsl:variable name="noDealNotRetained" select="($brexitType = 'nodeal' and $g_isEuNotRetained and empty($pointers/*[@title castable as xs:date][xs:date(@title) gt xs:date($g_euExitDay)]))"/>
+								
 								<xsl:variable name="addArrow" as="xs:boolean">
 									<xsl:choose>
+										<xsl:when test="$noDealNotRetained">
+											<xsl:sequence select="false()"/>
+										</xsl:when>
 										<xsl:when test="$repealed and position() = last()">
 											<xsl:sequence select="false()"/>
 										</xsl:when>
@@ -622,35 +699,92 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</xsl:choose>
 								</xsl:variable>
 
+								<!-- this prevents the end arrow dropping down for EU items
+									increase the integer value if it does 
+									the boxes for the  EU exit day implementations need to be accommodated-->
 								<xsl:variable name="liWidth"
-											  select="if ($addArrow) then ($liWidth - 20) else $liWidth"/>
+											  select="
+											  if (@title castable as xs:date and xs:date(@title) &gt; $currentdate
+											  and ./following-sibling::*[1]/@rel = ('http://www.legislation.gov.uk/def/date/euexitday', 'http://www.legislation.gov.uk/def/date/euexitTransitionEnd') or ./following-sibling::*[1]/@euexitday = 'true'  or ./following-sibling::*[1]/@euendTransitionDay = 'true')  then
+											  ($minWidth)
+											  else 
+											  if (@rel = ('http://www.legislation.gov.uk/def/date/euexitday', 'http://www.legislation.gov.uk/def/date/euexitTransitionEnd') or @euexitday = 'true' or @euendTransitionDay = 'true')  then
+											  ($minWidth)
+											  else if (@rel = ('http://www.legislation.gov.uk/def/date/euexitday', 'http://www.legislation.gov.uk/def/date/euexitTransitionEnd') and $addArrow)  then
+											  ($liWidth - 10)
+											  else if ($addArrow) then ($liWidth - 20) else $liWidth"/>
 
 								<li style="width: {$liWidth}px;">
-
-									<xsl:variable name="class">
+									
+									<xsl:variable name="currentClass">
 										<xsl:choose>
+											<xsl:when test="$noDealNotRetained and position() = last()">
+												<xsl:text>notretained</xsl:text>
+											</xsl:when>
 											<xsl:when test="$isCurrentVersion and @title = 'prospective'">currentVersion
 												currentProspective
 											</xsl:when>
 											<xsl:when test="$isCurrentVersion">currentVersion</xsl:when>
 											<xsl:when test="@title ='prospective'">prospective</xsl:when>
 										</xsl:choose>
-										<xsl:if test="@repealed = true() or ($repealed and position() = last())">
-											<xsl:text>stopDate</xsl:text>
-											<xsl:if test="@repealed = 'true' and position() != last()">dash</xsl:if>
-										</xsl:if>
+									</xsl:variable>
+									
+									<xsl:variable name="dashClass">
+										<xsl:choose>
+											<xsl:when test="@repealed = true() or ($repealed and position() = last())">
+												<xsl:text>stopDate</xsl:text>
+												<xsl:if test="@repealed = 'true' and position() != last()"> dash</xsl:if>
+											</xsl:when>
+											<xsl:when test="$brexitType = ('deal') and @rel = ('http://www.legislation.gov.uk/def/date/euexitday', 'http://www.legislation.gov.uk/def/date/euexitTransitionEnd') and xs:date(@title) gt $currentdate">
+												<xsl:text>dash</xsl:text>
+											</xsl:when>
+										</xsl:choose>
+									</xsl:variable>
+									
+									<xsl:variable name="class" select="string-join(($currentClass, $dashClass), ' ')"/>
+									
+									<xsl:variable name="exitdayclass">
+										<xsl:choose>
+											<xsl:when test="$brexitType = ('nodeal', 'extension')">
+												<xsl:value-of select="concat('euexitday', if (@euexitday = 'true') then 'overlay' else ())"/>
+											</xsl:when>
+											<xsl:when test="$brexitType = ('deal') and @rel = ('http://www.legislation.gov.uk/def/date/euexitday', 'http://www.legislation.gov.uk/def/date/euexitTransitionEnd')">
+												<xsl:value-of select="'euexitday-deal'"/>
+											</xsl:when>
+											<xsl:when test="$brexitType = ('deal') and @euexitday = 'true'">
+												<xsl:value-of select="'euexitdayoverlay-deal'"/>
+											</xsl:when>
+											<xsl:when test="$brexitType = ('deal') and @euendTransitionDay = 'true'">
+												<xsl:value-of select="'euexitdayoverlay-deal'"/>
+											</xsl:when>
+										</xsl:choose>
 									</xsl:variable>
 
-									<xsl:if test="string-length($class) ne 0">
+									<xsl:if test="string-length(normalize-space($class)) ne 0">
 										<xsl:attribute name="class">
 											<xsl:value-of select="$class"/>
 										</xsl:attribute>
 									</xsl:if>
+									
+									<xsl:variable name="pointer" 
+										select="
+											if (@rel = 'http://www.legislation.gov.uk/def/date/euexitday') then 
+												'pointer' 
+											else if ($g_isEUretained and $brexitType =('nodeal') and 
+													exists($g_euExitDay) and 
+													@title castable as xs:date and 
+													xs:date(@title) ge xs:date($g_euExitDay)) then
+												'pointer-uk'	
+											else if ($g_isEUretained and exists($g_euExitDay) and 
+													@title castable as xs:date and 
+													xs:date(@title) lt max((xs:date($g_euExitDay), xs:date($g_euExitTransitonEndDay)))) then 
+												'pointer-eu' 
+											else 'pointer'"/>
 
 									<xsl:choose>
 										<xsl:when test="@repealed = true() or ($repealed and position() = last())">
 											<span class="stop">
-												<span class="pointer"/>
+												<span class="{$pointer}"/>
 												<span class="label">
 													<xsl:value-of select="leg:TranslateText('Stop date')"/>
 													<xsl:text> </xsl:text>
@@ -662,7 +796,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 										<!--  Prevent a link to a prosp doc if none exists but retain the timeline icons  -->
 										<xsl:when test="lower-case(@title) = 'prospective' and empty($prospDoc)">
 											<a href="#">
-												<span class="pointer"/>
+												<span class="{$pointer}"/>
 												<span>
 													<xsl:value-of select="leg:FormatDate(@title)"/>
 													<em class="accessibleText">- Amendment</em>
@@ -670,28 +804,56 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 											</a>
 										</xsl:when>
 										<xsl:when test="@rel = 'http://www.legislation.gov.uk/def/date/euexitday'">
-											<a href="{leg:FormatURL(@href)}" class="euexitday">
-												<span class="pointer"/>
+											<a href="{leg:FormatURL(@href)}" class="{$exitdayclass}">
+												<span class="{$pointer}"/>
 												<div class="content">
 													<span class="title">
-														<xsl:value-of select="'EU exit day'"/>
+														<xsl:value-of select="$exitDayText"/>
 													</span>
 													<span class="description">
-														<xsl:value-of select="leg:FormatDate(@title)"/>
+														<xsl:value-of select="$exitDayDate"/>
+														<em class="accessibleText">- Amendment</em>
+													</span>
+												</div>
+											</a>
+										</xsl:when>
+										<xsl:when test="@rel = 'http://www.legislation.gov.uk/def/date/euexitTransitionEnd'">
+											<a href="{leg:FormatURL(@href)}" class="{$exitdayclass}">
+												<span class="{$pointer}"/>
+												<div class="content">
+													<span class="title">
+														<xsl:value-of select="$exitDayText"/>
+													</span>
+													<span class="description">
+														<xsl:value-of select="$exitDayDate"/>
 														<em class="accessibleText">- Amendment</em>
 													</span>
 												</div>
 											</a>
 										</xsl:when>
 										<xsl:when test="@euexitday = 'true'">
-											<a href="{leg:FormatURL(@href)}" class="exitdayoverlay">
-												<span class="pointer"/>
+											<a href="{leg:FormatURL(@href)}" class="{$exitdayclass}">
+												<span class="{$pointer}"/>
 												<div class="content">
 													<span class="title">
-														<xsl:value-of select="'EU exit day'"/>
+														<xsl:value-of select="$exitDayText"/>
 													</span>
 													<span class="description">
-														<xsl:value-of select="leg:FormatDate(@title)"/>
+														<xsl:value-of select="$exitDayDate"/>
+														<em class="accessibleText">- Amendment</em>
+													</span>
+												</div>
+											</a>
+										</xsl:when>
+										<xsl:when test="@euendTransitionDay = 'true'">
+											<a href="{leg:FormatURL(@href)}" class="{$exitdayclass}">
+												<span class="{$pointer}"/>
+												<div class="content">
+													<span class="title">
+														<xsl:value-of select="$exitDayText"/>
+													</span>
+													<span class="description">
+														<xsl:value-of select="$exitDayDate"/>
 														<em class="accessibleText">- Amendment</em>
 													</span>
 												</div>
@@ -702,14 +864,14 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 												<xsl:if test="@euexitday = 'true'">
 													<xsl:attribute name="class" select="'exitdayoverlay'"/>
 												</xsl:if>
-												<span class="pointer"/>
+												<span class="{$pointer}"/>
 												<xsl:if test="@euexitday = 'true'">
 													<span class="title">
-														<xsl:value-of select="'EU exit day'"/>
+														<xsl:value-of select="$exitDayText"/>
 													</span>
 												</xsl:if>
 												<span>
-													<xsl:value-of select="leg:FormatDate(@title)"/>
+													<xsl:value-of select="$exitDayDate"/>
 													<em class="accessibleText">- Amendment</em>
 												</span>
 											</a>
@@ -742,7 +904,9 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									<xsl:variable name="displayStyle">
 										<xsl:choose>
 											<xsl:when test="xs:date(following-sibling::*[1][@rel = 'http://www.legislation.gov.uk/def/date/euexitday']/@title) le leg:GetVersionDate($version)"></xsl:when>
+											<xsl:when test="xs:date(following-sibling::*[1][@rel = 'http://www.legislation.gov.uk/def/date/euexitTransitionEnd']/@title) le leg:GetVersionDate($version)"></xsl:when>
 											<xsl:when test="@rel = 'http://www.legislation.gov.uk/def/date/euexitday' and xs:date(@title) &gt; leg:GetVersionDate($version)"></xsl:when>
+											<xsl:when test="@rel = 'http://www.legislation.gov.uk/def/date/euexitTransitionEnd' and xs:date(@title) &gt; leg:GetVersionDate($version)"></xsl:when>
 											<xsl:when test="$notYetInForce and position()=1">margin-left: <xsl:value-of
 													select="-53*2 - $liWidth"/>px;
 											</xsl:when>

@@ -152,6 +152,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Explanatory Notes">Nodiadau Esboniadol</resource>
 		<resource id="Explanatory Memorandum">Memorandwm Esboniadol</resource>
 		<resource id="Draft Explanatory Memorandum">Memorandwm Esboniadol Drafft</resource>
+		<resource id="Draft Policy Note">Nodyn Polisi Drafft</resource>
+		<resource id="Draft Executive Notes">Nodiadau Gweithredol Drafft</resource>
 		<resource id="Plain View">Edrychiad Plaen</resource>
 		<resource id="Back to top">Yn ôl i’r brig</resource>
 		<resource id="Print Options">Dewisiadau Argraffu</resource>
@@ -243,12 +245,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="EN_Help_3" translated="false" stage2="true">Text created by the Scottish Government to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes were introduced in 1999 and accompany all Acts of the Scottish Parliament except those which result from Budget Bills.</resource>
 		<resource id="EN_Help_4" translated="false" stage2="true">Text created by the Welsh Government department responsible for the subject matter of the Act to explain what the Act sets out to achieve and to make the Act accessible to readers who are not legally qualified. Explanatory Notes accompany all Acts of the National Assembly for Wales.</resource>
 		<resource id="EN_Help_5" translated="false" stage2="true">Policy Note sets out a brief statement of the purpose of a Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2012 onwards. Prior to this date these type of notes existed as ‘Executive Notes’ and accompanied Scottish Statutory Instruments from July 2005 until July 2012.</resource>
-		<resource id="EN_Help_6" translated="false" stage2="true">Draft Policy Note sets out a brief statement of the purpose of a Draft Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Draft Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2012 onwards. Prior to this date these type of notes existed as 'Executive Notes' and accompanied Draft Scottish Statutory Instruments from July 2005 until July 2012.</resource>
-		<resource id="EN_Help_7" translated="false" stage2="true">Executive Note sets out a brief statement of the purpose of a Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2005 onwards.</resource>
-		<resource id="EN_Help_8" translated="false" stage2="true">Draft Executive Note sets out a brief statement of the purpose of a Draft Scottish Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Draft Scottish Statutory Instrument accessible to readers who are not legally qualified and accompany any Scottish Statutory Instrument or Draft Scottish Statutory Instrument laid before the Scottish Parliament from July 2005 onwards.</resource>
+		<resource id="EN_Help_6" translated="true" stage2="true">Mae Nodyn Polisi Drafft yn nodi datganiad byr o ddiben Offeryn Statudol Drafft yr Alban ac yn rhoi gwybodaeth am ei amcan polisi a goblygiadau polisi. Ei nod yw gwneud yr Offeryn Statudol Drafft yr Alban yn hygyrch i ddarllenwyr nad oes ganddynt gymhwyster cyfreithiol ac maent yn cyd-fynd ag unrhyw Offeryn Statudol yr Alban neu Offeryn Statudol Drafft yr Alban a gyflwynwyd yn fanwl gerbron Senedd yr Alban o Orffennaf 2012 ymlaen. Cyn y dyddiad hwn, roedd y mathau hyn o nodiadau yn bodoli fel ‘Nodiadau Gweithredol’ ac yn cyd-fynd ag Offerynnau Statudol Drafft yr Alban o Orffennaf 2005 hyd at Orffennaf 2012.</resource>
+		<resource id="EN_Help_7" translated="true" stage2="true">Mae Nodyn Gweithredol yn nodi datganiad byr o ddiben Offeryn Statudol yr Alban ac yn rhoi gwybodaeth am ei amcan polisi a goblygiadau polisi. Ei nod yw gwneud yr Offeryn Statudol yr Alban yn hygyrch i ddarllenwyr nad oes ganddynt gymhwyster cyfreithiol ac maent yn cyd-fynd ag unrhyw Offeryn Statudol yr Alban neu Offeryn Statudol Drafft yr Alban a gyflwynwyd yn fanwl gerbron Senedd yr Alban o Orffennaf 2005 ymlaen.</resource>
+		<resource id="EN_Help_8" translated="true" stage2="true">Mae Nodyn Gweithredol Drafft yn nodi datganiad byr o ddiben Offeryn Statudol Drafft yr Alban ac yn rhoi gwybodaeth am ei amcan polisi a goblygiadau polisi. Ei nod yw gwneud yr Offeryn Statudol Drafft yr Alban yn hygyrch i ddarllenwyr nad oes ganddynt gymhwyster cyfreithiol ac maent yn cyd-fynd ag unrhyw Offeryn Statudol yr Alban neu Offeryn Statudol Drafft yr Alban a gyflwynwyd yn fanwl gerbron Senedd yr Alban o Orffennaf 2005 ymlaen.</resource>
 		<resource id="EN_Help_9" translated="false" stage2="true">Explanatory Memorandum sets out a brief statement of the purpose of a Northern Ireland Order in Council and provides information about its policy objective and policy implications. They aim to make the Order accessible to readers who are not legally qualified and accompany any Northern Ireland Order in Council made since 2002.</resource>
 		<resource id="EN_Help_10" translated="false" stage2="true">Explanatory Memorandum sets out a brief statement of the purpose of a Statutory Rule and provides information about its policy objective and policy implications. They aim to make the Statutory Rule accessible to readers who are not legally qualified and accompany any Northern Ireland Statutory Rule or Draft Northern Ireland Statutory Rule laid before the UK Parliament during the suspension of the Northern Ireland Assembly.</resource>
-		<resource id="EN_Help_11" translated="false" stage2="true">Draft Explanatory Memorandum sets out a brief statement of the purpose of a Draft Statutory Instrument and provides information about its policy objective and policy implications. They aim to make the Draft Statutory Instrument accessible to readers who are not legally qualified and accompany any Statutory Instrument or Draft Statutory Instrument laid before Parliament from June 2004 onwards.</resource>
+		<resource id="EN_Help_11" translated="true" stage2="true">Mae Memorandwm Esboniadol Drafft yn nodi datganiad byr o ddiben Offeryn Statudol Drafft ac yn rhoi gwybodaeth am ei amcan polisi a goblygiadau polisi. Eu nod yw gwneud yr Offeryn Statudol Drafft yn hygyrch i ddarllenwyr nad oes ganddynt gymhwyster cyfreithiol, ac maent yn cyd-fynd ag unrhyw Offeryn Statudol neu Offeryn Statudol Drafft a gyflwynwyd yn fanwl gerbron y Senedd o Fehefin 2004 ymlaen.</resource>
 		<resource id="EN_Help_12" translated="false" stage2="true">Draft Explanatory Memorandum sets out a brief statement of the purpose of a Draft Statutory Rule and provides information about its policy objective and policy implications. They aim to make the Draft Statutory Rule accessible to readers who are not legally qualified and accompany any Statutory Rule laid before the UK Parliament during the suspension of the Northern Ireland Assembly.</resource>
 		<resource id="Schedules_only" translated="false" stage2="true">You have chosen to open Schedules only</resource>
 		<resource id="PIT_toc_1" translated="false" stage2="true">This becomes available after navigating to view revised legislation as it stood at a certain point in time via Advanced Features &gt; Show Timeline of Changes or via a point in time advanced search.</resource>
@@ -765,11 +767,19 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="December_short">Rhag</resource>
 		
 		<!-- eu changes -->
-		<resource id="New_changes_p1">Mae’r rhestrau hyn yn rhoi manylion newidiadau i ddeddfwriaeth gan gynnwys diddymu, diwygio ac effeithiau eraill (e.e. addasiadau a gwybodaeth am ddechrau) a wnaed gan ddeddfwriaeth ddilynol.</resource>
-		<resource id="New_changes_p2">Mae’r ffurflen chwilio isod yn rhoi mynediad at restrau yn rhoi manylion newidiadau a wnaed gan yr holl ddeddfwriaeth yn y DU a wnaed rhwng 2002 a’r presennol i ddeddfwriaeth sylfaenol y DU a gedwir ar legislation.gov.uk. Mae newidiadau a wnaed gan ddeddfwriaeth a ddeddfwyd cyn 2002 eisoes wedi cael eu hymgorffori yng nghynnwys y ddeddfwriaeth sylfaenol ac nid ydynt ar gael eto fel rhestrau chwiliadwy. Mae newidiadau a wnaed trwy ddeddfwriaeth eilaidd a weithredwyd o 2000 ymlaen ar gael. Cynhwysir newidiadau i Reoliadau a Phenderfyniadau yr UE yn deillio o’r UE gan ddeddfwriaeth y DU hefyd yn y rhestrau hyn.</resource>
-		<resource id="New_changes_p3">Mae’r rhestrau yn cael eu diweddaru gyda newidiadau a wneir gan ddeddfwriaeth newydd cyn gynted ag sy’n bosibl ar ôl i’r ddeddfwriaeth gael ei derbyn gan dîm golygyddol legislation.gov.uk. Yn y rhan fwyaf o achosion bydd y newidiadau ar gael cyn pen pythefnos o gyhoeddi’r ddeddfwriaeth newydd, ond yn ystod cyfnodau prysur iawn o ran deddfwriaeth newydd, gall gymryd mwy o amser. Hyd at adael yr UE, mae newidiadau i ddeddfwriaeth yr UE a wnaed gan ddeddfwriaeth yr UE cyn i’r DU adael yr UE yn cael eu casglu ar EUR-Lex a’u cyhoeddi ar y tudalennau Newidiadau i Ddeddfwriaeth.</resource>
 		<resource id="New_changes_p3_old">Mae’r rhestrau yn cael eu diweddaru gyda newidiadau a wneir gan ddeddfwriaeth newydd cyn gynted ag sy’n bosibl ar ôl i’r ddeddfwriaeth gael ei derbyn gan dîm golygyddol legislation.gov.uk. Yn y rhan fwyaf o achosion bydd y newidiadau ar gael cyn pen pythefnos o gyhoeddi’r ddeddfwriaeth newydd, ond yn ystod cyfnodau prysur iawn o ran deddfwriaeth newydd, gall gymryd mwy o amser. Casglwyd newidiadau i ddeddfwriaeth yr UE a wnaed gan ddeddfwriaeth yr UE cyn i’r DU adael yr UE o EUR-Lex a’u cyhoeddi ar y tudalennau Newidiadau i Ddeddfwriaeth.</resource>
-		<resource id="New_changes_p4">Sylwer: Pan na fydd newidiadau ac effeithiau wedi eu gweithredu ar ddeddfwriaeth y DU neu UE yr ydych yn edrych arnynt ar y safle hwn eto, yna dangosir unrhyw ‘Newidiadau i Ddeddfwriaeth’ hefyd ochr yn ochr â chynnwys y ddeddfwriaeth ar lefel darparu.</resource>
+		<resource id="New_changes_p1">
+      <span rel="deal nodeal">Mae’r rhestrau hyn yn darparu manylion o’r newidiadau i ddeddfwriaeth yn cynnwys diddymiadau, addasiadau ac effeithiau eraill (e.e. addasiadau a gwybodaeth gychwyn) a wneir gan ddeddfwriaeth wedi hynny.</span>
+    </resource>		
+    <resource id="New_changes_p2">
+      <span rel="deal nodeal">Mae’r ffurflen chwilio isod yn rhoi mynediad i restrau sy’n cynnwys manylion a wneir gan holl ddeddfwriaethau’r DU sydd wedi’u deddfu o 2002 hyd heddiw i’r ddeddfwriaeth sylfaenol sydd ar legislation.gov.uk. Mae newidiadau a wnaed gan ddeddfwriaethau sydd wedi’u deddfu cyn 2002 eisoes wedi’u hymgorffori yng nghynnwys y ddeddfwriaeth sylfaenol ac nid ydynt ar gael fel rhestrau chwiliadwy. Mae newidiadau a wnaed gan y ddeddfwriaeth eilaidd sydd wedi’u deddfu o 2000 ymlaen ar gael. Mae newidiadau i Reoliadau a Phenderfyniadau’r UE sy’n deillio o’r UE gan ddeddfwriaeth y DU hefyd wedi’u cynnwys yn y rhestrau hyn.</span>
+    </resource>
+		<resource id="New_changes_p3">
+      <span rel="deal nodeal">Diweddarir y rhestri gyda’r newidiadau a wneir gan ddeddfwriaeth newydd cyn gynted ag y mae modd ar ôl i’r ddeddfwriaeth gael ei derbyn gan dîm golygyddol legislation.gov.uk. Yn y rhan fwyaf o achosion, bydd y newidiadau ar gael cyn pen dwy wythnos o’r ddeddfwriaeth newydd yn cael ei chyhoeddi, ond yn ystod cyfnodau arbennig o brysur am ddeddfwriaethau newydd, gallai gymryd yn hirach. Hyd at ymadawiad yr UE, cafwyd newidiadau i ddeddfwriaethau’r UE a wnaed gan ddeddfwriaeth yr UE cyn i’r DU adael yr UE o EUR-Lex a’u cyhoeddi ar y tudalennau Newidiadau i Ddeddfwriaeth.</span>
+    </resource>
+		<resource id="New_changes_p4">
+      <span rel="deal nodeal">Sylwer: Lle bo newidiadau ac effeithiau sydd eisoes i’w cymhwyso i ddeddfwriaeth y DU neu’r UE yr ydych yn edrych arni ar y safle hwn, yna mae unrhyw ‘Newidiadau i Ddeddfwriaeth’ hefyd wedi’u harddangos ochr yn ochr â chynnwys y ddeddfwriaeth ar lefel darparu.</span>
+    </resource>
 		
 		<!-- The print options -->
 		<resource id="The Whole Act">Y Ddeddf Gyfan</resource>
@@ -883,7 +893,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Applies to" translated="false" stage2="true">Applies to</resource>
 		<resource id="Valid from" translated="false" stage2="true">Valid from</resource>
 		<resource id="Prospective" translated="false" stage2="true">Prospective</resource>
-		<resource id="Executive Note" translated="false" stage2="true">Executive Note</resource>
+		<resource id="Executive Note" translated="true" stage2="true">Nodyn Gweithredol</resource>
 		<resource id="Policy Notes" translated="false" stage2="true">Policy Notes</resource>
 		<resource id="No_associated_note" translated="false" stage2="true">This
 			<param ref-id="type"/> has no associated
@@ -1017,7 +1027,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!--<resource id="explore_uk_parliament">Made by the UK Parliament and UK Government</resource>-->
 			<resource id="explore_from_eu">Wedi ei fabwysiadu fel deddfwriaeth y Deyrnas Unedig ar ddiwrnod ymadael â’r UE - gallwch bori trwy hwn yn ôl pwnc</resource>
 			<resource id="explore_uk_summary">A wnaed gan Senedd y Deyrnas Unedig a Llywodraeth y Deyrnas Unedig</resource>
-			<resource id="explore_eu_summary">Fel y’i mabwysiadwyd yn wreiddiol gan y Senedd Ewropeaidd ac wedi ei gymryd o EUR-Lex</resource>
+			<resource id="explore_eu_summary"><span rel="deal nodeal">Fel y mabwysiadwyd yn wreiddiol gan y Sefydliadau Ewropeaidd a’i gymryd o EUR-Lex hyd at 31 Hydref 2019</span></resource>
 			<resource id="explore_scotland_summary">A wnaed gan Senedd yr Alban, Llywodraeth yr Alban a Seneddau Hanesyddol</resource>
 			<resource id="explore_wales_summary">A wnaed gan Lywodraeth Cymru a Chynulliad Cymru</resource>
 			<resource id="explore_ni_summary">A wnaed gan Lywodraeth Gogledd Iwerddon, Cynulliad Gogledd Iwerddon a Seneddau Hanesyddol</resource>
@@ -1034,10 +1044,15 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<resource id="explore_defra_summary">Deddfwriaeth mewn grym a reolir ac a drefnir gan Defra</resource>
 		<!--End Browse (Cards) -->
 		<!--Browse EU-->
-			<resource id="Browse_EUIntro">Cyhoeddi deddfwriaeth yr UE a nodir yn
-				<a href="/cy/ukpga/2018/16/schedule/5">Atodlen 5 o Ddeddf yr Undeb Ewropeaidd (Ymadael) 2018</a> ynghyd â Chywiriadau (Slipiau cywiro ar gyfer Deddfwriaeth yr UE) a Chyfarwyddebau’r UE a gyhoeddwyd cyn y Diwrnod Ymadael, gan gynnwys deddfwriaeth fydd yn berthnasol i’r Deyrnas Unedig ar ôl y Diwrnod Ymadael. Am ragor o wybodaeth gweler
-				<a href="/cy/understanding-legislation#WhatLegislationFromEUR-Lex">Deall Deddfwriaeth</a>
+    
+			<resource id="Browse_EUIntro">
+      <span rel="nodeal">Cyhoeddi deddfwriaeth yr UE a nodir yn <a href="/cy/ukpga/2018/16/schedule/5">Atodlen 5 Deddf yr Undeb Ewropeaidd (Ymadawiad) 2018</a> ynghyd â Chyfarwyddebau’r UE a gyhoeddir cyn ymadawiad yr UE ar 31 Hydref 2019, yn cynnwys deddfwriaeth a all fod yn berthnasol i’r DU ar ôl ymadawiad yr UE. Am ragor o wybodaeth, gweler <a href="/cy/understanding-legislation#WhatLegislationFromEUR-Lex">Deall Deddfwriaeth</a></span>
+      <span rel="deal">Cyhoeddi deddfwriaeth yr UE a nodir yn <a href="/cy/ukpga/2018/16/schedule/5">Atodlen 5 Deddf yr Undeb Ewropeaidd (Ymadawiad) 2018</a> ynghyd â chywiriadau (Slipiau cywiro i Ddeddfwriaeth yr UE) a Chyfarwyddebau’r UE a gyhoeddir hyd at ymadawiad yr UE ar 31 Hydref 2019, yn cynnwys deddfwriaeth a all fod yn berthnasol i’r DU ar ôl ymadawiad yr UE. Am ragor o wybodaeth, gweler <a href="/cy/understanding-legislation#WhatLegislationFromEUR-Lex">Deall Deddfwriaeth</a></span>
+      <span rel="extension">Cyhoeddi deddfwriaeth yr UE a nodir yn <a href="/cy/ukpga/2018/16/schedule/5">Atodlen 5 Deddf yr Undeb Ewropeaidd (Ymadawiad) 2018</a> ynghyd â chywiriadau (Slipiau cywiro i Ddeddfwriaeth yr UE) a Chyfarwyddebau’r UE a gyhoeddir hyd at ymadawiad yr UE, yn cynnwys deddfwriaeth a fydd yn berthnasol i’r DU ar ôl ymadawiad yr UE. Am ragor o wybodaeth, gweler <a href="/cy/understanding-legislation#WhatLegislationFromEUR-Lex">Deall Deddfwriaeth</a></span>
 			</resource>
+        <!-- Cyhoeddi deddfwriaeth yr UE a nodir yn
+				<a href="/cy/ukpga/2018/16/schedule/5">Atodlen 5 o Ddeddf yr Undeb Ewropeaidd (Ymadael) 2018</a> ynghyd â Chywiriadau (Slipiau cywiro ar gyfer Deddfwriaeth yr UE) a Chyfarwyddebau’r UE a gyhoeddwyd cyn y Diwrnod Ymadael, gan gynnwys deddfwriaeth fydd yn berthnasol i’r Deyrnas Unedig ar ôl y Diwrnod Ymadael. Am ragor o wybodaeth gweler
+				<a href="/cy/understanding-legislation#WhatLegislationFromEUR-Lex">Deall Deddfwriaeth</a> -->
 			<resource id="European_Union_All">Yr holl Ddeddfwriaeth sy’n deillio o’r UE</resource>
 			<resource id="European Union Directives">Cyfarwyddebau yn deillio o’r UE</resource>
 			<resource id="European Union Regulations">Rheoliadau yn deillio o’r UE</resource>
@@ -1504,7 +1519,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<!-- eu changes -->
 		<resource id="New_changes_p1">These lists provide details of changes to legislation including repeals, amendments and other effects (e.g. modifications and commencement information) made by subsequent legislation.</resource>
 		<resource id="New_changes_p2">The search form below provides access to lists detailing changes made by all UK legislation enacted from 2002 – present to the  UK primary legislation held on legislation.gov.uk. Changes made by legislation enacted prior to 2002 have already been incorporated into the content of the primary legislation and are not available as searchable lists. Changes made by secondary legislation enacted from 2000 onwards are available. Changes to EU Regulations and Decisions originating from the EU by UK legislation are also included in these lists.</resource>
-		<resource id="New_changes_p3">The lists are updated with changes made by new legislation as soon as possible after the legislation is received by the legislation.gov.uk editorial team. In most cases the changes will be available within two weeks of the new legislation being published, though during particularly busy periods for new legislation it may take longer. Up to EU exit, changes to EU legislation made by EU legislation before the UK left the EU are being captured from EUR-Lex and published to the Changes to Legislation pages.</resource>
+    <resource id="New_changes_p3">
+      <span rel="holding">The lists are updated with changes made by new legislation as soon as possible after the legislation is received by the legislation.gov.uk editorial team. In most cases the changes will be available within two weeks of the new legislation being published, though during particularly busy periods for new legislation it may take longer. Changes to EU legislation made by EU legislation have been captured from EUR-Lex and published to the <a href="/changes">Changes to Legislation</a> pages.</span>
+      <span rel="nodeal extension">The lists are updated with changes made by new legislation as soon as possible after the legislation is received by the legislation.gov.uk editorial team. In most cases the changes will be available within two weeks of the new legislation being published, though during particularly busy periods for new legislation it may take longer. Up to EU exit, changes to EU legislation made by EU legislation before the UK left the EU were captured from EUR-Lex and published to the <a href="/changes">Changes to Legislation</a> pages.</span>
+      <span rel="deal">The lists are updated with changes made by new legislation as soon as possible after the legislation is received by the legislation.gov.uk editorial team. In most cases the changes will be available within two weeks of the new legislation being published, though during particularly busy periods for new legislation it may take longer. Up to IP completion day (31 December 2020), changes to EU legislation made by EU legislation are being captured from EUR-Lex and published to the <a href="/changes">Changes to Legislation</a> pages.</span>
+    </resource>
 		<resource id="New_changes_p4">Note: Where changes and effects have yet to be applied to the UK or EU legislation you are viewing on this site, then any ‘Changes to Legislation’ are also displayed alongside the content of the legislation at provision level.</resource>
 		<resource id="no_outstanding_effects">There are currently no known outstanding effects for the</resource>
 		<!-- changes -->
@@ -1583,9 +1602,18 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="Interweave_toc_3">Indicates the geographical area that this provision applies to. For further information see ‘Frequently Asked Questions’.</resource>
 		<resource id="Interweave_toc_4">See how this legislation has or could change over time. Turning this feature on will show extra navigation options to go to these specific points in time. Return to the latest available version by using the controls above in the What Version box.</resource>
 		<resource id="Revised_toc_1">This timeline shows the different points in time where a change occurred. The dates will coincide with the earliest date on which the change (e.g an insertion, a repeal or a substitution) that was applied came into force. The first date in the timeline will usually be the earliest date when the provision came into force. In some cases the first date is 01/02/1991 (or for Northern Ireland legislation 01/01/2006). This date is our basedate. No versions before this date are available. For further information see the Editorial Practice Guide and Glossary under Help.</resource>
-		<resource id="Revised_toc_eu_1">This timeline shows the different versions taken from EUR-Lex as well as any subsequent versions created after exit day as a result of changes made by UK legislation.</resource>
-		<resource id="Revised_toc_eu_2">The dates for the EU versions are taken from the  document dates on EUR-LEx and may not always coincide with when the changes came into force for the document.</resource>
-		<resource id="Revised_toc_eu_3">For any versions created after exit day as a result of changes made by UK legislation the date will coincide with the earliest date on which the change (e.g an insertion, a repeal or a substitution) that was applied came into force.  For further information see our guide to revised legislation on Understanding Legislation.</resource>
+		<resource id="Revised_toc_eu_1">
+      <span rel="deal">This timeline shows the different versions taken from EUR-Lex before exit day and during the implementation period as well as any subsequent versions created after the implementation period as a result of changes made by UK legislation.</span>
+      <span rel="nodeal">This timeline shows the different versions taken from EUR-Lex, and will continue past exit day where this document is subsequently amended after exit day as a result of changes made by UK legislation.</span>
+    </resource>
+		<resource id="Revised_toc_eu_2">
+      <span rel="deal">The dates for the EU versions are taken from the document dates on EUR-Lex and may not always coincide with when the changes came into force for the document.</span>
+      <span rel="nodeal">The dates for the EU versions are taken from the document dates on EUR-Lex and may not always coincide with when the changes came into force for the document.</span>
+    </resource>
+		<resource id="Revised_toc_eu_3">
+      <span rel="deal">For any versions created after the implementation period as a result of changes made by UK legislation the date will coincide with the earliest date on which the change (e.g an insertion, a repeal or a substitution) that was applied came into force. For further information see our guide to revised legislation on Understanding Legislation.</span>
+      <span rel="nodeal">For any versions created after exit day as a result of changes made by UK legislation the date will coincide with the earliest date on which the change (e.g an insertion, a repeal or a substitution) that was applied came into force. For further information see our guide to revised legislation on Understanding Legislation.</span>
+    </resource>
 
 		<!-- Explanatory Notes -->
 		<resource id="EN_draft_message">This is a draft <param ref-id="type"/> to accompany this <param ref-id="legtype"/>.</resource>
@@ -1721,7 +1749,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		<resource id="explore_from_eu">Adopted as UK legislation on EU exit day - you can browse this by topic</resource>
 
 		<resource id="explore_uk_summary">Made by the UK Parliament and UK Government and Historic Parliaments</resource>
-		<resource id="explore_eu_summary">As originally adopted by the European Institutions and taken from EUR-Lex</resource>
+		<resource id="explore_eu_summary">As originally adopted by the European Institutions and taken from EUR-Lex<span rel="nodeal"> up to EU exit on 31 October 2019</span><span rel="deal"> up to IP completion day</span></resource>
 		<resource id="explore_scotland_summary">Legislation that either exclusively relates to, or may extend to, Scotland</resource>
 		<resource id="explore_wales_summary">Legislation that either exclusively relates to, or may extend to, Wales</resource>
 		<resource id="explore_ni_summary">Legislation that either exclusively relates to, or may extend to, Northern Ireland</resource>
@@ -1743,8 +1771,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 
 		<!--Browse EU-->
 		<resource id="Legislation originating from the EU"/>
-        <resource id="Browse_EUIntro">Publishing the EU legislation set out in <a href="/ukpga/2018/16/schedule/5">Schedule 5 of the European Union (Withdrawal) Act 2018</a> along with Corrigenda (Correction slips for EU Legislation) and EU Directives published before Exit Day, including legislation that will be relevant to the UK after Exit Day. For more information see <a href="/understanding-legislation#WhatLegislationFromEUR-Lex">Understanding Legislation</a></resource>
-		<resource id="European_Union_All">All Legislation originating from the EU</resource>
+    <resource id="Browse_EUIntro">
+      <span rel="deal">
+          Publishing the EU legislation set out in <a href="/ukpga/2018/16/schedule/5">Schedule 5</a> of the European Union (Withdrawal) Act 2018, as amended by the European Union (Withdrawal Agreement) Act 2019, along with Corrigenda (Correction slips for EU Legislation) and EU Directives published before IP completion day (31 December 2020), including legislation that may be relevant to the UK after IP completion day. For more information see <a href="/understanding-legislation#WhatLegislationFromEUR-Lex">Understanding Legislation</a>.
+      </span>
+      <span rel="holding">
+          Publishing the EU legislation set out in <a href="/ukpga/2018/16/schedule/5">Schedule 5</a> of the European Union (Withdrawal) Act 2018 along with Corrigenda (Correction slips for EU Legislation) and EU Directives. For more information see <a href="/understanding-legislation#WhatLegislationFromEUR-Lex">Understanding Legislation</a>.
+      </span>
+      <span rel="nodeal">
+          Publishing the EU legislation set out in <a href="/ukpga/2018/16/schedule/5">Schedule 5</a> of the European Union (Withdrawal) Act 2018 along with EU Directives published before EU exit on 31 October 2019, including Corrigenda (correction slips for EU legislation) and legislation that may be relevant to the UK after EU exit. For more information see <a href="/understanding-legislation#WhatLegislationFromEUR-Lex">Understanding Legislation</a>
+      </span>
+      <span rel="extension">
+        Legislation.gov.uk carries EU legislation as set out in <a href="/ukpga/2018/16/schedule/5">Schedule 5</a> of the European Union (Withdrawal) Act 2018 along with Corrigenda (Correction slips for EU Legislation) and EU Directives published before Exit Day, including legislation that will be relevant to the UK after Exit Day. For more information see <a href="/understanding-legislation#WhatLegislationFromEUR-Lex">Understanding Legislation</a>
+      </span>
+    </resource>
+    <resource id="European_Union_All">All Legislation originating from the EU</resource>
 		<resource id="European Union Directives">Directives originating from the EU</resource>
 		<resource id="European Union Regulations">Regulations originating from the EU</resource>
 		<resource id="European Union Decisions">Decisions originating from the EU</resource>

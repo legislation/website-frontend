@@ -19,6 +19,8 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	exclude-result-prefixes="xs err tso"
 	version="2.0">
 
+<xsl:variable name="brexitType" as="xs:string" select="'@BREXIT@'"/>
+
 <xsl:variable name="hideEUdata"	as="xs:boolean" select="@HIDEEUDATA@"/>
 	
 <xsl:variable name="strCurrentURIs" select="/leg:Legislation/ukm:Metadata/dc:identifier, 
@@ -1110,6 +1112,15 @@ It will get correct language string for the current language -->
 	<xsl:element name="{local-name()}">
 		<xsl:apply-templates select="@*|node()" mode="translate"/>
 	</xsl:element>
+</xsl:template>
+<!-- only render the appropriate EU exit text -->
+<xsl:template match="*[@rel and matches(@rel,'(deal|nodeal|extension|revoke|holding)')]" priority="10" mode="translate">
+	<xsl:variable name="scenarios" as="xs:string*" select="if (contains(@rel, ' ')) then tokenize(@rel, ' ') else @rel"/>
+	<xsl:if test="$brexitType = $scenarios">
+		<xsl:copy>
+			<xsl:apply-templates select="node()|@*[not(name() = 'rel')]" mode="translate"/>
+		</xsl:copy>
+	</xsl:if>
 </xsl:template>
 <!--Copy Attributes-->
 <xsl:template match="@*" mode="translate">

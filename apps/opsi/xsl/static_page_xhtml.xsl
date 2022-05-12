@@ -292,7 +292,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 		</h2>
 	</xsl:template>
 
-	<xsl:template match="xhtml:h2" mode="tableOfContents">
+	<xsl:template match="xhtml:h2" mode="tableOfContents" priority="15" >
 		<li>
 			<a>
 				<xsl:attribute name="href">
@@ -316,8 +316,21 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template match="xhtml:a" mode="tableOfContents">
 		<xsl:apply-templates select="node()" mode="tableOfContents"/>
 	</xsl:template>
+	
+	<xsl:template match="*[@rel and matches(@rel,'(deal|nodeal|extension|revoke|holding)')]" priority="10" mode="tableOfContents">
+		<xsl:variable name="scenarios" as="xs:string*" select="if (contains(@rel, ' ')) then tokenize(@rel, ' ') else @rel"/>
+		<xsl:if test="$brexitType = $scenarios">
+			<xsl:copy>
+				<xsl:apply-templates select="node()|@*" mode="tableOfContents"/>
+			</xsl:copy>
+		</xsl:if>
+	</xsl:template>
+	
+	<xsl:template match="@rel[matches(.,'(deal|nodeal|extension|revoke|holding)')]" priority="10" mode="tableOfContents">
+		
+	</xsl:template>
 
-	<xsl:template match="*" mode="tableOfContents">
+	<xsl:template match="*" mode="tableOfContents" >
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()" mode="tableOfContents"/>
 		</xsl:copy>
@@ -327,7 +340,17 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template name="leg:TextToId">
 		<xsl:param name="text"/>
 		<xsl:param name="prefix" select="''"/>
-		<xsl:value-of select="concat($prefix,replace(normalize-space(string-join(($text), ' ')),'[ \.\?/'']',''))"/>
+		<xsl:variable name="selectedText">
+			<xsl:choose>
+				<xsl:when	test="empty($text) or matches(string-join(($text), ' '), '^[\s]+$')">
+					<xsl:value-of select="generate-id()"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="string-join(($text), ' ')"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:value-of select="concat($prefix,replace(normalize-space($selectedText),'[ \.\?/'']',''))"/>
 	</xsl:template>
 
 </xsl:stylesheet>

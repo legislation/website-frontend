@@ -1144,7 +1144,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<p>
 								<xsl:copy-of select="leg:TranslateNode('Browse_EUIntro')"/>
 							</p>
-
 							<div class="s_4 p_absTopRight">
 								<div id="map">
 									<img id="blank" src="/images/maps/activeUk.gif"

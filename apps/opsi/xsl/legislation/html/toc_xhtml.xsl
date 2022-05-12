@@ -2053,75 +2053,78 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<div id="advFeaturesContent" class="content">
 					<ul class="toolList">
 						<xsl:if test="leg:IsCurrentRevised(.)">
-							<li class="concVers geoExtent first">
-								<xsl:choose>
-									<xsl:when test="$forceShowExtent">
-										<span class="userFunctionalElement close">
-											<xsl:value-of select="leg:TranslateText('Show Geographical Extent')"/>
-										</span>
-									</xsl:when>
-									<xsl:otherwise>
-										<xsl:variable name="view" as="xs:string*"
-													  select="tokenize(replace(leg:get-query('view'),'view=',''),'\+')"/>
-										<xsl:variable name="href"
-													  select="leg:set-query-params('view', string-join(
-																	if ($view[. = 'extent']) then $view[. != 'extent']
-																	else ($view, 'extent')
-																	, '+') )"/>
+							<!-- for now we will supress the ability to display extent on EU items
+							until we can get the extent data correctly configured after Brexit  -->
+							<xsl:if test="not($g_isEURetainedOrEUTreaty)">
+								<li class="concVers geoExtent first">
+									<xsl:choose>
+										<xsl:when test="$forceShowExtent">
+											<span class="userFunctionalElement close">
+												<xsl:value-of select="leg:TranslateText('Show Geographical Extent')"/>
+											</span>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:variable name="view" as="xs:string*"
+														  select="tokenize(replace(leg:get-query('view'),'view=',''),'\+')"/>
+											<xsl:variable name="href"
+														  select="leg:set-query-params('view', string-join(
+																		if ($view[. = 'extent']) then $view[. != 'extent']
+																		else ($view, 'extent')
+																		, '+') )"/>
 
-										<a>
-											<xsl:choose>
-												<xsl:when test="$showExtent">
-													<xsl:attribute name="class">userFunctionalElement close
-													</xsl:attribute>
-												</xsl:when>
-												<xsl:otherwise>
-													<xsl:attribute name="class">userFunctionalElement</xsl:attribute>
-												</xsl:otherwise>
-											</xsl:choose>
-
-											<xsl:attribute name="href">
+											<a>
 												<xsl:choose>
-													<xsl:when test="$href != ''">?<xsl:value-of select="$href"/>
+													<xsl:when test="$showExtent">
+														<xsl:attribute name="class">userFunctionalElement close
+														</xsl:attribute>
 													</xsl:when>
 													<xsl:otherwise>
-														<xsl:value-of select="$requestInfoDoc/request/request-path"/>
+														<xsl:attribute name="class">userFunctionalElement</xsl:attribute>
 													</xsl:otherwise>
 												</xsl:choose>
-											</xsl:attribute>
-											<xsl:value-of select="leg:TranslateText('Show Geographical Extent')"/>
-										</a>
-									</xsl:otherwise>
-								</xsl:choose>
-								<!-- translate  -->
-								<span>
-									<xsl:variable name="constituents" 
-										select="for $item in ('England','Wales','Scotland','Northern Ireland') return leg:TranslateText($item)" />
-									<xsl:text>(</xsl:text>
-									<xsl:value-of select="leg:TranslateText('e.g.')"/>
-									<xsl:text> </xsl:text>
-									<xsl:for-each select="$constituents">
-										<xsl:variable name="pPos" select="position()"/>
-										<xsl:for-each select="tokenize(.,' ')">
-											<xsl:variable name="head" select="substring(.,1,1)"/>
-											<xsl:variable name="tail" select="substring(.,2)" />
-											<xsl:value-of select="if(position()>1) then ' ' else ''" /><b><xsl:value-of select="$head"/></b><xsl:value-of select="$tail" />
-										</xsl:for-each>
-										<xsl:value-of select="
-											if(position()!=count($constituents)) then
-												if(position()!=count($constituents)-1) then
-													', '
-												else
-													concat(' ',leg:TranslateText('and'),' ')
-											else
-												''
-											"
-										/>
-									</xsl:for-each>
-									<xsl:text>)</xsl:text>
-								</span>
-							</li>
 
+												<xsl:attribute name="href">
+													<xsl:choose>
+														<xsl:when test="$href != ''">?<xsl:value-of select="$href"/>
+														</xsl:when>
+														<xsl:otherwise>
+															<xsl:value-of select="$requestInfoDoc/request/request-path"/>
+														</xsl:otherwise>
+													</xsl:choose>
+												</xsl:attribute>
+												<xsl:value-of select="leg:TranslateText('Show Geographical Extent')"/>
+											</a>
+										</xsl:otherwise>
+									</xsl:choose>
+									<!-- translate  -->
+									<span>
+										<xsl:variable name="constituents" 
+											select="for $item in ('England','Wales','Scotland','Northern Ireland') return leg:TranslateText($item)" />
+										<xsl:text>(</xsl:text>
+										<xsl:value-of select="leg:TranslateText('e.g.')"/>
+										<xsl:text> </xsl:text>
+										<xsl:for-each select="$constituents">
+											<xsl:variable name="pPos" select="position()"/>
+											<xsl:for-each select="tokenize(.,' ')">
+												<xsl:variable name="head" select="substring(.,1,1)"/>
+												<xsl:variable name="tail" select="substring(.,2)" />
+												<xsl:value-of select="if(position()>1) then ' ' else ''" /><b><xsl:value-of select="$head"/></b><xsl:value-of select="$tail" />
+											</xsl:for-each>
+											<xsl:value-of select="
+												if(position()!=count($constituents)) then
+													if(position()!=count($constituents)-1) then
+														', '
+													else
+														concat(' ',leg:TranslateText('and'),' ')
+												else
+													''
+												"
+											/>
+										</xsl:for-each>
+										<xsl:text>)</xsl:text>
+									</span>
+								</li>
+							</xsl:if>
 							<!--
 							The checkbox for "Show Timeline of Changes" should be checked if $showTimeline is true and unchecked if $showTimeline is false.
 							 The link, when you click on that, should take you to the same URI as the page you are on but with ?timeline=true (if $showTimeline is false) or without the timeline parameter in the URI (if $showTimeline is true).
@@ -2604,12 +2607,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</h3>
 					<xsl:choose>
 						<xsl:when test="$isEULeg">
-							<p><xsl:value-of select="leg:TranslateText('Revised_toc_eu_1')"/></p>
-							<p><xsl:value-of select="leg:TranslateText('Revised_toc_eu_2')"/></p>
-							<p><xsl:value-of select="leg:TranslateText('Revised_toc_eu_3')"/></p>
+							<p><xsl:copy-of select="leg:TranslateNode('Revised_toc_eu_1')"/></p>
+							<p><xsl:copy-of select="leg:TranslateNode('Revised_toc_eu_2')"/></p>
+							<p><xsl:copy-of select="leg:TranslateNode('Revised_toc_eu_3')"/></p>
 						</xsl:when>
 						<xsl:otherwise>
-							<p><xsl:value-of select="leg:TranslateText('Revised_toc_1')"/></p>
+							<p><xsl:copy-of select="leg:TranslateNode('Revised_toc_1')"/></p>
 						</xsl:otherwise>
 					</xsl:choose>
 				</div>

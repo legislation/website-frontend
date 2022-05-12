@@ -120,6 +120,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:template match="atom:link|atom:id|atom:updated|atom:category" mode="cards"/>
 
 	<xsl:template match="text()" mode="cards" priority="1">
-		<xsl:value-of select="leg:TranslateText(.)"/>
+		<xsl:copy-of select="leg:TranslateNode(.)"/>
 	</xsl:template>
 </xsl:stylesheet>

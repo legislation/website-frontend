@@ -104,7 +104,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<div class="s_12">
 								<p><xsl:value-of select="leg:TranslateText('New_changes_p1')"/></p>
 								<p><xsl:value-of select="leg:TranslateText('New_changes_p2')"/></p>
-								<p><xsl:value-of select="leg:TranslateText('New_changes_p3')"/></p>
+								<p><xsl:copy-of select="leg:TranslateNode('New_changes_p3')"/></p>
 								<p><xsl:value-of select="leg:TranslateText('New_changes_p4')"/></p>
 							</div>
 						</xsl:if>

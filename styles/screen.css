@@ -652,6 +652,7 @@ a.expandCollapseLink.pageTitleAltLink { position: absolute;top: 30px;right: 15px
 #statusWarning #statusWarningSubSections {display: block; width: 737px;}
 #statusWarning #statusWarningSubSections .section {display: block; border: 1px solid #B87889; background: #F9F7F8; margin-top: 10px; }
 #statusWarning #statusWarningSubSections .section .title {font-size: 1em; padding: 0.3em 15px 0.4em ; background: #f3e7e7 url(/images/chrome/statusWarningSubSectionTitleBg.gif) bottom left repeat-x; overflow: auto;}
+#statusWarning #statusWarningSubSections .section .future {font-size: 1em; padding: 0.3em 15px 0.4em ; background: #e7e7e7; overflow: auto;}
 
 #statusWarning #statusWarningSubSections ul {margin: 0.25em 0; list-style: none; line-height: 1.8em; display: block;}
 #statusWarning #statusWarningSubSections ul li {list-style: none; display: block;}
@@ -1750,4 +1751,15 @@ p .expandCollapseLink{
 }
 .inForceInformation .title{
  width:14em;
+}
+
+#brexit-scenario-banner .scenario {
+  display: flex;
+  height: 30px;
+  color: whitesmoke;
+  background: #424240;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  text-transform: uppercase;
 }

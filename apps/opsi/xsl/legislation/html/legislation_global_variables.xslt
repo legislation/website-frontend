@@ -44,6 +44,8 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<!-- This is specifically for EU treaties which use a name convention rather than a number convention-->
 	<xsl:variable 	name="g_strDocumentName" select="$g_ndsMetadata/ukm:EUMetadata/ukm:Name/@Value"/>
 	
+	<xsl:variable 	name="g_unappliedEffects" select="$g_ndsMetadata/(ukm:PrimaryMetadata | ukm:SecondaryMetadata | ukm:EUMetadata)/ukm:UnappliedEffects"/>
+	
 	
 	<xsl:variable 	name="g_strSchemaDefinitions" select="$tso:legTypeMap[@schemaType = $g_strDocumentMainType]"/>
 	<xsl:variable 	name="g_strShortType" select="$g_strSchemaDefinitions/@abbrev"/>
@@ -61,8 +63,15 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	
 	<xsl:variable 	name="g_euExitDay"  as="xs:string?"
 					select="$g_ndsMetadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/date/euexitday']/@title"/>
+	<xsl:variable 	name="g_euExitTransitonEndDay"  as="xs:string?"
+					select="$g_ndsMetadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/date/euexitTransitionEnd']/@title"/>				
 	<xsl:variable 	name="g_euExitRefs"  as="xs:string*"
 					select="$g_ndsMetadata/atom:link[@rel = 'http://purl.org/dc/terms/references']/@href"/>
+	
+	<xsl:variable 	name="g_isEuNotRetained"  as="xs:boolean"
+					select="$g_isEUretained and empty($g_unappliedEffects/ukm:UnappliedEffect)"/>				
+	<xsl:variable 	name="g_powerToAmend"  as="element()*"
+					select="$g_ndsMetadata/atom:link[@rel = 'http://www.legislation.gov.uk/def/powerToAmend']"/>					
 
 	<xsl:variable name="dcIdentifier" select="$g_ndsMetadata/dc:identifier"/>
 	<xsl:variable name="dctitle" select="$g_ndsMetadata/dc:title"/>

@@ -296,12 +296,13 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 				</xsl:when>
 				<xsl:when test="(not(leg:IsPDFOnlyNotRevised(.)) and ($Scenario = '1' or  $Scenario = '5' or leg:IsCurrentRevised(.)) )">
 					<xsl:attribute name="id">statusWarning</xsl:attribute>
-					<xsl:attribute name="class"><xsl:if test="$Scenario = '1' or ($Scenario = '5' and $IsEditedByEPP and leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate(.))">uptoDate</xsl:if></xsl:attribute>
+					<xsl:attribute name="class"><xsl:if test="($Scenario = '1' or ($Scenario = '5' and $IsEditedByEPP and leg:IsOutstandingEffectsOnlyProspectiveOrFutureDate(.))) and empty($g_powerToAmend)">uptoDate</xsl:if></xsl:attribute>
 					<div class="title">
 						<h2>
 						  <xsl:value-of select="leg:TranslateText('swhead_changes_to_legislation')"/>
 						</h2>
 						<p class="intro">
+							
 							<xsl:choose>
 								<!--<xsl:when test="leg:IsRevisedEUPDFOnly(.)">
 										<xsl:variable name="reviseddate" as="xs:date" select="max(for $d in ($ndsLegislation/ukm:Metadata/ukm:Alternatives/ukm:Alternative[@Revised castable as xs:date]/@Revised) return xs:date($d))"/>
@@ -391,6 +392,9 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 								</a>
 							</xsl:if>
 						</p>
+						
+						<xsl:sequence select="leg:formatPowerToAmendText($g_powerToAmend)"/>
+						
 							<xsl:if test="$includeTooltip">
 								<!-- adding the help tooltip-->
 								<xsl:call-template name="TSOOutputStatusHelpTip">
@@ -1362,4 +1366,58 @@ xmlns="http://www.w3.org/1999/xhtml"  version="2.0"
 			</xsl:choose>
 		</xsl:value-of>
 	</xsl:function>
+	
+	<xsl:variable name="powerToAmendLinks" as="element()">
+		<links>
+			<link string="Payment Systems Regulator" link="https://www.psr.org.uk/psr-publications/policy-statements/onshoring-eu-regulatory-technical-standards-under-ifr" scenario="deal nodeal extension"/>
+			<link string="Financial Conduct Authority" link="https://www.handbook.fca.org.uk/instrument" scenario="deal nodeal"/>
+			<link string="Financial Conduct Authority" link="https://www.fca.org.uk/" scenario="extension"/>
+			<link string="Bank of England" link="https://www.bankofengland.co.uk/paper/2019/the-boes-amendments-to-financial-services-legislation-under-the-eu-withdrawal-act-2018" scenario="deal nodeal extension"/>
+			<link string="Prudential Regulation Authority" link="https://www.bankofengland.co.uk/paper/2019/the-boes-amendments-to-financial-services-legislation-under-the-eu-withdrawal-act-2018" scenario="deal nodeal extension"/>
+		</links>
+	</xsl:variable>
+	
+	<xsl:function name="leg:formatPowerToAmendText">
+		<xsl:param name="atomLinks"/>
+		<xsl:for-each select="$atomLinks">
+			<xsl:variable name="affectingURI" select="@href"/>
+			<p>
+				<xsl:value-of select="concat(upper-case($g_strShortType), ' ', $g_strDocumentYear, ' No. ', $g_strDocumentNumber)"/>
+				<xsl:sequence select="leg:replaceStringWithElement(replace(@title, 'XXXX', '', 'i'), (distinct-values($powerToAmendLinks//@string), '(S\.I\.\s[0-9]{4}/[0-9]+)'), 'a', $affectingURI)"/>
+			</p>
+		</xsl:for-each>
+	</xsl:function>	
+	
+	<xsl:function name="leg:replaceStringWithElement">
+		<xsl:param name="string" as="xs:string+"/>
+		<xsl:param name="words" as="xs:string+"/>
+		<xsl:param name="wrapper-name" as="xs:string"/>
+		<xsl:param name="link" as="xs:string?"/>
+		
+		<xsl:analyze-string select="$string" regex="{string-join($words, '|')}">
+			<xsl:matching-substring>
+				<xsl:variable name="current" select="."/>
+				<xsl:choose>
+					<xsl:when test="matches(regex-group(1), 'S.I. ', 'i')">
+						<xsl:element name="{$wrapper-name}">
+							<xsl:attribute name="href" select="$link"/>
+							<xsl:value-of select="regex-group(1)"/>
+						</xsl:element>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:element name="{$wrapper-name}">
+						<xsl:attribute name="href" select="$powerToAmendLinks//*[@string = $current][$brexitType = (tokenize(@scenario, ' '))]/@link"/>
+						<xsl:attribute name="target" select="'_blank'"/>
+						<xsl:value-of select="$current"/>
+						</xsl:element>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:matching-substring>
+			<xsl:non-matching-substring>
+				<xsl:value-of select="."/>
+			</xsl:non-matching-substring>
+		</xsl:analyze-string>
+	</xsl:function>
+	
+	
 </xsl:stylesheet>

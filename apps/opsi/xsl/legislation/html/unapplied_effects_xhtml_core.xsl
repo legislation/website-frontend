@@ -52,10 +52,18 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 	<xsl:variable name="introURI" select="ancestor::ukm:Metadata/atom:link[@rel='http://www.legislation.gov.uk/def/navigation/introduction' and @title='introduction']/@href"/>
 	
 	<xsl:variable name="isEUPDF" as="xs:boolean" select="ancestor::ukm:Metadata/ukm:EUMetadata and exists(ancestor::ukm:Metadata/ukm:Alternatives/ukm:Alternative) and empty(ancestor::leg:Legislation/leg:EURetained)"/>
+	
+	<xsl:variable name="hasFutureSectionEffects" as="xs:boolean" 
+			select="not($sectionEffects//ukm:InForceDates) or
+					(some $date in $sectionEffects//ukm:InForceDates/ukm:InForce[@Date castable as xs:date] satisfies (xs:date($date/@Date) gt current-date()))"/>
+					
+	<xsl:variable name="hasFutureLargerEffects" as="xs:boolean" 
+			select="not($largerEffects//ukm:InForceDates) or
+					(some $date in $largerEffects//ukm:InForceDates/ukm:InForce[@Date castable as xs:date] satisfies (xs:date($date/@Date) gt current-date()))"/>				
 
 	<xsl:if test="exists($sectionEffects) and ($introURI != ancestor::ukm:Metadata/dc:identifier or $isEUPDF)">
 		<div class="section" id="statusEffectsAppliedSection">
-			<div class="title">
+			<div class="title{if ($hasFutureSectionEffects) then ' future' else ()}">
 				<xsl:variable name="test"><xsl:value-of select="tso:TitleCase(translate($paramsDoc/parameters/section,'/',' '))"/></xsl:variable>
 				<h3>
 					<xsl:choose>
@@ -102,7 +110,7 @@ exclude-result-prefixes="leg xhtml xsl ukm xs tso atom">
 	</xsl:if>
 	<xsl:if test="exists($largerEffects)">
 		<div class="section" id="changesAppliedSection">
-			<div class="title">
+			<div class="title{if ($hasFutureLargerEffects) then ' future' else ()}">
 				<h3>
 					<xsl:choose>
 						<xsl:when test="$IsRevisedEUPDFOnly">

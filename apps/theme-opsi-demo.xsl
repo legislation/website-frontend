@@ -16,6 +16,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				exclude-result-prefixes="#all">
 
 	<xsl:import href="../apps/opsi/xsl/legislation/html/quicksearch.xsl" />
+  <xsl:import href="../apps/opsi/xsl/common/utils.xsl" />
 
 	<xsl:output method="xhtml" indent="no" encoding="UTF-8" exclude-result-prefixes="xhtml" omit-xml-declaration="yes"/>
 
@@ -142,7 +143,23 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</ul>
 
 				<div id="layout1">
-
+         <!-- <div id="brexit-scenario-banner">
+            <xsl:if test="$brexitType = 'deal'">
+              <span class="scenario">deal</span>
+            </xsl:if>
+            <xsl:if test="$brexitType = 'nodeal'">
+              <span class="scenario">no-deal</span>
+            </xsl:if>
+            <xsl:if test="$brexitType = 'extension'">
+              <span class="scenario">extension</span>
+            </xsl:if>
+            <xsl:if test="$brexitType = 'revoke'">
+              <span class="scenario">revoke</span>
+            </xsl:if>
+			<xsl:if test="$brexitType = 'holding'">
+              <span class="scenario">holding</span>
+            </xsl:if>
+          </div>-->
 					<!-- header -->
 					<xsl:call-template name="header"/>
 
@@ -183,7 +200,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<script type="text/javascript" src="/scripts/libs/scrollmagic/ScrollMagic.min.js"></script>
 					<!-- <script type="text/javascript" src="/scripts/libs/scrollmagic/debug.addIndicators.min.js"></script> -->
 					<script type="text/javascript" src="/scripts/SidebarScroll.js"></script>
-					<script type="text/javascript" src="/scripts/CookieBarScroll.js"></script>
+					<script type="text/javascript" src="/scripts/StickyElements.js"></script>
 				</xsl:if>
 			</body>
 		</html>
