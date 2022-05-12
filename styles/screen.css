@@ -159,7 +159,8 @@ Using example 8a to work with IE6 and below */
 #per.home        	#primaryNav ul li.link1 a,
 #browse             #primaryNav ul li.link2 a,
 #per.newLeg      	#primaryNav ul li.link3 a,
-#doc.changeLeg   	#primaryNav ul li.link4 a
+#doc.coronavirus   	#primaryNav ul li.link4 a,
+#doc.changeLeg   	#primaryNav ul li.link5 a
  {background: url("/images/chrome/activeHeaderLink.gif") no-repeat center top; color: #333;}
 /* end of primary nav active */
 

@@ -15,7 +15,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
  */
 $(function () {
     window.legGlobals.addSurvey = function () {
-        var SURVEY_URL = "http://www.smartsurvey.co.uk/s/PUA3T";
+        var SURVEY_URL = "https://www.smartsurvey.co.uk/s/8VQDYJ/";
         var SURVEY_COOKIE_NAME = 'close_banner_cookie_2019_07_110900';
         var SURVEY_HTML = {
             en: '<div class="content">' +

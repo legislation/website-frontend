@@ -501,11 +501,11 @@ $(function () {
 
 	// The banners are added *after* the ID '#top' so should be called in the opposite order to how they should appear.
 	// Uncomment to add survey banner
-	// window.legGlobals.addSurvey();
+	window.legGlobals.addSurvey();
 
 	// If the coronavirus banner already exists on the page via HTML then do not add the JS version
-	if (!$('#coronavirus-banner').length) {
-		$(COVID_BANNER_HTML[LANG]).simpleBanner({id: 'coronavirus-banner'});
-	}
+	//if (!$('#coronavirus-banner').length) {
+	//	$(COVID_BANNER_HTML[LANG]).simpleBanner({id: 'coronavirus-banner'});
+	//}
 
 })

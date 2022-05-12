@@ -614,6 +614,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						</a>
 					</li>
 					<li class="link4">
+						<a href="{$TranslateLangPrefix}/coronavirus">
+							<span>
+								<xsl:if test="$TranslateLang='cy' ">
+									<xsl:attribute name="class">cy</xsl:attribute>
+								</xsl:if>
+								<xsl:value-of select="leg:TranslateText('Coronavirus Legislation')"/>
+							</span>
+						</a>
+					</li>
+					<li class="link5">
 						<a href="{$TranslateLangPrefix}/changes">
 							<span>
 								<xsl:if test="$TranslateLang='cy' ">
