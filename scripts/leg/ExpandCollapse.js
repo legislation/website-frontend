@@ -32,7 +32,7 @@ $.fn.legExpandCollapse = function (htmlValues, options) {
     var $target = $($this.attr('href'));
 
     // Set any supplied options
-    var openByDefault = options && options.close !== undefined ? options.open : false;
+    var openByDefault = options && options.open !== undefined ? options.open : false;
     var cookieArray = options && options.state !== undefined ? options.state : {};
     var expires = options && options.expires !== undefined ? options.expires : 0;
 
