@@ -16,7 +16,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				exclude-result-prefixes="#all">
 
 	<xsl:import href="../apps/opsi/xsl/legislation/html/quicksearch.xsl" />
-  <xsl:import href="../apps/opsi/xsl/common/utils.xsl" />
+	<xsl:import href="../apps/opsi/xsl/common/utils.xsl" />
 
 	<xsl:output method="xhtml" indent="no" encoding="UTF-8" exclude-result-prefixes="xhtml" omit-xml-declaration="yes"/>
 
@@ -29,7 +29,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 			<xsl:value-of select="doc('input:request')//query-string"/>
 		</xsl:if>
 	</xsl:variable>
-	
+
 	<xsl:variable name="isWelshChronTable"  as="xs:boolean" select="matches($g_strUri,'/cy/changes/chron-tables')" />
 
 	<xsl:variable name="paramsDoc" select="if (doc-available('input:request')) then doc('input:request') else ()"/>
@@ -120,7 +120,6 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				<xsl:if test="/error">
 					<xsl:attribute name="id" select="'error'" />
 				</xsl:if>
-				<xsl:call-template name="GTMBody"/>
 				<div id="preloadBg">
 					<script type="text/javascript">
 						$("body").addClass("js");
@@ -143,50 +142,50 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</ul>
 
 				<div id="layout1">
-         <!-- <div id="brexit-scenario-banner">
-            <xsl:if test="$brexitType = 'deal'">
-              <span class="scenario">deal</span>
-            </xsl:if>
-            <xsl:if test="$brexitType = 'nodeal'">
-              <span class="scenario">no-deal</span>
-            </xsl:if>
-            <xsl:if test="$brexitType = 'extension'">
-              <span class="scenario">extension</span>
-            </xsl:if>
-            <xsl:if test="$brexitType = 'revoke'">
-              <span class="scenario">revoke</span>
-            </xsl:if>
-			<xsl:if test="$brexitType = 'holding'">
-              <span class="scenario">holding</span>
-            </xsl:if>
-          </div>-->
-		  
-		  <!--  CORONAVIRUS BANNER  -->
-		<!--<xsl:choose>
-			<xsl:when test="$TranslateLang = 'cy'">
-				<div id="coronavirus-banner" class="scenario">
-					<div class="bannercontent">
-						<span class="main-cy"><strong>Coronafirws</strong></span>
-						<span class="legislation-cy"><strong><a href="/cy/coronavirus" class="link">Gweler deddfwriaeth coronafirws</a></strong><br/>ar ddeddfwriaeth.gov.uk</span>
-						<span class="extents-cy">Sicrhewch ganllaw coronafirws gan <strong><a href="https://www.gov.uk/coronavirus" class="link" target="_blank">GOV.UK</a></strong><br/>Cyngor ychwanegol: <strong><a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Yr Alban</a> | <a href="https://llyw.cymru/coronavirus" class="link" target="_blank">Cymru</a> | <a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Gogledd Iwerddon</a></strong></span>
-					</div>
-				</div>
-			</xsl:when>
-			<xsl:otherwise>
-				<div id="coronavirus-banner" class="scenario">
-					<div class="bannercontent">
-						<span class="main"><strong>Coronavirus</strong></span>
-						<span class="legislation"><strong><a href="/coronavirus" class="link">See Coronavirus legislation</a></strong><br/>on legislation.gov.uk</span>
-						<span class="extents">Get Coronavirus guidance from <strong><a href="https://www.gov.uk/coronavirus" class="link" target="_blank">GOV.UK</a></strong><br/>Additional advice for <strong><a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Scotland</a> | <a href="https://gov.wales/coronavirus" class="link" target="_blank">Wales</a> | <a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Northern Ireland</a></strong></span>
-					</div>
-				</div>
-			</xsl:otherwise>
-		</xsl:choose>-->
-		  
-		  
-		  
-		  
-		  
+					<!-- <div id="brexit-scenario-banner">
+                       <xsl:if test="$brexitType = 'deal'">
+                         <span class="scenario">deal</span>
+                       </xsl:if>
+                       <xsl:if test="$brexitType = 'nodeal'">
+                         <span class="scenario">no-deal</span>
+                       </xsl:if>
+                       <xsl:if test="$brexitType = 'extension'">
+                         <span class="scenario">extension</span>
+                       </xsl:if>
+                       <xsl:if test="$brexitType = 'revoke'">
+                         <span class="scenario">revoke</span>
+                       </xsl:if>
+                       <xsl:if test="$brexitType = 'holding'">
+                         <span class="scenario">holding</span>
+                       </xsl:if>
+                     </div>-->
+
+					<!--  CORONAVIRUS BANNER  -->
+					<!--<xsl:choose>
+                        <xsl:when test="$TranslateLang = 'cy'">
+                            <div id="coronavirus-banner" class="scenario">
+                                <div class="bannercontent">
+                                    <span class="main-cy"><strong>Coronafirws</strong></span>
+                                    <span class="legislation-cy"><strong><a href="/cy/coronavirus" class="link">Gweler deddfwriaeth coronafirws</a></strong><br/>ar ddeddfwriaeth.gov.uk</span>
+                                    <span class="extents-cy">Sicrhewch ganllaw coronafirws gan <strong><a href="https://www.gov.uk/coronavirus" class="link" target="_blank">GOV.UK</a></strong><br/>Cyngor ychwanegol: <strong><a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Yr Alban</a> | <a href="https://llyw.cymru/coronavirus" class="link" target="_blank">Cymru</a> | <a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Gogledd Iwerddon</a></strong></span>
+                                </div>
+                            </div>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <div id="coronavirus-banner" class="scenario">
+                                <div class="bannercontent">
+                                    <span class="main"><strong>Coronavirus</strong></span>
+                                    <span class="legislation"><strong><a href="/coronavirus" class="link">See Coronavirus legislation</a></strong><br/>on legislation.gov.uk</span>
+                                    <span class="extents">Get Coronavirus guidance from <strong><a href="https://www.gov.uk/coronavirus" class="link" target="_blank">GOV.UK</a></strong><br/>Additional advice for <strong><a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Scotland</a> | <a href="https://gov.wales/coronavirus" class="link" target="_blank">Wales</a> | <a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Northern Ireland</a></strong></span>
+                                </div>
+                            </div>
+                        </xsl:otherwise>
+                    </xsl:choose>-->
+
+
+
+
+
 					<!-- header -->
 					<xsl:call-template name="header"/>
 
@@ -198,7 +197,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							<xsl:next-match />
 						</xsl:when>
 						<xsl:when test="$isWelshChronTable">
-							<xsl:apply-templates select="xhtml:body/node()" mode="isWelshChronTable"/>							
+							<xsl:apply-templates select="xhtml:body/node()" mode="isWelshChronTable"/>
 						</xsl:when>
 						<xsl:otherwise>
 							<!-- content -->
@@ -384,13 +383,13 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 							</xsl:when>
 							<xsl:otherwise>
 								<xsl:value-of select="leg:TranslateText(normalize-space(.))" />
-							</xsl:otherwise>					
+							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:apply-templates select="."  mode="isWelshChronTable"/>
 					</xsl:otherwise>
-				</xsl:choose>	
+				</xsl:choose>
 			</xsl:for-each>
 		</xsl:copy>
 	</xsl:template>
@@ -398,11 +397,11 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	<xsl:function name="leg:recurTranslate">
 		<xsl:param name="text"/>
 		<xsl:param name="tokens"/>
-	
+
 		<xsl:if test="count($tokens) != 0">
 			<xsl:choose>
 				<xsl:when test="contains($text, $tokens[1])">
-					<xsl:value-of 
+					<xsl:value-of
 						select="leg:recurTranslate(
 							replace($text,$tokens[1],leg:TranslateText($tokens[1])),
 							remove($tokens,1)
@@ -411,7 +410,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 				</xsl:when>
 				<xsl:otherwise>
 					<xsl:value-of select="leg:recurTranslate($text,remove($tokens,1))"/>
-				</xsl:otherwise>			
+				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:if>
 		<xsl:if test="count($tokens) = 0">
@@ -431,19 +430,19 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<xsl:variable name="part" select="tokenize(.,'-')[1]"/>
 						<xsl:variable name="tpart">
 							<xsl:choose>
-							<xsl:when test="matches($part,'(.*)((r\.)([^-]*))$')">
-								<xsl:value-of select="if(matches($part,'(.+)((r\.)([^-]*))$')) then replace($part,'(.+)((r\.)([^-]*))$','$1') else ()"/>
-								<xsl:value-of select="leg:TranslateText(replace($part,'^(.*)((r\.)([^-]*))$','$3'))"/>
-								<xsl:variable name="rest" select="replace($part,'^(.*)((r\.)([^-]*))$','$4')"/>
-								<xsl:variable name="endPart" select="replace($rest,'(.+)(\.|\.\s)$','$2')"/>
-								<xsl:variable name="startPart" select="replace(normalize-space($rest),'^(.+)(\.|\.\s)$','$1')" />
-								<xsl:value-of select="concat(leg:TranslateText($startPart),if($endPart!=$rest) then $endPart else ())"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:variable name="endPart" select="replace($part,'^(.+)(\.|\.\s)$','$2')"/>
-								<xsl:variable name="startPart" select="replace($part,'^(.+)(\.|\.\s)$','$1')" />
-								<xsl:value-of select="concat(leg:TranslateText($startPart),if($endPart!=$part) then $endPart else ())"/>
-							</xsl:otherwise>
+								<xsl:when test="matches($part,'(.*)((r\.)([^-]*))$')">
+									<xsl:value-of select="if(matches($part,'(.+)((r\.)([^-]*))$')) then replace($part,'(.+)((r\.)([^-]*))$','$1') else ()"/>
+									<xsl:value-of select="leg:TranslateText(replace($part,'^(.*)((r\.)([^-]*))$','$3'))"/>
+									<xsl:variable name="rest" select="replace($part,'^(.*)((r\.)([^-]*))$','$4')"/>
+									<xsl:variable name="endPart" select="replace($rest,'(.+)(\.|\.\s)$','$2')"/>
+									<xsl:variable name="startPart" select="replace(normalize-space($rest),'^(.+)(\.|\.\s)$','$1')" />
+									<xsl:value-of select="concat(leg:TranslateText($startPart),if($endPart!=$rest) then $endPart else ())"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:variable name="endPart" select="replace($part,'^(.+)(\.|\.\s)$','$2')"/>
+									<xsl:variable name="startPart" select="replace($part,'^(.+)(\.|\.\s)$','$1')" />
+									<xsl:value-of select="concat(leg:TranslateText($startPart),if($endPart!=$part) then $endPart else ())"/>
+								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:variable>
 						<xsl:value-of select="leg:recurTranslate(concat($tpart, substring-after(.,$part)),('see:','and superseded',' r.',' subst.-','excl.','exp.in pt'))"/>
@@ -451,7 +450,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					<xsl:otherwise>
 						<xsl:apply-templates select="."  mode="isWelshChronTable"/>
 					</xsl:otherwise>
-				</xsl:choose>	
+				</xsl:choose>
 			</xsl:for-each>
 		</xsl:copy>
 	</xsl:template>
@@ -611,16 +610,16 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 					</li>
 					<!-- Hide for MVP1 -->
 					<xsl:if test="not($hideEUdata)">
-					<li class="link3">
-						<a href="{$TranslateLangPrefix}/eu-legislation-and-uk-law">
-							<span>
-								<xsl:if test="$TranslateLang='cy' ">
-									<xsl:attribute name="class">cy</xsl:attribute>
-								</xsl:if>
-								<xsl:value-of select="leg:TranslateText('EU Legislation and UK Law')"/>
-							</span>
-						</a>
-					</li>
+						<li class="link3">
+							<a href="{$TranslateLangPrefix}/eu-legislation-and-uk-law">
+								<span>
+									<xsl:if test="$TranslateLang='cy' ">
+										<xsl:attribute name="class">cy</xsl:attribute>
+									</xsl:if>
+									<xsl:value-of select="leg:TranslateText('EU Legislation and UK Law')"/>
+								</span>
+							</a>
+						</li>
 					</xsl:if>
 					<li class="link4">
 						<a href="{$TranslateLangPrefix}/browse">
@@ -763,27 +762,47 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 	</xsl:function>
 	 -->
 	<xsl:template name="GTMHead">
+		<!--
+			GTM code should be managed by a front-end developer.
+			Due to XHTML being presented with the correct MIME-type of application/xhtml+xml a <noscript>
+			element is ignored by the browser. To provide the correct functionality of an iFrame/Object being
+			used when JS is disabled we use the method below that deletes the noscript alternative if
+			JS is disabled.
+
+			In addition - a check on the cookie preferences saved by the user should be made before allowing
+			GTM JS to run as it relies on cookies. The noscript alternative does not set a cookie.
+		-->
 		<xsl:comment>Google Tag Manager</xsl:comment>
-		<script type="text/javascript">
-			(function (w, d, s, l, i) {
-				w[l] = w[l] || [];
-				w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
-				var and = '&amp;';
-				and = and.charAt(0);
-				var f = d.getElementsByTagName(s)[0], j = d.createElement(s),
-						dl = l != 'dataLayer' ? (and + 'l=' + l) : '';
-				j.async = true;
-				j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-				f.parentNode.insertBefore(j, f);
-			})(window, document, 'script', 'dataLayer', 'GTM-TWB7339');
-		</script>
+		<div id="google-tag-manager">
+			<script type="text/javascript">
+				(function (w, d, s, l, i) {
+					// Legislation.gov.uk: Check cookie preferences before running the Google analytics code.
+					if (window.legGlobals.cookiePolicy.userSet &amp;&amp; window.legGlobals.cookiePolicy.analytics) {
+						w[l] = w[l] || [];
+						w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+						var and = '&amp;';
+						and = and.charAt(0);
+						var f = d.getElementsByTagName(s)[0], j = d.createElement(s),
+								dl = l != 'dataLayer' ? (and + 'l=' + l) : '';
+						j.async = true;
+						j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+						f.parentNode.insertBefore(j, f);
+						document.getElementById('google-tag-manager').remove();
+					} else {
+						$.removeCookie('_ga', {path: '/'});
+						$.removeCookie('_gid', {path: '/'});
+						$.removeCookie('_gat_UA-2827241-23', {path: '/'});
+						$.removeCookie('_ga', {path: '/', domain: '.legislation.gov.uk'});
+						$.removeCookie('_gid', {path: '/', domain: '.legislation.gov.uk'});
+						$.removeCookie('_gat_UA-2827241-23', {path: '/', domain: '.legislation.gov.uk'});
+					}
+
+				})(window, document, 'script', 'dataLayer', 'GTM-TWB7339');
+			</script>
+			<div style="display: none"><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWB7339"
+											   height="0" width="0" style="display:none;visibility:hidden"></iframe></div>
+		</div>
 		<xsl:comment>End Google Tag Manager</xsl:comment>
-	</xsl:template>
-	<xsl:template name="GTMBody">
-		<xsl:comment>Google Tag Manager (noscript)</xsl:comment>
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TWB7339"
-						  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-		<xsl:comment>End Google Tag Manager (noscript)</xsl:comment>
 	</xsl:template>
 
 </xsl:stylesheet>

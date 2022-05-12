@@ -48,7 +48,7 @@ v0.14	GM	2010-07-05	Scripts of a similar type placed into seperated document.rea
 
 */
 
-var legGlobals = new Object();
+var legGlobals = window.legGlobals = window.legGlobals || {};
 $(document).ready(function(){
 	initGlobals();
 });
@@ -128,7 +128,7 @@ $(document).ready(function(){
       }else{
         showText = config.statusWarningSubSections.expandCollapseLink.message2[LANG];
       }
-      
+
       $link.wrap("<div class='linkContainer'></div>");
 
       // use as CONFIG the data-* attributes expected on it
@@ -149,8 +149,8 @@ $(document).ready(function(){
     //     $link.text( $link.attr('data-'+LANG+'-expand') ); // if it can be helped, make sure link text isn't empty by default
     //   }
 		// }
-    
-    
+
+
     // $("p.intro:first", "#statusWarning")
     // .after($("<div/>").addClass("linkContainer"));
 
@@ -444,3 +444,62 @@ $(document).ready(function () {
         );
     }
 });
+
+// Banners
+$(function () {
+
+	var COVID_BANNER_HTML = {
+		en: '<div class="bannercontent">' +
+			'<span class="main">' +
+			'<strong>Coronavirus</strong>' +
+			'</span>' +
+			'<span class="legislation">' +
+			'<strong>' +
+			'<a href="/coronavirus" class="link">See Coronavirus legislation</a>' +
+			'</strong>' +
+			'<br/>on legislation.gov.uk</span>' +
+			'<span class="extents">' +
+			'Get Coronavirus guidance from <strong><a href="https://www.gov.uk/coronavirus" class="link" target="_blank">GOV.UK</a></strong><br/>' +
+			'Additional advice for ' +
+			'<strong>' +
+			'<a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Scotland</a> | ' +
+			'<a href="https://gov.wales/coronavirus" class="link" target="_blank">Wales</a> | ' +
+			'<a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Northern Ireland</a>' +
+			'</strong>' +
+			'</span>' +
+			'</div>',
+		cy: '<div class="bannercontent">' +
+			'<span class="main-cy">' +
+			'<strong>Coronafirws</strong>' +
+			'</span>' +
+			'<span class="legislation-cy">' +
+			'<strong>' +
+			'<a href="/coronavirus" class="link">Gweler deddfwriaeth coronafirws</a>' +
+			'</strong>' +
+			'<br/>ar ddeddfwriaeth.gov.uk' +
+			'</span>' +
+			'<span class="extents-cy">' +
+			'Sicrhewch ganllaw coronafirws gan ' +
+			'<strong>' +
+			'<a href="https://www.gov.uk/coronavirus" class="link" target="_blank">GOV.UK</a>' +
+			'</strong>' +
+			'<br/>Cyngor ychwanegol: ' +
+			'<strong>' +
+			'<a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Yr Alban</a> | ' +
+			'<a href="https://llyw.cymru/coronavirus" class="link" target="_blank">Cymru</a> | ' +
+			'<a href="https://www.nidirect.gov.uk/campaigns/coronavirus-covid-19" class="link" target="_blank">Gogledd Iwerddon</a>' +
+			'</strong>' +
+			'</span>'+
+			'</div>'
+	}
+
+	// The banners are added *after* the ID '#top' so should be called in the opposite order to how they should appear.
+	// Uncomment to add survey banner
+	// window.legGlobals.addSurvey();
+
+	// If the coronavirus banner already exists on the page via HTML then do not add the JS version
+	if (!$('#coronavirus-banner').length) {
+		$(COVID_BANNER_HTML[LANG]).simpleBanner({id: 'coronavirus-banner'});
+	}
+
+})
