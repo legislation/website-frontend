@@ -4622,9 +4622,12 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 			<xsl:when test="ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][1]/ancestor::*[self::xhtml:table or self::leg:BlockAmendment or self::leg:BlockExtract][1][self::xhtml:table]">
 				<xsl:text>Amend</xsl:text>
 			</xsl:when>
+			<!--HA097873, HA101803 - in few amendments the Title and Para needs to be in level 2-->
+			<xsl:when test="(self::leg:Title or parent::leg:Title or parent::leg:P1group or parent::leg:P) and (not(ancestor::*[self::leg:Schedule or self::leg:Part]) or ancestor::leg:Group) and ancestor::leg:BlockAmendment and (count(ancestor::leg:BlockAmendment) + count(ancestor::leg:BlockExtract) = 1)">
+				<xsl:text>Amend2</xsl:text> 
+			</xsl:when>
 			<!-- If we have nested amendments in a table that is itself in an amendment we need to drop the amendment level to 2 -->
-			<xsl:when test="(ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][2]/ancestor::*[self::xhtml:table or self::leg:BlockAmendment or self::leg:BlockExtract][1][self::xhtml:table])
-				or ((self::leg:Title or parent::leg:P) and ancestor::leg:BlockAmendment and (count(ancestor::leg:BlockAmendment) + count(ancestor::leg:BlockExtract) = 1) )">
+			<xsl:when test="(ancestor::*[self::leg:BlockAmendment or self::leg:BlockExtract][2]/ancestor::*[self::xhtml:table or self::leg:BlockAmendment or self::leg:BlockExtract][1][self::xhtml:table])">
 				<xsl:text>Amend2</xsl:text>
 			</xsl:when>
 			<xsl:when test="count(ancestor::leg:BlockAmendment) + count(ancestor::leg:BlockExtract) = 1">
