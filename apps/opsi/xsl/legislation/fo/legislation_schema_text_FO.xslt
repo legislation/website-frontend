@@ -26,7 +26,20 @@ exclude-result-prefixes="tso">
 	<xsl:param name="flSmallCaps" select="false()" tunnel="yes"/>
 	<xsl:param name="seqLastTextNodes" tunnel="yes" as="xs:string*"/>
 	
-	<xsl:call-template name="TSOcheckStartOfAmendment"/>
+	<xsl:variable name="firstTextNode-in-BlockAmdList" as="xs:string">
+		<xsl:choose>
+			<xsl:when test="ancestor::leg:OrderedList/parent::leg:BlockAmendment">
+				<xsl:value-of select="generate-id(ancestor::leg:BlockAmendment[1]/leg:OrderedList/descendant::text()[normalize-space(.) != ''][1])"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="'false'"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
+	
+	<xsl:if test="generate-id(.) ne $firstTextNode-in-BlockAmdList">
+		<xsl:call-template name="TSOcheckStartOfAmendment"/>
+	</xsl:if>	
 
 	<!-- Need to allow for PuncBefore and PuncAfter here -->
 	<!-- the not(normalize-space(.)='' is a quick-fix for the proposed revision where commentary/additions are putting whitespace before the  aommentary/addition elements -->

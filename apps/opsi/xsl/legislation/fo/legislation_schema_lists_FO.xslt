@@ -49,6 +49,7 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 									</xsl:if>
 									<xsl:choose>
 										<xsl:when test="parent::*/@Decoration = 'dash'">&#8212;</xsl:when>
+										<xsl:when test="parent::*/@Decoration = 'bullet'">&#8226;</xsl:when>
 										<!-- Put other values here -->
 									</xsl:choose>
 								</fo:block>						
@@ -138,6 +139,12 @@ http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
 						<fo:block font-size="{if (ancestor::leg:Footnote) then $g_strFooterSize else $g_strBodySize}" text-align="right">
 							<xsl:if test="$g_strDocClass = ($g_strConstantSecondary, $g_strConstantEuretained)">
 								<xsl:attribute name="text-align">left</xsl:attribute>
+							</xsl:if>
+							
+							<xsl:if test="parent::leg:OrderedList/parent::leg:BlockAmendment">
+								<xsl:call-template name="TSOcheckStartOfAmendment">
+									<xsl:with-param name="provenance" tunnel="yes" select="descendant::text()[normalize-space(.) != ''][1]"/>
+								</xsl:call-template>
 							</xsl:if>
 					
 							<xsl:variable name="intItemCount" as="xs:integer">
