@@ -60,6 +60,7 @@ article h2 {font-weight:normal}
 h3, h4, h5 {font-weight: 600; margin: 0; color:#494949; line-height: 1.2em;}
 h3 {font-size: 1em;}
 em {font-style: italic;}
+.underlined {text-decoration: underline;}
 strong {font-weight: bold;}
 p {color: #494949}
 address {font-style: normal;}
