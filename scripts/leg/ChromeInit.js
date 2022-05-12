@@ -460,60 +460,6 @@ $(document).ready(function () {
 // Banners
 $(function () {
 
-	var RECRUITMENT_BANNER_HTML = {
-		en: '<div class="bannercontent">' +
-			'<div class="recruit-main"><span class="heading">' +
-			'Join the team' +
-			'</span><br/>' +
-			'<span>We&apos;re currently recruiting for a Senior Legal Editor. If you&apos;d like to join the legislation.gov.uk team please apply by 22 February 2021.</span>' +
-			'</div>' +
-			'<ul>' +
-			'<li><a href="https://www.civilservicejobs.service.gov.uk/csr/jobs.cgi?jcode=1705693" target="_blank" class="join">Apply to join the team</a></li>' +
-			'<li><a href="#" class="recruitment-close">Close</a></li>' +
-			'</ul>' +
-			'</div>',
-		cy: '<div class="bannercontent">' +
-			'<div class="recruit-main"><span class="heading">' +
-			'Join the team' +
-			'</span><br/>' +
-			'<span>We&apos;re currently recruiting for a Senior Legal Editor. If you&apos;d like to join the legislation.gov.uk team please apply by 22 February 2021.</span>' +
-			'</div>' +
-			'<ul>' +
-			'<li><a href="https://www.civilservicejobs.service.gov.uk/csr/jobs.cgi?jcode=1705693" target="_blank" class="join">Apply to join the team</a></li>' +
-			'<li><a href="#" class="recruitment-close">Close</a></li>' +
-			'</ul>' +
-			'</div>',
-	}
-	var RECRUITMENT_COOKIE_NAME = 'recruitment_banner';
-	$(RECRUITMENT_BANNER_HTML[LANG]).simpleBanner({
-		id: 'recruitment-banner',
-		closeBtnSelector: '.recruitment-close',
-		doShow: function () {
-			// By default the banner is shown unless the user has allowed cookies.
-			// Check the cookie to see if the banner has been closed before and hide
-			// if it has.
-			var show = true;
-			var cookie;
-
-			if (window.legGlobals.cookiePolicy.settings) {
-				cookie = $.cookie(RECRUITMENT_COOKIE_NAME);
-
-				if (cookie && cookie === 'Yes') {
-					show = false;
-				}
-			} else {
-				$.removeCookie(RECRUITMENT_COOKIE_NAME, {path: '/'});
-			}
-
-			return show;
-		},
-		onClose: function () {
-			if (window.legGlobals.cookiePolicy.settings) {
-				$.cookie(RECRUITMENT_COOKIE_NAME, 'Yes', {expire: 30, path: '/'});
-			}
-		}
-	});
-
 	var COVID_BANNER_HTML = {
 		en: '<div class="bannercontent">' +
 			'<span class="main">' +
