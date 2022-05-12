@@ -2021,3 +2021,13 @@ p .expandCollapseLink{
 #coronavirus-banner a.link {
   color:#fff;
 }
+
+.linked-data th, .linked-data td {
+  border: 1px solid #CCC;
+  vertical-align: top;
+}
+
+#doc #content .linked-data ul {
+  margin: 0;
+  padding-left: 15px;
+}
