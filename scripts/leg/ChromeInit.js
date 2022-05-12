@@ -460,7 +460,7 @@ $(function () {
 			'<br/>on legislation.gov.uk</span>' +
 			'<span class="extents">' +
 			'Get Coronavirus guidance from <strong><a href="https://www.gov.uk/coronavirus" class="link" target="_blank">GOV.UK</a></strong><br/>' +
-			'Additional advice for ' +
+			'Get further guidance for ' +
 			'<strong>' +
 			'<a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Scotland</a> | ' +
 			'<a href="https://gov.wales/coronavirus" class="link" target="_blank">Wales</a> | ' +
@@ -483,7 +483,7 @@ $(function () {
 			'<strong>' +
 			'<a href="https://www.gov.uk/coronavirus" class="link" target="_blank">GOV.UK</a>' +
 			'</strong>' +
-			'<br/>Cyngor ychwanegol: ' +
+			'<br/>Cael rhagor o gyfarwyddyd ar gyfer yr<br/>' +
 			'<strong>' +
 			'<a href="https://www.gov.scot/coronavirus-covid-19" class="link" target="_blank">Yr Alban</a> | ' +
 			'<a href="https://llyw.cymru/coronavirus" class="link" target="_blank">Cymru</a> | ' +
