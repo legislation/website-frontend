@@ -1089,9 +1089,9 @@ exclude-result-prefixes="leg ukm math msxsl dc dct ukm fo xsl svg xhtml tso xs e
 	<!-- For primary legislation the indent of content is dependent upon its parent for amendments therefore we need more information if the parent is lower level than the content being amended -->
 	<xsl:choose>
 		<!-- For some amendments text runs on from the previous paragraph so we need to suppress that text here. Also allow it for very rare instances of secondary legislation where PartialRefs forces it -->
-		<!-- HA099698 JDC - exclude text element from suppression when not run-on text, identified as both i. under a blocktext/para/blockamendment and ii. not having a parent with a text element as its immediately preceding sibling. -->
+		<!-- HA099698 JDC - exclude text element from suppression when not run-on text, identified as both i. under a blockamendment and ii. not having a parent with a text element as its immediately preceding sibling. -->
 		<xsl:when test="($g_strDocumentType = ($g_strPrimary) or (string(@id) != '' and contains(ancestor::leg:BlockAmendment[1]/@PartialRefs, @id))) and generate-id(ancestor::leg:BlockAmendment[1]/descendant::*[1]) = generate-id() 
-			and not(ancestor::leg:BlockText/leg:Para/leg:BlockAmendment and not(parent::*/preceding-sibling::*[1][self::leg:Text]))"/>
+			and not(ancestor::leg:BlockAmendment and not(parent::*/preceding-sibling::*[1][self::leg:Text]))"/>
 		<!-- Combined N2-N3 or N2-N4 or N2-N3-N4 paragraph -->
 		<xsl:when test="parent::leg:P3para/preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P3[not(preceding-sibling::*)]/parent::leg:P2para/preceding-sibling::*[1][self::leg:Pnumber]
 		 or parent::leg:P4para/preceding-sibling::*[1][self::leg:Pnumber]/parent::leg:P4[not(preceding-sibling::*)]/parent::leg:P2para/preceding-sibling::*[1][self::leg:Pnumber]
