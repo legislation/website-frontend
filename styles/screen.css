@@ -533,10 +533,19 @@ legEnToc div.interface #wholeNav,
 .legResources .half_col_margin {margin-right: 46.75px;}
 
 /* Confers power and blanket amendments */
+.js .covid-tabs .tab,
 .js .confers_section {border: 1px solid #CCC; border-top: 0; float: left; width:100%; margin-bottom:10px;}
+.js .covid-tabs .tab {width: 924px; padding: 10px; } /* the same width as .s_12 */
+.js .covid-tabs .anchors,
 .legResources .anchors {border: 1px solid #CCC; list-style: none; margin: 0; padding: 0; float: left; background: #EBEFF8;}
+.js .covid-tabs a {margin-bottom: -1px}
+#doc.js #content .covid-tabs .anchors {margin-bottom: 0}
+.js .covid-tabs .anchors li,
 .legResources .anchors li {float: left; margin: 0; border-right: 1px solid #ccc;}
+.js .covid-tabs .anchors a,
 .legResources .anchors a {display: block; padding: 10px; font-size: 1.2em; font-weight: bold; background: #EBEFF8;}
+.js .covid-tabs .htabs .active,
+.htabs .active {background: #fff; border-bottom: 1px solid #FFF}
 .confers_section .plainList {clear: none;}
 .confers_section .p_one {clear: left;}
 .confers_section .s_3 {margin:7px;width:222px;}
@@ -547,6 +556,14 @@ legEnToc div.interface #wholeNav,
 #confers .s_3 {margin:0;width:232.5px;}
 #confers .plainList li {padding: 6px 13px 6px 10px; margin: 0;}
 /* end of more resources */
+
+/* Search example table */
+table.searchExample {width: auto; border: 1px solid #434343}
+table.searchExample .headerRow th {background: #434343; color: #fff; padding: 12px 8px;}
+table.searchExample th {font-weight: normal}
+table.searchExample td {font-weight: bold}
+table.searchExample td a {font-weight: normal}
+/* end of search example table */
 
 /* Tools */
 #tools .section {float: left;}
