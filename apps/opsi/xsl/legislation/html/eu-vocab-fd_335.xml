@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!-- this is taken from the EU website
+		http://publications.europa.eu/resource/cellar/fab6e9a8-12fc-11e8-9253-01aa75ed71a1.0001.04/DOC_6
+		A full list of controlled volcabularies can be found at:
+		https://publications.europa.eu/en/web/eu-vocabularies/atto-tables
+	-->
+<TABLE VL="EN" NAME="FD_Table335">
+   <LIBELLE CODE="ADH/CE">Accession of the European Communities</LIBELLE>
+   <LIBELLE CODE="AFCODE">after Council decision</LIBELLE>
+   <LIBELLE CODE="AN">Year</LIBELLE>
+   <LIBELLE CODE="ANN">Annex</LIBELLE>
+   <LIBELLE CODE="ANNEXEE">Annexed</LIBELLE>
+   <LIBELLE CODE="ANS">Years</LIBELLE>
+   <LIBELLE CODE="AP">After</LIBELLE>
+   <LIBELLE CODE="APPLICATION">Application</LIBELLE>
+   <LIBELLE CODE="ART">Art</LIBELLE>
+   <LIBELLE CODE="ARTUNIQUE">Sole Art.</LIBELLE>
+   <LIBELLE CODE="AU+TARD">At the latest</LIBELLE>
+   <LIBELLE CODE="AU+TOT">At the earliest</LIBELLE>
+   <LIBELLE CODE="AUT/DISP">Other provisions</LIBELLE>
+   <LIBELLE CODE="B-19.12">Review</LIBELLE>
+   <LIBELLE CODE="CAMP">Start of season</LIBELLE>
+   <LIBELLE CODE="CONSID">recital</LIBELLE>
+   <LIBELLE CODE="DATDOC">Date of document</LIBELLE>
+   <LIBELLE CODE="DATEFF">Date in force</LIBELLE>
+   <LIBELLE CODE="DATNOT">Date notif.</LIBELLE>
+   <LIBELLE CODE="DATPUB">Date pub.</LIBELLE>
+   <LIBELLE CODE="DATRAT">Date ratif.</LIBELLE>
+   <LIBELLE CODE="DATSIG">Date of signing</LIBELLE>
+   <LIBELLE CODE="DEB/CAMP">Start of season</LIBELLE>
+   <LIBELLE CODE="DEB/PER/REF">Start of period of reference</LIBELLE>
+   <LIBELLE CODE="DM">Of month</LIBELLE>
+   <LIBELLE CODE="ECHEL">Varied dates</LIBELLE>
+   <LIBELLE CODE="ECHLET">Exchange of letters</LIBELLE>
+   <LIBELLE CODE="ET">And</LIBELLE>
+   <LIBELLE CODE="EV">Entry into force</LIBELLE>
+   <LIBELLE CODE="EXERC">Financial year</LIBELLE>
+   <LIBELLE CODE="INFORMATION">Information</LIBELLE>
+   <LIBELLE CODE="JO">OJ</LIBELLE>
+   <LIBELLE CODE="L">L</LIBELLE>
+   <LIBELLE CODE="MA">Application</LIBELLE>
+   <LIBELLE CODE="MA/PART">Partial application</LIBELLE>
+   <LIBELLE CODE="MA/PROV">Provisional application</LIBELLE>
+   <LIBELLE CODE="MOIS">Month</LIBELLE>
+   <LIBELLE CODE="MOISS">Months</LIBELLE>
+   <LIBELLE CODE="OP_DATPRO">Provisional data</LIBELLE>
+   <LIBELLE CODE="P">P.</LIBELLE>
+   <LIBELLE CODE="PE">Takes effect</LIBELLE>
+   <LIBELLE CODE="PE/PART">Takes partial effect</LIBELLE>
+   <LIBELLE CODE="PROGRAMME">Programme</LIBELLE>
+   <LIBELLE CODE="PT">Pt</LIBELLE>
+   <LIBELLE CODE="RECOLTE">Harvest</LIBELLE>
+   <LIBELLE CODE="TEXTE">Text</LIBELLE>
+   <LIBELLE CODE="TIT">Title</LIBELLE>
+   <LIBELLE CODE="TITRE">Title</LIBELLE>
+   <LIBELLE CODE="V">See</LIBELLE>
+</TABLE>

@@ -1,0 +1,27 @@
+﻿/*
+(c)  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
+
+*/
+/* Survey disabled, remove to enable  */
+#feedback {display: none;} 
+
+/*#feedback {position:fixed; right: 0; top: 200px; background: url(/images/chrome/feedback.png) 0 0; width: 30px; height: 144px; z-index: 100001}*/
+#feedback a {width: 100%; height: 100%; display: block;}
+* html #feedback { display: none; position: absolute;}
+/*#feedback {position: fixed; top:-25px; left: 45%; background: url(/images/chrome/feedbackIE.png) 0 50px; width: 108px; height: 50px; z-index: 100001;}*/
+
+#feedback {position: fixed; right: 0; top: 350px; background: url(/images/chrome/feedback.png) 0 0; width: 25px; height: 108px; z-index: 100001;}
+
+#survey #loading {font-weight: bold;}
+
+#survey {position:fixed; width: 90%; height: 70%; top:13%; left: 20px; z-index: 1000000; display: none; background:#000000 }
+* html #survey { position: absolute; }
+
+#survey iframe {width: 100%; height: 100%;}
+
+#survey #closeSurvey {padding: 7px 7px; background: #FAFAFA url(/images/chrome/uiSprites.gif) no-repeat scroll 0 -254px; height: 32px; background: #FAFAFA url(/images/chrome/uiSprites.gif) repeat scroll 0 -254px; border: 1px solid #000000;}
+#survey #closeSurvey a { float:right; margin-top: 5px;}

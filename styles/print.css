@@ -1,0 +1,27 @@
+/*
+(c)  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
+
+*/
+/* Print stylesheet */
+/* Contains fixes for IE to print correctly */
+#header, #secondaryNav, #primaryNav, #layout2, #contentSearch, #content, #viewLegContents, #statusWarning, #infoSection, .LegBlockNotYetInForce, .interfaceOptionsHeader, #footer {width: auto !important;}
+#statusWarning {clear: left;}
+#tools {display: none !important;}
+
+#leg #content, 
+body.legContent #content
+{float: none;min-height:auto; }
+
+#browse #content,
+#search #content
+{width: auto; float: none;min-height:auto; }
+
+#background {height: 1px !important;}
+
+#layout2 {position: static; margin-top: auto !important;}
+
+#tools .linkContainer {margin-top: 0;}

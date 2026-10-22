@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+(c)  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
+
+-->
+<renderablecharacters>
+<!-- Uppercase alpha characters. -->
+	<unicode>A</unicode>
+	<unicode>B</unicode>
+	<unicode>C</unicode>
+	<unicode>D</unicode>
+	<unicode>E</unicode>
+	<unicode>F</unicode>
+	<unicode>G</unicode>
+	<unicode>H</unicode>
+	<unicode>I</unicode>
+	<unicode>J</unicode>
+	<unicode>K</unicode>
+	<unicode>L</unicode>
+	<unicode>M</unicode>
+	<unicode>N</unicode>
+	<unicode>O</unicode>
+	<unicode>P</unicode>
+	<unicode>Q</unicode>
+	<unicode>R</unicode>
+	<unicode>S</unicode>
+	<unicode>T</unicode>
+	<unicode>U</unicode>
+	<unicode>V</unicode>
+	<unicode>W</unicode>
+	<unicode>X</unicode>
+	<unicode>Y</unicode>
+	<unicode>Z</unicode>
+	
+<!-- Lowercase alpha characters. -->
+	<unicode>a</unicode>
+	<unicode>b</unicode>
+	<unicode>c</unicode>
+	<unicode>d</unicode>
+	<unicode>e</unicode>
+	<unicode>f</unicode>
+	<unicode>g</unicode>
+	<unicode>h</unicode>
+	<unicode>i</unicode>
+	<unicode>j</unicode>
+	<unicode>k</unicode>
+	<unicode>l</unicode>
+	<unicode>m</unicode>
+	<unicode>n</unicode>
+	<unicode>o</unicode>
+	<unicode>p</unicode>
+	<unicode>q</unicode>
+	<unicode>r</unicode>
+	<unicode>s</unicode>
+	<unicode>t</unicode>
+	<unicode>u</unicode>
+	<unicode>v</unicode>
+	<unicode>w</unicode>
+	<unicode>x</unicode>
+	<unicode>y</unicode>
+	<unicode>z</unicode>
+	
+<!-- Numeric characters. -->
+	<unicode>0</unicode>
+	<unicode>1</unicode>
+	<unicode>2</unicode>
+	<unicode>3</unicode>
+	<unicode>4</unicode>
+	<unicode>5</unicode>
+	<unicode>6</unicode>
+	<unicode>7</unicode>
+	<unicode>8</unicode>
+	<unicode>9</unicode>
+	
+<!-- Operators. -->
+	<unicode name="plus sign">&#43;</unicode>
+	<unicode name="less than">&#60;</unicode>
+	<unicode name="equal sign">&#61;</unicode>
+	<unicode name="greater than">&#62;</unicode>
+	<unicode name="multiplication sign">&#215;</unicode>
+	<unicode name="division sign">&#247;</unicode>
+	<unicode name="minus sign">&#8722;</unicode>
+	
+<!-- Other operators. -->
+	<unicode name="not sign">&#172;</unicode>
+	<unicode name="plus or minus sign">&#177;</unicode>
+	<unicode name="square root or radical sign">&#8730;</unicode>
+	<unicode name="proportional to">&#8733;</unicode>
+	<unicode name="infinity">&#8734;</unicode>
+	<unicode name="angle">&#8736;</unicode>
+	<unicode name="logical and or wedge">&#8743;</unicode>
+	<unicode name="logical or or vee">&#8744;</unicode>
+	<unicode name="intersection or cap">&#8745;</unicode>
+	<unicode name="union">&#8746;</unicode>
+	<unicode name="integral">&#8747;</unicode>
+	<unicode name="tilde operator or varies with or similar to">&#8764;</unicode>
+	<unicode name="almost equal to or asymptotic to">&#8776;</unicode>
+	<unicode name="not equal to">&#8800;</unicode>
+	<unicode name="equivalent to">&#8801;</unicode>
+	<unicode name="less than or equal to">&#8804;</unicode>
+	<unicode name="greater than or equal to">&#8805;</unicode>
+	
+<!-- Punctuation related characters. -->
+	<unicode name="space">&#32;</unicode>
+	<unicode name="exclamation mark">&#33;</unicode>
+	<unicode name="quotation mark">&#34;</unicode>
+	<unicode name="number sign or hash">&#35;</unicode>
+	<unicode name="dollar sign">&#36;</unicode>
+	<unicode name="percent sign">&#37;</unicode>
+	<unicode name="ampersand">&#38;</unicode>
+	<unicode name="apostrophe">&#39;</unicode>
+	<unicode name="left paranthesis">&#40;</unicode>
+	<unicode name="right paranthesis">&#41;</unicode>
+	<unicode name="asterisk">&#42;</unicode>
+	<unicode name="comma">&#44;</unicode>
+	<unicode name="hyphen">&#45;</unicode>
+	<unicode name="period or fullstop">&#46;</unicode>
+	<unicode name="solidus or forward slash">&#47;</unicode>
+	<unicode name="colon">&#58;</unicode>
+	<unicode name="semi-colon">&#59;</unicode>
+	<unicode name="question mark">&#63;</unicode>
+	<unicode name="left square bracket">&#91;</unicode>
+	<unicode name="reverse solidus or backslash">&#92;</unicode>
+	<unicode name="right square bracket">&#93;</unicode>
+	<unicode name="caret">&#94;</unicode>
+	<unicode name="horizontal bar or underscore">&#95;</unicode>
+	<unicode name="left curly brace">&#123;</unicode>
+	<unicode name="vertical bar">&#124;</unicode>
+	<unicode name="right curly brace">&#125;</unicode>
+	<unicode name="tilde">&#126;</unicode>
+	<unicode name="pound sterling">&#163;</unicode>
+	<unicode name="pipe or broken vertical bar">&#166;</unicode>
+	<unicode name="section sign">&#167;</unicode>
+	<unicode name="left pointing double angle quotation mark">&#171;</unicode>
+	<unicode name="degree sign">&#176;</unicode>
+	<unicode name="right pointing double angle quotation mark">&#187;</unicode>
+	<unicode name="en dash">&#8211;</unicode>
+	<unicode name="em dash">&#8212;</unicode>
+	<unicode name="prime or minutes or feet">&#8242;</unicode>
+	<unicode name="double prime or seconds or inches">&#8243;</unicode>
+	<unicode name="fraction or slash">&#8260;</unicode>
+	<unicode name="euro sign">&#8364;</unicode>
+	
+<!-- Other representational characters. -->	
+	<unicode name="non-breaking space">&#160;</unicode>
+	<unicode name="superscript two or squared">&#178;</unicode>
+	<unicode name="superscript three or cubed">&#179;</unicode>
+	<unicode name="micro sign">&#181;</unicode>
+	<unicode name="superscript one">&#185;</unicode>
+	<unicode name="vulgar fraction one quarter">&#188;</unicode>
+	<unicode name="vulgar fraction one half">&#189;</unicode>
+	<unicode name="vulgar fraction three quarters">&#190;</unicode>
+	<unicode name="greek capital letter gamma">&#915;</unicode>
+	<unicode name="greek capital letter delta">&#916;</unicode>
+	<unicode name="greek capital letter theta">&#920;</unicode>
+	<unicode name="greek capital letter lambda">&#923;</unicode>
+	<unicode name="greek capital letter sigma">&#931;</unicode>
+	<unicode name="greek capital letter phi">&#934;</unicode>
+	<unicode name="greek capital letter psi">&#936;</unicode>
+	<unicode name="greek capital letter omega">&#937;</unicode>
+	<unicode name="greek small letter omega">&#945;</unicode>
+	<unicode name="greek small letter beta">&#946;</unicode>
+	<unicode name="greek small letter gamma">&#947;</unicode>
+	<unicode name="greek small letter delta">&#948;</unicode>
+	<unicode name="greek small letter epsilon">&#949;</unicode>
+	<unicode name="greek small letter theta">&#952;</unicode>
+	<unicode name="greek small letter iota">&#953;</unicode>
+	<unicode name="greek small letter lambda">&#955;</unicode>
+	<unicode name="greek small letter mu">&#956;</unicode>
+	<unicode name="greek small letter nu">&#957;</unicode>
+	<unicode name="greek small letter pi">&#960;</unicode>
+	<unicode name="greek small letter sigma">&#963;</unicode>
+	<unicode name="greek small letter upsilon">&#965;</unicode>
+	<unicode name="greek small letter phi">&#966;</unicode>
+	<unicode name="greek small letter chi">&#967;</unicode>
+	<unicode name="greek small letter psi">&#968;</unicode>
+	<unicode name="greek small letter omega">&#969;</unicode>
+	<unicode name="for all">&#8704;</unicode>
+	<unicode name="partial difference">&#8706;</unicode>
+	<unicode name="there exists">&#8707;</unicode>
+	<unicode name="nabla or backward difference">&#8711;</unicode>
+	<unicode name="element of">&#8712;</unicode>
+	<unicode name="contains as member">&#8715;</unicode>
+	<unicode name="nary product or product sign">&#8719;</unicode>
+	<unicode name="nary sumation">&#8721;</unicode>
+	<unicode name="therefore">&#8756;</unicode>
+	<unicode name="subset of">&#8834;</unicode>
+	<unicode name="superset of">&#8835;</unicode>
+	<unicode name="subset of or equal to">&#8838;</unicode>
+	<unicode name="superset of or equal to">&#8839;</unicode>
+</renderablecharacters>

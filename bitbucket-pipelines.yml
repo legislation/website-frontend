@@ -1,0 +1,9 @@
+pipelines:
+  branches:
+    'main':
+      - step:
+          name: Sync GitHub Main Only
+          image: alpine/git:latest
+          script:
+          - git remote add github git@github.com:legislation/website-frontend.git
+          - git push -f github main

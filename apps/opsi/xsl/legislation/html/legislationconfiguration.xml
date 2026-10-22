@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+(c)  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
+
+-->
+<!--
+===============================================================================
+Version history
+
+Version no. 		Name            				Date           	Reason
+_______________________________________________________________________________
+0.3                                        Phil Gooch                        26/02/2009        Added correct path for intermediate files
+0.2			 Vijayendra Hanasogae	31/08/2008	added entries for Intermediate Files for OPSI & OQPS Website.
+0.1 																			File Created
+-->
+<legislationconfiguration>
+	<path type="images" href="/images"/>
+	<path type="intermediate"  website="OPSI" href="C:\opsi websites\Intermediate\IntermediateOPSI.xml"/>
+	<path type="intermediate"  website="OQPS" href="C:\opsi websites\Intermediate\IntermediateOQPS.xml"/>
+	<path type="CSS" href="/styles"/>
+	<path type="linkmapping" href="C:/OPSI Websites/ENs/ENXML/linkmapping"/>
+	<format input="TIF" output="gif"/>
+	<format input="tif" output="gif"/>
+	<format input="tiff" output="gif"/>
+	<format input="eps" output="gif"/>
+	<usecontentnegotiation value="yes"/>
+</legislationconfiguration>

@@ -1,0 +1,16 @@
+/*
+(c)  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
+
+*/
+
+.annotations { display: block }
+
+.noteRef.commentary { display: inline }
+.noteRef.C, .noteRef.E, .noteRef.I, .noteRef.P { display: none }
+
+ins.first::before { font-weight: bold; font-size: x-large; content: '[' }
+ins.last::after { font-weight: bold; font-size: x-large; content: ']' }

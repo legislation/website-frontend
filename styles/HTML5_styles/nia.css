@@ -1,0 +1,99 @@
+/*
+(c)  Crown copyright
+ 
+You may use and re-use this code free of charge under the terms of the Open Government Licence v3.0
+ 
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
+
+*/
+
+@import 'legislation.css';
+
+.preface { margin-top: 2em }
+.preface p { margin-top: 1em }
+.preface > .title { text-align: center }
+.preface > .number { text-align: center }
+.docNumber { font-size: 120%; font-weight: bold }
+.DateOfEnactment { text-align: right }
+.preamble { margin-top: 2em }
+.preamble p { margin-top: 1em }
+
+
+/* hierarchy */
+
+section .intro { display: inline }
+section .intro > p:first-child { display: inline }
+
+section .content { display: inline }
+section .content > p:first-child { display: inline }
+section .intro + .content { display: block }
+section .intro + .content > p:first-child { display: block }
+
+
+/* P1 */
+
+*[data-name='P1group'] { margin-top: 1em }
+*[data-name='P1group'] > h2 > .heading { font-weight: bold; margin-bottom: 0.5em }
+
+.section { margin-top: 1em }
+.section > h2 { display: inline }
+.section > h2 > .heading { font-weight: bold; margin-bottom: 0.5em }
+.section > h2 > .num { display: inline; margin-left: 1em; font-weight: bold }
+
+.section .content { display: inline }
+.section .content > p:first-child { display: inline }
+.section .intro + .content { display: block }
+.section .intro + .content > p:first-child { display: block }
+
+
+/* P2 */
+
+.subsection { position: relative; margin-top: 0.5em }
+.subsection > h2 { display: inline }
+.subsection > h2 > .num:before { content: '(' }
+.subsection > h2 > .num[data-startQuote]:before { content: attr(data-startQuote) '(' }
+.subsection > h2 > .num { display: inline; margin-left: 1em }
+.subsection > h2 > .num:after { content: ')' }
+
+.subsection:first-of-type { display: inline }
+.subsection:first-of-type > h2 > .num { margin-left: 0 }
+blockquote > .subsection:first-of-type { display: block }
+blockquote > .subsection:first-of-type > h2 > .num { margin-left: 1em }
+
+
+/* P3 */
+
+.paragraph { position: relative; margin-top: 0.5em; margin-left: 2em }
+.paragraph > h3 { display: inline }
+.paragraph > h3 > .num:before { content: '(' }
+.paragraph > h3 > .num[data-startQuote]:before { content: attr(data-startQuote) '(' }
+.paragraph > h3 > .num { display: inline; margin-left: 1em }
+.paragraph > h3 > .num:after { content: ')' }
+
+
+/* P4 */
+
+.subparagraph { position: relative; margin-top: 0.5em }
+.subparagraph { margin-left: 5em }
+.subparagraph > h4 > .num { display: inline-block; position: absolute; left: -2em }
+.subparagraph > h4 > .num:before { content: '(' }
+.subparagraph > h4 > .num[data-startQuote]:before { content: attr(data-startQuote) '(' }
+.subparagraph > h4 > .num:after { content: ')' }
+
+/* P5 */
+
+.clause { position: relative; margin-top: 0.5em }
+.clause { margin-left: 2em }
+.clause > h5 > .num:before { content: '(' }
+.clause > h5 > .num[data-startQuote]:before { content: attr(data-startQuote) '(' }
+.clause > h5 > .num { display: inline-block; position: absolute; left: -2em; width: 1.5em; text-align: right }
+.clause > h5 > .num:after { content: ')' }
+
+
+
+*[data-name='schedule'] .paragraph:first-of-type { display: block }
+*[data-name='schedule'] .paragraph:first-of-type > * > .num { display: inline-block; position: absolute; left: -3em }
+
+blockquote.schedule .paragraph:first-of-type { display: block }
+blockquote.schedule .paragraph:first-of-type > * > .num { display: inline-block; position: absolute; left: -3em }
+
